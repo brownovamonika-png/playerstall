@@ -1,0 +1,528 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+	title="Our Process | Custom Sports Lockers | PlayerStall"
+	description="Learn about our process for creating custom wood sports lockers. Free consultation, custom design, and manufacturing in Canada with lifetime guarantee."
+>
+	<!-- Hero Section -->
+	<section class="hero-section">
+		<div class="hero-background-overlay"></div>
+		<div class="hero-player-left">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-banner-img-1.jpg" alt="Football Player" />
+		</div>
+		<div class="hero-player-right">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-banner-img-2.jpg" alt="Football Player" />
+		</div>
+		<div class="background-text">PROCESS</div>
+		<div class="hero-container">
+			<div class="breadcrumbs">HOME • OUR PROCESS</div>
+			<h1 class="page-title">OUR PROCESS</h1>
+		</div>
+	</section>
+
+	<!-- Timeline Section -->
+	<section class="timeline-section">
+		<div class="timeline-background-overlay">PROCESS</div>
+		<div class="timeline-player-left">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-banner-img-1.jpg" alt="Football Player" />
+		</div>
+		<div class="timeline-player-right">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-banner-img-2.jpg" alt="Football Player" />
+		</div>
+		<div class="container">
+			<div class="section-header">
+				<p class="section-subtitle">What's trending</p>
+				<h2 class="section-title">OUR PROCESS</h2>
+			</div>
+			<div class="timeline-wrapper">
+				<div class="timeline-center-line"></div>
+				<div class="timeline-list">
+					<div class="timeline-entry timeline-left">
+						<div class="timeline-content-wrapper">
+							<div class="timeline-content">
+								<h4 class="timeline-heading">Performance data</h4>
+								<p class="timeline-description">We start with a free custom design consultation to understand your needs, space, and vision. Every project begins with expert advice from 30+ years of experience.</p>
+							</div>
+							<div class="timeline-date">august 2019</div>
+						</div>
+						<div class="timeline-dot"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(body) {
+		margin: 0;
+		padding: 0;
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #ffffff;
+		color: #0d0d0d;
+		line-height: 1.6;
+	}
+
+	.container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Hero Section */
+	.hero-section {
+		position: relative;
+		background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+		padding: 200px 0 150px;
+		overflow: hidden;
+		min-height: 600px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.hero-background-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-image: 
+			radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+		background-size: 20px 20px;
+		opacity: 0.3;
+		z-index: 1;
+	}
+
+	.hero-player-left,
+	.hero-player-right {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 500px;
+		overflow: hidden;
+		z-index: 2;
+	}
+
+	.hero-player-left {
+		left: 0;
+	}
+
+	.hero-player-right {
+		right: 0;
+	}
+
+	.hero-player-left img,
+	.hero-player-right img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		opacity: 0.4;
+		filter: grayscale(100%) contrast(1.1);
+		display: block;
+	}
+
+	.hero-player-left img {
+		object-position: left center;
+	}
+
+	.hero-player-right img {
+		object-position: right center;
+	}
+
+	.background-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 400px;
+		font-weight: 700;
+		color: rgba(255, 255, 255, 0.08);
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		white-space: nowrap;
+		z-index: 3;
+		pointer-events: none;
+	}
+
+	.hero-container {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		text-align: left;
+		width: 100%;
+	}
+
+	.breadcrumbs {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: rgba(255, 255, 255, 0.8);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 20px;
+		font-weight: 400;
+	}
+
+	.page-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 80px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0;
+		letter-spacing: 2px;
+		position: relative;
+		z-index: 10;
+		line-height: 1.1;
+		text-align: left;
+	}
+
+	/* Section Header */
+	.section-header {
+		text-align: center;
+		margin-bottom: 60px;
+	}
+
+	.section-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin-bottom: 15px;
+		display: block;
+	}
+
+	.section-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0;
+		letter-spacing: 1px;
+	}
+
+	/* Timeline Section */
+	.timeline-section {
+		position: relative;
+		background: #ffffff;
+		padding: 120px 0;
+		overflow: hidden;
+	}
+
+	.timeline-section::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-image: 
+			radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
+		background-size: 20px 20px;
+		z-index: 1;
+	}
+
+	.timeline-background-overlay {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 400px;
+		font-weight: 700;
+		color: rgba(13, 13, 13, 0.03);
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		white-space: nowrap;
+		z-index: 2;
+		pointer-events: none;
+	}
+
+	.timeline-player-left,
+	.timeline-player-right {
+		position: absolute;
+		bottom: 0;
+		width: 300px;
+		height: 500px;
+		overflow: hidden;
+		z-index: 3;
+	}
+
+	.timeline-player-left {
+		left: 0;
+	}
+
+	.timeline-player-right {
+		right: 0;
+	}
+
+	.timeline-player-left img,
+	.timeline-player-right img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center bottom;
+		opacity: 0.15;
+		filter: grayscale(100%) contrast(1.2);
+		display: block;
+	}
+
+	.timeline-section .container {
+		position: relative;
+		z-index: 10;
+	}
+
+	.timeline-wrapper {
+		position: relative;
+		max-width: 1200px;
+		margin: 60px auto 0;
+		padding: 0 20px;
+	}
+
+	.timeline-center-line {
+		position: absolute;
+		left: 50%;
+		top: 0;
+		bottom: 0;
+		width: 2px;
+		background: #0d0d0d;
+		transform: translateX(-50%);
+		z-index: 1;
+	}
+
+	.timeline-list {
+		position: relative;
+		z-index: 2;
+	}
+
+	.timeline-entry {
+		display: flex;
+		align-items: flex-start;
+		margin-bottom: 80px;
+		position: relative;
+	}
+
+	.timeline-entry:last-child {
+		margin-bottom: 0;
+	}
+
+	.timeline-entry.timeline-left {
+		justify-content: flex-end;
+		padding-right: calc(50% + 40px);
+	}
+
+	.timeline-entry.timeline-right {
+		justify-content: flex-start;
+		padding-left: calc(50% + 40px);
+	}
+
+	.timeline-content-wrapper {
+		display: flex;
+		flex-direction: column;
+		max-width: 450px;
+	}
+
+	.timeline-content {
+		background: #ffffff;
+		padding: 40px;
+		border: 1px solid #e0e0e0;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+		position: relative;
+		margin-bottom: 15px;
+	}
+
+	.timeline-heading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 20px 0;
+		letter-spacing: 0.3px;
+		line-height: 1.4;
+	}
+
+	.timeline-description {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #666666;
+		line-height: 1.8;
+		margin: 0;
+	}
+
+	.timeline-dot {
+		position: absolute;
+		left: 50%;
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: #0d0d0d;
+		transform: translateX(-50%);
+		z-index: 3;
+		flex-shrink: 0;
+		top: 0;
+	}
+
+	.timeline-date {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: lowercase;
+		letter-spacing: 0.05em;
+		font-weight: 400;
+		text-align: right;
+		padding-top: 5px;
+	}
+
+	.timeline-entry.timeline-right .timeline-date {
+		text-align: left;
+	}
+
+
+	/* Responsive */
+	@media (max-width: 1200px) {
+		.hero-player-left,
+		.hero-player-right {
+			width: 350px;
+			opacity: 0.3;
+		}
+
+		.timeline-player-left,
+		.timeline-player-right {
+			width: 200px;
+			height: 400px;
+		}
+
+	}
+
+	@media (max-width: 1024px) {
+		.background-text,
+		.timeline-background-overlay {
+			font-size: 250px;
+		}
+
+		.page-title {
+			font-size: 56px;
+		}
+
+		.hero-player-left,
+		.hero-player-right {
+			width: 300px;
+			opacity: 0.25;
+		}
+
+		.timeline-player-left,
+		.timeline-player-right {
+			display: none;
+		}
+
+		.timeline-entry.timeline-left {
+			padding-right: calc(50% + 30px);
+		}
+
+		.timeline-entry.timeline-right {
+			padding-left: calc(50% + 30px);
+		}
+
+		.timeline-content-wrapper {
+			max-width: 100%;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero-section {
+			padding: 150px 0 100px;
+			min-height: 500px;
+		}
+
+		.background-text,
+		.timeline-background-overlay {
+			font-size: 150px;
+		}
+
+		.page-title {
+			font-size: 42px;
+		}
+
+		.section-title {
+			font-size: 36px;
+		}
+
+		.hero-player-left,
+		.hero-player-right {
+			width: 200px;
+			opacity: 0.2;
+		}
+
+		.timeline-section {
+			padding: 80px 0;
+		}
+
+		.timeline-center-line {
+			left: 20px;
+		}
+
+		.timeline-entry {
+			flex-direction: column;
+			padding-left: 50px;
+			padding-right: 0;
+		}
+
+		.timeline-entry.timeline-left,
+		.timeline-entry.timeline-right {
+			padding-left: 50px;
+			padding-right: 0;
+		}
+
+		.timeline-dot {
+			left: 20px;
+			transform: translateX(-50%);
+		}
+
+		.timeline-content-wrapper {
+			width: 100%;
+			max-width: 100%;
+		}
+
+		.timeline-date {
+			text-align: left;
+		}
+
+	}
+
+	@media (max-width: 480px) {
+		.background-text,
+		.timeline-background-overlay {
+			font-size: 100px;
+		}
+
+		.page-title {
+			font-size: 32px;
+		}
+
+		.section-title {
+			font-size: 28px;
+		}
+
+		.hero-player-left,
+		.hero-player-right {
+			display: none;
+		}
+
+		.timeline-content {
+			padding: 30px 20px;
+		}
+	}
+</style>
+
+
+
+

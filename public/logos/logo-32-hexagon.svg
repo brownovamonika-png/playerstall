@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 140" width="450" height="140">
+  <polygon points="225,20 380,60 380,100 225,140 70,100 70,60" fill="none" stroke="#d32f2f" stroke-width="2"/>
+  <text x="225" y="65" font-family="Arial, sans-serif" font-size="36" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="2px">PLAYERSTALL</text>
+  <line x1="100" y1="90" x2="350" y2="90" stroke="#d32f2f" stroke-width="2"/>
+  <text x="225" y="115" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#666" text-anchor="middle" letter-spacing="3px">SINCE 1989</text>
+</svg>
+
+

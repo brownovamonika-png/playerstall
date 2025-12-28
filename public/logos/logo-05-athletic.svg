@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 130" width="450" height="130">
+  <defs>
+    <linearGradient id="athleticGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d32f2f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <polygon points="20,20 430,20 410,110 10,110" fill="none" stroke="#d32f2f" stroke-width="2"/>
+  <text x="225" y="60" font-family="Arial, sans-serif" font-size="40" font-weight="900" fill="url(#athleticGrad)" text-anchor="middle" letter-spacing="2px">PLAYERSTALL</text>
+  <line x1="80" y1="80" x2="370" y2="80" stroke="#d32f2f" stroke-width="2"/>
+  <text x="225" y="105" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#666" text-anchor="middle" letter-spacing="3px">SINCE 1989</text>
+</svg>
+
+

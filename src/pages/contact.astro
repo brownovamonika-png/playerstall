@@ -1,0 +1,434 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact Us - PlayerStall" description="Get in touch with PlayerStall for inquiries, quotes, and support">
+	<!-- Hero Section -->
+	<section class="hero" id="hero">
+		<div class="playoff-text">CONTACT</div>
+		<div class="hero-content">
+			<p class="hero-subtitle">Get in Touch</p>
+			<h1 class="hero-title">Contact Us</h1>
+			<p class="hero-text">We're here to help with all your sports locker needs. Have questions? Need a quote? Want to schedule a consultation? Get in touch today.</p>
+			<div class="hero-buttons">
+				<a href="#contact-form" class="btn btn-primary">Send Message</a>
+				<a href="tel:+15551234567" class="btn btn-outline">Call Now</a>
+			</div>
+		</div>
+		<div class="hero-image">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/h3-rev-img-2.png" alt="Contact PlayerStall" />
+		</div>
+	</section>
+
+	<section class="contact-section">
+		<div class="container">
+			<div class="contact-header">
+				<h2>Get in Touch With Us</h2>
+				<p>Aliquam lorem ante, dapibus in, viverra quis, feugiat Phasellus viverra nulla ut metus varius laoreet srtrum aenean imperdiet. Etiam ultricies nisi vel augue. Aliquam lorem ante, dapibus in, viverra quis, feugiat Phasellus viverra nulla ut metus varius laoreet srtrum aenean imperdiet. acilisis at vero eros et accumsan et iusto odio.</p>
+			</div>
+			<div class="contact-grid">
+				<div class="contact-info-wrapper">
+					<div class="office-info">
+						<h3>Office in Canada</h3>
+						<div class="contact-item">
+							<span class="contact-icon">z</span>
+							<div>
+								<p>Made in Canada</p>
+								<p>Serving North America</p>
+							</div>
+						</div>
+						<div class="contact-item">
+							<span class="contact-icon">m</span>
+							<div>
+								<p><a href="tel:+18885878255">+1 (888) 58-STALL</a></p>
+								<p><a href="tel:+18885878255">+1 (888) 58-STALL</a></p>
+							</div>
+						</div>
+						<div class="contact-item">
+							<span class="contact-icon">d</span>
+							<div>
+								<p><a href="mailto:info@customsportslockers.com">info@customsportslockers.com</a></p>
+								<p><a href="mailto:info@customsportslockers.com">info@customsportslockers.com</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="contact-form-wrapper" id="contact-form">
+					<h2>Send Us a Message</h2>
+					<form class="contact-form" action="#" method="POST">
+						<div class="form-group">
+							<label for="name">Your Name</label>
+							<input type="text" id="name" name="name" required />
+						</div>
+
+						<div class="form-group">
+							<label for="email">Your Email</label>
+							<input type="email" id="email" name="email" required />
+						</div>
+
+						<div class="form-group">
+							<label for="message">Your Message</label>
+							<textarea id="message" name="message" rows="6" required></textarea>
+						</div>
+
+						<button type="submit" class="btn btn-primary">Send Message</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(body) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #f7f7f7;
+		color: #0d0d0d;
+	}
+
+	.container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Hero Section */
+	.hero {
+		position: relative;
+		height: 800px;
+		background: #f7f7f7;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding-left: 10%;
+		margin-top: 0;
+	}
+
+	.playoff-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 350px;
+		font-weight: 700;
+		color: rgba(13, 13, 13, 0.03);
+		text-transform: uppercase;
+		letter-spacing: -3px;
+		z-index: 1;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		white-space: nowrap;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 10;
+		max-width: 600px;
+	}
+
+	.hero-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 80px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		line-height: 80px;
+		margin-bottom: 30px;
+	}
+
+	.hero-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 20px;
+		color: #666666;
+		line-height: 30px;
+		margin-bottom: 40px;
+	}
+
+	.hero-buttons {
+		display: flex;
+		gap: 20px;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 15px 40px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		font-size: 20px;
+		transition: all 0.3s;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #ffffff;
+		border: 2px solid #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+	}
+
+	.btn-outline {
+		background: transparent;
+		color: #0d0d0d;
+		border: 2px solid #bfbfbf;
+	}
+
+	.btn-outline:hover {
+		border-color: #0d0d0d;
+		color: #0d0d0d;
+	}
+
+	.hero-image {
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 5;
+	}
+
+	.hero-image img {
+		max-width: 810px;
+		height: auto;
+	}
+
+	.contact-section {
+		padding: 5rem 0;
+		background: #ffffff;
+	}
+
+	.contact-header {
+		text-align: center;
+		max-width: 800px;
+		margin: 0 auto 4rem;
+	}
+
+	.contact-header h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin-bottom: 1.5rem;
+	}
+
+	.contact-header p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #666666;
+		line-height: 1.8;
+	}
+
+	.contact-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: start;
+	}
+
+	.contact-info-wrapper {
+		padding-right: 2rem;
+	}
+
+	.office-info h3 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin-bottom: 2rem;
+	}
+
+	.contact-item {
+		display: flex;
+		gap: 1.5rem;
+		margin-bottom: 2rem;
+		align-items: flex-start;
+	}
+
+	.contact-icon {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		color: #fe5900;
+		min-width: 24px;
+		text-transform: lowercase;
+	}
+
+	.contact-item p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #666666;
+		line-height: 1.6;
+		margin: 0 0 0.5rem 0;
+	}
+
+	.contact-item a {
+		color: #666666;
+		text-decoration: none;
+		transition: color 0.3s ease;
+	}
+
+	.contact-item a:hover {
+		color: #fe5900;
+	}
+
+	.contact-form-wrapper {
+		background: #fff;
+		padding: 0;
+	}
+
+	.contact-form-wrapper h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin-bottom: 2rem;
+	}
+
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.form-group label {
+		margin-bottom: 0.5rem;
+		color: #0d0d0d;
+		font-weight: 500;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+	}
+
+	.form-group input,
+	.form-group select,
+	.form-group textarea {
+		padding: 0.75rem;
+		border: 1px solid #bfbfbf;
+		border-radius: 0;
+		font-size: 16px;
+		font-family: 'Yantramanav', sans-serif;
+		transition: border-color 0.3s ease;
+		background: #fff;
+		color: #0d0d0d;
+		width: 100%;
+	}
+
+	.form-group input:focus,
+	.form-group select:focus,
+	.form-group textarea:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 2px rgba(254, 89, 0, 0.1);
+	}
+
+	.form-group textarea {
+		resize: vertical;
+	}
+
+	.btn {
+		padding: 0.875rem 2rem;
+		border-radius: 6px;
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.3s ease;
+		display: inline-block;
+		border: none;
+		cursor: pointer;
+		font-size: 1rem;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #fff;
+		border: 2px solid #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(254, 89, 0, 0.3);
+	}
+
+	@media (max-width: 968px) {
+		.contact-grid {
+			grid-template-columns: 1fr;
+			gap: 3rem;
+		}
+
+		.contact-info-wrapper {
+			padding-right: 0;
+		}
+
+		.contact-header h2 {
+			font-size: 36px;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		.hero-title {
+			font-size: 48px;
+			line-height: 1.2;
+		}
+
+		.hero-image {
+			display: none;
+		}
+
+		.playoff-text {
+			font-size: 150px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			height: 600px;
+			padding-left: 20px;
+		}
+
+		.hero-title {
+			font-size: 36px;
+			line-height: 1.2;
+		}
+
+		.hero-text {
+			font-size: 16px;
+		}
+
+		.hero-buttons {
+			flex-direction: column;
+		}
+
+		.playoff-text {
+			font-size: 100px;
+		}
+
+		.contact-form-container {
+			padding: 1.5rem;
+		}
+	}
+</style>
+

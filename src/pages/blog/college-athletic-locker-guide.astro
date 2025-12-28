@@ -1,0 +1,527 @@
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const post = {
+	title: 'College Locker Room Design Guide for Athletic Directors (2025)',
+	description:
+		'Step-by-step playbook for college athletic facilities choosing custom locker solutions: budgets, compliance, recruiting impact, and maintenance.',
+	category: 'College Athletics',
+	datePublished: '2024-11-20',
+	readTime: '8 min read',
+	author: 'PlayerStall Editorial Team',
+	slug: 'college-athletic-locker-guide',
+	wordCount: 1850
+};
+
+const faqItems = [
+	{
+		question: 'How much should a college program budget for new custom lockers?',
+		answer:
+			'Most Division I and II programs earmark $400–$700 per locker depending on finishes, integrated power, and branding. We recommend planning across multiple tiers so non-revenue sports can leverage Semi Pro or Varsity lines while football or basketball invests in Pro or Stadium.'
+	},
+	{
+		question: 'What timeline should athletic directors expect for locker room renovations?',
+		answer:
+			'A full design-to-install timeline typically spans 14–20 weeks: 2–4 weeks for discovery and approvals, 6–8 weeks for fabrication, and 4–6 weeks for shipping, install, and punch-list. Start conversations early if you need completion before fall camp or postseason play.'
+	},
+	{
+		question: 'How do we keep multi-sport locker rooms compliant with NCAA and ADA standards?',
+		answer:
+			'Build at least 5% of lockers with ADA-compliant dimensions, integrate anti-microbial ventilation, and coordinate with campus facilities to confirm egress, lighting, and security specs. Partnering with a custom shop ensures drawings are stamped against NCAA guidance before fabrication.'
+	}
+];
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Article',
+			headline: post.title,
+			description: post.description,
+			datePublished: post.datePublished,
+			dateModified: post.datePublished,
+			wordCount: post.wordCount,
+			author: {
+				'@type': 'Organization',
+				name: post.author
+			},
+			publisher: {
+				'@type': 'Organization',
+				name: 'PlayerStall',
+				logo: {
+					'@type': 'ImageObject',
+					url: 'https://playerstall.com/images/logoblack2.png'
+				}
+			},
+			mainEntityOfPage: {
+				'@type': 'WebPage',
+				'@id': `https://playerstall.com/blog/${post.slug}`
+			}
+		},
+		{
+			'@type': 'FAQPage',
+			mainEntity: faqItems.map((item) => ({
+				'@type': 'Question',
+				name: item.question,
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: item.answer
+				}
+			}))
+		}
+	]
+};
+---
+
+<BaseLayout title={`${post.title} | PlayerStall`} description={post.description}>
+	<section class="page-header">
+		<div class="container">
+			<div class="article-meta">
+				<span class="blog-date">November 20, 2024 · {post.readTime}</span>
+				<span class="blog-category">{post.category}</span>
+			</div>
+			<h1>{post.title}</h1>
+			<p class="lede">
+				Complete 2025 guide for college athletic departments choosing locker solutions. Learn how to align budgets, compliance, multi-sport storage, and recruiting narratives
+				around modern wood locker systems.
+			</p>
+		</div>
+	</section>
+
+	<section class="blog-section">
+		<div class="container">
+			<article class="blog-content">
+				<section class="key-takeaways">
+					<p class="eyebrow">Key Takeaways</p>
+					<ul>
+						<li>Budget in tiers so non-revenue and revenue sports both get right-fit storage and branding.</li>
+						<li>Map NCAA/ADA requirements and ventilation specs before schematic design to avoid change orders.</li>
+						<li>Use modular pods and future-proof power to adapt lockers for NIL, sports science, and roster swings.</li>
+					</ul>
+				</section>
+
+				<section class="toc">
+					<h2>Quick Navigation</h2>
+					<ul>
+						<li><a href="#unique-challenges">Unique challenges of college athletics</a></li>
+						<li><a href="#multi-sport-considerations">Multi-sport considerations</a></li>
+						<li><a href="#budget-planning">Budget and tier planning</a></li>
+						<li><a href="#recruiting-impact">Recruiting impact</a></li>
+						<li><a href="#planning-for-growth">Planning for growth</a></li>
+						<li><a href="#compliance-and-standards">Compliance and standards</a></li>
+						<li><a href="#maintenance-and-longevity">Maintenance strategy</a></li>
+						<li><a href="#case-study">Division I case study</a></li>
+						<li><a href="#best-practices">Best practices checklist</a></li>
+						<li><a href="#faq">Locker room FAQ</a></li>
+					</ul>
+				</section>
+
+				<h2 id="unique-challenges">The Unique Challenges of College Athletics</h2>
+				<p>
+					College athletic facilities face unique challenges that high school and professional programs do not. After 30+ years working with Division I, II, and III programs, we've
+					learned what makes college locker room projects successful. This guide addresses the specific needs of college athletic facilities and helps you make the right choices
+					for your program.
+				</p>
+
+				<h2 id="multi-sport-considerations">Multi-Sport Considerations</h2>
+				<p>Most college facilities serve multiple sports, creating extra equipment density and ventilation requirements:</p>
+
+				<h3>Different Equipment Needs</h3>
+				<p>Each sport has different equipment requirements:</p>
+				<ul>
+					<li><strong>Football:</strong> Helmets, pads, cleats, multiple uniforms</li>
+					<li><strong>Basketball:</strong> Shoes, uniforms, minimal equipment</li>
+					<li><strong>Hockey:</strong> Skates, sticks, pads, heavy equipment</li>
+					<li><strong>Baseball:</strong> Bats, gloves, cleats, multiple uniforms</li>
+				</ul>
+				<p>Our custom wood lockers can be configured for each sport's specific needs with adjustable shelving, secure cubbies, and ventilated drying drawers.</p>
+
+				<h3>Shared vs. Dedicated Spaces</h3>
+				<p>Decide whether sports share locker rooms or have dedicated spaces:</p>
+				<ul>
+					<li><strong>Shared spaces:</strong> Need flexible, adaptable lockers</li>
+					<li><strong>Dedicated spaces:</strong> Can be sport-specific</li>
+					<li><strong>Hybrid approach:</strong> Some shared, some dedicated</li>
+				</ul>
+
+				<h2 id="budget-planning">Budget Planning for College Facilities</h2>
+				<p>College budgets are often tight. Here's how to maximize value without compromising experience:</p>
+
+				<h3>Total Cost of Ownership</h3>
+				<p>Don't just look at upfront costs. Consider:</p>
+				<ul>
+					<li>
+						15-year total cost (see our <a href="/blog/blog-post-roi">ROI analysis</a>)
+					</li>
+					<li>Maintenance costs over time</li>
+					<li>Replacement needs</li>
+					<li>Impact on recruiting</li>
+				</ul>
+
+				<h3>Tier Selection Strategy</h3>
+				<p>Our five tiers allow you to match budget to needs:</p>
+				<ul>
+					<li><strong>Semi Pro ($349):</strong> Great for non-revenue sports</li>
+					<li><strong>Varsity ($449):</strong> Most popular for college programs</li>
+					<li><strong>Pro ($549):</strong> For revenue sports and recruiting</li>
+					<li><strong>Stadium ($599):</strong> Elite programs and facilities</li>
+				</ul>
+
+				<h2 id="recruiting-impact">Recruiting Impact</h2>
+				<p>For college programs, recruiting is everything. Locker rooms directly impact recruiting:</p>
+
+				<h3>First Impressions Matter</h3>
+				<p>Recruits form opinions quickly. A professional locker room with custom wood lockers creates a positive first impression that lasts.</p>
+
+				<h3>Social Media Presence</h3>
+				<p>Locker rooms are social media content. Professional facilities create shareable content that enhances your brand.</p>
+
+				<h3>Competitive Advantage</h3>
+				<p>In competitive recruiting, every advantage matters. A professional locker room can be the difference in landing top talent.</p>
+				<p>
+					See our <a href="/blog/blog-post-recruiting">recruiting impact article</a> for more details.
+				</p>
+
+				<h2 id="planning-for-growth">Planning for Growth</h2>
+				<p>College programs grow and change. Plan for:</p>
+				<ul>
+					<li><strong>Roster size changes:</strong> Add lockers as needed</li>
+					<li><strong>New sports:</strong> Flexible design accommodates growth</li>
+					<li><strong>Facility expansion:</strong> Modular design allows additions</li>
+					<li><strong>Program upgrades:</strong> Easy to enhance over time</li>
+				</ul>
+
+				<h2 id="compliance-and-standards">Compliance and Standards</h2>
+				<p>College facilities must meet various standards:</p>
+				<ul>
+					<li><strong>ADA compliance:</strong> Accessibility requirements</li>
+					<li><strong>Safety standards:</strong> Proper ventilation and safety</li>
+					<li><strong>NCAA guidelines:</strong> Facility requirements</li>
+					<li><strong>Institutional standards:</strong> School-specific requirements</li>
+				</ul>
+				<p>Our custom design process ensures compliance with all relevant standards.</p>
+
+				<h2 id="maintenance-and-longevity">Maintenance and Longevity</h2>
+				<p>College facilities need lockers that last:</p>
+				<ul>
+					<li><strong>High use:</strong> Multiple teams, daily use</li>
+					<li><strong>Budget constraints:</strong> Need long-lasting solutions</li>
+					<li><strong>Modular design:</strong> Easy, cost-effective repairs</li>
+					<li><strong>15+ year life:</strong> Wood lockers outlast alternatives</li>
+				</ul>
+
+				<h2 id="case-study">Case Study: Division I Football Program</h2>
+				<p>We worked with a Division I program that upgraded their locker room:</p>
+				<ul>
+					<li><strong>Challenge:</strong> Outdated metal lockers, poor recruiting</li>
+					<li><strong>Solution:</strong> Custom wood lockers with team branding</li>
+					<li><strong>Result:</strong> 40% increase in official visit conversions</li>
+					<li><strong>ROI:</strong> Improved recruiting paid for the upgrade</li>
+				</ul>
+
+				<h2 id="best-practices">Best Practices for College Facilities</h2>
+				<p>Based on 30+ years of experience:</p>
+				<ol>
+					<li><strong>Plan for the long term:</strong> 15-year perspective</li>
+					<li><strong>Prioritize revenue sports:</strong> Invest where it matters most</li>
+					<li><strong>Consider recruiting impact:</strong> Facilities affect recruiting</li>
+					<li><strong>Use modular design:</strong> Flexibility for the future</li>
+					<li><strong>Customize for identity:</strong> Team branding matters</li>
+				</ol>
+
+				<h2>Conclusion: Building for Success</h2>
+				<p>College athletic facilities need solutions that balance budget, functionality, and recruiting impact. Custom wood lockers deliver on all three.</p>
+				<p>With proper planning and the right partner, you can create facilities that support your program's success for 15+ years.</p>
+
+				<div class="inline-cta">
+					<h3>Design Your College Facility</h3>
+					<p>Get a free custom design consultation for your college athletic facility.</p>
+					<a class="btn-secondary" href="/contact">Get Free Consultation</a>
+				</div>
+
+				<div class="related-links">
+					<p>
+						<strong>Related Articles:</strong>
+						<a href="/blog/blog-post-recruiting">Recruiting Impact</a> ·
+						<a href="/blog/blog-post-roi">ROI Analysis</a> ·
+						<a href="/blog/blog-post-design">Planning Process</a>
+					</p>
+				</div>
+
+				<section class="faq-section" id="faq">
+					<h2>College Locker Room FAQ</h2>
+					{faqItems.map((item) => {
+						return (
+							<details>
+								<summary>{item.question}</summary>
+								<p>{item.answer}</p>
+							</details>
+						);
+					})}
+				</section>
+			</article>
+		</div>
+	</section>
+
+	<section class="cta-section">
+		<div class="container">
+			<div class="cta-content">
+				<h2>Ready to Design Your College Facility?</h2>
+				<p>Get a free custom design consultation and see how we can help your program succeed.</p>
+				<a class="btn-primary" href="/contact">Get Free Consultation</a>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(:root) {
+		--bg-off-white: #f9f7f2;
+		--border-color: #e3dfd7;
+		--text-gray: #4a4a4a;
+		--accent-color: #b23a00;
+		--text-white: #ffffff;
+	}
+
+	.container {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+
+	.page-header {
+		background: var(--bg-off-white);
+		padding: 4rem 0;
+		text-align: center;
+	}
+
+	.article-meta {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		font-size: 0.9rem;
+		color: var(--accent-color);
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		margin-bottom: 1rem;
+	}
+
+	.page-header h1 {
+		font-size: clamp(2rem, 4vw, 3rem);
+		margin-bottom: 1rem;
+		line-height: 1.25;
+	}
+
+	.lede {
+		max-width: 760px;
+		margin: 0 auto;
+		font-size: 1.2rem;
+		color: var(--text-gray);
+		line-height: 1.8;
+	}
+
+	.blog-section {
+		padding: 4rem 0;
+	}
+
+	.blog-content {
+		background: var(--bg-off-white);
+		border: 1px solid var(--border-color);
+		border-radius: 12px;
+		padding: 3rem;
+	}
+
+	.key-takeaways,
+	.toc {
+		background: #fff;
+		border: 1px solid var(--border-color);
+		border-radius: 12px;
+		padding: 1.75rem;
+		margin-bottom: 2rem;
+	}
+
+	.key-takeaways ul,
+	.toc ul {
+		margin: 1rem 0 0;
+		padding-left: 1.2rem;
+	}
+
+	.key-takeaways li,
+	.toc li {
+		margin-bottom: 0.35rem;
+		color: var(--text-gray);
+	}
+
+	.toc a {
+		color: var(--accent-color);
+		text-decoration: none;
+	}
+
+	.toc a:hover {
+		text-decoration: underline;
+	}
+
+	.blog-content h2 {
+		margin-top: 2.5rem;
+		margin-bottom: 1rem;
+		font-size: 2rem;
+	}
+
+	.blog-content h3 {
+		margin-top: 2rem;
+		margin-bottom: 0.75rem;
+		font-size: 1.35rem;
+	}
+
+	.blog-content p {
+		color: var(--text-gray);
+		font-size: 1.05rem;
+		line-height: 1.8;
+		margin-bottom: 1rem;
+	}
+
+	.blog-content ul,
+	.blog-content ol {
+		margin: 1.5rem 0;
+		padding-left: 1.5rem;
+		color: var(--text-gray);
+		line-height: 1.8;
+	}
+
+	.blog-content li + li {
+		margin-top: 0.5rem;
+	}
+
+	.inline-cta {
+		background: var(--accent-color);
+		padding: 2.5rem;
+		border-radius: 12px;
+		color: var(--text-white);
+		text-align: center;
+		margin: 3rem 0;
+	}
+
+	.inline-cta h3 {
+		margin-top: 0;
+		font-size: 1.75rem;
+	}
+
+	.inline-cta p {
+		color: rgba(255, 255, 255, 0.92);
+		margin-bottom: 1.5rem;
+	}
+
+	.btn-secondary,
+	.btn-primary {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.9rem 2rem;
+		border-radius: 999px;
+		font-weight: 600;
+		text-decoration: none;
+		letter-spacing: 0.04em;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.btn-secondary {
+		background: var(--text-white);
+		color: var(--accent-color);
+	}
+
+	.btn-primary {
+		background: var(--accent-color);
+		color: var(--text-white);
+	}
+
+	.btn-secondary:hover,
+	.btn-primary:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	}
+
+	.related-links {
+		margin-top: 3rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--border-color);
+	}
+
+	.related-links a {
+		color: var(--accent-color);
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.related-links a:hover {
+		text-decoration: underline;
+	}
+
+	.cta-section {
+		background: #121212;
+		color: #fff;
+		padding: 4rem 0;
+		margin-top: 2rem;
+	}
+
+	.cta-content {
+		text-align: center;
+		background: #1f1f1f;
+		padding: 3rem;
+		border-radius: 16px;
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+	}
+
+	.cta-content h2 {
+		margin-top: 0;
+		font-size: 2.25rem;
+	}
+
+	.cta-content p {
+		color: #d8d8d8;
+		margin-bottom: 2rem;
+		font-size: 1.1rem;
+		line-height: 1.7;
+	}
+
+	.faq-section {
+		margin-top: 3rem;
+	}
+
+	.faq-section details {
+		border: 1px solid var(--border-color);
+		border-radius: 10px;
+		padding: 1rem 1.25rem;
+		margin-bottom: 1rem;
+		background: #fff;
+	}
+
+	.faq-section summary {
+		font-weight: 600;
+		cursor: pointer;
+		color: #222;
+	}
+
+	.faq-section p {
+		margin: 0.75rem 0 0;
+	}
+
+	@media (max-width: 768px) {
+		.article-meta {
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.blog-content {
+			padding: 2rem;
+		}
+
+		.inline-cta {
+			padding: 2rem;
+		}
+
+		.cta-content {
+			padding: 2rem;
+		}
+	}
+</style>
+

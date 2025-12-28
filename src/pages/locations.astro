@@ -1,0 +1,353 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Locations - PlayerStall" description="Find a PlayerStall location near you across the United States">
+	<!-- Hero Section -->
+	<section class="hero" id="hero">
+		<div class="playoff-text">LOCATIONS</div>
+		<div class="hero-content">
+			<p class="hero-subtitle">Find Us</p>
+			<h1 class="hero-title">Our Locations</h1>
+			<p class="hero-text">Find a PlayerStall location near you across North America. We're expanding to serve more teams and athletes every day.</p>
+			<div class="hero-buttons">
+				<a href="/contact" class="btn btn-primary">Contact Us</a>
+				<a href="#locations" class="btn btn-outline">View Locations</a>
+			</div>
+		</div>
+		<div class="hero-image">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/h3-rev-img-2.png" alt="PlayerStall Locations" />
+		</div>
+	</section>
+
+	<section class="locations-section" id="locations">
+		<div class="container">
+			<div class="locations-grid">
+				<div class="location-card">
+					<h3>📍 New York, NY</h3>
+					<div class="location-info">
+						<p><strong>Address:</strong></p>
+						<p>123 Sports Avenue<br />New York, NY 10001</p>
+						<p><strong>Phone:</strong> (555) 123-4567</p>
+						<p><strong>Hours:</strong></p>
+						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
+					</div>
+				</div>
+
+				<div class="location-card">
+					<h3>📍 Los Angeles, CA</h3>
+					<div class="location-info">
+						<p><strong>Address:</strong></p>
+						<p>456 Athletic Boulevard<br />Los Angeles, CA 90001</p>
+						<p><strong>Phone:</strong> (555) 234-5678</p>
+						<p><strong>Hours:</strong></p>
+						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
+					</div>
+				</div>
+
+				<div class="location-card">
+					<h3>📍 Chicago, IL</h3>
+					<div class="location-info">
+						<p><strong>Address:</strong></p>
+						<p>789 Stadium Drive<br />Chicago, IL 60601</p>
+						<p><strong>Phone:</strong> (555) 345-6789</p>
+						<p><strong>Hours:</strong></p>
+						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
+					</div>
+				</div>
+
+				<div class="location-card">
+					<h3>📍 Houston, TX</h3>
+					<div class="location-info">
+						<p><strong>Address:</strong></p>
+						<p>321 Locker Lane<br />Houston, TX 77001</p>
+						<p><strong>Phone:</strong> (555) 456-7890</p>
+						<p><strong>Hours:</strong></p>
+						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
+					</div>
+				</div>
+
+				<div class="location-card">
+					<h3>📍 Miami, FL</h3>
+					<div class="location-info">
+						<p><strong>Address:</strong></p>
+						<p>654 Equipment Street<br />Miami, FL 33101</p>
+						<p><strong>Phone:</strong> (555) 567-8901</p>
+						<p><strong>Hours:</strong></p>
+						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
+					</div>
+				</div>
+
+				<div class="location-card">
+					<h3>📍 Seattle, WA</h3>
+					<div class="location-info">
+						<p><strong>Address:</strong></p>
+						<p>987 Sports Plaza<br />Seattle, WA 98101</p>
+						<p><strong>Phone:</strong> (555) 678-9012</p>
+						<p><strong>Hours:</strong></p>
+						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="map-cta">
+		<div class="container">
+			<h2>Don't See Your City?</h2>
+			<p>We're expanding! Contact us to learn about upcoming locations or inquire about bringing PlayerStall to your area.</p>
+			<a href="/contact" class="btn btn-primary">Contact Us</a>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(body) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #f7f7f7;
+		color: #0d0d0d;
+	}
+
+	.container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Hero Section */
+	.hero {
+		position: relative;
+		height: 800px;
+		background: #f7f7f7;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding-left: 10%;
+		margin-top: 0;
+	}
+
+	.playoff-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 350px;
+		font-weight: 700;
+		color: rgba(13, 13, 13, 0.03);
+		text-transform: uppercase;
+		letter-spacing: -3px;
+		z-index: 1;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		white-space: nowrap;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 10;
+		max-width: 600px;
+	}
+
+	.hero-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 80px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		line-height: 80px;
+		margin-bottom: 30px;
+	}
+
+	.hero-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 20px;
+		color: #666666;
+		line-height: 30px;
+		margin-bottom: 40px;
+	}
+
+	.hero-buttons {
+		display: flex;
+		gap: 20px;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 15px 40px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		font-size: 20px;
+		transition: all 0.3s;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #ffffff;
+		border: 2px solid #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+	}
+
+	.btn-outline {
+		background: transparent;
+		color: #0d0d0d;
+		border: 2px solid #bfbfbf;
+	}
+
+	.btn-outline:hover {
+		border-color: #0d0d0d;
+		color: #0d0d0d;
+	}
+
+	.hero-image {
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 5;
+	}
+
+	.hero-image img {
+		max-width: 810px;
+		height: auto;
+	}
+
+	.locations-section {
+		padding: 5rem 0;
+		background: #ffffff;
+	}
+
+	.locations-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.location-card {
+		background: #fff;
+		border-radius: 8px;
+		padding: 2rem;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.location-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+	}
+
+	.location-card h3 {
+		color: #1a1a1a;
+		font-size: 1.5rem;
+		margin-bottom: 1.5rem;
+		border-bottom: 2px solid #fe5900;
+		padding-bottom: 0.5rem;
+	}
+
+	.location-info p {
+		margin: 0.75rem 0;
+		color: #666;
+		line-height: 1.6;
+	}
+
+	.location-info strong {
+		color: #1a1a1a;
+	}
+
+	.map-cta {
+		padding: 5rem 0;
+		background: #1a1a1a;
+		color: #fff;
+		text-align: center;
+	}
+
+	.map-cta h2 {
+		font-size: 2.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.map-cta p {
+		font-size: 1.25rem;
+		margin-bottom: 2rem;
+		color: #ccc;
+	}
+
+	.btn {
+		padding: 0.875rem 2rem;
+		border-radius: 6px;
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.3s ease;
+		display: inline-block;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #fff;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+	}
+
+	@media (max-width: 1024px) {
+		.hero-title {
+			font-size: 48px;
+			line-height: 1.2;
+		}
+
+		.hero-image {
+			display: none;
+		}
+
+		.playoff-text {
+			font-size: 150px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			height: 600px;
+			padding-left: 20px;
+		}
+
+		.hero-title {
+			font-size: 36px;
+			line-height: 1.2;
+		}
+
+		.hero-text {
+			font-size: 16px;
+		}
+
+		.hero-buttons {
+			flex-direction: column;
+		}
+
+		.playoff-text {
+			font-size: 100px;
+		}
+
+		.locations-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+

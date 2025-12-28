@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 150" width="450" height="150">
+  <defs>
+    <linearGradient id="champGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffd700;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#fff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect x="25" y="25" width="400" height="100" rx="6" fill="url(#champGrad)" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="225" y="70" font-family="Arial, sans-serif" font-size="38" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="2px">PLAYERSTALL</text>
+  <line x1="70" y1="90" x2="380" y2="90" stroke="#d32f2f" stroke-width="2"/>
+  <text x="225" y="115" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#666" text-anchor="middle" letter-spacing="3px">SINCE 1989</text>
+</svg>
+
+

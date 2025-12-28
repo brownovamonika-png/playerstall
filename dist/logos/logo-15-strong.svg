@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 125" width="400" height="125">
+  <text x="200" y="55" font-family="Arial, sans-serif" font-size="50" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="2px">PLAYERSTALL</text>
+  <rect x="60" y="65" width="280" height="5" fill="#d32f2f"/>
+  <rect x="60" y="72" width="280" height="2" fill="#1a1a1a" opacity="0.3"/>
+  <text x="200" y="100" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#666" text-anchor="middle" letter-spacing="3px">SINCE 1989</text>
+</svg>
+
+

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 420" width="180" height="420">
+  <!-- PLAYER vertical on left -->
+  <text x="60" y="50" font-family="Arial, sans-serif" font-size="40" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="2px">
+    <tspan x="60" dy="0">P</tspan>
+    <tspan x="60" dy="45">L</tspan>
+    <tspan x="60" dy="45">A</tspan>
+    <tspan x="60" dy="45">Y</tspan>
+    <tspan x="60" dy="45">E</tspan>
+    <tspan x="60" dy="45">R</tspan>
+  </text>
+  <!-- STALL vertical on right - spaced so last letter aligns with PLAYER's last letter -->
+  <text x="120" y="50" font-family="Arial, sans-serif" font-size="40" font-weight="900" fill="#1976d2" text-anchor="middle" letter-spacing="2px">
+    <tspan x="120" dy="0">S</tspan>
+    <tspan x="120" dy="56.25">T</tspan>
+    <tspan x="120" dy="56.25">A</tspan>
+    <tspan x="120" dy="56.25">L</tspan>
+    <tspan x="120" dy="56.25">L</tspan>
+  </text>
+  <!-- Line underneath -->
+  <line x1="25" y1="320" x2="155" y2="320" stroke="#1976d2" stroke-width="3"/>
+  <!-- SINCE 1989 horizontal - sporty style -->
+  <text x="90" y="360" font-family="Arial, sans-serif" font-size="12" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="5px">SINCE 1989</text>
+</svg>
+

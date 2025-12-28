@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <text x="200" y="60" font-family="'Bebas Neue', Impact, 'Arial Black', sans-serif" font-size="56" font-weight="400" fill="#1a1a1a" text-anchor="middle" letter-spacing="4px">PLAYERSTALL</text>
+  <line x1="50" y1="75" x2="350" y2="75" stroke="#d32f2f" stroke-width="3"/>
+  <text x="200" y="100" font-family="'Bebas Neue', Impact, 'Arial Black', sans-serif" font-size="16" font-weight="400" fill="#666" text-anchor="middle" letter-spacing="5px">SINCE 1989</text>
+</svg>
+

@@ -1,0 +1,741 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Sports Lockers - Five Tiers | Semi Pro, Varsity, Pro, Curve, Stadium | PlayerStall" description="Five tiers of custom wood sports lockers: Semi Pro ($349), Varsity ($449), Pro ($549), Curve ($649), and Stadium ($599). All with lifetime guarantee and made in Canada.">
+	<!-- Hero Section -->
+	<section class="hero" id="hero">
+		<div class="playoff-text">PRODUCTS</div>
+		<div class="hero-content">
+			<p class="hero-subtitle">Five Tiers of Excellence</p>
+			<h1 class="hero-title">Premium Wood Sports Lockers</h1>
+			<p class="hero-text">Choose the perfect locker for your program's needs and budget. All tiers include our lifetime guarantee and premium wood construction made in Canada.</p>
+			<div class="hero-buttons">
+				<a href="/contact" class="btn btn-primary">Get Free Consultation</a>
+				<a href="#comparison" class="btn btn-outline">Compare Tiers</a>
+			</div>
+		</div>
+		<div class="hero-image">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/h3-rev-img-2.png" alt="Sports Lockers Products" />
+		</div>
+	</section>
+
+	<!-- Products Grid Section -->
+	<section class="products-team-section">
+		<div class="products-bg-text">p r o d u c t</div>
+		<div class="products-container">
+			<div class="section-header">
+				<p class="section-subtitle">the club history</p>
+				<h2 class="section-title">five tiers of excellence</h2>
+			</div>
+			<div class="products-grid">
+				<!-- Semi Pro -->
+				<div class="product-card" id="semi-pro">
+					<div class="product-image">
+						<img src="/images/Athletic-Locker-Semipro.jpg" alt="Semi Pro Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-category">Best Value</div>
+						<h4 class="product-name">Semi Pro</h4>
+						<div class="product-price-info">
+							<span class="product-price">$349</span>
+							<span class="product-price-original">$449</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Varsity -->
+				<div class="product-card" id="varsity">
+					<div class="product-image">
+						<img src="/images/Athletic-Locker-Varsity.jpg" alt="Varsity Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-category popular">Most Popular</div>
+						<h4 class="product-name">Varsity</h4>
+						<div class="product-price-info">
+							<span class="product-price">$449</span>
+							<span class="product-price-original">$599</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Pro -->
+				<div class="product-card" id="pro">
+					<div class="product-image">
+						<img src="/images/Athletic-Locker-Pro.jpg" alt="Pro Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-category">Professional</div>
+						<h4 class="product-name">Pro</h4>
+						<div class="product-price-info">
+							<span class="product-price">$549</span>
+							<span class="product-price-original">$749</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Curve -->
+				<div class="product-card" id="curve">
+					<div class="product-image">
+						<img src="/images/Athletic-Locker-Pro.jpg" alt="Curve Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-category">Premium Design</div>
+						<h4 class="product-name">Curve</h4>
+						<div class="product-price-info">
+							<span class="product-price">$649</span>
+							<span class="product-price-original">$849</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Stadium -->
+				<div class="product-card" id="stadium">
+					<div class="product-image">
+						<img src="/images/Athletic-Lockers-Stadium.jpg" alt="Stadium Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-category">Elite</div>
+						<h4 class="product-name">Stadium</h4>
+						<div class="product-price-info">
+							<span class="product-price">$599</span>
+							<span class="product-price-original">$799</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Additional cards for grid layout -->
+				<div class="product-card">
+					<div class="product-image">
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-11.jpg" alt="Custom Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-category">Custom</div>
+						<h4 class="product-name">Custom Solutions</h4>
+						<div class="product-price-info">
+							<span class="product-price">Contact Us</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="product-card">
+					<div class="product-image">
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-12.jpg" alt="Accessories" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-category">Accessories</div>
+						<h4 class="product-name">Locker Accessories</h4>
+						<div class="product-price-info">
+							<span class="product-price">View Options</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="product-card">
+					<div class="product-image">
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-13.jpg" alt="Installation" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-category">Service</div>
+						<h4 class="product-name">Installation Service</h4>
+						<div class="product-price-info">
+							<span class="product-price">Included</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Product Details Modal/Expanded View -->
+	<section class="product-detail-section">
+		<div class="container">
+			<div class="product-detail-content" id="product-detail-content">
+				<p class="detail-intro">Click on any product card above to view detailed information, features, and specifications.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Comparison Table -->
+	<section class="comparison-table-section" id="comparison">
+		<div class="container">
+			<h2>Compare All Tiers</h2>
+			<div class="comparison-table-wrapper">
+				<table class="comparison-table">
+					<thead>
+						<tr>
+							<th>Feature</th>
+							<th>Semi Pro</th>
+							<th>Varsity</th>
+							<th>Pro</th>
+							<th>Curve</th>
+							<th>Stadium</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Price (Sale)</td>
+							<td>$349</td>
+							<td>$449</td>
+							<td>$549</td>
+							<td>$649</td>
+							<td>$599</td>
+						</tr>
+						<tr>
+							<td>Regular Price</td>
+							<td>$449</td>
+							<td>$599</td>
+							<td>$749</td>
+							<td>$849</td>
+							<td>$799</td>
+						</tr>
+						<tr>
+							<td>3/4" Birch Wood</td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+						</tr>
+						<tr>
+							<td>Lifetime Guarantee</td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+						</tr>
+						<tr>
+							<td>Modular Design</td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+						</tr>
+						<tr>
+							<td>Custom Branding</td>
+							<td>Basic</td>
+							<td>Premium</td>
+							<td>Maximum</td>
+							<td>Premium</td>
+							<td>Ultimate</td>
+						</tr>
+						<tr>
+							<td>Storage Capacity</td>
+							<td>Standard</td>
+							<td>Enhanced</td>
+							<td>Maximum</td>
+							<td>Enhanced</td>
+							<td>Elite</td>
+						</tr>
+						<tr>
+							<td>Finishing Quality</td>
+							<td>Professional</td>
+							<td>Premium</td>
+							<td>Elite</td>
+							<td>Premium</td>
+							<td>Championship</td>
+						</tr>
+						<tr>
+							<td>Design Style</td>
+							<td>Standard</td>
+							<td>Standard</td>
+							<td>Standard</td>
+							<td>Curved</td>
+							<td>Standard</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="cta-section">
+		<div class="container">
+			<div class="cta-content">
+				<h2>Not Sure Which Tier is Right for You?</h2>
+				<p>Get a free custom design consultation. Our team will help you choose the perfect locker solution for your program and budget.</p>
+				<a href="/contact" class="btn btn-primary btn-large">Get Free Consultation</a>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(body) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #f7f7f7;
+		color: #0d0d0d;
+	}
+
+	.container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Hero Section */
+	.hero {
+		position: relative;
+		height: 800px;
+		background: #f7f7f7;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding-left: 10%;
+		margin-top: 0;
+	}
+
+	.playoff-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 350px;
+		font-weight: 700;
+		color: rgba(13, 13, 13, 0.03);
+		text-transform: uppercase;
+		letter-spacing: -3px;
+		z-index: 1;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		white-space: nowrap;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 10;
+		max-width: 600px;
+	}
+
+	.hero-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 80px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		line-height: 80px;
+		margin-bottom: 30px;
+	}
+
+	.hero-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 20px;
+		color: #666666;
+		line-height: 30px;
+		margin-bottom: 40px;
+	}
+
+	.hero-buttons {
+		display: flex;
+		gap: 20px;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 15px 40px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		font-size: 20px;
+		transition: all 0.3s;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #ffffff;
+		border: 2px solid #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+	}
+
+	.btn-outline {
+		background: transparent;
+		color: #0d0d0d;
+		border: 2px solid #bfbfbf;
+	}
+
+	.btn-outline:hover {
+		border-color: #0d0d0d;
+		color: #0d0d0d;
+	}
+
+	.hero-image {
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 5;
+	}
+
+	.hero-image img {
+		max-width: 810px;
+		height: auto;
+	}
+
+	/* Products Team Section */
+	.products-team-section {
+		position: relative;
+		background: #ffffff;
+		padding: 100px 0;
+		overflow: hidden;
+	}
+
+	.products-bg-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 300px;
+		font-weight: 700;
+		color: rgba(13, 13, 13, 0.03);
+		text-transform: uppercase;
+		letter-spacing: 20px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		white-space: nowrap;
+		z-index: 1;
+	}
+
+	.products-container {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.section-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin-bottom: 10px;
+		text-align: center;
+	}
+
+	.section-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		text-align: center;
+		margin-bottom: 50px;
+	}
+
+	.products-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 25px;
+	}
+
+	.product-card {
+		background: #fff;
+		border: 1px solid #e0e0e0;
+		overflow: hidden;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		cursor: pointer;
+	}
+
+	.product-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	}
+
+	.product-image {
+		width: 100%;
+		height: 200px;
+		overflow: hidden;
+		background: #f0f0f0;
+	}
+
+	.product-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+
+	.product-card:hover .product-image img {
+		transform: scale(1.1);
+	}
+
+	.product-details {
+		padding: 1.5rem;
+		text-align: center;
+	}
+
+	.product-category {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 1rem;
+	}
+
+	.product-category.popular {
+		color: #fe5900;
+		font-weight: 600;
+	}
+
+	.product-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin-bottom: 1rem;
+		line-height: 1.2;
+	}
+
+	.product-price-info {
+		display: flex;
+		align-items: baseline;
+		justify-content: center;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+
+	.product-price {
+		font-family: 'Oswald', sans-serif;
+		font-size: 32px;
+		font-weight: 600;
+		color: #fe5900;
+	}
+
+	.product-price-original {
+		font-size: 18px;
+		color: #999;
+		text-decoration: line-through;
+	}
+
+	/* Product Detail Section */
+	.product-detail-section {
+		padding: 5rem 0;
+		background: #f7f7f7;
+	}
+
+	.product-detail-content {
+		max-width: 900px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.detail-intro {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #666666;
+		line-height: 1.8;
+	}
+
+	/* Comparison Table Section */
+	.comparison-table-section {
+		padding: 5rem 0;
+		background: #f7f7f7;
+	}
+
+	.comparison-table-section h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-align: center;
+		text-transform: uppercase;
+		margin-bottom: 3rem;
+	}
+
+	.comparison-table-wrapper {
+		overflow-x: auto;
+	}
+
+	.comparison-table {
+		width: 100%;
+		border-collapse: collapse;
+		background: #fff;
+		font-family: 'Yantramanav', sans-serif;
+	}
+
+	.comparison-table thead {
+		background: #0d0d0d;
+		color: #fff;
+	}
+
+	.comparison-table th {
+		padding: 1.5rem 1rem;
+		text-align: left;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-size: 14px;
+	}
+
+	.comparison-table th:first-child {
+		background: #fe5900;
+	}
+
+	.comparison-table td {
+		padding: 1rem;
+		border-bottom: 1px solid #e0e0e0;
+		color: #333;
+		font-size: 16px;
+	}
+
+	.comparison-table tbody tr:hover {
+		background: #f9f9f9;
+	}
+
+	.comparison-table tbody tr:last-child td {
+		border-bottom: none;
+	}
+
+	.checkmark {
+		color: #fe5900;
+		font-weight: 600;
+	}
+
+	/* CTA Section */
+	.cta-section {
+		padding: 5rem 0;
+		background: #0d0d0d;
+		color: #fff;
+		text-align: center;
+	}
+
+	.cta-content h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 600;
+		color: #fff;
+		text-transform: uppercase;
+		margin-bottom: 1.5rem;
+	}
+
+	.cta-content p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 20px;
+		color: #ccc;
+		margin-bottom: 2rem;
+		max-width: 700px;
+		margin-left: auto;
+		margin-right: auto;
+		line-height: 1.8;
+	}
+
+	.btn-large {
+		padding: 18px 50px;
+		font-size: 18px;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #fff;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(254, 89, 0, 0.3);
+	}
+
+	@media (max-width: 1200px) {
+		.products-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media (max-width: 1024px) {
+		.hero-title {
+			font-size: 48px;
+			line-height: 1.2;
+		}
+
+		.hero-image {
+			display: none;
+		}
+
+		.playoff-text {
+			font-size: 150px;
+		}
+
+		.products-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.products-bg-text {
+			font-size: 200px;
+		}
+
+		.comparison-table-wrapper {
+			overflow-x: scroll;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			height: 600px;
+			padding-left: 20px;
+		}
+
+		.hero-title {
+			font-size: 36px;
+			line-height: 1.2;
+		}
+
+		.hero-text {
+			font-size: 16px;
+		}
+
+		.hero-buttons {
+			flex-direction: column;
+		}
+
+		.playoff-text {
+			font-size: 100px;
+		}
+
+		.products-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.products-bg-text {
+			font-size: 150px;
+		}
+
+		.section-title {
+			font-size: 36px;
+		}
+
+		.comparison-table-section h2 {
+			font-size: 36px;
+		}
+
+		.cta-content h2 {
+			font-size: 36px;
+		}
+
+		.comparison-table th,
+		.comparison-table td {
+			padding: 0.75rem 0.5rem;
+			font-size: 14px;
+		}
+	}
+</style>
+

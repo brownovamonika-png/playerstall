@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 130" width="450" height="130">
+  <path d="M 30 40 L 30 80 Q 30 100 50 100 L 400 100 Q 420 100 420 80 L 420 40 Q 420 20 400 20 L 50 20 Q 30 20 30 40 Z" fill="none" stroke="#d32f2f" stroke-width="2"/>
+  <text x="225" y="60" font-family="Arial, sans-serif" font-size="38" font-weight="900" fill="#1a1a1a" text-anchor="middle" letter-spacing="2px">PLAYERSTALL</text>
+  <line x1="70" y1="85" x2="380" y2="85" stroke="#d32f2f" stroke-width="2"/>
+  <text x="225" y="110" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="#666" text-anchor="middle" letter-spacing="3px">SINCE 1989</text>
+</svg>
+
+

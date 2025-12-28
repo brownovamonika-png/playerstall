@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 100" width="380" height="100">
+  <text x="190" y="50" font-family="Arial, sans-serif" font-size="44" font-weight="800" fill="#1a1a1a" text-anchor="middle" letter-spacing="2px">PLAYERSTALL</text>
+  <circle cx="50" cy="50" r="3" fill="#d32f2f"/>
+  <text x="190" y="80" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#888" text-anchor="middle" letter-spacing="2px">SINCE 1989</text>
+  <circle cx="330" cy="50" r="3" fill="#d32f2f"/>
+</svg>
+
+

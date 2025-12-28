@@ -1,0 +1,767 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="About PlayerStall | 30+ Years of Custom Wood Sports Lockers"
+	description="Discover the PlayerStall story—30+ years of Canadian craftsmanship, lifetime guarantee, and premium custom wood sports lockers for collegiate and professional teams."
+>
+	<div class="about-page">
+		<!-- Hero Section -->
+		<section class="hero" id="hero">
+			<div class="playoff-text">ABOUT US</div>
+			<div class="hero-content">
+				<p class="hero-subtitle">Since 1994 • Made in Canada • Serving North America</p>
+				<h1 class="hero-title">30+ Years of Craftsmanship</h1>
+				<p class="hero-text">PlayerStall is a multigenerational family business laser-focused on building the highest quality custom wood sports lockers. We've partnered with collegiate powerhouses, pro organizations, and elite high schools to transform their locker rooms into culture hubs.</p>
+				<div class="hero-buttons">
+					<a href="/contact" class="btn btn-primary">Get Free Consultation</a>
+					<a href="/services" class="btn btn-outline">Explore Products</a>
+				</div>
+			</div>
+			<div class="hero-image">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/h3-rev-img-2.png" alt="About PlayerStall" />
+			</div>
+		</section>
+
+		<section class="story-section" id="story">
+			<div class="container story-grid">
+				<div class="story-copy">
+					<h2>Our Story</h2>
+					<p class="lead">
+						For over three decades we've remained the trusted name in custom wood sports lockers. While others diversify, we double
+						down on one craft—premium wood lockers that elevate every locker room they inhabit.
+					</p>
+					<p>
+						The PlayerStall difference comes from our relentless focus on quality, value, and service. We obsess over joinery,
+						ventilation, electrical integration, and modular construction so that you get a locker that looks elite on day one
+						and still turns heads fifteen seasons later.
+					</p>
+					<p>
+						We don’t produce metal, plastic, or generic storage. We build wood sports lockers—only wood—and we’ve perfected every
+						cut, finish, and install detail to prove it.
+					</p>
+				</div>
+				<div class="story-visual">
+					<div class="visual-card">
+						<p>30+ Years</p>
+						<h3>Canadian Built. North America Proud.</h3>
+						<span>Premium 3/4" birch • Modular repair • Pro-level finishing</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="values-section" id="values">
+			<div class="container">
+				<h2>What Sets PlayerStall Apart</h2>
+				<div class="values-grid">
+					{[
+						{
+							title: '30+ Years Experience',
+							copy:
+								"Trends fade. Craftsmanship lasts. We’ve delivered elite locker rooms through every generation of uniforms, cleats, and coaching staffs."
+						},
+						{
+							title: 'Family Business',
+							copy:
+								"Your project has our family name on it. That accountability shapes every conversation, CAD drawing, and delivery."
+						},
+						{
+							title: 'Made in Canada',
+							copy:
+								"100% manufactured on North American soil with responsibly sourced premium birch. No shortcuts, no mystery materials."
+						},
+						{
+							title: 'Exclusive Wood Focus',
+							copy:
+								"We’ve said no to metal so we can say yes to excellence. Specialization gives you deeper expertise, cleaner installs, and smarter solutions."
+						},
+						{
+							title: 'Lifetime Guarantee',
+							copy:
+								"Our modular design means we can service, repair, or replace individual components without touching the rest of your build."
+						},
+						{
+							title: 'Free Custom Design',
+							copy:
+								"Every engagement starts with a complimentary design consultation, locker room layout, and spec package tailored to your space."
+						}
+					].map((value) => (
+						<div class="value-card">
+							<h3>{value.title}</h3>
+							<p>{value.copy}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="process-section" id="process">
+			<div class="container">
+				<div class="section-header">
+					<p class="eyebrow">How We Deliver</p>
+					<h2>From Idea to Install in Five Steps</h2>
+					<p class="lead">
+						Our turnkey process removes friction so you can focus on culture, recruiting, and performance.
+					</p>
+				</div>
+				<div class="process-grid">
+					{[
+						{
+							step: '01',
+							title: 'Free Consultation',
+							copy:
+								"We start with a detailed discovery covering roster size, equipment profile, branding goals, and timeline."
+						},
+						{
+							step: '02',
+							title: 'Custom Design',
+							copy:
+								"Our design studio delivers layouts, elevations, and specs dialed into your exact square footage and workflow."
+						},
+						{
+							step: '03',
+							title: 'Manufacturing',
+							copy:
+								"Every locker is precision-built in Canada with premium 3/4\" birch, pro-grade hardware, and meticulous finishing."
+						},
+						{
+							step: '04',
+							title: 'Installation Support',
+							copy:
+								"We ship complete install packs, labeled components, and offer on-call support or on-site coordination for larger builds."
+						},
+						{
+							step: '05',
+							title: 'Lifetime Support',
+							copy:
+								"Need a replacement panel, extra grommets, or wire management upgrade? We’re here long after install day."
+						}
+					].map((item) => (
+						<div class="process-card">
+							<span class="step-number">{item.step}</span>
+							<h3>{item.title}</h3>
+							<p>{item.copy}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="guarantee-section" id="guarantee">
+			<div class="container guarantee-grid">
+				<div class="guarantee-copy">
+					<p class="eyebrow">Lifetime Guarantee</p>
+					<h2>We Don’t Stop Until You’re 100% Satisfied</h2>
+					<p class="lead">
+						Our modular approach allows us to service individual components—shelf, seat, face frame—without dismantling your entire locker.
+					</p>
+					<div class="guarantee-points">
+						<div>
+							<h4>What’s Covered</h4>
+							<ul>
+								<li>Construction defects</li>
+								<li>Material failures</li>
+								<li>Workmanship issues</li>
+								<li>Replacement part availability</li>
+							</ul>
+						</div>
+						<div>
+							<h4>Modular Advantage</h4>
+							<p>
+								Damaged component? We ship replacements cut to spec so your facilities team swaps parts in hours, not weeks.
+							</p>
+						</div>
+						<div>
+							<h4>Our Commitment</h4>
+							<p>
+								Three decades in, our promise is simple: if something isn’t right, we fix it fast. That’s how we earn repeat business and
+								referrals.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="guarantee-visual">
+					<div class="guarantee-card">
+						<h3>Built for Decades</h3>
+						<p>15+ year installs that still look day-one fresh.</p>
+						<span>1 (888) 58-STALL • info@customsportslockers.com</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="wood-section">
+			<div class="container wood-grid">
+				<div class="wood-copy">
+					<p class="eyebrow">Why Wood Wins</p>
+					<h2>Wood Lockers Outperform Metal</h2>
+					<p class="lead">
+						We’ve built with every material imaginable. Wood is the only one that delivers durability, prestige, and limitless customization.
+					</p>
+					<div class="wood-points">
+						<div class="wood-card">
+							<h4>Durability That Lasts</h4>
+							<p>Properly sealed birch resists dents, rust, and fatigue. Metal can’t claim the same after six seasons of game day use.</p>
+						</div>
+						<div class="wood-card">
+							<h4>Prestige & Culture</h4>
+							<p>Wood turns a storage room into a recruiting asset. LED halos, nameplates, and finishes tie directly into your brand.</p>
+						</div>
+						<div class="wood-card">
+							<h4>Natural Comfort</h4>
+							<p>Warm surfaces, softer acoustics, and odor control give athletes a space they actually want to occupy.</p>
+						</div>
+						<div class="wood-card">
+							<h4>Unlimited Customization</h4>
+							<p>Integrate vents, USB/120V, helmet cradles, shoe drawers, and media tech without being confined to prefab metal molds.</p>
+						</div>
+					</div>
+				</div>
+				<div class="wood-visual">
+					<img
+						src="/images/Athletic-Lockers-Stadium.jpg"
+						alt="PlayerStall custom wood sports lockers"
+						loading="lazy"
+					/>
+				</div>
+			</div>
+		</section>
+
+		<section class="cta-section">
+			<div class="container">
+				<div class="cta-card">
+					<p class="eyebrow">Ready to build something legendary?</p>
+					<h2>Book Your Free Custom Design Consultation</h2>
+					<p>
+						Walk away with a tailored locker room concept, pricing options across all five PlayerStall tiers, and a clear install plan.
+					</p>
+					<div class="cta-actions">
+						<a href="/contact" class="btn btn-primary btn-large">Start the Conversation</a>
+						<a href="/gallery" class="btn btn-outline btn-large">See Recent Installs</a>
+					</div>
+					<span class="cta-note">Prefer to talk now? Call 1 (888) 58-STALL.</span>
+				</div>
+			</div>
+		</section>
+	</div>
+</BaseLayout>
+
+<style>
+	:root {
+		--dark-bg: #050505;
+		--panel-bg: #111;
+		--text-light: #f5f5f5;
+		--text-muted: #9da0a8;
+		--accent: #fe5900;
+		--accent-soft: rgba(254, 89, 0, 0.15);
+	}
+
+	.about-page {
+		background: #f7f7f7;
+		color: #0d0d0d;
+	}
+
+	.container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.eyebrow {
+		text-transform: uppercase;
+		letter-spacing: 0.2rem;
+		font-size: 0.85rem;
+		color: #8c8c8c;
+		margin-bottom: 1rem;
+		display: inline-block;
+	}
+
+	.section-header {
+		text-align: center;
+		max-width: 760px;
+		margin: 0 auto 3rem;
+	}
+
+	.section-header h2 {
+		font-size: 3rem;
+		margin: 0.5rem 0;
+		color: #0d0d0d;
+	}
+
+	.section-header .lead {
+		color: #666666;
+	}
+
+	/* Hero Section */
+	.hero {
+		position: relative;
+		height: 800px;
+		background: #f7f7f7;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding-left: 10%;
+		margin-top: 0;
+	}
+
+	.playoff-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 350px;
+		font-weight: 700;
+		color: rgba(13, 13, 13, 0.03);
+		text-transform: uppercase;
+		letter-spacing: -3px;
+		z-index: 1;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		white-space: nowrap;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 10;
+		max-width: 600px;
+	}
+
+	.hero-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 80px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		line-height: 80px;
+		margin-bottom: 30px;
+	}
+
+	.hero-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 20px;
+		color: #666666;
+		line-height: 30px;
+		margin-bottom: 40px;
+	}
+
+	.hero-buttons {
+		display: flex;
+		gap: 20px;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 15px 40px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		font-size: 20px;
+		transition: all 0.3s;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #ffffff;
+		border: 2px solid #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+	}
+
+	.btn-outline {
+		background: transparent;
+		color: #0d0d0d;
+		border: 2px solid #bfbfbf;
+	}
+
+	.btn-outline:hover {
+		border-color: #0d0d0d;
+		color: #0d0d0d;
+	}
+
+	.btn-large {
+		padding: 1.25rem 3rem;
+	}
+
+	.hero-image {
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 5;
+	}
+
+	.hero-image img {
+		max-width: 810px;
+		height: auto;
+	}
+
+	.story-section {
+		padding: 5rem 0;
+		background: #ffffff;
+	}
+
+	.story-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 3rem;
+		align-items: center;
+	}
+
+	.story-copy h2 {
+		font-size: 3rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.story-copy .lead {
+		color: var(--text-muted);
+		font-size: 1.25rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.story-copy p {
+		color: var(--text-muted);
+	}
+
+	.story-visual {
+		display: flex;
+		justify-content: center;
+	}
+
+	.visual-card {
+		background: linear-gradient(135deg, #111, #1f1f1f);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 24px;
+		padding: 3rem;
+		text-align: center;
+		box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+	}
+
+	.visual-card p {
+		text-transform: uppercase;
+		letter-spacing: 0.5rem;
+		color: var(--accent);
+		margin-bottom: 1rem;
+	}
+
+	.visual-card h3 {
+		font-size: 2rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.visual-card span {
+		color: var(--text-muted);
+	}
+
+	.values-section {
+		padding: 5rem 0;
+		background: #f7f7f7;
+	}
+
+	.values-section h2 {
+		text-align: center;
+		font-size: 3rem;
+		margin-bottom: 3rem;
+	}
+
+	.values-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.value-card {
+		background: #0f0f0f;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		padding: 2rem;
+		border-radius: 16px;
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+	}
+
+	.value-card h3 {
+		margin-top: 0;
+		margin-bottom: 1rem;
+		font-size: 1.5rem;
+	}
+
+	.value-card p {
+		color: var(--text-muted);
+	}
+
+	.process-section {
+		padding: 5rem 0;
+		background: #ffffff;
+	}
+
+	.process-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.process-card {
+		background: #000;
+		padding: 2rem;
+		border-radius: 16px;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		position: relative;
+		min-height: 220px;
+	}
+
+	.step-number {
+		position: absolute;
+		top: 1.5rem;
+		right: 1.5rem;
+		font-size: 1rem;
+		letter-spacing: 0.3rem;
+		color: var(--accent);
+	}
+
+	.process-card h3 {
+		margin: 0 0 1rem;
+		font-size: 1.5rem;
+	}
+
+	.process-card p {
+		color: var(--text-muted);
+	}
+
+	.guarantee-section {
+		padding: 5rem 0;
+		background: #f7f7f7;
+	}
+
+	.guarantee-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 3rem;
+		align-items: center;
+	}
+
+	.guarantee-copy h2 {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+	}
+
+	.guarantee-points {
+		display: grid;
+		gap: 1.5rem;
+		margin-top: 2rem;
+	}
+
+	.guarantee-points h4 {
+		margin-bottom: 0.5rem;
+	}
+
+	.guarantee-points p,
+	.guarantee-points li {
+		color: var(--text-muted);
+		line-height: 1.6;
+	}
+
+	.guarantee-points ul {
+		padding-left: 1.25rem;
+		margin: 0;
+	}
+
+	.guarantee-visual {
+		display: flex;
+		justify-content: center;
+	}
+
+	.guarantee-card {
+		background: linear-gradient(180deg, #101010, #1a1a1a);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 24px;
+		padding: 2.5rem;
+		text-align: center;
+		box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+	}
+
+	.guarantee-card h3 {
+		font-size: 2rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.guarantee-card p {
+		color: var(--accent);
+		font-weight: 600;
+		margin-bottom: 1rem;
+	}
+
+	.guarantee-card span {
+		color: var(--text-muted);
+		font-size: 0.9rem;
+	}
+
+	.wood-section {
+		padding: 5rem 0;
+		background: #ffffff;
+	}
+
+	.wood-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 3rem;
+		align-items: center;
+	}
+
+	.wood-copy h2 {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+	}
+
+	.wood-copy .lead {
+		color: var(--text-muted);
+		margin-bottom: 2rem;
+	}
+
+	.wood-points {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.wood-card {
+		background: #111;
+		padding: 1.5rem;
+		border-radius: 12px;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.wood-card h4 {
+		margin-bottom: 0.5rem;
+	}
+
+	.wood-card p {
+		color: var(--text-muted);
+	}
+
+	.wood-visual img {
+		width: 100%;
+		border-radius: 24px;
+		box-shadow: 0 35px 90px rgba(0, 0, 0, 0.6);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.cta-section {
+		padding: 6rem 0;
+		background: #0d0d0d;
+		text-align: center;
+		color: #fff;
+	}
+
+	.cta-card {
+		max-width: 900px;
+		margin: 0 auto;
+		background: rgba(0, 0, 0, 0.6);
+		padding: 3rem;
+		border-radius: 24px;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+	}
+
+	.cta-card h2 {
+		font-size: clamp(2.5rem, 5vw, 3.5rem);
+		margin: 1rem 0 1.5rem;
+	}
+
+	.cta-card p {
+		color: var(--text-muted);
+		font-size: 1.2rem;
+		line-height: 1.8;
+	}
+
+	.cta-actions {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+		margin: 2rem 0;
+	}
+
+	.cta-note {
+		color: var(--text-muted);
+		font-size: 0.95rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2rem;
+	}
+
+	@media (max-width: 1024px) {
+		.hero-title {
+			font-size: 48px;
+			line-height: 1.2;
+		}
+
+		.hero-image {
+			display: none;
+		}
+
+		.playoff-text {
+			font-size: 150px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.container {
+			padding: 0 1.25rem;
+		}
+
+		.hero {
+			height: 600px;
+			padding-left: 20px;
+		}
+
+		.hero-title {
+			font-size: 36px;
+			line-height: 1.2;
+		}
+
+		.hero-text {
+			font-size: 16px;
+		}
+
+		.hero-buttons {
+			flex-direction: column;
+		}
+
+		.playoff-text {
+			font-size: 100px;
+		}
+
+		.section-header h2,
+		.story-copy h2,
+		.values-section h2,
+		.guarantee-copy h2,
+		.wood-copy h2 {
+			font-size: 2.25rem;
+		}
+
+		.visual-card {
+			padding: 2rem;
+		}
+
+		.process-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.cta-actions {
+			flex-direction: column;
+		}
+	}
+</style>
+

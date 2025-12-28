@@ -1,0 +1,641 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "PlayerStall - Premium Sports Locker Solutions" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<link href="https://fonts.googleapis.com/css?family=Yantramanav:500,400|Oswald:600,700|Roboto:400&display=swap" rel="stylesheet" />
+		<title>{title}</title>
+	</head>
+	<body>
+		<!-- Top Bar -->
+		<div class="top-bar">
+			<div class="top-bar-container">
+				<div class="top-bar-left">
+					<a href="/contact">GET QUOTE</a>
+					<div class="top-bar-divider"></div>
+					<div class="news-ticker">
+						<span class="news-label">news:</span>
+						<div class="news-ticker-wrapper">
+							<div class="news-ticker-content">
+								<a href="#" class="news-item">Latest NFL firings</a>
+								<a href="#" class="news-item">Biggest NFL veterans</a>
+								<a href="#" class="news-item">Super Bowl halftime</a>
+								<a href="#" class="news-item">Latest NFL firings</a>
+								<a href="#" class="news-item">Biggest NFL veterans</a>
+								<a href="#" class="news-item">Super Bowl halftime</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="top-bar-right">
+					<span>FOLLOW US:</span>
+					<a href="https://www.facebook.com/PlayerStall-1715059388770006/" target="_blank" class="social-icon">f</a>
+					<a href="https://vimeo.com/playerstall" target="_blank" class="social-icon">v</a>
+					<a href="https://twitter.com/PSLockers" target="_blank" class="social-icon twitter-icon">t</a>
+					<a href="https://www.pinterest.com/playerstallspor/" target="_blank" class="social-icon">P</a>
+					<a href="https://www.linkedin.com/company/playerstall" target="_blank" class="social-icon">in</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Navigation -->
+		<header>
+			<nav class="navbar">
+				<div class="nav-container">
+					<a href="/" class="logo">
+						<h1>PLAYERSTALL</h1>
+					</a>
+					<ul class="nav-links">
+						<li><a href="/">HOME</a></li>
+						<li><a href="/services">PRODUCTS</a></li>
+						<li><a href="/hockey">BY SPORT</a></li>
+						<li><a href="/gallery">GALLERY</a></li>
+						<li><a href="/about">ABOUT</a></li>
+						<li><a href="/our-process">OUR PROCESS</a></li>
+						<li><a href="/blog">BLOG</a></li>
+						<li><a href="/contact">CONTACT</a></li>
+					</ul>
+					<a href="/contact" class="cta-button">GET QUOTE</a>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<slot />
+		</main>
+		<footer>
+			<div class="footer-container">
+				<div class="footer-content">
+					<div class="footer-section">
+						<h4>about club</h4>
+						<p>Welcome to PlayerStall, a premium sports locker solution. We design custom wood lockers for collegiate and professional teams.</p>
+						<p class="footer-address">198 West 21th Street New York, NY 10010</p>
+						<p class="footer-email"><a href="mailto:info@customsportslockers.com">info@customsportslockers.com</a></p>
+						<p class="footer-phone">+88 (0) 101 0000 000</p>
+					</div>
+					<div class="footer-section">
+						<h4>our services</h4>
+						<ul>
+							<li><a href="/services">Full locker room solutions</a></li>
+							<li><a href="/hockey">Sport-specific lockers</a></li>
+							<li><a href="/services">Custom design consultation</a></li>
+							<li><a href="/about">Lifetime guarantee</a></li>
+							<li><a href="/contact">Free quotes</a></li>
+							<li><a href="/gallery">View our gallery</a></li>
+						</ul>
+					</div>
+					<div class="footer-section">
+						<h4>latest blog posts</h4>
+						<ul class="footer-blog-list">
+							<li>
+								<a href="/blog">College Locker Room Design Guide</a>
+								<span class="footer-date">November 20, 2024</span>
+							</li>
+							<li>
+								<a href="/blog">Wood vs Metal Sports Lockers</a>
+								<span class="footer-date">October 15, 2024</span>
+							</li>
+							<li>
+								<a href="/blog">Locker Rooms That Win Recruits</a>
+								<span class="footer-date">September 10, 2024</span>
+							</li>
+						</ul>
+					</div>
+					<div class="footer-section">
+						<h4>Follow us on Instagram</h4>
+						<div class="footer-instagram">
+							<a href="https://www.instagram.com/playerstall" target="_blank" class="instagram-link">@playerstall</a>
+						</div>
+					</div>
+				</div>
+				<div class="footer-quick-contact">
+					<h4>QUICK CONTACT INFO</h4>
+					<p>Meet your new locker room solution, PlayerStall! Create custom wood sports lockers, win the locker room game and dominate your competition.</p>
+					<div class="footer-contact-details">
+						<p class="footer-contact-item">
+							<span class="footer-icon">b</span>
+							<span>Monday-Friday: 9am to 5pm;<br>Saturday: 10am to 2pm</span>
+						</p>
+						<p class="footer-contact-item">
+							<span class="footer-icon">z</span>
+							<span>7300-7398 Colonial Rd, Brooklyn, NY 11209, USA</span>
+						</p>
+						<p class="footer-contact-item">
+							<span class="footer-icon">m</span>
+							<span>+ (123) 124-567-8901<br>+ (123) 124-567-8901</span>
+						</p>
+						<p class="footer-contact-item">
+							<span class="footer-icon">d</span>
+							<span><a href="mailto:info@customsportslockers.com">info@customsportslockers.com</a><br><a href="mailto:info@customsportslockers.com">info@customsportslockers.com</a></span>
+						</p>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<p>&copy; 2025 PlayerStall / CustomSportsLockers.com. All rights reserved.</p>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>
+
+<style>
+	:global(html) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #fff;
+	}
+
+	:global(body) {
+		margin: 0;
+		padding: 0;
+		color: #0d0d0d;
+		line-height: 1.6;
+	}
+
+	/* Top Bar */
+	.top-bar {
+		background: #000000;
+		padding: 10px 0;
+		border-bottom: none;
+	}
+
+	.top-bar-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 100%;
+	}
+
+	.top-bar-left {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+
+	.top-bar-left a {
+		color: #b6b6b6;
+		text-decoration: none;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		transition: color 0.3s;
+		font-weight: 400;
+	}
+
+	.top-bar-left a:hover {
+		color: #ffffff;
+	}
+
+	.top-bar-divider {
+		width: 1px;
+		height: 14px;
+		background: #666666;
+	}
+
+	/* News Ticker */
+	.news-ticker {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		overflow: hidden;
+		flex: 1;
+		margin: 0 20px;
+		position: relative;
+		min-width: 0;
+	}
+
+	.news-label {
+		color: #b6b6b6;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: lowercase;
+		letter-spacing: 0.1em;
+		font-weight: 400;
+		white-space: nowrap;
+		flex-shrink: 0;
+		z-index: 2;
+		background: #000000;
+		padding-right: 12px;
+		position: relative;
+	}
+
+	.news-ticker-wrapper {
+		overflow: hidden;
+		flex: 1;
+		position: relative;
+		min-width: 0;
+	}
+
+	.news-ticker-content {
+		display: inline-flex;
+		align-items: center;
+		gap: 20px;
+		animation: scroll-news 25s linear infinite;
+		white-space: nowrap;
+	}
+
+	.news-ticker-content:hover {
+		animation-play-state: paused;
+	}
+
+	.news-item {
+		color: #b6b6b6;
+		text-decoration: none;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 9px;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-weight: 400;
+		transition: color 0.3s;
+		white-space: nowrap;
+	}
+
+	.news-item:hover {
+		color: #ffffff;
+	}
+
+	@keyframes scroll-news {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-50%);
+		}
+	}
+
+	.top-bar-right {
+		display: flex;
+		align-items: center;
+		gap: 0;
+		flex-shrink: 0;
+		white-space: nowrap;
+	}
+
+	.top-bar-right span {
+		color: #ffffff;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-right: 22px;
+		font-weight: 500;
+		white-space: nowrap;
+		display: inline-block;
+	}
+
+	.top-bar-right .social-icon {
+		color: #b6b6b6;
+		text-decoration: none;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: none;
+		letter-spacing: 0;
+		transition: color 0.3s;
+		font-weight: 400;
+		line-height: 1;
+		white-space: nowrap;
+		display: inline-block;
+		width: auto;
+		margin-right: 18px;
+	}
+
+	.top-bar-right .social-icon:last-child {
+		margin-right: 0;
+	}
+
+	.top-bar-right .social-icon.twitter-icon {
+		font-size: 12px;
+		font-weight: 400;
+	}
+
+	.top-bar-right .social-icon:hover {
+		color: #ffffff;
+	}
+
+	/* Navigation */
+	header {
+		background: #ffffff;
+		color: #0d0d0d;
+		padding: 0;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		position: sticky;
+		top: 0;
+		z-index: 1000;
+		width: 100%;
+	}
+
+	.navbar {
+		padding: 20px 0;
+	}
+
+	nav {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.nav-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.logo {
+		text-decoration: none;
+		color: #0d0d0d;
+	}
+
+	.logo h1 {
+		margin: 0;
+		font-size: 24px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0;
+		font-family: 'Oswald', sans-serif;
+	}
+
+	.nav-links {
+		display: flex;
+		list-style: none;
+		gap: 40px;
+		margin: 0;
+		padding: 0;
+		align-items: center;
+	}
+
+	.nav-links a {
+		color: #0d0d0d;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 13px;
+		font-weight: 500;
+		letter-spacing: 0.3em;
+		font-family: 'Yantramanav', sans-serif;
+		transition: color 0.3s;
+	}
+
+	.nav-links a:hover {
+		color: #fe5900;
+	}
+
+	.cta-button {
+		padding: 10px 25px;
+		border: none;
+		background: #fe5900;
+		color: #ffffff;
+		text-decoration: none;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-size: 12px;
+		transition: all 0.3s;
+		white-space: nowrap;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.cta-button:hover {
+		background: #e04d00;
+		transform: translateY(-1px);
+	}
+
+	main {
+		min-height: calc(100vh - 200px);
+	}
+
+	footer {
+		background: #1a1a1a;
+		color: #fff;
+		padding: 4rem 0 1rem;
+		margin-top: 4rem;
+	}
+
+	.footer-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.footer-content {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 3rem;
+		margin-bottom: 3rem;
+	}
+
+	.footer-section h4 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: lowercase;
+		margin-top: 0;
+		margin-bottom: 1.5rem;
+		letter-spacing: 0.05em;
+	}
+
+	.footer-section p {
+		margin: 0.5rem 0;
+		color: #cccccc;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		line-height: 1.8;
+	}
+
+	.footer-section a {
+		color: #cccccc;
+		text-decoration: none;
+		transition: color 0.3s ease;
+	}
+
+	.footer-section a:hover {
+		color: #fe5900;
+	}
+
+	.footer-address,
+	.footer-email,
+	.footer-phone {
+		color: #cccccc;
+		font-size: 14px;
+		line-height: 1.8;
+	}
+
+	.footer-section ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.footer-section ul li {
+		margin-bottom: 0.75rem;
+	}
+
+	.footer-section ul li a {
+		color: #cccccc;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		line-height: 1.6;
+	}
+
+	.footer-blog-list li {
+		margin-bottom: 1.5rem;
+	}
+
+	.footer-blog-list a {
+		display: block;
+		color: #ffffff;
+		font-weight: 500;
+		margin-bottom: 0.25rem;
+	}
+
+	.footer-date {
+		color: #8c8c8c;
+		font-size: 12px;
+		display: block;
+		margin-top: 0.25rem;
+	}
+
+	.footer-instagram {
+		margin-top: 1rem;
+	}
+
+	.instagram-link {
+		color: #cccccc;
+		font-size: 14px;
+	}
+
+	.footer-quick-contact {
+		border-top: 1px solid #333;
+		padding-top: 3rem;
+		margin-top: 2rem;
+	}
+
+	.footer-quick-contact h4 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin-bottom: 1rem;
+		letter-spacing: 0.1em;
+	}
+
+	.footer-quick-contact > p {
+		color: #cccccc;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		line-height: 1.8;
+		margin-bottom: 2rem;
+		max-width: 800px;
+	}
+
+	.footer-contact-details {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 2rem;
+	}
+
+	.footer-contact-item {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		color: #cccccc;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		line-height: 1.8;
+		margin: 0;
+	}
+
+	.footer-icon {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		color: #fe5900;
+		display: inline-block;
+		min-width: 24px;
+		text-transform: lowercase;
+	}
+
+	.footer-contact-item a {
+		color: #cccccc;
+		text-decoration: none;
+	}
+
+	.footer-contact-item a:hover {
+		color: #fe5900;
+	}
+
+	.footer-bottom {
+		border-top: 1px solid #333;
+		padding-top: 1.5rem;
+		text-align: center;
+		color: #999999;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		margin-top: 2rem;
+	}
+
+	@media (max-width: 1024px) {
+		.news-ticker {
+			display: none;
+		}
+
+		.top-bar-container {
+			justify-content: center;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.top-bar {
+			display: none;
+		}
+
+		.nav-container {
+			flex-wrap: wrap;
+			gap: 1rem;
+		}
+
+		.nav-links {
+			flex-wrap: wrap;
+			gap: 1rem;
+			justify-content: center;
+		}
+
+		.cta-button {
+			width: 100%;
+			text-align: center;
+		}
+
+		.footer-content {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.footer-contact-details {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.footer-content {
+			grid-template-columns: 1fr;
+		}
+
+		.footer-contact-details {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
