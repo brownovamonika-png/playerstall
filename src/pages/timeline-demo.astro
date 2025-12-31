@@ -1,0 +1,519 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+	title="Timeline Demo | Custom Sports Lockers | PlayerStall"
+	description="Vertical timeline demo page showing process steps with descriptions and images."
+>
+	<!-- Hero Section -->
+	<section class="hero-section">
+		<div class="hero-parallax-img-holder">
+			<div class="hero-parallax-img-wrapper">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/title-our-history.jpg" alt="Timeline Demo" class="hero-parallax-img" />
+			</div>
+		</div>
+		<div class="hero-content qodef-content-grid">
+			<div class="breadcrumbs">
+				<a href="/">Home</a>
+				<span class="breadcrumbs-separator"></span>
+				<span class="breadcrumbs-current">Timeline Demo</span>
+			</div>
+			<h1 class="hero-title">Timeline Demo</h1>
+		</div>
+	</section>
+
+	<!-- Timeline Section -->
+	<section class="timeline-section">
+		<!-- Background Elements -->
+		<div class="background-dots-holder">
+			<div class="background-dots-left"></div>
+			<div class="background-dots-right"></div>
+		</div>
+		<div class="background-text-holder">
+			<span class="background-text">HISTORY</span>
+		</div>
+		
+		<div class="content-grid">
+			<!-- Section Header -->
+			<div class="section-header">
+				<p class="section-subtitle">WHAT'S TRENDING</p>
+				<h2 class="section-title">OUR AWARDS</h2>
+			</div>
+
+			<!-- Timeline Container -->
+			<div class="timeline-container">
+				<!-- Timeline Line -->
+				<div class="timeline-line"></div>
+
+				<!-- Timeline Item 1 - Image Left, Description Right -->
+				<div class="timeline-item item-1">
+					<div class="timeline-dot"></div>
+					<div class="timeline-content-left">
+						<div class="image-placeholder">
+							<img src="/hockey-faceoff.png" alt="Step 1" />
+						</div>
+					</div>
+					<div class="timeline-content-right">
+						<div class="content-card">
+							<h4 class="card-title">PERFORMANCE DATA</h4>
+							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Timeline Item 2 - Description Left, Image Right -->
+				<div class="timeline-item item-2">
+					<div class="timeline-dot"></div>
+					<div class="timeline-content-left">
+						<div class="content-card">
+							<h4 class="card-title">TEAM ACHIEVEMENTS</h4>
+							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+						</div>
+					</div>
+					<div class="timeline-content-right">
+						<div class="image-placeholder">
+							<img src="/hockey-logo.png" alt="Step 2" />
+						</div>
+					</div>
+				</div>
+
+				<!-- Timeline Item 3 - Image Left, Description Right -->
+				<div class="timeline-item item-3">
+					<div class="timeline-dot"></div>
+					<div class="timeline-content-left">
+						<div class="image-placeholder">
+							<img src="/stadium-locker.jpg" alt="Step 3" />
+						</div>
+					</div>
+					<div class="timeline-content-right">
+						<div class="content-card highlighted">
+							<h4 class="card-title">CHAMPIONSHIP WINS</h4>
+							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Timeline Item 4 - Description Left, Image Right -->
+				<div class="timeline-item item-4">
+					<div class="timeline-dot"></div>
+					<div class="timeline-content-left">
+						<div class="content-card">
+							<h4 class="card-title">LEGACY BUILDING</h4>
+							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+						</div>
+					</div>
+					<div class="timeline-content-right">
+						<div class="image-placeholder">
+							<img src="/pro-locker.jpg" alt="Step 4" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(body) {
+		margin: 0;
+		padding: 0;
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #ffffff;
+		color: #0d0d0d;
+		line-height: 1.6;
+	}
+
+	.content-grid {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		position: relative;
+		z-index: 10;
+	}
+
+	/* Hero Section */
+	.hero-section {
+		position: relative;
+		min-height: 400px;
+		display: flex;
+		align-items: flex-end;
+		overflow: hidden;
+	}
+
+	.hero-parallax-img-holder {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1;
+	}
+
+	.hero-parallax-img-wrapper {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hero-parallax-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 10;
+		width: 100%;
+		padding: 60px 0;
+	}
+
+	.breadcrumbs {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 20px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: rgba(255, 255, 255, 0.9);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+	}
+
+	.breadcrumbs a {
+		color: rgba(255, 255, 255, 0.9);
+		text-decoration: none;
+	}
+
+	.breadcrumbs-separator {
+		width: 1px;
+		height: 12px;
+		background: rgba(255, 255, 255, 0.5);
+	}
+
+	.breadcrumbs-current {
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	.hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 80px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0;
+		letter-spacing: 2px;
+		line-height: 1.1;
+	}
+
+	/* Timeline Section */
+	.timeline-section {
+		position: relative;
+		background: #f7f7f7;
+		padding: 120px 0;
+		overflow: hidden;
+		min-height: 1200px;
+	}
+
+	/* Background Dots */
+	.background-dots-holder {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	.background-dots-left,
+	.background-dots-right {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 50%;
+		background-image: radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px);
+		background-size: 20px 20px;
+	}
+
+	.background-dots-left {
+		left: 0;
+	}
+
+	.background-dots-right {
+		right: 0;
+	}
+
+	/* Background Text Watermark */
+	.background-text-holder {
+		position: absolute;
+		top: 10%;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 2;
+		pointer-events: none;
+		width: 100%;
+		text-align: center;
+	}
+
+	.background-text {
+		font-family: 'Oswald', sans-serif;
+		font-size: 350px;
+		font-weight: 700;
+		color: rgba(247, 247, 247, 0.5);
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		white-space: nowrap;
+		display: inline-block;
+	}
+
+	/* Section Header */
+	.section-header {
+		text-align: center;
+		margin-bottom: 80px;
+		position: relative;
+		z-index: 10;
+	}
+
+	.section-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin-bottom: 10px;
+		display: block;
+	}
+
+	.section-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 600;
+		color: #000000;
+		text-transform: uppercase;
+		margin: 0;
+		letter-spacing: 1px;
+	}
+
+	/* Timeline Container */
+	.timeline-container {
+		position: relative;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+		z-index: 10;
+	}
+
+	/* Vertical Timeline Line */
+	.timeline-line {
+		position: absolute;
+		left: 50%;
+		top: 0;
+		bottom: 0;
+		width: 2px;
+		background: #333333;
+		transform: translateX(-50%);
+		z-index: 1;
+	}
+
+	/* Timeline Items */
+	.timeline-item {
+		position: relative;
+		display: flex;
+		align-items: center;
+		margin-bottom: 120px;
+		min-height: 200px;
+	}
+
+	.timeline-item:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Timeline Dot */
+	.timeline-dot {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 14px;
+		height: 14px;
+		background: #333333;
+		border-radius: 50%;
+		z-index: 6;
+		border: 3px solid #f7f7f7;
+	}
+
+	.timeline-item:hover .timeline-dot {
+		background: #fe5900;
+		width: 18px;
+		height: 18px;
+		transition: all 0.3s ease;
+	}
+
+	/* Content Cards (Left Side) */
+	.timeline-content-left {
+		width: 45%;
+		padding-right: 40px;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.timeline-content-right {
+		width: 45%;
+		padding-left: 40px;
+		display: flex;
+		justify-content: flex-start;
+	}
+
+	.content-card {
+		background: #ffffff;
+		border-radius: 4px;
+		padding: 40px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		max-width: 500px;
+		position: relative;
+		transition: box-shadow 0.3s ease;
+	}
+
+	.content-card:hover {
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+	}
+
+	.content-card.highlighted {
+		border-left: 4px solid #fe5900;
+	}
+
+	.card-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		color: #000000;
+		text-transform: uppercase;
+		margin: 0 0 20px 0;
+		letter-spacing: 0.5px;
+		line-height: 1.4;
+	}
+
+	.card-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #666666;
+		line-height: 1.8;
+		margin: 0;
+		font-weight: 400;
+	}
+
+	/* Image Placeholders */
+	.image-placeholder {
+		max-width: 500px;
+		width: 100%;
+		height: 300px;
+		overflow: hidden;
+		border-radius: 4px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.image-placeholder img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		transition: transform 0.3s ease;
+	}
+
+	.image-placeholder:hover img {
+		transform: scale(1.05);
+	}
+
+	/* Alternating Layout - HTML structure handles the alternation naturally */
+
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.hero-title {
+			font-size: 56px;
+		}
+
+		.background-text {
+			font-size: 250px;
+		}
+
+		.section-title {
+			font-size: 36px;
+		}
+
+		.timeline-content-left,
+		.timeline-content-right {
+			width: 48%;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero-section {
+			min-height: 300px;
+		}
+
+		.hero-title {
+			font-size: 42px;
+		}
+
+		.background-text {
+			font-size: 150px;
+		}
+
+		.section-title {
+			font-size: 28px;
+		}
+
+		.timeline-section {
+			padding: 80px 0;
+		}
+
+		.timeline-item {
+			flex-direction: column;
+			margin-bottom: 80px;
+		}
+
+		.timeline-content-left,
+		.timeline-content-right {
+			width: 100%;
+			padding: 0;
+			margin-bottom: 20px;
+			order: 1 !important;
+		}
+
+		.timeline-content-right {
+			order: 2 !important;
+		}
+
+		.timeline-dot {
+			left: 30px;
+		}
+
+		.timeline-line {
+			left: 30px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.hero-title {
+			font-size: 32px;
+		}
+
+		.background-text {
+			font-size: 100px;
+		}
+
+		.section-title {
+			font-size: 24px;
+		}
+
+		.content-card {
+			padding: 30px 20px;
+		}
+
+		.image-placeholder {
+			height: 200px;
+		}
+	}
+</style>

@@ -4,154 +4,113 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="Sports Lockers - Five Tiers | Semi Pro, Varsity, Pro, Curve, Stadium | PlayerStall" description="Five tiers of custom wood sports lockers: Semi Pro ($349), Varsity ($449), Pro ($549), Curve ($649), and Stadium ($599). All with lifetime guarantee and made in Canada.">
 	<!-- Hero Section -->
-	<section class="hero" id="hero">
-		<div class="playoff-text">PRODUCTS</div>
-		<div class="hero-content">
-			<p class="hero-subtitle">Five Tiers of Excellence</p>
-			<h1 class="hero-title">Premium Wood Sports Lockers</h1>
-			<p class="hero-text">Choose the perfect locker for your program's needs and budget. All tiers include our lifetime guarantee and premium wood construction made in Canada.</p>
-			<div class="hero-buttons">
-				<a href="/contact" class="btn btn-primary">Get Free Consultation</a>
-				<a href="#comparison" class="btn btn-outline">Compare Tiers</a>
+	<section class="hero-section">
+		<div class="hero-parallax-img-holder">
+			<div class="hero-parallax-img-wrapper">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/our-team-title-photo.jpg" alt="Our Products" class="hero-parallax-img" />
 			</div>
 		</div>
-		<div class="hero-image">
-			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/h3-rev-img-2.png" alt="Sports Lockers Products" />
+		<div class="hero-content qodef-content-grid">
+			<div class="breadcrumbs">
+				<a href="/">Home</a>
+				<span class="breadcrumbs-separator"></span>
+				<span class="breadcrumbs-current">Our Products</span>
+			</div>
+			<h1 class="hero-title">Our Products</h1>
 		</div>
 	</section>
 
 	<!-- Products Grid Section -->
 	<section class="products-team-section">
-		<div class="products-bg-text">p r o d u c t</div>
-		<div class="products-container">
+		<!-- Background Elements -->
+		<div class="products-background-dots"></div>
+		<div class="products-background-text-holder">
+			<span class="products-background-text">p r o d u c t</span>
+		</div>
+		
+		<div class="products-container qodef-content-grid">
 			<div class="section-header">
 				<p class="section-subtitle">the club history</p>
 				<h2 class="section-title">five tiers of excellence</h2>
 			</div>
+			
 			<div class="products-grid">
 				<!-- Semi Pro -->
 				<div class="product-card" id="semi-pro">
 					<div class="product-image">
-						<img src="/images/Athletic-Locker-Semipro.jpg" alt="Semi Pro Locker" loading="lazy" />
+						<img src="http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-Semipro.jpg" alt="Semi Pro Locker" loading="lazy" />
 					</div>
 					<div class="product-details">
-						<div class="product-category">Best Value</div>
-						<h4 class="product-name">Semi Pro</h4>
-						<div class="product-price-info">
-							<span class="product-price">$349</span>
-							<span class="product-price-original">$449</span>
-						</div>
+						<div class="product-position">Best Value</div>
+						<h4 class="product-name">Semi Pro <span class="product-price-inline">$349</span></h4>
 					</div>
 				</div>
 
 				<!-- Varsity -->
 				<div class="product-card" id="varsity">
 					<div class="product-image">
-						<img src="/images/Athletic-Locker-Varsity.jpg" alt="Varsity Locker" loading="lazy" />
+						<img src="http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-Varsity.jpg" alt="Varsity Locker" loading="lazy" />
 					</div>
 					<div class="product-details">
-						<div class="product-category popular">Most Popular</div>
-						<h4 class="product-name">Varsity</h4>
-						<div class="product-price-info">
-							<span class="product-price">$449</span>
-							<span class="product-price-original">$599</span>
-						</div>
+						<div class="product-position">Most Popular</div>
+						<h4 class="product-name">Varsity <span class="product-price-inline">$449</span></h4>
 					</div>
 				</div>
 
 				<!-- Pro -->
 				<div class="product-card" id="pro">
 					<div class="product-image">
-						<img src="/images/Athletic-Locker-Pro.jpg" alt="Pro Locker" loading="lazy" />
+						<img src="http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-Pro.jpg" alt="Pro Locker" loading="lazy" />
 					</div>
 					<div class="product-details">
-						<div class="product-category">Professional</div>
-						<h4 class="product-name">Pro</h4>
-						<div class="product-price-info">
-							<span class="product-price">$549</span>
-							<span class="product-price-original">$749</span>
-						</div>
-					</div>
-				</div>
-
-				<!-- Curve -->
-				<div class="product-card" id="curve">
-					<div class="product-image">
-						<img src="/images/Athletic-Locker-Pro.jpg" alt="Curve Locker" loading="lazy" />
-					</div>
-					<div class="product-details">
-						<div class="product-category">Premium Design</div>
-						<h4 class="product-name">Curve</h4>
-						<div class="product-price-info">
-							<span class="product-price">$649</span>
-							<span class="product-price-original">$849</span>
-						</div>
+						<div class="product-position">Professional</div>
+						<h4 class="product-name">Pro <span class="product-price-inline">$549</span></h4>
 					</div>
 				</div>
 
 				<!-- Stadium -->
 				<div class="product-card" id="stadium">
 					<div class="product-image">
-						<img src="/images/Athletic-Lockers-Stadium.jpg" alt="Stadium Locker" loading="lazy" />
+						<img src="http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Lockers-Stadium.jpg" alt="Stadium Locker" loading="lazy" />
 					</div>
 					<div class="product-details">
-						<div class="product-category">Elite</div>
-						<h4 class="product-name">Stadium</h4>
-						<div class="product-price-info">
-							<span class="product-price">$599</span>
-							<span class="product-price-original">$799</span>
-						</div>
+						<div class="product-position">Elite</div>
+						<h4 class="product-name">Stadium <span class="product-price-inline">$599</span></h4>
 					</div>
 				</div>
 
-				<!-- Additional cards for grid layout -->
-				<div class="product-card">
+				<!-- Stick Rack -->
+				<div class="product-card" id="stick-rack">
 					<div class="product-image">
-						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-11.jpg" alt="Custom Locker" loading="lazy" />
+						<img src="/stick-rack.png" alt="Hockey Stick Rack" loading="lazy" />
 					</div>
 					<div class="product-details">
-						<div class="product-category">Custom</div>
-						<h4 class="product-name">Custom Solutions</h4>
-						<div class="product-price-info">
-							<span class="product-price">Contact Us</span>
-						</div>
+						<div class="product-position">Accessory</div>
+						<h4 class="product-name">Stick Rack <span class="product-price-inline">$299</span></h4>
 					</div>
 				</div>
 
-				<div class="product-card">
+				<!-- Corner Unit -->
+				<div class="product-card" id="corner-unit">
 					<div class="product-image">
-						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-12.jpg" alt="Accessories" loading="lazy" />
+						<img src="/corner-unit.png" alt="Corner Unit" loading="lazy" />
 					</div>
 					<div class="product-details">
-						<div class="product-category">Accessories</div>
+						<div class="product-position">Accessory</div>
+						<h4 class="product-name">Corner Unit <span class="product-price-inline">$499</span></h4>
+					</div>
+				</div>
+
+				<!-- Accessories -->
+				<div class="product-card">
+					<div class="product-image">
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/player-img-12.jpg" alt="Accessories" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Accessories</div>
 						<h4 class="product-name">Locker Accessories</h4>
-						<div class="product-price-info">
-							<span class="product-price">View Options</span>
-						</div>
 					</div>
 				</div>
-
-				<div class="product-card">
-					<div class="product-image">
-						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-13.jpg" alt="Installation" loading="lazy" />
-					</div>
-					<div class="product-details">
-						<div class="product-category">Service</div>
-						<h4 class="product-name">Installation Service</h4>
-						<div class="product-price-info">
-							<span class="product-price">Included</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Product Details Modal/Expanded View -->
-	<section class="product-detail-section">
-		<div class="container">
-			<div class="product-detail-content" id="product-detail-content">
-				<p class="detail-intro">Click on any product card above to view detailed information, features, and specifications.</p>
 			</div>
 		</div>
 	</section>
@@ -266,7 +225,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <style>
 	:global(body) {
 		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
-		background: #f7f7f7;
+		background: #ffffff;
 		color: #0d0d0d;
 	}
 
@@ -276,148 +235,128 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 20px;
 	}
 
-	/* Hero Section */
-	.hero {
-		position: relative;
-		height: 800px;
-		background: #f7f7f7;
-		overflow: hidden;
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		padding-left: 10%;
-		margin-top: 0;
+	.qodef-content-grid {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
 	}
 
-	.playoff-text {
+	/* Hero Section - Matching Our Team Page */
+	.hero-section {
+		position: relative;
+		min-height: 400px;
+		overflow: hidden;
+	}
+
+	.hero-parallax-img-holder {
 		position: absolute;
-		font-family: 'Oswald', sans-serif;
-		font-size: 350px;
-		font-weight: 700;
-		color: rgba(13, 13, 13, 0.03);
-		text-transform: uppercase;
-		letter-spacing: -3px;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 		z-index: 1;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		white-space: nowrap;
+	}
+
+	.hero-parallax-img-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.hero-parallax-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
 	.hero-content {
 		position: relative;
 		z-index: 10;
-		max-width: 600px;
+		padding: 200px 0 100px;
 	}
 
-	.hero-subtitle {
+	.breadcrumbs {
+		margin-bottom: 20px;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
-		color: #8c8c8c;
-		letter-spacing: 0.3em;
-		text-transform: uppercase;
-		margin-bottom: 20px;
+		color: #ffffff;
+	}
+
+	.breadcrumbs a {
+		color: #ffffff;
+		text-decoration: none;
+	}
+
+	.breadcrumbs-separator {
+		margin: 0 10px;
+	}
+
+	.breadcrumbs-current {
+		color: #ffffff;
 	}
 
 	.hero-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 80px;
+		font-size: 72px;
 		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		line-height: 80px;
-		margin-bottom: 30px;
-	}
-
-	.hero-text {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 20px;
-		color: #666666;
-		line-height: 30px;
-		margin-bottom: 40px;
-	}
-
-	.hero-buttons {
-		display: flex;
-		gap: 20px;
-	}
-
-	.btn {
-		display: inline-block;
-		padding: 15px 40px;
-		text-decoration: none;
-		text-transform: uppercase;
-		font-weight: 500;
-		letter-spacing: 0.1em;
-		font-size: 20px;
-		transition: all 0.3s;
-		font-family: 'Roboto', sans-serif;
-	}
-
-	.btn-primary {
-		background: #fe5900;
 		color: #ffffff;
-		border: 2px solid #fe5900;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.2;
 	}
 
-	.btn-primary:hover {
-		background: #e04d00;
-		border-color: #e04d00;
-	}
-
-	.btn-outline {
-		background: transparent;
-		color: #0d0d0d;
-		border: 2px solid #bfbfbf;
-	}
-
-	.btn-outline:hover {
-		border-color: #0d0d0d;
-		color: #0d0d0d;
-	}
-
-	.hero-image {
-		position: absolute;
-		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: 5;
-	}
-
-	.hero-image img {
-		max-width: 810px;
-		height: auto;
-	}
-
-	/* Products Team Section */
+	/* Products Team Section - Matching Our Team Page */
 	.products-team-section {
 		position: relative;
 		background: #ffffff;
-		padding: 100px 0;
+		padding: 120px 0;
 		overflow: hidden;
+		min-height: 800px;
 	}
 
-	.products-bg-text {
+	.products-background-dots {
 		position: absolute;
-		font-family: 'Oswald', sans-serif;
-		font-size: 300px;
-		font-weight: 700;
-		color: rgba(13, 13, 13, 0.03);
-		text-transform: uppercase;
-		letter-spacing: 20px;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-image: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
+		background-size: 20px 20px;
+		z-index: 1;
+	}
+
+	.products-background-text-holder {
+		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
+		z-index: 2;
+		pointer-events: none;
+		width: 100%;
+		text-align: center;
+	}
+
+	.products-background-text {
+		font-family: 'Oswald', sans-serif;
+		font-size: 350px;
+		font-weight: 700;
+		color: #fdfdfd;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
 		white-space: nowrap;
-		z-index: 1;
+		display: inline-block;
 	}
 
 	.products-container {
 		position: relative;
 		z-index: 10;
-		max-width: 1300px;
-		margin: 0 auto;
-		padding: 0 20px;
+	}
+
+	.section-header {
+		text-align: center;
+		margin-bottom: 65px;
+		position: relative;
 	}
 
 	.section-subtitle {
@@ -426,129 +365,115 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		color: #8c8c8c;
 		letter-spacing: 0.3em;
 		text-transform: uppercase;
-		margin-bottom: 10px;
-		text-align: center;
+		margin-bottom: -3px;
+		display: block;
 	}
 
 	.section-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: 48px;
 		font-weight: 600;
-		color: #0d0d0d;
+		color: #000000;
 		text-transform: uppercase;
-		text-align: center;
-		margin-bottom: 50px;
+		margin: 15px 0;
+		letter-spacing: 1px;
+		position: relative;
+		display: inline-block;
 	}
 
+	/* Products Grid - Matching Our Team Page */
 	.products-grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		gap: 25px;
+		gap: 30px;
 	}
 
 	.product-card {
-		background: #fff;
-		border: 1px solid #e0e0e0;
+		background: transparent;
 		overflow: hidden;
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		transition: transform 0.3s ease;
 		cursor: pointer;
 	}
 
 	.product-card:hover {
 		transform: translateY(-5px);
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 	}
 
 	.product-image {
 		width: 100%;
-		height: 200px;
+		height: 400px;
 		overflow: hidden;
-		background: #f0f0f0;
+		margin-bottom: 20px;
 	}
 
 	.product-image img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		transition: transform 0.5s ease;
+		display: block;
+		filter: grayscale(100%);
+		transition: filter 0.3s ease;
+		transform: translateX(-15%);
+	}
+
+	#semi-pro .product-image img,
+	#stadium .product-image img {
+		transform: translateX(-15%) scale(1.1);
+		transform-origin: center;
+	}
+
+	#stick-rack .product-image {
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-end;
+		padding-left: -20px;
+	}
+
+	#stick-rack .product-image img {
+		transform: translateX(calc(-15% - 15px)) scale(0.71875) translateY(-10px);
+		transform-origin: left bottom;
 	}
 
 	.product-card:hover .product-image img {
-		transform: scale(1.1);
+		filter: grayscale(0%);
 	}
 
 	.product-details {
-		padding: 1.5rem;
-		text-align: center;
+		text-align: left;
 	}
 
-	.product-category {
+	.product-position {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
+		font-size: 13px;
 		color: #8c8c8c;
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
-		margin-bottom: 1rem;
-	}
-
-	.product-category.popular {
-		color: #fe5900;
-		font-weight: 600;
+		margin-bottom: 10px;
+		display: block;
 	}
 
 	.product-name {
 		font-family: 'Oswald', sans-serif;
 		font-size: 24px;
 		font-weight: 600;
-		color: #0d0d0d;
+		color: #000000;
 		text-transform: uppercase;
-		margin-bottom: 1rem;
+		margin: 0;
 		line-height: 1.2;
 	}
 
-	.product-price-info {
-		display: flex;
-		align-items: baseline;
-		justify-content: center;
-		gap: 10px;
-		flex-wrap: wrap;
-	}
-
-	.product-price {
+	.product-price-inline {
 		font-family: 'Oswald', sans-serif;
-		font-size: 32px;
+		font-size: 24px;
 		font-weight: 600;
-		color: #fe5900;
-	}
-
-	.product-price-original {
-		font-size: 18px;
-		color: #999;
-		text-decoration: line-through;
-	}
-
-	/* Product Detail Section */
-	.product-detail-section {
-		padding: 5rem 0;
-		background: #f7f7f7;
-	}
-
-	.product-detail-content {
-		max-width: 900px;
-		margin: 0 auto;
-		text-align: center;
-	}
-
-	.detail-intro {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 18px;
-		color: #666666;
-		line-height: 1.8;
+		color: #000000;
+		text-transform: uppercase;
+		margin-left: 10px;
 	}
 
 	/* Comparison Table Section */
 	.comparison-table-section {
-		padding: 5rem 0;
+		padding: 100px 0;
 		background: #f7f7f7;
 	}
 
@@ -559,7 +484,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		color: #0d0d0d;
 		text-align: center;
 		text-transform: uppercase;
-		margin-bottom: 3rem;
+		margin-bottom: 50px;
 	}
 
 	.comparison-table-wrapper {
@@ -613,7 +538,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	/* CTA Section */
 	.cta-section {
-		padding: 5rem 0;
+		padding: 100px 0;
 		background: #0d0d0d;
 		color: #fff;
 		text-align: center;
@@ -625,102 +550,79 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		font-weight: 600;
 		color: #fff;
 		text-transform: uppercase;
-		margin-bottom: 1.5rem;
+		margin-bottom: 20px;
 	}
 
 	.cta-content p {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 20px;
 		color: #ccc;
-		margin-bottom: 2rem;
+		margin-bottom: 40px;
 		max-width: 700px;
 		margin-left: auto;
 		margin-right: auto;
 		line-height: 1.8;
 	}
 
-	.btn-large {
-		padding: 18px 50px;
+	.btn {
+		display: inline-block;
+		padding: 15px 40px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
 		font-size: 18px;
+		transition: all 0.3s;
+		font-family: 'Roboto', sans-serif;
 	}
 
 	.btn-primary {
 		background: #fe5900;
-		color: #fff;
+		color: #ffffff;
+		border: 2px solid #fe5900;
 	}
 
 	.btn-primary:hover {
 		background: #e04d00;
+		border-color: #e04d00;
 		transform: translateY(-2px);
 		box-shadow: 0 4px 12px rgba(254, 89, 0, 0.3);
 	}
 
-	@media (max-width: 1200px) {
+	.btn-large {
+		padding: 18px 50px;
+		font-size: 20px;
+	}
+
+	/* Responsive */
+	@media (max-width: 1440px) {
 		.products-grid {
-			grid-template-columns: repeat(3, 1fr);
+			gap: 25px;
+		}
+	}
+
+	@media (max-width: 1366px) {
+		.products-grid {
+			gap: 20px;
 		}
 	}
 
 	@media (max-width: 1024px) {
 		.hero-title {
-			font-size: 48px;
-			line-height: 1.2;
+			font-size: 56px;
 		}
 
-		.hero-image {
-			display: none;
-		}
-
-		.playoff-text {
-			font-size: 150px;
-		}
-
-		.products-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-
-		.products-bg-text {
-			font-size: 200px;
-		}
-
-		.comparison-table-wrapper {
-			overflow-x: scroll;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.hero {
-			height: 600px;
-			padding-left: 20px;
-		}
-
-		.hero-title {
-			font-size: 36px;
-			line-height: 1.2;
-		}
-
-		.hero-text {
-			font-size: 16px;
-		}
-
-		.hero-buttons {
-			flex-direction: column;
-		}
-
-		.playoff-text {
-			font-size: 100px;
-		}
-
-		.products-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.products-bg-text {
-			font-size: 150px;
+		.products-background-text {
+			font-size: 250px;
 		}
 
 		.section-title {
 			font-size: 36px;
+		}
+
+		.products-grid {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 25px;
 		}
 
 		.comparison-table-section h2 {
@@ -730,6 +632,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		.cta-content h2 {
 			font-size: 36px;
 		}
+	}
+
+	@media (max-width: 768px) {
+		.hero-content {
+			padding: 150px 0 80px;
+		}
+
+		.hero-title {
+			font-size: 42px;
+		}
+
+		.products-background-text {
+			font-size: 180px;
+		}
+
+		.products-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 20px;
+		}
+
+		.section-title {
+			font-size: 32px;
+		}
+
+		.comparison-table-wrapper {
+			overflow-x: scroll;
+		}
+	}
+
+	@media (max-width: 680px) {
+		.products-grid {
+			grid-template-columns: 1fr;
+			gap: 30px;
+		}
+
+		.products-background-text {
+			font-size: 120px;
+		}
 
 		.comparison-table th,
 		.comparison-table td {
@@ -737,5 +677,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			font-size: 14px;
 		}
 	}
-</style>
 
+	@media (max-width: 480px) {
+		.hero-title {
+			font-size: 36px;
+		}
+
+		.section-title {
+			font-size: 28px;
+		}
+
+		.comparison-table-section h2 {
+			font-size: 28px;
+		}
+
+		.cta-content h2 {
+			font-size: 28px;
+		}
+	}
+</style>

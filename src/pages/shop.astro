@@ -1,0 +1,696 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+	title="Shop - Custom Sports Lockers | PlayerStall"
+	description="Shop for custom wood sports lockers and accessories. Premium quality lockers made in Canada with lifetime guarantee."
+>
+	<!-- Hero Section -->
+	<section class="shop-hero-section">
+		<div class="shop-hero-parallax-img-holder">
+			<div class="shop-hero-parallax-img-wrapper">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/shop-title-img.jpg" alt="Shop" class="shop-hero-parallax-img" />
+			</div>
+		</div>
+		<div class="shop-hero-content qodef-content-grid">
+			<div class="breadcrumbs">
+				<a href="/">Home</a>
+				<span class="breadcrumbs-separator"></span>
+				<span class="breadcrumbs-current">Shop</span>
+			</div>
+			<h1 class="shop-hero-title">Shop</h1>
+		</div>
+	</section>
+
+	<!-- Shop Section -->
+	<section class="shop-section">
+		<div class="shop-container qodef-content-grid">
+			<!-- Shop Header -->
+			<div class="shop-header">
+				<p class="shop-results-count">Showing 1–9 of 9 results</p>
+				<div class="shop-sorting">
+					<select id="shop-sort" class="shop-sort-select">
+						<option value="default">Default sorting</option>
+						<option value="popularity">Sort by popularity</option>
+						<option value="rating">Sort by average rating</option>
+						<option value="latest">Sort by latest</option>
+						<option value="price-low">Sort by price: low to high</option>
+						<option value="price-high">Sort by price: high to low</option>
+					</select>
+				</div>
+			</div>
+
+			<!-- Main Content -->
+			<div class="shop-main">
+
+					<!-- Products Grid -->
+					<div class="shop-products-grid">
+						<!-- Product 1: Semi Pro -->
+						<div class="shop-product-item" data-price="349" data-category="lockers">
+							<div class="shop-product-image">
+								<img src="/semi-pro-locker.jpg" alt="Semi Pro Locker" />
+								<div class="shop-product-overlay">
+									<button type="button" class="shop-add-to-cart-btn-overlay" 
+										data-product-id="semi-pro"
+										data-product-name="Semi Pro"
+										data-product-price="349"
+										data-product-image="/semi-pro-locker.jpg">Add to cart</button>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Lockers - Sports Equipment</div>
+								<h5 class="shop-product-title"><a href="/services#semi-pro">Semi Pro</a></h5>
+								<span class="shop-product-price">$349.00</span>
+							</div>
+						</div>
+
+						<!-- Product 2: Varsity -->
+						<div class="shop-product-item" data-price="449" data-category="lockers">
+							<div class="shop-product-image">
+								<span class="shop-badge new">New</span>
+								<img src="/varsity-locker.jpg" alt="Varsity Locker" />
+								<div class="shop-product-overlay">
+									<button type="button" class="shop-add-to-cart-btn-overlay"
+										data-product-id="varsity"
+										data-product-name="Varsity"
+										data-product-price="449"
+										data-product-image="/varsity-locker.jpg">Add to cart</button>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Lockers - Sports Equipment</div>
+								<h5 class="shop-product-title"><a href="/services#varsity">Varsity</a></h5>
+								<span class="shop-product-price">$449.00</span>
+							</div>
+						</div>
+
+						<!-- Product 3: Pro -->
+						<div class="shop-product-item" data-price="549" data-category="lockers">
+							<div class="shop-product-image">
+								<span class="shop-badge sale">Sale</span>
+								<img src="/pro-locker.jpg" alt="Pro Locker" />
+								<div class="shop-product-overlay">
+									<button type="button" class="shop-add-to-cart-btn-overlay"
+										data-product-id="pro"
+										data-product-name="Pro"
+										data-product-price="549"
+										data-product-image="/pro-locker.jpg">Add to cart</button>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Lockers - Sports Equipment</div>
+								<h5 class="shop-product-title"><a href="/shop/pro">Pro</a></h5>
+								<span class="shop-product-price">
+									<del>$599.00</del> <ins>$549.00</ins>
+								</span>
+							</div>
+						</div>
+
+						<!-- Product 4: Stadium -->
+						<div class="shop-product-item" data-price="599" data-category="lockers">
+							<div class="shop-product-image">
+								<img src="/stadium-locker.jpg" alt="Stadium Locker" />
+								<div class="shop-product-overlay">
+									<button type="button" class="shop-add-to-cart-btn-overlay"
+										data-product-id="stadium"
+										data-product-name="Stadium"
+										data-product-price="599"
+										data-product-image="/stadium-locker.jpg">Add to cart</button>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Lockers - Sports Equipment</div>
+								<h5 class="shop-product-title"><a href="/services#stadium">Stadium</a></h5>
+								<span class="shop-product-price">$599.00</span>
+							</div>
+						</div>
+
+						<!-- Product 5: Stick Rack -->
+						<div class="shop-product-item" data-price="299" data-category="accessories">
+							<div class="shop-product-image">
+								<span class="shop-badge sale">Sale</span>
+								<span class="shop-badge new">New</span>
+								<img src="/stick-rack.png" alt="Stick Rack" />
+								<div class="shop-product-overlay">
+									<button type="button" class="shop-add-to-cart-btn-overlay"
+										data-product-id="stick-rack"
+										data-product-name="Stick Rack"
+										data-product-price="299"
+										data-product-image="/stick-rack.png">Add to cart</button>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Accessories</div>
+								<h5 class="shop-product-title"><a href="/services#stick-rack">Stick Rack</a></h5>
+								<span class="shop-product-price">
+									<del>$349.00</del> <ins>$299.00</ins>
+								</span>
+							</div>
+						</div>
+
+						<!-- Product 6: Corner Unit -->
+						<div class="shop-product-item" data-price="499" data-category="accessories">
+							<div class="shop-product-image">
+								<span class="shop-badge new">New</span>
+								<img src="/corner-unit.png" alt="Corner Unit" />
+								<div class="shop-product-overlay">
+									<button type="button" class="shop-add-to-cart-btn-overlay"
+										data-product-id="corner-unit"
+										data-product-name="Corner Unit"
+										data-product-price="499"
+										data-product-image="/corner-unit.png">Add to cart</button>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Accessories</div>
+								<h5 class="shop-product-title"><a href="/services#corner-unit">Corner Unit</a></h5>
+								<span class="shop-product-price">$499.00</span>
+							</div>
+						</div>
+
+						<!-- Product 7: Semi Pro (Duplicate for demo) -->
+						<div class="shop-product-item" data-price="349" data-category="lockers">
+							<div class="shop-product-image">
+								<img src="/semi-pro-locker.jpg" alt="Semi Pro Locker" />
+								<div class="shop-product-overlay">
+									<button type="button" class="shop-add-to-cart-btn-overlay"
+										data-product-id="semi-pro"
+										data-product-name="Semi Pro"
+										data-product-price="349"
+										data-product-image="/semi-pro-locker.jpg">Add to cart</button>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Lockers - Sports Equipment</div>
+								<h5 class="shop-product-title"><a href="/services#semi-pro">Semi Pro</a></h5>
+								<span class="shop-product-price">$349.00</span>
+							</div>
+						</div>
+
+						<!-- Product 8: Varsity (Duplicate for demo) -->
+						<div class="shop-product-item" data-price="449" data-category="lockers">
+							<div class="shop-product-image">
+								<span class="shop-badge new">New</span>
+								<img src="/varsity-locker.jpg" alt="Varsity Locker" />
+								<div class="shop-product-overlay">
+									<button type="button" class="shop-add-to-cart-btn-overlay"
+										data-product-id="varsity"
+										data-product-name="Varsity"
+										data-product-price="449"
+										data-product-image="/varsity-locker.jpg">Add to cart</button>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Lockers - Sports Equipment</div>
+								<h5 class="shop-product-title"><a href="/services#varsity">Varsity</a></h5>
+								<span class="shop-product-price">$449.00</span>
+							</div>
+						</div>
+
+						<!-- Product 9: Pro (Duplicate for demo) -->
+						<div class="shop-product-item" data-price="549" data-category="lockers">
+							<div class="shop-product-image">
+								<span class="shop-badge sold">Sold</span>
+								<img src="/pro-locker.jpg" alt="Pro Locker" />
+								<div class="shop-product-overlay">
+									<a href="/shop/pro" class="shop-read-more-btn-overlay">Read more</a>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Lockers - Sports Equipment</div>
+								<h5 class="shop-product-title"><a href="/shop/pro">Pro</a></h5>
+								<span class="shop-product-price">$549.00</span>
+							</div>
+						</div>
+					</div>
+
+				<!-- Pagination -->
+				<div class="shop-pagination">
+					<a href="#" class="pagination-page active">01</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(body) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #ffffff;
+		color: #0d0d0d;
+	}
+
+	.qodef-content-grid {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Hero Section */
+	.shop-hero-section {
+		position: relative;
+		min-height: 400px;
+		overflow: hidden;
+	}
+
+	.shop-hero-parallax-img-holder {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+	}
+
+	.shop-hero-parallax-img-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.shop-hero-parallax-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.shop-hero-content {
+		position: relative;
+		z-index: 10;
+		padding: 200px 0 100px;
+	}
+
+	.breadcrumbs {
+		margin-bottom: 20px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #ffffff;
+	}
+
+	.breadcrumbs a {
+		color: #ffffff;
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.breadcrumbs-separator {
+		margin: 0 10px;
+	}
+
+	.breadcrumbs-current {
+		color: #ffffff;
+	}
+
+	.shop-hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 72px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		margin: 0;
+	}
+
+	/* Shop Section */
+	.shop-section {
+		padding: 80px 0;
+		background: #ffffff;
+	}
+
+	.shop-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Main Content */
+	.shop-main {
+		width: 100%;
+	}
+
+	.shop-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 50px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.shop-results-count {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #666;
+		margin: 0;
+	}
+
+	.shop-sort-select {
+		padding: 10px 40px 10px 15px;
+		border: 1px solid #e0e0e0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		background: #ffffff;
+		cursor: pointer;
+		appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 15px center;
+	}
+
+	.shop-sort-select:focus {
+		outline: none;
+		border-color: #fe5900;
+	}
+
+	/* Products Grid */
+	.shop-products-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 30px;
+		margin-bottom: 60px;
+	}
+
+	.shop-product-item {
+		background: #ffffff;
+		transition: transform 0.3s;
+	}
+
+	.shop-product-item:hover {
+		transform: translateY(-5px);
+	}
+
+	.shop-product-image {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 1 / 1.2;
+		overflow: hidden;
+		margin-bottom: 25px;
+		background: #f7f7f7;
+	}
+
+	.shop-product-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		filter: grayscale(100%);
+		transition: filter 0.3s;
+	}
+
+	.shop-product-item:hover .shop-product-image img {
+		filter: grayscale(0%);
+	}
+
+	.shop-badge {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		padding: 5px 12px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		z-index: 2;
+	}
+
+	.shop-badge.sale {
+		background: #fe5900;
+		color: #ffffff;
+	}
+
+	.shop-badge.new {
+		background: #0d0d0d;
+		color: #ffffff;
+		top: 10px;
+		right: 10px;
+		left: auto;
+	}
+
+	.shop-badge.sold {
+		background: #666;
+		color: #ffffff;
+	}
+
+	.shop-product-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.6);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		z-index: 3;
+	}
+
+	.shop-product-item:hover .shop-product-overlay {
+		opacity: 1;
+	}
+
+	.shop-add-to-cart-btn-overlay,
+	.shop-read-more-btn-overlay {
+		padding: 12px 30px;
+		background: #fe5900;
+		color: #ffffff;
+		text-decoration: none;
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		transition: background 0.3s;
+		border: none;
+		cursor: pointer;
+	}
+
+	.shop-add-to-cart-btn-overlay:hover,
+	.shop-read-more-btn-overlay:hover {
+		background: #e04d00;
+	}
+
+	.shop-read-more-btn-overlay {
+		background: #0d0d0d;
+	}
+
+	.shop-read-more-btn-overlay:hover {
+		background: #333;
+	}
+
+	.shop-product-content {
+		text-align: left;
+	}
+
+	.shop-product-categories {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 10px;
+	}
+
+	.shop-product-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 10px 0;
+	}
+
+	.shop-product-title a {
+		color: #0d0d0d;
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.shop-product-title a:hover {
+		color: #fe5900;
+	}
+
+	.shop-add-to-cart-btn-overlay {
+		border: none;
+		cursor: pointer;
+	}
+
+	.shop-product-price {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		color: #0d0d0d;
+		display: block;
+	}
+
+	.shop-product-price del {
+		color: #999;
+		margin-right: 10px;
+		font-weight: 400;
+	}
+
+	.shop-product-price ins {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	/* Pagination */
+	.shop-pagination {
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+		margin-top: 60px;
+	}
+
+	.pagination-page {
+		padding: 10px 15px;
+		background: #f7f7f7;
+		color: #0d0d0d;
+		text-decoration: none;
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		transition: background 0.3s, color 0.3s;
+	}
+
+	.pagination-page:hover,
+	.pagination-page.active {
+		background: #fe5900;
+		color: #ffffff;
+	}
+
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.shop-products-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 30px 20px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.shop-hero-title {
+			font-size: 48px;
+		}
+
+		.shop-header {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 20px;
+		}
+
+		.shop-products-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// Product items for sorting
+		const productItems = document.querySelectorAll('.shop-product-item');
+
+		// Sorting
+		const sortSelect = document.getElementById('shop-sort');
+		if (sortSelect) {
+			sortSelect.addEventListener('change', function() {
+				const sortValue = this.value;
+				const items = Array.from(productItems);
+
+				items.sort((a, b) => {
+					const priceA = parseFloat(a.getAttribute('data-price'));
+					const priceB = parseFloat(b.getAttribute('data-price'));
+
+					if (sortValue === 'price-low') {
+						return priceA - priceB;
+					} else if (sortValue === 'price-high') {
+						return priceB - priceA;
+					}
+					return 0;
+				});
+
+				const grid = document.querySelector('.shop-products-grid');
+				if (grid) {
+					items.forEach(item => grid.appendChild(item));
+				}
+			});
+		}
+
+		// Cart utility functions
+		function getCart() {
+			const cart = localStorage.getItem('playerstall_cart');
+			return cart ? JSON.parse(cart) : [];
+		}
+
+		function saveCart(cart) {
+			localStorage.setItem('playerstall_cart', JSON.stringify(cart));
+			updateCartCount();
+		}
+
+		function addToCart(product) {
+			const cart = getCart();
+			const existingItem = cart.find(item => item.id === product.id);
+			
+			if (existingItem) {
+				existingItem.quantity += 1;
+			} else {
+				cart.push({
+					id: product.id,
+					name: product.name,
+					price: product.price,
+					image: product.image,
+					quantity: 1
+				});
+			}
+			
+			saveCart(cart);
+			return cart;
+		}
+
+		function updateCartCount() {
+			const cart = getCart();
+			const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+			const cartCount = document.querySelector('.cart-count');
+			if (cartCount) {
+				cartCount.textContent = totalItems;
+			}
+			// Dispatch event for other pages
+			window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { count: totalItems } }));
+		}
+
+		// Initialize cart count
+		updateCartCount();
+
+		// Add to cart functionality
+		const addToCartButtons = document.querySelectorAll('.shop-add-to-cart-btn-overlay');
+		addToCartButtons.forEach(button => {
+			button.addEventListener('click', function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				
+				const product = {
+					id: this.getAttribute('data-product-id'),
+					name: this.getAttribute('data-product-name'),
+					price: parseFloat(this.getAttribute('data-product-price')),
+					image: this.getAttribute('data-product-image')
+				};
+				
+				addToCart(product);
+				
+				// Show feedback
+				const originalText = this.textContent;
+				this.textContent = 'Added!';
+				setTimeout(() => {
+					this.textContent = originalText;
+				}, 1000);
+			});
+		});
+	});
+</script>

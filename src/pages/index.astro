@@ -6,50 +6,73 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	title="Custom Sports Lockers | Wood Athletic Lockers Made in Canada | PlayerStall"
 	description="Custom wood sports lockers made in Canada. 30+ years experience. Lifetime guarantee. Free custom design consultation for collegiate and professional teams."
 >
-	<!-- Hero Section -->
-	<section class="hero" id="hero">
-		<div class="playoff-text">CUSTOM<br>LOCKERS</div>
-		<div class="hero-content">
-			<p class="hero-subtitle">30+ Years of Excellence</p>
-			<h1 class="hero-title">Premium Wood Sports Lockers</h1>
-			<p class="hero-text">Transform your locker room with custom wood lockers made in Canada. Lifetime guarantee, free custom design consultation, and unmatched quality for collegiate and professional teams.</p>
-			<div class="hero-buttons">
-				<a href="/contact" class="btn btn-primary">Get Free Consultation</a>
-				<a href="/products" class="btn btn-outline">View Products</a>
+	<!-- Hero Slider Section -->
+	<section class="hero-slider" id="hero">
+		<div class="hero-slider-container">
+			<div class="hero-slide active first-slide" style="background-image: url('https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/p4-img.jpg');">
+				<div class="hero-slide-content">
+					<h1 class="hero-slide-title">Premium Sports Lockers</h1>
+					<p class="hero-slide-text">Make Every Minute In The Locker Room Count</p>
+					<div class="hero-slide-buttons">
+						<a href="/our-process" class="btn btn-slide-primary">Read more</a>
+						<a href="/contact" class="btn btn-slide-secondary">Contact Us</a>
+					</div>
+				</div>
+			</div>
+			<div class="hero-slide" style="background-image: url('https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/p4-title-img.jpg');">
+				<div class="hero-slide-overlay"></div>
+				<div class="hero-slide-content">
+					<h1 class="hero-slide-title">Premium Sports Lockers</h1>
+					<p class="hero-slide-text">The All-Star Locker Room Is What Counts</p>
+					<div class="hero-slide-buttons">
+						<a href="/about" class="btn btn-slide-primary">Read more</a>
+						<a href="/contact" class="btn btn-slide-secondary">Contact Us</a>
+					</div>
+				</div>
+			</div>
+			<div class="hero-slide" style="background-image: url('https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/our-team-title-photo.jpg');">
+				<div class="hero-slide-overlay"></div>
+				<div class="hero-slide-content">
+					<h1 class="hero-slide-title">Premium Sports Lockers</h1>
+					<p class="hero-slide-text">Turning Every Locker Into a Champion</p>
+					<div class="hero-slide-buttons">
+						<a href="/products" class="btn btn-slide-primary">Read more</a>
+						<a href="/contact" class="btn btn-slide-secondary">Contact Us</a>
+					</div>
+				</div>
+			</div>
+			<div class="hero-slide" style="background-image: url('/hockey-faceoff.png');">
+				<div class="hero-slide-overlay"></div>
+				<div class="hero-slide-content">
+					<h1 class="hero-slide-title">Premium Sports Lockers</h1>
+					<p class="hero-slide-text">Make Every Minute On Field Count</p>
+					<div class="hero-slide-buttons">
+						<a href="/hockey" class="btn btn-slide-primary">Read more</a>
+						<a href="/contact" class="btn btn-slide-secondary">Contact Us</a>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="hero-image">
-			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/h3-rev-img-2.png" alt="Custom Wood Sports Lockers" />
+		<div class="hero-slider-nav">
+			<button class="slider-nav-btn slider-nav-prev" aria-label="Previous slide">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M15 18l-6-6 6-6"/>
+				</svg>
+			</button>
+			<button class="slider-nav-btn slider-nav-next" aria-label="Next slide">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M9 18l6-6-6-6"/>
+				</svg>
+			</button>
+		</div>
+		<div class="hero-slider-dots">
+			<button class="slider-dot active" aria-label="Slide 1"></button>
+			<button class="slider-dot" aria-label="Slide 2"></button>
+			<button class="slider-dot" aria-label="Slide 3"></button>
+			<button class="slider-dot" aria-label="Slide 4"></button>
 		</div>
 	</section>
 
-	<!-- Feature Banners -->
-	<section class="features-section">
-		<div class="feature-banner">
-			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-banner-img-1.jpg" alt="30+ Years Experience" />
-			<div class="feature-overlay">
-				<div class="feature-number">30+</div>
-				<h3 class="feature-title">Years Experience</h3>
-				<p class="feature-text">Three decades of proven track record. We've seen trends come and go, but quality craftsmanship never goes out of style.</p>
-			</div>
-		</div>
-		<div class="feature-banner">
-			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-banner-img-2.jpg" alt="Made in Canada" />
-			<div class="feature-overlay">
-				<div class="feature-number">100%</div>
-				<h3 class="feature-title">Made in Canada</h3>
-				<p class="feature-text">100% manufactured in North America. We support local manufacturing and maintain the highest quality standards.</p>
-			</div>
-		</div>
-		<div class="feature-banner">
-			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-banner-img-3.jpg" alt="Lifetime Guarantee" />
-			<div class="feature-overlay">
-				<div class="feature-number">∞</div>
-				<h3 class="feature-title">Lifetime Guarantee</h3>
-				<p class="feature-text">We're so confident in our quality that we offer a lifetime guarantee. We don't stop until you're 100% satisfied.</p>
-			</div>
-		</div>
-	</section>
 
 	<!-- Product Showcase Section -->
 	<section class="games-section">
@@ -57,62 +80,74 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		<div class="games-container">
 			<div class="section-header">
 				<p class="section-subtitle">OUR PRODUCTS</p>
-				<h2 class="section-title">FIVE TIERS OF EXCELLENCE</h2>
+				<h2 class="section-title">OUR LOCKERS</h2>
 			</div>
 			<div class="products-grid">
-				<div class="product-tier-item">
-					<h3>Semi Pro</h3>
-					<p class="product-price">$349</p>
-					<p class="product-price-original">$449</p>
-				</div>
-				<div class="product-tier-item">
-					<h3>Varsity</h3>
-					<p class="product-price">$449</p>
-					<p class="product-price-original">$599</p>
-				</div>
-				<div class="product-tier-item">
-					<h3>Pro</h3>
-					<p class="product-price">$549</p>
-					<p class="product-price-original">$749</p>
-				</div>
-				<div class="product-tier-item">
-					<h3>Curve</h3>
-					<p class="product-price">$649</p>
-					<p class="product-price-original">$849</p>
-				</div>
-				<div class="product-tier-item">
-					<h3>Stadium</h3>
-					<p class="product-price">$599</p>
-					<p class="product-price-original">$799</p>
-				</div>
-			</div>
-		</div>
-	</section>
+				<!-- Semi Pro -->
+				<a href="/shop" class="product-card" id="semi-pro">
+					<div class="product-image">
+						<img src="http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-Semipro.jpg" alt="Semi Pro Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Best Value</div>
+						<h4 class="product-name">Semi Pro <span class="product-price-inline">$349</span></h4>
+					</div>
+				</a>
 
-	<!-- Why PlayerStall Section -->
-	<section class="ranking-section">
-		<div class="ranking-container">
-			<div class="ranking-image">
-				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-img-1.jpg" alt="Custom Wood Sports Lockers" />
-			</div>
-			<div class="ranking-content">
-				<p class="section-subtitle">why choose us</p>
-				<h2 class="section-title">WHY WOOD OUTPERFORMS<br>METAL</h2>
-				<p class="ranking-text">After 30+ years in the business, we've seen it all. Wood lockers aren't just a trend—they're a superior choice. Wood creates a professional, prestigious atmosphere that metal simply can't match. When properly cared for, wood outlasts metal. Our lockers have been in use for 15+ years and still look professional.</p>
-				<a href="/about" class="btn btn-outline">Learn More</a>
-			</div>
-		</div>
-	</section>
+				<!-- Varsity -->
+				<div class="product-card" id="varsity">
+					<div class="product-image">
+						<img src="/varsity-locker.jpg" alt="Varsity Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Most Popular</div>
+						<h4 class="product-name">Varsity <span class="product-price-inline">$449</span></h4>
+					</div>
+				</div>
 
-	<!-- Free Consultation CTA Section -->
-	<section class="live-match">
-		<div class="live-badge">free</div>
-		<div class="match-container">
-			<div class="match-content">
-				<h2>FREE CUSTOM DESIGN CONSULTATION</h2>
-				<p>Get expert advice from 30+ years of experience. No obligation, just professional guidance to create the perfect locker room solution for your team.</p>
-				<a href="/contact" class="btn btn-primary btn-large">Get Started Today</a>
-				<p class="match-phone">Call us at 1 (888) 58-STALL</p>
+				<!-- Pro -->
+				<a href="/shop" class="product-card" id="pro">
+					<div class="product-image">
+						<img src="http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-Pro.jpg" alt="Pro Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Professional</div>
+						<h4 class="product-name">Pro <span class="product-price-inline">$549</span></h4>
+					</div>
+				</a>
+
+				<!-- Stadium -->
+				<div class="product-card" id="stadium">
+					<div class="product-image">
+						<img src="/stadium-locker.jpg" alt="Stadium Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Elite</div>
+						<h4 class="product-name">Stadium <span class="product-price-inline">$599</span></h4>
+					</div>
+				</div>
+
+				<!-- Stick Rack -->
+				<a href="/shop" class="product-card" id="stick-rack">
+					<div class="product-image">
+						<img src="/stick-rack.png" alt="Hockey Stick Rack" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Accessory</div>
+						<h4 class="product-name">Stick Rack <span class="product-price-inline">$299</span></h4>
+					</div>
+				</a>
+
+				<!-- Corner Unit -->
+				<a href="/shop" class="product-card" id="corner-unit">
+					<div class="product-image">
+						<img src="/corner-unit.png" alt="Corner Unit" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Accessory</div>
+						<h4 class="product-name">Corner Unit <span class="product-price-inline">$499</span></h4>
+					</div>
+				</a>
 			</div>
 		</div>
 	</section>
@@ -161,6 +196,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<p>Every project starts with a free custom design consultation.</p>
 					</div>
 				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Why PlayerStall Section -->
+	<section class="ranking-section">
+		<div class="ranking-container">
+			<div class="ranking-image">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-img-1.jpg" alt="Custom Wood Sports Lockers" />
+			</div>
+			<div class="ranking-content">
+				<p class="section-subtitle">why choose us</p>
+				<h2 class="section-title">WHY WOOD OUTPERFORMS<br>METAL</h2>
+				<p class="ranking-text">After 30+ years in the business, we've seen it all. Wood lockers aren't just a trend—they're a superior choice. Wood creates a professional, prestigious atmosphere that metal simply can't match. When properly cared for, wood outlasts metal. Our lockers have been in use for 15+ years and still look professional.</p>
+				<a href="/about" class="btn btn-outline">Learn More</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Free Consultation CTA Section -->
+	<section class="live-match">
+		<div class="live-badge">free</div>
+		<div class="match-container">
+			<div class="match-content">
+				<h2>FREE CUSTOM DESIGN CONSULTATION</h2>
+				<p>Get expert advice from 30+ years of experience. No obligation, just professional guidance to create the perfect locker room solution for your team.</p>
+				<a href="/contact" class="btn btn-primary btn-large">Get Started Today</a>
+				<p class="match-phone">Call us at 1 (888) 58-STALL</p>
 			</div>
 		</div>
 	</section>
@@ -325,6 +388,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<a href="/products#stadium" class="btn btn-outline">View Details</a>
 					</div>
 				</div>
+				<div class="locker-showcase-item">
+					<img src="/stick-rack.png" alt="Stick Rack" loading="lazy" />
+					<div class="locker-showcase-overlay">
+						<h3>Stick Rack</h3>
+						<p>Starting at $299</p>
+						<a href="/products#stick-rack" class="btn btn-outline">View Details</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -333,108 +404,75 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<section class="product-tiers">
 		<div class="container">
 			<div class="section-header">
-				<h2>Five Tiers of Excellence</h2>
+				<h2>Our Lockers</h2>
 				<p>Choose the perfect custom wood locker for your program's needs and budget</p>
 			</div>
-			<div class="tiers-slider-container">
-				<div class="tiers-slider-wrapper">
-					<div class="tiers-slider" id="tiersSlider">
-					<div class="tiers-track">
-						<div class="tier-card">
-							<div class="tier-badge">Best Value</div>
-							<h3>Semi Pro</h3>
-							<div class="tier-pricing">
-								<span class="price-current">$349</span>
-								<span class="price-original">$449</span>
-							</div>
-							<p class="tier-savings">Save $100</p>
-							<ul class="tier-features">
-								<li>Full 3/4" Birch Wood</li>
-								<li>Lifetime Guarantee</li>
-								<li>Modular Design</li>
-								<li>Custom Branding Available</li>
-							</ul>
-							<a href="/products#semi-pro" class="btn btn-outline">Learn More</a>
-						</div>
-						<div class="tier-card featured">
-							<div class="tier-badge popular">Most Popular</div>
-							<h3>Varsity</h3>
-							<div class="tier-pricing">
-								<span class="price-current">$449</span>
-								<span class="price-original">$599</span>
-							</div>
-							<p class="tier-savings">Save $150</p>
-							<ul class="tier-features">
-								<li>Full 3/4" Birch Wood</li>
-								<li>Lifetime Guarantee</li>
-								<li>Enhanced Storage</li>
-								<li>Premium Customization</li>
-							</ul>
-							<a href="/products#varsity" class="btn btn-primary">Learn More</a>
-						</div>
-						<div class="tier-card">
-							<div class="tier-badge">Professional</div>
-							<h3>Pro</h3>
-							<div class="tier-pricing">
-								<span class="price-current">$549</span>
-								<span class="price-original">$749</span>
-							</div>
-							<p class="tier-savings">Save $200</p>
-							<ul class="tier-features">
-								<li>Full 3/4" Birch Wood</li>
-								<li>Lifetime Guarantee</li>
-								<li>Professional Grade</li>
-								<li>Maximum Customization</li>
-							</ul>
-							<a href="/products#pro" class="btn btn-outline">Learn More</a>
-						</div>
-						<div class="tier-card">
-							<div class="tier-badge">Premium Design</div>
-							<h3>Curve</h3>
-							<div class="tier-pricing">
-								<span class="price-current">$649</span>
-								<span class="price-original">$849</span>
-							</div>
-							<p class="tier-savings">Save $200</p>
-							<ul class="tier-features">
-								<li>Full 3/4" Birch Wood</li>
-								<li>Lifetime Guarantee</li>
-								<li>Curved Design</li>
-								<li>Premium Customization</li>
-							</ul>
-							<a href="/products#curve" class="btn btn-outline">Learn More</a>
-						</div>
-						<div class="tier-card">
-							<div class="tier-badge">Elite</div>
-							<h3>Stadium</h3>
-							<div class="tier-pricing">
-								<span class="price-current">$599</span>
-								<span class="price-original">$799</span>
-							</div>
-							<p class="tier-savings">Save $200</p>
-							<ul class="tier-features">
-								<li>Full 3/4" Birch Wood</li>
-								<li>Lifetime Guarantee</li>
-								<li>Elite Features</li>
-								<li>Ultimate Customization</li>
-							</ul>
-							<a href="/products#stadium" class="btn btn-outline">Learn More</a>
-						</div>
+			<div class="products-grid">
+				<!-- Semi Pro -->
+				<a href="/shop" class="product-card" id="semi-pro">
+					<div class="product-image">
+						<img src="http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-Semipro.jpg" alt="Semi Pro Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Best Value</div>
+						<h4 class="product-name">Semi Pro <span class="product-price-inline">$349</span></h4>
+					</div>
+				</a>
+
+				<!-- Varsity -->
+				<div class="product-card" id="varsity">
+					<div class="product-image">
+						<img src="/varsity-locker.jpg" alt="Varsity Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Most Popular</div>
+						<h4 class="product-name">Varsity <span class="product-price-inline">$449</span></h4>
 					</div>
 				</div>
-				<div class="slider-controls">
-					<button class="slider-btn slider-btn-left" aria-label="Previous cards">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M15 18l-6-6 6-6"/>
-						</svg>
-					</button>
-					<button class="slider-btn slider-btn-right" aria-label="Next cards">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M9 18l6-6-6-6"/>
-						</svg>
-					</button>
+
+				<!-- Pro -->
+				<a href="/shop" class="product-card" id="pro">
+					<div class="product-image">
+						<img src="http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-Pro.jpg" alt="Pro Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Professional</div>
+						<h4 class="product-name">Pro <span class="product-price-inline">$549</span></h4>
+					</div>
+				</a>
+
+				<!-- Stadium -->
+				<div class="product-card" id="stadium">
+					<div class="product-image">
+						<img src="/stadium-locker.jpg" alt="Stadium Locker" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Elite</div>
+						<h4 class="product-name">Stadium <span class="product-price-inline">$599</span></h4>
+					</div>
 				</div>
-				</div>
+
+				<!-- Stick Rack -->
+				<a href="/shop" class="product-card" id="stick-rack">
+					<div class="product-image">
+						<img src="/stick-rack.png" alt="Hockey Stick Rack" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Accessory</div>
+						<h4 class="product-name">Stick Rack <span class="product-price-inline">$299</span></h4>
+					</div>
+				</a>
+
+				<!-- Corner Unit -->
+				<a href="/shop" class="product-card" id="corner-unit">
+					<div class="product-image">
+						<img src="/corner-unit.png" alt="Corner Unit" loading="lazy" />
+					</div>
+					<div class="product-details">
+						<div class="product-position">Accessory</div>
+						<h4 class="product-name">Corner Unit <span class="product-price-inline">$499</span></h4>
+					</div>
+				</a>
 			</div>
 		</div>
 	</section>
@@ -696,6 +734,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</div>
 		</div>
 	</section>
+
+	<!-- Team Logos Section -->
+	<section class="team-logos-section">
+		<div class="team-logos-container">
+			<div class="team-logo-item">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/client-logo-1.png" alt="Team Logo 1" />
+			</div>
+			<div class="team-logo-item">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/client-logo-2.png" alt="Team Logo 2" />
+			</div>
+			<div class="team-logo-item">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/client-logo-3.png" alt="Team Logo 3" />
+			</div>
+			<div class="team-logo-item">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/client-logo-4.png" alt="Team Logo 4" />
+			</div>
+			<div class="team-logo-item">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/client-logo-5.png" alt="Team Logo 5" />
+			</div>
+		</div>
+	</section>
 </BaseLayout>
 
 <style>
@@ -714,87 +773,351 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 2rem;
 	}
 
-	/* Hero Section */
-	.hero {
+	/* Hero Slider Section */
+	.hero-slider {
 		position: relative;
-		height: 800px;
-		background: #f7f7f7;
+		height: 100vh;
+		min-height: 700px;
+		max-height: 100vh;
 		overflow: hidden;
+		margin-top: 0;
+		width: 100%;
+		background: #000000;
+	}
+
+	.hero-slider-container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.hero-slide {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+		opacity: 0;
+		transition: opacity 1.5s ease-in-out;
 		display: flex;
 		align-items: center;
-		justify-content: flex-start;
-		padding-left: 10%;
-		margin-top: 0;
+		justify-content: center;
+		overflow: hidden;
 	}
 
-	.playoff-text {
-		position: absolute;
-		font-family: 'Oswald', sans-serif;
-		font-size: 350px;
-		font-weight: 700;
-		color: rgba(13, 13, 13, 0.03);
-		text-transform: uppercase;
-		letter-spacing: -3px;
+	.hero-slide.active {
+		opacity: 1;
 		z-index: 1;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		white-space: nowrap;
+		animation: zoomIn 20s ease-in-out infinite;
 	}
 
-	.hero-image {
+	.hero-slide.first-slide {
+		background-size: cover;
+		background-position: center center;
+	}
+
+	.hero-slide.first-slide.active {
+		animation: zoomInFirst 20s ease-in-out infinite;
+	}
+
+	@keyframes zoomIn {
+		0% {
+			background-size: cover;
+			background-position: center center;
+			transform: scale(1);
+		}
+		50% {
+			background-size: cover;
+			background-position: center center;
+			transform: scale(1.1);
+		}
+		100% {
+			background-size: cover;
+			background-position: center center;
+			transform: scale(1);
+		}
+	}
+
+	@keyframes zoomInFirst {
+		0% {
+			background-size: cover;
+			background-position: center center;
+			transform: scale(1);
+		}
+		50% {
+			background-size: cover;
+			background-position: center center;
+			transform: scale(1.1);
+		}
+		100% {
+			background-size: cover;
+			background-position: center center;
+			transform: scale(1);
+		}
+	}
+
+	.hero-slide-overlay {
 		position: absolute;
-		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: 5;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.3);
+		z-index: 2;
 	}
 
-	.hero-image img {
-		max-width: 810px;
-		height: auto;
+	.hero-slider-container > .hero-slide:first-child .hero-slide-overlay {
+		display: none;
 	}
 
-	.hero-content {
+	.hero-slide-content {
 		position: relative;
 		z-index: 10;
-		max-width: 600px;
+		text-align: center;
+		color: #ffffff;
+		max-width: 1000px;
+		padding: 0 40px;
+		width: 100%;
 	}
 
-	.hero-title {
+	.hero-slide:not(.active) .hero-slide-content {
+		opacity: 0;
+		transform: translateY(50px);
+	}
+
+	.hero-slide.active .hero-slide-content {
+		opacity: 1;
+		transform: translateY(0);
+		transition: opacity 1s ease-out 0.3s, transform 1s ease-out 0.3s;
+	}
+
+	.hero-slide-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 80px;
-		font-weight: 600;
-		color: #0d0d0d;
+		font-size: 52px;
+		font-weight: 700;
+		color: #ffffff;
 		text-transform: uppercase;
-		line-height: 80px;
-		margin-bottom: 30px;
+		line-height: 1;
+		margin: 0 0 16px 0;
+		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+		letter-spacing: 2px;
 	}
 
-	.hero-subtitle {
+	.hero-slide:not(.active) .hero-slide-title {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+
+	.hero-slide.active .hero-slide-title {
+		opacity: 1;
+		transform: translateY(0);
+		animation: slideInUpTitle 1s ease-out 0.5s both;
+	}
+
+	.hero-slide-text {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #8c8c8c;
-		letter-spacing: 0.3em;
-		text-transform: uppercase;
-		margin-bottom: 20px;
+		font-size: 18px;
+		color: #ffffff;
+		line-height: 1.3;
+		margin: 0 0 39px 0;
+		font-weight: 300;
+		text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+		letter-spacing: 0.3px;
 	}
 
-	.hero-cta {
-		margin-top: 40px;
+	.hero-slide:not(.active) .hero-slide-text {
+		opacity: 0;
+		transform: translateY(30px);
 	}
 
-	.hero-text {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 20px;
-		color: #666666;
-		line-height: 30px;
-		margin-bottom: 40px;
+	.hero-slide.active .hero-slide-text {
+		opacity: 1;
+		transform: translateY(0);
+		animation: slideInUpText 1s ease-out 0.7s both;
 	}
 
-	.hero-buttons {
+	@keyframes slideInUpTitle {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes slideInUpText {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.hero-slide-buttons {
 		display: flex;
-		gap: 20px;
+		gap: 15px;
+		justify-content: center;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	.hero-slide:not(.active) .hero-slide-buttons {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+
+	.hero-slide.active .hero-slide-buttons {
+		opacity: 1;
+		transform: translateY(0);
+		animation: slideInUpButtons 1s ease-out 0.9s both;
+	}
+
+	@keyframes slideInUpButtons {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.btn-slide-primary {
+		background: #000000;
+		color: #ffffff;
+		border: 1px solid #000000;
+		padding: 2px 6px;
+		text-decoration: none;
+		text-transform: lowercase;
+		font-weight: 400;
+		letter-spacing: 0.05em;
+		font-size: 10px;
+		transition: all 0.3s ease;
+		font-family: 'Yantramanav', sans-serif;
+		display: inline-block;
+		line-height: 1.4;
+		min-width: 49px;
+		text-align: center;
+		transform: scale(0.825);
+		transform-origin: center;
+	}
+
+	.btn-slide-primary:hover,
+	.btn-slide-primary:active,
+	.btn-slide-primary:focus {
+		background: #fe5900;
+		color: #ffffff;
+		border-color: #fe5900;
+	}
+
+	.btn-slide-secondary {
+		background: #ffffff;
+		color: #000000;
+		border: 1px solid #ffffff;
+		padding: 2px 6px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.15em;
+		font-size: 10px;
+		transition: all 0.3s ease;
+		font-family: 'Yantramanav', sans-serif;
+		display: inline-block;
+		line-height: 1.4;
+		min-width: 49px;
+		text-align: center;
+		transform: scale(0.825);
+		transform-origin: center;
+	}
+
+	.btn-slide-secondary:hover,
+	.btn-slide-secondary:active,
+	.btn-slide-secondary:focus {
+		background: #fe5900;
+		color: #ffffff;
+		border-color: #fe5900;
+	}
+
+	.hero-slider-nav {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		padding: 0 50px;
+		z-index: 20;
+		pointer-events: none;
+	}
+
+	.slider-nav-btn {
+		background: rgba(255, 255, 255, 0.15);
+		border: 2px solid rgba(255, 255, 255, 0.6);
+		color: #ffffff;
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.3s ease;
+		pointer-events: all;
+		backdrop-filter: blur(8px);
+	}
+
+	.slider-nav-btn:hover {
+		background: rgba(255, 255, 255, 0.25);
+		border-color: #ffffff;
+		transform: scale(1.05);
+	}
+
+	.slider-nav-btn svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	.hero-slider-dots {
+		position: absolute;
+		bottom: 40px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 12px;
+		z-index: 20;
+		align-items: center;
+	}
+
+	.slider-dot {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.4);
+		border: 2px solid rgba(255, 255, 255, 0.6);
+		cursor: pointer;
+		transition: all 0.3s ease;
+		padding: 0;
+	}
+
+	.slider-dot.active {
+		background: #ffffff;
+		border-color: #ffffff;
+		width: 12px;
+		height: 12px;
+	}
+
+	.slider-dot:hover {
+		background: rgba(255, 255, 255, 0.7);
+		border-color: rgba(255, 255, 255, 0.9);
 	}
 
 	.btn {
@@ -838,8 +1161,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.btn-secondary:hover {
-		background: #FFEB3B;
-		border-color: #FFEB3B;
+		background: #fe5900;
+		border-color: #fe5900;
 		color: #000;
 	}
 
@@ -861,7 +1184,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		letter-spacing: 4px;
 		text-align: center;
 		margin-bottom: 4rem;
-		color: #FFEB3B;
+		color: #fe5900;
 	}
 
 	.start-here-grid {
@@ -900,7 +1223,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.start-here-title-box {
-		background: #FFEB3B;
+		background: #fe5900;
 		color: #000;
 		padding: 1.5rem;
 		text-align: center;
@@ -928,7 +1251,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.start-here-link:hover {
-		color: #FFEB3B;
+		color: #fe5900;
 	}
 
 	.chevron {
@@ -956,7 +1279,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.btn-first-time {
 		display: inline-block;
 		padding: 1.25rem 3rem;
-		background: #FFEB3B;
+		background: #fe5900;
 		color: #000;
 		text-decoration: none;
 		font-weight: 900;
@@ -966,12 +1289,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin-bottom: 1rem;
 		transition: all 0.3s ease;
 		border-radius: 4px;
-		border: 3px solid #FFEB3B;
+		border: 3px solid #fe5900;
 	}
 
 	.btn-first-time:hover {
-		background: #FFD700;
-		border-color: #FFD700;
+		background: #fe5900;
+		border-color: #fe5900;
 		transform: translateY(-2px);
 		box-shadow: 0 8px 20px rgba(255, 235, 59, 0.4);
 	}
@@ -999,7 +1322,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		text-transform: uppercase;
 		letter-spacing: 3px;
 		margin-bottom: 1rem;
-		color: #FFEB3B;
+		color: #fe5900;
 	}
 
 	.section-header p {
@@ -1017,7 +1340,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.locker-showcase-item {
 		position: relative;
-		height: 400px;
+		height: 300px;
 		overflow: hidden;
 		border-radius: 8px;
 		cursor: pointer;
@@ -1027,7 +1350,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		transition: transform 0.3s ease;
+		transition: transform 0.3s ease, filter 0.3s ease;
+		filter: sepia(100%) saturate(200%) hue-rotate(-10deg);
 	}
 
 	.locker-showcase-item:hover img {
@@ -1063,8 +1387,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	/* Product Tiers */
 	.product-tiers {
-		background: #1a1a1a;
-		padding: 5rem 2rem;
+		background: #ffffff;
+		padding: 100px 0;
+	}
+
+	.product-tiers .products-grid {
+		max-width: 1300px;
+		margin: 40px auto 0;
+		padding: 0 20px;
 	}
 
 	.tiers-slider-container {
@@ -1139,12 +1469,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.tier-card:hover {
 		transform: translateY(-5px);
-		border-color: #FFEB3B;
+		border-color: #fe5900;
 		box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), 0 0 30px rgba(255, 235, 59, 0.3);
 	}
 
 	.tier-card.featured {
-		border-color: #FFEB3B;
+		border-color: #fe5900;
 		transform: scale(1);
 		box-shadow: 0 8px 30px rgba(255, 235, 59, 0.5), 0 0 40px rgba(255, 235, 59, 0.3);
 	}
@@ -1168,7 +1498,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.tier-badge.popular {
-		background: #FFEB3B;
+		background: #fe5900;
 		box-shadow: 0 4px 15px rgba(255, 235, 59, 0.5), 0 0 20px rgba(255, 235, 59, 0.3);
 	}
 
@@ -1199,7 +1529,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.tier-savings {
-		color: #FFEB3B;
+		color: #fe5900;
 		font-weight: 700;
 		margin: 0.25rem 0 0.5rem 0;
 		font-size: 0.85rem;
@@ -1244,15 +1574,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.tier-card .btn-primary {
-		background: #FFEB3B;
+		background: #fe5900;
 		color: #000;
-		border: 2px solid #FFEB3B;
+		border: 2px solid #fe5900;
 		font-weight: 700;
 	}
 
 	.tier-card .btn-primary:hover {
-		background: #FFD700;
-		border-color: #FFD700;
+		background: #fe5900;
+		border-color: #fe5900;
 	}
 
 	/* Slider Navigation Buttons */
@@ -1280,8 +1610,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.slider-btn:hover {
 		background: rgba(255, 235, 59, 0.2);
-		border-color: #FFEB3B;
-		color: #FFEB3B;
+		border-color: #fe5900;
+		color: #fe5900;
 		transform: scale(1.1);
 	}
 
@@ -1311,7 +1641,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		font-size: clamp(2rem, 4vw, 3.5rem);
 		font-weight: 900;
 		margin-bottom: 1.5rem;
-		color: #FFEB3B;
+		color: #fe5900;
 		text-transform: uppercase;
 		letter-spacing: 2px;
 	}
@@ -1378,7 +1708,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.sport-card:hover {
 		transform: translateY(-5px);
-		border-color: #FFEB3B;
+		border-color: #fe5900;
 	}
 
 	.sport-image {
@@ -1423,13 +1753,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.testimonial-card {
 		background: #1a1a1a;
 		padding: 2rem;
-		border-left: 4px solid #FFEB3B;
+		border-left: 4px solid #fe5900;
 		position: relative;
 	}
 
 	.testimonial-quote {
 		font-size: 4rem;
-		color: #FFEB3B;
+		color: #fe5900;
 		line-height: 1;
 		margin-bottom: 1rem;
 	}
@@ -1469,7 +1799,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		font-size: clamp(2rem, 4vw, 3.5rem);
 		font-weight: 900;
 		margin-bottom: 1rem;
-		color: #FFEB3B;
+		color: #fe5900;
 		text-transform: uppercase;
 		letter-spacing: 2px;
 	}
@@ -1516,42 +1846,85 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	@media (max-width: 1024px) {
-		.hero-title {
-			font-size: 48px;
-			line-height: 1.2;
+		.hero-slider {
+			min-height: 600px;
 		}
 
-		.hero-image {
-			display: none;
+		.hero-slide-title {
+			font-size: 64px;
+			letter-spacing: 2px;
 		}
 
-		.playoff-text {
-			font-size: 150px;
+		.hero-slide-text {
+			font-size: 22px;
+		}
+
+		.hero-slide-content {
+			max-width: 700px;
+			padding: 0 30px;
+		}
+
+		.slider-nav-btn {
+			width: 50px;
+			height: 50px;
+		}
+
+		.hero-slider-nav {
+			padding: 0 30px;
 		}
 	}
 
 	@media (max-width: 768px) {
-		.hero {
-			height: 600px;
-			padding-left: 20px;
+		.hero-slider {
+			min-height: 500px;
 		}
 
-		.hero-title {
-			font-size: 36px;
-			line-height: 1.2;
+		.hero-slide-title {
+			font-size: 42px;
+			letter-spacing: 1px;
+			margin-bottom: 15px;
 		}
 
-		.hero-text {
-			font-size: 16px;
+		.hero-slide-text {
+			font-size: 18px;
+			margin-bottom: 40px;
 		}
 
-		.hero-buttons {
-			flex-direction: column;
+		.hero-slide-content {
+			padding: 0 20px;
 		}
 
-		.playoff-text {
-			font-size: 100px;
+		.hero-slide-buttons {
+			flex-direction: row;
+			justify-content: center;
+			flex-wrap: wrap;
+			gap: 12px;
 		}
+
+		.btn-slide-primary,
+		.btn-slide-secondary {
+			padding: 12px 30px;
+			font-size: 13px;
+		}
+
+		.slider-nav-btn {
+			width: 45px;
+			height: 45px;
+		}
+
+		.slider-nav-btn svg {
+			width: 18px;
+			height: 18px;
+		}
+
+		.hero-slider-nav {
+			padding: 0 20px;
+		}
+
+		.hero-slider-dots {
+			bottom: 30px;
+		}
+	}
 
 		.first-time-title {
 			font-size: 1.75rem;
@@ -1696,37 +2069,95 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.products-grid {
-		max-width: 1000px;
-		margin: 0 auto;
 		display: grid;
-		grid-template-columns: repeat(5, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 		gap: 30px;
-		padding: 40px 20px;
+		margin-top: 40px;
 	}
 
-	.product-tier-item {
-		text-align: center;
+	.product-card {
+		background: transparent;
+		overflow: hidden;
+		transition: transform 0.3s ease;
+		cursor: pointer;
+		text-decoration: none;
+		display: block;
+		color: inherit;
 	}
 
-	.product-tier-item h3 {
+	.product-card:hover {
+		transform: translateY(-5px);
+	}
+
+	.product-image {
+		width: 100%;
+		height: 300px;
+		overflow: hidden;
+		margin-bottom: 20px;
+	}
+
+	.product-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		filter: grayscale(100%);
+		transition: filter 0.3s ease;
+		transform: translateX(-15%);
+	}
+
+	#semi-pro .product-image img,
+	#stadium .product-image img {
+		transform: translateX(-15%) scale(1.1);
+		transform-origin: center;
+	}
+
+	#stick-rack .product-image {
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-end;
+	}
+
+	#stick-rack .product-image img {
+		transform: translateX(calc(-15% - 15px)) scale(0.71875) translateY(-10px);
+		transform-origin: left bottom;
+	}
+
+	.product-card:hover .product-image img {
+		filter: grayscale(0%);
+	}
+
+	.product-details {
+		text-align: left;
+	}
+
+	.product-position {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 10px;
+		display: block;
+	}
+
+	.product-name {
 		font-family: 'Oswald', sans-serif;
 		font-size: 24px;
-		margin-bottom: 10px;
-		color: #0d0d0d;
-		text-transform: uppercase;
-	}
-
-	.product-price {
-		font-size: 32px;
-		color: #fe5900;
 		font-weight: 600;
-		margin-bottom: 5px;
+		color: #000000;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.2;
 	}
 
-	.product-price-original {
-		text-decoration: line-through;
-		color: #999;
-		font-size: 18px;
+	.product-price-inline {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #000000;
+		text-transform: uppercase;
+		margin-left: 10px;
 	}
 
 	/* Ranking Section (Why Wood Outperforms Metal) */
@@ -1846,7 +2277,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.trending-item {
 		position: relative;
-		height: 400px;
+		height: 300px;
 		overflow: hidden;
 		cursor: pointer;
 	}
@@ -2282,52 +2713,198 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			grid-template-columns: 1fr;
 		}
 	}
+
+	/* Team Logos Section */
+	.team-logos-section {
+		background: #ffffff;
+		padding: 80px 0;
+		border-top: 1px solid #e0e0e0;
+	}
+
+	.team-logos-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 60px;
+	}
+
+	.team-logo-item {
+		flex: 0 0 auto;
+		opacity: 0.5;
+		transition: opacity 0.3s ease;
+		filter: grayscale(100%);
+	}
+
+	.team-logo-item:hover {
+		opacity: 1;
+		filter: grayscale(0%);
+	}
+
+	.team-logo-item img {
+		max-width: 180px;
+		height: auto;
+		display: block;
+	}
+
+	@media (max-width: 1024px) {
+		.team-logos-container {
+			justify-content: center;
+			gap: 40px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.team-logos-section {
+			padding: 60px 0;
+		}
+
+		.team-logos-container {
+			gap: 30px;
+		}
+
+		.team-logo-item img {
+			max-width: 120px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.hero-slide-title {
+			font-size: 31px;
+			letter-spacing: 1.3px;
+		}
+
+		.hero-slide-text {
+			font-size: 13px;
+		}
+
+		.btn-slide-primary {
+			padding: 2px 6px;
+			font-size: 10px;
+			min-width: 49px;
+			transform: scale(0.708);
+			transform-origin: center;
+		}
+		.btn-slide-secondary {
+			padding: 2px 6px;
+			font-size: 10px;
+			min-width: 49px;
+			transform: scale(0.708);
+			transform-origin: center;
+		}
+	}
 </style>
 
 <script>
-	// Parallax effect for hero image
-	function initParallax() {
-		const hero = document.getElementById('hero');
-		if (!hero) return;
-
-		let ticking = false;
-
-		function updateParallax() {
-			const scrolled = window.pageYOffset;
-			const heroHeight = hero.offsetHeight;
-			const heroTop = hero.offsetTop;
-			
-			// Only apply parallax when hero is in view
-			if (scrolled < heroTop + heroHeight) {
-				// Calculate parallax offset (slower movement than scroll)
-				const parallaxSpeed = 0.5;
-				const yPos = -(scrolled * parallaxSpeed);
-				
-				hero.style.backgroundPosition = `center ${yPos}px`;
-			}
-			
-			ticking = false;
-		}
-
-		function requestTick() {
-			if (!ticking) {
-				window.requestAnimationFrame(updateParallax);
-				ticking = true;
-			}
-		}
-
-		// Use scroll event with throttling
-		window.addEventListener('scroll', requestTick, { passive: true });
+	// Hero Slider Functionality
+	function initHeroSlider() {
+		const slides = document.querySelectorAll('.hero-slide');
+		const dots = document.querySelectorAll('.slider-dot');
+		const prevBtn = document.querySelector('.slider-nav-prev');
+		const nextBtn = document.querySelector('.slider-nav-next');
 		
-		// Initial call
-		updateParallax();
+		if (slides.length === 0) return;
+
+		let currentSlide = 0;
+		let autoPlayInterval;
+
+		function showSlide(index) {
+			// Remove active class from all slides and dots
+			slides.forEach(slide => {
+				slide.classList.remove('active');
+				// Reset animation
+				slide.style.animation = 'none';
+				setTimeout(() => {
+					if (slide.classList.contains('active')) {
+						slide.style.animation = '';
+					}
+				}, 10);
+			});
+			dots.forEach(dot => dot.classList.remove('active'));
+
+			// Add active class to current slide and dot
+			const activeSlide = slides[index];
+			activeSlide.classList.add('active');
+			dots[index].classList.add('active');
+			
+			// Restart animation
+			activeSlide.style.animation = 'none';
+			setTimeout(() => {
+				if (activeSlide.classList.contains('first-slide')) {
+					activeSlide.style.animation = 'zoomInFirst 20s ease-in-out infinite';
+				} else {
+					activeSlide.style.animation = 'zoomIn 20s ease-in-out infinite';
+				}
+			}, 10);
+			
+			currentSlide = index;
+		}
+
+		function nextSlide() {
+			const next = (currentSlide + 1) % slides.length;
+			showSlide(next);
+		}
+
+		function prevSlide() {
+			const prev = (currentSlide - 1 + slides.length) % slides.length;
+			showSlide(prev);
+		}
+
+		function startAutoPlay() {
+			autoPlayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+		}
+
+		function stopAutoPlay() {
+			if (autoPlayInterval) {
+				clearInterval(autoPlayInterval);
+			}
+		}
+
+		// Navigation button events
+		if (nextBtn) {
+			nextBtn.addEventListener('click', () => {
+				stopAutoPlay();
+				nextSlide();
+				startAutoPlay();
+			});
+		}
+
+		if (prevBtn) {
+			prevBtn.addEventListener('click', () => {
+				stopAutoPlay();
+				prevSlide();
+				startAutoPlay();
+			});
+		}
+
+		// Dot navigation
+		dots.forEach((dot, index) => {
+			dot.addEventListener('click', () => {
+				stopAutoPlay();
+				showSlide(index);
+				startAutoPlay();
+			});
+		});
+
+		// Pause autoplay on hover
+		const slider = document.querySelector('.hero-slider');
+		if (slider) {
+			slider.addEventListener('mouseenter', stopAutoPlay);
+			slider.addEventListener('mouseleave', startAutoPlay);
+		}
+
+		// Start autoplay
+		startAutoPlay();
 	}
 
 	// Initialize when DOM is ready
 	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initParallax);
+		document.addEventListener('DOMContentLoaded', initHeroSlider);
 	} else {
-		initParallax();
+		initHeroSlider();
 	}
 
 	// Tier Cards Slider

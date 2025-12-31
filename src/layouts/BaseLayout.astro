@@ -23,19 +23,10 @@ const { title, description = "PlayerStall - Premium Sports Locker Solutions" } =
 		<div class="top-bar">
 			<div class="top-bar-container">
 				<div class="top-bar-left">
-					<a href="/contact">GET QUOTE</a>
-					<div class="top-bar-divider"></div>
-					<div class="news-ticker">
-						<span class="news-label">news:</span>
-						<div class="news-ticker-wrapper">
-							<div class="news-ticker-content">
-								<a href="#" class="news-item">Latest NFL firings</a>
-								<a href="#" class="news-item">Biggest NFL veterans</a>
-								<a href="#" class="news-item">Super Bowl halftime</a>
-								<a href="#" class="news-item">Latest NFL firings</a>
-								<a href="#" class="news-item">Biggest NFL veterans</a>
-								<a href="#" class="news-item">Super Bowl halftime</a>
-							</div>
+					<div class="quote-of-the-day">
+						<span class="quote-label">QUOTE OF THE DAY:</span>
+						<div class="quote-content">
+							<span class="quote-text" id="quoteText">EXCELLENCE IS NOT A DESTINATION, IT'S A JOURNEY.</span>
 						</div>
 					</div>
 				</div>
@@ -54,20 +45,27 @@ const { title, description = "PlayerStall - Premium Sports Locker Solutions" } =
 		<header>
 			<nav class="navbar">
 				<div class="nav-container">
-					<a href="/" class="logo">
-						<h1>PLAYERSTALL</h1>
-					</a>
-					<ul class="nav-links">
+					<ul class="nav-links nav-links-left">
 						<li><a href="/">HOME</a></li>
 						<li><a href="/services">PRODUCTS</a></li>
 						<li><a href="/hockey">BY SPORT</a></li>
 						<li><a href="/gallery">GALLERY</a></li>
+					</ul>
+					<a href="/" class="logo">
+						<h1>PLAYERSTALL</h1>
+					</a>
+					<ul class="nav-links nav-links-right">
 						<li><a href="/about">ABOUT</a></li>
 						<li><a href="/our-process">OUR PROCESS</a></li>
+						<li><a href="/our-process-1">OUR PROCESS 1</a></li>
+						<li><a href="/shop">SHOP</a></li>
+						<li><a href="/cart" class="cart-link">
+							<span class="cart-text">CART</span>
+							<span class="cart-count">0</span>
+						</a></li>
 						<li><a href="/blog">BLOG</a></li>
 						<li><a href="/contact">CONTACT</a></li>
 					</ul>
-					<a href="/contact" class="cta-button">GET QUOTE</a>
 				</div>
 			</nav>
 		</header>
@@ -167,6 +165,9 @@ const { title, description = "PlayerStall - Premium Sports Locker Solutions" } =
 		background: #000000;
 		padding: 10px 0;
 		border-bottom: none;
+		position: sticky;
+		top: 0;
+		z-index: 1001;
 	}
 
 	.top-bar-container {
@@ -182,47 +183,26 @@ const { title, description = "PlayerStall - Premium Sports Locker Solutions" } =
 	.top-bar-left {
 		display: flex;
 		align-items: center;
-		gap: 20px;
+		gap: 0;
+		flex: 1;
 	}
 
-	.top-bar-left a {
-		color: #b6b6b6;
-		text-decoration: none;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		transition: color 0.3s;
-		font-weight: 400;
-	}
-
-	.top-bar-left a:hover {
-		color: #ffffff;
-	}
-
-	.top-bar-divider {
-		width: 1px;
-		height: 14px;
-		background: #666666;
-	}
-
-	/* News Ticker */
-	.news-ticker {
+	/* Quote of the Day */
+	.quote-of-the-day {
 		display: flex;
 		align-items: center;
 		gap: 8px;
-		overflow: hidden;
 		flex: 1;
 		margin: 0 20px;
 		position: relative;
 		min-width: 0;
 	}
 
-	.news-label {
+	.quote-label {
 		color: #b6b6b6;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
-		text-transform: lowercase;
+		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		font-weight: 400;
 		white-space: nowrap;
@@ -233,48 +213,23 @@ const { title, description = "PlayerStall - Premium Sports Locker Solutions" } =
 		position: relative;
 	}
 
-	.news-ticker-wrapper {
-		overflow: hidden;
+	.quote-content {
 		flex: 1;
 		position: relative;
 		min-width: 0;
+		overflow: hidden;
 	}
 
-	.news-ticker-content {
-		display: inline-flex;
-		align-items: center;
-		gap: 20px;
-		animation: scroll-news 25s linear infinite;
-		white-space: nowrap;
-	}
-
-	.news-ticker-content:hover {
-		animation-play-state: paused;
-	}
-
-	.news-item {
+	.quote-text {
 		color: #b6b6b6;
-		text-decoration: none;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 9px;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
 		font-weight: 400;
-		transition: color 0.3s;
 		white-space: nowrap;
-	}
-
-	.news-item:hover {
-		color: #ffffff;
-	}
-
-	@keyframes scroll-news {
-		0% {
-			transform: translateX(0);
-		}
-		100% {
-			transform: translateX(-50%);
-		}
+		display: inline-block;
+		text-transform: uppercase !important;
 	}
 
 	.top-bar-right {
@@ -328,14 +283,36 @@ const { title, description = "PlayerStall - Premium Sports Locker Solutions" } =
 
 	/* Navigation */
 	header {
+		background: transparent;
+		color: #ffffff;
+		padding: 0;
+		position: absolute;
+		top: 40px;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+		width: 100%;
+		transition: background 0.3s ease, top 0.3s ease;
+	}
+
+	header.scrolled {
 		background: #ffffff;
 		color: #0d0d0d;
-		padding: 0;
 		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 		position: sticky;
 		top: 0;
-		z-index: 1000;
-		width: 100%;
+	}
+
+	header.scrolled .navbar {
+		color: #0d0d0d;
+	}
+
+	header.scrolled .logo h1 {
+		color: #0d0d0d;
+	}
+
+	header.scrolled .nav-links a {
+		color: #0d0d0d;
 	}
 
 	.navbar {
@@ -352,20 +329,32 @@ const { title, description = "PlayerStall - Premium Sports Locker Solutions" } =
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		gap: 40px;
 	}
 
 	.logo {
 		text-decoration: none;
+		color: #ffffff;
+		transition: color 0.3s;
+	}
+
+	header.scrolled .logo {
 		color: #0d0d0d;
 	}
 
 	.logo h1 {
 		margin: 0;
-		font-size: 24px;
+		font-size: 37.44px;
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0;
 		font-family: 'Oswald', sans-serif;
+		color: #ffffff;
+		transition: color 0.3s;
+	}
+
+	header.scrolled .logo h1 {
+		color: #0d0d0d;
 	}
 
 	.nav-links {
@@ -375,10 +364,24 @@ const { title, description = "PlayerStall - Premium Sports Locker Solutions" } =
 		margin: 0;
 		padding: 0;
 		align-items: center;
+		flex: 1;
+	}
+
+	.nav-links-left {
+		justify-content: flex-start;
+	}
+
+	.nav-links-right {
+		justify-content: flex-end;
+	}
+
+	.logo {
+		flex-shrink: 0;
+		margin: 0 20px;
 	}
 
 	.nav-links a {
-		color: #0d0d0d;
+		color: #ffffff;
 		text-decoration: none;
 		text-transform: uppercase;
 		font-size: 13px;
@@ -388,29 +391,38 @@ const { title, description = "PlayerStall - Premium Sports Locker Solutions" } =
 		transition: color 0.3s;
 	}
 
+	header.scrolled .nav-links a {
+		color: #0d0d0d;
+	}
+
 	.nav-links a:hover {
 		color: #fe5900;
 	}
 
-	.cta-button {
-		padding: 10px 25px;
-		border: none;
-		background: #fe5900;
-		color: #ffffff;
-		text-decoration: none;
-		font-weight: 500;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		font-size: 12px;
-		transition: all 0.3s;
-		white-space: nowrap;
-		font-family: 'Roboto', sans-serif;
+	.cart-link {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		position: relative;
 	}
 
-	.cta-button:hover {
-		background: #e04d00;
-		transform: translateY(-1px);
+	.cart-text {
+		font-size: 13px;
 	}
+
+	.cart-count {
+		background: #fe5900;
+		color: #ffffff;
+		font-size: 10px;
+		font-weight: 600;
+		padding: 2px 6px;
+		border-radius: 10px;
+		min-width: 18px;
+		text-align: center;
+		line-height: 1.4;
+		margin-left: 4px;
+	}
+
 
 	main {
 		min-height: calc(100vh - 200px);
@@ -589,7 +601,7 @@ const { title, description = "PlayerStall - Premium Sports Locker Solutions" } =
 	}
 
 	@media (max-width: 1024px) {
-		.news-ticker {
+		.quote-of-the-day {
 			display: none;
 		}
 
@@ -639,3 +651,102 @@ const { title, description = "PlayerStall - Premium Sports Locker Solutions" } =
 	}
 </style>
 
+<script>
+	// Handle header scroll behavior
+	function initHeaderScroll() {
+		const header = document.querySelector('header');
+		const heroSlider = document.querySelector('.hero-slider');
+		
+		if (!header || !heroSlider) return;
+
+		function handleScroll() {
+			const scrollY = window.scrollY;
+			const heroHeight = heroSlider.offsetHeight;
+			
+			if (scrollY > heroHeight - 100) {
+				header.classList.add('scrolled');
+			} else {
+				header.classList.remove('scrolled');
+			}
+		}
+
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		handleScroll(); // Initial check
+	}
+
+	// Cart utility - update cart count on page load
+	function updateCartCount() {
+		try {
+			const cart = localStorage.getItem('playerstall_cart');
+			const cartData = cart ? JSON.parse(cart) : [];
+			const totalItems = cartData.reduce((sum, item) => sum + (item.quantity || 1), 0);
+			const cartCount = document.querySelector('.cart-count');
+			if (cartCount) {
+				cartCount.textContent = totalItems;
+			}
+		} catch (e) {
+			console.error('Error updating cart count:', e);
+		}
+	}
+
+	// Update cart count on page load
+	updateCartCount();
+
+	// Listen for cart updates
+	window.addEventListener('cartUpdated', function() {
+		updateCartCount();
+	});
+
+	// Also check on storage events (for cross-tab updates)
+	window.addEventListener('storage', function(e) {
+		if (e.key === 'playerstall_cart') {
+			updateCartCount();
+		}
+	});
+
+	// Quote of the Day - Peter Crone Style Sport Quotes
+	const quotes = [
+		"YOUR MIND IS YOUR GREATEST ASSET. TRAIN IT LIKE YOU TRAIN YOUR BODY.",
+		"CHAMPIONS DON'T WAIT FOR PERFECT CONDITIONS. THEY CREATE THEM.",
+		"THE MOMENT YOU BELIEVE YOU CAN'T, YOU'VE ALREADY LOST.",
+		"EXCELLENCE ISN'T A SKILL, IT'S AN ATTITUDE THAT BECOMES A HABIT.",
+		"YOUR COMPETITION ISN'T OTHER PLAYERS. IT'S THE VERSION OF YOURSELF FROM YESTERDAY.",
+		"PRESSURE IS A PRIVILEGE. IT MEANS YOU'RE IN THE GAME.",
+		"THE DIFFERENCE BETWEEN WINNING AND LOSING IS OFTEN DECIDED BEFORE THE GAME BEGINS.",
+		"YOU DON'T RISE TO THE OCCASION. YOU FALL TO THE LEVEL OF YOUR TRAINING.",
+		"CHAMPIONS ARE MADE IN THE MOMENTS NOBODY SEES.",
+		"YOUR LIMITATIONS EXIST ONLY IN YOUR MIND. BREAK THROUGH THEM.",
+		"SUCCESS ISN'T ABOUT BEING THE BEST. IT'S ABOUT BEING YOUR BEST.",
+		"THE PAIN OF DISCIPLINE IS LESS THAN THE PAIN OF REGRET.",
+		"WHEN YOU FOCUS ON THE PROCESS, THE RESULTS TAKE CARE OF THEMSELVES.",
+		"YOUR GREATEST OPPONENT ISN'T ACROSS THE FIELD. IT'S THE DOUBT IN YOUR HEAD.",
+		"CHAMPIONS AREN'T BORN. THEY'RE BUILT ONE DECISION AT A TIME."
+	];
+
+	function initQuoteOfTheDay() {
+		const quoteText = document.getElementById('quoteText');
+		if (!quoteText) return;
+
+		let currentQuoteIndex = 0;
+		
+		// Display first quote immediately
+		quoteText.textContent = quotes[currentQuoteIndex];
+		
+		// Rotate quotes every 6 seconds
+		setInterval(() => {
+			currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+			quoteText.textContent = quotes[currentQuoteIndex];
+		}, 6000);
+	}
+
+	// Initialize when DOM is ready
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', () => {
+			initHeaderScroll();
+			initQuoteOfTheDay();
+		});
+	} else {
+		initHeaderScroll();
+		initQuoteOfTheDay();
+	}
+</script>

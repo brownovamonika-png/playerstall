@@ -1,0 +1,972 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+	title="Cart - Custom Sports Lockers | PlayerStall"
+	description="Your shopping cart. View and manage your selected custom wood sports lockers."
+>
+	<!-- Hero Section -->
+	<section class="cart-hero-section">
+		<div class="cart-hero-parallax-img-holder">
+			<div class="cart-hero-parallax-img-wrapper">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/shop-title-img.jpg" alt="Cart" class="cart-hero-parallax-img" />
+			</div>
+		</div>
+		<div class="cart-hero-content qodef-content-grid">
+			<div class="breadcrumbs">
+				<a href="/">Home</a>
+				<span class="breadcrumbs-separator"></span>
+				<span class="breadcrumbs-current">Cart</span>
+			</div>
+			<h1 class="cart-hero-title">Cart</h1>
+		</div>
+	</section>
+
+	<!-- Cart Section -->
+	<section class="cart-section">
+		<div class="cart-container qodef-content-grid">
+			<div class="woocommerce">
+				<div class="woocommerce-notices-wrapper"></div>
+				
+				<!-- Cart Items Container -->
+				<div id="cart-items-container" style="display: none;">
+					<form class="woocommerce-cart-form" action="/checkout" method="post">
+						<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents">
+							<thead>
+								<tr>
+									<th class="product-remove"><span class="screen-reader-text">Remove item</span></th>
+									<th class="product-thumbnail"><span class="screen-reader-text">Thumbnail image</span></th>
+									<th class="product-name">Product</th>
+									<th class="product-price">Price</th>
+									<th class="product-quantity">Quantity</th>
+									<th class="product-subtotal">Subtotal</th>
+								</tr>
+							</thead>
+							<tbody id="cart-items-body">
+								<!-- Cart items will be inserted here -->
+							</tbody>
+						</table>
+
+						<div class="cart-actions">
+							<button type="button" class="button update-cart" id="update-cart">Update cart</button>
+							<a href="/shop" class="button continue-shopping">Continue shopping</a>
+						</div>
+					</form>
+
+					<div class="cart-collaterals">
+						<div class="cart_totals">
+							<h2>Cart totals</h2>
+							<table class="shop_table shop_table_responsive">
+								<tbody>
+									<tr class="cart-subtotal">
+										<th>Subtotal</th>
+										<td data-title="Subtotal">
+											<span class="woocommerce-Price-amount amount">
+												<bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="cart-subtotal">0.00</span></bdi>
+											</span>
+										</td>
+									</tr>
+									<tr class="shipping">
+										<th>Shipping</th>
+										<td data-title="Shipping">
+											<form class="woocommerce-shipping-calculator" action="/cart" method="post">
+												<section class="woocommerce-shipping-calculator-form" style="display:none;">
+													<p class="form-row form-row-wide" id="calc_shipping_country_field">
+														<select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state country_select" rel="calc_shipping_state">
+															<option value="">Select a country / region</option>
+															<option value="CA">Canada</option>
+															<option value="US">United States</option>
+														</select>
+													</p>
+													<p class="form-row form-row-wide" id="calc_shipping_state_field">
+														<input type="text" class="input-text" value="" placeholder="State / County" name="calc_shipping_state" id="calc_shipping_state" />
+													</p>
+													<p class="form-row form-row-wide" id="calc_shipping_postcode_field">
+														<input type="text" class="input-text" value="" placeholder="Postcode / ZIP" name="calc_shipping_postcode" id="calc_shipping_postcode" />
+													</p>
+													<p>
+														<button type="submit" name="calc_shipping" value="1" class="button">Update</button>
+													</p>
+												</section>
+												<p class="woocommerce-shipping-destination">
+													Shipping to <strong>Canada</strong>.
+												</p>
+												<p><a href="#" class="shipping-calculator-button">Change address</a></p>
+												<p class="woocommerce-shipping-methods" style="display: block;">
+													<label>
+														<input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_flat_rate" value="flat_rate" class="shipping_method" checked="checked" />
+														<span>Flat rate:</span>
+														<span class="woocommerce-Price-amount amount">
+															<bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="shipping-cost">50.00</span></bdi>
+														</span>
+													</label>
+												</p>
+											</form>
+										</td>
+									</tr>
+									<tr class="order-total">
+										<th>Total</th>
+										<td data-title="Total">
+											<strong>
+												<span class="woocommerce-Price-amount amount">
+													<bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="cart-total">0.00</span></bdi>
+												</span>
+											</strong>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="wc-proceed-to-checkout">
+								<a href="/checkout" class="checkout-button button alt wc-forward">
+									Proceed to checkout
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Empty Cart Message -->
+				<div id="cart-empty-message">
+					<p class="cart-empty woocommerce-info">Your cart is currently empty.</p>
+					<p class="return-to-shop">
+						<a class="button wc-backward" href="/shop">
+							Return to shop
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(body) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #ffffff;
+		color: #0d0d0d;
+	}
+
+	.qodef-content-grid {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Hero Section */
+	.cart-hero-section {
+		position: relative;
+		min-height: 400px;
+		overflow: hidden;
+	}
+
+	.cart-hero-parallax-img-holder {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+	}
+
+	.cart-hero-parallax-img-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.cart-hero-parallax-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.cart-hero-content {
+		position: relative;
+		z-index: 10;
+		padding: 200px 0 100px;
+	}
+
+	.breadcrumbs {
+		margin-bottom: 20px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #ffffff;
+	}
+
+	.breadcrumbs a {
+		color: #ffffff;
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.breadcrumbs-separator {
+		margin: 0 10px;
+	}
+
+	.breadcrumbs-current {
+		color: #ffffff;
+	}
+
+	.cart-hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 72px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		margin: 0;
+	}
+
+	/* Cart Section */
+	.cart-section {
+		padding: 80px 0;
+		background: #ffffff;
+	}
+
+	.cart-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.woocommerce {
+		width: 100%;
+	}
+
+	.woocommerce-notices-wrapper {
+		margin-bottom: 20px;
+	}
+
+	.cart-empty {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #0d0d0d;
+		margin-bottom: 30px;
+		padding: 0;
+		background: transparent;
+		border: none;
+		text-align: left;
+	}
+
+	.return-to-shop {
+		margin-top: 30px;
+		text-align: left;
+	}
+
+	.button.wc-backward {
+		display: inline-block;
+		padding: 15px 40px;
+		background: #0d0d0d;
+		color: #ffffff;
+		border: none;
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-decoration: none;
+		cursor: pointer;
+		transition: background 0.3s;
+	}
+
+	.button.wc-backward:hover {
+		background: #333333;
+		color: #ffffff;
+	}
+
+	/* Cart Table */
+	.woocommerce-cart-form {
+		margin-bottom: 40px;
+	}
+
+	.shop_table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 0;
+	}
+
+	.shop_table thead {
+		border-bottom: 1px solid #e0e0e0;
+		margin-bottom: 0;
+	}
+
+	.shop_table th {
+		padding: 20px 15px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-align: left;
+		vertical-align: middle;
+	}
+
+	.shop_table th.product-price,
+	.shop_table th.product-quantity,
+	.shop_table th.product-subtotal {
+		text-align: right;
+	}
+
+	.shop_table td {
+		padding: 20px 15px;
+		border-bottom: 1px solid #e0e0e0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		vertical-align: middle;
+	}
+
+	.shop_table td.product-price,
+	.shop_table td.product-quantity,
+	.shop_table td.product-subtotal {
+		text-align: right;
+	}
+
+	.product-remove {
+		width: 40px;
+		padding-right: 0;
+	}
+
+	.product-remove a {
+		color: #0d0d0d;
+		text-decoration: none;
+		font-size: 18px;
+		font-weight: 400;
+		display: inline-block;
+		width: 24px;
+		height: 24px;
+		line-height: 24px;
+		text-align: center;
+		transition: opacity 0.3s;
+	}
+
+	.product-remove a:hover {
+		opacity: 0.6;
+		color: #0d0d0d;
+	}
+
+	/* Product thumbnail images - match model site exactly (32px square) */
+	.product-thumbnail {
+		width: 50px;
+		padding-right: 15px;
+		vertical-align: middle;
+	}
+	
+	.product-thumbnail img,
+	.shop_table .product-thumbnail img,
+	.shop_table td.product-thumbnail img,
+	.woocommerce-cart-form .product-thumbnail img,
+	table.shop_table .product-thumbnail img,
+	.cart_item .product-thumbnail img,
+	td.product-thumbnail img,
+	img[width="36"] {
+		width: 32px !important;
+		height: 32px !important;
+		min-width: 32px !important;
+		min-height: 32px !important;
+		max-width: 32px !important;
+		max-height: 32px !important;
+		object-fit: cover;
+		border-radius: 0;
+		display: block !important;
+		flex-shrink: 0;
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+		vertical-align: middle;
+		background: #ffffff;
+	}
+	
+	/* Ensure container doesn't expand */
+	.shop_table .product-thumbnail,
+	.shop_table td.product-thumbnail {
+		width: 50px;
+		max-width: 50px;
+		overflow: hidden;
+		padding-right: 15px;
+	}
+
+	.product-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+	}
+
+	.product-name a {
+		color: #0d0d0d;
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.product-name a:hover {
+		color: #0d0d0d;
+		text-decoration: none;
+	}
+
+	.product-price,
+	.product-subtotal {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 400;
+		color: #0d0d0d;
+		letter-spacing: 0;
+		text-align: right;
+	}
+
+	.product-quantity {
+		width: 110px;
+		text-align: right;
+	}
+
+	.quantity-input {
+		display: inline-block;
+		border: 1px solid #e0e0e0;
+		width: 70px;
+		height: 40px;
+		background: #ffffff;
+		position: relative;
+	}
+
+	.quantity-input input[type="number"] {
+		width: 100%;
+		height: 100%;
+		border: none;
+		text-align: center;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		padding: 0 30px 0 10px;
+		background: transparent;
+		-moz-appearance: textfield;
+		box-sizing: border-box;
+	}
+
+	.quantity-input input[type="number"]::-webkit-outer-spin-button,
+	.quantity-input input[type="number"]::-webkit-inner-spin-button {
+		-webkit-appearance: auto;
+		opacity: 1;
+		width: 20px;
+		height: 20px;
+		cursor: pointer;
+	}
+
+	.quantity-input button {
+		display: none;
+	}
+
+	.cart-actions {
+		display: flex;
+		gap: 12px;
+		margin-top: 25px;
+		justify-content: flex-end;
+	}
+
+	.button {
+		padding: 12px 25px;
+		background: #f7f7f7;
+		color: #0d0d0d;
+		border: 1px solid #e0e0e0;
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-decoration: none;
+		cursor: pointer;
+		transition: all 0.3s;
+		display: inline-block;
+	}
+
+	.button:hover {
+		background: #e0e0e0;
+		color: #0d0d0d;
+	}
+
+	.update-cart {
+		background: #f7f7f7;
+		border: 1px solid #e0e0e0;
+		color: #0d0d0d;
+	}
+
+	.continue-shopping {
+		background: #f7f7f7;
+		border: 1px solid #e0e0e0;
+		color: #0d0d0d;
+	}
+
+	.continue-shopping:hover {
+		background: #e0e0e0;
+		color: #0d0d0d;
+		border-color: #e0e0e0;
+	}
+
+	.cart-collaterals {
+		display: grid;
+		grid-template-columns: 1fr 380px;
+		gap: 50px;
+		align-items: start;
+	}
+
+	.cart_totals {
+		background: #f7f7f7;
+		padding: 35px 30px;
+	}
+
+	.cart_totals h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 25px;
+		padding-bottom: 15px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.cart_totals .shop_table {
+		margin-bottom: 30px;
+	}
+
+	.cart_totals .shop_table {
+		border: none;
+	}
+
+	.cart_totals .shop_table th {
+		width: 50%;
+		padding: 12px 0;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		border: none;
+		text-align: left;
+	}
+
+	.cart_totals .shop_table td {
+		text-align: right;
+		padding: 12px 0;
+		border: none;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+	}
+	
+	/* Shipping Calculator */
+	.shipping {
+		vertical-align: top;
+	}
+	
+	.shipping td {
+		padding-top: 12px;
+		padding-bottom: 12px;
+	}
+	
+	.woocommerce-shipping-calculator {
+		text-align: left;
+	}
+	
+	.woocommerce-shipping-destination {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		margin: 0 0 8px 0;
+	}
+	
+	.woocommerce-shipping-destination strong {
+		font-weight: 600;
+	}
+	
+	.shipping-calculator-button {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0066cc;
+		text-decoration: underline;
+		cursor: pointer;
+		transition: color 0.3s;
+		display: inline-block;
+		margin: 0 0 8px 0;
+	}
+	
+	.shipping-calculator-button:hover {
+		color: #0052a3;
+		text-decoration: underline;
+	}
+	
+	.woocommerce-shipping-calculator-form {
+		margin-top: 12px;
+		padding-top: 12px;
+		border-top: 1px solid #e0e0e0;
+	}
+	
+	.woocommerce-shipping-calculator-form .form-row {
+		margin-bottom: 12px;
+	}
+	
+	.woocommerce-shipping-calculator-form select,
+	.woocommerce-shipping-calculator-form input[type="text"] {
+		width: 100%;
+		padding: 10px 12px;
+		border: 1px solid #e0e0e0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		background: #ffffff;
+		box-sizing: border-box;
+	}
+	
+	.woocommerce-shipping-calculator-form select:focus,
+	.woocommerce-shipping-calculator-form input[type="text"]:focus {
+		outline: none;
+		border-color: #fe5900;
+	}
+	
+	.woocommerce-shipping-calculator-form .button {
+		padding: 10px 20px;
+		font-size: 11px;
+		margin-top: 0;
+	}
+	
+	.woocommerce-shipping-methods {
+		margin: 8px 0 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.woocommerce-shipping-methods label {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		cursor: pointer;
+		margin: 0;
+		justify-content: flex-start;
+	}
+	
+	.woocommerce-shipping-methods input[type="radio"] {
+		margin: 0;
+		cursor: pointer;
+	}
+	
+	.woocommerce-shipping-methods .woocommerce-Price-amount {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 400;
+		color: #0d0d0d;
+		margin-left: auto;
+		text-align: right;
+	}
+	
+	.woocommerce-shipping-methods .woocommerce-Price-currencySymbol {
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+	}
+	
+	.woocommerce-Price-amount {
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		color: #0d0d0d;
+	}
+	
+	.woocommerce-Price-currencySymbol {
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+	}
+
+	.order-total th,
+	.order-total td {
+		border-top: 1px solid #e0e0e0;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		font-size: 15px;
+	}
+
+	.order-total th {
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+	}
+
+	.order-total td {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #0d0d0d;
+	}
+
+	.order-total td strong {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d;
+	}
+
+	.checkout-button {
+		width: 100%;
+		padding: 18px 40px;
+		background: #fe5900;
+		color: #ffffff;
+		border: none;
+		text-align: center;
+		margin-top: 20px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-decoration: none;
+		cursor: pointer;
+		transition: background 0.3s;
+		display: block;
+		box-sizing: border-box;
+	}
+
+	.checkout-button:hover {
+		background: #e04d00;
+		color: #ffffff;
+	}
+
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.cart-collaterals {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.cart-hero-title {
+			font-size: 48px;
+		}
+
+		.cart-section {
+			padding: 60px 0;
+		}
+
+		.shop_table {
+			display: block;
+		}
+
+		.shop_table thead {
+			display: none;
+		}
+
+		.shop_table tbody,
+		.shop_table tr,
+		.shop_table td {
+			display: block;
+		}
+
+		.shop_table tr {
+			border: 1px solid #e0e0e0;
+			margin-bottom: 20px;
+			padding: 15px;
+		}
+
+		.shop_table td {
+			border: none;
+			padding: 10px 0;
+			text-align: left !important;
+		}
+
+		.shop_table td:before {
+			content: attr(data-title) ": ";
+			font-weight: 600;
+			display: inline-block;
+			width: 100px;
+		}
+	}
+	
+	/* Final override to ensure product images are exactly 32px - match model site */
+	.woocommerce-cart-form table.shop_table tbody td.product-thumbnail img,
+	.woocommerce-cart-form .shop_table .product-thumbnail img,
+	#cart-items-container .product-thumbnail img,
+	.shop_table tbody .product-thumbnail img {
+		width: 32px !important;
+		height: 32px !important;
+		max-width: 32px !important;
+		max-height: 32px !important;
+		min-width: 32px !important;
+		min-height: 32px !important;
+		display: block !important;
+		object-fit: cover !important;
+		background: #ffffff !important;
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// Cart utility functions
+		function getCart() {
+			const cart = localStorage.getItem('playerstall_cart');
+			return cart ? JSON.parse(cart) : [];
+		}
+
+		function saveCart(cart) {
+			localStorage.setItem('playerstall_cart', JSON.stringify(cart));
+			updateCartCount();
+			renderCart();
+		}
+
+		function updateCartCount() {
+			const cart = getCart();
+			const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+			const cartCount = document.querySelector('.cart-count');
+			if (cartCount) {
+				cartCount.textContent = totalItems;
+			}
+			window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { count: totalItems } }));
+		}
+
+		function renderCart() {
+			const cart = getCart();
+			const container = document.getElementById('cart-items-container');
+			const emptyMessage = document.getElementById('cart-empty-message');
+			const cartBody = document.getElementById('cart-items-body');
+			const subtotalEl = document.getElementById('cart-subtotal');
+			const totalEl = document.getElementById('cart-total');
+
+			if (cart.length === 0) {
+				if (container) container.style.display = 'none';
+				if (emptyMessage) emptyMessage.style.display = 'block';
+				return;
+			}
+
+			if (container) container.style.display = 'block';
+			if (emptyMessage) emptyMessage.style.display = 'none';
+
+			let subtotal = 0;
+			let html = '';
+
+			cart.forEach((item, index) => {
+				const itemTotal = item.price * item.quantity;
+				subtotal += itemTotal;
+
+				html += `
+					<tr class="cart_item">
+						<td class="product-remove">
+							<a href="#" class="remove" data-index="${index}" aria-label="Remove this item">×</a>
+						</td>
+						<td class="product-thumbnail">
+							<img src="${item.image}" alt="${item.name}" width="32" height="32" style="width: 32px !important; height: 32px !important; max-width: 32px !important; max-height: 32px !important; min-width: 32px !important; min-height: 32px !important; object-fit: cover; display: block; margin: 0; padding: 0; background: #ffffff;" />
+						</td>
+						<td class="product-name" data-title="Product">
+							${item.name}
+						</td>
+						<td class="product-price" data-title="Price">
+							<span class="woocommerce-Price-amount amount">
+								<bdi><span class="woocommerce-Price-currencySymbol">$</span>${item.price.toFixed(2)}</bdi>
+							</span>
+						</td>
+						<td class="product-quantity" data-title="Quantity">
+							<input type="number" class="quantity-input qty-input" value="${item.quantity}" min="1" data-index="${index}" />
+						</td>
+						<td class="product-subtotal" data-title="Subtotal">
+							<span class="woocommerce-Price-amount amount">
+								<bdi><span class="woocommerce-Price-currencySymbol">$</span>${itemTotal.toFixed(2)}</bdi>
+							</span>
+						</td>
+					</tr>
+				`;
+			});
+
+			if (cartBody) cartBody.innerHTML = html;
+			if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
+			
+			// Calculate total with shipping (default $50.00 flat rate)
+			const shippingCostEl = document.getElementById('shipping-cost');
+			const shippingCost = shippingCostEl ? parseFloat(shippingCostEl.textContent) : 50.00;
+			const total = subtotal + shippingCost;
+			if (totalEl) totalEl.textContent = total.toFixed(2);
+
+			// Attach event listeners
+			document.querySelectorAll('.remove').forEach(btn => {
+				btn.addEventListener('click', function(e) {
+					e.preventDefault();
+					const index = parseInt(this.getAttribute('data-index'));
+					const cart = getCart();
+					cart.splice(index, 1);
+					saveCart(cart);
+				});
+			});
+
+			document.querySelectorAll('.qty-input').forEach(input => {
+				input.addEventListener('change', function() {
+					const index = parseInt(this.getAttribute('data-index'));
+					const quantity = parseInt(this.value) || 1;
+					const cart = getCart();
+					cart[index].quantity = quantity;
+					saveCart(cart);
+				});
+			});
+		}
+
+		// Initialize cart display
+		renderCart();
+		updateCartCount();
+
+		// Listen for cart updates from other pages
+		window.addEventListener('cartUpdated', function() {
+			renderCart();
+		});
+		
+		// Shipping calculator toggle - wait for cart to render first
+		setTimeout(function() {
+			const shippingCalculatorButton = document.querySelector('.shipping-calculator-button');
+			const shippingCalculatorForm = document.querySelector('.woocommerce-shipping-calculator-form');
+			
+			if (shippingCalculatorButton && shippingCalculatorForm) {
+				shippingCalculatorButton.addEventListener('click', function(e) {
+					e.preventDefault();
+					const isHidden = shippingCalculatorForm.style.display === 'none' || !shippingCalculatorForm.style.display;
+					shippingCalculatorForm.style.display = isHidden ? 'block' : 'none';
+					this.textContent = isHidden ? 'Cancel' : 'Change address';
+				});
+			}
+		}, 100);
+		
+		// Update total when shipping method changes
+		const shippingMethods = document.querySelectorAll('.woocommerce-shipping-methods input[type="radio"]');
+		const shippingCostEl = document.getElementById('shipping-cost');
+		const totalEl = document.getElementById('cart-total');
+		
+		if (shippingMethods.length && shippingCostEl && totalEl) {
+			shippingMethods.forEach(method => {
+				method.addEventListener('change', function() {
+					const cart = getCart();
+					const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+					let shippingCost = 50.00;
+					
+					if (this.value === 'flat_rate') {
+						shippingCost = 50.00;
+						shippingCostEl.textContent = '50.00';
+					} else if (this.value === 'local_pickup') {
+						shippingCost = 0.00;
+						shippingCostEl.textContent = '0.00';
+					}
+					
+					const total = subtotal + shippingCost;
+					totalEl.textContent = total.toFixed(2);
+				});
+			});
+		}
+	});
+</script>

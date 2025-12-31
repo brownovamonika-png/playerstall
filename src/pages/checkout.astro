@@ -1,0 +1,996 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+	title="Checkout - Custom Sports Lockers | PlayerStall"
+	description="Complete your purchase of custom wood sports lockers. Secure checkout process."
+>
+	<!-- Hero Section -->
+	<section class="checkout-hero-section">
+		<div class="checkout-hero-parallax-img-holder">
+			<div class="checkout-hero-parallax-img-wrapper">
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/shop-title-img.jpg" alt="Checkout" class="checkout-hero-parallax-img" />
+			</div>
+		</div>
+		<div class="checkout-hero-content qodef-content-grid">
+			<div class="breadcrumbs">
+				<a href="/">Home</a>
+				<span class="breadcrumbs-separator"></span>
+				<span class="breadcrumbs-current">Checkout</span>
+			</div>
+			<h1 class="checkout-hero-title">Checkout</h1>
+		</div>
+	</section>
+
+	<!-- Checkout Section -->
+	<section class="checkout-section">
+		<div class="checkout-container qodef-content-grid">
+			<div class="woocommerce">
+				<form name="checkout" class="checkout woocommerce-checkout" method="post" enctype="multipart/form-data">
+					<div class="checkout-inner">
+						<!-- Checkout Form -->
+						<div class="checkout-form-wrapper">
+							<!-- Billing Details -->
+							<div class="woocommerce-billing-fields">
+								<h3 class="checkout-section-title">Billing details</h3>
+								
+								<div class="woocommerce-billing-fields__field-wrapper">
+									<p class="form-row form-row-first validate-required" id="billing_first_name_field">
+										<label for="billing_first_name" class="">First name <abbr class="required" title="required">*</abbr></label>
+										<span class="woocommerce-input-wrapper">
+											<input type="text" class="input-text " name="billing_first_name" id="billing_first_name" placeholder="" value="" autocomplete="given-name" />
+										</span>
+									</p>
+									<p class="form-row form-row-last validate-required" id="billing_last_name_field">
+										<label for="billing_last_name" class="">Last name <abbr class="required" title="required">*</abbr></label>
+										<span class="woocommerce-input-wrapper">
+											<input type="text" class="input-text " name="billing_last_name" id="billing_last_name" placeholder="" value="" autocomplete="family-name" />
+										</span>
+									</p>
+									<p class="form-row form-row-wide" id="billing_company_field">
+										<label for="billing_company" class="">Company name <span class="optional">(optional)</span></label>
+										<span class="woocommerce-input-wrapper">
+											<input type="text" class="input-text " name="billing_company" id="billing_company" placeholder="" value="" autocomplete="organization" />
+										</span>
+									</p>
+									<p class="form-row form-row-wide address-field validate-required" id="billing_country_field">
+										<label for="billing_country" class="">Country / Region <abbr class="required" title="required">*</abbr></label>
+										<span class="woocommerce-input-wrapper">
+											<select name="billing_country" id="billing_country" class="country_to_state country_select" autocomplete="country" tabindex="-1" aria-hidden="true">
+												<option value="">Select a country / region</option>
+												<option value="CA">Canada</option>
+												<option value="US">United States</option>
+											</select>
+										</span>
+									</p>
+									<p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
+										<label for="billing_address_1" class="">Street address <abbr class="required" title="required">*</abbr></label>
+										<span class="woocommerce-input-wrapper">
+											<input type="text" class="input-text " name="billing_address_1" id="billing_address_1" placeholder="House number and street name" value="" autocomplete="address-line1" />
+										</span>
+									</p>
+									<p class="form-row form-row-wide address-field" id="billing_address_2_field">
+										<span class="woocommerce-input-wrapper">
+											<input type="text" class="input-text " name="billing_address_2" id="billing_address_2" placeholder="Apartment, suite, unit, etc. (optional)" value="" autocomplete="address-line2" />
+										</span>
+									</p>
+									<p class="form-row form-row-wide address-field validate-required" id="billing_city_field">
+										<label for="billing_city" class="">Town / City <abbr class="required" title="required">*</abbr></label>
+										<span class="woocommerce-input-wrapper">
+											<input type="text" class="input-text " name="billing_city" id="billing_city" placeholder="" value="" autocomplete="address-level2" />
+										</span>
+									</p>
+									<p class="form-row form-row-first address-field validate-required" id="billing_state_field">
+										<label for="billing_state" class="">Province / State <abbr class="required" title="required">*</abbr></label>
+										<span class="woocommerce-input-wrapper">
+											<input type="text" class="input-text " name="billing_state" id="billing_state" placeholder="" value="" autocomplete="address-level1" />
+										</span>
+									</p>
+									<p class="form-row form-row-last address-field validate-required validate-postcode" id="billing_postcode_field">
+										<label for="billing_postcode" class="">Postal code / ZIP <abbr class="required" title="required">*</abbr></label>
+										<span class="woocommerce-input-wrapper">
+											<input type="text" class="input-text " name="billing_postcode" id="billing_postcode" placeholder="" value="" autocomplete="postal-code" />
+										</span>
+									</p>
+									<p class="form-row form-row-first validate-required validate-phone" id="billing_phone_field">
+										<label for="billing_phone" class="">Phone <abbr class="required" title="required">*</abbr></label>
+										<span class="woocommerce-input-wrapper">
+											<input type="tel" class="input-text " name="billing_phone" id="billing_phone" placeholder="" value="" autocomplete="tel" />
+										</span>
+									</p>
+									<p class="form-row form-row-last validate-required validate-email" id="billing_email_field">
+										<label for="billing_email" class="">Email address <abbr class="required" title="required">*</abbr></label>
+										<span class="woocommerce-input-wrapper">
+											<input type="email" class="input-text " name="billing_email" id="billing_email" placeholder="" value="" autocomplete="email username" />
+										</span>
+									</p>
+								</div>
+							</div>
+
+							<!-- Shipping Details -->
+							<div class="woocommerce-shipping-fields">
+								<h3 class="checkout-section-title" id="ship-to-different-address">
+									<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
+										<input id="ship-to-different-address-checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" type="checkbox" name="ship_to_different_address" value="1" />
+										<span>Ship to a different address?</span>
+									</label>
+								</h3>
+								<div class="shipping_address" id="shippingFields" style="display: none;">
+									<div class="woocommerce-shipping-fields__field-wrapper">
+										<p class="form-row form-row-first validate-required" id="shipping_first_name_field">
+											<label for="shipping_first_name" class="">First name <abbr class="required" title="required">*</abbr></label>
+											<span class="woocommerce-input-wrapper">
+												<input type="text" class="input-text " name="shipping_first_name" id="shipping_first_name" placeholder="" value="" autocomplete="given-name" />
+											</span>
+										</p>
+										<p class="form-row form-row-last validate-required" id="shipping_last_name_field">
+											<label for="shipping_last_name" class="">Last name <abbr class="required" title="required">*</abbr></label>
+											<span class="woocommerce-input-wrapper">
+												<input type="text" class="input-text " name="shipping_last_name" id="shipping_last_name" placeholder="" value="" autocomplete="family-name" />
+											</span>
+										</p>
+										<p class="form-row form-row-wide" id="shipping_company_field">
+											<label for="shipping_company" class="">Company name <span class="optional">(optional)</span></label>
+											<span class="woocommerce-input-wrapper">
+												<input type="text" class="input-text " name="shipping_company" id="shipping_company" placeholder="" value="" autocomplete="organization" />
+											</span>
+										</p>
+										<p class="form-row form-row-wide address-field validate-required" id="shipping_country_field">
+											<label for="shipping_country" class="">Country / Region <abbr class="required" title="required">*</abbr></label>
+											<span class="woocommerce-input-wrapper">
+												<select name="shipping_country" id="shipping_country" class="country_to_state country_select" autocomplete="country">
+													<option value="">Select a country / region</option>
+													<option value="CA">Canada</option>
+													<option value="US">United States</option>
+												</select>
+											</span>
+										</p>
+										<p class="form-row form-row-wide address-field validate-required" id="shipping_address_1_field">
+											<label for="shipping_address_1" class="">Street address <abbr class="required" title="required">*</abbr></label>
+											<span class="woocommerce-input-wrapper">
+												<input type="text" class="input-text " name="shipping_address_1" id="shipping_address_1" placeholder="House number and street name" value="" autocomplete="address-line1" />
+											</span>
+										</p>
+										<p class="form-row form-row-wide address-field" id="shipping_address_2_field">
+											<span class="woocommerce-input-wrapper">
+												<input type="text" class="input-text " name="shipping_address_2" id="shipping_address_2" placeholder="Apartment, suite, unit, etc. (optional)" value="" autocomplete="address-line2" />
+											</span>
+										</p>
+										<p class="form-row form-row-wide address-field validate-required" id="shipping_city_field">
+											<label for="shipping_city" class="">Town / City <abbr class="required" title="required">*</abbr></label>
+											<span class="woocommerce-input-wrapper">
+												<input type="text" class="input-text " name="shipping_city" id="shipping_city" placeholder="" value="" autocomplete="address-level2" />
+											</span>
+										</p>
+										<p class="form-row form-row-first address-field validate-required" id="shipping_state_field">
+											<label for="shipping_state" class="">Province / State <abbr class="required" title="required">*</abbr></label>
+											<span class="woocommerce-input-wrapper">
+												<input type="text" class="input-text " name="shipping_state" id="shipping_state" placeholder="" value="" autocomplete="address-level1" />
+											</span>
+										</p>
+										<p class="form-row form-row-last address-field validate-required validate-postcode" id="shipping_postcode_field">
+											<label for="shipping_postcode" class="">Postal code / ZIP <abbr class="required" title="required">*</abbr></label>
+											<span class="woocommerce-input-wrapper">
+												<input type="text" class="input-text " name="shipping_postcode" id="shipping_postcode" placeholder="" value="" autocomplete="postal-code" />
+											</span>
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<!-- Order Notes -->
+							<div class="woocommerce-additional-fields">
+								<h3 class="checkout-section-title">Additional information</h3>
+								<div class="woocommerce-additional-fields__field-wrapper">
+									<p class="form-row notes" id="order_comments_field">
+										<label for="order_comments" class="">Order notes <span class="optional">(optional)</span></label>
+										<span class="woocommerce-input-wrapper">
+											<textarea name="order_comments" class="input-text " id="order_comments" placeholder="Notes about your order, e.g. special notes for delivery." rows="2" cols="5"></textarea>
+										</span>
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Order Summary -->
+						<div class="checkout-order-summary">
+							<div id="order_review" class="woocommerce-checkout-review-order">
+								<h3 id="order_review_heading" class="checkout-section-title">Your order</h3>
+								
+								<table class="shop_table woocommerce-checkout-review-order-table">
+									<thead>
+										<tr>
+											<th class="product-name">Product</th>
+											<th class="product-total">Subtotal</th>
+										</tr>
+									</thead>
+									<tbody id="checkout-items-body">
+										<!-- Cart items will be inserted here -->
+									</tbody>
+									<tfoot>
+										<tr class="cart-subtotal">
+											<th>Subtotal</th>
+											<td>
+												<span class="woocommerce-Price-amount amount">
+													<bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="checkout-subtotal">0.00</span></bdi>
+												</span>
+											</td>
+										</tr>
+										<tr class="woocommerce-shipping-totals shipping">
+											<th>Shipping</th>
+											<td data-title="Shipping">
+												<ul id="shipping_method" class="woocommerce-shipping-methods">
+													<li>
+														<input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_free_shipping" value="free_shipping" class="shipping_method" checked="checked" />
+														<label for="shipping_method_0_free_shipping">Free shipping</label>
+													</li>
+													<li>
+														<input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_flat_rate" value="flat_rate" class="shipping_method" />
+														<label for="shipping_method_0_flat_rate">Standard: <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>50.00</bdi></span></label>
+													</li>
+													<li>
+														<input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_local_pickup" value="local_pickup" class="shipping_method" />
+														<label for="shipping_method_0_local_pickup">Express: <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>100.00</bdi></span></label>
+													</li>
+												</ul>
+											</td>
+										</tr>
+										<tr class="order-total">
+											<th>Total</th>
+											<td>
+												<strong>
+													<span class="woocommerce-Price-amount amount">
+														<bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="order-total-amount">0.00</span></bdi>
+													</span>
+												</strong>
+											</td>
+										</tr>
+									</tfoot>
+								</table>
+
+								<!-- Payment Methods -->
+								<div id="payment" class="woocommerce-checkout-payment">
+									<ul class="wc_payment_methods payment_methods methods">
+										<li class="wc_payment_method payment_method_bacs">
+											<input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="bacs" checked="checked" data-order_button_text="" />
+											<label for="payment_method_bacs">
+												Direct bank transfer
+											</label>
+											<div class="payment_box payment_method_bacs">
+												<p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
+											</div>
+										</li>
+										<li class="wc_payment_method payment_method_cheque">
+											<input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque" data-order_button_text="" />
+											<label for="payment_method_cheque">
+												Check payments
+											</label>
+											<div class="payment_box payment_method_cheque">
+												<p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+											</div>
+										</li>
+										<li class="wc_payment_method payment_method_cod">
+											<input id="payment_method_cod" type="radio" class="input-radio" name="payment_method" value="cod" data-order_button_text="" />
+											<label for="payment_method_cod">
+												Cash on delivery
+											</label>
+											<div class="payment_box payment_method_cod">
+												<p>Pay with cash upon delivery.</p>
+											</div>
+										</li>
+									</ul>
+									<div class="form-row place-order">
+										<noscript>
+											Since your browser does not support JavaScript, or it is disabled, please ensure you click the <em>Update totals</em> button before placing your order. You may be charged more than the amount stated above if you fail to do so.
+											<br/><button type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="Update totals">Update totals</button>
+										</noscript>
+
+										<div class="woocommerce-terms-and-conditions-wrapper">
+											<div class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
+												<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="terms" id="terms" value="1" required />
+												<span class="woocommerce-form__label-text">I have read and agree to the website <a href="/terms" class="woocommerce-terms-and-conditions-link" target="_blank">terms and conditions</a> <span class="required">*</span></span>
+											</div>
+										</div>
+
+										<button type="submit" class="button alt wp-element-button" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order">Place order</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(body) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #ffffff;
+		color: #0d0d0d;
+	}
+
+	.qodef-content-grid {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Hero Section */
+	.checkout-hero-section {
+		position: relative;
+		min-height: 400px;
+		overflow: hidden;
+	}
+
+	.checkout-hero-parallax-img-holder {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+	}
+
+	.checkout-hero-parallax-img-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.checkout-hero-parallax-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.checkout-hero-content {
+		position: relative;
+		z-index: 10;
+		padding: 200px 0 100px;
+	}
+
+	.breadcrumbs {
+		margin-bottom: 20px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #ffffff;
+	}
+
+	.breadcrumbs a {
+		color: #ffffff;
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.breadcrumbs-separator {
+		margin: 0 10px;
+	}
+
+	.breadcrumbs-current {
+		color: #ffffff;
+	}
+
+	.checkout-hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 72px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		margin: 0;
+	}
+
+	/* Checkout Section */
+	.checkout-section {
+		padding: 80px 0;
+		background: #ffffff;
+	}
+
+	.checkout-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.woocommerce {
+		width: 100%;
+	}
+
+	.checkout-inner {
+		display: grid;
+		grid-template-columns: 1fr 400px;
+		gap: 60px;
+		align-items: start;
+	}
+
+	/* Checkout Form */
+	.checkout-form-wrapper {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.woocommerce-billing-fields,
+	.woocommerce-shipping-fields,
+	.woocommerce-additional-fields {
+		margin-bottom: 40px;
+	}
+
+	.checkout-section-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 25px;
+		padding-bottom: 15px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.checkout-section-title label {
+		font-weight: 400;
+		font-size: 24px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.checkout-section-title input[type="checkbox"] {
+		width: 18px;
+		height: 18px;
+		cursor: pointer;
+	}
+
+	.woocommerce-billing-fields__field-wrapper,
+	.woocommerce-shipping-fields__field-wrapper,
+	.woocommerce-additional-fields__field-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.form-row {
+		margin-bottom: 20px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.form-row-first,
+	.form-row-last {
+		display: inline-block;
+		width: 48%;
+		vertical-align: top;
+	}
+
+	.form-row-first {
+		margin-right: 4%;
+	}
+
+	.form-row-wide {
+		width: 100%;
+	}
+
+	.form-row label {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 400;
+		color: #0d0d0d;
+		margin-bottom: 8px;
+	}
+
+	.form-row .optional {
+		color: #666;
+		font-weight: 400;
+	}
+
+	.form-row .required {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	.form-row input[type="text"],
+	.form-row input[type="tel"],
+	.form-row input[type="email"],
+	.form-row select,
+	.form-row textarea {
+		width: 100%;
+		padding: 10px 12px;
+		border: 1px solid #e0e0e0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		background: #ffffff;
+		transition: border-color 0.3s;
+		box-sizing: border-box;
+	}
+
+	.form-row input[type="text"]:focus,
+	.form-row input[type="tel"]:focus,
+	.form-row input[type="email"]:focus,
+	.form-row select:focus,
+	.form-row textarea:focus {
+		outline: none;
+		border-color: #fe5900;
+	}
+
+	.form-row textarea {
+		resize: vertical;
+		min-height: 100px;
+	}
+
+	.form-row select {
+		cursor: pointer;
+		appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 15px center;
+		padding-right: 40px;
+	}
+
+	.shipping_address {
+		margin-top: 20px;
+		padding-top: 20px;
+		border-top: 1px solid #e0e0e0;
+	}
+
+	/* Order Summary */
+	.checkout-order-summary {
+		background: #f7f7f7;
+		padding: 35px 30px;
+		height: fit-content;
+		position: sticky;
+		top: 100px;
+	}
+
+	#order_review {
+		width: 100%;
+	}
+
+	.shop_table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 30px;
+		border: none;
+	}
+
+	.shop_table thead {
+		border-bottom: 1px solid #e0e0e0;
+		margin-bottom: 0;
+	}
+
+	.shop_table th {
+		padding: 20px 15px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-align: left;
+		vertical-align: middle;
+	}
+
+	.shop_table th.product-total {
+		text-align: right;
+	}
+
+	.shop_table tbody td {
+		padding: 20px 15px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		border-bottom: 1px solid #e0e0e0;
+		vertical-align: middle;
+	}
+
+	.shop_table tbody td.product-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+	}
+
+	.shop_table tbody td.product-total {
+		text-align: right;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 400;
+		color: #0d0d0d;
+	}
+
+	.product-quantity {
+		font-weight: 400;
+		color: #0d0d0d;
+	}
+
+	.shop_table tfoot th {
+		padding: 12px 0;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-align: left;
+		border: none;
+	}
+
+	.shop_table tfoot td {
+		padding: 12px 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		text-align: right;
+		border: none;
+	}
+
+	.shop_table .order-total th,
+	.shop_table .order-total td {
+		border-top: 1px solid #e0e0e0;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		font-size: 15px;
+	}
+
+	.shop_table .order-total th {
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+	}
+
+	.shop_table .order-total td {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #0d0d0d;
+	}
+
+	.shop_table .order-total td strong {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d;
+	}
+
+	.woocommerce-shipping-methods {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.woocommerce-shipping-methods li {
+		margin-bottom: 10px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.woocommerce-shipping-methods input[type="radio"] {
+		width: 18px;
+		height: 18px;
+		cursor: pointer;
+		margin: 0;
+	}
+
+	.woocommerce-shipping-methods label {
+		margin: 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.woocommerce-shipping-methods .woocommerce-Price-amount {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 400;
+		color: #0d0d0d;
+		margin-left: auto;
+	}
+
+	/* Payment Methods */
+	#payment {
+		margin-top: 30px;
+		padding-top: 30px;
+		border-top: 1px solid #e0e0e0;
+	}
+
+	.wc_payment_methods {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 30px 0;
+	}
+
+	.wc_payment_method {
+		margin-bottom: 25px;
+		padding-bottom: 25px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.wc_payment_method:last-child {
+		border-bottom: none;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+
+	.wc_payment_method label {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		cursor: pointer;
+		margin-bottom: 0;
+	}
+
+	.wc_payment_method input[type="radio"] {
+		width: 18px;
+		height: 18px;
+		cursor: pointer;
+		margin: 0;
+	}
+
+	.payment_box {
+		margin-top: 15px;
+		padding-left: 28px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		line-height: 1.6;
+		color: #666;
+		display: none;
+	}
+
+	.payment_box p {
+		margin: 0;
+	}
+
+	.wc_payment_method input[type="radio"]:checked ~ .payment_box {
+		display: block;
+	}
+
+	.woocommerce-terms-and-conditions-wrapper {
+		margin-bottom: 20px;
+	}
+
+	.woocommerce-form__label-for-checkbox {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+		cursor: pointer;
+		font-weight: 400;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+	}
+
+	.woocommerce-form__label-for-checkbox input[type="checkbox"] {
+		margin-top: 2px;
+		width: 18px;
+		height: 18px;
+		cursor: pointer;
+		flex-shrink: 0;
+	}
+
+	.woocommerce-form__label-text {
+		flex: 1;
+	}
+
+	.woocommerce-form__label-text a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	.woocommerce-form__label-text a:hover {
+		text-decoration: underline;
+	}
+
+	.woocommerce-form__label-text .required {
+		color: #fe5900;
+	}
+
+	.button.alt,
+	#place_order {
+		width: 100%;
+		padding: 18px 40px;
+		background: #fe5900;
+		color: #ffffff;
+		border: none;
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		cursor: pointer;
+		transition: background 0.3s;
+		margin-top: 20px;
+		box-sizing: border-box;
+		display: block;
+	}
+
+	.button.alt:hover,
+	#place_order:hover {
+		background: #e04d00;
+	}
+
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.checkout-inner {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+
+		.checkout-order-summary {
+			position: static;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.checkout-hero-title {
+			font-size: 48px;
+		}
+
+		.form-row-first,
+		.form-row-last {
+			width: 100%;
+			margin-right: 0;
+		}
+
+		.checkout-order-summary {
+			padding: 30px 20px;
+		}
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// Load cart from localStorage
+		function getCart() {
+			const cart = localStorage.getItem('playerstall_cart');
+			return cart ? JSON.parse(cart) : [];
+		}
+
+		function renderCheckoutItems() {
+			const cart = getCart();
+			const itemsBody = document.getElementById('checkout-items-body');
+			const subtotalEl = document.getElementById('checkout-subtotal');
+			const totalAmount = document.getElementById('order-total-amount');
+
+			if (!itemsBody) return;
+
+			let subtotal = 0;
+			let html = '';
+
+			if (cart.length === 0) {
+				html = '<tr><td colspan="2" style="text-align: center; padding: 40px;">Your cart is empty. <a href="/shop">Return to shop</a></td></tr>';
+				if (subtotalEl) subtotalEl.textContent = '0.00';
+				if (totalAmount) totalAmount.textContent = '0.00';
+			} else {
+				cart.forEach(item => {
+					const itemTotal = item.price * item.quantity;
+					subtotal += itemTotal;
+					html += `
+						<tr class="cart_item">
+							<td class="product-name">
+								${item.name.toUpperCase()}&nbsp;
+								<strong class="product-quantity">× ${item.quantity}</strong>
+							</td>
+							<td class="product-total">
+								<span class="woocommerce-Price-amount amount">
+									<bdi><span class="woocommerce-Price-currencySymbol">$</span>${itemTotal.toFixed(2)}</bdi>
+								</span>
+							</td>
+						</tr>
+					`;
+				});
+			}
+
+			itemsBody.innerHTML = html;
+			if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
+			if (totalAmount) totalAmount.textContent = subtotal.toFixed(2);
+
+			return subtotal;
+		}
+
+		// Initialize checkout items
+		let baseTotal = renderCheckoutItems();
+
+		// Toggle shipping address fields
+		const shipToDifferentAddress = document.getElementById('ship-to-different-address-checkbox');
+		const shippingFields = document.getElementById('shippingFields');
+		
+		if (shipToDifferentAddress && shippingFields) {
+			shipToDifferentAddress.addEventListener('change', function() {
+				if (this.checked) {
+					shippingFields.style.display = 'block';
+					const shippingRequiredFields = shippingFields.querySelectorAll('[id$="_field"] input[required], [id$="_field"] select[required]');
+					shippingRequiredFields.forEach(field => {
+						field.setAttribute('required', 'required');
+					});
+				} else {
+					shippingFields.style.display = 'none';
+					const shippingRequiredFields = shippingFields.querySelectorAll('[id$="_field"] input, [id$="_field"] select');
+					shippingRequiredFields.forEach(field => {
+						field.removeAttribute('required');
+					});
+				}
+			});
+		}
+
+		// Update total based on shipping method
+		const shippingMethods = document.querySelectorAll('.woocommerce-shipping-methods input[type="radio"]');
+		const totalAmount = document.getElementById('order-total-amount');
+		
+		if (shippingMethods.length && totalAmount) {
+			shippingMethods.forEach(method => {
+				method.addEventListener('change', function() {
+					const cart = getCart();
+					const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+					let shippingCost = 0;
+					if (this.value === 'flat_rate') {
+						shippingCost = 50.00;
+					} else if (this.value === 'local_pickup') {
+						shippingCost = 100.00;
+					}
+					
+					const newTotal = subtotal + shippingCost;
+					if (totalAmount) totalAmount.textContent = newTotal.toFixed(2);
+				});
+			});
+		}
+
+		// Show/hide payment method descriptions
+		const paymentMethods = document.querySelectorAll('.wc_payment_method input[type="radio"]');
+		paymentMethods.forEach(method => {
+			method.addEventListener('change', function() {
+				// Hide all payment boxes
+				document.querySelectorAll('.payment_box').forEach(box => {
+					box.style.display = 'none';
+				});
+				// Show selected payment box
+				if (this.checked) {
+					const paymentBox = this.closest('.wc_payment_method').querySelector('.payment_box');
+					if (paymentBox) {
+						paymentBox.style.display = 'block';
+					}
+				}
+			});
+		});
+
+		// Show initial payment box for checked method
+		const checkedPayment = document.querySelector('.wc_payment_method input[type="radio"]:checked');
+		if (checkedPayment) {
+			const paymentBox = checkedPayment.closest('.wc_payment_method').querySelector('.payment_box');
+			if (paymentBox) {
+				paymentBox.style.display = 'block';
+			}
+		}
+
+		// Form submission
+		const checkoutForm = document.querySelector('form.checkout');
+		if (checkoutForm) {
+			checkoutForm.addEventListener('submit', function(e) {
+				e.preventDefault();
+				alert('Order placed successfully! (This is a demo - no actual order was placed)');
+			});
+		}
+	});
+</script>
