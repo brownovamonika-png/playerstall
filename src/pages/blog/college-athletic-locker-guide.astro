@@ -1,3 +1,4 @@
+---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const post = {
@@ -16,12 +17,12 @@ const faqItems = [
 	{
 		question: 'How much should a college program budget for new custom lockers?',
 		answer:
-			'Most Division I and II programs earmark $400–$700 per locker depending on finishes, integrated power, and branding. We recommend planning across multiple tiers so non-revenue sports can leverage Semi Pro or Varsity lines while football or basketball invests in Pro or Stadium.'
+			'Most Division I and II programs earmark $400-$700 per locker depending on finishes, integrated power, and branding. We recommend planning across multiple tiers so non-revenue sports can leverage Semi Pro or Varsity lines while football or basketball invests in Pro or Stadium.'
 	},
 	{
 		question: 'What timeline should athletic directors expect for locker room renovations?',
 		answer:
-			'A full design-to-install timeline typically spans 14–20 weeks: 2–4 weeks for discovery and approvals, 6–8 weeks for fabrication, and 4–6 weeks for shipping, install, and punch-list. Start conversations early if you need completion before fall camp or postseason play.'
+			'A full design-to-install timeline typically spans 14-20 weeks: 2-4 weeks for discovery and approvals, 6-8 weeks for fabrication, and 4-6 weeks for shipping, install, and punch-list. Start conversations early if you need completion before fall camp or postseason play.'
 	},
 	{
 		question: 'How do we keep multi-sport locker rooms compliant with NCAA and ADA standards?',
@@ -72,7 +73,7 @@ const structuredData = {
 };
 ---
 
-<BaseLayout title={`${post.title} | PlayerStall`} description={post.description}>
+<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
 	<section class="page-header">
 		<div class="container">
 			<div class="article-meta">
@@ -90,16 +91,16 @@ const structuredData = {
 	<section class="blog-section">
 		<div class="container">
 			<article class="blog-content">
-				<section class="key-takeaways">
+				<div class="key-takeaways">
 					<p class="eyebrow">Key Takeaways</p>
 					<ul>
 						<li>Budget in tiers so non-revenue and revenue sports both get right-fit storage and branding.</li>
 						<li>Map NCAA/ADA requirements and ventilation specs before schematic design to avoid change orders.</li>
 						<li>Use modular pods and future-proof power to adapt lockers for NIL, sports science, and roster swings.</li>
 					</ul>
-				</section>
+				</div>
 
-				<section class="toc">
+				<div class="toc">
 					<h2>Quick Navigation</h2>
 					<ul>
 						<li><a href="#unique-challenges">Unique challenges of college athletics</a></li>
@@ -113,7 +114,7 @@ const structuredData = {
 						<li><a href="#best-practices">Best practices checklist</a></li>
 						<li><a href="#faq">Locker room FAQ</a></li>
 					</ul>
-				</section>
+				</div>
 
 				<h2 id="unique-challenges">The Unique Challenges of College Athletics</h2>
 				<p>
@@ -247,17 +248,17 @@ const structuredData = {
 					</p>
 				</div>
 
-				<section class="faq-section" id="faq">
+				<div class="faq-section" id="faq">
 					<h2>College Locker Room FAQ</h2>
 					{faqItems.map((item) => {
 						return (
-							<details>
-								<summary>{item.question}</summary>
-								<p>{item.answer}</p>
-							</details>
+							<div class="faq-item">
+								<h3 class="faq-question">{item.question}</h3>
+								<p class="faq-answer">{item.answer}</p>
+							</div>
 						);
 					})}
-				</section>
+				</div>
 			</article>
 		</div>
 	</section>
@@ -271,6 +272,8 @@ const structuredData = {
 			</div>
 		</div>
 	</section>
+
+	<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 </BaseLayout>
 
 <style>
@@ -487,7 +490,7 @@ const structuredData = {
 		margin-top: 3rem;
 	}
 
-	.faq-section details {
+	.faq-item {
 		border: 1px solid var(--border-color);
 		border-radius: 10px;
 		padding: 1rem 1.25rem;
@@ -495,13 +498,13 @@ const structuredData = {
 		background: #fff;
 	}
 
-	.faq-section summary {
+	.faq-question {
 		font-weight: 600;
-		cursor: pointer;
 		color: #222;
+		margin-bottom: 0.75rem;
 	}
 
-	.faq-section p {
+	.faq-answer {
 		margin: 0.75rem 0 0;
 	}
 
@@ -524,4 +527,3 @@ const structuredData = {
 		}
 	}
 </style>
-
