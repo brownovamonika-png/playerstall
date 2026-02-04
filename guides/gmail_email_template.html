@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayerStall Email Template - Quick Copy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@400;500&family=Oswald:wght@600;700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header-bar {
+            background: #0066cc;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-bar h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .copy-btn {
+            background: #D49D0E;
+            color: #000000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #b8870c;
+        }
+        
+        .copy-btn.copied {
+            background: #0d0d0d;
+            color: white;
+        }
+        
+        .email-preview {
+            padding: 0;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border-left: 4px solid #D49D0E;
+            padding: 15px 20px;
+            margin: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .instructions strong {
+            color: #0066cc;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-bar">
+            <h1>PlayerStall Email Template</h1>
+            <button class="copy-btn" onclick="copyEmailHTML()">Copy HTML Email</button>
+        </div>
+        
+        <div class="instructions">
+            <strong>📧 How to Use This Template in Gmail:</strong>
+            <ol>
+                <li>Click "Copy HTML Email" button above</li>
+                <li>Open Gmail and start composing a new email</li>
+                <li>Click the three dots (⋮) in the bottom toolbar</li>
+                <li>Select "Insert HTML"</li>
+                <li>Paste the copied HTML</li>
+                <li>Click "Insert" - All colors and formatting will be preserved!</li>
+            </ol>
+            <p style="margin-top: 10px;"><strong>Tip:</strong> Keep this page open in a browser tab for quick access when replying to estimate requests.</p>
+        </div>
+        
+        <div class="email-preview" id="emailContent">
+            <!-- Email content will be inserted here -->
+        </div>
+    </div>
+    
+    <script>
+        // Load the email content from the main template
+        async function loadEmailContent() {
+            try {
+                const response = await fetch('email_template_preview.html');
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const emailContent = doc.getElementById('emailContent');
+                
+                if (emailContent) {
+                    document.getElementById('emailContent').innerHTML = emailContent.innerHTML;
+                }
+            } catch (error) {
+                console.error('Could not load email content:', error);
+                // Fallback: show message
+                document.getElementById('emailContent').innerHTML = '<p style="padding: 20px;">Please open email_template_preview.html to see the full template.</p>';
+            }
+        }
+        
+        function copyEmailHTML() {
+            // Get the email content
+            const emailContent = document.getElementById('emailContent');
+            const clonedContent = emailContent.cloneNode(true);
+            
+            // Apply inline styles for email compatibility
+            function applyInlineStyles(element) {
+                const computed = window.getComputedStyle(element);
+                const importantStyles = {
+                    'color': computed.color,
+                    'background-color': computed.backgroundColor !== 'rgba(0, 0, 0, 0)' ? computed.backgroundColor : '',
+                    'font-family': computed.fontFamily,
+                    'font-size': computed.fontSize,
+                    'font-weight': computed.fontWeight,
+                    'line-height': computed.lineHeight,
+                    'margin-top': computed.marginTop,
+                    'margin-bottom': computed.marginBottom,
+                    'padding': computed.padding,
+                    'text-transform': computed.textTransform,
+                    'letter-spacing': computed.letterSpacing,
+                    'border-bottom': computed.borderBottom,
+                    'border-left': computed.borderLeft,
+                    'border-top': computed.borderTop,
+                    'text-align': computed.textAlign
+                };
+                
+                let inlineStyle = element.getAttribute('style') || '';
+                for (const [prop, value] of Object.entries(importantStyles)) {
+                    if (value && value !== 'rgba(0, 0, 0, 0)' && value !== 'none' && value !== 'normal' && value !== '0px') {
+                        const cssProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
+                        if (!inlineStyle.includes(cssProp)) {
+                            inlineStyle += `${cssProp}: ${value}; `;
+                        }
+                    }
+                }
+                
+                if (inlineStyle.trim()) {
+                    element.setAttribute('style', inlineStyle.trim());
+                }
+                
+                Array.from(element.children).forEach(child => {
+                    applyInlineStyles(child);
+                });
+            }
+            
+            applyInlineStyles(clonedContent);
+            
+            // Replace class-based styles
+            clonedContent.querySelectorAll('.highlight').forEach(el => {
+                el.setAttribute('style', 'background: #D49D0E; color: #000000; padding: 2px 6px; border-radius: 3px; font-weight: 600;');
+            });
+            
+            clonedContent.querySelectorAll('.section-title').forEach(el => {
+                el.setAttribute('style', 'font-family: Oswald, sans-serif; font-size: 18px; font-weight: 600; color: #0066cc; margin-bottom: 15px; margin-top: 30px; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 2px solid #D49D0E; padding-bottom: 8px;');
+            });
+            
+            clonedContent.querySelectorAll('.value-box').forEach(el => {
+                el.setAttribute('style', 'background: #5F5F5F; border-left: 4px solid #D49D0E; padding: 15px; margin: 15px 0; border-radius: 4px; color: #FFFFFF;');
+            });
+            
+            clonedContent.querySelectorAll('.cta-section').forEach(el => {
+                el.setAttribute('style', 'background: #D49D0E; padding: 20px; margin: 30px 0; border-radius: 8px; text-align: center;');
+            });
+            
+            // Create complete HTML email
+            const htmlEmail = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Yantramanav', 'Roboto', Arial, sans-serif; background: #f5f5f5;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background: #f5f5f5; padding: 20px;">
+        <tr>
+            <td align="center">
+                <table width="800" cellpadding="0" cellspacing="0" style="background: white; max-width: 800px;">
+                    <tr>
+                        <td style="background: #000000; color: white; padding: 30px; text-align: center;">
+                            <div style="font-family: 'Oswald', sans-serif; font-size: 42px; font-weight: 700; color: #FFFFFF; text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000; letter-spacing: 2px; margin-bottom: 5px; text-transform: uppercase; font-style: italic;">PlayerStall</div>
+                            <div style="font-family: 'Yantramanav', sans-serif; font-size: 12px; color: #FFFFFF; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 5px;">Since 1989</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background: #3D3D3D; padding: 15px 20px; border-bottom: 2px solid #D49D0E; font-size: 14px; color: #FFFFFF; font-family: 'Yantramanav', 'Roboto', Arial, sans-serif; font-weight: 500;">
+                            <strong>Subject:</strong> <span style="color: #0066cc; font-weight: 600;">Your Custom Sports Locker Quote</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 40px; line-height: 1.8; color: #0d0d0d; font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;">
+                            ${clonedContent.innerHTML}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 30px 40px; border-top: 2px solid #3D3D3D;">
+                            <img src="https://customsportslockers.com/images/Athletic-Lockers-Stadium.jpg" alt="Custom Wood Sports Lockers" style="max-width: 300px; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);" />
+                            <p style="margin-top: 15px; font-size: 12px; color: #5F5F5F; font-family: 'Yantramanav', sans-serif;">Premium Custom Wood Sports Lockers</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>`;
+            
+            navigator.clipboard.writeText(htmlEmail).then(() => {
+                const button = document.querySelector('.copy-btn');
+                const originalText = button.textContent;
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        }
+        
+        // Load content on page load
+        loadEmailContent();
+    </script>
+</body>
+</html>

@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayerStall Professional Email Template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@400;500&family=Oswald:wght@600;700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #000000;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .old-logo {
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .logo-main {
+            font-family: 'Oswald', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: #FFFFFF;
+            text-shadow: 
+                -1px -1px 0 #000000,
+                1px -1px 0 #000000,
+                -1px 1px 0 #000000,
+                1px 1px 0 #000000,
+                2px 2px 0 rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+        
+        .logo-since {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 12px;
+            color: #FFFFFF;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+        
+        .header h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #FFFFFF;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+            color: #FFFFFF;
+        }
+        
+        .email-content {
+            padding: 40px;
+            line-height: 1.8;
+            color: #0d0d0d;
+            font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+        }
+        
+        .email-meta {
+            background: #3D3D3D;
+            padding: 15px 20px;
+            border-bottom: 2px solid #D49D0E;
+            font-size: 14px;
+            color: #FFFFFF;
+            font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+            font-weight: 500;
+        }
+        
+        .greeting {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #0d0d0d;
+        }
+        
+        .section {
+            margin: 30px 0;
+        }
+        
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066cc;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-bottom: 2px solid #D49D0E;
+            padding-bottom: 8px;
+        }
+        
+        .section-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #0d0d0d;
+            font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+        }
+        
+        .section-content ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .section-content li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight {
+            background: #D49D0E;
+            color: #000000;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        .value-box {
+            background: #5F5F5F;
+            border-left: 4px solid #D49D0E;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            color: #FFFFFF;
+        }
+        
+        .value-box strong {
+            color: #D49D0E;
+        }
+        
+        .checkmark {
+            color: #0066cc;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .signature {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #3D3D3D;
+        }
+        
+        .signature-name {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: #0d0d0d;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .signature-title {
+            font-size: 14px;
+            color: #5F5F5F;
+            margin-bottom: 10px;
+            font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+        }
+        
+        .signature-contact {
+            font-size: 14px;
+            color: #0d0d0d;
+            line-height: 1.8;
+            font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+        }
+        
+        .signature-contact strong {
+            color: #0066cc;
+        }
+        
+        .signature-tagline {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #3D3D3D;
+            font-size: 13px;
+            color: #5F5F5F;
+            font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+        }
+        
+        .cta-section {
+            background: #D49D0E;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .cta-section strong {
+            color: #000000;
+            font-size: 18px;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .copy-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #D49D0E;
+            color: #000000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 157, 14, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .copy-button:hover {
+            background: #b8870c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 157, 14, 0.5);
+        }
+        
+        .copy-button.copied {
+            background: #0d0d0d;
+        }
+        
+        .copy-html-button {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .copy-html-button:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.5);
+        }
+        
+        .copy-html-button.copied {
+            background: #0d0d0d;
+        }
+        
+        @media (max-width: 768px) {
+            .copy-html-button {
+                bottom: 80px;
+                right: 20px;
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .email-content {
+                padding: 25px;
+            }
+            
+            .copy-button {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="old-logo">
+                <div class="logo-main">PlayerStall</div>
+                <div class="logo-since">Since 1989</div>
+            </div>
+            <h1>Professional Email Template</h1>
+            <p>Quote Response Email - Ready to Use</p>
+        </div>
+        
+        <div class="email-meta">
+            <strong>Subject:</strong> <span style="color: #0066cc; font-weight: 600;">Your Custom Sports Locker Quote</span> 🗄️
+        </div>
+        
+        <div class="email-content" id="emailContent">
+            <div class="greeting">
+                Hi there,
+            </div>
+            
+            <p>
+                Thank you for contacting PlayerStall regarding custom sports lockers. I've reviewed your request and prepared a detailed quote for your project, which I've attached below.
+            </p>
+            
+            <div class="section">
+                <div class="section-title">Quote Summary</div>
+                <div class="section-content">
+                    <ul>
+                        <li><span style="color: #ff0000; font-weight: bold; background: #ffebee; padding: 2px 6px; border-radius: 3px;">50 Stadium Lockers</span></li>
+                        <li>Detailed pricing breakdown (see attached estimate)</li>
+                        <li><span class="highlight">Total value included: $130 in free upgrades per locker</span> ($45 Prefinish + $35 Edging + $50 Backing)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Our Flagship Model - The Stadium Locker</div>
+                <div class="section-content">
+                    <p>Our Stadium Locker is <strong>$599 per locker</strong> and includes <span class="highlight">$130 in free upgrades</span>:</p>
+                    <ul>
+                        <li><strong>Free Prefinish ($45 Value)</strong> - Premium wood finish included at no extra cost</li>
+                        <li><strong>Free Edging ($35 Value)</strong> - Professional edge finishing included</li>
+                        <li><strong>Free Backing ($50 Value)</strong> - Full backing included on all team orders</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Additional Options (Priced at Our Cost - No Markup)</div>
+                <div class="section-content">
+                    <ul>
+                        <li>Cushions: +$80 per locker</li>
+                        <li>Name Plates: +$10 per locker</li>
+                        <li>Lock boxes: +$80 per locker</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Complete Model Lineup</div>
+                <div class="section-content">
+                    <p>We offer several models to fit different needs and budgets:</p>
+                    <ul>
+                        <li><strong>Semi Pro - $349</strong><br>
+                            Includes: Free Prefinished wood ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)</li>
+                        <li><strong>Varsity - $449</strong><br>
+                            Includes: Free Prefinished wood ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)</li>
+                        <li><strong>Pro - $549</strong><br>
+                            Includes: Free Prefinished wood ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)</li>
+                        <li><strong>Stadium - $599 (Our Flagship Model)</strong><br>
+                            Includes: Free Prefinish ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)</li>
+                        <li><strong>Corner Units - $599</strong><br>
+                            Perfect for maximizing corner space in your locker room<br>
+                            <em>Note: Corner units come fully assembled</em></li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>All Team orders include Free Backing ($50 Value) on every model.</strong></p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">View Our Work</div>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>Full Gallery:</strong> <a href="http://customsportslockers.com/gallery/" target="_blank">http://customsportslockers.com/gallery/</a></li>
+                        <li><strong>Model Comparison:</strong> <a href="http://customsportslockers.com/" target="_blank">http://customsportslockers.com/</a> (homepage, halfway down the page)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Why PlayerStall?</div>
+                <div class="section-content">
+                    <p>With 30+ years of experience serving collegiate and professional teams across North America, we understand what makes a great locker room. Our lockers are:</p>
+                    <ul style="list-style: none; margin-left: 0;">
+                        <li style="margin-bottom: 12px;"><strong style="color: #D49D0E;">• Made in Canada</strong> - Premium materials and craftsmanship you can trust</li>
+                        <li style="margin-bottom: 12px;"><strong style="color: #D49D0E;">• Built to Last a Lifetime</strong> - These lockers are built strong and will last a lifetime, backed by our lifetime guarantee</li>
+                        <li style="margin-bottom: 12px;"><strong style="color: #D49D0E;">• Fully Modular</strong> - If a piece gets broken in the future, you can call us and we will send a replacement right away</li>
+                        <li style="margin-bottom: 12px;"><strong style="color: #D49D0E;">• Custom-Sized</strong> - Perfect fit for your space with no wasted room or awkward gaps</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Shipping & Assembly Information</div>
+                <div class="section-content">
+                    <p>If you have a room drawing or room layout, we can provide you with a more accurate timeline. Generally, we will ship your order in <strong>4 to 8 weeks</strong>, depending on the level of customization required.</p>
+                    <p style="margin-top: 15px;"><strong>Assembly is very easy</strong> - just like IKEA furniture! I would budget around <strong>20 to 30 minutes per unit</strong> for assembly. Our lockers are designed to be straightforward to put together.</p>
+                    <p style="margin-top: 15px;"><strong>Note:</strong> Corner units come fully assembled already, so no assembly time needed for those.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Next Steps</div>
+                <div class="section-content">
+                    <p>To ensure we create the perfect custom-sized solution for your locker room, please send a quick drawing of the room with accurate dimensions. This allows us to custom-size the lockers to fit your space perfectly with no wasted room or awkward gaps.</p>
+                    <p style="margin-top: 15px;">This quote is valid for <strong>60 days</strong>. I'm here to answer any questions, discuss customization options, or help you choose the best model for your needs and budget.</p>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <strong>CALL 1 (888) 584-1444 TO ORDER</strong><br>
+                <span style="color: #000000; font-size: 14px; font-family: 'Yantramanav', sans-serif;">Available Now - Free Consultation</span>
+            </div>
+            
+            <div class="section">
+                <div class="section-content">
+                    <p>You can reach me directly at <strong>1 (888) 584-1444</strong> or simply reply to this email anytime.</p>
+                    <p style="margin-top: 15px;">I look forward to helping you create an exceptional locker room solution for your team.</p>
+                </div>
+            </div>
+            
+            <div class="signature">
+                <div class="signature-name">Best regards,</div>
+                <div class="signature-name">Monika</div>
+                <div class="signature-title">Custom Locker Specialist</div>
+                <div class="signature-contact">
+                    <strong>PlayerStall</strong><br>
+                    1 (888) 584-1444<br>
+                    info@customsportslockers.com<br>
+                    CustomSportsLockers.com
+                </div>
+                <div class="signature-tagline">
+                    30+ Years Experience | Lifetime Guarantee | Made in Canada | Free Design Consultation
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div style="position: fixed; bottom: 150px; right: 30px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); max-width: 300px; font-size: 12px; color: #0d0d0d; font-family: 'Yantramanav', sans-serif; z-index: 1000;">
+        <strong style="color: #0066cc;">How to Copy:</strong><br>
+        Click "Copy HTML Email" then paste into your email client's HTML editor (Gmail: Insert → HTML, Outlook: HTML mode)
+    </div>
+    <button class="copy-html-button" onclick="copyEmailHTML()">Copy HTML Email</button>
+    <button class="copy-button" onclick="copyEmail()">Copy Plain Text</button>
+    
+    <script>
+        function copyEmail() {
+            const emailContent = document.getElementById('emailContent');
+            const text = emailContent.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const button = document.querySelector('.copy-button');
+                const originalText = button.textContent;
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        }
+        
+        function copyEmailHTML() {
+            const emailContent = document.getElementById('emailContent');
+            
+            // Clone the content and apply all styles inline
+            const clonedContent = emailContent.cloneNode(true);
+            
+            // Function to apply computed styles to elements
+            function applyInlineStyles(element) {
+                const computed = window.getComputedStyle(element);
+                const styleMap = {
+                    'color': computed.color,
+                    'background-color': computed.backgroundColor,
+                    'font-family': computed.fontFamily,
+                    'font-size': computed.fontSize,
+                    'font-weight': computed.fontWeight,
+                    'line-height': computed.lineHeight,
+                    'margin': computed.margin,
+                    'margin-top': computed.marginTop,
+                    'margin-bottom': computed.marginBottom,
+                    'padding': computed.padding,
+                    'text-transform': computed.textTransform,
+                    'letter-spacing': computed.letterSpacing,
+                    'border': computed.border,
+                    'border-bottom': computed.borderBottom,
+                    'border-left': computed.borderLeft,
+                    'border-top': computed.borderTop,
+                    'border-radius': computed.borderRadius,
+                    'text-align': computed.textAlign
+                };
+                
+                let inlineStyle = '';
+                for (const [prop, value] of Object.entries(styleMap)) {
+                    if (value && value !== 'rgba(0, 0, 0, 0)' && value !== 'none' && value !== 'normal') {
+                        inlineStyle += `${prop.replace(/-([a-z])/g, (g) => g[1].toUpperCase())}: ${value}; `;
+                    }
+                }
+                
+                // Preserve existing inline styles
+                if (element.getAttribute('style')) {
+                    inlineStyle = element.getAttribute('style') + ' ' + inlineStyle;
+                }
+                
+                if (inlineStyle.trim()) {
+                    element.setAttribute('style', inlineStyle.trim());
+                }
+                
+                // Process children
+                Array.from(element.children).forEach(child => {
+                    applyInlineStyles(child);
+                });
+            }
+            
+            // Apply styles to cloned content
+            applyInlineStyles(clonedContent);
+            
+            // Replace class-based styles with inline styles for email compatibility
+            const highlightElements = clonedContent.querySelectorAll('.highlight');
+            highlightElements.forEach(el => {
+                el.setAttribute('style', 'background: #D49D0E; color: #000000; padding: 2px 6px; border-radius: 3px; font-weight: 600;');
+            });
+            
+            const sectionTitles = clonedContent.querySelectorAll('.section-title');
+            sectionTitles.forEach(el => {
+                el.setAttribute('style', 'font-family: Oswald, sans-serif; font-size: 18px; font-weight: 600; color: #0066cc; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 2px solid #D49D0E; padding-bottom: 8px;');
+            });
+            
+            const valueBoxes = clonedContent.querySelectorAll('.value-box');
+            valueBoxes.forEach(el => {
+                el.setAttribute('style', 'background: #5F5F5F; border-left: 4px solid #D49D0E; padding: 15px; margin: 15px 0; border-radius: 4px; color: #FFFFFF;');
+            });
+            
+            const ctaSections = clonedContent.querySelectorAll('.cta-section');
+            ctaSections.forEach(el => {
+                el.setAttribute('style', 'background: #D49D0E; padding: 20px; margin: 30px 0; border-radius: 8px; text-align: center;');
+            });
+            
+            // Create complete HTML email
+            const htmlEmail = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayerStall Quote</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Yantramanav', 'Roboto', Arial, sans-serif; background: #f5f5f5;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background: #f5f5f5; padding: 20px;">
+        <tr>
+            <td align="center">
+                <table width="800" cellpadding="0" cellspacing="0" style="background: white; max-width: 800px;">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: #000000; color: white; padding: 30px; text-align: center;">
+                            <div style="font-family: 'Oswald', sans-serif; font-size: 42px; font-weight: 700; color: #FFFFFF; text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000; letter-spacing: 2px; margin-bottom: 5px; text-transform: uppercase; font-style: italic;">PlayerStall</div>
+                            <div style="font-family: 'Yantramanav', sans-serif; font-size: 12px; color: #FFFFFF; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 5px;">Since 1989</div>
+                        </td>
+                    </tr>
+                    <!-- Email Meta -->
+                    <tr>
+                        <td style="background: #3D3D3D; padding: 15px 20px; border-bottom: 2px solid #D49D0E; font-size: 14px; color: #FFFFFF; font-family: 'Yantramanav', 'Roboto', Arial, sans-serif; font-weight: 500;">
+                            <strong>Subject:</strong> <span style="color: #0066cc; font-weight: 600;">Your Custom Sports Locker Quote</span> 🗄️
+                        </td>
+                    </tr>
+                    <!-- Email Content -->
+                    <tr>
+                        <td style="padding: 40px; line-height: 1.8; color: #0d0d0d; font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;">
+                            ${clonedContent.innerHTML}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>`;
+            
+            // Use modern clipboard API
+            navigator.clipboard.writeText(htmlEmail).then(() => {
+                const button = document.querySelector('.copy-html-button');
+                const originalText = button.textContent;
+                button.textContent = '✓ HTML Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = htmlEmail;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                
+                const button = document.querySelector('.copy-html-button');
+                const originalText = button.textContent;
+                button.textContent = '✓ HTML Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

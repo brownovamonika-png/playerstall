@@ -1,0 +1,581 @@
+---
+/**
+ * BLOG POST TEMPLATE
+ * 
+ * Copy this template when creating a new blog post.
+ * Follow the Blog Writing SOP (BLOG_WRITING_SOP.md) for complete process.
+ * 
+ * Instructions:
+ * 1. Replace all [PLACEHOLDER] text with actual content
+ * 2. Follow the checklist in BLOG_WRITING_SOP.md
+ * 3. Ensure 3,000+ words minimum
+ * 4. Include 6-8 FAQs
+ * 5. Add 5-8 internal links
+ * 6. Optimize all images with alt tags
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// ============================================
+// STEP 1: POST METADATA
+// ============================================
+// KEYWORD STRATEGY: Select primary keyword from target keywords list
+// See: guides/target_keywords_summary.md for complete keyword reference
+//
+// 🔴 CRITICAL PRIORITY KEYWORDS:
+// - "wood sports lockers" (170 searches/month) - YOUR PRIMARY KEYWORD
+// - "custom sports lockers" (30-70 searches/month, Difficulty = 9) - Easy to rank
+// - "sports lockers" (2,400-2,900 searches/month) - Long-term goal
+// - "locker room lockers" (880-1,300 searches/month) - High value
+// - "athletic lockers" (590-880 searches/month) - Strong volume
+//
+// 🟠 HIGH PRIORITY KEYWORDS:
+// - "wood athletic lockers" (30-90 searches/month)
+// - "football wood lockers" (30-90 searches/month)
+// - "[State] [Sport] wood lockers" (Programmatic - LOW competition)
+//
+// 🟡 MEDIUM PRIORITY KEYWORDS:
+// - "wood vs metal sports lockers" (10-30 searches/month)
+// - "varsity lockers" (20-70 searches/month)
+// - "buy sports lockers" (10-90 searches/month, LOW competition)
+
+const post = {
+	title: '[Primary Keyword]: [Benefit/Year]', // 50-60 characters, includes primary keyword from target keywords list
+	description: '[150-160 characters: Include benefits, CTA, key differentiators. Must include primary keyword naturally. Reference: "30+ years experience", "lifetime guarantee", "free consultation"]',
+	category: '[Category]', // Buyer Guides, Design, Planning, Maintenance, etc.
+	datePublished: 'YYYY-MM-DD', // Format: YYYY-MM-DD
+	readTime: 'X min read', // Estimate: 200 words = 1 minute reading time
+	author: 'PlayerStall Editorial Team',
+	slug: 'kebab-case-url-slug', // Must match filename (without .astro), include primary keyword
+	wordCount: 3000, // Target minimum: 3,000 words
+	// KEYWORD FIELDS:
+	primaryKeyword: '[Primary Keyword from target keywords list]', // e.g., "wood sports lockers"
+	secondaryKeywords: [
+		'[Secondary Keyword 1]', // e.g., "custom sports lockers"
+		'[Secondary Keyword 2]', // e.g., "wood athletic lockers"
+		'[Secondary Keyword 3]', // e.g., "athletic lockers"
+		'[Secondary Keyword 4]', // e.g., "locker room lockers"
+		'[Secondary Keyword 5]'  // e.g., "[sport] wood lockers"
+	]
+};
+
+// ============================================
+// STEP 2: FAQ ITEMS (6-8 FAQs minimum)
+// ============================================
+const faqItems = [
+	{
+		question: '[Question with primary/secondary keyword - targets featured snippets]',
+		answer: '[150-200 word comprehensive answer with data, examples, and natural CTA when appropriate]'
+	},
+	{
+		question: '[Question 2]',
+		answer: '[Answer 2]'
+	},
+	{
+		question: '[Question 3]',
+		answer: '[Answer 3]'
+	},
+	{
+		question: '[Question 4]',
+		answer: '[Answer 4]'
+	},
+	{
+		question: '[Question 5]',
+		answer: '[Answer 5]'
+	},
+	{
+		question: '[Question 6]',
+		answer: '[Answer 6]'
+	}
+	// Add 2 more FAQs if targeting more featured snippets
+];
+
+// ============================================
+// STEP 3: SCHEMA MARKUP
+// ============================================
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Article',
+			headline: post.title,
+			description: post.description,
+			datePublished: post.datePublished,
+			dateModified: post.datePublished, // Update when content is refreshed
+			wordCount: post.wordCount,
+			author: {
+				'@type': 'Organization',
+				name: post.author
+			},
+			publisher: {
+				'@type': 'Organization',
+				name: 'PlayerStall',
+				logo: {
+					'@type': 'ImageObject',
+					url: 'https://playerstall.com/images/logoblack2.png'
+				}
+			},
+			mainEntityOfPage: {
+				'@type': 'WebPage',
+				'@id': `https://playerstall.com/blog/${post.slug}`
+			}
+		},
+		{
+			'@type': 'FAQPage',
+			mainEntity: faqItems.map((item) => ({
+				'@type': 'Question',
+				name: item.question,
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: item.answer
+				}
+			}))
+		}
+	]
+};
+---
+
+<BaseLayout title={post.title + ' | PlayerStall Blog'} description={post.description}>
+	<!-- Schema Markup -->
+	<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+	<!-- Page Header -->
+	<section class="page-header">
+		<div class="container">
+			<div class="article-meta">
+				<span class="blog-date">{new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} · {post.readTime}</span>
+				<span class="blog-category">{post.category}</span>
+			</div>
+			<h1>{post.title}</h1>
+			<p class="lede">
+				[300-400 word introduction: Hook with 30+ years experience, problem statement, what they'll learn, credibility builder. MUST include primary keyword naturally in first paragraph.]
+			</p>
+		</div>
+	</section>
+
+	<!-- Blog Content -->
+	<section class="blog-section">
+		<div class="container">
+			<article class="blog-content">
+				<!-- Key Takeaways Box -->
+				<div class="key-takeaways">
+					<p class="eyebrow">Key Takeaways</p>
+					<ul>
+						<li>[Takeaway 1: Main benefit or insight]</li>
+						<li>[Takeaway 2: Key point]</li>
+						<li>[Takeaway 3: Important consideration]</li>
+						<li>[Takeaway 4: Action item or insight]</li>
+						<li>[Takeaway 5: Value proposition]</li>
+					</ul>
+				</div>
+
+				<!-- Table of Contents (for posts 2,500+ words) -->
+				<div class="toc">
+					<h2>Quick Navigation</h2>
+					<ul>
+						<li><a href="#section-1">[Section 1 Title]</a></li>
+						<li><a href="#section-2">[Section 2 Title]</a></li>
+						<li><a href="#section-3">[Section 3 Title]</a></li>
+						<li><a href="#section-4">[Section 4 Title]</a></li>
+						<li><a href="#section-5">[Section 5 Title]</a></li>
+						<li><a href="#faq">[FAQ Section]</a></li>
+					</ul>
+				</div>
+
+				<!-- Main Content Sections -->
+				<!-- Each section should be 400-500 words -->
+				
+				<h2 id="section-1">[H2: Section 1 Title - Include Secondary Keyword from target keywords list]</h2>
+				<p>
+					[400-500 words: Comprehensive content with data, examples, insights from 30+ years experience. Include primary keyword and secondary keywords naturally throughout. Reference target keywords: "wood sports lockers", "custom sports lockers", "athletic lockers", etc. when relevant.]
+				</p>
+				
+				<h3>[H3: Subsection Title]</h3>
+				<p>
+					[Content: Break down complex topics, include specific data, examples]
+				</p>
+				
+				<h3>[H3: Another Subsection]</h3>
+				<p>
+					[Content: Use bullet points, numbered lists, tables when helpful]
+				</p>
+
+				<!-- Internal Link Example -->
+				<p>
+					Learn more about our <a href="/services">custom sports locker solutions</a> and how we can help your program.
+				</p>
+
+				<h2 id="section-2">[H2: Section 2 Title]</h2>
+				<p>
+					[400-500 words: Continue comprehensive coverage]
+				</p>
+
+				<h2 id="section-3">[H2: Section 3 Title]</h2>
+				<p>
+					[400-500 words: More depth and detail]
+				</p>
+
+				<h2 id="section-4">[H2: Section 4 Title]</h2>
+				<p>
+					[400-500 words: Additional insights]
+				</p>
+
+				<h2 id="section-5">[H2: Section 5 Title]</h2>
+				<p>
+					[400-500 words: Final main section]
+				</p>
+
+				<!-- Continue with more sections as needed (target 5-8 main sections total) -->
+
+				<!-- Conclusion -->
+				<h2>Conclusion: [Summary Title]</h2>
+				<p>
+					[200-300 words: Recap main points, reinforce value, natural transition to CTA]
+				</p>
+
+				<!-- Inline CTA -->
+				<div class="inline-cta">
+					<h3>[CTA Headline: Action-Oriented]</h3>
+					<p>[CTA Description: Benefit-focused]</p>
+					<a class="btn-secondary" href="/contact">Get Free Consultation</a>
+				</div>
+
+				<!-- Related Links -->
+				<div class="related-links">
+					<p>
+						<strong>Related Articles:</strong>
+						<a href="/blog/[related-post-1]">[Related Post 1 Title]</a> ·
+						<a href="/blog/[related-post-2]">[Related Post 2 Title]</a> ·
+						<a href="/blog/[related-post-3]">[Related Post 3 Title]</a>
+					</p>
+				</div>
+
+				<!-- FAQ Section -->
+				<div class="faq-section" id="faq">
+					<h2>[FAQ Section Title]</h2>
+					{faqItems.map((item) => {
+						return (
+							<div class="faq-item">
+								<h3 class="faq-question">{item.question}</h3>
+								<p class="faq-answer">{item.answer}</p>
+							</div>
+						);
+					})}
+				</div>
+			</article>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	/* Copy styles from existing blog posts */
+	/* See: src/pages/blog/college-athletic-locker-guide.astro for reference */
+	
+	:global(body) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #f7f7f7;
+		color: #0d0d0d;
+	}
+
+	.container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.page-header {
+		background: #ffffff;
+		padding: 4rem 0 2rem;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.article-meta {
+		display: flex;
+		gap: 15px;
+		margin-bottom: 20px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #8c8c8c;
+	}
+
+	.blog-date {
+		color: #8c8c8c;
+	}
+
+	.blog-category {
+		color: #fe5900;
+	}
+
+	h1 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		line-height: 1.2;
+		margin-bottom: 20px;
+	}
+
+	.lede {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 20px;
+		color: #666666;
+		line-height: 1.8;
+		max-width: 900px;
+	}
+
+	.blog-section {
+		background: #ffffff;
+		padding: 4rem 0;
+	}
+
+	.blog-content {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	.key-takeaways {
+		background: #f7f7f7;
+		padding: 2rem;
+		border-left: 4px solid #fe5900;
+		margin: 2rem 0;
+	}
+
+	.eyebrow {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #8c8c8c;
+		margin-bottom: 1rem;
+	}
+
+	.key-takeaways ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.key-takeaways li {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #0d0d0d;
+		line-height: 1.8;
+		margin-bottom: 0.75rem;
+		padding-left: 1.5rem;
+		position: relative;
+	}
+
+	.key-takeaways li::before {
+		content: "✓";
+		position: absolute;
+		left: 0;
+		color: #fe5900;
+		font-weight: bold;
+	}
+
+	.toc {
+		background: #f7f7f7;
+		padding: 2rem;
+		margin: 2rem 0;
+		border-radius: 8px;
+	}
+
+	.toc h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #0d0d0d;
+		margin-bottom: 1rem;
+	}
+
+	.toc ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.toc li {
+		margin-bottom: 0.5rem;
+	}
+
+	.toc a {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #0d0d0d;
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.toc a:hover {
+		color: #fe5900;
+	}
+
+	h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 36px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 3rem 0 1.5rem;
+		line-height: 1.2;
+	}
+
+	h3 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #0d0d0d;
+		margin: 2rem 0 1rem;
+		line-height: 1.3;
+	}
+
+	p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #0d0d0d;
+		line-height: 1.8;
+		margin-bottom: 1.5rem;
+	}
+
+	a {
+		color: #fe5900;
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	a:hover {
+		color: #e04d00;
+		text-decoration: underline;
+	}
+
+	.inline-cta {
+		background: #0d0d0d;
+		color: #ffffff;
+		padding: 3rem;
+		margin: 3rem 0;
+		text-align: center;
+		border-radius: 8px;
+	}
+
+	.inline-cta h3 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 32px;
+		font-weight: 600;
+		color: #ffffff;
+		margin-bottom: 1rem;
+	}
+
+	.inline-cta p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #cccccc;
+		margin-bottom: 1.5rem;
+	}
+
+	.btn-secondary {
+		display: inline-block;
+		padding: 15px 40px;
+		background: #fe5900;
+		color: #ffffff;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		font-size: 18px;
+		border-radius: 4px;
+		transition: background 0.3s;
+	}
+
+	.btn-secondary:hover {
+		background: #e04d00;
+		text-decoration: none;
+	}
+
+	.related-links {
+		margin: 3rem 0;
+		padding: 2rem 0;
+		border-top: 1px solid #e0e0e0;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.related-links p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #666666;
+		margin: 0;
+	}
+
+	.related-links a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	.related-links a:hover {
+		text-decoration: underline;
+	}
+
+	.faq-section {
+		margin: 4rem 0;
+	}
+
+	.faq-section h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 36px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin-bottom: 2rem;
+	}
+
+	.faq-item {
+		margin-bottom: 2rem;
+		padding-bottom: 2rem;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.faq-item:last-child {
+		border-bottom: none;
+	}
+
+	.faq-question {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #0d0d0d;
+		margin-bottom: 1rem;
+		line-height: 1.3;
+	}
+
+	.faq-answer {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #0d0d0d;
+		line-height: 1.8;
+		margin: 0;
+	}
+
+	@media (max-width: 768px) {
+		h1 {
+			font-size: 36px;
+		}
+
+		h2 {
+			font-size: 28px;
+		}
+
+		h3 {
+			font-size: 20px;
+		}
+
+		.lede {
+			font-size: 18px;
+		}
+
+		p {
+			font-size: 16px;
+		}
+	}
+</style>

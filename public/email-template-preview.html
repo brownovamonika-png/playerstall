@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Professional Email Template Preview - PlayerStall</title>
+	<link href="https://fonts.googleapis.com/css?family=Yantramanav:500,400|Oswald:600,700|Roboto:400&display=swap" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+			line-height: 1.7;
+			color: #0d0d0d;
+			background: #f5f5f5;
+			padding: 20px;
+		}
+
+		.email-container {
+			max-width: 700px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			overflow: hidden;
+		}
+
+		.email-header {
+			background: linear-gradient(135deg, #fe5900 0%, #cc4700 100%);
+			color: white;
+			padding: 30px;
+			text-align: center;
+		}
+
+		.email-header h1 {
+			font-family: 'Oswald', sans-serif;
+			font-size: 2rem;
+			font-weight: 700;
+			margin-bottom: 10px;
+			letter-spacing: 1px;
+		}
+
+		.email-header p {
+			font-size: 0.9rem;
+			opacity: 0.95;
+		}
+
+		.email-body {
+			padding: 40px;
+		}
+
+		.email-body p {
+			font-size: 1rem;
+			line-height: 1.8;
+			margin-bottom: 1.2rem;
+			color: #0d0d0d;
+		}
+
+		.email-body strong {
+			font-weight: 600;
+			color: #0d0d0d;
+		}
+
+		.section-header {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.4rem;
+			font-weight: 600;
+			color: #fe5900;
+			margin-top: 2rem;
+			margin-bottom: 1rem;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			border-left: 4px solid #fe5900;
+			padding-left: 15px;
+		}
+
+		.highlight-box {
+			background: #fff5f0;
+			border-left: 4px solid #fe5900;
+			padding: 20px;
+			margin: 1.5rem 0;
+			border-radius: 4px;
+		}
+
+		.highlight-box h3 {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.2rem;
+			font-weight: 600;
+			color: #fe5900;
+			margin-bottom: 10px;
+		}
+
+		.price-list {
+			list-style: none;
+			padding: 0;
+			margin: 1rem 0;
+		}
+
+		.price-list li {
+			padding: 12px 0;
+			border-bottom: 1px solid #e0e0e0;
+			font-size: 1rem;
+			line-height: 1.6;
+		}
+
+		.price-list li:last-child {
+			border-bottom: none;
+		}
+
+		.price-list strong {
+			color: #fe5900;
+			font-weight: 600;
+		}
+
+		.benefits-list {
+			list-style: none;
+			padding: 0;
+			margin: 1.5rem 0;
+		}
+
+		.benefits-list li {
+			padding: 10px 0 10px 30px;
+			position: relative;
+			font-size: 1rem;
+			line-height: 1.7;
+		}
+
+		.benefits-list li:before {
+			content: "✓";
+			position: absolute;
+			left: 0;
+			color: #fe5900;
+			font-weight: bold;
+			font-size: 1.2rem;
+		}
+
+		.cta-box {
+			background: #1a1a1a;
+			color: white;
+			padding: 25px;
+			border-radius: 8px;
+			margin: 2rem 0;
+			text-align: center;
+		}
+
+		.cta-box h3 {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.3rem;
+			font-weight: 600;
+			margin-bottom: 10px;
+			color: white;
+		}
+
+		.cta-box p {
+			color: #cccccc;
+			margin-bottom: 15px;
+		}
+
+		.cta-button {
+			display: inline-block;
+			background: #fe5900;
+			color: white;
+			padding: 12px 30px;
+			text-decoration: none;
+			border-radius: 4px;
+			font-weight: 500;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			transition: background 0.3s ease;
+		}
+
+		.cta-button:hover {
+			background: #cc4700;
+		}
+
+		.email-signature {
+			margin-top: 2.5rem;
+			padding-top: 2rem;
+			border-top: 2px solid #e0e0e0;
+		}
+
+		.email-signature p {
+			margin-bottom: 0.5rem;
+		}
+
+		.signature-name {
+			font-weight: 600;
+			font-size: 1.1rem;
+			color: #0d0d0d;
+		}
+
+		.signature-title {
+			color: #fe5900;
+			font-weight: 500;
+		}
+
+		.signature-company {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.2rem;
+			font-weight: 600;
+			color: #0d0d0d;
+			margin-top: 10px;
+		}
+
+		.signature-contact {
+			color: #666666;
+			font-size: 0.95rem;
+		}
+
+		.signature-tagline {
+			margin-top: 15px;
+			padding-top: 15px;
+			border-top: 1px solid #e0e0e0;
+			font-size: 0.85rem;
+			color: #666666;
+			text-align: center;
+		}
+
+		.signature-tagline strong {
+			color: #fe5900;
+		}
+
+		.email-footer {
+			background: #1a1a1a;
+			color: #cccccc;
+			padding: 20px;
+			text-align: center;
+			font-size: 0.85rem;
+		}
+
+		.email-footer a {
+			color: #fe5900;
+			text-decoration: none;
+		}
+
+		.email-footer a:hover {
+			text-decoration: underline;
+		}
+
+		@media (max-width: 768px) {
+			body {
+				padding: 10px;
+			}
+
+			.email-body {
+				padding: 25px;
+			}
+
+			.email-header h1 {
+				font-size: 1.5rem;
+			}
+
+			.section-header {
+				font-size: 1.2rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="email-container">
+		<div class="email-header">
+			<h1>PLAYERSTALL</h1>
+			<p>Premium Wood Sports Lockers | Made in North America</p>
+		</div>
+
+		<div class="email-body">
+			<p><strong>Subject:</strong> Your Custom Wood Sports Locker Quote - [Project Name/Team Name]</p>
+
+			<p>Hi Dana,</p>
+
+			<p>Thank you for contacting PlayerStall regarding custom wood sports lockers for [Team Name/Facility Name]. I've reviewed your request and prepared a detailed quote for your project, which I've attached below.</p>
+
+			<div class="section-header">Quote Summary</div>
+			<div class="highlight-box">
+				<ul class="price-list">
+					<li><strong>50 Stadium Wood Lockers</strong></li>
+					<li>Detailed pricing breakdown (see attached estimate)</li>
+					<li><strong>Total value included:</strong> $130 in free upgrades per locker ($45 Prefinish + $35 Edging + $50 Backing)</li>
+				</ul>
+			</div>
+
+			<div class="section-header">Our Flagship Model - The Stadium Locker</div>
+			<p>Our Stadium Locker is <strong>$599 per locker</strong> and includes <strong>$130 in free upgrades</strong>:</p>
+			<ul class="benefits-list">
+				<li><strong>Free Prefinish ($45 Value)</strong> - Premium wood finish included at no extra cost</li>
+				<li><strong>Free Edging ($35 Value)</strong> - Professional edge finishing included</li>
+				<li><strong>Free Backing ($50 Value)</strong> - Full backing included on all team orders</li>
+			</ul>
+
+			<div class="section-header">Additional Options</div>
+			<p style="color: #666666; font-style: italic;">(Priced at Our Cost - No Markup)</p>
+			<ul class="price-list">
+				<li>Cushions: <strong>+$80 per locker</strong></li>
+				<li>Name Plates: <strong>+$10 per locker</strong></li>
+				<li>Lacquered prefinished wood options available</li>
+				<li>Lock boxes available</li>
+			</ul>
+
+			<div class="section-header">Complete Model Lineup</div>
+			<p style="font-size: 1.1rem; font-weight: 500; color: #fe5900; margin-bottom: 1rem;">Great Wood Lockers at a Great Price</p>
+			<p>We offer several models to fit different needs and budgets:</p>
+			
+			<ul class="price-list">
+				<li><strong>Semi Pro - $349</strong> (Best Value)<br>
+					<small style="color: #666666;">Includes: Free Prefinished wood ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)</small></li>
+				<li><strong>Varsity - $449</strong><br>
+					<small style="color: #666666;">Includes: Free Prefinished wood ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)</small></li>
+				<li><strong>Pro - $549</strong><br>
+					<small style="color: #666666;">Includes: Free Prefinished wood ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)</small></li>
+				<li><strong>Stadium - $599</strong> (Our Flagship Model)<br>
+					<small style="color: #666666;">Includes: Free Prefinish ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)</small></li>
+				<li><strong>Corner Units - $599</strong><br>
+					<small style="color: #666666;">Perfect for maximizing corner space in your locker room</small></li>
+			</ul>
+
+			<p style="background: #fff5f0; padding: 15px; border-radius: 4px; border-left: 4px solid #fe5900;">
+				<strong>All Team orders include Free Backing ($50 Value) on every model.</strong>
+			</p>
+
+			<div class="section-header">View Our Work</div>
+			<ul class="price-list">
+				<li><a href="http://customsportslockers.com/gallery/" style="color: #fe5900; text-decoration: none;">Full Gallery: http://customsportslockers.com/gallery/</a></li>
+				<li><a href="http://customsportslockers.com/" style="color: #fe5900; text-decoration: none;">Model Comparison: http://customsportslockers.com/</a> (homepage, halfway down the page)</li>
+			</ul>
+
+			<div class="section-header">Why PlayerStall?</div>
+			<p>At PlayerStall, <strong>we only make Wood Sports Lockers, and that's it!</strong> Our sole focus is to make the highest quality, low cost wood locker in the Industry. Our wood sports lockers are the <strong>highest value Sports Lockers in the industry</strong>.</p>
+
+			<p>With 30+ years of experience serving collegiate and professional teams across North America, we understand what makes a great locker room. Our lockers are:</p>
+
+			<ul class="benefits-list">
+				<li><strong>Made in North America</strong> - 100% made in North America with premium materials and craftsmanship you can trust</li>
+				<li><strong>Built to Last a Lifetime</strong> - Made from 3/4" Birch Wood, these lockers are built strong and will last a lifetime, backed by our lifetime guarantee</li>
+				<li><strong>Fully Modular</strong> - Our lockers are of a modular design, so if a piece gets broken in the future, give us a call and we will ship you replacement pieces right away</li>
+				<li><strong>Custom-Sized</strong> - We custom design your locker rooms free of charge to suit your particular locker room dimensions so the locker room fits perfectly with no wasted room or awkward gaps</li>
+				<li><strong>Perfect for Rough Environments</strong> - Our lockers are perfect for the rough environment of a locker room</li>
+			</ul>
+
+			<div class="cta-box">
+				<h3>Next Steps</h3>
+				<p>To ensure we create the perfect custom-sized solution for your locker room, please send a quick drawing of the room with accurate dimensions. This allows us to custom-size the lockers to fit your space perfectly with no wasted room or awkward gaps.</p>
+				<p style="margin-top: 15px;"><strong>This quote is valid for 60 days.</strong> I'm here to answer any questions, discuss customization options, or help you choose the best model for your needs and budget.</p>
+				<a href="tel:18885841444" class="cta-button">Call 1 (888) 584-1444</a>
+			</div>
+
+			<div class="email-signature">
+				<p class="signature-name">Monika</p>
+				<p class="signature-title">Custom Locker Specialist</p>
+				<p class="signature-company">PlayerStall</p>
+				<p class="signature-contact">
+					1 (888) 584-1444<br>
+					<a href="mailto:info@customsportslockers.com" style="color: #fe5900;">info@customsportslockers.com</a><br>
+					<a href="http://customsportslockers.com" style="color: #fe5900;">CustomSportsLockers.com</a>
+				</p>
+				<div class="signature-tagline">
+					<strong>30+ Years Experience</strong> | <strong>Lifetime Guarantee</strong> | <strong>Made in North America</strong> | <strong>Free Design Consultation</strong>
+				</div>
+			</div>
+		</div>
+
+		<div class="email-footer">
+			<p>I look forward to helping you create an exceptional locker room solution for your team.</p>
+			<p style="margin-top: 10px;">Best regards,<br>Monika</p>
+		</div>
+	</div>
+</body>
+</html>

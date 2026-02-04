@@ -1,0 +1,168 @@
+===========================================
+MONIKA EMAIL SIGNATURE - PLAYERSTALL
+===========================================
+
+HTML SIGNATURE CODE (Copy this entire section):
+===========================================
+
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Yantramanav', 'Roboto', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #0d0d0d; max-width: 600px;">
+<tr>
+	<td style="padding-bottom: 12px;">
+		<span style="font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 600; color: #0d0d0d; text-transform: uppercase; letter-spacing: 0.05em;">Monika</span>
+	</td>
+</tr>
+<tr>
+	<td style="padding-bottom: 8px;">
+		<span style="font-size: 13px; color: #666666; font-weight: 500;">Custom Locker Specialist</span>
+	</td>
+</tr>
+<tr>
+	<td style="padding-bottom: 16px;">
+		<span style="font-family: 'Oswald', sans-serif; font-size: 16px; font-weight: 600; color: #0066cc; text-transform: uppercase; letter-spacing: 0.1em;">PLAYERSTALL</span>
+	</td>
+</tr>
+<tr>
+	<td style="padding-bottom: 12px; border-top: 1px solid #e0e0e0; padding-top: 12px;">
+		<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td style="padding-right: 8px; vertical-align: top;">
+					<span style="color: #0066cc; font-size: 12px;">m</span>
+				</td>
+				<td style="padding-bottom: 4px;">
+					<a href="tel:+18885841444" style="color: #0d0d0d; text-decoration: none; font-size: 13px;">1 (888) 584-1444</a>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-right: 8px; vertical-align: top;">
+					<span style="color: #0066cc; font-size: 12px;">d</span>
+				</td>
+				<td style="padding-bottom: 4px;">
+					<a href="mailto:monika@customsportslockers.com" style="color: #0d0d0d; text-decoration: none; font-size: 13px;">monika@customsportslockers.com</a>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-right: 8px; vertical-align: top;">
+					<span style="color: #0066cc; font-size: 12px;">w</span>
+				</td>
+				<td style="padding-bottom: 4px;">
+					<a href="https://customsportslockers.com" style="color: #0d0d0d; text-decoration: none; font-size: 13px;">CustomSportsLockers.com</a>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-right: 8px; vertical-align: top;">
+					<span style="color: #0066cc; font-size: 12px;">z</span>
+				</td>
+				<td style="padding-bottom: 4px;">
+					<span style="color: #0d0d0d; font-size: 13px;">2934 200 St, Langley BC, Canada</span>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td style="padding-top: 12px; border-top: 1px solid #e0e0e0;">
+		<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td style="padding-right: 12px;">
+					<a href="https://www.facebook.com/PlayerStall-1715059388770006/" target="_blank" style="text-decoration: none;">
+						<span style="color: #666666; font-size: 12px;">Facebook</span>
+					</a>
+				</td>
+				<td style="padding-right: 12px;">
+					<a href="https://www.linkedin.com/company/playerstall" target="_blank" style="text-decoration: none;">
+						<span style="color: #666666; font-size: 12px;">LinkedIn</span>
+					</a>
+				</td>
+				<td style="padding-right: 12px;">
+					<a href="https://twitter.com/PSLockers" target="_blank" style="text-decoration: none;">
+						<span style="color: #666666; font-size: 12px;">Twitter</span>
+					</a>
+				</td>
+				<td>
+					<a href="https://www.instagram.com/playerstall" target="_blank" style="text-decoration: none;">
+						<span style="color: #666666; font-size: 12px;">Instagram</span>
+					</a>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td style="padding-top: 12px;">
+		<span style="color: #8c8c8c; font-size: 11px; line-height: 1.5;">
+			30+ Years Experience | Lifetime Guarantee | Made in Canada | Free Design Consultation
+		</span>
+	</td>
+</tr>
+</table>
+
+===========================================
+SIMPLIFIED HTML VERSION (Better compatibility):
+===========================================
+
+<div style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #0d0d0d;">
+<p style="margin: 0; padding-bottom: 8px;">
+	<strong style="font-size: 16px;">Monika</strong><br>
+	Custom Locker Specialist<br>
+	<span style="color: #0066cc; font-weight: bold; font-size: 15px;">PLAYERSTALL</span>
+</p>
+<p style="margin: 0; padding-top: 12px; border-top: 1px solid #e0e0e0;">
+	Phone: <a href="tel:+18885841444" style="color: #0d0d0d; text-decoration: none;">1 (888) 584-1444</a> (Toll Free)<br>
+	Email: <a href="mailto:monika@customsportslockers.com" style="color: #0d0d0d; text-decoration: none;">monika@customsportslockers.com</a><br>
+	Web: <a href="https://customsportslockers.com" style="color: #0d0d0d; text-decoration: none;">CustomSportsLockers.com</a><br>
+	Address: 2934 200 St, Langley BC, Canada
+</p>
+<p style="margin: 12px 0 0 0; padding-top: 12px; border-top: 1px solid #e0e0e0; font-size: 12px;">
+	<a href="https://www.facebook.com/PlayerStall-1715059388770006/" style="color: #666666; text-decoration: none; margin-right: 12px;">Facebook</a>
+	<a href="https://www.linkedin.com/company/playerstall" style="color: #666666; text-decoration: none; margin-right: 12px;">LinkedIn</a>
+	<a href="https://twitter.com/PSLockers" style="color: #666666; text-decoration: none; margin-right: 12px;">Twitter</a>
+	<a href="https://www.instagram.com/playerstall" style="color: #666666; text-decoration: none;">Instagram</a>
+</p>
+<p style="margin: 12px 0 0 0; font-size: 11px; color: #8c8c8c;">
+	30+ Years Experience | Lifetime Guarantee | Made in Canada | Free Design Consultation
+</p>
+</div>
+
+===========================================
+PLAIN TEXT VERSION:
+===========================================
+
+Monika
+Custom Locker Specialist
+PLAYERSTALL
+
+Phone: 1 (888) 58-STALL
+Email: monika@customsportslockers.com
+Web: CustomSportsLockers.com
+Address: 7300-7398 Colonial Rd, Brooklyn, NY 11209, USA
+
+Facebook | LinkedIn | Twitter | Instagram
+
+30+ Years Experience | Lifetime Guarantee | Made in Canada | Free Design Consultation
+
+===========================================
+INSTRUCTIONS:
+===========================================
+
+1. Copy one of the HTML versions above (preferably the simplified version for better compatibility)
+2. Open your email client (Gmail, Outlook, Apple Mail, etc.)
+3. Go to Settings → Signature
+4. Paste the HTML code
+5. Save your signature
+
+Note: The simplified HTML version works better across different email clients.
+Some email clients may strip out certain styles, but the simplified version should work in most cases.
+
+===========================================
+CONTACT INFORMATION INCLUDED:
+===========================================
+
+✓ Name: Monika
+✓ Title: Custom Locker Specialist
+✓ Company: PlayerStall
+✓ Email: monika@customsportslockers.com
+✓ Phone: 1 (888) 584-1444 (Toll Free)
+✓ Website: CustomSportsLockers.com
+✓ Address: 2934 200 St, Langley BC, Canada
+✓ Social Media: Facebook, LinkedIn, Twitter, Instagram
+✓ Key Differentiators: 30+ Years Experience | Lifetime Guarantee | Made in Canada | Free Design Consultation

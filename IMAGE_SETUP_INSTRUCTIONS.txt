@@ -1,0 +1,16 @@
+TO ADD THE GRID LOCKER IMAGES:
+
+1. Save the two Grid locker images with these exact filenames:
+   - grid-locker-1.jpg (first locker image - front view)
+   - grid-locker-2.jpg (second locker image - angled view)
+
+2. Place both images in this folder:
+   /public/images/
+
+3. The HTML file is already set up to use these images at:
+   /images/grid-locker-1.jpg
+   /images/grid-locker-2.jpg
+
+4. Once the images are in place, refresh your browser to see them displayed side by side in the product snapshot.
+
+ALTERNATIVE: If your images have different names or are in a different location, let me know and I can update the HTML paths.

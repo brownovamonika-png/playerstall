@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRODUCT SNAPSHOT - PlayerStall Team Lockers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@400;500&family=Oswald:wght@600;700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+
+        body {
+            font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+            background: #2a2a2a;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 50px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-img {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .left-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .description-block {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .description-block::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #fe5900;
+        }
+
+        .description-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #ffffff;
+        }
+
+        .product-title-container {
+            background: #333333;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            border-left: 4px solid #fe5900;
+        }
+
+        .product-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .product-title-line {
+            height: 3px;
+            background: #fe5900;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .spec-section {
+            margin-bottom: 25px;
+        }
+
+        .spec-heading {
+            font-family: 'Oswald', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            background: #fe5900;
+            padding: 10px 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .spec-list {
+            list-style: none;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.08);
+            margin-bottom: 2px;
+            font-size: 14px;
+        }
+
+        .spec-item strong {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .spec-item span {
+            color: #ffffff;
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .locker-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .locker-images.three-images {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .locker-images.four-images {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+        }
+
+        .locker-images.five-images {
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 1fr;
+        }
+
+        .locker-images.six-images {
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 1fr;
+        }
+
+        .locker-images.seven-images {
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 1fr;
+        }
+
+        .locker-images.eight-images {
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 1fr;
+        }
+
+        .locker-images.fourteen-images {
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 1fr;
+        }
+
+        .locker-images.two-images {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .locker-image {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .note {
+            font-size: 11px;
+            color: #cccccc;
+            font-style: italic;
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+
+        .optional-section {
+            margin-top: 20px;
+        }
+
+        .optional-text {
+            font-size: 14px;
+            color: #ffffff;
+            margin-top: 10px;
+        }
+
+        .badges-section {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .badge {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge-icon {
+            width: 40px;
+            height: 40px;
+            background: #fe5900;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .badge-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 12px;
+            color: #cccccc;
+        }
+
+        .footer-contact {
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .footer-info {
+            margin: 5px 0;
+            color: #cccccc;
+        }
+
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            .locker-images,
+            .locker-images.three-images,
+            .locker-images.four-images,
+            .locker-images.five-images,
+            .locker-images.six-images,
+            .locker-images.seven-images,
+            .locker-images.eight-images,
+            .locker-images.fourteen-images {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+            .badges-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: #000000;
+            }
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="/images/logoblack2.png" alt="PlayerStall Logo" class="logo-img">
+        </div>
+
+        <div class="main-content">
+            <div class="left-column">
+                <div class="description-block">
+                    <p class="description-text">
+                        Combining premium wood construction with 30+ years of expertise, PlayerStall Team Lockers create a championship-level aesthetic in your locker room. Each locker features custom design capabilities, lifetime guarantee, and is built to withstand the demands of elite athletic environments. Available in premium birch wood with custom team branding options.
+                    </p>
+                </div>
+
+                <div class="product-title-container">
+                    <div class="product-title">TEAM LOCKERS</div>
+                    <div class="product-title-line"></div>
+                </div>
+
+                <div class="spec-section">
+                    <div class="spec-heading">SIZE OPTIONS*</div>
+                    <ul class="spec-list">
+                        <li class="spec-item">
+                            <strong>WIDTH</strong>
+                            <span>20", 24", 30", or 36"</span>
+                        </li>
+                        <li class="spec-item">
+                            <strong>DEPTH</strong>
+                            <span>20", 24", or 30"</span>
+                        </li>
+                        <li class="spec-item">
+                            <strong>HEIGHT</strong>
+                            <span>60", 72", 76", or 80"</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="spec-section">
+                    <div class="spec-heading">MATERIALS</div>
+                    <ul class="spec-list">
+                        <li class="spec-item">
+                            <strong>DOOR</strong>
+                            <span>3/4" Premium Birch Wood</span>
+                        </li>
+                        <li class="spec-item">
+                            <strong>FRAME</strong>
+                            <span>3/4" Premium Birch Wood</span>
+                        </li>
+                        <li class="spec-item">
+                            <strong>EDGEBANDING</strong>
+                            <span>Premium Wood Edgebanding</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="spec-section">
+                    <div class="spec-heading">INTERNAL FEATURES</div>
+                    <ul class="spec-list">
+                        <li class="spec-item">
+                            <strong>GAME DAY HOOK</strong>
+                            <span>1 per frame</span>
+                        </li>
+                        <li class="spec-item">
+                            <strong>SIDE + BACK HOOKS</strong>
+                            <span>4 per frame</span>
+                        </li>
+                        <li class="spec-item">
+                            <strong>VENTILATION</strong>
+                            <span>Integrated ventilation system</span>
+                        </li>
+                        <li class="spec-item">
+                            <strong>CUSTOM BRANDING</strong>
+                            <span>Team logos and colors available</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="spec-section">
+                    <div class="spec-heading">WARRANTY</div>
+                    <ul class="spec-list">
+                        <li class="spec-item">
+                            <strong>LOCKER SYSTEM</strong>
+                            <span>Lifetime Guarantee</span>
+                        </li>
+                        <li class="spec-item">
+                            <strong>HINGES</strong>
+                            <span>Limited Lifetime</span>
+                        </li>
+                        <li class="spec-item">
+                            <strong>CONSTRUCTION</strong>
+                            <span>Lifetime Guarantee</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="optional-section">
+                    <div class="spec-heading">OPTIONAL ADD-ONS</div>
+                    <p class="optional-text">For a list of optional Add Ons, refer to the PlayerStall Team Locker accessory guide</p>
+                </div>
+
+                <p class="note">
+                    * PlayerStall Team Lockers can be produced in non-standard sizes by request. Contact your sales representative for more information.
+                </p>
+            </div>
+
+            <div class="right-column">
+                <div class="locker-images fourteen-images">
+                    <img src="/images/lions-lockers.jpg" alt="Team Lockers - LIONS" class="locker-image" onerror="this.src='/images/grid-locker-1.jpg'; this.onerror=function(){this.src='/images/Athletic-Locker-Pro.jpg';};">
+                    <img src="/images/lions-lockers-2.jpg" alt="Team Lockers - LIONS Detail" class="locker-image" onerror="this.src='/images/grid-locker-2.jpg'; this.onerror=function(){this.src='/images/Athletic-Lockers-Stadium.jpg';};">
+                    <img src="/images/lions-lockers-3.jpg" alt="Team Lockers - Additional View" class="locker-image" onerror="this.src='/images/Athletic-Locker-Varsity.jpg';">
+                    <img src="/images/locker-drawer-unit.jpg" alt="Team Locker with Drawers" class="locker-image" onerror="this.src='/images/Athletic-Locker-Semipro.jpg';">
+                    <img src="/images/locker-ventilated-unit.jpg" alt="Team Locker with Ventilation" class="locker-image" onerror="this.src='/images/Athletic-Locker-Pro.jpg';">
+                    <img src="/images/red-wildcat-lockers.jpg" alt="Red Team Lockers with Wildcat Logo" class="locker-image" onerror="this.src='/images/Athletic-Lockers-Stadium.jpg';">
+                    <img src="/images/locker-image-7.jpg" alt="Team Locker - Additional View" class="locker-image" onerror="this.src='/images/Athletic-Locker-Varsity.jpg';">
+                    <img src="/images/hofstra-lacrosse-lockers.jpg" alt="Hofstra Lacrosse Team Lockers" class="locker-image" onerror="this.src='/images/Athletic-Lockers-Stadium.jpg';">
+                    <img src="/images/wood-cubby-bench.jpg" alt="Wooden Cubby with Bench" class="locker-image" onerror="this.src='/images/Athletic-Locker-Pro.jpg';">
+                    <img src="/images/wood-cubby-hooks.jpg" alt="Wooden Cubby with Hooks" class="locker-image" onerror="this.src='/images/Athletic-Locker-Varsity.jpg';">
+                    <img src="/images/wood-cubby-simple.jpg" alt="Simple Wooden Cubby" class="locker-image" onerror="this.src='/images/Athletic-Locker-Semipro.jpg';">
+                    <img src="/images/wood-cubby-cushion.jpg" alt="Wooden Cubby with Blue Cushion" class="locker-image" onerror="this.src='/images/Athletic-Lockers-Stadium.jpg';">
+                    <img src="/images/wood-coat-rack.jpg" alt="Wooden Coat Rack Storage" class="locker-image" onerror="this.src='/images/Athletic-Locker-Pro.jpg';">
+                    <img src="/images/wood-cubby-modular.jpg" alt="Modular Wooden Cubby" class="locker-image" onerror="this.src='/images/Athletic-Locker-Varsity.jpg';">
+                </div>
+            </div>
+        </div>
+
+        <div class="badges-section">
+            <div class="badge">
+                <div class="badge-icon">📦</div>
+                <div class="badge-text">SHIPS FULLY ASSEMBLED</div>
+            </div>
+            <div class="badge">
+                <div class="badge-icon">🇨🇦</div>
+                <div class="badge-text">MADE IN CANADA</div>
+            </div>
+            <div class="badge">
+                <div class="badge-icon">🛡️</div>
+                <div class="badge-text">LIFETIME GUARANTEE</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-contact">PLAYERSTALL | CUSTOM SPORTS LOCKERS</div>
+            <div class="footer-info">info@customsportslockers.com</div>
+            <div class="footer-info">CustomSportsLockers.com</div>
+            <div class="footer-info">7300-7398 Colonial Rd, Brooklyn, NY 11209</div>
+            <div class="footer-info">1 (888) 58-STALL</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,191 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+// Read the markdown file
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const markdownPath = path.join(__dirname, '../../../guides/professional_email_template.md');
+const markdownContent = readFileSync(markdownPath, 'utf-8');
+
+// Simple markdown to HTML converter
+function markdownToHtml(md: string): string {
+	return md
+		// Headers
+		.replace(/^### (.*$)/gim, '<h3>$1</h3>')
+		.replace(/^## (.*$)/gim, '<h2>$1</h2>')
+		.replace(/^# (.*$)/gim, '<h1>$1</h1>')
+		// Bold
+		.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+		// Code blocks
+		.replace(/```([\s\S]*?)```/gim, '<pre><code>$1</code></pre>')
+		// Inline code
+		.replace(/`([^`]+)`/gim, '<code>$1</code>')
+		// Lists
+		.replace(/^\- (.*$)/gim, '<li>$1</li>')
+		.replace(/^• (.*$)/gim, '<li>$1</li>')
+		.replace(/^\d+\. (.*$)/gim, '<li>$1</li>')
+		// Horizontal rules
+		.replace(/^---$/gim, '<hr>')
+		// Line breaks
+		.replace(/\n\n/gim, '</p><p>')
+		.replace(/\n/gim, '<br>')
+		// Wrap lists
+		.replace(/(<li>.*<\/li>)/gim, '<ul>$1</ul>')
+		// Clean up multiple list wrappers
+		.replace(/<\/ul>\s*<ul>/gim, '')
+		// Italic
+		.replace(/\*(.*?)\*/gim, '<em>$1</em>')
+		// Links
+		.replace(/\[([^\]]+)\]\(([^)]+)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+}
+
+const htmlContent = markdownToHtml(markdownContent);
+---
+
+<BaseLayout 
+	title="Professional Email Template | PlayerStall Guides"
+	description="Professional email template for PlayerStall quote responses and customer communications."
+>
+	<div class="guide-container">
+		<article class="guide-content">
+			<div set:html={htmlContent} />
+		</article>
+	</div>
+</BaseLayout>
+
+<style>
+	.guide-container {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 40px 20px;
+	}
+
+	.guide-content {
+		background: white;
+		padding: 40px;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.guide-content :global(h1) {
+		font-family: 'Oswald', sans-serif;
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: #0d0d0d;
+		margin-bottom: 1.5rem;
+		margin-top: 0;
+	}
+
+	.guide-content :global(h2) {
+		font-family: 'Oswald', sans-serif;
+		font-size: 2rem;
+		font-weight: 600;
+		color: #0d0d0d;
+		margin-top: 2.5rem;
+		margin-bottom: 1rem;
+		border-bottom: 2px solid #fe5900;
+		padding-bottom: 0.5rem;
+	}
+
+	.guide-content :global(h3) {
+		font-family: 'Oswald', sans-serif;
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #0d0d0d;
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+	}
+
+	.guide-content :global(p) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		font-size: 1rem;
+		line-height: 1.7;
+		color: #0d0d0d;
+		margin-bottom: 1rem;
+	}
+
+	.guide-content :global(ul) {
+		margin: 1rem 0;
+		padding-left: 2rem;
+	}
+
+	.guide-content :global(li) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		font-size: 1rem;
+		line-height: 1.7;
+		color: #0d0d0d;
+		margin-bottom: 0.5rem;
+	}
+
+	.guide-content :global(pre) {
+		background: #1a1a1a;
+		color: #ffffff;
+		padding: 1.5rem;
+		border-radius: 4px;
+		overflow-x: auto;
+		margin: 1.5rem 0;
+	}
+
+	.guide-content :global(code) {
+		font-family: 'Courier New', monospace;
+		font-size: 0.9rem;
+		line-height: 1.6;
+	}
+
+	.guide-content :global(pre code) {
+		background: transparent;
+		color: inherit;
+		padding: 0;
+	}
+
+	.guide-content :global(hr) {
+		border: none;
+		border-top: 2px solid #cccccc;
+		margin: 2rem 0;
+	}
+
+	.guide-content :global(strong) {
+		font-weight: 600;
+		color: #0d0d0d;
+	}
+
+	.guide-content :global(em) {
+		font-style: italic;
+	}
+
+	.guide-content :global(a) {
+		color: #fe5900;
+		text-decoration: none;
+		transition: color 0.3s ease;
+	}
+
+	.guide-content :global(a:hover) {
+		color: #cc4700;
+		text-decoration: underline;
+	}
+
+	@media (max-width: 768px) {
+		.guide-container {
+			padding: 20px 10px;
+		}
+
+		.guide-content {
+			padding: 20px;
+		}
+
+		.guide-content :global(h1) {
+			font-size: 2rem;
+		}
+
+		.guide-content :global(h2) {
+			font-size: 1.5rem;
+		}
+
+		.guide-content :global(h3) {
+			font-size: 1.25rem;
+		}
+	}
+</style>

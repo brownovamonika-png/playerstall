@@ -1,0 +1,13 @@
+import"./hoisted.DpXtvfh1.js";document.addEventListener("DOMContentLoaded",function(){function l(){const e=localStorage.getItem("playerstall_cart");return e?JSON.parse(e):[]}function h(){const e=l(),t=document.getElementById("checkout-items-body"),c=document.getElementById("checkout-subtotal"),o=document.getElementById("order-total-amount");if(!t)return;let i=0,r="";return e.length===0?(r='<tr><td colspan="2" style="text-align: center; padding: 40px;">Your cart is empty. <a href="/shop">Return to shop</a></td></tr>',c&&(c.textContent="0.00"),o&&(o.textContent="0.00")):e.forEach(n=>{const y=n.price*n.quantity;i+=y,r+=`
+						<tr class="cart_item">
+							<td class="product-name">
+								${n.name.toUpperCase()}&nbsp;
+								<strong class="product-quantity">× ${n.quantity}</strong>
+							</td>
+							<td class="product-total">
+								<span class="woocommerce-Price-amount amount">
+									<bdi><span class="woocommerce-Price-currencySymbol">$</span>${y.toFixed(2)}</bdi>
+								</span>
+							</td>
+						</tr>
+					`}),t.innerHTML=r,c&&(c.textContent=i.toFixed(2)),o&&(o.textContent=i.toFixed(2)),i}h();const a=document.getElementById("ship-to-different-address-checkbox"),s=document.getElementById("shippingFields");a&&s&&a.addEventListener("change",function(){this.checked?(s.style.display="block",s.querySelectorAll('[id$="_field"] input[required], [id$="_field"] select[required]').forEach(t=>{t.setAttribute("required","required")})):(s.style.display="none",s.querySelectorAll('[id$="_field"] input, [id$="_field"] select').forEach(t=>{t.removeAttribute("required")}))});const u=document.querySelectorAll('.woocommerce-shipping-methods input[type="radio"]'),d=document.getElementById("order-total-amount");u.length&&d&&u.forEach(e=>{e.addEventListener("change",function(){const c=l().reduce((r,n)=>r+n.price*n.quantity,0);let o=0;this.value==="flat_rate"?o=50:this.value==="local_pickup"&&(o=100);const i=c+o;d&&(d.textContent=i.toFixed(2))})}),document.querySelectorAll('.wc_payment_method input[type="radio"]').forEach(e=>{e.addEventListener("change",function(){if(document.querySelectorAll(".payment_box").forEach(t=>{t.style.display="none"}),this.checked){const t=this.closest(".wc_payment_method").querySelector(".payment_box");t&&(t.style.display="block")}})});const p=document.querySelector('.wc_payment_method input[type="radio"]:checked');if(p){const e=p.closest(".wc_payment_method").querySelector(".payment_box");e&&(e.style.display="block")}const m=document.querySelector("form.checkout");m&&m.addEventListener("submit",function(e){e.preventDefault(),alert("Order placed successfully! (This is a demo - no actual order was placed)")})});
