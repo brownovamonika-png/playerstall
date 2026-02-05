@@ -127,29 +127,16 @@ const posts = [
 ---
 
 <BaseLayout title="Blog - Sports Locker Insights & Tips | PlayerStall" description="Expert insights on sports lockers, locker room design, and athletic facility management. Tips from 30+ years of experience.">
-	<!-- Hero Section -->
-	<section class="hero" id="hero">
-		<div class="playoff-text">BLOG</div>
-		<div class="hero-content">
-			<p class="hero-subtitle">PlayerStall Insights</p>
-			<h1 class="hero-title">Stories & Playbooks</h1>
-			<p class="hero-text">Expert insights on sports lockers, locker room design, and athletic facility management. Tips from 30+ years of experience.</p>
-			<div class="hero-buttons">
-				<a href="/contact" class="btn btn-primary">Get Free Consultation</a>
-				<a href="#blog-posts" class="btn btn-outline">View Articles</a>
+	<!-- Hero Section (styled like Gallery hero) -->
+	<section class="blog-hero-section">
+		<div class="blog-hero-background-overlay"></div>
+		<div class="blog-hero-container">
+			<div class="blog-breadcrumbs">
+				<a href="/">Home</a>
+				<span>Blog</span>
 			</div>
-		</div>
-		<div class="hero-image">
-			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/h3-rev-img-2.png" alt="PlayerStall Blog" />
-		</div>
-	</section>
-
-	<!-- Breadcrumb Section -->
-	<section class="breadcrumb-section">
-		<div class="container">
-			<div class="breadcrumb">
-				<a href="/">Home</a> Blog
-			</div>
+			<h1 class="blog-page-title">Blog</h1>
+			<div class="blog-background-text">blog</div>
 		</div>
 	</section>
 
@@ -206,70 +193,82 @@ const posts = [
 		padding: 4rem 20px;
 	}
 
-	/* Hero Section */
-	.hero {
+	/* Blog Hero Section (styled like Gallery hero) */
+	.blog-hero-section {
 		position: relative;
-		height: 800px;
 		background: #f7f7f7;
+		padding: 120px 0 80px;
 		overflow: hidden;
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		padding-left: 10%;
-		margin-top: 0;
 	}
 
-	.playoff-text {
+	.blog-hero-background-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(135deg, rgba(13, 13, 13, 0.05) 0%, rgba(13, 13, 13, 0.02) 100%);
+		opacity: 0.5;
+	}
+
+	.blog-hero-container {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		text-align: left;
+	}
+
+	.blog-breadcrumbs {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
+	}
+
+	.blog-breadcrumbs a {
+		color: #8c8c8c;
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.blog-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.blog-breadcrumbs span {
+		margin-left: 10px;
+		color: #0d0d0d;
+	}
+
+	.blog-page-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 72px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
+	}
+
+	.blog-background-text {
 		position: absolute;
 		font-family: 'Oswald', sans-serif;
-		font-size: 350px;
+		font-size: 300px;
 		font-weight: 700;
 		color: rgba(13, 13, 13, 0.03);
 		text-transform: uppercase;
 		letter-spacing: -3px;
-		z-index: 1;
-		top: 50%;
+		bottom: -50px;
 		left: 50%;
-		transform: translate(-50%, -50%);
+		transform: translateX(-50%);
 		white-space: nowrap;
-	}
-
-	.hero-content {
-		position: relative;
-		z-index: 10;
-		max-width: 600px;
-	}
-
-	.hero-subtitle {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #8c8c8c;
-		letter-spacing: 0.3em;
-		text-transform: uppercase;
-		margin-bottom: 20px;
-	}
-
-	.hero-title {
-		font-family: 'Oswald', sans-serif;
-		font-size: 80px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		line-height: 80px;
-		margin-bottom: 30px;
-	}
-
-	.hero-text {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 20px;
-		color: #666666;
-		line-height: 30px;
-		margin-bottom: 40px;
-	}
-
-	.hero-buttons {
-		display: flex;
-		gap: 20px;
+		z-index: 1;
 	}
 
 	.btn {
@@ -323,31 +322,6 @@ const posts = [
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
-	}
-
-	/* Breadcrumb Section */
-	.breadcrumb-section {
-		background: #ffffff;
-		padding: 60px 0 40px;
-		border-bottom: 1px solid #e0e0e0;
-	}
-
-	.breadcrumb {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		text-transform: uppercase;
-		letter-spacing: 0.3em;
-		color: #8c8c8c;
-	}
-
-	.breadcrumb a {
-		color: #8c8c8c;
-		text-decoration: none;
-		transition: color 0.3s;
-	}
-
-	.breadcrumb a:hover {
-		color: #fe5900;
 	}
 
 	/* Masonry Blog Section */

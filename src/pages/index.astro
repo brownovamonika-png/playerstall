@@ -152,6 +152,81 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		</div>
 	</section>
 
+	<!-- Club Store Slider Section (inspired by TopScorer baseball official store) -->
+	<section class="club-store-section">
+		<div class="container">
+			<div class="section-header">
+				<p class="section-subtitle">the club history</p>
+				<h2 class="section-title">official store</h2>
+			</div>
+			<div class="tiers-slider-container">
+				<div class="tiers-slider-wrapper">
+					<div class="slider-controls">
+						<button class="slider-btn slider-btn-left" aria-label="Previous products">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</button>
+						<button class="slider-btn slider-btn-right" aria-label="Next products">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</button>
+					</div>
+					<div id="tiersSlider" class="tiers-slider">
+						<div class="tiers-track">
+							<div class="tier-card featured">
+								<div class="tier-image">
+									<img src="/stick-rack.png" alt="Stick Rack" loading="lazy" />
+								</div>
+								<div class="tier-badge popular">Sale</div>
+								<p class="tier-category">ACCESSORY / STICK RACK</p>
+								<h3>STICK RACK</h3>
+								<div class="tier-pricing">
+									<span class="price-original">$349.00</span>
+									<span class="price-current">$299.00</span>
+								</div>
+							</div>
+							<div class="tier-card">
+								<div class="tier-image">
+									<img src="/semi-pro-locker.jpg" alt="Semi Pro Locker" loading="lazy" />
+								</div>
+								<div class="tier-badge">New</div>
+								<p class="tier-category">SEMI PRO / LOCKER</p>
+								<h3>SEMI PRO</h3>
+								<div class="tier-pricing">
+									<span class="price-current">$349.00</span>
+								</div>
+							</div>
+							<div class="tier-card">
+								<div class="tier-image">
+									<img src="/varsity-locker.jpg" alt="Varsity Locker" loading="lazy" />
+								</div>
+								<div class="tier-badge">Most Popular</div>
+								<p class="tier-category">VARSITY / LOCKER</p>
+								<h3>VARSITY</h3>
+								<div class="tier-pricing">
+									<span class="price-current">$449.00</span>
+								</div>
+							</div>
+							<div class="tier-card">
+								<div class="tier-image">
+									<img src="/pro-locker.jpg" alt="Pro Locker" loading="lazy" />
+								</div>
+								<div class="tier-badge">Professional</div>
+								<p class="tier-category">PRO / LOCKER</p>
+								<h3>PRO</h3>
+								<div class="tier-pricing">
+									<span class="price-current">$549.00</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<!-- Key Features Section -->
 	<section class="trending-section">
 		<div class="trending-container">
@@ -789,7 +864,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
-		padding: 0 50px;
+		padding: 0 24px;
 		z-index: 20;
 		pointer-events: none;
 	}
@@ -808,6 +883,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		transition: all 0.3s ease;
 		pointer-events: all;
 		backdrop-filter: blur(8px);
+	}
+
+	.slider-nav-next {
+		margin-right: 40px;
 	}
 
 	.slider-nav-btn:hover {
@@ -1079,18 +1158,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		overflow: hidden;
 		border-radius: 8px;
 		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
-
+	
 	.locker-showcase-item img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+		max-width: 50%;
+		max-height: 50%;
+		object-fit: contain;
 		transition: transform 0.3s ease, filter 0.3s ease;
 		filter: sepia(100%) saturate(200%) hue-rotate(-10deg);
 	}
-
-	.locker-showcase-item:hover img {
-		transform: scale(1.1);
+	
+	.locker-showcase-item:hover .locker-showcase-overlay {
+		transform: translateY(0);
 	}
 
 	.locker-showcase-overlay {
@@ -1101,12 +1183,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
 		padding: 2rem;
 		color: #fff;
-		transform: translateY(100%);
-		transition: transform 0.3s ease;
-	}
-
-	.locker-showcase-item:hover .locker-showcase-overlay {
 		transform: translateY(0);
+		transition: transform 0.3s ease;
 	}
 
 	.locker-showcase-overlay h3 {
@@ -1122,6 +1200,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	/* Product Tiers */
 	.product-tiers {
+		background: #ffffff;
+		padding: 100px 0;
+	}
+
+	.club-store-section {
 		background: #ffffff;
 		padding: 100px 0;
 	}
@@ -1186,6 +1269,72 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		border-radius: 16px;
 		overflow: hidden;
 		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.05);
+	}
+
+	/* Store-specific overrides to match large product cards */
+	.club-store-section .tiers-slider-wrapper {
+		max-width: 1300px;
+		padding: 0;
+	}
+
+	.club-store-section .tiers-track {
+		padding: 2rem 0;
+		gap: 1.5rem;
+	}
+
+	.club-store-section .tier-card {
+		width: 260px;
+		min-width: 260px;
+		background: #ffffff;
+		border-radius: 0;
+		border: 1px solid #e6e6e6;
+		padding: 1.75rem 1.5rem 1.75rem;
+		box-shadow: none;
+		text-align: left;
+	}
+
+	.club-store-section .tier-image {
+		width: 100%;
+		height: 260px;
+		background: #ffffff;
+		margin-bottom: 1.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.club-store-section .tier-image img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+		display: block;
+	}
+
+	.club-store-section .tier-badge {
+		margin-bottom: 0.5rem;
+	}
+
+	.club-store-section .tier-card h3 {
+		font-size: 1.1rem;
+		margin: 0.25rem 0 0.25rem;
+	}
+
+	.club-store-section .tier-pricing {
+		margin: 0;
+	}
+
+	.club-store-section .tier-features {
+		display: none;
+	}
+
+	.club-store-section .tier-category {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		margin-bottom: 0.75rem;
 	}
 
 	@media (min-width: 768px) {
@@ -1810,6 +1959,105 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin-top: 40px;
 	}
 
+	/* Locker Legends Section */
+	.locker-legends-section {
+		position: relative;
+		background: #f3f3f3;
+		padding: 80px 0;
+		overflow: hidden;
+	}
+
+	.locker-legends-bg-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 260px;
+		font-weight: 700;
+		color: rgba(13, 13, 13, 0.03);
+		text-transform: uppercase;
+		letter-spacing: -3px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		white-space: nowrap;
+		z-index: 1;
+	}
+
+	.locker-legends-container {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.locker-legends-header .section-title {
+		color: #0d0d0d;
+	}
+
+	.locker-legends-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 25px;
+	}
+
+	.locker-legend-card {
+		background: #ffffff;
+		border: 1px solid #e0e0e0;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		padding-bottom: 1.5rem;
+	}
+
+	.locker-legend-image {
+		width: 100%;
+		height: 220px;
+		background: #f7f7f7;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.locker-legend-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.locker-legend-content {
+		padding: 1.5rem 1.25rem 0;
+	}
+
+	.locker-legend-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		margin-bottom: 0.5rem;
+	}
+
+	.locker-legend-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		color: #0d0d0d;
+		margin: 0 0 0.5rem 0;
+		text-transform: uppercase;
+	}
+
+	.locker-legend-copy {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #666666;
+		line-height: 1.6;
+		margin: 0;
+	}
+
 	.product-card {
 		background: transparent;
 		overflow: hidden;
@@ -1834,17 +2082,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.product-image img {
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
+		object-fit: contain;
 		display: block;
 		filter: grayscale(100%);
 		transition: filter 0.3s ease;
-		transform: translateX(-15%);
 	}
 
 	#semi-pro .product-image img,
 	#stadium .product-image img {
-		transform: translateX(-15%) scale(1.1);
-		transform-origin: center;
+		transform: none;
 	}
 
 	#stick-rack .product-image {
@@ -1854,8 +2100,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	#stick-rack .product-image img {
-		transform: translateX(calc(-15% - 15px)) scale(0.71875) translateY(-10px);
-		transform-origin: left bottom;
+		transform: none;
 	}
 
 	.product-card:hover .product-image img {

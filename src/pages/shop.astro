@@ -6,20 +6,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	title="Shop - Custom Sports Lockers | PlayerStall"
 	description="Shop for custom wood sports lockers and accessories. Premium quality lockers made in Canada with lifetime guarantee."
 >
-	<!-- Hero Section -->
+	<!-- Hero Section (styled like Blog/Gallery hero) -->
 	<section class="shop-hero-section">
-		<div class="shop-hero-parallax-img-holder">
-			<div class="shop-hero-parallax-img-wrapper">
-				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/shop-title-img.jpg" alt="Shop" class="shop-hero-parallax-img" />
-			</div>
-		</div>
-		<div class="shop-hero-content qodef-content-grid">
-			<div class="breadcrumbs">
+		<div class="shop-hero-background-overlay"></div>
+		<div class="shop-hero-container">
+			<div class="shop-breadcrumbs">
 				<a href="/">Home</a>
-				<span class="breadcrumbs-separator"></span>
-				<span class="breadcrumbs-current">Shop</span>
+				<span>Shop</span>
 			</div>
-			<h1 class="shop-hero-title">Shop</h1>
+			<h1 class="shop-page-title">Shop</h1>
+			<div class="shop-background-text">shop</div>
 		</div>
 	</section>
 
@@ -169,7 +165,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							</div>
 						</div>
 
-						<!-- Product 7: Semi Pro (Duplicate for demo) -->
+						<!-- Product 7: RFID Lock -->
+						<div class="shop-product-item" data-price="0" data-category="accessories">
+							<div class="shop-product-image">
+								<span class="shop-badge new">New</span>
+								<img src="/images/rfid-lock.png" alt="RFID Lock – Digital Keyless Cabinet Locks with Password &amp; Card Access" />
+								<div class="shop-product-overlay">
+									<button
+										type="button"
+										class="shop-add-to-cart-btn-overlay"
+										data-product-id="rfid-lock"
+										data-product-name="RFID Lock – Digital Keyless Cabinet Locks with Password &amp; Card Access"
+										data-product-price="0"
+										data-product-image="/images/rfid-lock.png"
+									>
+										Add to cart
+									</button>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Accessories - Locks</div>
+								<h5 class="shop-product-title">
+									<a href="https://www.amazon.com/dp/B0F9P54H5N?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_1&amp;th=1" target="_blank" rel="noopener noreferrer">
+										RFID Lock – Digital Keyless Cabinet Locks with Password &amp; Card Access
+									</a>
+								</h5>
+								<span class="shop-product-price">Call for pricing</span>
+							</div>
+						</div>
+
+						<!-- Product 8: Semi Pro (Duplicate for demo) -->
 						<div class="shop-product-item" data-price="349" data-category="lockers">
 							<div class="shop-product-image">
 								<img src="/semi-pro-locker.jpg" alt="Semi Pro Locker" />
@@ -188,7 +213,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							</div>
 						</div>
 
-						<!-- Product 8: Varsity (Duplicate for demo) -->
+						<!-- Product 9: Varsity (Duplicate for demo) -->
 						<div class="shop-product-item" data-price="449" data-category="lockers">
 							<div class="shop-product-image">
 								<span class="shop-badge new">New</span>
@@ -208,7 +233,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							</div>
 						</div>
 
-						<!-- Product 9: Pro (Duplicate for demo) -->
+						<!-- Product 10: Pro (Duplicate for demo) -->
 						<div class="shop-product-item" data-price="549" data-category="lockers">
 							<div class="shop-product-image">
 								<span class="shop-badge sold">Sold</span>
@@ -247,74 +272,82 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 20px;
 	}
 
-	/* Hero Section */
+	/* Hero Section (styled like Blog/Gallery hero) */
 	.shop-hero-section {
 		position: relative;
-		min-height: 400px;
+		background: #f7f7f7;
+		padding: 120px 0 80px;
 		overflow: hidden;
 	}
 
-	.shop-hero-parallax-img-holder {
+	.shop-hero-background-overlay {
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 1;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(135deg, rgba(13, 13, 13, 0.05) 0%, rgba(13, 13, 13, 0.02) 100%);
+		opacity: 0.5;
 	}
 
-	.shop-hero-parallax-img-wrapper {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-	}
-
-	.shop-hero-parallax-img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	.shop-hero-content {
+	.shop-hero-container {
 		position: relative;
 		z-index: 10;
-		padding: 200px 0 100px;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		text-align: left;
 	}
 
-	.breadcrumbs {
-		margin-bottom: 20px;
+	.shop-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #ffffff;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
 	}
 
-	.breadcrumbs a {
-		color: #ffffff;
+	.shop-breadcrumbs a {
+		color: #8c8c8c;
 		text-decoration: none;
 		transition: color 0.3s;
 	}
 
-	.breadcrumbs a:hover {
+	.shop-breadcrumbs a:hover {
 		color: #fe5900;
 	}
 
-	.breadcrumbs-separator {
-		margin: 0 10px;
+	.shop-breadcrumbs span {
+		margin-left: 10px;
+		color: #0d0d0d;
 	}
 
-	.breadcrumbs-current {
-		color: #ffffff;
-	}
-
-	.shop-hero-title {
+	.shop-page-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: 72px;
 		font-weight: 600;
-		color: #ffffff;
+		color: #0d0d0d;
 		text-transform: uppercase;
-		letter-spacing: 2px;
 		margin: 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
+	}
+
+	.shop-background-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 300px;
+		font-weight: 700;
+		color: rgba(13, 13, 13, 0.03);
+		text-transform: uppercase;
+		letter-spacing: -3px;
+		bottom: -50px;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+		z-index: 1;
 	}
 
 	/* Shop Section */
