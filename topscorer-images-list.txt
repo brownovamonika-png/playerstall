@@ -1,0 +1,126 @@
+# Top Scorer (topscorer.qodeinteractive.com) - All Image URLs
+# Scraped: February 7, 2026
+# Use the download script: python download-topscorer-images.py
+
+## Hero & Banner Images
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-banner-img-1.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-banner-img-2.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-banner-img-3.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-img-2.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-img-1.jpg
+
+## Page Title Images
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/title-about-us-2.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/our-team-title-photo.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/title-trophy-room.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/shop-title-img.jpg
+
+## Team Images & Logos
+https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/romans-img.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/titans-img.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/team-logo-1.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/team-logo-5.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/team-logo-6.png
+
+## Team Standings (h1-iwt)
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-iwt-img-1.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-iwt-img-2.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-iwt-img-3.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-iwt-img-4.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-iwt-img-5.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-iwt-img-6.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-iwt-img-7.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-iwt-img-8.png
+
+## Player Images
+https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-6.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-7.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-8.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-9.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/player-img-10.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/player-img-11.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/player-img-12.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/player-img-13.jpg
+
+## Client/Sponsor Logos
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/client-1.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/client-2.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/client-3.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/client-4.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/client-5.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/client-6.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/client-8.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/client-9.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/client-10.png
+
+## Trophy Images
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/trophy-img-5.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/trophy-img-6.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/trophy-img-7.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/trophy-img-8.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/p3-img-trophy.png
+
+## Blog Images (main)
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-img-1.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-img-2.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-img-3.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-img-4.jpg
+
+## Blog Masonry Images
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-1.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-2.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-3.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-4.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-5.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-6.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-7.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-8.jpg
+
+## H2 Blog Images
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h2-blog-img-1-1.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h2-blog-img-2-1.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h2-blog-img-3-1.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h2-blog-img-4-1.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h2-blog-img-5.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h2-blog-img-6.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h2-blog-img-7.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h2-blog-img-8.jpg
+
+## H3 Blog Images
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-blog-img-1.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-blog-img-2.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-blog-img-3.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h3-blog-img-4.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h3-blog-img-5.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h3-blog-img-6.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h3-blog-img-7.jpg
+
+## Shop/Product Images
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-1-3-300x420.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-2-1-300x420.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-3-300x420.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-4-300x420.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-5-300x420.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-6-300x420.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-7-300x420.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-8-300x420.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-9-300x420.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-1-3-650x800.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-2-1-650x800.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-5-650x800.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-7-650x800.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-8-650x800.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-9-650x800.jpg
+
+## Other Content Images
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-img-7.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-img-9.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-9.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h2-img-4.png
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/p3-img.jpg
+https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/baseball-player.png
+
+## Meta/Social (optional - usually not for page content)
+# https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/open-graphic-1200x630-1.png
+# https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/cropped-favicon-270x270.png
+# https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/cropped-favicon-32x32.png
