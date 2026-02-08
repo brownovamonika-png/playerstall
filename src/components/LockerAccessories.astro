@@ -1,0 +1,193 @@
+---
+export interface LockerAccessoryItem {
+	href: string;
+	image: string;
+	alt: string;
+	category: string;
+	title: string;
+	tag?: 'SALE' | 'NEW';
+	priceOriginal?: string;
+	price: string;
+}
+
+interface Props {
+	items: LockerAccessoryItem[];
+	title?: string;
+}
+
+const { items, title = 'LOCKER ACCESSORIES' } = Astro.props;
+---
+
+<section class="locker-accessories">
+	<div class="locker-accessories-inner">
+		<h2 class="locker-accessories-heading">{title}</h2>
+		<div class="locker-accessories-grid">
+			{items.map((item) => (
+				<a href={item.href} class="locker-accessories-card">
+					<div class="locker-accessories-card-image-wrap">
+						{item.tag && (
+							<span class={`locker-accessories-tag locker-accessories-tag-${item.tag.toLowerCase()}`}>
+								{item.tag}
+							</span>
+						)}
+						<div class="locker-accessories-card-image">
+							<img src={item.image} alt={item.alt} loading="lazy" />
+						</div>
+					</div>
+					<p class="locker-accessories-category">{item.category}</p>
+					<h4 class="locker-accessories-card-title">{item.title}</h4>
+					<div class="locker-accessories-price">
+						{item.priceOriginal && <span class="locker-accessories-price-old">{item.priceOriginal}</span>}
+						<span class="locker-accessories-price-current">{item.price}</span>
+					</div>
+				</a>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.locker-accessories {
+		margin-top: 80px;
+		padding: 60px 0 80px;
+		border-top: 1px solid #e0e0e0;
+		background: #fff;
+	}
+
+	.locker-accessories-inner {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.locker-accessories-heading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 32px;
+		font-weight: 700;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin: 0 0 36px;
+	}
+
+	.locker-accessories-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 24px;
+	}
+
+	.locker-accessories-card {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+		background: #fff;
+		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+		transition: box-shadow 0.2s, transform 0.2s;
+	}
+
+	.locker-accessories-card:hover {
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+		transform: translateY(-2px);
+	}
+
+	.locker-accessories-card-image-wrap {
+		position: relative;
+		aspect-ratio: 1;
+		background: #fff;
+		overflow: hidden;
+	}
+
+	.locker-accessories-tag {
+		position: absolute;
+		top: 12px;
+		left: 12px;
+		z-index: 2;
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #fff;
+		padding: 6px 12px;
+	}
+
+	.locker-accessories-tag-sale {
+		background: #0d0d0d;
+	}
+
+	.locker-accessories-tag-new {
+		background: #fe5900;
+	}
+
+	.locker-accessories-card-image {
+		position: absolute;
+		inset: 0;
+	}
+
+	.locker-accessories-card-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.locker-accessories-category {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #8c8c8c;
+		margin: 16px 16px 4px;
+	}
+
+	.locker-accessories-card-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin: 0 16px 12px;
+		line-height: 1.25;
+	}
+
+	.locker-accessories-price {
+		padding: 0 16px 20px;
+		display: flex;
+		align-items: baseline;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+
+	.locker-accessories-price-old {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		text-decoration: line-through;
+	}
+
+	.locker-accessories-price-current {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+		color: #0d0d0d;
+	}
+
+	@media (max-width: 1024px) {
+		.locker-accessories-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.locker-accessories-heading {
+			font-size: 24px;
+		}
+
+		.locker-accessories-grid {
+			grid-template-columns: 1fr;
+			gap: 20px;
+		}
+	}
+</style>

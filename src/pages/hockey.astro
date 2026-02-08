@@ -3,280 +3,218 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout 
-	title="Hockey Lockers - PlayerStall" 
-	description="Premium custom hockey lockers designed for professional and collegiate teams. Reinforced construction for heavy gear and equipment."
+	title="By Sport - Custom Sports Lockers | PlayerStall" 
+	description="Sport-specific wood lockers for football, hockey, basketball, baseball, and soccer. Custom locker room solutions for collegiate and professional teams."
 >
-	<!-- Hero Section (styled like Blog/Gallery hero) -->
-	<section class="sports-hero-section">
-		<div class="sports-hero-background-overlay"></div>
-		<div class="sports-hero-container">
-			<div class="sports-breadcrumbs">
+	<!-- Hero: Match Schedule style – full-width title image + breadcrumb & title overlay -->
+	<section class="by-sport-hero">
+		<div class="by-sport-hero-img-holder">
+			<div class="by-sport-hero-img-wrapper">
+				<img src="/images/topscorer/our-team-title-photo.jpg" alt="Sport-specific lockers" class="by-sport-hero-img" />
+			</div>
+		</div>
+		<div class="by-sport-hero-overlay"></div>
+		<div class="by-sport-hero-container">
+			<div class="by-sport-breadcrumbs">
 				<a href="/">Home</a>
 				<span>By Sport</span>
 			</div>
-			<h1 class="sports-page-title">By Sport</h1>
-			<div class="sports-background-text">by sport</div>
+			<h1 class="by-sport-page-title">By Sport</h1>
+			<div class="by-sport-bg-text">by sport</div>
 		</div>
 	</section>
 
-	<!-- Page Header -->
-	<section class="page-header">
-		<div class="container">
-			<h1>Sport-Specific Solutions</h1>
-			<p>Every sport has unique equipment needs. We design custom lockers optimized for your game.</p>
-		</div>
-	</section>
+	<!-- Two-column layout: main content + sidebar (Match Schedule style) -->
+	<section class="by-sport-content-section">
+		<div class="by-sport-container">
+			<div class="by-sport-layout">
+				<!-- Main content (left) -->
+				<main class="by-sport-main">
+					<p class="by-sport-intro">Every sport has unique equipment needs. We design custom wood and melamine lockers optimized for your game—from football and hockey to basketball, baseball, and soccer. Choose your sport below or explore our full lineup.</p>
+					<div class="by-sport-list">
+						<a href="#football" class="by-sport-list-item">
+							<span class="by-sport-list-label">Football Lockers</span>
+							<span class="by-sport-list-desc">Spacious, ventilated storage for helmets, pads, and cleats.</span>
+						</a>
+						<a href="#hockey" class="by-sport-list-item">
+							<span class="by-sport-list-label">Hockey Lockers</span>
+							<span class="by-sport-list-desc">Reinforced construction for heavy gear and equipment.</span>
+						</a>
+						<a href="#basketball" class="by-sport-list-item">
+							<span class="by-sport-list-label">Basketball Lockers</span>
+							<span class="by-sport-list-desc">Sleek design for shoes, uniforms, and personal items.</span>
+						</a>
+						<a href="#baseball" class="by-sport-list-item">
+							<span class="by-sport-list-label">Baseball Lockers</span>
+							<span class="by-sport-list-desc">Organized storage for bats, gloves, helmets, and uniforms.</span>
+						</a>
+						<a href="#soccer" class="by-sport-list-item">
+							<span class="by-sport-list-label">Soccer Lockers</span>
+							<span class="by-sport-list-desc">Compartments for cleats, shin guards, and team gear.</span>
+						</a>
+					</div>
+				</main>
 
-	<!-- Sport Overview Grid -->
-	<section class="sport-overview-section">
-		<div class="container">
-			<div class="sport-overview-grid">
-				<div class="sport-overview-card">
-					<h3 class="sport-overview-title">Football Lockers</h3>
-					<p class="sport-overview-description">Spacious and ventilated for helmets, pads, and cleats</p>
-				</div>
-				<div class="sport-overview-card">
-					<h3 class="sport-overview-title">Hockey Lockers</h3>
-					<p class="sport-overview-description">Reinforced construction for heavy gear and equipment</p>
-				</div>
-				<div class="sport-overview-card">
-					<h3 class="sport-overview-title">Basketball Lockers</h3>
-					<p class="sport-overview-description">Sleek design for shoes, uniforms, and personal items</p>
-				</div>
-				<div class="sport-overview-card">
-					<h3 class="sport-overview-title">Baseball Lockers</h3>
-					<p class="sport-overview-description">Customized storage for all baseball equipment</p>
-				</div>
-				<div class="sport-overview-card">
-					<h3 class="sport-overview-title">Soccer Lockers</h3>
-					<p class="sport-overview-description">Organized compartments for soccer gear</p>
-				</div>
+				<!-- Sidebar (right) - Match Schedule style widgets -->
+				<aside class="by-sport-sidebar">
+					<div class="by-sport-widget">
+						<h3 class="by-sport-widget-title">What's trending</h3>
+						<ul class="by-sport-widget-links">
+							<li><a href="/blog/complete-guide-custom-sports-lockers">Complete Guide to Custom Sports Lockers</a></li>
+							<li><a href="/blog/hockey-wood-lockers-complete-guide">Hockey Wood Lockers Guide</a></li>
+							<li><a href="/blog/college-athletic-locker-guide">College Athletic Locker Guide</a></li>
+							<li><a href="/blog/wood-vs-metal-sports-lockers-comparison">Wood vs Metal Sports Lockers</a></li>
+						</ul>
+					</div>
+					<div class="by-sport-widget by-sport-widget-cta">
+						<h3 class="by-sport-widget-title">Get a quote</h3>
+						<p class="by-sport-widget-text">Free design consultation for your locker room. 30+ years experience, 5 year warranty.</p>
+						<a href="/contact" class="by-sport-cta-btn">Request a quote</a>
+					</div>
+				</aside>
 			</div>
 		</div>
 	</section>
 
-	<!-- Sport Sections -->
-	<section class="sport-detail-section">
+	<!-- Sport detail blocks (anchors for sidebar links) -->
+	<section class="by-sport-detail-section">
 		<div class="container">
-			<!-- Football -->
-			<div id="football" class="sport-detail">
-				<div class="sport-detail-grid">
-					<div class="sport-detail-content">
-						<div class="sport-image-large">
-							<img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1200&q=80" alt="Football" />
-						</div>
+			<div id="football" class="by-sport-detail">
+				<div class="by-sport-detail-grid">
+					<div class="by-sport-detail-content">
 						<h2>Football Lockers</h2>
-						<p class="sport-intro">Football equipment is bulky, heavy, and needs proper ventilation. Our football lockers are designed specifically to accommodate helmets, pads, cleats, and uniforms while keeping everything organized and dry.</p>
-						<h3>Designed for Football Equipment</h3>
+						<p class="by-sport-intro">Football equipment is bulky, heavy, and needs proper ventilation. Our football lockers are designed for helmets, pads, cleats, and uniforms while keeping everything organized and dry.</p>
 						<ul class="feature-list">
 							<li>Spacious compartments for helmets and shoulder pads</li>
 							<li>Enhanced ventilation to prevent moisture buildup</li>
 							<li>Dedicated storage for cleats and footwear</li>
-							<li>Uniform hanging space</li>
-							<li>Organized compartments for accessories</li>
-							<li>Reinforced construction for heavy equipment</li>
+							<li>Uniform hanging space and reinforced construction</li>
 						</ul>
-						<h3>Why Wood for Football?</h3>
-						<p>Wood lockers provide natural breathability that helps equipment dry faster and prevents odors. The professional appearance creates a championship-caliber atmosphere that impresses recruits and builds team pride.</p>
 						<a href="/contact" class="btn btn-primary">Get Football Locker Quote</a>
 					</div>
-					<div class="sport-detail-image">
-						<div class="image-placeholder">
-							<span>Football Locker Installation</span>
-						</div>
+					<div class="by-sport-detail-image">
+						<img src="/images/topscorer/h1-img-2.jpg" alt="Football lockers" />
 					</div>
 				</div>
 			</div>
-
-			<!-- Hockey -->
-			<div id="hockey" class="sport-detail">
-				<div class="sport-detail-grid reverse">
-					<div class="sport-detail-content">
-						<div class="sport-image-large">
-							<img src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=1200&q=80" alt="Hockey" />
-						</div>
+			<div id="hockey" class="by-sport-detail">
+				<div class="by-sport-detail-grid reverse">
+					<div class="by-sport-detail-content">
 						<h2>Hockey Lockers</h2>
-						<p class="sport-intro">Hockey equipment is among the most challenging to store. Skates, pads, sticks, and gear all require specialized storage solutions. Our hockey lockers are built to handle it all.</p>
-						<h3>Built for Hockey Equipment</h3>
+						<p class="by-sport-intro">Hockey equipment is among the most challenging to store. Our hockey lockers are built for skates, pads, sticks, and gear with specialized storage and drying features.</p>
 						<ul class="feature-list">
 							<li>Reinforced construction for heavy gear</li>
-							<li>Specific compartments for skates</li>
-							<li>Stick storage solutions</li>
-							<li>Ventilated compartments for pads</li>
-							<li>Helmet and glove storage</li>
+							<li>Compartments for skates and stick storage</li>
+							<li>Ventilated compartments for pads and helmets</li>
 							<li>Equipment drying features</li>
 						</ul>
-						<h3>Why Wood for Hockey?</h3>
-						<p>Wood's natural properties help manage moisture from wet equipment. The durable construction withstands the weight of hockey gear, while the professional appearance matches the elite nature of hockey programs.</p>
 						<a href="/contact" class="btn btn-primary">Get Hockey Locker Quote</a>
 					</div>
-					<div class="sport-detail-image">
-						<div class="image-placeholder">
-							<span>Hockey Locker Installation</span>
-						</div>
+					<div class="by-sport-detail-image">
+						<img src="/images/topscorer/h3-img-1.jpg" alt="Hockey lockers" />
 					</div>
 				</div>
 			</div>
-
-			<!-- Basketball -->
-			<div id="basketball" class="sport-detail">
-				<div class="sport-detail-grid">
-					<div class="sport-detail-content">
-						<div class="sport-image-large">
-							<img src="https://images.unsplash.com/photo-1519869325934-2813331509ce?w=1200&q=80" alt="Basketball" />
-						</div>
+			<div id="basketball" class="by-sport-detail">
+				<div class="by-sport-detail-grid">
+					<div class="by-sport-detail-content">
 						<h2>Basketball Lockers</h2>
-						<p class="sport-intro">Basketball lockers need to be sleek, organized, and professional. Our basketball lockers provide perfect storage for shoes, uniforms, and personal items while maintaining a clean, modern appearance.</p>
-						<h3>Optimized for Basketball</h3>
+						<p class="by-sport-intro">Our basketball lockers provide sleek, organized storage for shoes, uniforms, and personal items with a professional, modern appearance.</p>
 						<ul class="feature-list">
 							<li>Sleek and organized design</li>
-							<li>Dedicated shoe storage</li>
-							<li>Uniform hanging space</li>
+							<li>Dedicated shoe and uniform storage</li>
 							<li>Personal item compartments</li>
-							<li>Professional appearance</li>
 							<li>Space-efficient layout</li>
 						</ul>
-						<h3>Why Wood for Basketball?</h3>
-						<p>The warm, professional appearance of wood lockers creates an elite atmosphere that matches the prestige of top basketball programs. The clean design helps maintain organization and team culture.</p>
 						<a href="/contact" class="btn btn-primary">Get Basketball Locker Quote</a>
 					</div>
-					<div class="sport-detail-image">
-						<div class="image-placeholder">
-							<span>Basketball Locker Installation</span>
-						</div>
+					<div class="by-sport-detail-image">
+						<img src="/images/topscorer/basketball-dribble.png" alt="Basketball lockers" />
 					</div>
 				</div>
 			</div>
-
-			<!-- Baseball -->
-			<div id="baseball" class="sport-detail">
-				<div class="sport-detail-grid reverse">
-					<div class="sport-detail-content">
-						<div class="sport-image-large">
-							<img src="https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=1200&q=80" alt="Baseball" />
-						</div>
+			<div id="baseball" class="by-sport-detail">
+				<div class="by-sport-detail-grid reverse">
+					<div class="by-sport-detail-content">
 						<h2>Baseball Lockers</h2>
-						<p class="sport-intro">Baseball equipment requires organized storage for bats, gloves, helmets, and uniforms. Our baseball lockers are customized to keep everything organized and accessible.</p>
-						<h3>Customized for Baseball</h3>
+						<p class="by-sport-intro">Customized storage for bats, gloves, helmets, and uniforms. Our baseball lockers keep everything organized and accessible.</p>
 						<ul class="feature-list">
-							<li>Organized storage solutions</li>
 							<li>Equipment-specific compartments</li>
 							<li>Uniform and gear organization</li>
-							<li>Easy access to all equipment</li>
-							<li>Professional appearance</li>
-							<li>Durable construction</li>
+							<li>Easy access and durable construction</li>
 						</ul>
-						<h3>Why Wood for Baseball?</h3>
-						<p>Wood lockers provide the professional appearance that baseball programs expect, while the customizable design allows for team-specific organization that matches each program's needs.</p>
 						<a href="/contact" class="btn btn-primary">Get Baseball Locker Quote</a>
 					</div>
-					<div class="sport-detail-image">
-						<div class="image-placeholder">
-							<span>Baseball Locker Installation</span>
-						</div>
+					<div class="by-sport-detail-image">
+						<img src="/images/topscorer/h2-blog-img-2-1.jpg" alt="Baseball lockers" />
 					</div>
 				</div>
 			</div>
-
-			<!-- Soccer -->
-			<div id="soccer" class="sport-detail">
-				<div class="sport-detail-grid">
-					<div class="sport-detail-content">
-						<div class="sport-image-large">
-							<img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1200&q=80" alt="Soccer" />
-						</div>
+			<div id="soccer" class="by-sport-detail">
+				<div class="by-sport-detail-grid">
+					<div class="by-sport-detail-content">
 						<h2>Soccer Lockers</h2>
-						<p class="sport-intro">Soccer gear needs organized storage for cleats, shin guards, uniforms, and equipment. Our soccer lockers keep everything organized and easily accessible.</p>
-						<h3>Designed for Soccer Gear</h3>
+						<p class="by-sport-intro">Organized storage for cleats, shin guards, uniforms, and equipment. Our soccer lockers keep everything accessible and professional.</p>
 						<ul class="feature-list">
-							<li>Organized compartments for gear</li>
-							<li>Cleat storage solutions</li>
-							<li>Uniform hanging space</li>
-							<li>Equipment organization</li>
-							<li>Professional appearance</li>
-							<li>Ventilated storage</li>
+							<li>Compartments for cleats and gear</li>
+							<li>Uniform hanging and ventilated storage</li>
 						</ul>
-						<h3>Why Wood for Soccer?</h3>
-						<p>The professional appearance of wood lockers matches the growing prestige of soccer programs. The organized design helps teams maintain equipment and build professional culture.</p>
 						<a href="/contact" class="btn btn-primary">Get Soccer Locker Quote</a>
 					</div>
-					<div class="sport-detail-image">
-						<div class="image-placeholder">
-							<span>Soccer Locker Installation</span>
-						</div>
+					<div class="by-sport-detail-image">
+						<img src="/images/topscorer/soccer.jpg" alt="Soccer lockers" />
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Gallery Section -->
-	<section class="sport-gallery-section">
+	<!-- CTA -->
+	<section class="by-sport-cta-section">
 		<div class="container">
-			<div class="sport-gallery-grid">
-				<!-- Top Left - Text Overlay Card -->
-				<div class="gallery-item gallery-text-card">
-					<div class="gallery-text-content">
-						<div class="gallery-category">BY SPORT</div>
-						<h3 class="gallery-title">FOOTBALL LOCKERS</h3>
-						<p class="gallery-description">Spacious and ventilated for helmets, pads, and cleats. Designed specifically to accommodate bulky equipment while keeping everything organized and dry.</p>
-						<a href="#football" class="gallery-read-more">READ MORE</a>
-					</div>
-				</div>
-				<!-- Top Middle - Image Card -->
-				<div class="gallery-item gallery-image-card">
-					<img src="https://images.unsplash.com/photo-1519869325934-2813331509ce?w=1200&q=80" alt="Basketball" />
-				</div>
-				<!-- Top Right - Text Overlay with Background Image -->
-				<div class="gallery-item gallery-text-image-card">
-					<div class="gallery-text-content">
-						<div class="gallery-category">BY SPORT</div>
-						<h3 class="gallery-title">HOCKEY LOCKERS</h3>
-						<p class="gallery-description">Reinforced construction for heavy gear and equipment. Built to handle skates, pads, sticks, and all hockey gear with specialized storage solutions.</p>
-						<a href="#hockey" class="gallery-read-more">READ MORE</a>
-					</div>
-					<div class="gallery-background-image">
-						<img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1200&q=80" alt="Football" />
-					</div>
-				</div>
-				<!-- Bottom Left - Image Card -->
-				<div class="gallery-item gallery-image-card">
-					<img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1200&q=80" alt="Football Player" />
-				</div>
-				<!-- Bottom Middle - Text Overlay Card -->
-				<div class="gallery-item gallery-text-card">
-					<div class="gallery-text-content">
-						<div class="gallery-category">BY SPORT</div>
-						<h3 class="gallery-title">BASKETBALL LOCKERS</h3>
-						<p class="gallery-description">Sleek design for shoes, uniforms, and personal items. Professional appearance that maintains a clean, modern look for top basketball programs.</p>
-						<a href="#basketball" class="gallery-read-more">READ MORE</a>
-					</div>
-				</div>
-				<!-- Bottom Right - Image Card -->
-				<div class="gallery-item gallery-image-card">
-					<img src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=1200&q=80" alt="Hockey Action" />
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- CTA Section -->
-	<section class="cta-section">
-		<div class="container">
-			<div class="cta-content">
+			<div class="by-sport-cta-content">
 				<h2>Need Lockers for Multiple Sports?</h2>
-				<p>We design complete locker room solutions for multi-sport facilities. Get a free custom design consultation for your entire facility.</p>
+				<p>We design complete locker room solutions for multi-sport facilities. Get a free custom design consultation.</p>
 				<a href="/contact" class="btn btn-primary btn-large">Get Free Design Consultation</a>
 			</div>
 		</div>
 	</section>
 
+	<!-- Bottom strip: scrolling client logos only (Match Schedule style – no background image) -->
+	<section class="by-sport-logos-strip" aria-label="Trusted by teams">
+		<div class="by-sport-logos-strip-inner">
+			<div class="by-sport-logos-track">
+				<div class="by-sport-logos-set">
+					<img src="/images/topscorer/client-1.png" alt="Client" width="120" height="60" />
+					<img src="/images/topscorer/client-2.png" alt="Client" width="120" height="60" />
+					<img src="/images/topscorer/client-3.png" alt="Client" width="120" height="60" />
+					<img src="/images/topscorer/client-4.png" alt="Client" width="120" height="60" />
+					<img src="/images/topscorer/client-5.png" alt="Client" width="120" height="60" />
+					<img src="/images/topscorer/client-6.png" alt="Client" width="120" height="60" />
+					<img src="/images/topscorer/client-8.png" alt="Client" width="120" height="60" />
+					<img src="/images/topscorer/client-9.png" alt="Client" width="120" height="60" />
+					<img src="/images/topscorer/client-10.png" alt="Client" width="120" height="60" />
+				</div>
+				<div class="by-sport-logos-set" aria-hidden="true">
+					<img src="/images/topscorer/client-1.png" alt="" width="120" height="60" />
+					<img src="/images/topscorer/client-2.png" alt="" width="120" height="60" />
+					<img src="/images/topscorer/client-3.png" alt="" width="120" height="60" />
+					<img src="/images/topscorer/client-4.png" alt="" width="120" height="60" />
+					<img src="/images/topscorer/client-5.png" alt="" width="120" height="60" />
+					<img src="/images/topscorer/client-6.png" alt="" width="120" height="60" />
+					<img src="/images/topscorer/client-8.png" alt="" width="120" height="60" />
+					<img src="/images/topscorer/client-9.png" alt="" width="120" height="60" />
+					<img src="/images/topscorer/client-10.png" alt="" width="120" height="60" />
+				</div>
+			</div>
+		</div>
+	</section>
 </BaseLayout>
 
 <style>
 	:global(body) {
 		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
-		background: #f7f7f7;
+		background: #ffffff;
 		color: #0d0d0d;
 	}
 
@@ -286,75 +224,102 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 20px;
 	}
 
-	/* By Sport Hero Section (styled like Blog/Gallery hero) */
-	.sports-hero-section {
+	/* Hero – full-width title image (Match Schedule style) */
+	.by-sport-hero {
 		position: relative;
-		background: #f7f7f7;
-		padding: 120px 0 80px;
+		min-height: 420px;
+		overflow: hidden;
+		display: flex;
+		align-items: flex-end;
+		padding-bottom: 0;
+	}
+
+	.by-sport-hero-img-holder {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+	}
+
+	.by-sport-hero-img-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
 		overflow: hidden;
 	}
 
-	.sports-hero-background-overlay {
+	.by-sport-hero-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+	}
+
+	.by-sport-hero-overlay {
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(135deg, rgba(13, 13, 13, 0.05) 0%, rgba(13, 13, 13, 0.02) 100%);
-		opacity: 0.5;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.5) 100%);
+		z-index: 1;
 	}
 
-	.sports-hero-container {
+	.by-sport-hero-container {
 		position: relative;
 		z-index: 10;
 		max-width: 1300px;
 		margin: 0 auto;
-		padding: 0 20px;
+		padding: 0 20px 80px;
+		width: 100%;
 		text-align: left;
 	}
 
-	.sports-breadcrumbs {
+	.by-sport-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
-		color: #8c8c8c;
+		color: #cccccc;
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		margin-bottom: 30px;
 	}
 
-	.sports-breadcrumbs a {
-		color: #8c8c8c;
+	.by-sport-breadcrumbs a {
+		color: #cccccc;
 		text-decoration: none;
 		transition: color 0.3s;
 	}
 
-	.sports-breadcrumbs a:hover {
+	.by-sport-breadcrumbs a:hover {
 		color: #fe5900;
 	}
 
-	.sports-breadcrumbs span {
+	.by-sport-breadcrumbs span {
 		margin-left: 10px;
-		color: #0d0d0d;
+		color: #ffffff;
 	}
 
-	.sports-page-title {
+	.by-sport-page-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: 72px;
 		font-weight: 600;
-		color: #0d0d0d;
+		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0;
 		line-height: 1.1;
 		position: relative;
 		z-index: 10;
+		text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 	}
 
-	.sports-background-text {
+	.by-sport-bg-text {
 		position: absolute;
 		font-family: 'Oswald', sans-serif;
 		font-size: 300px;
 		font-weight: 700;
-		color: rgba(13, 13, 13, 0.03);
+		color: rgba(255, 255, 255, 0.06);
 		text-transform: uppercase;
 		letter-spacing: -3px;
 		bottom: -50px;
@@ -364,16 +329,278 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		z-index: 1;
 	}
 
+	/* Bottom strip: scrolling client logos only (Match Schedule style) */
+	.by-sport-logos-strip {
+		padding: 50px 0;
+		border-top: 1px solid #e8e8e8;
+		overflow: hidden;
+		background: #fff;
+	}
+	.by-sport-logos-strip-inner {
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.by-sport-logos-track {
+		display: flex;
+		width: max-content;
+		animation: by-sport-logos-scroll 35s linear infinite;
+	}
+
+	.by-sport-logos-track:hover {
+		animation-play-state: paused;
+	}
+
+	.by-sport-logos-set {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 4rem;
+		padding: 0 3rem;
+		flex-shrink: 0;
+	}
+
+	.by-sport-logos-set img {
+		height: 50px;
+		width: auto;
+		max-width: 120px;
+		object-fit: contain;
+		opacity: 0.7;
+		filter: grayscale(0.4);
+		transition: opacity 0.3s;
+	}
+
+	.by-sport-logos-set img:hover {
+		opacity: 1;
+		filter: grayscale(0);
+	}
+
+	@keyframes by-sport-logos-scroll {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-50%);
+		}
+	}
+
+	/* Two-column content - Match Schedule layout */
+	.by-sport-content-section {
+		position: relative;
+		background: #ffffff;
+		padding: 60px 0 80px;
+	}
+
+	.by-sport-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.by-sport-layout {
+		display: grid;
+		grid-template-columns: 1fr 340px;
+		gap: 60px;
+		align-items: start;
+	}
+
+	.by-sport-main {
+		min-width: 0;
+	}
+
+	.by-sport-intro {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #666666;
+		line-height: 1.8;
+		margin: 0 0 2rem 0;
+	}
+
+	.by-sport-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.by-sport-list-item {
+		display: block;
+		padding: 1rem 0;
+		border-bottom: 1px solid #e8e8e8;
+		text-decoration: none;
+		color: inherit;
+		transition: background 0.2s, color 0.2s;
+	}
+
+	.by-sport-list-item:hover {
+		background: #f7f7f7;
+		color: #fe5900;
+	}
+
+	.by-sport-list-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		text-transform: uppercase;
+		display: block;
+		margin-bottom: 0.25rem;
+	}
+
+	.by-sport-list-desc {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		line-height: 1.5;
+	}
+
+	/* Sidebar widgets - Match Schedule style */
+	.by-sport-sidebar {
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem;
+	}
+
+	.by-sport-widget {
+		background: #f7f7f7;
+		padding: 1.75rem 1.5rem;
+		border: 1px solid #e8e8e8;
+	}
+
+	.by-sport-widget-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin: 0 0 1.25rem 0;
+	}
+
+	.by-sport-widget-links {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.by-sport-widget-links li {
+		margin-bottom: 1rem;
+	}
+
+	.by-sport-widget-links li:last-child {
+		margin-bottom: 0;
+	}
+
+	.by-sport-widget-links a {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		text-decoration: none;
+		line-height: 1.5;
+		transition: color 0.2s;
+	}
+
+	.by-sport-widget-links a:hover {
+		color: #fe5900;
+	}
+
+	.by-sport-widget-cta .by-sport-widget-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #666;
+		line-height: 1.6;
+		margin: 0 0 1.25rem 0;
+	}
+
+	.by-sport-cta-btn {
+		display: inline-block;
+		padding: 12px 28px;
+		background: #fe5900;
+		color: #ffffff;
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-decoration: none;
+		transition: background 0.3s;
+		border: none;
+		cursor: pointer;
+	}
+
+	.by-sport-cta-btn:hover {
+		background: #e04d00;
+	}
+
+	/* Detail sections */
+	.by-sport-detail-section {
+		background: #f7f7f7;
+		padding: 80px 0;
+	}
+
+	.by-sport-detail {
+		margin-bottom: 4rem;
+	}
+
+	.by-sport-detail:last-child {
+		margin-bottom: 0;
+	}
+
+	.by-sport-detail-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3rem;
+		align-items: center;
+	}
+
+	.by-sport-detail-grid.reverse {
+		direction: rtl;
+	}
+
+	.by-sport-detail-grid.reverse > * {
+		direction: ltr;
+	}
+
+	.by-sport-detail-content h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 36px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 1rem 0;
+	}
+
+	.feature-list {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 1.5rem 0;
+	}
+
+	.feature-list li {
+		padding: 0.5rem 0 0.5rem 1.5rem;
+		position: relative;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #333;
+		line-height: 1.6;
+	}
+
+	.feature-list li::before {
+		content: "✓";
+		position: absolute;
+		left: 0;
+		color: #fe5900;
+		font-weight: bold;
+	}
+
 	.btn {
 		display: inline-block;
-		padding: 15px 40px;
+		padding: 14px 32px;
 		text-decoration: none;
 		text-transform: uppercase;
 		font-weight: 500;
 		letter-spacing: 0.1em;
-		font-size: 20px;
+		font-size: 14px;
 		transition: all 0.3s;
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Oswald', sans-serif;
 	}
 
 	.btn-primary {
@@ -387,512 +614,150 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		border-color: #e04d00;
 	}
 
-	.btn-outline {
-		background: transparent;
-		color: #0d0d0d;
-		border: 2px solid #bfbfbf;
+	.btn-large {
+		padding: 18px 44px;
+		font-size: 16px;
 	}
 
-	.btn-outline:hover {
-		border-color: #0d0d0d;
-		color: #0d0d0d;
+	.by-sport-detail-image {
+		overflow: hidden;
+		border-radius: 4px;
+		background: #e0e0e0;
 	}
 
-	.hero-image {
-		position: absolute;
-		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: 5;
+	.by-sport-detail-image img {
+		width: 100%;
+		height: 320px;
+		object-fit: cover;
+		display: block;
 	}
 
-	.hero-image img {
-		max-width: 810px;
-		height: auto;
+	.by-sport-cta-section {
+		padding: 80px 0;
+		background: #0d0d0d;
+		text-align: center;
 	}
 
-	/* Page Header */
-	.page-header {
-		background: #ffffff;
-		padding: 60px 0 40px;
-		border-bottom: 1px solid #e0e0e0;
-	}
-
-	.page-header h1 {
+	.by-sport-cta-content h2 {
 		font-family: 'Oswald', sans-serif;
-		font-size: 48px;
+		font-size: 42px;
 		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		text-align: center;
-		margin-bottom: 1rem;
-	}
-
-	.page-header p {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 18px;
-		color: #666666;
-		text-align: center;
-		max-width: 800px;
-		margin: 0 auto;
-		line-height: 1.8;
-	}
-
-	/* Sport Overview Section */
-	.sport-overview-section {
-		background: #ffffff;
-		padding: 4rem 0;
-		border-bottom: 1px solid #e0e0e0;
-	}
-
-	.sport-overview-grid {
-		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		gap: 2rem;
-	}
-
-	.sport-overview-card {
-		text-align: center;
-		padding: 2rem 1.5rem;
-		background: #f7f7f7;
-		border-radius: 8px;
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
-	}
-
-	.sport-overview-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-	}
-
-	.sport-overview-title {
-		font-family: 'Oswald', sans-serif;
-		font-size: 20px;
-		font-weight: 600;
-		color: #0d0d0d;
+		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0 0 1rem 0;
 	}
 
-	.sport-overview-description {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #666666;
-		line-height: 1.6;
-		margin: 0;
-	}
-
-	/* Sport Detail Section */
-	.sport-detail-section {
-		padding: 5rem 0;
-		background: #ffffff;
-	}
-
-	.sport-detail {
-		margin-bottom: 6rem;
-	}
-
-	.sport-detail:last-child {
-		margin-bottom: 0;
-	}
-
-	.sport-detail-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 4rem;
-		align-items: start;
-	}
-
-	.sport-detail-grid.reverse {
-		direction: rtl;
-	}
-
-	.sport-detail-grid.reverse > * {
-		direction: ltr;
-	}
-
-	.sport-detail-content {
-		padding: 2rem 0;
-	}
-
-	.sport-image-large {
-		width: 100%;
-		height: 300px;
-		overflow: hidden;
-		margin-bottom: 2rem;
-		border-radius: 8px;
-	}
-
-	.sport-image-large img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	.sport-detail-content h2 {
-		font-family: 'Oswald', sans-serif;
-		font-size: 36px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		margin-bottom: 1.5rem;
-	}
-
-	.sport-intro {
+	.by-sport-cta-content p {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 18px;
-		color: #666666;
-		line-height: 1.8;
-		margin-bottom: 2rem;
-	}
-
-	.sport-detail-content h3 {
-		font-family: 'Oswald', sans-serif;
-		font-size: 24px;
-		font-weight: 600;
-		color: #0d0d0d;
-		margin: 2rem 0 1rem;
-		text-transform: uppercase;
-	}
-
-	.feature-list {
-		list-style: none;
-		padding: 0;
+		color: #b6b6b6;
 		margin: 0 0 2rem 0;
-	}
-
-	.feature-list li {
-		padding: 0.75rem 0;
-		padding-left: 2rem;
-		position: relative;
-		color: #333;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 16px;
-		line-height: 1.6;
-	}
-
-	.feature-list li::before {
-		content: "✓";
-		position: absolute;
-		left: 0;
-		color: #fe5900;
-		font-weight: bold;
-		font-size: 1.2rem;
-	}
-
-	.sport-detail-content p {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 16px;
-		color: #666666;
-		line-height: 1.8;
-		margin-bottom: 2rem;
-	}
-
-	.sport-detail-image {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 400px;
-	}
-
-	.image-placeholder {
-		width: 100%;
-		height: 400px;
-		background: #f0f0f0;
-		border: 2px dashed #ccc;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 18px;
-		color: #999;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-	}
-
-	/* CTA Section */
-	.cta-section {
-		padding: 5rem 0;
-		background: #f7f7f7;
-		text-align: center;
-	}
-
-	.cta-content h2 {
-		font-family: 'Oswald', sans-serif;
-		font-size: 48px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		margin-bottom: 1.5rem;
-	}
-
-	.cta-content p {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 20px;
-		color: #666666;
-		margin-bottom: 2rem;
-		max-width: 700px;
+		max-width: 600px;
 		margin-left: auto;
 		margin-right: auto;
-		line-height: 1.8;
+		line-height: 1.7;
 	}
 
-	.btn-large {
-		padding: 18px 50px;
-		font-size: 18px;
+	.by-sport-cta-content .btn-primary {
+		border-color: #fe5900;
 	}
 
-	/* Gallery Section */
-	.sport-gallery-section {
-		background: #0d0d0d;
-		padding: 80px 0;
-	}
-
-	.sport-gallery-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		grid-template-rows: repeat(2, 1fr);
-		gap: 20px;
-	}
-
-	.gallery-item {
-		position: relative;
+	/* Bottom scrolling image strip (Match Schedule style animation) */
+	.by-sport-logos-strip {
 		overflow: hidden;
-		min-height: 450px;
-		aspect-ratio: 1 / 1;
+		padding: 2.5rem 0;
+		background: #f5f5f5;
+		border-top: 1px solid #e8e8e8;
 	}
-
-	.gallery-image-card {
-		background: #000;
-	}
-
-	.gallery-image-card img {
+	.by-sport-logos-strip-inner {
 		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		filter: grayscale(100%);
-		transition: transform 0.5s ease, filter 0.5s ease;
-	}
-
-	.gallery-image-card:hover img {
-		transform: scale(1.05);
-		filter: grayscale(80%);
-	}
-
-	.gallery-text-card {
-		background: #1a1a1a;
-		background-image: 
-			radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
-		background-size: 25px 25px;
-		display: flex;
-		align-items: center;
-		padding: 3rem 2.5rem;
-	}
-
-	.gallery-text-content {
-		position: relative;
-		z-index: 10;
-		color: #ffffff;
-	}
-
-	.gallery-category {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 11px;
-		color: #8c8c8c;
-		text-transform: uppercase;
-		letter-spacing: 0.2em;
-		margin-bottom: 1.5rem;
-	}
-
-	.gallery-title {
-		font-family: 'Oswald', sans-serif;
-		font-size: 32px;
-		font-weight: 700;
-		color: #ffffff;
-		text-transform: uppercase;
-		line-height: 1.2;
-		margin: 0 0 1.5rem 0;
-		letter-spacing: -0.5px;
-	}
-
-	.gallery-description {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #cccccc;
-		line-height: 1.6;
-		margin: 0 0 2rem 0;
-	}
-
-	.gallery-read-more {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		color: #ffffff;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		text-decoration: underline;
-		text-decoration-thickness: 1px;
-		text-underline-offset: 4px;
-		transition: color 0.3s ease;
-		display: inline-block;
-	}
-
-	.gallery-read-more:hover {
-		color: #fe5900;
-	}
-
-	.gallery-text-image-card {
-		position: relative;
-		background: #1a1a1a;
-		background-image: 
-			radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
-		background-size: 25px 25px;
-		display: flex;
-		align-items: center;
-		padding: 3rem 2.5rem;
 		overflow: hidden;
 	}
-
-	.gallery-background-image {
-		position: absolute;
-		right: 0;
-		top: 0;
-		width: 60%;
-		height: 100%;
-		overflow: hidden;
-		opacity: 0.25;
-		z-index: 1;
+	.by-sport-logos-track {
+		display: flex;
+		gap: 3.5rem;
+		width: max-content;
+		animation: by-sport-scroll 35s linear infinite;
 	}
-
-	.gallery-background-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		filter: grayscale(100%) blur(1px);
-		transform: scale(1.1);
+	.by-sport-logos-track:hover {
+		animation-play-state: paused;
+	}
+	.by-sport-logos-set {
+		display: flex;
+		gap: 3.5rem;
+		align-items: center;
+		flex-shrink: 0;
+	}
+	.by-sport-logos-set img {
+		height: 56px;
+		width: auto;
+		max-width: 140px;
+		object-fit: contain;
+		opacity: 0.9;
+		filter: grayscale(20%);
+	}
+	@keyframes by-sport-scroll {
+		0% { transform: translateX(0); }
+		100% { transform: translateX(-50%); }
 	}
 
 	/* Responsive */
 	@media (max-width: 1200px) {
-		.sport-overview-grid {
-			grid-template-columns: repeat(3, 1fr);
+		.by-sport-bg-text {
+			font-size: 200px;
 		}
 	}
 
 	@media (max-width: 968px) {
-		.sport-detail-grid {
+		.by-sport-page-title {
+			font-size: 48px;
+		}
+		.by-sport-bg-text {
+			font-size: 150px;
+		}
+		.by-sport-layout {
+			grid-template-columns: 1fr;
+		}
+		.by-sport-sidebar {
+			order: -1;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 1.5rem;
+		}
+		.by-sport-widget {
+			flex: 1;
+			min-width: 280px;
+		}
+		.by-sport-detail-grid {
 			grid-template-columns: 1fr;
 			gap: 2rem;
 		}
-
-		.sport-detail-grid.reverse {
+		.by-sport-detail-grid.reverse {
 			direction: ltr;
 		}
-
-		.page-header h1 {
-			font-size: 36px;
+		.by-sport-detail-content h2 {
+			font-size: 28px;
 		}
-
-		.cta-content h2 {
-			font-size: 36px;
-		}
-
-		.sport-overview-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-
-	@media (max-width: 640px) {
-		.sport-overview-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.sport-overview-card {
-			padding: 1.5rem 1rem;
-		}
-
-		.sport-overview-title {
-			font-size: 18px;
-		}
-	}
-
-	@media (max-width: 1024px) {
-		.hero-title {
-			font-size: 48px;
-			line-height: 1.2;
-		}
-
-		.hero-image {
-			display: none;
-		}
-
-		.playoff-text {
-			font-size: 150px;
-		}
-	}
-
-	@media (max-width: 968px) {
-		.sport-gallery-grid {
-			grid-template-columns: repeat(2, 1fr);
-			grid-template-rows: auto;
-		}
-
-		.gallery-item {
-			min-height: 350px;
-		}
-
-		.gallery-title {
-			font-size: 24px;
+		.by-sport-cta-content h2 {
+			font-size: 32px;
 		}
 	}
 
 	@media (max-width: 768px) {
-		.hero {
-			height: 600px;
-			padding-left: 20px;
-		}
-
-		.hero-title {
+		.by-sport-page-title {
 			font-size: 36px;
-			line-height: 1.2;
 		}
-
-		.hero-text {
-			font-size: 16px;
-		}
-
-		.hero-buttons {
-			flex-direction: column;
-		}
-
-		.playoff-text {
+		.by-sport-bg-text {
 			font-size: 100px;
 		}
-
-		.player-slider {
-			grid-template-columns: 1fr;
+		.by-sport-sidebar {
+			flex-direction: column;
 		}
-
-		.players-grid {
-			grid-template-columns: 1fr;
+		.by-sport-widget {
+			min-width: 0;
 		}
-
-		.sport-gallery-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.gallery-item {
-			min-height: 300px;
-		}
-
-		.gallery-text-card,
-		.gallery-text-image-card {
-			padding: 2rem;
-		}
-
-		.gallery-title {
-			font-size: 20px;
+		.by-sport-detail-image img {
+			height: 240px;
 		}
 	}
 </style>
-
-
-

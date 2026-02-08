@@ -1,0 +1,139 @@
+---
+/** Shared material options panel: custom finishes sheet + full laminate/wood range. Use after Color option on product pages. */
+---
+<div class="material-options">
+	<button type="button" class="material-options-header" aria-expanded="false" aria-controls="material-options-colors" id="material-options-btn">
+		<span class="material-options-title">Material options</span>
+		<span class="material-options-arrow" aria-hidden="true">▼</span>
+	</button>
+	<div class="material-options-panel" id="material-options-colors" hidden>
+		<div class="material-options-sheet">
+			<p class="material-options-sheet-title">Laminate &amp; wood finishes included</p>
+			<p class="material-options-sheet-desc">Standard laminate and wood options for this locker. For custom orders we can match your specific color.</p>
+			<div class="material-options-iframe-wrap">
+				<iframe src="/custom-locker-finishes-sheet.html" title="PlayerStall custom locker finishes — laminate and wood options" class="material-options-iframe"></iframe>
+			</div>
+			<a href="/custom-locker-finishes-sheet.html" target="_blank" rel="noopener noreferrer" class="material-options-open-link">Open full sheet in new tab</a>
+		</div>
+		<div class="material-options-sheet">
+			<p class="material-options-sheet-title">Laminate — Smooth · Full range</p>
+			<img src="/images/laminate-color-sheet.png" alt="Laminate color options: Designer White, Frosty White, Linen, Earth, Black, Storm, Fog, Winter Sky, Fashion Grey, Liquid Glass, Solar Orange, Chrome Yellow, Red, Blue, Algae, Green Slate, Indigo and more" class="material-options-img" width="600" height="400" loading="lazy" />
+		</div>
+		<div class="material-options-sheet">
+			<p class="material-options-sheet-title">Wood — Stained · Full range</p>
+			<img src="/images/wood-stain-color-sheet.png" alt="Wood stain options: Cherry, Mahogany, Walnut, Maple, White Oak, Red Oak and other wood types with Clear, Amber, Coffee Bean, Chestnut, Beach Club, Coastline and more" class="material-options-img" width="600" height="400" loading="lazy" />
+		</div>
+	</div>
+</div>
+
+<style>
+	.material-options {
+		margin-top: 12px;
+		background: #f8f8f8;
+		border-left: 3px solid #fe5900;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #0d0d0d;
+	}
+	.material-options-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		padding: 10px 12px;
+		background: none;
+		border: none;
+		cursor: pointer;
+		text-align: left;
+		font-family: inherit;
+	}
+	.material-options-header:hover {
+		background: rgba(0,0,0,0.04);
+	}
+	.material-options-title {
+		font-size: 11px;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #8c8c8c;
+		margin: 0;
+		font-weight: 500;
+	}
+	.material-options-arrow {
+		font-size: 10px;
+		color: #8c8c8c;
+		transition: transform 0.2s;
+	}
+	.material-options.material-options-open .material-options-arrow {
+		transform: rotate(-180deg);
+	}
+	.material-options-panel {
+		padding: 0 12px 12px;
+		border-top: 1px solid rgba(0,0,0,0.06);
+	}
+	.material-options-panel[hidden] {
+		display: none;
+	}
+	.material-options-sheet {
+		margin-top: 14px;
+	}
+	.material-options-sheet:first-child {
+		margin-top: 0;
+	}
+	.material-options-sheet-title {
+		font-size: 12px;
+		font-weight: 600;
+		color: #0d0d0d;
+		margin: 0 0 8px;
+	}
+	.material-options-sheet-desc {
+		font-size: 12px;
+		color: #666;
+		margin: 0 0 10px;
+	}
+	.material-options-iframe-wrap {
+		border: 1px solid rgba(0,0,0,0.1);
+		border-radius: 4px;
+		overflow: hidden;
+		background: #fff;
+		max-width: 520px;
+	}
+	.material-options-iframe {
+		display: block;
+		width: 100%;
+		height: 420px;
+		border: none;
+	}
+	.material-options-open-link {
+		display: inline-block;
+		margin-top: 8px;
+		font-size: 12px;
+		color: #fe5900;
+		text-decoration: none;
+	}
+	.material-options-open-link:hover {
+		text-decoration: underline;
+	}
+	.material-options-img {
+		display: block;
+		width: 100%;
+		max-width: 520px;
+		height: auto;
+		border: 1px solid rgba(0,0,0,0.1);
+		border-radius: 4px;
+	}
+</style>
+
+<script>
+	// Material options toggle: click to show/hide colors
+	const materialOptionsBtn = document.getElementById('material-options-btn');
+	const materialOptionsPanel = document.getElementById('material-options-colors');
+	const materialOptionsWrap = document.querySelector('.material-options');
+	if (materialOptionsBtn && materialOptionsPanel && materialOptionsWrap) {
+		materialOptionsBtn.addEventListener('click', () => {
+			const open = materialOptionsPanel.hidden;
+			materialOptionsPanel.hidden = !open;
+			materialOptionsBtn.setAttribute('aria-expanded', String(open));
+			materialOptionsWrap.classList.toggle('material-options-open', open);
+		});
+	}
+</script>

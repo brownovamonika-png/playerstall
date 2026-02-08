@@ -1,0 +1,1148 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LockerAccessories from '../components/LockerAccessories.astro';
+
+const lockerAccessoriesItems = [
+	{ href: '/accessories#stick-rack', image: '/stick-rack.png', alt: 'Stick Rack', category: 'LOCKER ADD-ONS', title: 'Stick Rack', price: 'Starting at $299' },
+	{ href: '/accessories#lock-box', image: '/images/lock-box.png', alt: 'Lock Box with Digital Key Lock', category: 'LOCKER ADD-ONS', title: 'Lock Box', price: '+ $80.00' },
+	{ href: '/shop#accessories', image: '/images/cushion-logo.png', alt: 'Locker cushions', category: 'LOCKER ADD-ONS', title: 'Cushions', price: '+ $75.00' },
+	{ href: '/shop#accessories', image: '/images/name-plate.png', alt: 'Name plate', category: 'LOCKER ADD-ONS', title: 'Name Plate', price: '+ $10.00' },
+];
+---
+
+<BaseLayout
+	title='Bench - Free Standing 36" to 96" Wide | PlayerStall'
+	description='Custom wood locker bench, free standing. Available 36" to 96" wide, 9.5" or 14" deep, light or dark finish. Solid wood, black pedestals. Request a quote.'
+>
+	<!-- Hero Section (same as Stadium) -->
+	<section class="product-hero-section">
+		<div class="product-hero-background-overlay"></div>
+		<div class="product-hero-container">
+			<div class="product-breadcrumbs">
+				<a href="/">Home</a>
+				<span class="breadcrumbs-sep">/</span>
+				<a href="/shop">Shop</a>
+				<span class="breadcrumbs-sep">/</span>
+				<span class="breadcrumbs-current">Bench</span>
+			</div>
+			<div class="product-background-text">bench</div>
+		</div>
+	</section>
+
+	<!-- Product Main (same layout as Stadium) -->
+	<section class="product-main-section">
+		<div class="product-container">
+			<div class="product-layout">
+				<!-- Left: Gallery -->
+				<div class="product-gallery">
+					<div class="product-gallery-main">
+						<img src="/images/wood-lockers-starting-lineup.jpg" alt="Bench free standing for athletic locker rooms" class="product-main-image" />
+						<span class="product-enlarge-hint">Enlarge Image</span>
+					</div>
+					<div class="product-gallery-thumbs">
+						<button type="button" class="thumb active" aria-label="View image 1"><img src="/images/wood-lockers-starting-lineup.jpg" alt="Bench view 1" /></button>
+						<button type="button" class="thumb" aria-label="View image 2"><img src="/images/wood-lockers-team-discount.jpg" alt="Bench view 2" /></button>
+						<button type="button" class="thumb" aria-label="View image 3"><img src="/images/wood-locer-room-front-2.png" alt="Locker room with bench" /></button>
+					</div>
+				</div>
+
+				<!-- Right: Details -->
+				<div class="product-detail">
+					<h1 class="product-title">Bench – Free Standing 36&quot; to 96&quot; Wide</h1>
+					<p class="product-model" data-model-prefix="BENCH">Model # BENCH-36-L</p>
+					<p class="product-lead-time">Lead time: usually ships within 1–2 weeks</p>
+					<div class="product-price-block">
+						<span class="product-price" data-base-price="225">From $225.00</span>
+					</div>
+
+					<div class="product-options">
+						<div class="product-option">
+							<label class="option-label">Width:</label>
+							<span class="option-value">36&quot;</span>
+							<div class="option-swatches">
+								<button type="button" class="swatch width-swatch active" data-width="36" title="36 inch" aria-pressed="true">36&quot;</button>
+								<button type="button" class="swatch width-swatch" data-width="48" title="48 inch">48&quot;</button>
+								<button type="button" class="swatch width-swatch" data-width="60" title="60 inch">60&quot;</button>
+								<button type="button" class="swatch width-swatch" data-width="72" title="72 inch">72&quot;</button>
+								<button type="button" class="swatch width-swatch" data-width="84" title="84 inch">84&quot;</button>
+								<button type="button" class="swatch width-swatch" data-width="96" title="96 inch">96&quot;</button>
+							</div>
+						</div>
+						<div class="product-option">
+							<label class="option-label">Color:</label>
+							<span class="option-value">Light</span>
+							<div class="option-swatches">
+								<button type="button" class="swatch active" data-color="light" title="Light" aria-pressed="true">Light</button>
+								<button type="button" class="swatch" data-color="dark" title="Dark">Dark</button>
+							</div>
+						</div>
+						<div class="product-option">
+							<label class="option-label">Depth:</label>
+							<span class="option-value">9.5&quot;</span>
+							<div class="option-swatches">
+								<button type="button" class="swatch depth-swatch active" data-depth="9.5" title="9.5 inch" aria-pressed="true">9.5&quot;</button>
+								<button type="button" class="swatch depth-swatch" data-depth="14" title="14 inch">14&quot;</button>
+							</div>
+						</div>
+						<p class="option-note">Pair with lockers for a complete installation. <a href="/shop">View lockers</a>.</p>
+						<div class="product-specs-inline">
+							<p><strong>Size (36&quot; W example):</strong> 36&quot; W × 18&quot; H × 9.5&quot; D</p>
+							<p><strong>Weight:</strong> approx. 20 lbs (36&quot; width)</p>
+						</div>
+					</div>
+
+					<div class="product-volume-discounts">
+						<h3 class="volume-title">Volume Discounts</h3>
+						<table class="volume-table">
+							<thead>
+								<tr><th>Quantity</th><th>Price</th></tr>
+							</thead>
+							<tbody>
+								<tr><td>1</td><td>$225.00</td></tr>
+								<tr><td>2 – 5</td><td>$190.00</td></tr>
+								<tr><td>6+</td><td>$180.00</td></tr>
+								<tr><td>Bulk</td><td><a href="/contact#quote-form" class="volume-contact-link">Contact us</a> for pricing</td></tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="product-actions">
+						<label class="quantity-label" for="product-qty">Quantity:</label>
+						<input type="number" id="product-qty" class="product-qty-input" value="1" min="1" max="999" />
+						<button type="button" class="btn btn-primary product-add-cart" id="bench-add-cart">Add to Cart</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- More Information (same structure as Stadium) -->
+			<div class="product-info-section" id="moreinfo">
+				<h2 class="product-info-heading">Bench – Features &amp; Options</h2>
+				<h3 class="product-info-subheading">Features</h3>
+				<ul class="product-features-list">
+					<li>Constructed of solid butcher block wood</li>
+					<li>Ideal for industrial, office, or recreational locker room facilities</li>
+					<li>Classic look with strength and durability</li>
+					<li>Available in light or dark finish</li>
+					<li>Widths from 36&quot; to 96&quot; in 1-foot increments; easy to assemble</li>
+					<li>18&quot; high; 9.5&quot; or 14&quot; deep</li>
+					<li>Wood seating area 1¼&quot; thick</li>
+					<li>Free-standing benches include black powder-coated pedestals (2 for 36&quot;–72&quot; wide, 3 for 84&quot; and 96&quot;)</li>
+					<li>Delivered unassembled – minor assembly required</li>
+				</ul>
+				<h3 class="product-info-subheading">Options</h3>
+				<ul class="product-options-list">
+					<li>Widths: 36&quot;, 48&quot;, 60&quot;, 72&quot;, 84&quot;, 96&quot;</li>
+					<li>Depth: 9.5&quot; or 14&quot;</li>
+					<li>Light or dark finish</li>
+					<li>Pair with our wood lockers for a complete locker room</li>
+				</ul>
+				<h3 class="product-info-subheading">Downloads</h3>
+				<ul class="product-downloads-list">
+					<li><a href="/contact">Request spec sheet &amp; quote</a></li>
+					<li><a href="/contact">Installation support</a></li>
+					<li><a href="/shop">View all lockers</a></li>
+				</ul>
+			</div>
+
+			<LockerAccessories title="LOCKER ACCESSORIES" items={lockerAccessoriesItems} />
+		</div>
+	</section>
+
+</BaseLayout>
+
+
+<style is:global>
+	body {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #ffffff;
+		color: #0d0d0d;
+	}
+
+	.product-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.product-hero-section {
+		position: relative;
+		background: #f7f7f7;
+		padding: 80px 0 50px;
+		overflow: hidden;
+	}
+
+	.product-hero-background-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg, rgba(13, 13, 13, 0.04) 0%, transparent 100%);
+	}
+
+	.product-hero-container {
+		position: relative;
+		z-index: 2;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.product-breadcrumbs {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		margin-bottom: 20px;
+	}
+
+	.product-breadcrumbs a {
+		color: #8c8c8c;
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.product-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.breadcrumbs-sep {
+		margin: 0 8px;
+		color: #b6b6b6;
+	}
+
+	.breadcrumbs-current {
+		color: #0d0d0d;
+	}
+
+	.product-background-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 200px;
+		font-weight: 700;
+		color: rgba(13, 13, 13, 0.04);
+		text-transform: uppercase;
+		letter-spacing: -2px;
+		bottom: -30px;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+		z-index: 1;
+	}
+
+	.product-main-section {
+		padding: 60px 0 100px;
+		background: #ffffff;
+	}
+
+	.product-layout {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 60px;
+		align-items: start;
+		margin-bottom: 80px;
+	}
+
+	.product-gallery-main {
+		position: relative;
+		background: #f7f7f7;
+		aspect-ratio: 1;
+		overflow: hidden;
+		margin-bottom: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.product-main-image {
+		width: 96%;
+		height: 96%;
+		object-fit: contain;
+		display: block;
+	}
+
+	.product-enlarge-hint {
+		position: absolute;
+		bottom: 12px;
+		right: 12px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.product-gallery-thumbs {
+		display: flex;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+
+	.thumb {
+		width: 80px;
+		height: 80px;
+		padding: 0;
+		border: 2px solid transparent;
+		background: #f0f0f0;
+		cursor: pointer;
+		overflow: hidden;
+		transition: border-color 0.2s, box-shadow 0.2s;
+	}
+
+	.thumb:hover,
+	.thumb.active {
+		border-color: #fe5900;
+		box-shadow: 0 0 0 1px #fe5900;
+	}
+
+	.thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.product-detail {
+		position: sticky;
+		top: 120px;
+	}
+
+	.product-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 600;
+		color: #0d0d0d;
+		line-height: 1.25;
+		margin: 0 0 12px;
+		text-transform: none;
+	}
+
+	.product-model {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin: 0 0 8px;
+	}
+
+	.product-lead-time {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		margin: 0 0 24px;
+		text-transform: lowercase;
+	}
+
+	.product-price-block {
+		margin-bottom: 28px;
+		padding-bottom: 24px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.product-price {
+		font-family: 'Oswald', sans-serif;
+		font-size: 36px;
+		font-weight: 600;
+		color: #0d0d0d;
+	}
+
+	.option-label {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		font-weight: 500;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 8px;
+	}
+
+	.option-value {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin-bottom: 8px;
+		display: block;
+	}
+
+	.option-swatches {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.swatch {
+		padding: 8px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		background: #f0f0f0;
+		border: 2px solid transparent;
+		color: #0d0d0d;
+		cursor: pointer;
+		transition: border-color 0.2s, background 0.2s;
+	}
+
+	.swatch:hover {
+		background: #e8e8e8;
+	}
+
+	.swatch.active {
+		border-color: #fe5900;
+		background: #fff;
+		color: #0d0d0d;
+	}
+
+	.option-note {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		margin: 6px 0 0;
+		font-style: italic;
+	}
+
+	.product-specs-inline {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		margin-top: 16px;
+	}
+
+	.product-specs-inline p {
+		margin: 0 0 6px;
+	}
+
+	.product-volume-discounts {
+		margin-bottom: 28px;
+	}
+
+	.volume-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin: 0 0 12px;
+	}
+
+	.volume-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+	}
+
+	.volume-table thead {
+		background: #0d0d0d;
+		color: #fff;
+	}
+
+	.volume-table th {
+		padding: 12px 14px;
+		text-align: left;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.volume-table th:first-child {
+		background: #fe5900;
+	}
+
+	.volume-table td {
+		padding: 12px 14px;
+		border-bottom: 1px solid #e0e0e0;
+		color: #0d0d0d;
+	}
+
+	.volume-contact-link {
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 500;
+	}
+
+	.product-actions {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		flex-wrap: wrap;
+	}
+
+	.quantity-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+	}
+
+	.product-qty-input {
+		width: 80px;
+		padding: 12px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		background: #fff;
+		color: #0d0d0d;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 15px 40px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		font-size: 16px;
+		transition: all 0.3s;
+		font-family: 'Yantramanav', sans-serif;
+		border: none;
+		cursor: pointer;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #ffffff;
+		border: 2px solid #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+	}
+
+	.product-add-cart {
+		padding: 16px 36px;
+	}
+
+	.product-info-section {
+		padding: 60px 0 0;
+		border-top: 1px solid #e0e0e0;
+		margin-top: 40px;
+	}
+
+	.product-info-heading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 32px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 32px;
+	}
+
+	.product-info-subheading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 32px 0 16px;
+	}
+
+	.product-info-subheading:first-of-type {
+		margin-top: 0;
+	}
+
+	.product-features-list,
+	.product-options-list,
+	.product-downloads-list {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		line-height: 1.7;
+		color: #0d0d0d;
+		margin: 0 0 24px;
+		padding-left: 24px;
+	}
+
+	.product-options-list li,
+	.product-downloads-list li {
+		margin-bottom: 10px;
+	}
+
+	.product-downloads-list {
+		list-style: none;
+		padding-left: 0;
+	}
+
+	.product-downloads-list a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	@media (max-width: 1024px) {
+		.product-layout {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+		.product-detail {
+			position: static;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.product-title {
+			font-size: 22px;
+		}
+		.product-price {
+			font-size: 28px;
+		}
+		.product-background-text {
+			font-size: 120px;
+		}
+		.product-actions {
+			flex-direction: column;
+			align-items: stretch;
+		}
+		.product-qty-input {
+			width: 100%;
+		}
+	}
+
+	/* Product detail */
+	.product-detail-section {
+		padding: 60px 0 80px;
+		background: #fff;
+	}
+
+	.product-detail-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 50px;
+		align-items: start;
+	}
+
+	.product-gallery {
+		position: sticky;
+		top: 120px;
+	}
+
+	.product-main-image {
+		width: 100%;
+		aspect-ratio: 3 / 2;
+		overflow: hidden;
+		background: #f7f7f7;
+		margin-bottom: 16px;
+	}
+
+	.product-main-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.product-image-note {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		margin: 0;
+		line-height: 1.5;
+	}
+
+	.product-info {
+		max-width: 520px;
+	}
+
+	.product-category {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		margin: 0 0 12px 0;
+	}
+
+	.product-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 8px 0;
+		line-height: 1.2;
+	}
+
+	.product-lead {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #666;
+		margin: 0 0 24px 0;
+	}
+
+	.product-price-block {
+		margin-bottom: 20px;
+	}
+
+	.product-price-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		display: block;
+		margin-bottom: 4px;
+	}
+
+	.product-price {
+		font-family: 'Oswald', sans-serif;
+		font-size: 32px;
+		font-weight: 600;
+		color: #0d0d0d;
+	}
+
+	.product-short-desc {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #333;
+		line-height: 1.7;
+		margin: 0 0 28px 0;
+	}
+
+	.product-options {
+		margin-bottom: 28px;
+	}
+
+	.product-option {
+		margin-bottom: 20px;
+	}
+
+	.product-option label {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 8px;
+	}
+
+	.product-option-label {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 10px;
+	}
+
+	/* Width & color variant rows – same style as lockers */
+	.product-variant-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.product-variant-option {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		padding: 10px 16px;
+		border: 2px solid #e0e0e0;
+		background: #fff;
+		cursor: pointer;
+		transition: border-color 0.2s, background 0.2s;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+	}
+
+	.product-variant-option input {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.product-variant-option:hover {
+		border-color: #ccc;
+	}
+
+	.product-variant-option.selected,
+	.product-variant-option:has(input:checked) {
+		border-color: #fe5900;
+		background: rgba(254, 89, 0, 0.06);
+	}
+
+	.product-variant-value {
+		display: inline-block;
+	}
+
+	/* Width options: pill style */
+	.product-variant-option-width {
+		min-width: 52px;
+	}
+
+	/* Color options: swatch + label (same as lockers) */
+	.product-variant-row-color .product-variant-option {
+		padding: 8px 14px;
+	}
+
+	.product-swatch {
+		display: inline-block;
+		width: 24px;
+		height: 24px;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		border-radius: 4px;
+		flex-shrink: 0;
+	}
+
+	.product-swatch-light {
+		background: #e8dcc8;
+	}
+
+	.product-swatch-dark {
+		background: #3d3428;
+	}
+
+	.product-select {
+		width: 100%;
+		max-width: 280px;
+		padding: 12px 16px;
+		border: 1px solid #e0e0e0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		background: #fff;
+		appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 12px center;
+	}
+
+	.product-select:focus {
+		outline: none;
+		border-color: #fe5900;
+	}
+
+	.product-qty {
+		width: 80px;
+		padding: 12px 16px;
+		border: 1px solid #e0e0e0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+	}
+
+	.product-qty:focus {
+		outline: none;
+		border-color: #fe5900;
+	}
+
+	.product-volume-pricing {
+		margin-bottom: 28px;
+		padding: 20px 0;
+		border-top: 1px solid #e0e0e0;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.product-volume-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 12px 0;
+	}
+
+	.product-volume-table {
+		width: 100%;
+		max-width: 320px;
+		border-collapse: collapse;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+	}
+
+	.product-volume-table th,
+	.product-volume-table td {
+		padding: 8px 0;
+		text-align: left;
+		border-bottom: 1px solid #eee;
+	}
+
+	.product-volume-table th {
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.product-volume-table a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	.product-volume-table a:hover {
+		text-decoration: underline;
+	}
+
+	.product-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-bottom: 20px;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 14px 28px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-decoration: none;
+		border: none;
+		cursor: pointer;
+		transition: background 0.3s, color 0.3s;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #fff;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+	}
+
+	.btn-secondary {
+		background: #0d0d0d;
+		color: #fff;
+	}
+
+	.btn-secondary:hover {
+		background: #333;
+	}
+
+	.btn-large {
+		padding: 18px 40px;
+		font-size: 16px;
+	}
+
+	.product-specs {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #666;
+		margin: 0;
+		line-height: 1.6;
+	}
+
+	/* Features */
+	.product-features-section {
+		padding: 60px 0;
+		background: #f7f7f7;
+	}
+
+	.product-features-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 24px 0;
+	}
+
+	.product-features-list {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #333;
+		line-height: 1.8;
+		margin: 0;
+		padding-left: 22px;
+		max-width: 700px;
+	}
+
+	.product-features-list li {
+		margin-bottom: 8px;
+	}
+
+	/* CTA */
+	.product-cta-section {
+		padding: 80px 0;
+		background: #0d0d0d;
+		color: #fff;
+		text-align: center;
+	}
+
+	.product-cta-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 36px;
+		font-weight: 600;
+		color: #fff;
+		text-transform: uppercase;
+		margin: 0 0 16px 0;
+	}
+
+	.product-cta-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #ccc;
+		max-width: 560px;
+		margin: 0 auto 28px auto;
+		line-height: 1.7;
+	}
+
+	.product-cta-section .btn-primary:hover {
+		background: #e04d00;
+		color: #fff;
+	}
+
+	@media (max-width: 1024px) {
+		.product-detail-grid {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+
+		.product-gallery {
+			position: static;
+		}
+
+		.product-info {
+			max-width: 100%;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.product-hero {
+			padding: 100px 0 60px;
+		}
+
+		.product-hero-title {
+			font-size: 40px;
+		}
+
+		.product-hero-bg-text {
+			font-size: 140px;
+		}
+
+		.product-name {
+			font-size: 24px;
+		}
+
+		.product-actions {
+			flex-direction: column;
+		}
+
+		.product-actions .btn {
+			width: 100%;
+			text-align: center;
+		}
+
+		.product-cta-title {
+			font-size: 28px;
+		}
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// Gallery thumbs: click to change main image
+		document.querySelectorAll('.product-gallery-thumbs .thumb').forEach(function(thumb) {
+			thumb.addEventListener('click', function() {
+				document.querySelectorAll('.product-gallery-thumbs .thumb').forEach(function(t) { t.classList.remove('active'); });
+				thumb.classList.add('active');
+				var img = thumb.querySelector('img');
+				if (img && img.src) {
+					var main = document.querySelector('.product-main-image');
+					if (main && main.tagName === 'IMG') main.src = img.src;
+				}
+			});
+		});
+
+		// Width swatches
+		document.querySelectorAll('.width-swatch').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				document.querySelectorAll('.width-swatch').forEach(function(b) {
+					b.classList.remove('active');
+					b.setAttribute('aria-pressed', 'false');
+				});
+				btn.classList.add('active');
+				btn.setAttribute('aria-pressed', 'true');
+				var option = btn.closest('.product-option');
+				var valueEl = option ? option.querySelector('.option-value') : null;
+				if (valueEl) valueEl.textContent = (btn.textContent || '').trim();
+				var modelEl = document.querySelector('.product-model[data-model-prefix]');
+				if (modelEl) {
+					var colorBtn = document.querySelector('.swatch[data-color].active');
+					var color = (colorBtn && colorBtn.getAttribute('data-color')) ? colorBtn.getAttribute('data-color').charAt(0).toUpperCase() : 'L';
+					modelEl.textContent = 'Model # BENCH-' + (btn.getAttribute('data-width') || '36') + '-' + color;
+				}
+			});
+		});
+
+		// Color swatches (Light/Dark)
+		document.querySelectorAll('.swatch[data-color]').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				var option = btn.closest('.product-option');
+				if (!option) return;
+				option.querySelectorAll('.swatch[data-color]').forEach(function(b) {
+					b.classList.remove('active');
+					b.setAttribute('aria-pressed', 'false');
+				});
+				btn.classList.add('active');
+				btn.setAttribute('aria-pressed', 'true');
+				var valueEl = option.querySelector('.option-value');
+				if (valueEl) valueEl.textContent = btn.getAttribute('title') || btn.textContent || '';
+				var modelEl = document.querySelector('.product-model[data-model-prefix]');
+				if (modelEl) {
+					var widthBtn = document.querySelector('.width-swatch.active');
+					var width = (widthBtn && widthBtn.getAttribute('data-width')) ? widthBtn.getAttribute('data-width') : '36';
+					var color = (btn.getAttribute('data-color') || 'light').charAt(0).toUpperCase();
+					modelEl.textContent = 'Model # BENCH-' + width + '-' + color;
+				}
+			});
+		});
+
+		// Depth swatches
+		document.querySelectorAll('.depth-swatch').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				document.querySelectorAll('.depth-swatch').forEach(function(b) {
+					b.classList.remove('active');
+					b.setAttribute('aria-pressed', 'false');
+				});
+				btn.classList.add('active');
+				btn.setAttribute('aria-pressed', 'true');
+				var option = btn.closest('.product-option');
+				var valueEl = option ? option.querySelector('.option-value') : null;
+				if (valueEl) valueEl.textContent = (btn.textContent || '').trim();
+			});
+		});
+
+		// Add to cart
+		var addCartBtn = document.getElementById('bench-add-cart');
+		if (!addCartBtn) return;
+
+		function getCart() {
+			var cart = localStorage.getItem('playerstall_cart');
+			return cart ? JSON.parse(cart) : [];
+		}
+		function saveCart(cart) {
+			localStorage.setItem('playerstall_cart', JSON.stringify(cart));
+			window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { count: cart.reduce(function(s, i) { return s + i.quantity; }, 0) } }));
+		}
+
+		addCartBtn.addEventListener('click', function() {
+			var widthBtn = document.querySelector('.width-swatch.active');
+			var width = (widthBtn && widthBtn.getAttribute('data-width')) ? widthBtn.getAttribute('data-width') : '36';
+			var colorBtn = document.querySelector('.swatch[data-color].active');
+			var color = (colorBtn && colorBtn.getAttribute('data-color')) ? colorBtn.getAttribute('data-color') : 'light';
+			var depthBtn = document.querySelector('.depth-swatch.active');
+			var depth = (depthBtn && depthBtn.getAttribute('data-depth')) ? depthBtn.getAttribute('data-depth') : '9.5';
+			var qtyEl = document.getElementById('product-qty');
+			var qty = parseInt((qtyEl && qtyEl.value) ? qtyEl.value : '1', 10) || 1;
+
+			var id = 'wood-bench-' + width + '-' + depth + '-' + color;
+			var name = 'Bench ' + width + '" × ' + depth + '" (' + color + ')';
+			var price = 225;
+			var image = '/images/wood-lockers-starting-lineup.jpg';
+
+			var cart = getCart();
+			var existing = cart.find(function(item) { return item.id === id; });
+			if (existing) existing.quantity += qty;
+			else cart.push({ id: id, name: name, price: price, image: image, quantity: qty });
+			saveCart(cart);
+
+			var originalText = addCartBtn.textContent;
+			addCartBtn.textContent = 'Added to cart';
+			setTimeout(function() { addCartBtn.textContent = originalText; }, 1500);
+		});
+	});
+</script>

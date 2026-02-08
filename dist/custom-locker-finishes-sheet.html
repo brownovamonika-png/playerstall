@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Custom Locker Finishes | PlayerStall</title>
+	<style>
+		* { box-sizing: border-box; }
+		body {
+			font-family: 'Yantramanav', 'Segoe UI', sans-serif;
+			margin: 0;
+			padding: 24px;
+			background: #f5f5f5;
+			color: #0d0d0d;
+			font-size: 14px;
+		}
+		.sheet {
+			max-width: 720px;
+			margin: 0 auto;
+			background: #fff;
+			padding: 28px 32px;
+			box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+		}
+		h1 {
+			font-family: 'Oswald', sans-serif;
+			font-size: 22px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			margin: 0 0 24px;
+			color: #0d0d0d;
+		}
+		.section-title {
+			font-family: 'Oswald', sans-serif;
+			font-size: 13px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			margin: 20px 0 12px;
+			color: #666;
+			border-bottom: 1px solid #e0e0e0;
+			padding-bottom: 6px;
+		}
+		.section-title:first-of-type { margin-top: 0; }
+		.swatch-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+			gap: 16px;
+		}
+		.swatch {
+			text-align: center;
+		}
+		.swatch-color {
+			width: 100%;
+			aspect-ratio: 1;
+			border: 1px solid rgba(0,0,0,0.12);
+			margin-bottom: 8px;
+			border-radius: 4px;
+		}
+		.swatch.wood .swatch-color {
+			background-size: 200% 200%;
+			background-position: 0 0;
+		}
+		.swatch-name { font-weight: 500; color: #0d0d0d; }
+		.swatch-code { font-size: 11px; color: #666; margin-top: 2px; }
+		.custom-note {
+			margin-top: 24px;
+			padding: 14px 16px;
+			background: #f8f8f8;
+			border-left: 3px solid #fe5900;
+			font-size: 13px;
+			color: #333;
+		}
+		.custom-note strong { color: #0d0d0d; }
+		@media print {
+			body { background: #fff; padding: 12px; }
+			.sheet { box-shadow: none; padding: 16px; max-width: 100%; }
+		}
+	</style>
+</head>
+<body>
+	<div class="sheet">
+		<h1>Custom Locker Finishes</h1>
+
+		<div class="section-title">Laminate / Melamine — colors included</div>
+		<div class="swatch-grid">
+			<div class="swatch">
+				<div class="swatch-color" style="background: #f2f1ed;"></div>
+				<div class="swatch-name">Frosty White</div>
+				<div class="swatch-code">LFW</div>
+			</div>
+			<div class="swatch">
+				<div class="swatch-color" style="background: #1a1a1a;"></div>
+				<div class="swatch-name">Black</div>
+				<div class="swatch-code">LB</div>
+			</div>
+			<div class="swatch">
+				<div class="swatch-color" style="background: #4a4d52;"></div>
+				<div class="swatch-name">Storm</div>
+				<div class="swatch-code">LS</div>
+			</div>
+			<div class="swatch">
+				<div class="swatch-color" style="background: #9a9b9e;"></div>
+				<div class="swatch-name">Fog</div>
+				<div class="swatch-code">LF</div>
+			</div>
+			<div class="swatch">
+				<div class="swatch-color" style="background: #a00d1a;"></div>
+				<div class="swatch-name">Red</div>
+				<div class="swatch-code">LH</div>
+			</div>
+			<div class="swatch">
+				<div class="swatch-color" style="background: #2d2a4a;"></div>
+				<div class="swatch-name">Indigo</div>
+				<div class="swatch-code">LI</div>
+			</div>
+		</div>
+
+		<div class="section-title">Wood — same material, wood grain</div>
+		<div class="swatch-grid">
+			<div class="swatch wood">
+				<div class="swatch-color" style="background: linear-gradient(105deg, #e8dcc8 0%, #d4c4a8 25%, #e2d4bc 50%, #d8c8b0 75%, #e0d0b8 100%);"></div>
+				<div class="swatch-name">Maple · Clear</div>
+				<div class="swatch-code">WMC</div>
+			</div>
+			<div class="swatch wood">
+				<div class="swatch-color" style="background: linear-gradient(95deg, #c4b59a 0%, #b8a88a 30%, #d0c2a8 60%, #bcaa8e 100%);"></div>
+				<div class="swatch-name">White Oak · Clear</div>
+				<div class="swatch-code">WWoC</div>
+			</div>
+			<div class="swatch wood">
+				<div class="swatch-color" style="background: linear-gradient(85deg, #8b5a3c 0%, #a07050 40%, #946040 70%, #7a4a30 100%);"></div>
+				<div class="swatch-name">Cherry · Pecan</div>
+				<div class="swatch-code">WCP</div>
+			</div>
+			<div class="swatch wood">
+				<div class="swatch-color" style="background: linear-gradient(100deg, #5c4033 0%, #6b5040 35%, #4a3025 70%, #5a4030 100%);"></div>
+				<div class="swatch-name">Mahogany · Clear</div>
+				<div class="swatch-code">WMaC</div>
+			</div>
+		</div>
+
+		<div class="custom-note">
+			<strong>Custom orders:</strong> We can find a match to your specific color if needed.
+		</div>
+	</div>
+</body>
+</html>

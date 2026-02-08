@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Request a Quote | PlayerStall" description="Request a quote for custom sports lockers">
+	<meta http-equiv="refresh" content="0;url=/contact#quote-form" />
+	<section class="redirect-section">
+		<div class="container">
+			<p>Contact and Request a Quote are now on one page. Redirecting you…</p>
+			<p><a href="/contact#quote-form">Go to Contact & Request a Quote</a></p>
+		</div>
+	</section>
+	<script is:inline>
+		window.location.replace('/contact#quote-form');
+	</script>
+</BaseLayout>
+<style>
+	.redirect-section {
+		padding: 4rem 0;
+		text-align: center;
+	}
+	.redirect-section a {
+		color: #fe5900;
+		font-weight: 600;
+	}
+</style>

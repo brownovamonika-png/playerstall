@@ -1,0 +1,861 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LockerAccessories from '../components/LockerAccessories.astro';
+import MaterialOptions from '../components/MaterialOptions.astro';
+
+const lockerAccessoriesItems = [
+	{ href: '/accessories#stick-rack', image: '/stick-rack.png', alt: 'Stick Rack', category: 'LOCKER ADD-ONS', title: 'Stick Rack', price: 'Starting at $299' },
+	{ href: '/accessories#lock-box', image: '/images/lock-box.png', alt: 'Lock Box with Digital Key Lock', category: 'LOCKER ADD-ONS', title: 'Lock Box', price: '+ $80.00' },
+	{ href: '/shop#accessories', image: '/images/cushion-logo.png', alt: 'Locker cushions', category: 'LOCKER ADD-ONS', title: 'Cushions', price: '+ $75.00' },
+	{ href: '/shop#accessories', image: '/images/name-plate.png', alt: 'Name plate', category: 'LOCKER ADD-ONS', title: 'Name Plate', price: '+ $10.00' },
+];
+---
+
+<BaseLayout
+	title="Pro Wood Locker - 24-Inch Wide, 76 Inches High, 19 Inches Deep | PlayerStall"
+	description="Pro wood locker: MPW-6C plywood melamine, 76&quot; H x 19&quot; D, widths 18&quot;–30&quot;. $549 base. Black, Light Grey, Dark Grey, Maple. 3–4 weeks. 5 year warranty."
+>
+	<!-- Hero Section -->
+	<section class="product-hero-section">
+		<div class="product-hero-background-overlay"></div>
+		<div class="product-hero-container">
+			<div class="product-breadcrumbs">
+				<a href="/">Home</a>
+				<span class="breadcrumbs-sep">/</span>
+				<a href="/shop">Shop</a>
+				<span class="breadcrumbs-sep">/</span>
+				<span class="breadcrumbs-current">Pro Locker</span>
+			</div>
+			<div class="product-background-text">locker</div>
+		</div>
+	</section>
+
+	<!-- Product Main -->
+	<section class="product-main-section">
+		<div class="product-container">
+			<div class="product-layout">
+				<!-- Left: Gallery -->
+				<div class="product-gallery">
+					<div class="product-gallery-main">
+						<img
+							src="/images/Athletic-Locker-Pro.jpg"
+							alt="Pro wood athletic locker for locker rooms"
+							class="product-main-image"
+						/>
+						<span class="product-enlarge-hint">Enlarge Image</span>
+					</div>
+					<div class="product-gallery-thumbs">
+						<button type="button" class="thumb active" aria-label="View image 1">
+							<img src="/images/Athletic-Locker-Pro.jpg" alt="Pro locker view 1" />
+						</button>
+						<button type="button" class="thumb" aria-label="View image 2">
+							<img src="/images/wood-locer-room-front-2.png" alt="Locker view 2" />
+						</button>
+						<button type="button" class="thumb" aria-label="View image 3">
+							<img src="/images/phenolic-locker-no-background.jpg" alt="Locker view 3" />
+						</button>
+					</div>
+				</div>
+
+				<!-- Right: Details -->
+				<div class="product-detail">
+					<h1 class="product-title">Pro Locker – 24&quot; Wide, 76 Inches High, 19 Inches Deep</h1>
+
+					<p class="product-model" data-model-prefix="PRO">Model # PRO-24-MP</p>
+
+					<p class="product-lead-time">Lead time: usually ships within 3-4 weeks</p>
+
+					<div class="product-price-block">
+						<span class="product-price" data-base-price="549">$549.00</span>
+					</div>
+
+					<div class="product-options">
+						<div class="product-option">
+							<label class="option-label">Width:</label>
+							<span class="option-value">24&quot; (standard)</span>
+							<div class="option-swatches">
+								<button type="button" class="swatch width-swatch" data-base-price="549" title="18 inch width">18&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="549" title="20 inch width">20&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="549" title="22 inch width">22&quot;</button>
+								<button type="button" class="swatch width-swatch active" data-base-price="549" title="24 inch width" aria-pressed="true">24&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="549" title="26 inch width">26&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="549" title="28 inch width">28&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="549" title="30 inch width">30&quot;</button>
+							</div>
+						</div>
+						<div class="product-option">
+							<label class="option-label">Color:</label>
+							<span class="option-value">Maple</span>
+							<div class="option-swatches">
+								<button type="button" class="swatch" data-color-code="BL" title="Black">Black</button>
+								<button type="button" class="swatch" data-color-code="LG" title="Light Grey">Light Grey</button>
+								<button type="button" class="swatch" data-color-code="DG" title="Dark Grey">Dark Grey</button>
+								<button type="button" class="swatch" data-color-code="LH" title="Red">Red</button>
+								<button type="button" class="swatch" data-color-code="LLB" title="Blue">Blue</button>
+								<button type="button" class="swatch active" data-color-code="MP" title="Maple" aria-pressed="true">Maple</button>
+							</div>
+							<p class="option-note">Custom colors are available upon request (custom orders, 8–12 weeks).</p>
+							<MaterialOptions />
+						</div>
+						<div class="product-option">
+							<label class="option-label">Accessories:</label>
+							<span class="option-value">Select add-ons to update price</span>
+							<div class="accessories-grid">
+								<button type="button" class="accessory-box" data-price="40" title="Vented front">
+									<span class="accessory-square"></span>
+									<span class="accessory-label">Vented front (+$40)</span>
+								</button>
+								<button type="button" class="accessory-box" data-price="80" title="Lock box">
+									<span class="accessory-square"></span>
+									<span class="accessory-label">Lock box (+$80)</span>
+								</button>
+								<button type="button" class="accessory-box" data-price="75" title="Bottom cushion">
+									<span class="accessory-square"></span>
+									<span class="accessory-label">Bottom cushion (+$75)</span>
+								</button>
+								<button type="button" class="accessory-box" data-price="150" title="Top &amp; bottom cushions">
+									<span class="accessory-square"></span>
+									<span class="accessory-label">Top &amp; bottom cushions (+$150)</span>
+								</button>
+								<button type="button" class="accessory-box" data-price="10" title="Name plate">
+									<span class="accessory-square"></span>
+									<span class="accessory-label">Name plate (+$10)</span>
+								</button>
+								<button type="button" class="accessory-box" data-price="25" title="Skate hooks">
+									<span class="accessory-square"></span>
+									<span class="accessory-label">Skate hooks (+$25)</span>
+								</button>
+								<button type="button" class="accessory-box" data-price="75" title="Custom logo — custom orders only, not quick ship">
+									<span class="accessory-square"></span>
+									<span class="accessory-label">Custom logo (+$75) · custom orders only, not quick ship</span>
+								</button>
+								<button type="button" class="accessory-box" data-price="12" title="4 hooks">
+									<span class="accessory-square"></span>
+									<span class="accessory-label">4 hooks (+$12)</span>
+								</button>
+							</div>
+						</div>
+						<div class="product-specs-inline">
+							<p><strong>Standard size shown:</strong> 24&quot; W x 76&quot; H x 19&quot; D</p>
+							<p><strong>Base:</strong> optional 4&quot; high base can be added</p>
+							<p><strong>Weight:</strong> approx. 175 lbs</p>
+						</div>
+					</div>
+
+					<div class="product-volume-discounts">
+						<h3 class="volume-title">Volume Discounts</h3>
+						<table class="volume-table">
+							<thead>
+								<tr>
+									<th>Quantity</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>50 + lockers</td>
+									<td>3–5% discount – <a href="/contact" class="volume-contact-link">Contact us</a> for pricing</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="product-actions">
+						<label class="quantity-label" for="product-qty">Quantity:</label>
+						<input type="number" id="product-qty" class="product-qty-input" value="1" min="1" max="999" />
+						<button type="button" class="btn btn-primary product-add-cart">Add to Cart</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- More Information -->
+			<div class="product-info-section" id="moreinfo">
+				<h2 class="product-info-heading">Pro Wood Locker – Features &amp; Options</h2>
+
+				<h3 class="product-info-subheading">Features</h3>
+				<ul class="product-features-list">
+					<li>MPW-6C plywood core with premium melamine surface for a furniture-grade look</li>
+					<li>High scratch resistance and impact durability; moisture-resistant, dimensionally stable</li>
+					<li>Engineered for high-traffic athletic locker rooms</li>
+					<li>14&quot; high foot locker provides comfortable seating and secure equipment storage</li>
+					<li>Available in 18&quot; to 30&quot; widths; standard configuration 24&quot; W x 76&quot; H x 19&quot; D with optional 4&quot; base</li>
+					<li>Finishes: black, light grey, dark grey, or maple to match your room design; custom colors are available upon request (custom orders, 8–12 weeks)</li>
+					<li>5 year warranty</li>
+				</ul>
+
+				<h3 class="product-info-subheading">Options</h3>
+				<ul class="product-options-list">
+					<li>Choice of finishes: black, light grey, dark grey, or maple</li>
+					<li>Vented front panel for increased airflow</li>
+					<li>Secure lock box integrated into the upper compartment</li>
+					<li>Bottom cushion or both cushions for added seating comfort</li>
+					<li>Skate hooks for hockey or figure skating storage</li>
+					<li>Custom logo option for teams or programs (custom orders only; not available for quick ship)</li>
+					<li>Name plate and additional gear hooks</li>
+				</ul>
+
+				<h3 class="product-info-subheading">Downloads</h3>
+				<ul class="product-downloads-list">
+					<li><a href="/contact">Request spec sheet &amp; quote</a></li>
+					<li><a href="/contact">Installation support</a></li>
+					<li><a href="/shop">View all lockers</a></li>
+				</ul>
+			</div>
+
+			<LockerAccessories title="LOCKER ACCESSORIES" items={lockerAccessoriesItems} />
+		</div>
+	</section>
+</BaseLayout>
+
+<style is:global>
+	body {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #ffffff;
+		color: #0d0d0d;
+	}
+
+	.product-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.product-hero-section {
+		position: relative;
+		background: #f7f7f7;
+		padding: 80px 0 50px;
+		overflow: hidden;
+	}
+
+	.product-hero-background-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg, rgba(13, 13, 13, 0.04) 0%, transparent 100%);
+	}
+
+	.product-hero-container {
+		position: relative;
+		z-index: 2;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.product-breadcrumbs {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		margin-bottom: 20px;
+	}
+
+	.product-breadcrumbs a {
+		color: #8c8c8c;
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.product-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.breadcrumbs-sep {
+		margin: 0 8px;
+		color: #b6b6b6;
+	}
+
+	.breadcrumbs-current {
+		color: #0d0d0d;
+	}
+
+	.product-background-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 200px;
+		font-weight: 700;
+		color: rgba(13, 13, 13, 0.04);
+		text-transform: uppercase;
+		letter-spacing: -2px;
+		bottom: -30px;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+		z-index: 1;
+	}
+
+	.product-main-section {
+		padding: 60px 0 100px;
+		background: #ffffff;
+	}
+
+	.product-layout {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 60px;
+		align-items: start;
+		margin-bottom: 80px;
+	}
+
+	.product-gallery-main {
+		position: relative;
+		background: #f7f7f7;
+		aspect-ratio: 1;
+		overflow: hidden;
+		margin-bottom: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.product-main-image {
+		width: 96%;
+		height: 96%;
+		object-fit: contain;
+		display: block;
+	}
+
+	.product-enlarge-hint {
+		position: absolute;
+		bottom: 12px;
+		right: 12px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.product-gallery-thumbs {
+		display: flex;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+
+	.thumb {
+		width: 80px;
+		height: 80px;
+		padding: 0;
+		border: 2px solid transparent;
+		background: #f0f0f0;
+		cursor: pointer;
+		overflow: hidden;
+		transition: border-color 0.2s, box-shadow 0.2s;
+	}
+
+	.thumb:hover,
+	.thumb.active {
+		border-color: #fe5900;
+		box-shadow: 0 0 0 1px #fe5900;
+	}
+
+	.thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.product-detail {
+		position: sticky;
+		top: 120px;
+	}
+
+	.product-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 600;
+		color: #0d0d0d;
+		line-height: 1.25;
+		margin: 0 0 12px;
+		text-transform: none;
+	}
+
+	.product-model {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin: 0 0 8px;
+	}
+
+	.product-lead-time {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		margin: 0 0 24px;
+		text-transform: lowercase;
+	}
+
+	.product-price-block {
+		margin-bottom: 28px;
+		padding-bottom: 24px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.product-price {
+		font-family: 'Oswald', sans-serif;
+		font-size: 36px;
+		font-weight: 600;
+		color: #0d0d0d;
+	}
+
+	.product-options {
+		margin-bottom: 28px;
+	}
+
+	.product-option {
+		margin-bottom: 20px;
+	}
+
+	.option-label {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		font-weight: 500;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 8px;
+	}
+
+	.option-value {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin-bottom: 8px;
+		display: block;
+	}
+
+	.option-note {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		margin: 6px 0 0;
+		font-style: italic;
+	}
+
+	.accessories-grid {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-top: 8px;
+	}
+
+	.accessory-box {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		background: #f0f0f0;
+		border: 2px solid transparent;
+		color: #0d0d0d;
+		cursor: pointer;
+		transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+	}
+
+	.accessory-box:hover {
+		border-color: #fe5900;
+		background: #ffffff;
+		box-shadow: 0 0 0 1px rgba(254, 89, 0, 0.2);
+	}
+
+	.accessory-box.selected {
+		border-color: #fe5900;
+		background: #ffffff;
+		box-shadow: 0 0 0 1px rgba(254, 89, 0, 0.2);
+	}
+
+	.accessory-square {
+		width: 14px;
+		height: 14px;
+		border-radius: 2px;
+		border: 2px solid #b6b6b6;
+		background: #ffffff;
+		box-sizing: border-box;
+	}
+
+	.accessory-box.selected .accessory-square {
+		border-color: #fe5900;
+		background: #fe5900;
+	}
+
+	.option-swatches {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.swatch {
+		padding: 8px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		background: #f0f0f0;
+		border: 2px solid transparent;
+		color: #0d0d0d;
+		cursor: pointer;
+		transition: border-color 0.2s, background 0.2s;
+	}
+
+	.swatch:hover {
+		background: #e8e8e8;
+	}
+
+	.swatch.active {
+		border-color: #fe5900;
+		box-shadow: 0 0 0 1px #fe5900;
+	}
+	/* Color swatches: show as text only; show color only on hover */
+	.swatch[data-color-code] {
+		background: transparent;
+		color: #0d0d0d;
+		border-color: #ccc;
+	}
+	.swatch[data-color-code]:hover,
+	.swatch[data-color-code].active {
+		border-color: transparent;
+	}
+	.swatch[data-color-code="BL"]:hover { background: #2a2a2a; color: #fff; }
+	.swatch[data-color-code="LG"]:hover { background: #8a8b8e; color: #fff; }
+	.swatch[data-color-code="DG"]:hover { background: #3a3d42; color: #fff; }
+	.swatch[data-color-code="LH"]:hover { background: #8b0c16; color: #fff; }
+	.swatch[data-color-code="LLB"]:hover { background: #183a62; color: #fff; }
+	.swatch[data-color-code="MP"]:hover { background: #c8b898; color: #0d0d0d; }
+
+	.product-specs-inline {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		margin-top: 16px;
+	}
+
+	.product-specs-inline p {
+		margin: 0 0 6px;
+	}
+
+	.product-volume-discounts {
+		margin-bottom: 28px;
+	}
+
+	.volume-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin: 0 0 12px;
+	}
+
+	.volume-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+	}
+
+	.volume-table thead {
+		background: #0d0d0d;
+		color: #fff;
+	}
+
+	.volume-table th {
+		padding: 12px 14px;
+		text-align: left;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.volume-table th:first-child {
+		background: #fe5900;
+	}
+
+	.volume-table td {
+		padding: 12px 14px;
+		border-bottom: 1px solid #e0e0e0;
+		color: #0d0d0d;
+	}
+
+	.volume-contact-link {
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 500;
+		transition: color 0.2s;
+	}
+
+	.volume-contact-link:hover {
+		color: #e04d00;
+		text-decoration: underline;
+	}
+
+	.product-actions {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		flex-wrap: wrap;
+	}
+
+	.quantity-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+	}
+
+	.product-qty-input {
+		width: 80px;
+		padding: 12px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		background: #fff;
+		color: #0d0d0d;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 15px 40px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		font-size: 16px;
+		transition: all 0.3s;
+		font-family: 'Yantramanav', sans-serif;
+		border: none;
+		cursor: pointer;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #ffffff;
+		border: 2px solid #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(254, 89, 0, 0.3);
+	}
+
+	.product-add-cart {
+		padding: 16px 36px;
+	}
+
+	.product-info-section {
+		padding: 60px 0 0;
+		border-top: 1px solid #e0e0e0;
+		margin-top: 40px;
+	}
+
+	.product-info-heading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 32px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		margin: 0 0 32px;
+	}
+
+	.product-info-subheading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin: 32px 0 16px;
+	}
+
+	.product-info-subheading:first-of-type {
+		margin-top: 0;
+	}
+
+	.product-features-list,
+	.product-options-list,
+	.product-downloads-list {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		line-height: 1.7;
+		color: #0d0d0d;
+		margin: 0 0 24px;
+		padding-left: 24px;
+	}
+
+	.product-features-list li,
+	.product-options-list li,
+	.product-downloads-list li {
+		margin-bottom: 10px;
+	}
+
+	.product-downloads-list {
+		list-style: none;
+		padding-left: 0;
+	}
+
+	.product-downloads-list a {
+		color: #fe5900;
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+
+	.product-downloads-list a:hover {
+		color: #e04d00;
+		text-decoration: underline;
+	}
+
+	@media (max-width: 1024px) {
+		.product-layout {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+
+		.product-detail {
+			position: static;
+		}
+
+	}
+
+	@media (max-width: 768px) {
+		.product-title {
+			font-size: 22px;
+		}
+
+		.product-price {
+			font-size: 28px;
+		}
+
+		.product-background-text {
+			font-size: 120px;
+		}
+
+		.product-actions {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.product-qty-input {
+			width: 100%;
+		}
+
+	}
+
+	@media (max-width: 480px) {
+		.product-title {
+			font-size: 18px;
+		}
+
+		.product-info-heading {
+			font-size: 24px;
+		}
+
+		.product-info-subheading {
+			font-size: 18px;
+		}
+	}
+</style>
+
+<script>
+	document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((thumb) => {
+		thumb.addEventListener('click', () => {
+			document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((t) => t.classList.remove('active'));
+			thumb.classList.add('active');
+			const img = thumb.querySelector('img');
+			if (img && img.src) {
+				const main = document.querySelector('.product-main-image');
+				if (main instanceof HTMLImageElement) {
+					main.src = img.src;
+				}
+			}
+		});
+	});
+
+	const priceEl = document.querySelector('.product-price');
+	if (priceEl) {
+		let basePrice = 0;
+
+		const formatPrice = (value) =>
+			'$' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+		const computeBaseFromWidth = () => {
+			const activeWidth = document.querySelector('.width-swatch.active');
+			if (activeWidth) {
+				const bpAttr = activeWidth.getAttribute('data-base-price');
+				const bp = bpAttr ? parseFloat(bpAttr) : NaN;
+				if (!Number.isNaN(bp)) {
+					basePrice = bp;
+					return;
+				}
+			}
+			basePrice = parseFloat(priceEl.getAttribute('data-base-price') || '0') || 0;
+		};
+
+		const updatePrice = () => {
+			computeBaseFromWidth();
+			let extras = 0;
+			document.querySelectorAll('.accessory-box.selected').forEach((box) => {
+				const extra = parseFloat(box.getAttribute('data-price') || '0') || 0;
+				extras += extra;
+			});
+			priceEl.textContent = formatPrice(basePrice + extras);
+		};
+
+		const widthOption = document.querySelector('.product-option');
+		const widthValueEl = widthOption ? widthOption.querySelector('.option-value') : null;
+
+		document.querySelectorAll('.width-swatch').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				document.querySelectorAll('.width-swatch').forEach((b) => {
+					b.classList.remove('active');
+					b.setAttribute('aria-pressed', 'false');
+				});
+				btn.classList.add('active');
+				btn.setAttribute('aria-pressed', 'true');
+				if (widthValueEl) {
+					const label = (btn.textContent || '').trim();
+					widthValueEl.textContent = label === '24"' ? '24" (standard)' : label;
+				}
+				updatePrice();
+			});
+		});
+
+		const modelEl = document.querySelector('.product-model[data-model-prefix]');
+		const getModelPrefix = () => modelEl ? (modelEl.getAttribute('data-model-prefix') || '') : '';
+
+		document.querySelectorAll('.product-option .swatch:not(.width-swatch)').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const option = btn.closest('.product-option');
+				if (!option) return;
+				option.querySelectorAll('.swatch:not(.width-swatch)').forEach((b) => {
+					b.classList.remove('active');
+					b.setAttribute('aria-pressed', 'false');
+				});
+				btn.classList.add('active');
+				btn.setAttribute('aria-pressed', 'true');
+				const valueEl = option.querySelector('.option-value');
+				if (valueEl) valueEl.textContent = btn.getAttribute('title') || btn.textContent || '';
+				const code = btn.getAttribute('data-color-code') || '';
+				if (modelEl && code) {
+					modelEl.textContent = 'Model # ' + getModelPrefix() + '-24-' + code;
+				}
+			});
+		});
+
+		computeBaseFromWidth();
+		updatePrice();
+
+		document.querySelectorAll('.accessory-box').forEach((box) => {
+			box.addEventListener('click', () => {
+				box.classList.toggle('selected');
+				updatePrice();
+			});
+		});
+	}
+</script>

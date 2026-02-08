@@ -4,10 +4,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout 
 	title="Shop - Custom Sports Lockers | PlayerStall"
-	description="Shop for custom wood sports lockers and accessories. Premium quality lockers made in Canada with lifetime guarantee."
+	description="Shop for custom wood sports lockers and accessories. Premium quality lockers made in Canada with 5 year warranty."
 >
-	<!-- Hero Section (styled like Blog/Gallery hero) -->
+	<!-- Hero Section (same image as contact page) -->
 	<section class="shop-hero-section">
+		<div class="shop-hero-background">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Shop custom sports lockers" class="shop-hero-bg-image" />
+		</div>
 		<div class="shop-hero-background-overlay"></div>
 		<div class="shop-hero-container">
 			<div class="shop-breadcrumbs">
@@ -19,244 +22,239 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		</div>
 	</section>
 
-	<!-- Shop Section -->
+	<!-- Shop Section (same design as gallery "the locker room" / sport-specific lockers) -->
 	<section class="shop-section">
 		<div class="shop-container qodef-content-grid">
-			<!-- Shop Header -->
-			<div class="shop-header">
-				<p class="shop-results-count">Showing 1–9 of 9 results</p>
-				<div class="shop-sorting">
-					<select id="shop-sort" class="shop-sort-select">
-						<option value="default">Default sorting</option>
-						<option value="popularity">Sort by popularity</option>
-						<option value="rating">Sort by average rating</option>
-						<option value="latest">Sort by latest</option>
-						<option value="price-low">Sort by price: low to high</option>
-						<option value="price-high">Sort by price: high to low</option>
-					</select>
-				</div>
+			<!-- Section header: subtitle + title (like gallery) -->
+			<div class="shop-section-header">
+				<p class="shop-section-subtitle">the locker room</p>
+				<h2 class="shop-section-title">premium lockers</h2>
 			</div>
 
 			<!-- Main Content -->
 			<div class="shop-main">
 
-					<!-- Products Grid -->
+					<!-- Products Grid: Semi Pro, Varsity, Pro, Stadium, Elite, Legendary -->
 					<div class="shop-products-grid">
-						<!-- Product 1: Semi Pro -->
+						<!-- Semi Pro -->
 						<div class="shop-product-item" data-price="349" data-category="lockers">
 							<div class="shop-product-image">
 								<img src="/semi-pro-locker.jpg" alt="Semi Pro Locker" />
-								<div class="shop-product-overlay">
-									<button type="button" class="shop-add-to-cart-btn-overlay" 
-										data-product-id="semi-pro"
-										data-product-name="Semi Pro"
-										data-product-price="349"
-										data-product-image="/semi-pro-locker.jpg">Add to cart</button>
-								</div>
 							</div>
 							<div class="shop-product-content">
 								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/services#semi-pro">Semi Pro</a></h5>
+								<h5 class="shop-product-title"><a href="/product-semi-pro-locker">Semi Pro</a></h5>
 								<span class="shop-product-price">$349.00</span>
 							</div>
 						</div>
 
-						<!-- Product 2: Varsity -->
+						<!-- Varsity -->
 						<div class="shop-product-item" data-price="449" data-category="lockers">
 							<div class="shop-product-image">
-								<span class="shop-badge new">New</span>
 								<img src="/varsity-locker.jpg" alt="Varsity Locker" />
-								<div class="shop-product-overlay">
-									<button type="button" class="shop-add-to-cart-btn-overlay"
-										data-product-id="varsity"
-										data-product-name="Varsity"
-										data-product-price="449"
-										data-product-image="/varsity-locker.jpg">Add to cart</button>
-								</div>
 							</div>
 							<div class="shop-product-content">
 								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/services#varsity">Varsity</a></h5>
+								<h5 class="shop-product-title"><a href="/product-varsity-locker">Varsity</a></h5>
 								<span class="shop-product-price">$449.00</span>
 							</div>
 						</div>
 
-						<!-- Product 3: Pro -->
+						<!-- Pro -->
 						<div class="shop-product-item" data-price="549" data-category="lockers">
 							<div class="shop-product-image">
-								<span class="shop-badge sale">Sale</span>
 								<img src="/pro-locker.jpg" alt="Pro Locker" />
-								<div class="shop-product-overlay">
-									<button type="button" class="shop-add-to-cart-btn-overlay"
-										data-product-id="pro"
-										data-product-name="Pro"
-										data-product-price="549"
-										data-product-image="/pro-locker.jpg">Add to cart</button>
-								</div>
 							</div>
 							<div class="shop-product-content">
 								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/shop/pro">Pro</a></h5>
-								<span class="shop-product-price">
-									<del>$599.00</del> <ins>$549.00</ins>
-								</span>
+								<h5 class="shop-product-title"><a href="/product-pro-locker">Pro</a></h5>
+								<span class="shop-product-price">$549.00</span>
 							</div>
 						</div>
 
-						<!-- Product 4: Stadium -->
+						<!-- Stadium -->
 						<div class="shop-product-item" data-price="599" data-category="lockers">
 							<div class="shop-product-image">
 								<img src="/stadium-locker.jpg" alt="Stadium Locker" />
-								<div class="shop-product-overlay">
-									<button type="button" class="shop-add-to-cart-btn-overlay"
-										data-product-id="stadium"
-										data-product-name="Stadium"
-										data-product-price="599"
-										data-product-image="/stadium-locker.jpg">Add to cart</button>
-								</div>
 							</div>
 							<div class="shop-product-content">
 								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/services#stadium">Stadium</a></h5>
+								<h5 class="shop-product-title"><a href="/product-stadium-locker">Stadium</a></h5>
 								<span class="shop-product-price">$599.00</span>
 							</div>
 						</div>
 
-						<!-- Product 5: Stick Rack -->
-						<div class="shop-product-item" data-price="299" data-category="accessories">
-							<div class="shop-product-image">
-								<span class="shop-badge sale">Sale</span>
-								<span class="shop-badge new">New</span>
-								<img src="/stick-rack.png" alt="Stick Rack" />
-								<div class="shop-product-overlay">
-									<button type="button" class="shop-add-to-cart-btn-overlay"
-										data-product-id="stick-rack"
-										data-product-name="Stick Rack"
-										data-product-price="299"
-										data-product-image="/stick-rack.png">Add to cart</button>
-								</div>
-							</div>
-							<div class="shop-product-content">
-								<div class="shop-product-categories">Accessories</div>
-								<h5 class="shop-product-title"><a href="/services#stick-rack">Stick Rack</a></h5>
-								<span class="shop-product-price">
-									<del>$349.00</del> <ins>$299.00</ins>
-								</span>
-							</div>
-						</div>
-
-						<!-- Product 6: Corner Unit -->
-						<div class="shop-product-item" data-price="499" data-category="accessories">
+						<!-- Elite -->
+						<div class="shop-product-item" data-price="599" data-category="lockers">
 							<div class="shop-product-image">
 								<span class="shop-badge new">New</span>
-								<img src="/corner-unit.png" alt="Corner Unit" />
-								<div class="shop-product-overlay">
-									<button type="button" class="shop-add-to-cart-btn-overlay"
-										data-product-id="corner-unit"
-										data-product-name="Corner Unit"
-										data-product-price="499"
-										data-product-image="/corner-unit.png">Add to cart</button>
-								</div>
-							</div>
-							<div class="shop-product-content">
-								<div class="shop-product-categories">Accessories</div>
-								<h5 class="shop-product-title"><a href="/services#corner-unit">Corner Unit</a></h5>
-								<span class="shop-product-price">$499.00</span>
-							</div>
-						</div>
-
-						<!-- Product 7: RFID Lock -->
-						<div class="shop-product-item" data-price="0" data-category="accessories">
-							<div class="shop-product-image">
-								<span class="shop-badge new">New</span>
-								<img src="/images/rfid-lock.png" alt="RFID Lock – Digital Keyless Cabinet Locks with Password &amp; Card Access" />
-								<div class="shop-product-overlay">
-									<button
-										type="button"
-										class="shop-add-to-cart-btn-overlay"
-										data-product-id="rfid-lock"
-										data-product-name="RFID Lock – Digital Keyless Cabinet Locks with Password &amp; Card Access"
-										data-product-price="0"
-										data-product-image="/images/rfid-lock.png"
-									>
-										Add to cart
-									</button>
-								</div>
-							</div>
-							<div class="shop-product-content">
-								<div class="shop-product-categories">Accessories - Locks</div>
-								<h5 class="shop-product-title">
-									<a href="https://www.amazon.com/dp/B0F9P54H5N?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_1&amp;th=1" target="_blank" rel="noopener noreferrer">
-										RFID Lock – Digital Keyless Cabinet Locks with Password &amp; Card Access
-									</a>
-								</h5>
-								<span class="shop-product-price">Call for pricing</span>
-							</div>
-						</div>
-
-						<!-- Product 8: Semi Pro (Duplicate for demo) -->
-						<div class="shop-product-item" data-price="349" data-category="lockers">
-							<div class="shop-product-image">
-								<img src="/semi-pro-locker.jpg" alt="Semi Pro Locker" />
-								<div class="shop-product-overlay">
-									<button type="button" class="shop-add-to-cart-btn-overlay"
-										data-product-id="semi-pro"
-										data-product-name="Semi Pro"
-										data-product-price="349"
-										data-product-image="/semi-pro-locker.jpg">Add to cart</button>
-								</div>
+								<img src="/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png" alt="Elite Locker" loading="lazy" />
 							</div>
 							<div class="shop-product-content">
 								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/services#semi-pro">Semi Pro</a></h5>
-								<span class="shop-product-price">$349.00</span>
+								<h5 class="shop-product-title"><a href="/product-elite-locker">Elite</a></h5>
+								<span class="shop-product-price">$599.00</span>
 							</div>
 						</div>
 
-						<!-- Product 9: Varsity (Duplicate for demo) -->
-						<div class="shop-product-item" data-price="449" data-category="lockers">
+						<!-- Legendary -->
+						<div class="shop-product-item" data-price="599" data-category="lockers">
 							<div class="shop-product-image">
 								<span class="shop-badge new">New</span>
-								<img src="/varsity-locker.jpg" alt="Varsity Locker" />
-								<div class="shop-product-overlay">
-									<button type="button" class="shop-add-to-cart-btn-overlay"
-										data-product-id="varsity"
-										data-product-name="Varsity"
-										data-product-price="449"
-										data-product-image="/varsity-locker.jpg">Add to cart</button>
-								</div>
+								<img src="/images/legendary-locker.png" alt="Legendary Locker" loading="lazy" />
 							</div>
 							<div class="shop-product-content">
 								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/services#varsity">Varsity</a></h5>
-								<span class="shop-product-price">$449.00</span>
+								<h5 class="shop-product-title"><a href="/product-legendary-locker">Legendary</a></h5>
+								<span class="shop-product-price">$599.00</span>
 							</div>
 						</div>
 
-						<!-- Product 10: Pro (Duplicate for demo) -->
-						<div class="shop-product-item" data-price="549" data-category="lockers">
-							<div class="shop-product-image">
-								<span class="shop-badge sold">Sold</span>
-								<img src="/pro-locker.jpg" alt="Pro Locker" />
-								<div class="shop-product-overlay">
-									<a href="/shop/pro" class="shop-read-more-btn-overlay">Read more</a>
-								</div>
-							</div>
-							<div class="shop-product-content">
-								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/shop/pro">Pro</a></h5>
-								<span class="shop-product-price">$549.00</span>
-							</div>
-						</div>
 					</div>
 
-				<!-- Pagination -->
-				<div class="shop-pagination">
-					<a href="#" class="pagination-page active">01</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Accessories (same card style as lockers; click image opens PDP-style modal) -->
+	<section class="shop-accessories-section" id="accessories">
+		<div class="shop-accessories-container">
+			<div class="shop-accessories-header">
+				<p class="shop-accessories-subtitle">finishing touches</p>
+				<h2 class="shop-accessories-title">locker accessories</h2>
+				<p class="shop-accessories-tagline">Dial in every detail – airflow, storage, comfort, and branding.</p>
+			</div>
+			<div class="shop-products-grid shop-accessories-grid">
+				<!-- Cushions -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/cushion-logo.png" data-acc-title="Cushions" data-acc-price="+ $75.00 (top or bottom) / $150.00 (both)" data-acc-desc="High-density foam cushions upholstered for comfort and durability – available on the top, bottom, or both.">
+					<button type="button" class="shop-accessory-trigger">
+						<div class="shop-product-image">
+							<img src="/images/cushion-logo.png" alt="Locker cushion with team logo" loading="lazy" />
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Accessories</div>
+							<h5 class="shop-product-title">Cushions</h5>
+						</div>
+					</button>
+				</div>
+				<!-- Coat Rod -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/coat-rod.png" data-acc-title="Coat Rod" data-acc-price="Call for pricing" data-acc-desc="Heavy-duty coat rod for jerseys, jackets, and gear – sized to match each locker style.">
+					<button type="button" class="shop-accessory-trigger">
+						<div class="shop-product-image">
+							<img src="/images/coat-rod.png" alt="Coat rod for lockers" loading="lazy" />
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Accessories</div>
+							<h5 class="shop-product-title">Coat Rod</h5>
+						</div>
+					</button>
+				</div>
+				<!-- Hooks -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/wall-hook.png" data-acc-title="Hooks" data-acc-price="Call for pricing" data-acc-desc="Additional interior hooks for bags, helmets, and everyday gear, matched to your locker layout.">
+					<button type="button" class="shop-accessory-trigger">
+						<div class="shop-product-image">
+							<img src="/images/wall-hook.png" alt="Interior locker hook" loading="lazy" />
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Accessories</div>
+							<h5 class="shop-product-title">Hooks</h5>
+						</div>
+					</button>
+				</div>
+				<!-- Name Plate -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/name-plate.png" data-acc-title="Name Plate" data-acc-price="+ $10.00" data-acc-desc="Clean, simple name plate for player identification – ideal for teams that want a classic, organized look.">
+					<button type="button" class="shop-accessory-trigger">
+						<div class="shop-product-image">
+							<img src="/images/name-plate.png" alt="Locker name plate" loading="lazy" />
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Accessories</div>
+							<h5 class="shop-product-title">Name Plate</h5>
+						</div>
+					</button>
+				</div>
+				<!-- Skate Hooks -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/skate-hook.png" data-acc-title="Skate Hooks" data-acc-price="+ $25.00" data-acc-desc="Additional wall-mounted hooks positioned for skates or gear, perfect for hockey or figure skating locker rooms.">
+					<button type="button" class="shop-accessory-trigger">
+						<div class="shop-product-image">
+							<img src="/images/skate-hook.png" alt="Skate hook for hockey lockers" loading="lazy" />
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Accessories</div>
+							<h5 class="shop-product-title">Skate Hooks</h5>
+						</div>
+					</button>
+				</div>
+				<!-- Custom Logo -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/custom-logo-example.png" data-acc-title="Custom Logo" data-acc-price="+ $75.00" data-acc-desc="Team or program branding applied to the locker face – reinforce your identity every time players walk in.">
+					<button type="button" class="shop-accessory-trigger">
+						<div class="shop-product-image">
+							<img src="/images/custom-logo-example.png" alt="Custom team logo on wood" loading="lazy" />
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Accessories</div>
+							<h5 class="shop-product-title">Custom Logo</h5>
+						</div>
+					</button>
+				</div>
+				<!-- Bench -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/wood-lockers-starting-lineup.jpg" data-acc-title="Bench" data-acc-price="From $225" data-acc-desc="Free-standing bench for locker rooms. Standard size: 24&quot; W x 76&quot; H x 19&quot; D. Optional 4&quot; base. Colors: Black, Light Grey, Dark Grey, Maple." data-acc-view-href="/product-wood-locker-bench">
+					<button type="button" class="shop-accessory-trigger">
+						<div class="shop-product-image">
+							<img src="/images/wood-lockers-starting-lineup.jpg" alt="Bench for locker rooms" loading="lazy" />
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Accessories</div>
+							<h5 class="shop-product-title">Bench</h5>
+						</div>
+					</button>
+				</div>
+				<!-- Stick Rack -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="/stick-rack.png" data-acc-title="Stick Rack" data-acc-price="Starting at $299" data-acc-desc="Dedicated stick storage that keeps sticks organized, off the floor, and easy to grab on the way to the ice." data-acc-view-href="/accessories#stick-rack">
+					<button type="button" class="shop-accessory-trigger">
+						<div class="shop-product-image">
+							<img src="/stick-rack.png" alt="Stick rack for locker rooms" loading="lazy" />
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Accessories</div>
+							<h5 class="shop-product-title">Stick Rack</h5>
+						</div>
+					</button>
+				</div>
+				<!-- Lock Box -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/lock-box.png" data-acc-title="Lock Box with Digital Key Lock" data-acc-price="+ $80.00" data-acc-desc="Secure lock box with digital key lock for phones, wallets, and other valuables inside each locker." data-acc-view-href="/accessories#lock-box">
+					<button type="button" class="shop-accessory-trigger">
+						<div class="shop-product-image">
+							<img src="/images/lock-box.png" alt="Lock box with digital key lock" loading="lazy" />
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Accessories</div>
+							<h5 class="shop-product-title">Lock Box with Digital Key Lock</h5>
+						</div>
+					</button>
 				</div>
 			</div>
 		</div>
 	</section>
+
+	<!-- Accessory product detail modal (PDP-style, like lockers) -->
+	<div id="shop-accessory-modal" class="acc-modal" role="dialog" aria-modal="true" aria-labelledby="acc-modal-title" hidden>
+		<div class="acc-modal-backdrop"></div>
+		<div class="acc-modal-box">
+			<button type="button" class="acc-modal-close" aria-label="Close">&times;</button>
+			<div class="acc-modal-layout">
+				<div class="acc-modal-gallery">
+					<img id="acc-modal-image" src="" alt="" />
+				</div>
+				<div class="acc-modal-detail">
+					<h2 id="acc-modal-title" class="acc-modal-title"></h2>
+					<p id="acc-modal-price" class="acc-modal-price"></p>
+					<p id="acc-modal-desc" class="acc-modal-desc"></p>
+					<div id="acc-modal-ctas" class="acc-modal-ctas"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 </BaseLayout>
 
 <style>
@@ -272,12 +270,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 20px;
 	}
 
-	/* Hero Section (styled like Blog/Gallery hero) */
+	/* Hero Section (same image as contact page) */
 	.shop-hero-section {
 		position: relative;
-		background: #f7f7f7;
-		padding: 120px 0 80px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
 		overflow: hidden;
+		min-height: 320px;
+	}
+
+	.shop-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.shop-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
 	}
 
 	.shop-hero-background-overlay {
@@ -286,8 +305,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(135deg, rgba(13, 13, 13, 0.05) 0%, rgba(13, 13, 13, 0.02) 100%);
-		opacity: 0.5;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 100%);
+		z-index: 1;
 	}
 
 	.shop-hero-container {
@@ -297,19 +316,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin: 0 auto;
 		padding: 0 20px;
 		text-align: left;
+		width: 100%;
 	}
 
 	.shop-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		margin-bottom: 30px;
 	}
 
 	.shop-breadcrumbs a {
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
 		transition: color 0.3s;
 	}
@@ -320,14 +340,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.shop-breadcrumbs span {
 		margin-left: 10px;
-		color: #0d0d0d;
+		color: #ffffff;
 	}
 
 	.shop-page-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: 72px;
 		font-weight: 600;
-		color: #0d0d0d;
+		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0;
 		line-height: 1.1;
@@ -340,7 +360,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		font-family: 'Oswald', sans-serif;
 		font-size: 300px;
 		font-weight: 700;
-		color: rgba(13, 13, 13, 0.03);
+		color: rgba(255, 255, 255, 0.06);
 		text-transform: uppercase;
 		letter-spacing: -3px;
 		bottom: -50px;
@@ -350,10 +370,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		z-index: 1;
 	}
 
-	/* Shop Section */
+	/* Shop Section (matches gallery "the locker room" / sport-specific lockers) */
 	.shop-section {
-		padding: 80px 0;
+		position: relative;
+		padding: 100px 0;
 		background: #ffffff;
+		overflow: hidden;
+	}
+
+	.shop-section-header {
+		text-align: center;
+		margin-bottom: 60px;
+		position: relative;
+		z-index: 10;
+	}
+
+	.shop-section-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin-bottom: 15px;
+	}
+
+	.shop-section-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: lowercase;
+		margin: 0;
 	}
 
 	.shop-container {
@@ -402,21 +449,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		border-color: #fe5900;
 	}
 
-	/* Products Grid */
+	/* Products Grid - 4 columns (same gap/card style as gallery) */
 	.shop-products-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 30px;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 25px;
 		margin-bottom: 60px;
+		position: relative;
+		z-index: 10;
 	}
 
 	.shop-product-item {
-		background: #ffffff;
-		transition: transform 0.3s;
+		background: #fff;
+		overflow: hidden;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
 	}
 
 	.shop-product-item:hover {
 		transform: translateY(-5px);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 	}
 
 	.shop-product-image {
@@ -435,6 +486,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		display: block;
 		filter: grayscale(100%);
 		transition: filter 0.3s;
+		outline: none;
+		border: none;
 	}
 
 	.shop-product-item:hover .shop-product-image img {
@@ -460,7 +513,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.shop-badge.new {
-		background: #0d0d0d;
+		background: #fe5900;
 		color: #ffffff;
 		top: 10px;
 		right: 10px;
@@ -534,11 +587,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.shop-product-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
+		font-size: 20px;
 		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
 		margin: 0 0 10px 0;
+		line-height: 1.3;
 	}
 
 	.shop-product-title a {
@@ -575,52 +629,298 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		text-decoration: none;
 	}
 
-	/* Pagination */
-	.shop-pagination {
-		display: flex;
-		justify-content: center;
-		gap: 10px;
-		margin-top: 60px;
-	}
-
-	.pagination-page {
-		padding: 10px 15px;
+	/* Accessories section – same card style as lockers + mini detail panel */
+	.shop-accessories-section {
+		padding: 80px 0;
 		background: #f7f7f7;
-		color: #0d0d0d;
-		text-decoration: none;
+	}
+
+	.shop-accessories-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.shop-accessories-header {
+		text-align: center;
+		margin-bottom: 50px;
+	}
+
+	.shop-accessories-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		color: #8c8c8c;
+		margin: 0 0 10px;
+	}
+
+	.shop-accessories-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 14px;
+		font-size: 42px;
 		font-weight: 600;
-		transition: background 0.3s, color 0.3s;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0;
+		letter-spacing: 0.02em;
 	}
 
-	.pagination-page:hover,
-	.pagination-page.active {
+	.shop-accessories-tagline {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #666666;
+		max-width: 700px;
+		margin: 15px auto 0;
+		line-height: 1.7;
+	}
+
+	.shop-accessories-grid {
+		margin-bottom: 0;
+	}
+
+	.shop-accessory-item {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.shop-accessory-trigger {
+		width: 100%;
+		text-align: left;
+		background: #fff;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		font: inherit;
+		color: inherit;
+	}
+
+	.shop-accessory-trigger:hover .shop-product-image img {
+		filter: grayscale(0%);
+	}
+
+	/* Accessory cards: fixed image size for consistency */
+	.shop-accessory-item .shop-product-image {
+		aspect-ratio: none;
+		height: 220px;
+		margin-bottom: 16px;
+	}
+
+	.shop-accessory-item .shop-product-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.shop-accessory-item .shop-product-title {
+		pointer-events: none;
+	}
+
+	/* Accessory PDP-style modal (same look as locker product page) */
+	.acc-modal {
+		position: fixed;
+		inset: 0;
+		z-index: 9999;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px;
+		box-sizing: border-box;
+	}
+
+	.acc-modal[hidden] {
+		display: none;
+	}
+
+	.acc-modal-backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.6);
+	}
+
+	.acc-modal-box {
+		position: relative;
+		width: 100%;
+		max-width: 900px;
+		max-height: 90vh;
+		background: #fff;
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.acc-modal-close {
+		position: absolute;
+		top: 16px;
+		right: 16px;
+		width: 40px;
+		height: 40px;
+		border: none;
+		background: rgba(0, 0, 0, 0.5);
+		color: #fff;
+		font-size: 28px;
+		line-height: 1;
+		cursor: pointer;
+		z-index: 2;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		border-radius: 4px;
+		transition: background 0.2s;
+	}
+
+	.acc-modal-close:hover {
+		background: #0d0d0d;
+	}
+
+	.acc-modal-layout {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		min-height: 0;
+	}
+
+	.acc-modal-gallery {
+		background: #f7f7f7;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 40px;
+		min-height: 280px;
+	}
+
+	.acc-modal-gallery img {
+		max-width: 100%;
+		max-height: 320px;
+		object-fit: contain;
+		display: block;
+	}
+
+	.acc-modal-detail {
+		padding: 40px 36px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.acc-modal-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 26px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 12px;
+		letter-spacing: 0.02em;
+		line-height: 1.2;
+	}
+
+	.acc-modal-price {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #fe5900;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		margin: 0 0 20px;
+	}
+
+	.acc-modal-desc {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #333;
+		line-height: 1.6;
+		margin: 0 0 24px;
+	}
+
+	.acc-modal-ctas {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+
+	.acc-modal-ctas a {
+		display: inline-block;
+		padding: 12px 24px;
 		background: #fe5900;
-		color: #ffffff;
+		color: #fff;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		text-decoration: none;
+		transition: background 0.2s;
 	}
 
-	/* Responsive */
+	.acc-modal-ctas a:hover {
+		background: #e04e00;
+	}
+
+	.acc-modal-ctas a.acc-cta-secondary {
+		background: transparent;
+		color: #0d0d0d;
+		border: 2px solid #0d0d0d;
+	}
+
+	.acc-modal-ctas a.acc-cta-secondary:hover {
+		background: #0d0d0d;
+		color: #fff;
+	}
+
+	@media (max-width: 768px) {
+		.acc-modal-layout {
+			grid-template-columns: 1fr;
+		}
+		.acc-modal-detail {
+			padding: 24px 20px;
+		}
+		.acc-modal-title {
+			font-size: 22px;
+		}
+	}
+
+	/* Responsive (match gallery breakpoints) */
+	@media (max-width: 1200px) {
+		.shop-products-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media (max-width: 968px) {
+		.shop-section-title {
+			font-size: 36px;
+		}
+	}
+
 	@media (max-width: 1024px) {
 		.shop-products-grid {
 			grid-template-columns: repeat(2, 1fr);
-			gap: 30px 20px;
+		}
+		.shop-accessories-grid {
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 
 	@media (max-width: 768px) {
-		.shop-hero-title {
+		.shop-page-title {
 			font-size: 48px;
 		}
-
+		.shop-section-title {
+			font-size: 28px;
+		}
 		.shop-header {
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 20px;
 		}
-
 		.shop-products-grid {
 			grid-template-columns: 1fr;
+		}
+		.shop-accessories-grid {
+			grid-template-columns: 1fr;
+		}
+		.shop-accessories-title {
+			font-size: 28px;
 		}
 	}
 </style>
@@ -725,5 +1025,61 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				}, 1000);
 			});
 		});
+
+		// Accessory PDP-style modal – open on image/card click, same look as locker product page
+		const accModal = document.getElementById('shop-accessory-modal');
+		const accModalImage = document.getElementById('acc-modal-image');
+		const accModalTitle = document.getElementById('acc-modal-title');
+		const accModalPrice = document.getElementById('acc-modal-price');
+		const accModalDesc = document.getElementById('acc-modal-desc');
+		const accModalCtas = document.getElementById('acc-modal-ctas');
+
+		function openAccModal(item) {
+			const img = item.getAttribute('data-acc-image');
+			const title = item.getAttribute('data-acc-title');
+			const price = item.getAttribute('data-acc-price');
+			const desc = item.getAttribute('data-acc-desc');
+			const viewHref = item.getAttribute('data-acc-view-href');
+			if (!img || !title) return;
+			accModalImage.src = img;
+			accModalImage.alt = title;
+			accModalTitle.textContent = title;
+			accModalPrice.textContent = price || '';
+			accModalDesc.textContent = desc || '';
+			accModalCtas.innerHTML = '';
+			if (viewHref) {
+				const viewLink = document.createElement('a');
+				viewLink.href = viewHref;
+				viewLink.textContent = 'View product';
+				accModalCtas.appendChild(viewLink);
+			}
+			const quoteLink = document.createElement('a');
+			quoteLink.href = '/contact#quote-form';
+			quoteLink.textContent = 'Request a quote';
+			quoteLink.className = viewHref ? 'acc-cta-secondary' : '';
+			accModalCtas.appendChild(quoteLink);
+			accModal.hidden = false;
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeAccModal() {
+			accModal.hidden = true;
+			document.body.style.overflow = '';
+		}
+
+		document.querySelectorAll('.shop-accessory-trigger').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				const item = this.closest('.shop-accessory-item');
+				if (item) openAccModal(item);
+			});
+		});
+
+		if (accModal) {
+			accModal.querySelector('.acc-modal-backdrop').addEventListener('click', closeAccModal);
+			accModal.querySelector('.acc-modal-close').addEventListener('click', closeAccModal);
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'Escape' && accModal && !accModal.hidden) closeAccModal();
+			});
+		}
 	});
 </script>

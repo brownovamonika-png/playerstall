@@ -13,6 +13,18 @@ from urllib.parse import urlparse
 # Output directory (relative to project root)
 OUTPUT_DIR = Path(__file__).parent / "public" / "images" / "topscorer"
 
+# Basketball images (Unsplash – orange/warm, free to use). (download_url, save_filename)
+BASKETBALL_IMAGES = [
+    ("https://unsplash.com/photos/7tlIJOOP7fg/download?force=true&w=800", "basketball-rim-sunset.jpg"),   # basketball rim during sunset (orange)
+    ("https://unsplash.com/photos/_UbXJa5y87A/download?force=true&w=800", "basketball-hoop-orange.jpg"),   # white and orange basketball hoop
+    ("https://images.unsplash.com/photo-1519869325934-2813331509ce?w=800&q=80", "basketball-lockers.jpg"),   # basketball locker room (direct CDN)
+]
+
+# Soccer images (Unsplash – orange/warm, free to use). (download_url, save_filename)
+SOCCER_IMAGES = [
+    ("https://unsplash.com/photos/z1gNxguQblg/download?force=true&w=800", "soccer.jpg"),   # white, orange and black soccer ball on field (warm)
+]
+
 # All image URLs (deduplicated) - from topscorer-images-list.txt
 IMAGE_URLS = [
     "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-banner-img-1.jpg",
@@ -107,6 +119,17 @@ IMAGE_URLS = [
     "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h2-img-4.png",
     "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/p3-img.jpg",
     "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/baseball-player.png",
+    # --- MISSING HOMEPAGE IMAGES (from live site) ---
+    "https://topscorer.qodeinteractive.com/wp-content/uploads/2019/12/heder-banner.jpg",  # main hero slider
+    "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-img-4.jpg",     # section background
+    "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h1-img-6.jpg",     # section background
+    "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg",     # section image
+    "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/sidearea-icons-img-1.png",
+    "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/sidearea-icons-img-2.png",
+    "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/sidearea-icons-img-3.png",
+    "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/sidearea-icons-img-4.png",
+    "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/logo.png",
+    "https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/logo-footer.png",
 ]
 
 # Custom User-Agent to avoid blocks
@@ -139,6 +162,19 @@ def download_image(url: str, out_dir: Path) -> bool:
         return False
 
 
+def download_basketball_image(url: str, out_path: Path) -> bool:
+    """Download image from URL (follows redirects for Unsplash). Returns True on success."""
+    try:
+        req = urllib.request.Request(url, headers=REQUEST_HEADERS)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = resp.read()
+        out_path.write_bytes(data)
+        return True
+    except Exception as e:
+        print(f"  ❌ Failed: {e}")
+        return False
+
+
 def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     print(f"Downloading {len(IMAGE_URLS)} images to: {OUTPUT_DIR}")
@@ -154,7 +190,34 @@ def main():
             print("✗")
     print("-" * 50)
     print(f"Done. {ok}/{len(IMAGE_URLS)} images saved.")
+
+    # Basketball images (Unsplash – orange/warm style)
+    print("\nBasketball images (Unsplash, orange-themed):")
+    print("-" * 50)
+    for i, (url, filename) in enumerate(BASKETBALL_IMAGES, 1):
+        out_path = OUTPUT_DIR / filename
+        print(f"[{i}/{len(BASKETBALL_IMAGES)}] {filename}...", end=" ")
+        if download_basketball_image(url, out_path):
+            ok += 1
+            print("✓")
+        else:
+            print("✗")
+    print("-" * 50)
+
+    # Soccer images (Unsplash – same style)
+    print("\nSoccer images (Unsplash):")
+    print("-" * 50)
+    for i, (url, filename) in enumerate(SOCCER_IMAGES, 1):
+        out_path = OUTPUT_DIR / filename
+        print(f"[{i}/{len(SOCCER_IMAGES)}] {filename}...", end=" ")
+        if download_basketball_image(url, out_path):
+            ok += 1
+            print("✓")
+        else:
+            print("✗")
+    print("-" * 50)
     print(f"\nUse in your site as: /images/topscorer/<filename>")
+    print("Basketball: /images/topscorer/basketball-dribble.png (or basketball-rim-sunset.jpg). Soccer: /images/topscorer/soccer.jpg")
 
 
 if __name__ == "__main__":
