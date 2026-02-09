@@ -6,25 +6,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	title="Cart - Custom Sports Lockers | PlayerStall"
 	description="Your shopping cart. View and manage your selected custom wood sports lockers."
 >
-	<!-- Hero Section -->
-	<section class="cart-hero-section">
-		<div class="cart-hero-parallax-img-holder">
-			<div class="cart-hero-parallax-img-wrapper">
-				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/shop-title-img.jpg" alt="Cart" class="cart-hero-parallax-img" />
-			</div>
-		</div>
-		<div class="cart-hero-content qodef-content-grid">
-			<div class="breadcrumbs">
+	<!-- Top breadcrumb bar (match model: white bg, large light-gray breadcrumbs) -->
+	<section class="cart-top-bar">
+		<div class="qodef-content-grid cart-top-bar-inner">
+			<nav class="cart-breadcrumbs" aria-label="Breadcrumb">
 				<a href="/">Home</a>
-				<span class="breadcrumbs-separator"></span>
-				<span class="breadcrumbs-current">Cart</span>
-			</div>
-			<h1 class="cart-hero-title">Cart</h1>
+				<span class="cart-breadcrumbs-sep">-</span>
+				<span class="cart-breadcrumbs-current">Cart</span>
+			</nav>
 		</div>
 	</section>
 
 	<!-- Cart Section -->
-	<section class="cart-section">
+	<section class="cart-section" aria-labelledby="cart-heading">
+		<h1 id="cart-heading" class="cart-page-title">Cart</h1>
 		<div class="cart-container qodef-content-grid">
 			<div class="woocommerce">
 				<div class="woocommerce-notices-wrapper"></div>
@@ -35,9 +30,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents">
 							<thead>
 								<tr>
-									<th class="product-remove"><span class="screen-reader-text">Remove item</span></th>
-									<th class="product-thumbnail"><span class="screen-reader-text">Thumbnail image</span></th>
-									<th class="product-name">Product</th>
+									<th class="product-remove" scope="col"><span class="visually-hidden">Remove</span></th>
+									<th class="product-thumbnail" scope="col"><span class="visually-hidden">Image</span></th>
+									<th class="product-name" scope="col">Product</th>
 									<th class="product-price">Price</th>
 									<th class="product-quantity">Quantity</th>
 									<th class="product-subtotal">Subtotal</th>
@@ -48,27 +43,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							</tbody>
 						</table>
 
-						<div class="cart-actions">
-							<button type="button" class="button update-cart" id="update-cart">Update cart</button>
-							<a href="/shop" class="button continue-shopping">Continue shopping</a>
+						<div class="cart-coupon-and-actions">
+							<div class="cart-coupon">
+								<input type="text" name="coupon_code" class="coupon-input" id="coupon_code" placeholder="Coupon code" value="" />
+								<button type="button" class="button apply-coupon" id="apply-coupon">Apply coupon</button>
+							</div>
+							<div class="cart-actions">
+								<button type="button" class="button update-cart" id="update-cart">Update cart</button>
+								<a href="/shop" class="button continue-shopping">Continue shopping</a>
+							</div>
 						</div>
 					</form>
 
 					<div class="cart-collaterals">
 						<div class="cart_totals">
-							<h2>Cart totals</h2>
-							<table class="shop_table shop_table_responsive">
+							<h2 class="cart-totals-title">CART TOTALS</h2>
+							<table class="shop_table shop_table_responsive cart-totals-table">
 								<tbody>
 									<tr class="cart-subtotal">
-										<th>Subtotal</th>
+										<th>SUBTOTAL</th>
 										<td data-title="Subtotal">
-											<span class="woocommerce-Price-amount amount">
-												<bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="cart-subtotal">0.00</span></bdi>
-											</span>
+											<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="cart-subtotal">0.00</span></bdi></span>
 										</td>
 									</tr>
 									<tr class="shipping">
-										<th>Shipping</th>
+										<th>SHIPPING</th>
 										<td data-title="Shipping">
 											<form class="woocommerce-shipping-calculator" action="/cart" method="post">
 												<section class="woocommerce-shipping-calculator-form" style="display:none;">
@@ -89,38 +88,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 														<button type="submit" name="calc_shipping" value="1" class="button">Update</button>
 													</p>
 												</section>
-												<p class="woocommerce-shipping-destination">
-													Shipping to <strong>Canada</strong>.
-												</p>
-												<p><a href="#" class="shipping-calculator-button">Change address</a></p>
-												<p class="woocommerce-shipping-methods" style="display: block;">
+												<div class="shipping-display">
+													<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="shipping-cost">0.00</span></bdi></span>
+												</div>
+												<div class="woocommerce-shipping-methods" style="display: none;">
 													<label>
 														<input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_flat_rate" value="flat_rate" class="shipping_method" checked="checked" />
 														<span>Flat rate:</span>
 														<span class="woocommerce-Price-amount amount">
-															<bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="shipping-cost">50.00</span></bdi>
+															<bdi><span class="woocommerce-Price-currencySymbol">$</span><span>0.00</span></bdi>
 														</span>
 													</label>
-												</p>
+												</div>
 											</form>
 										</td>
 									</tr>
 									<tr class="order-total">
-										<th>Total</th>
+										<th>TOTAL</th>
 										<td data-title="Total">
-											<strong>
-												<span class="woocommerce-Price-amount amount">
-													<bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="cart-total">0.00</span></bdi>
-												</span>
-											</strong>
+											<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="cart-total">0.00</span></bdi></span>
 										</td>
 									</tr>
 								</tbody>
 							</table>
 							<div class="wc-proceed-to-checkout">
-								<a href="/checkout" class="checkout-button button alt wc-forward">
-									Proceed to checkout
-								</a>
+								<a href="/checkout" class="checkout-button button alt wc-forward">PROCEED TO CHECKOUT</a>
 							</div>
 						</div>
 					</div>
@@ -153,97 +145,87 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 20px;
 	}
 
-	/* Hero Section */
-	.cart-hero-section {
-		position: relative;
-		min-height: 400px;
-		overflow: hidden;
-	}
-
-	.cart-hero-parallax-img-holder {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 1;
-	}
-
-	.cart-hero-parallax-img-wrapper {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-	}
-
-	.cart-hero-parallax-img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	.cart-hero-content {
-		position: relative;
-		z-index: 10;
-		padding: 200px 0 100px;
-	}
-
-	.breadcrumbs {
-		margin-bottom: 20px;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #ffffff;
-	}
-
-	.breadcrumbs a {
-		color: #ffffff;
-		text-decoration: none;
-		transition: color 0.3s;
-	}
-
-	.breadcrumbs a:hover {
-		color: #fe5900;
-	}
-
-	.breadcrumbs-separator {
-		margin: 0 10px;
-	}
-
-	.breadcrumbs-current {
-		color: #ffffff;
-	}
-
-	.cart-hero-title {
-		font-family: 'Oswald', sans-serif;
-		font-size: 72px;
-		font-weight: 600;
-		color: #ffffff;
-		text-transform: uppercase;
-		letter-spacing: 2px;
-		margin: 0;
-	}
-
-	/* Cart Section */
-	.cart-section {
-		padding: 80px 0;
+	/* Top bar: breadcrumbs only, match model (white bg, large light-gray text) */
+	.cart-top-bar {
 		background: #ffffff;
+		padding: 28px 0 24px;
+		border-bottom: 1px solid #eee;
 	}
 
-	.cart-container {
+	.cart-top-bar-inner {
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
 	}
 
-	.woocommerce {
+	.cart-breadcrumbs {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 500;
+		color: #969696;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		line-height: 1.2;
+	}
+
+	.cart-breadcrumbs a {
+		color: #969696;
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+
+	.cart-breadcrumbs a:hover {
+		color: #1c1c1c;
+	}
+
+	.cart-breadcrumbs-sep {
+		margin: 0 0.35em;
+		color: #969696;
+	}
+
+	.cart-breadcrumbs-current {
+		color: #1c1c1c;
+	}
+
+	/* Cart Section - use :global so styles apply to JS-inserted cart rows */
+	.cart-section {
+		padding: 50px 0 80px;
+		background: #ffffff;
+	}
+
+	.cart-page-title {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	:global(.cart-section .cart-container) {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	:global(.cart-section .woocommerce) {
 		width: 100%;
 	}
 
-	.woocommerce-notices-wrapper {
+	/* All number text greyed out on cart page: prices, amounts, quantity */
+	:global(.cart-section .woocommerce-Price-amount),
+	:global(.cart-section .woocommerce-Price-currencySymbol) {
+		color: #8c8c8c;
+	}
+
+	:global(.cart-section .woocommerce-notices-wrapper) {
 		margin-bottom: 20px;
 	}
 
-	.cart-empty {
+	:global(.cart-section .cart-empty) {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 16px;
 		color: #0d0d0d;
@@ -254,12 +236,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		text-align: left;
 	}
 
-	.return-to-shop {
+	:global(.cart-section .return-to-shop) {
 		margin-top: 30px;
 		text-align: left;
 	}
 
-	.button.wc-backward {
+	:global(.cart-section .button.wc-backward) {
 		display: inline-block;
 		padding: 15px 40px;
 		background: #0d0d0d;
@@ -267,112 +249,146 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		border: none;
 		font-family: 'Oswald', sans-serif;
 		font-size: 11px;
-		font-weight: 600;
+		font-weight: 700;
 		text-transform: uppercase;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.12em;
 		text-decoration: none;
 		cursor: pointer;
 		transition: background 0.3s;
 	}
 
-	.button.wc-backward:hover {
+	:global(.cart-section .button.wc-backward:hover) {
 		background: #333333;
 		color: #ffffff;
 	}
 
 	/* Cart Table */
-	.woocommerce-cart-form {
+	:global(.cart-section .woocommerce-cart-form) {
 		margin-bottom: 40px;
 	}
 
-	.shop_table {
+	:global(.cart-section .shop_table) {
 		width: 100%;
 		border-collapse: collapse;
 		margin-bottom: 0;
 	}
 
-	.shop_table thead {
+	:global(.cart-section .shop_table thead) {
 		border-bottom: 1px solid #e0e0e0;
 		margin-bottom: 0;
 	}
 
-	.shop_table th {
+	:global(.cart-section .shop_table th) {
 		padding: 20px 15px;
 		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
-		font-weight: 600;
-		color: #0d0d0d;
+		font-size: 18px;
+		font-weight: 700;
+		color: #1c1c1c;
 		text-transform: uppercase;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.12em;
 		text-align: left;
 		vertical-align: middle;
 	}
 
-	.shop_table th.product-price,
-	.shop_table th.product-quantity,
-	.shop_table th.product-subtotal {
+	:global(.cart-section .shop_table th.product-price),
+	:global(.cart-section .shop_table th.product-quantity),
+	:global(.cart-section .shop_table th.product-subtotal) {
 		text-align: right;
 	}
 
-	.shop_table td {
+	:global(.cart-section .shop_table td) {
 		padding: 20px 15px;
 		border-bottom: 1px solid #e0e0e0;
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
+		font-size: 16px;
 		color: #0d0d0d;
 		vertical-align: middle;
 	}
 
-	.shop_table td.product-price,
-	.shop_table td.product-quantity,
-	.shop_table td.product-subtotal {
+	:global(.cart-section .shop_table td.product-price),
+	:global(.cart-section .shop_table td.product-quantity),
+	:global(.cart-section .shop_table td.product-subtotal) {
+		text-align: right;
+		padding-right: 15px;
+	}
+
+	:global(.cart-section .shop_table th.product-price),
+	:global(.cart-section .shop_table th.product-quantity),
+	:global(.cart-section .shop_table th.product-subtotal) {
+		padding-right: 15px;
+	}
+
+	:global(.cart-section .shop_table td.product-subtotal) {
+		min-width: 100px;
+	}
+
+	:global(.cart-section .shop_table td.product-price .woocommerce-Price-amount),
+	:global(.cart-section .shop_table td.product-subtotal .woocommerce-Price-amount) {
+		display: block;
 		text-align: right;
 	}
 
-	.product-remove {
+	/* Model: remove and thumbnail columns have no visible header text */
+	.visually-hidden,
+	:global(.cart-section .visually-hidden) {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	:global(.cart-section .product-remove) {
 		width: 40px;
 		padding-right: 0;
 	}
 
-	.product-remove a {
-		color: #0d0d0d;
+	:global(.cart-section .product-remove a) {
+		color: #1c1c1c;
 		text-decoration: none;
-		font-size: 18px;
+		font-size: 14px;
 		font-weight: 400;
-		display: inline-block;
+		font-family: 'Yantramanav', sans-serif;
+		line-height: 1;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 		width: 24px;
 		height: 24px;
-		line-height: 24px;
 		text-align: center;
 		transition: opacity 0.3s;
 	}
 
-	.product-remove a:hover {
+	:global(.cart-section .product-remove a:hover) {
 		opacity: 0.6;
-		color: #0d0d0d;
+		color: #1c1c1c;
 	}
 
 	/* Product thumbnail images - match model site exactly (32px square) */
-	.product-thumbnail {
+	:global(.cart-section .product-thumbnail) {
 		width: 50px;
 		padding-right: 15px;
 		vertical-align: middle;
 	}
 	
-	.product-thumbnail img,
-	.shop_table .product-thumbnail img,
-	.shop_table td.product-thumbnail img,
-	.woocommerce-cart-form .product-thumbnail img,
-	table.shop_table .product-thumbnail img,
-	.cart_item .product-thumbnail img,
-	td.product-thumbnail img,
-	img[width="36"] {
-		width: 32px !important;
-		height: 32px !important;
-		min-width: 32px !important;
-		min-height: 32px !important;
-		max-width: 32px !important;
-		max-height: 32px !important;
+	:global(.cart-section .product-thumbnail img),
+	:global(.cart-section .shop_table .product-thumbnail img),
+	:global(.cart-section .shop_table td.product-thumbnail img),
+	:global(.cart-section .woocommerce-cart-form .product-thumbnail img),
+	:global(.cart-section table.shop_table .product-thumbnail img),
+	:global(.cart-section .cart_item .product-thumbnail img),
+	:global(.cart-section td.product-thumbnail img),
+	:global(.cart-section img[width="36"]) {
+		width: 45px !important;
+		height: 45px !important;
+		min-width: 45px !important;
+		min-height: 45px !important;
+		max-width: 45px !important;
+		max-height: 45px !important;
 		object-fit: cover;
 		border-radius: 0;
 		display: block !important;
@@ -384,268 +400,384 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		background: #ffffff;
 	}
 	
-	/* Ensure container doesn't expand */
-	.shop_table .product-thumbnail,
-	.shop_table td.product-thumbnail {
-		width: 50px;
-		max-width: 50px;
+	:global(.cart-section .shop_table .product-thumbnail),
+	:global(.cart-section .shop_table td.product-thumbnail) {
+		width: 55px;
+		max-width: 55px;
 		overflow: hidden;
 		padding-right: 15px;
 	}
 
-	.product-name {
+	/* Product name: same font and size as table header "PRODUCT" above (Oswald, model site) */
+	:global(.cart-section .product-name),
+	:global(.cart-section .product-name a),
+	:global(.cart-section td.product-name) {
 		font-family: 'Oswald', sans-serif;
-		font-size: 16px;
-		font-weight: 600;
+		font-size: 18px;
+		font-weight: 700;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: #0d0d0d;
-	}
-
-	.product-name a {
-		color: #0d0d0d;
-		text-decoration: none;
-		font-weight: 600;
-	}
-
-	.product-name a:hover {
-		color: #0d0d0d;
+		letter-spacing: 0.12em;
+		color: #1c1c1c;
 		text-decoration: none;
 	}
 
-	.product-price,
-	.product-subtotal {
+	:global(.cart-section .product-name a:hover) {
+		color: #1c1c1c;
+		text-decoration: none;
+	}
+
+	:global(.cart-section .product-price),
+	:global(.cart-section .product-subtotal) {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
+		font-size: 18px;
 		font-weight: 400;
-		color: #0d0d0d;
+		color: #8c8c8c;
 		letter-spacing: 0;
 		text-align: right;
 	}
 
-	.product-quantity {
-		width: 110px;
+	:global(.cart-section .product-quantity) {
+		width: 120px;
 		text-align: right;
 	}
 
-	.quantity-input {
-		display: inline-block;
-		border: 1px solid #e0e0e0;
-		width: 70px;
+	/* Quantity control: model site – number left, spinner (up/down) right, thin grey borders */
+	:global(.cart-section .quantity-control) {
+		display: inline-flex;
+		align-items: stretch;
+		width: 96px;
+		min-width: 96px;
 		height: 40px;
+		border: 1px solid #e0e0e0;
 		background: #ffffff;
-		position: relative;
+		border-radius: 0;
+		overflow: hidden;
+		vertical-align: middle;
 	}
 
-	.quantity-input input[type="number"] {
-		width: 100%;
+	:global(.cart-section .quantity-control .quantity-input),
+	:global(.cart-section .quantity-control input.quantity-input[type="number"]) {
+		width: 60px;
+		min-width: 0;
 		height: 100%;
+		margin: 0;
+		padding: 0 6px;
 		border: none;
+		border-right: 1px solid #e0e0e0;
+		background: #ffffff;
+		box-sizing: border-box;
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+		color: #000000;
 		text-align: center;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #0d0d0d;
-		padding: 0 30px 0 10px;
-		background: transparent;
 		-moz-appearance: textfield;
+		appearance: textfield;
+		outline: none;
+	}
+
+	:global(.cart-section .quantity-control input.quantity-input[type="number"]::-webkit-outer-spin-button),
+	:global(.cart-section .quantity-control input.quantity-input[type="number"]::-webkit-inner-spin-button) {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	:global(.cart-section .quantity-spinner) {
+		display: flex;
+		flex-direction: column;
+		flex: 0 0 34px;
+		width: 34px;
+		background: #ffffff;
+	}
+
+	:global(.cart-section .qty-btn) {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 0;
+		padding: 0;
+		border: none;
+		border-bottom: 1px solid #e0e0e0;
+		background: #ffffff;
+		color: #1c1c1c;
+		font-size: 10px;
+		line-height: 1;
+		cursor: pointer;
+		transition: background 0.2s;
+	}
+
+	:global(.cart-section .qty-btn:last-child) {
+		border-bottom: none;
+	}
+
+	:global(.cart-section .qty-btn:hover) {
+		background: #f5f5f5;
+	}
+
+	:global(.cart-section .qty-btn:active) {
+		background: #ebebeb;
+	}
+
+	:global(.cart-section .cart-coupon-and-actions) {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 16px;
+		margin-top: 20px;
+		margin-left: auto;
+		width: fit-content;
+		max-width: 100%;
+	}
+
+	:global(.cart-section .cart-coupon) {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+
+	:global(.cart-section .coupon-input) {
+		padding: 10px 13px;
+		border: 1px solid #e0e0e0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		font-weight: 400;
+		color: #1c1c1c;
+		background: #ffffff;
+		min-width: 176px;
 		box-sizing: border-box;
 	}
 
-	.quantity-input input[type="number"]::-webkit-outer-spin-button,
-	.quantity-input input[type="number"]::-webkit-inner-spin-button {
-		-webkit-appearance: auto;
-		opacity: 1;
-		width: 20px;
-		height: 20px;
-		cursor: pointer;
+	:global(.cart-section .coupon-input::placeholder) {
+		color: #969696;
+		font-size: 13px;
+		font-weight: 400;
 	}
 
-	.quantity-input button {
-		display: none;
+	:global(.cart-section .coupon-input:focus) {
+		outline: none;
+		border-color: #1c1c1c;
 	}
 
-	.cart-actions {
+	:global(.cart-section .apply-coupon:hover) {
+		background: #1c1c1c;
+		color: #ffffff;
+	}
+
+	:global(.cart-section .cart-actions) {
 		display: flex;
-		gap: 12px;
-		margin-top: 25px;
+		gap: 10px;
 		justify-content: flex-end;
 	}
 
-	.button {
-		padding: 12px 25px;
-		background: #f7f7f7;
-		color: #0d0d0d;
-		border: 1px solid #e0e0e0;
-		font-family: 'Oswald', sans-serif;
-		font-size: 11px;
-		font-weight: 600;
-		text-transform: uppercase;
+	/* Same size for Apply coupon and Update cart / Continue shopping */
+	:global(.cart-section .cart-actions .button),
+	:global(.cart-section .cart-coupon .button.apply-coupon) {
+		padding: 10px 19px;
+		font-size: 13px;
 		letter-spacing: 0.1em;
+	}
+
+	:global(.cart-section .apply-coupon) {
+		background: #000000;
+		border: none;
+		color: #ffffff;
+		font-family: 'Oswald', sans-serif;
+		font-weight: 700;
+		text-transform: uppercase;
+		cursor: pointer;
+		transition: background 0.3s;
+		border-radius: 0;
+	}
+
+	:global(.cart-section .button) {
+		padding: 12px 24px;
+		background: #000000;
+		color: #ffffff;
+		border: none;
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
 		text-decoration: none;
 		cursor: pointer;
-		transition: all 0.3s;
+		transition: background 0.3s;
 		display: inline-block;
+		border-radius: 0;
 	}
 
-	.button:hover {
-		background: #e0e0e0;
-		color: #0d0d0d;
+	:global(.cart-section .button:hover) {
+		background: #1c1c1c;
+		color: #ffffff;
 	}
 
-	.update-cart {
-		background: #f7f7f7;
+	:global(.cart-section .update-cart) {
+		background: #000000;
+		border: none;
+		color: #ffffff;
+	}
+
+	:global(.cart-section .continue-shopping) {
+		background: #ffffff;
 		border: 1px solid #e0e0e0;
-		color: #0d0d0d;
+		color: #1c1c1c;
 	}
 
-	.continue-shopping {
-		background: #f7f7f7;
-		border: 1px solid #e0e0e0;
-		color: #0d0d0d;
+	:global(.cart-section .continue-shopping:hover) {
+		background: #1c1c1c;
+		color: #ffffff;
+		border-color: #1c1c1c;
 	}
 
-	.continue-shopping:hover {
-		background: #e0e0e0;
-		color: #0d0d0d;
-		border-color: #e0e0e0;
-	}
-
-	.cart-collaterals {
+	:global(.cart-section .cart-collaterals) {
 		display: grid;
-		grid-template-columns: 1fr 380px;
+		grid-template-columns: 1fr 460px;
 		gap: 50px;
 		align-items: start;
+		margin-bottom: 52px;
 	}
 
-	.cart_totals {
-		background: #f7f7f7;
-		padding: 35px 30px;
+	/* ========== CART TOTALS – match reference exactly ========== */
+	:global(.cart-section .cart_totals) {
+		background: #ffffff;
+		padding: 40px 36px 44px;
+		border: none;
+		box-sizing: border-box;
+		max-width: 380px;
+		margin-left: auto;
 	}
 
-	.cart_totals h2 {
+	:global(.cart-section .cart_totals h2.cart-totals-title) {
 		font-family: 'Oswald', sans-serif;
-		font-size: 20px;
-		font-weight: 600;
-		color: #0d0d0d;
+		font-size: 28px;
+		font-weight: 700;
+		color: #000000;
 		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		margin-bottom: 25px;
-		padding-bottom: 15px;
-		border-bottom: 1px solid #e0e0e0;
-	}
-
-	.cart_totals .shop_table {
-		margin-bottom: 30px;
-	}
-
-	.cart_totals .shop_table {
+		letter-spacing: 0.08em;
+		margin: 0 0 20px;
+		padding: 0;
 		border: none;
+		line-height: 1.2;
 	}
 
-	.cart_totals .shop_table th {
-		width: 50%;
-		padding: 12px 0;
-		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
+	:global(.cart-section .cart_totals .shop_table.cart-totals-table) {
+		width: 100%;
+		margin: 0;
 		border: none;
-		text-align: left;
+		border-collapse: collapse;
 	}
 
-	.cart_totals .shop_table td {
-		text-align: right;
-		padding: 12px 0;
-		border: none;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #0d0d0d;
-	}
-	
-	/* Shipping Calculator */
-	.shipping {
-		vertical-align: top;
-	}
-	
-	.shipping td {
-		padding-top: 12px;
-		padding-bottom: 12px;
-	}
-	
-	.woocommerce-shipping-calculator {
-		text-align: left;
-	}
-	
-	.woocommerce-shipping-destination {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #0d0d0d;
-		margin: 0 0 8px 0;
-	}
-	
-	.woocommerce-shipping-destination strong {
-		font-weight: 600;
-	}
-	
-	.shipping-calculator-button {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #0066cc;
-		text-decoration: underline;
-		cursor: pointer;
-		transition: color 0.3s;
-		display: inline-block;
-		margin: 0 0 8px 0;
-	}
-	
-	.shipping-calculator-button:hover {
-		color: #0052a3;
-		text-decoration: underline;
-	}
-	
-	.woocommerce-shipping-calculator-form {
-		margin-top: 12px;
-		padding-top: 12px;
+	:global(.cart-section .cart_totals .shop_table.cart-totals-table tbody tr) {
 		border-top: 1px solid #e0e0e0;
 	}
-	
-	.woocommerce-shipping-calculator-form .form-row {
-		margin-bottom: 12px;
+
+	:global(.cart-section .cart_totals .shop_table.cart-totals-table th) {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+		color: #000000;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		text-align: left;
+		padding: 14px 0;
+		border: none;
+		width: 45%;
+		vertical-align: top;
 	}
-	
-	.woocommerce-shipping-calculator-form select,
-	.woocommerce-shipping-calculator-form input[type="text"] {
+
+	:global(.cart-section .cart_totals .shop_table.cart-totals-table td) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		font-weight: 400;
+		color: #8c8c8c;
+		text-align: right;
+		padding: 14px 0;
+		border: none;
+		vertical-align: top;
+	}
+
+	:global(.cart-section .cart_totals .shop_table.cart-totals-table .woocommerce-Price-amount) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		font-weight: 400;
+		color: #8c8c8c;
+	}
+
+	/* Shipping: one line like subtotal – label left, value right */
+	:global(.cart-section .cart_totals .shipping td) {
+		text-align: right;
+		vertical-align: middle;
+	}
+
+	:global(.cart-section .cart_totals .woocommerce-shipping-calculator) {
+		text-align: right;
+	}
+
+	:global(.cart-section .cart_totals .shipping-display) {
+		text-align: right;
+		display: block;
+		white-space: nowrap;
+	}
+
+	:global(.cart-section .cart_totals .shipping-display .woocommerce-Price-amount) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		font-weight: 400;
+		color: #8c8c8c;
+	}
+
+	:global(.cart-section .cart_totals .shipping-calculator-button) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 400;
+		color: #8c8c8c;
+		text-decoration: underline;
+		cursor: pointer;
+		transition: color 0.2s;
+		margin-left: 0.35em;
+	}
+
+	:global(.cart-section .cart_totals .shipping-calculator-button:hover) {
+		color: #fe5900;
+	}
+
+	:global(.cart-section .cart_totals .woocommerce-shipping-calculator-form) {
+		margin-top: 10px;
+		padding-top: 10px;
+		border-top: 1px solid #e0e0e0;
+		text-align: left;
+	}
+
+	:global(.cart-section .cart_totals .woocommerce-shipping-calculator-form .form-row) {
+		margin-bottom: 10px;
+	}
+
+	:global(.cart-section .cart_totals .woocommerce-shipping-calculator-form select),
+	:global(.cart-section .cart_totals .woocommerce-shipping-calculator-form input[type="text"]) {
 		width: 100%;
 		padding: 10px 12px;
 		border: 1px solid #e0e0e0;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
 		color: #0d0d0d;
-		background: #ffffff;
+		background: #fff;
 		box-sizing: border-box;
 	}
-	
-	.woocommerce-shipping-calculator-form select:focus,
-	.woocommerce-shipping-calculator-form input[type="text"]:focus {
-		outline: none;
-		border-color: #fe5900;
-	}
-	
-	.woocommerce-shipping-calculator-form .button {
+
+	:global(.cart-section .cart_totals .woocommerce-shipping-calculator-form .button) {
 		padding: 10px 20px;
-		font-size: 11px;
-		margin-top: 0;
-	}
-	
-	.woocommerce-shipping-methods {
-		margin: 8px 0 0 0;
-		padding: 0;
-		list-style: none;
+		font-size: 12px;
 	}
 
-	.woocommerce-shipping-methods label {
+	:global(.cart-section .cart_totals .woocommerce-shipping-methods) {
+		margin: 0;
+		padding: 0;
+	}
+
+	:global(.cart-section .cart_totals .woocommerce-shipping-methods label) {
 		display: flex;
 		align-items: center;
 		gap: 8px;
@@ -654,95 +786,41 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		color: #0d0d0d;
 		cursor: pointer;
 		margin: 0;
-		justify-content: flex-start;
-	}
-	
-	.woocommerce-shipping-methods input[type="radio"] {
-		margin: 0;
-		cursor: pointer;
-	}
-	
-	.woocommerce-shipping-methods .woocommerce-Price-amount {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		font-weight: 400;
-		color: #0d0d0d;
-		margin-left: auto;
-		text-align: right;
-	}
-	
-	.woocommerce-shipping-methods .woocommerce-Price-currencySymbol {
-		font-family: 'Oswald', sans-serif;
-		font-size: 14px;
-		font-weight: 600;
-	}
-	
-	.woocommerce-Price-amount {
-		font-family: 'Oswald', sans-serif;
-		font-size: 14px;
-		font-weight: 600;
-		color: #0d0d0d;
-	}
-	
-	.woocommerce-Price-currencySymbol {
-		font-family: 'Oswald', sans-serif;
-		font-size: 14px;
-		font-weight: 600;
 	}
 
-	.order-total th,
-	.order-total td {
-		border-top: 1px solid #e0e0e0;
-		padding-top: 15px;
-		padding-bottom: 15px;
-		font-size: 15px;
+	/* Proceed to Checkout: compact, full width, black, white text */
+	:global(.cart-section .cart_totals .wc-proceed-to-checkout) {
+		margin-top: 20px;
+		padding: 0;
 	}
 
-	.order-total th {
-		font-family: 'Oswald', sans-serif;
-		font-size: 15px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-	}
-
-	.order-total td {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 15px;
-		color: #0d0d0d;
-	}
-
-	.order-total td strong {
-		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
-		font-weight: 600;
-		color: #0d0d0d;
-	}
-
-	.checkout-button {
-		width: 100%;
-		padding: 18px 40px;
-		background: #fe5900;
+	:global(.cart-section .cart_totals .checkout-button) {
+		display: inline-block;
+		width: auto;
+		box-sizing: border-box;
+		padding: 12px 22px;
+		background: #000000;
 		color: #ffffff;
 		border: none;
 		text-align: center;
-		margin-top: 20px;
+		margin: 0;
 		font-family: 'Oswald', sans-serif;
-		font-size: 11px;
-		font-weight: 600;
+		font-size: 14px;
+		font-weight: 700;
 		text-transform: uppercase;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.08em;
 		text-decoration: none;
 		cursor: pointer;
-		transition: background 0.3s;
-		display: block;
-		box-sizing: border-box;
+		transition: background 0.2s, color 0.2s;
+		border-radius: 4px;
 	}
 
-	.checkout-button:hover {
-		background: #e04d00;
+	:global(.cart-section .checkout-button:hover),
+	:global(.cart-section .checkout-button:active),
+	:global(.cart-section .checkout-button:focus) {
+		background: #fe5900;
 		color: #ffffff;
+		outline: none;
 	}
 
 	/* Responsive */
@@ -753,53 +831,60 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	@media (max-width: 768px) {
-		.cart-hero-title {
-			font-size: 48px;
+		.cart-breadcrumbs {
+			font-size: 16px;
+			letter-spacing: 0.15em;
 		}
 
 		.cart-section {
-			padding: 60px 0;
+			padding: 36px 0 60px;
 		}
 
-		.shop_table {
+		:global(.cart-section .shop_table) {
 			display: block;
 		}
 
-		.shop_table thead {
+		:global(.cart-section .shop_table thead) {
 			display: none;
 		}
 
-		.shop_table tbody,
-		.shop_table tr,
-		.shop_table td {
+		:global(.cart-section .shop_table tbody),
+		:global(.cart-section .shop_table tr),
+		:global(.cart-section .shop_table td) {
 			display: block;
 		}
 
-		.shop_table tr {
+		:global(.cart-section .shop_table tr) {
 			border: 1px solid #e0e0e0;
 			margin-bottom: 20px;
 			padding: 15px;
 		}
 
-		.shop_table td {
+		:global(.cart-section .shop_table td) {
 			border: none;
 			padding: 10px 0;
 			text-align: left !important;
 		}
 
-		.shop_table td:before {
+		:global(.cart-section .shop_table td:before) {
 			content: attr(data-title) ": ";
 			font-weight: 600;
 			display: inline-block;
 			width: 100px;
 		}
+
+		:global(.cart-section .shop_table td.product-remove:before),
+		:global(.cart-section .shop_table td.product-thumbnail:before) {
+			content: none;
+			display: none;
+		}
 	}
 	
 	/* Final override to ensure product images are exactly 32px - match model site */
-	.woocommerce-cart-form table.shop_table tbody td.product-thumbnail img,
-	.woocommerce-cart-form .shop_table .product-thumbnail img,
-	#cart-items-container .product-thumbnail img,
-	.shop_table tbody .product-thumbnail img {
+	:global(.cart-section .woocommerce-cart-form table.shop_table tbody td.product-thumbnail img),
+	:global(.cart-section .woocommerce-cart-form .shop_table .product-thumbnail img),
+	:global(#cart-items-container .product-thumbnail img),
+	:global(.cart-section .shop_table tbody .product-thumbnail img) {
 		width: 32px !important;
 		height: 32px !important;
 		max-width: 32px !important;
@@ -877,7 +962,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							</span>
 						</td>
 						<td class="product-quantity" data-title="Quantity">
-							<input type="number" class="quantity-input qty-input" value="${item.quantity}" min="1" data-index="${index}" />
+							<div class="quantity-control">
+								<input type="number" class="quantity-input qty-input" value="${item.quantity}" min="1" max="999" data-index="${index}" />
+								<div class="quantity-spinner">
+									<button type="button" class="qty-btn qty-up" data-index="${index}" aria-label="Increase quantity">&#9650;</button>
+									<button type="button" class="qty-btn qty-down" data-index="${index}" aria-label="Decrease quantity">&#9660;</button>
+								</div>
+							</div>
 						</td>
 						<td class="product-subtotal" data-title="Subtotal">
 							<span class="woocommerce-Price-amount amount">
@@ -891,9 +982,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			if (cartBody) cartBody.innerHTML = html;
 			if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
 			
-			// Calculate total with shipping (default $50.00 flat rate)
+			// Calculate total with shipping (default $0.00)
 			const shippingCostEl = document.getElementById('shipping-cost');
-			const shippingCost = shippingCostEl ? parseFloat(shippingCostEl.textContent) : 50.00;
+			const shippingCost = shippingCostEl ? parseFloat(shippingCostEl.textContent) : 0.00;
 			const total = subtotal + shippingCost;
 			if (totalEl) totalEl.textContent = total.toFixed(2);
 
@@ -911,10 +1002,42 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			document.querySelectorAll('.qty-input').forEach(input => {
 				input.addEventListener('change', function() {
 					const index = parseInt(this.getAttribute('data-index'));
-					const quantity = parseInt(this.value) || 1;
+					const quantity = Math.min(999, Math.max(1, parseInt(this.value) || 1));
+					this.value = quantity;
 					const cart = getCart();
 					cart[index].quantity = quantity;
 					saveCart(cart);
+					renderCart();
+				});
+			});
+
+			document.querySelectorAll('.qty-up').forEach(btn => {
+				btn.addEventListener('click', function() {
+					const index = parseInt(this.getAttribute('data-index'));
+					const control = this.closest('.quantity-control');
+					const input = control ? control.querySelector('.qty-input') : null;
+					if (!input) return;
+					const quantity = Math.min(999, (parseInt(input.value) || 1) + 1);
+					input.value = quantity;
+					const cart = getCart();
+					cart[index].quantity = quantity;
+					saveCart(cart);
+					renderCart();
+				});
+			});
+
+			document.querySelectorAll('.qty-down').forEach(btn => {
+				btn.addEventListener('click', function() {
+					const index = parseInt(this.getAttribute('data-index'));
+					const control = this.closest('.quantity-control');
+					const input = control ? control.querySelector('.qty-input') : null;
+					if (!input) return;
+					const quantity = Math.max(1, (parseInt(input.value) || 1) - 1);
+					input.value = quantity;
+					const cart = getCart();
+					cart[index].quantity = quantity;
+					saveCart(cart);
+					renderCart();
 				});
 			});
 		}
@@ -932,13 +1055,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		setTimeout(function() {
 			const shippingCalculatorButton = document.querySelector('.shipping-calculator-button');
 			const shippingCalculatorForm = document.querySelector('.woocommerce-shipping-calculator-form');
+			const shippingDisplay = document.querySelector('.shipping-display');
 			
 			if (shippingCalculatorButton && shippingCalculatorForm) {
 				shippingCalculatorButton.addEventListener('click', function(e) {
 					e.preventDefault();
 					const isHidden = shippingCalculatorForm.style.display === 'none' || !shippingCalculatorForm.style.display;
 					shippingCalculatorForm.style.display = isHidden ? 'block' : 'none';
-					this.textContent = isHidden ? 'Cancel' : 'Change address';
+					if (shippingDisplay) shippingDisplay.style.display = isHidden ? 'none' : 'block';
+					this.textContent = isHidden ? 'Cancel' : 'Calculate shipping';
 				});
 			}
 		}, 100);
@@ -953,11 +1078,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				method.addEventListener('change', function() {
 					const cart = getCart();
 					const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-					let shippingCost = 50.00;
+					let shippingCost = 0.00;
 					
 					if (this.value === 'flat_rate') {
-						shippingCost = 50.00;
-						shippingCostEl.textContent = '50.00';
+						shippingCost = 0.00;
+						shippingCostEl.textContent = '0.00';
 					} else if (this.value === 'local_pickup') {
 						shippingCost = 0.00;
 						shippingCostEl.textContent = '0.00';

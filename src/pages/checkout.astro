@@ -6,20 +6,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	title="Checkout - Custom Sports Lockers | PlayerStall"
 	description="Complete your purchase of custom wood sports lockers. Secure checkout process."
 >
-	<!-- Hero Section -->
-	<section class="checkout-hero-section">
-		<div class="checkout-hero-parallax-img-holder">
-			<div class="checkout-hero-parallax-img-wrapper">
-				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/03/shop-title-img.jpg" alt="Checkout" class="checkout-hero-parallax-img" />
-			</div>
+	<!-- Hero Section (same container as blog page) -->
+	<section class="blog-hero-section">
+		<div class="blog-hero-background">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Checkout" class="blog-hero-bg-image" />
 		</div>
-		<div class="checkout-hero-content qodef-content-grid">
-			<div class="breadcrumbs">
+		<div class="blog-hero-background-overlay"></div>
+		<div class="blog-hero-container">
+			<div class="blog-breadcrumbs">
 				<a href="/">Home</a>
-				<span class="breadcrumbs-separator"></span>
-				<span class="breadcrumbs-current">Checkout</span>
+				<span>Checkout</span>
 			</div>
-			<h1 class="checkout-hero-title">Checkout</h1>
+			<h1 class="blog-page-title">Checkout</h1>
+			<div class="blog-background-text">checkout</div>
 		</div>
 	</section>
 
@@ -220,20 +219,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 										<tr class="woocommerce-shipping-totals shipping">
 											<th>Shipping</th>
 											<td data-title="Shipping">
-												<ul id="shipping_method" class="woocommerce-shipping-methods">
-													<li>
-														<input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_free_shipping" value="free_shipping" class="shipping_method" checked="checked" />
-														<label for="shipping_method_0_free_shipping">Free shipping</label>
-													</li>
-													<li>
-														<input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_flat_rate" value="flat_rate" class="shipping_method" />
-														<label for="shipping_method_0_flat_rate">Standard: <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>50.00</bdi></span></label>
-													</li>
-													<li>
-														<input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_local_pickup" value="local_pickup" class="shipping_method" />
-														<label for="shipping_method_0_local_pickup">Express: <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>100.00</bdi></span></label>
-													</li>
-												</ul>
+												<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="checkout-shipping-amount">0.00</span></bdi></span>
 											</td>
 										</tr>
 										<tr class="order-total">
@@ -268,15 +254,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 											</label>
 											<div class="payment_box payment_method_cheque">
 												<p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-											</div>
-										</li>
-										<li class="wc_payment_method payment_method_cod">
-											<input id="payment_method_cod" type="radio" class="input-radio" name="payment_method" value="cod" data-order_button_text="" />
-											<label for="payment_method_cod">
-												Cash on delivery
-											</label>
-											<div class="payment_box payment_method_cod">
-												<p>Pay with cash upon delivery.</p>
 											</div>
 										</li>
 									</ul>
@@ -318,74 +295,107 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 20px;
 	}
 
-	/* Hero Section */
-	.checkout-hero-section {
+	/* Hero Section (same as blog page) */
+	.blog-hero-section {
 		position: relative;
-		min-height: 400px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
 		overflow: hidden;
+		min-height: 320px;
+		width: 100%;
+		max-width: none;
+		margin: 0;
 	}
 
-	.checkout-hero-parallax-img-holder {
+	.blog-hero-background {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		z-index: 1;
-	}
-
-	.checkout-hero-parallax-img-wrapper {
-		position: relative;
-		width: 100%;
-		height: 100%;
+		z-index: 0;
 		overflow: hidden;
 	}
 
-	.checkout-hero-parallax-img {
+	.blog-hero-bg-image {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
 	}
 
-	.checkout-hero-content {
+	.blog-hero-background-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 100%);
+		z-index: 1;
+	}
+
+	.blog-hero-container {
 		position: relative;
 		z-index: 10;
-		padding: 200px 0 100px;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		text-align: left;
+		width: 100%;
 	}
 
-	.breadcrumbs {
-		margin-bottom: 20px;
+	.blog-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #ffffff;
+		font-size: 12px;
+		color: rgba(255, 255, 255, 0.85);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
 	}
 
-	.breadcrumbs a {
-		color: #ffffff;
+	.blog-breadcrumbs a {
+		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
 		transition: color 0.3s;
 	}
 
-	.breadcrumbs a:hover {
+	.blog-breadcrumbs a:hover {
 		color: #fe5900;
 	}
 
-	.breadcrumbs-separator {
-		margin: 0 10px;
-	}
-
-	.breadcrumbs-current {
+	.blog-breadcrumbs span {
+		margin-left: 10px;
 		color: #ffffff;
 	}
 
-	.checkout-hero-title {
+	.blog-page-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: 72px;
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: uppercase;
-		letter-spacing: 2px;
 		margin: 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
+	}
+
+	.blog-background-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 300px;
+		font-weight: 700;
+		color: rgba(255, 255, 255, 0.06);
+		text-transform: uppercase;
+		letter-spacing: -3px;
+		bottom: -50px;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+		z-index: 1;
 	}
 
 	/* Checkout Section */
@@ -582,6 +592,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.shop_table th.product-total {
 		text-align: right;
+		width: 140px;
+		min-width: 140px;
+		box-sizing: border-box;
+		padding-left: 15px;
 	}
 
 	.shop_table tbody td {
@@ -594,20 +608,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.shop_table tbody td.product-name {
-		font-family: 'Oswald', sans-serif;
-		font-size: 16px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
 		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
 		color: #0d0d0d;
 	}
 
 	.shop_table tbody td.product-total {
 		text-align: right;
+		width: 140px;
+		min-width: 140px;
+		box-sizing: border-box;
+		padding-left: 15px;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
 		font-weight: 400;
 		color: #0d0d0d;
+	}
+
+	.shop_table tbody td.product-total .woocommerce-Price-amount {
+		display: block;
+		text-align: right;
+		margin-left: auto;
 	}
 
 	.product-quantity {
@@ -616,7 +638,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.shop_table tfoot th {
-		padding: 12px 0;
+		padding: 12px 15px 12px 0;
 		font-family: 'Oswald', sans-serif;
 		font-size: 13px;
 		font-weight: 600;
@@ -628,7 +650,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.shop_table tfoot td {
-		padding: 12px 0;
+		width: 140px;
+		min-width: 140px;
+		box-sizing: border-box;
+		padding: 12px 15px 12px 15px;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
 		color: #0d0d0d;
@@ -641,7 +666,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		border-top: 1px solid #e0e0e0;
 		padding-top: 15px;
 		padding-bottom: 15px;
+		padding-left: 15px;
+		padding-right: 15px;
 		font-size: 15px;
+	}
+
+	.shop_table .order-total td {
+		width: 140px;
+		min-width: 140px;
+		text-align: right;
 	}
 
 	.shop_table .order-total th {
@@ -844,7 +877,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	@media (max-width: 768px) {
-		.checkout-hero-title {
+		.blog-page-title {
 			font-size: 48px;
 		}
 
@@ -891,7 +924,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<tr class="cart_item">
 							<td class="product-name">
 								${item.name.toUpperCase()}&nbsp;
-								<strong class="product-quantity">× ${item.quantity}</strong>
+								<strong class="product-quantity">${item.quantity}</strong>
 							</td>
 							<td class="product-total">
 								<span class="woocommerce-Price-amount amount">
@@ -904,8 +937,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			}
 
 			itemsBody.innerHTML = html;
+			const shippingCost = 0.00;
 			if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
-			if (totalAmount) totalAmount.textContent = subtotal.toFixed(2);
+			if (totalAmount) totalAmount.textContent = (subtotal + shippingCost).toFixed(2);
+			const shippingEl = document.getElementById('checkout-shipping-amount');
+			if (shippingEl) shippingEl.textContent = shippingCost.toFixed(2);
 
 			return subtotal;
 		}
@@ -932,28 +968,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						field.removeAttribute('required');
 					});
 				}
-			});
-		}
-
-		// Update total based on shipping method
-		const shippingMethods = document.querySelectorAll('.woocommerce-shipping-methods input[type="radio"]');
-		const totalAmount = document.getElementById('order-total-amount');
-		
-		if (shippingMethods.length && totalAmount) {
-			shippingMethods.forEach(method => {
-				method.addEventListener('change', function() {
-					const cart = getCart();
-					const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-					let shippingCost = 0;
-					if (this.value === 'flat_rate') {
-						shippingCost = 50.00;
-					} else if (this.value === 'local_pickup') {
-						shippingCost = 100.00;
-					}
-					
-					const newTotal = subtotal + shippingCost;
-					if (totalAmount) totalAmount.textContent = newTotal.toFixed(2);
-				});
 			});
 		}
 

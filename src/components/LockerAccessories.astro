@@ -21,27 +21,53 @@ const { items, title = 'LOCKER ACCESSORIES' } = Astro.props;
 <section class="locker-accessories">
 	<div class="locker-accessories-inner">
 		<h2 class="locker-accessories-heading">{title}</h2>
-		<div class="locker-accessories-grid">
-			{items.map((item) => (
-				<a href={item.href} class="locker-accessories-card">
-					<div class="locker-accessories-card-image-wrap">
-						{item.tag && (
-							<span class={`locker-accessories-tag locker-accessories-tag-${item.tag.toLowerCase()}`}>
-								{item.tag}
-							</span>
-						)}
-						<div class="locker-accessories-card-image">
-							<img src={item.image} alt={item.alt} loading="lazy" />
-						</div>
-					</div>
-					<p class="locker-accessories-category">{item.category}</p>
-					<h4 class="locker-accessories-card-title">{item.title}</h4>
-					<div class="locker-accessories-price">
-						{item.priceOriginal && <span class="locker-accessories-price-old">{item.priceOriginal}</span>}
-						<span class="locker-accessories-price-current">{item.price}</span>
-					</div>
-				</a>
-			))}
+		<div class="locker-accessories-slider">
+			<div class="locker-accessories-track">
+				<div class="locker-accessories-track-set">
+					{items.map((item) => (
+						<a href={item.href} class="locker-accessories-card">
+							<div class="locker-accessories-card-image-wrap">
+								{item.tag && (
+									<span class={`locker-accessories-tag locker-accessories-tag-${item.tag.toLowerCase()}`}>
+										{item.tag}
+									</span>
+								)}
+								<div class="locker-accessories-card-image">
+									<img src={item.image} alt={item.alt} loading="lazy" />
+								</div>
+							</div>
+							<p class="locker-accessories-category">{item.category}</p>
+							<h4 class="locker-accessories-card-title">{item.title}</h4>
+							<div class="locker-accessories-price">
+								{item.priceOriginal && <span class="locker-accessories-price-old">{item.priceOriginal}</span>}
+								<span class="locker-accessories-price-current">{item.price}</span>
+							</div>
+						</a>
+					))}
+				</div>
+				<div class="locker-accessories-track-set" aria-hidden="true">
+					{items.map((item) => (
+						<a href={item.href} class="locker-accessories-card">
+							<div class="locker-accessories-card-image-wrap">
+								{item.tag && (
+									<span class={`locker-accessories-tag locker-accessories-tag-${item.tag.toLowerCase()}`}>
+										{item.tag}
+									</span>
+								)}
+								<div class="locker-accessories-card-image">
+									<img src={item.image} alt={item.alt} loading="lazy" />
+								</div>
+							</div>
+							<p class="locker-accessories-category">{item.category}</p>
+							<h4 class="locker-accessories-card-title">{item.title}</h4>
+							<div class="locker-accessories-price">
+								{item.priceOriginal && <span class="locker-accessories-price-old">{item.priceOriginal}</span>}
+								<span class="locker-accessories-price-current">{item.price}</span>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
@@ -67,13 +93,40 @@ const { items, title = 'LOCKER ACCESSORIES' } = Astro.props;
 		color: #0d0d0d;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
-		margin: 0 0 36px;
+		margin: 0 0 24px;
 	}
 
-	.locker-accessories-grid {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+	.locker-accessories-slider {
+		overflow: hidden;
+		margin: 0 -20px;
+		padding: 0 20px;
+	}
+
+	.locker-accessories-track {
+		display: flex;
+		width: max-content;
+		animation: locker-accessories-scroll 45s linear infinite;
+		will-change: transform;
+	}
+
+	.locker-accessories-track:hover {
+		animation-play-state: paused;
+	}
+
+	.locker-accessories-track-set {
+		display: flex;
 		gap: 24px;
+		flex: 0 0 auto;
+		padding-right: 24px;
+	}
+
+	@keyframes locker-accessories-scroll {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-50%);
+		}
 	}
 
 	.locker-accessories-card {
@@ -83,6 +136,8 @@ const { items, title = 'LOCKER ACCESSORIES' } = Astro.props;
 		background: #fff;
 		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 		transition: box-shadow 0.2s, transform 0.2s;
+		flex: 0 0 auto;
+		width: 260px;
 	}
 
 	.locker-accessories-card:hover {
@@ -175,8 +230,8 @@ const { items, title = 'LOCKER ACCESSORIES' } = Astro.props;
 	}
 
 	@media (max-width: 1024px) {
-		.locker-accessories-grid {
-			grid-template-columns: repeat(2, 1fr);
+		.locker-accessories-card {
+			width: 240px;
 		}
 	}
 
@@ -185,9 +240,8 @@ const { items, title = 'LOCKER ACCESSORIES' } = Astro.props;
 			font-size: 24px;
 		}
 
-		.locker-accessories-grid {
-			grid-template-columns: 1fr;
-			gap: 20px;
+		.locker-accessories-card {
+			width: 200px;
 		}
 	}
 </style>

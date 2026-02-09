@@ -6,19 +6,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	title="Our Process | Custom Sports Lockers | PlayerStall"
 	description="Learn about our process for creating custom wood sports lockers. Free consultation, custom design, and premium manufacturing with 5 year warranty."
 >
-	<!-- Hero Section (image only) -->
-	<section class="hero-section">
-		<div class="hero-parallax-img-holder">
-			<div class="hero-parallax-img-wrapper">
-				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Our Process" class="hero-parallax-img" />
-			</div>
+	<!-- Hero Section (same as shop: image + overlay + title "Our Process") -->
+	<section class="process-hero-section">
+		<div class="process-hero-background">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Our Process" class="process-hero-bg-image" />
 		</div>
-		<div class="hero-content qodef-content-grid hero-content-process">
-			<div class="breadcrumbs">
+		<div class="process-hero-background-overlay"></div>
+		<div class="process-hero-container">
+			<div class="process-hero-breadcrumbs">
 				<a href="/">Home</a>
-				<span class="breadcrumbs-separator"></span>
-				<span class="breadcrumbs-current">Our Process</span>
+				<span>Our Process</span>
 			</div>
+			<h1 class="process-hero-page-title">Our Process</h1>
+			<div class="process-hero-background-text">our process</div>
 		</div>
 	</section>
 
@@ -31,19 +31,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</div>
 			<div class="equipment-grid">
 				<div class="equipment-item">
-					<div class="equipment-circle">1</div>
-					<h4>Free Consultation</h4>
-					<p>We start with a free custom design consultation to understand your needs, space, and vision.</p>
+					<div class="equipment-item-image">
+						<img src="/images/topscorer/h3-blog-img-1.jpg" alt="Premium Materials - Quality wood sports lockers" loading="lazy" />
+						<span class="equipment-circle">1</span>
+					</div>
+					<h4>Premium Materials</h4>
+					<p>Melamine- or laminate-coated 3/4" cabinetry-grade plywood. Built to last a lifetime.</p>
 				</div>
 				<div class="equipment-item">
-					<div class="equipment-circle">2</div>
-					<h4>Custom Design</h4>
-					<p>Our team creates a custom design tailored to your specific space and requirements.</p>
+					<div class="equipment-item-image">
+						<img src="/images/topscorer/h3-blog-img-2.jpg" alt="Full Customization for team lockers" loading="lazy" />
+						<span class="equipment-circle">2</span>
+					</div>
+					<h4>Full Customization</h4>
+					<p>Team colors, vinyl logos, and branding can be done.</p>
 				</div>
 				<div class="equipment-item">
-					<div class="equipment-circle">3</div>
-					<h4>Manufacturing</h4>
-					<p>We manufacture your lockers using premium 3/4" solid wood and highest quality materials.</p>
+					<div class="equipment-item-image">
+						<img src="/images/topscorer/h3-blog-img-3.jpg" alt="Quick Ship lockers" loading="lazy" />
+						<span class="equipment-circle">3</span>
+					</div>
+					<h4>Quick Ship</h4>
+					<p>Some lockers and sizes are premade and ship quickly—no custom sizing or colors.</p>
+				</div>
+				<div class="equipment-item">
+					<div class="equipment-item-image">
+						<img src="/images/topscorer/h3-blog-img-4.jpg" alt="Custom Ship lockers" loading="lazy" />
+						<span class="equipment-circle">4</span>
+					</div>
+					<h4>Custom Ship</h4>
+					<p>Any size, any wood, phenolic, or other materials. We build it your way at a price that beats the rest.</p>
 				</div>
 			</div>
 			<div class="equipment-accordion">
@@ -86,6 +103,72 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</div>
 		</div>
 	</section>
+
+	<!-- Ready to Transform CTA -->
+	<section class="live-match">
+		<div class="live-badge">free</div>
+		<div class="match-container">
+			<div class="match-content">
+				<p class="match-subtitle">no obligation</p>
+				<h2 class="match-title">Ready to Transform Your Locker Room?</h2>
+				<p class="match-text">Get a free custom design consultation. No obligation, just expert advice from 30+ years of experience.</p>
+				<div class="match-cta-wrap">
+					<a href="/contact" class="btn btn-primary btn-large match-cta">Get Free Consultation</a>
+					<a href="/gallery" class="btn btn-secondary btn-large">View Our Work</a>
+				</div>
+				<p class="match-phone">Call us at <a href="tel:+18885878255" class="match-phone-link">1 (888) 58-STALL</a> or fill out our <a href="/contact" class="match-phone-link">contact form</a></p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Testimonials (what our clients say) -->
+	<section class="players-section">
+		<div class="players-bg-text">testimonials</div>
+		<div class="players-container">
+			<div class="section-header">
+				<p class="section-subtitle">trusted by champions</p>
+				<h2 class="section-title">what our clients say</h2>
+			</div>
+			<div class="players-grid">
+				<div class="player-card">
+					<div class="player-image">
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-10.jpg" alt="Collegiate Football Program" loading="lazy" />
+					</div>
+					<div class="player-details">
+						<div class="player-position">Head Coach</div>
+						<h4 class="player-name">"These lockers aren't just furniture—they're an investment in our culture. Our recruits notice the difference immediately."</h4>
+					</div>
+				</div>
+				<div class="player-card">
+					<div class="player-image">
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-11.jpg" alt="University Athletic Department" loading="lazy" />
+					</div>
+					<div class="player-details">
+						<div class="player-position">Athletic Director</div>
+						<h4 class="player-name">"After 15 years, our PlayerStall lockers still look professional. The modular design has saved us thousands in repairs."</h4>
+					</div>
+				</div>
+				<div class="player-card">
+					<div class="player-image">
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-12.jpg" alt="Professional Sports Organization" loading="lazy" />
+					</div>
+					<div class="player-details">
+						<div class="player-position">Facilities Manager</div>
+						<h4 class="player-name">"The free custom design service made all the difference. They understood our space and created the perfect solution."</h4>
+					</div>
+				</div>
+				<div class="player-card">
+					<div class="player-image">
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-13.jpg" alt="Collegiate Hockey Program" loading="lazy" />
+					</div>
+					<div class="player-details">
+						<div class="player-position">Hockey Coach</div>
+						<h4 class="player-name">"The reinforced construction handles our heavy hockey gear perfectly. These lockers are built to last."</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </BaseLayout>
 
 <style>
@@ -106,86 +189,104 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		z-index: 10;
 	}
 
-	/* Hero Section */
-	.hero-section {
+	/* Hero Section (same as shop: image + overlay + title) */
+	.process-hero-section {
 		position: relative;
-		min-height: 400px;
 		display: flex;
-		align-items: flex-end;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
+		overflow: hidden;
+		min-height: 320px;
+	}
+
+	.process-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
 		overflow: hidden;
 	}
 
-	.hero-parallax-img-holder {
+	.process-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
+	}
+
+	.process-hero-background-overlay {
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 100%);
 		z-index: 1;
 	}
 
-	.hero-parallax-img-wrapper {
-		width: 100%;
-		height: 100%;
-	}
-
-	.hero-parallax-img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		display: block;
-		filter: grayscale(100%);
-	}
-
-	.hero-content {
+	.process-hero-container {
 		position: relative;
 		z-index: 10;
-		width: 100%;
-		padding: 60px 0;
-	}
-
-	.qodef-content-grid {
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
+		text-align: left;
+		width: 100%;
 	}
 
-	.breadcrumbs {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		margin-bottom: 20px;
+	.process-hero-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
-		color: rgba(255, 255, 255, 0.9);
+		color: rgba(255, 255, 255, 0.85);
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
+		margin-bottom: 30px;
 	}
 
-	.breadcrumbs a {
-		color: rgba(255, 255, 255, 0.9);
+	.process-hero-breadcrumbs a {
+		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
+		transition: color 0.3s;
 	}
 
-	.breadcrumbs-separator {
-		width: 1px;
-		height: 12px;
-		background: rgba(255, 255, 255, 0.5);
+	.process-hero-breadcrumbs a:hover {
+		color: #fe5900;
 	}
 
-	.breadcrumbs-current {
-		color: rgba(255, 255, 255, 0.9);
+	.process-hero-breadcrumbs span {
+		margin-left: 10px;
+		color: #ffffff;
 	}
 
-	.hero-title {
+	.process-hero-page-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 80px;
+		font-size: 72px;
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0;
-		letter-spacing: 2px;
 		line-height: 1.1;
+		position: relative;
+		z-index: 10;
+	}
+
+	.process-hero-background-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 300px;
+		font-weight: 700;
+		color: rgba(255, 255, 255, 0.06);
+		text-transform: uppercase;
+		letter-spacing: -3px;
+		bottom: -50px;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+		z-index: 1;
 	}
 
 	/* Section Header */
@@ -218,106 +319,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		display: inline-block;
 	}
 
-	.section-title::before,
-	.section-title::after {
-		content: '';
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 60px;
-		height: 1px;
-		background: #000000;
-	}
-
-	.section-title::before {
-		top: -15px;
-	}
-
-	.section-title::after {
-		bottom: -15px;
-	}
-
-	/* Trending Section (Key Features) */
-	.trending-section {
-		background: #ffffff;
-		padding: 100px 0;
-	}
-
-	.trending-container {
-		max-width: 1300px;
-		margin: 0 auto;
-		padding: 0 20px;
-	}
-
-	.trending-grid {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 25px;
-	}
-
-	.trending-item {
-		position: relative;
-		height: 400px;
-		overflow: hidden;
-		cursor: pointer;
-	}
-
-	.trending-item img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 0.5s ease;
-	}
-
-	.trending-item:hover img {
-		transform: scale(1.1);
-	}
-
-	.trending-overlay {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
-		padding: 2rem;
-		color: #fff;
-	}
-
-	.trending-number {
-		font-family: 'Oswald', sans-serif;
-		font-size: 48px;
-		font-weight: 700;
-		color: #fe5900;
-		line-height: 1;
-		margin-bottom: 0.5rem;
-	}
-
-	.trending-meta {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		color: #999;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		margin-bottom: 1rem;
-	}
-
-	.trending-title {
-		font-family: 'Oswald', sans-serif;
-		font-size: 20px;
-		font-weight: 600;
-		color: #fff;
-		text-transform: uppercase;
-		margin-bottom: 1rem;
-	}
-
-	.trending-overlay p {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 16px;
-		color: #ccc;
-		line-height: 1.6;
-		margin-top: 15px;
-	}
-
 	/* Equipment Section (Our Process) */
 	.equipment-section {
 		background: #f7f7f7;
@@ -332,13 +333,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.equipment-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 3rem;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 2rem;
 		margin-bottom: 4rem;
 	}
 
 	.equipment-item {
 		text-align: center;
+	}
+
+	.equipment-item-image {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		overflow: hidden;
+		margin-bottom: 1.25rem;
+		border-radius: 4px;
+	}
+
+	.equipment-item-image img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.equipment-item-image .equipment-circle {
+		position: absolute;
+		bottom: 16px;
+		left: 16px;
+		width: 56px;
+		height: 56px;
+		margin: 0;
+		font-size: 28px;
 	}
 
 	.equipment-circle {
@@ -423,9 +450,241 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		line-height: 1.8;
 	}
 
+	/* Ready to Transform CTA (live-match) */
+	.live-match {
+		position: relative;
+		background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%);
+		padding: 100px 0;
+		text-align: center;
+		overflow: hidden;
+	}
+
+	.live-badge {
+		position: absolute;
+		top: 28px;
+		right: 28px;
+		background: #fe5900;
+		color: #fff;
+		padding: 12px 28px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+	}
+
+	.match-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		position: relative;
+		z-index: 10;
+	}
+
+	.match-content {
+		max-width: 640px;
+		margin: 0 auto;
+	}
+
+	.match-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		letter-spacing: 0.25em;
+		text-transform: uppercase;
+		color: #fe5900;
+		margin: 0 0 12px;
+	}
+
+	.match-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 42px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: none;
+		letter-spacing: 0.02em;
+		line-height: 1.2;
+		margin: 0 0 24px;
+	}
+
+	.match-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #b6b6b6;
+		line-height: 1.7;
+		margin: 0 0 32px;
+	}
+
+	.match-cta-wrap {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		flex-wrap: wrap;
+		margin-bottom: 0;
+	}
+
+	.match-cta-wrap .btn {
+		min-width: 120px;
+		padding: 0.75rem 1.8rem;
+		font-size: 0.85rem;
+	}
+
+	.match-cta {
+		display: inline-block;
+		min-width: 132px;
+	}
+
+	.match-phone {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #8c8c8c;
+		margin: 28px 0 0;
+	}
+
+	.match-phone-link {
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 500;
+		transition: color 0.2s ease;
+	}
+
+	.match-phone-link:hover {
+		color: #ff7426;
+	}
+
+	/* Buttons for CTA */
+	.btn {
+		display: inline-block;
+		padding: 0.75rem 1.8rem;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		font-size: 0.85rem;
+		transition: all 0.3s;
+		font-family: 'Roboto', sans-serif;
+		border: 2px solid transparent;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #ffffff;
+		border-color: #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+	}
+
+	.btn-secondary {
+		background: #333;
+		color: #fff;
+		border-color: #333;
+	}
+
+	.btn-secondary:hover {
+		background: #fe5900;
+		border-color: #fe5900;
+		color: #fff;
+	}
+
+	.btn-large {
+		padding: 0.75rem 1.8rem;
+		font-size: 0.85rem;
+	}
+
+	/* Testimonials (what our clients say) */
+	.players-section {
+		position: relative;
+		background: #ffffff;
+		padding: 100px 0;
+		overflow: hidden;
+	}
+
+	.players-bg-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 300px;
+		font-weight: 700;
+		color: rgba(13, 13, 13, 0.03);
+		text-transform: uppercase;
+		letter-spacing: -3px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		white-space: nowrap;
+		z-index: 1;
+	}
+
+	.players-container {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.players-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 25px;
+	}
+
+	.player-card {
+		background: #fff;
+		border: 1px solid #e0e0e0;
+		overflow: hidden;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.player-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	}
+
+	.player-image {
+		width: 100%;
+		height: 250px;
+		overflow: hidden;
+	}
+
+	.player-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+
+	.player-card:hover .player-image img {
+		transform: scale(1.1);
+	}
+
+	.player-details {
+		padding: 1.5rem;
+	}
+
+	.player-position {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 1rem;
+	}
+
+	.player-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d;
+		line-height: 1.4;
+		margin: 0;
+		font-style: italic;
+	}
+
 	/* Responsive */
 	@media (max-width: 1024px) {
-		.hero-title {
+		.process-hero-page-title {
 			font-size: 56px;
 		}
 
@@ -433,22 +692,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			font-size: 36px;
 		}
 
-		.trending-grid {
+		.players-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
 
 		.equipment-grid {
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: repeat(2, 1fr);
 			gap: 2rem;
 		}
 	}
 
 	@media (max-width: 768px) {
-		.hero-section {
+		.process-hero-section {
 			min-height: 300px;
 		}
 
-		.hero-title {
+		.process-hero-page-title {
 			font-size: 42px;
 		}
 
@@ -456,12 +715,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			font-size: 28px;
 		}
 
-		.trending-section,
-		.equipment-section {
+		.match-title {
+			font-size: 32px;
+		}
+
+		.live-match {
 			padding: 80px 0;
 		}
 
-		.trending-grid {
+		.equipment-section,
+		.players-section {
+			padding: 80px 0;
+		}
+
+		.players-grid {
 			grid-template-columns: 1fr;
 		}
 
@@ -472,12 +739,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	@media (max-width: 480px) {
-		.hero-title {
+		.process-hero-page-title {
 			font-size: 32px;
 		}
 
 		.section-title {
 			font-size: 24px;
+		}
+
+		.match-title {
+			font-size: 26px;
 		}
 	}
 </style>

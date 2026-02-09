@@ -559,7 +559,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		cursor: pointer;
 		color: inherit;
 		text-decoration: none;
-		font: inherit;
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: inherit;
+		line-height: inherit;
+		letter-spacing: inherit;
 	}
 
 	.product-card-trigger:focus,
@@ -714,6 +718,47 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		text-transform: uppercase;
 		margin: 0;
 		line-height: 1.2;
+	}
+
+	/* Ensure Elite and Semi Pro use same title/position size and style as products above (Pro, Stadium, Varsity) */
+	#elite .product-name,
+	#semi-pro .product-name,
+	#legendary .product-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #000000;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.2;
+	}
+
+	/* Elite card: same font as product above (Stadium), not affected by button default font */
+	#elite .product-card-trigger .product-name,
+	#elite .product-card-trigger .product-price-inline {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #000000;
+	}
+
+	/* 30% bigger gap before and under Elite (grid gap 30px → 39px effective) */
+	#elite {
+		margin-top: 9px;
+		margin-bottom: 9px;
+	}
+
+	#elite .product-position,
+	#semi-pro .product-position,
+	#legendary .product-position {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		font-weight: 400;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 10px;
+		display: block;
 	}
 
 	.product-price-inline {

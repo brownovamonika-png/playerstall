@@ -126,9 +126,12 @@ const posts = [
 ];
 ---
 
-<BaseLayout title="Blog - Sports Locker Insights & Tips | PlayerStall" description="Expert insights on sports lockers, locker room design, and athletic facility management. Tips from 30+ years of experience." headerBlack>
-	<!-- Hero Section (styled like Gallery hero) -->
+<BaseLayout title="Blog - Sports Locker Insights & Tips | PlayerStall" description="Expert insights on sports lockers, locker room design, and athletic facility management. Tips from 30+ years of experience.">
+	<!-- Hero Section (same as shop: image + overlay + title "Blog") -->
 	<section class="blog-hero-section">
+		<div class="blog-hero-background">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Blog" class="blog-hero-bg-image" />
+		</div>
 		<div class="blog-hero-background-overlay"></div>
 		<div class="blog-hero-container">
 			<div class="blog-breadcrumbs">
@@ -183,22 +186,51 @@ const posts = [
 <style>
 	:global(body) {
 		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
-		background: #f7f7f7;
+		background: #ffffff;
 		color: #0d0d0d;
+		margin: 0;
+		padding: 0;
+		line-height: 1.6;
 	}
 
-	section {
+	/* Only content sections get max-width/padding; hero is full-bleed like our-process */
+	.masonry-blog-section .container,
+	.cta-section .container {
 		max-width: 1300px;
 		margin: 0 auto;
-		padding: 4rem 20px;
+		padding: 0 20px;
 	}
 
-	/* Blog Hero Section (styled like Gallery hero) */
+	/* Blog Hero Section (same as our-process: full-bleed image + overlay + title) */
 	.blog-hero-section {
 		position: relative;
-		background: #f7f7f7;
-		padding: 120px 0 80px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
 		overflow: hidden;
+		min-height: 320px;
+		width: 100%;
+		max-width: none;
+		margin: 0;
+	}
+
+	.blog-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.blog-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
 	}
 
 	.blog-hero-background-overlay {
@@ -207,8 +239,8 @@ const posts = [
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(135deg, rgba(13, 13, 13, 0.05) 0%, rgba(13, 13, 13, 0.02) 100%);
-		opacity: 0.5;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 100%);
+		z-index: 1;
 	}
 
 	.blog-hero-container {
@@ -218,19 +250,20 @@ const posts = [
 		margin: 0 auto;
 		padding: 0 20px;
 		text-align: left;
+		width: 100%;
 	}
 
 	.blog-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		margin-bottom: 30px;
 	}
 
 	.blog-breadcrumbs a {
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
 		transition: color 0.3s;
 	}
@@ -241,14 +274,14 @@ const posts = [
 
 	.blog-breadcrumbs span {
 		margin-left: 10px;
-		color: #0d0d0d;
+		color: #ffffff;
 	}
 
 	.blog-page-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: 72px;
 		font-weight: 600;
-		color: #0d0d0d;
+		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0;
 		line-height: 1.1;
@@ -261,7 +294,7 @@ const posts = [
 		font-family: 'Oswald', sans-serif;
 		font-size: 300px;
 		font-weight: 700;
-		color: rgba(13, 13, 13, 0.03);
+		color: rgba(255, 255, 255, 0.06);
 		text-transform: uppercase;
 		letter-spacing: -3px;
 		bottom: -50px;
@@ -470,37 +503,26 @@ const posts = [
 	}
 
 	@media (max-width: 1024px) {
-		.hero-title {
-			font-size: 48px;
-			line-height: 1.2;
-		}
-
-		.hero-image {
-			display: none;
-		}
-
-		.playoff-text {
-			font-size: 150px;
+		.blog-page-title {
+			font-size: 56px;
 		}
 	}
 
 	@media (max-width: 768px) {
-		section {
-			padding: 3rem 1.5rem;
+		.blog-hero-section {
+			min-height: 300px;
 		}
 
-		.hero {
-			height: 600px;
-			padding-left: 20px;
+		.blog-page-title {
+			font-size: 42px;
 		}
 
-		.hero-title {
-			font-size: 36px;
-			line-height: 1.2;
+		.masonry-blog-section .container {
+			padding: 0 1.5rem;
 		}
 
-		.hero-text {
-			font-size: 16px;
+		.cta-section .container {
+			padding: 0 1.5rem;
 		}
 
 		.hero-buttons {
@@ -521,6 +543,10 @@ const posts = [
 	}
 
 	@media (max-width: 480px) {
+		.blog-page-title {
+			font-size: 32px;
+		}
+
 		.masonry-blog-grid {
 			grid-template-columns: 1fr;
 		}
