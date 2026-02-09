@@ -6,10 +6,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	title="Contact Us & Request a Quote | PlayerStall"
 	description="Get in touch or request a quote for custom sports lockers. Free design consultation. 30+ years experience, 5 year warranty. Quick response."
 >
-	<!-- Hero Section -->
-	<section class="hero" id="hero">
-		<div class="hero-background">
-			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Contact PlayerStall" class="hero-bg-image" />
+	<!-- Hero Section (same as our-process: image + overlay + white "Contact" title) -->
+	<section class="contact-hero-section" id="hero">
+		<div class="contact-hero-background">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Contact PlayerStall" class="contact-hero-bg-image" />
+		</div>
+		<div class="contact-hero-background-overlay"></div>
+		<div class="contact-hero-container">
+			<div class="contact-hero-breadcrumbs">
+				<a href="/">Home</a>
+				<span>Contact</span>
+			</div>
+			<h1 class="contact-hero-page-title">Contact</h1>
+			<div class="contact-hero-background-text">contact</div>
 		</div>
 	</section>
 
@@ -213,28 +222,104 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 20px;
 	}
 
-	.hero {
+	/* Contact Hero (same as our-process: full-bleed image + overlay + white title) */
+	.contact-hero-section {
 		position: relative;
-		height: 400px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
 		overflow: hidden;
-		margin-top: 0;
+		min-height: 320px;
 	}
 
-	.hero-background {
+	.contact-hero-background {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		z-index: 1;
+		z-index: 0;
 		overflow: hidden;
 	}
 
-	.hero-bg-image {
+	.contact-hero-bg-image {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: center center;
 		filter: grayscale(100%);
+	}
+
+	.contact-hero-background-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 100%);
+		z-index: 1;
+	}
+
+	.contact-hero-container {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		text-align: left;
+		width: 100%;
+	}
+
+	.contact-hero-breadcrumbs {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: rgba(255, 255, 255, 0.85);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
+	}
+
+	.contact-hero-breadcrumbs a {
+		color: rgba(255, 255, 255, 0.85);
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.contact-hero-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.contact-hero-breadcrumbs span {
+		margin-left: 10px;
+		color: #ffffff;
+	}
+
+	.contact-hero-page-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 72px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
+	}
+
+	.contact-hero-background-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 300px;
+		font-weight: 700;
+		color: rgba(255, 255, 255, 0.06);
+		text-transform: uppercase;
+		letter-spacing: -3px;
+		bottom: -50px;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+		z-index: 1;
 	}
 
 	.contact-section {
@@ -513,8 +598,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	@media (max-width: 1024px) {
-		.hero {
-			height: 350px;
+		.contact-hero-section {
+			min-height: 280px;
+		}
+		.contact-hero-page-title {
+			font-size: 56px;
+		}
+		.contact-hero-background-text {
+			font-size: 220px;
 		}
 	}
 
@@ -539,8 +630,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	@media (max-width: 768px) {
-		.hero {
-			height: 300px;
+		.contact-hero-section {
+			min-height: 240px;
+			padding-bottom: 50px;
+		}
+		.contact-hero-page-title {
+			font-size: 42px;
+		}
+		.contact-hero-background-text {
+			font-size: 140px;
 		}
 
 		.quote-form-wrapper {

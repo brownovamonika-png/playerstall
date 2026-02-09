@@ -6,8 +6,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	title="Gallery - Custom Sports Lockers | PlayerStall" 
 	description="View our gallery of custom wood sports lockers for football, hockey, basketball, baseball, and soccer. Premium locker room solutions."
 >
-	<!-- Hero Section -->
+	<!-- Hero Section (same container as shop: image + overlay, text "Gallery") -->
 	<section class="gallery-hero-section">
+		<div class="gallery-hero-background">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Gallery custom sports lockers" class="gallery-hero-bg-image" />
+		</div>
 		<div class="gallery-hero-background-overlay"></div>
 		<div class="gallery-hero-container">
 			<div class="gallery-breadcrumbs">
@@ -204,12 +207,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 20px;
 	}
 
-	/* Hero Section */
+	/* Hero Section (same as shop: image background, dark overlay, white text) */
 	.gallery-hero-section {
 		position: relative;
-		background: #f7f7f7;
-		padding: 120px 0 80px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
 		overflow: hidden;
+		min-height: 320px;
+	}
+
+	.gallery-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.gallery-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
 	}
 
 	.gallery-hero-background-overlay {
@@ -218,8 +242,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(135deg, rgba(13, 13, 13, 0.05) 0%, rgba(13, 13, 13, 0.02) 100%);
-		opacity: 0.5;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 100%);
+		z-index: 1;
 	}
 
 	.gallery-hero-container {
@@ -229,19 +253,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin: 0 auto;
 		padding: 0 20px;
 		text-align: left;
+		width: 100%;
 	}
 
 	.gallery-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		margin-bottom: 30px;
 	}
 
 	.gallery-breadcrumbs a {
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
 		transition: color 0.3s;
 	}
@@ -252,14 +277,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.gallery-breadcrumbs span {
 		margin-left: 10px;
-		color: #0d0d0d;
+		color: #ffffff;
 	}
 
 	.gallery-page-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: 72px;
 		font-weight: 600;
-		color: #0d0d0d;
+		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0;
 		line-height: 1.1;
@@ -272,7 +297,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		font-family: 'Oswald', sans-serif;
 		font-size: 300px;
 		font-weight: 700;
-		color: rgba(13, 13, 13, 0.03);
+		color: rgba(255, 255, 255, 0.06);
 		text-transform: uppercase;
 		letter-spacing: -3px;
 		bottom: -50px;
