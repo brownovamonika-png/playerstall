@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const post = {
+  title: 'Why every athlete needs a Sports Locker',
+  description: 'Why every athlete needs a Sports Locker The game starts in 10 minutes and you’re still running around searching for your equipment. You’ve found it! But now you',
+  category: 'Sports lockers',
+  datePublished: '2017-03-31',
+  readTime: '5 min read',
+  author: 'PlayerStall',
+  slug: 'every-athlete-needs-sports-locker',
+  wordCount: 376
+};
+
+const content = `<h2>Why every athlete needs a Sports Locker</h2>
+The game starts in 10 minutes and you’re still running around searching for your equipment. You’ve found it! But now you’ve got seven minutes. Grabbing your equipment and your gear, you race to the field. You put your socks on. It smells. You throw your shirt on. It’s damp. And your helmet or hockey stick? It’s damaged. That’s the risk of leaving everything rolling around the trunk of your car.
+
+The solution is simple – you need a sports locker. If it’s specifically for sports, then you need one of our wood sports lockers. We cater to professional athletes, amateur sports teams, individuals, and even children, so every sports enthusiast has a way to keep their gear dry and organized.
+
+&nbsp;
+<h4>Why Wood Sport Lockers Are Best for Storing Your Equipment</h4>
+&nbsp;
+
+After a game, most athletes strip off their equipment and either spread it out on the floor or just leave it in their bag. Our lockers will get that gear off the floor and keep it dry and organized. Our robust sports lockers are designed to filter biological elements and organic materials, such as sweat and smell, allowing it to be durable and remain functional for longer. This also mitigates health concerns and airs out your clothes and equipment. It’s also easy to clean and maintain. To sterilize, a simple wipe-down using sanitizer usually does the trick.
+
+&nbsp;
+<h4>Functionality and Aesthetic</h4>
+&nbsp;
+
+We know that functionality is important, but so are looks. Wood sport lockers are easier on the eyes and can be customized in various styles and finishes to suit your décor. We customize free of charge to suit every type of room.
+
+If you’re looking to organize your sports equipment that's creating a mess in your home, then we can help you. Simply have a look at our range of sports lockers, choose one you like and feel free to contact us with any questions you may have. Our goal is to make your life a little easier, so that you can enjoy the finer things in life – like your sports.`;
+---
+
+<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
+  <section class="page-header">
+    <div class="container">
+      <div class="article-meta">
+        <span class="blog-date">{post.datePublished ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown'} · {post.readTime}</span>
+        <span class="blog-category">{post.category}</span>
+      </div>
+      <h1>{post.title}</h1>
+      {post.description && <p class="lede">{post.description}</p>}
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <div class="container">
+      <article class="blog-content">
+        <Fragment set:html={content} />
+      </article>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready for Custom Sports Lockers?</h2>
+        <p>Get a free design consultation. 30+ years experience. Lifetime guarantee.</p>
+        <a class="btn-primary" href="/contact">Get Free Consultation</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  :global(:root) { --bg-off-white: #f9f7f2; --border-color: #e3dfd7; --text-gray: #4a4a4a; --accent-color: #fe5900; --text-white: #ffffff; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+  .page-header { background: var(--bg-off-white); padding: 4rem 0; text-align: center; }
+  .article-meta { display: flex; gap: 1rem; justify-content: center; font-size: 0.9rem; color: var(--accent-color); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+  .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; line-height: 1.25; }
+  .lede { max-width: 760px; margin: 0 auto; font-size: 1.2rem; color: var(--text-gray); line-height: 1.8; }
+  .blog-section { padding: 4rem 0; }
+  .blog-content { background: var(--bg-off-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; }
+  .blog-content :global(h2) { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 2rem; }
+  .blog-content :global(h2:first-of-type) { margin-top: 0; }
+  .blog-content :global(h3), .blog-content :global(h4) { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.35rem; }
+  .blog-content :global(p), .blog-content :global(ul) { color: var(--text-gray); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
+  .blog-content :global(ul) { padding-left: 1.5rem; margin: 1.5rem 0; }
+  .blog-content :global(a) { color: var(--accent-color); text-decoration: none; }
+  .blog-content :global(a:hover) { text-decoration: underline; }
+  .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; background: var(--accent-color); color: var(--text-white); letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+  .cta-section { background: #121212; color: #fff; padding: 4rem 0; margin-top: 2rem; }
+  .cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 16px; }
+  .cta-content h2 { margin-top: 0; font-size: 2.25rem; color: #fff; }
+  .cta-content p { color: #d8d8d8; margin-bottom: 2rem; font-size: 1.1rem; }
+  @media (max-width: 768px) { .blog-content { padding: 2rem; } }
+</style>

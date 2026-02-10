@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const post = {
+  title: 'Sports Lockers for your local Sports Team',
+  description: 'Sports Lockers for your local sports team   Locker rooms in sports stadiums and athletic centers can be furnished with a variety of open access sports lockers. ',
+  category: 'Uncategorized',
+  datePublished: '2017-04-21',
+  readTime: '5 min read',
+  author: 'PlayerStall',
+  slug: 'sports-lockers-local-sports-team',
+  wordCount: 823
+};
+
+const content = `<h1><img class="size-medium wp-image-211 alignright" src="http://customsportslockers.com/wp-content/uploads/2016/03/CL1buBfWwAAYclA-300x225.jpg" alt="Soccer Locker room" width="300" height="225">Sports Lockers for your local sports team</h1>
+&nbsp;
+
+Locker rooms in sports stadiums and athletic centers can be furnished with a variety of open access sports lockers. These units are designed to fully accommodate the storage of uniforms, day clothing, special athletic equipment, and valuables. All locker models share the same basic design, but their dimensions, special features, and material builds vary widely to accommodate different environments and different types of sports.
+
+Professional sports stadiums, universities, and varsity high school athletic programs typically prefer the wooden sports locker models because they feature both an efficient storage design and a higher quality aesthetic more in keeping with an upbeat, positive, and winning attitude.
+
+PlayerStall sports lockers feature three interior storage sections. There is a top shelf unit that creates a cubby area where players can store their helmets, gloves, shoes, water bottles, or other items that can be fit into its space.
+
+Dressing room lockers also have a middle section that constitutes the bulk of their vertical space. This area is typically used to store uniforms and larger pieces of equipment. Our nickel polished hooks allow for day clothing to also be hung up neatly after athletes have changed into their uniforms.
+
+PlayerStall <a href="http://customsportslockers.com/sports-lockers/">sports lockers</a> also have a foot locker compartment at the bottom that in many models doubles as a bench when the player needs to put on athletic footwear. This compartment is below the Lift up Seat and gives a lot of space to store many types of items inside.
+
+&nbsp;
+<h2>Soccer Lockers</h2>
+&nbsp;
+
+Serious soccer players need <a href="http://customsportslockers.com/soccer-lockers/">soccer lockers</a> that will allow them to organize their uniforms and equipment. Uniforms should be kept neat and wrinkle free so the team can hit the field looking their absolute best. Both clothing and gear should be easily retrievable so players can quickly change. Players also need a place to sit when they put on their shoes or soccer boots, and they need a safe place to store valuables.
+
+The open access, wooden stadium locker meets all of these needs. Consisting of four storage sections, it accommodates the needs of any soccer team of any age, academic affiliation, league, or professional organization.
+
+The main storage area is designed like an open closet, complete with a coat hooks. This provides the players with sufficient room to store several practice uniforms, and special goalie jerseys and shorts if appropriate.
+
+Soccer coaches and referees can store soccer cones here. For those teams who also order soccer tracksuits for players, this closet like area provides enough room at the bottom for a neatly folded tracksuit to be stored.
+
+Even though many soccer teams play the game with soccer boots, there are many teams that also either practice or play official games in standard athletic shoes. It depends on the age group and nature of the soccer league as to which type of footgear is preferred. Open access wooden stadium lockers accommodate either or both preference.
+
+At the top of the soccer locker is an open shelf which provides the player with the perfect place to store a pair of athletic shoes and a practice soccer ball. With this extra storage space at the top, the player always has a place to store shoes in an easy to reach place that is also out of the way of other gear and clothing.
+
+Another remarkable feature of the open access stadium wooden soccer locker is the closed foot locker section at the bottom. This foot locker is the perfect size for professional soccer players to store their best pair of soccer boots. Players can store several pair of clean socks here, and they can also store several pair of shin guards. A separate pair of shin guards and socks can be stored on the top shelf for quick access if so desired.
+
+This locker also plays a dual role as a locker room bench. The bottom of the foot locker slants inward at the base, allowing the player to use the top section as a small bench while putting on shin guards, shoes, or boots.
+
+Soccer lockers are made from the highest quality birch plywood with a three coat lacquer finish to make it super moisture resistant. Lockers can be customized with locks on the foot locker storage for extra security, and they can be customized with team logos for academic and professional soccer organizations.
+
+If you are looking for Sports Lockers for your local sports team, PlayerStall has everything you need. Contact us anytime to inquire about our Team Discounts that we offer to local sports teams.&nbsp;`;
+---
+
+<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
+  <section class="page-header">
+    <div class="container">
+      <div class="article-meta">
+        <span class="blog-date">{post.datePublished ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown'} · {post.readTime}</span>
+        <span class="blog-category">{post.category}</span>
+      </div>
+      <h1>{post.title}</h1>
+      {post.description && <p class="lede">{post.description}</p>}
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <div class="container">
+      <article class="blog-content">
+        <Fragment set:html={content} />
+      </article>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready for Custom Sports Lockers?</h2>
+        <p>Get a free design consultation. 30+ years experience. Lifetime guarantee.</p>
+        <a class="btn-primary" href="/contact">Get Free Consultation</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  :global(:root) { --bg-off-white: #f9f7f2; --border-color: #e3dfd7; --text-gray: #4a4a4a; --accent-color: #fe5900; --text-white: #ffffff; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+  .page-header { background: var(--bg-off-white); padding: 4rem 0; text-align: center; }
+  .article-meta { display: flex; gap: 1rem; justify-content: center; font-size: 0.9rem; color: var(--accent-color); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+  .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; line-height: 1.25; }
+  .lede { max-width: 760px; margin: 0 auto; font-size: 1.2rem; color: var(--text-gray); line-height: 1.8; }
+  .blog-section { padding: 4rem 0; }
+  .blog-content { background: var(--bg-off-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; }
+  .blog-content :global(h2) { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 2rem; }
+  .blog-content :global(h2:first-of-type) { margin-top: 0; }
+  .blog-content :global(h3), .blog-content :global(h4) { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.35rem; }
+  .blog-content :global(p), .blog-content :global(ul) { color: var(--text-gray); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
+  .blog-content :global(ul) { padding-left: 1.5rem; margin: 1.5rem 0; }
+  .blog-content :global(a) { color: var(--accent-color); text-decoration: none; }
+  .blog-content :global(a:hover) { text-decoration: underline; }
+  .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; background: var(--accent-color); color: var(--text-white); letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+  .cta-section { background: #121212; color: #fff; padding: 4rem 0; margin-top: 2rem; }
+  .cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 16px; }
+  .cta-content h2 { margin-top: 0; font-size: 2.25rem; color: #fff; }
+  .cta-content p { color: #d8d8d8; margin-bottom: 2rem; font-size: 1.1rem; }
+  @media (max-width: 768px) { .blog-content { padding: 2rem; } }
+</style>

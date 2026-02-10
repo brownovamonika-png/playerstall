@@ -1,0 +1,472 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const post = {
+	title: 'Building Championship Culture: The Psychology of Locker Room Design',
+	description:
+		'How locker design shapes team identity and builds belonging. Learn how the right locker room can transform team culture and create spaces where athletes feel valued and inspired.',
+	category: 'Culture',
+	datePublished: '2024-12-15',
+	readTime: '7 min read',
+	author: 'PlayerStall Editorial Team',
+	slug: 'building-championship-culture',
+	wordCount: 1650
+};
+
+const faqItems = [
+	{
+		question: 'How does locker room design impact team culture?',
+		answer:
+			'Research shows that physical spaces directly impact behavior and psychology. Professional locker rooms with custom wood lockers, team branding, and personalized spaces create an environment where athletes take more pride, respect the facility, feel valued, and behave more professionally. The quality and attention to detail in the locker room sends a message about the program\'s values.'
+	},
+	{
+		question: 'What elements make a locker room culture-building?',
+		answer:
+			'Four key elements: 1) Quality and craftsmanship that signals excellence, 2) Custom branding with team colors and logos that reinforce identity, 3) Personalization with player names that creates individual recognition within team identity, and 4) Organization and care that shows attention to detail. Together, these elements create a professional environment that shapes behavior and builds belonging.'
+	},
+	{
+		question: 'What message does a professional locker room send to athletes?',
+		answer:
+			'Professional wood lockers communicate: "We value excellence," "We invest in our athletes," "We\'re building something special," and "You\'re part of something important." This contrasts with basic metal lockers that may suggest the program simply needed storage or chose the cheapest option. The locker room sets expectations and helps build championship culture.'
+	}
+];
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Article',
+			headline: post.title,
+			description: post.description,
+			datePublished: post.datePublished,
+			dateModified: post.datePublished,
+			wordCount: post.wordCount,
+			author: {
+				'@type': 'Organization',
+				name: post.author
+			},
+			publisher: {
+				'@type': 'Organization',
+				name: 'PlayerStall',
+				logo: {
+					'@type': 'ImageObject',
+					url: 'https://playerstall.com/images/logoblack2.png'
+				}
+			},
+			mainEntityOfPage: {
+				'@type': 'WebPage',
+				'@id': `https://playerstall.com/blog/${post.slug}`
+			}
+		},
+		{
+			'@type': 'FAQPage',
+			mainEntity: faqItems.map((item) => ({
+				'@type': 'Question',
+				name: item.question,
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: item.answer
+				}
+			}))
+		}
+	]
+};
+---
+
+<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
+	<section class="page-header">
+		<div class="container">
+			<div class="article-meta">
+				<span class="blog-date">December 15, 2024 · {post.readTime}</span>
+				<span class="blog-category">{post.category}</span>
+			</div>
+			<h1>{post.title}</h1>
+			<p class="lede">
+				How locker design shapes team identity and builds belonging. Learn how the right locker room can transform team culture and create spaces where athletes feel valued and inspired.
+			</p>
+		</div>
+	</section>
+
+	<section class="blog-section">
+		<div class="container">
+			<article class="blog-content">
+				<h2 id="culture-builder">The Locker Room as Culture Builder</h2>
+				<p>
+					The locker room isn't just where athletes store their gear—it's where team culture is built, where bonds are formed, and where identity is shaped. After 30+ years working with athletic programs, we've seen how locker room design directly impacts team culture.
+				</p>
+				<p>
+					Here's what we've learned about the psychology of locker room design and how it shapes championship culture.
+				</p>
+
+				<h2 id="psychology-of-space">The Psychology of Space</h2>
+				<p>Research shows that physical spaces directly impact behavior and psychology. In athletic settings, this is especially true:</p>
+
+				<h3>Professional Spaces Create Professional Behavior</h3>
+				<p>When athletes walk into a professional locker room with custom wood lockers, team colors, and personalized spaces, they're more likely to:</p>
+				<ul>
+					<li>Take pride in their program</li>
+					<li>Respect the facility and equipment</li>
+					<li>Feel valued as athletes</li>
+					<li>Behave more professionally</li>
+				</ul>
+
+				<h3>Personalization Builds Belonging</h3>
+				<p>When lockers feature player names, numbers, and team branding, athletes develop a stronger sense of belonging. They see themselves as part of something bigger—a team with identity and purpose.</p>
+
+				<h2 id="culture-building-elements">What Makes a Culture-Building Locker Room</h2>
+
+				<h3>1. Quality and Craftsmanship</h3>
+				<p>Wood lockers made with attention to detail send a message: "We value excellence." This message extends to how athletes approach their sport.</p>
+
+				<h3>2. Custom Branding</h3>
+				<p>Team colors, logos, and custom designs create visual identity. When athletes see their team's brand throughout the locker room, it reinforces team identity and pride.</p>
+
+				<h3>3. Personalization</h3>
+				<p>Player names on lockers create individual recognition within team identity. Each athlete has their space, but it's part of the larger team.</p>
+
+				<h3>4. Organization and Care</h3>
+				<p>A well-maintained locker room shows that the program cares about details. This attention to detail translates to on-field performance.</p>
+
+				<h2 id="real-world-impact">Real-World Impact</h2>
+				<p>We've worked with programs that saw immediate culture improvements after locker room renovations:</p>
+				<ul>
+					<li><strong>Increased team pride:</strong> Athletes take more ownership</li>
+					<li><strong>Better care of equipment:</strong> Respect for the facility increases</li>
+					<li><strong>Stronger team bonds:</strong> Shared space builds connection</li>
+					<li><strong>Improved discipline:</strong> Professional environment encourages professionalism</li>
+				</ul>
+
+				<h2 id="locker-room-message">The Message Your Locker Room Sends</h2>
+				<p>Every locker room sends a message. What does yours say?</p>
+
+				<div class="message-comparison">
+					<p><strong>Professional wood lockers say:</strong></p>
+					<ul>
+						<li>"We value excellence"</li>
+						<li>"We invest in our athletes"</li>
+						<li>"We're building something special"</li>
+						<li>"You're part of something important"</li>
+					</ul>
+					<p><strong>Basic metal lockers say:</strong></p>
+					<ul>
+						<li>"We needed storage"</li>
+						<li>"This was the cheapest option"</li>
+						<li>"Function over form"</li>
+					</ul>
+				</div>
+
+				<h2 id="championship-culture">Building Championship Culture</h2>
+				<p>Championship culture isn't built overnight, but it starts with the right foundation. A professional locker room creates that foundation by:</p>
+				<ol>
+					<li><strong>Setting expectations:</strong> Professional space = professional standards</li>
+					<li><strong>Building identity:</strong> Team branding creates shared identity</li>
+					<li><strong>Creating belonging:</strong> Personalized spaces make athletes feel valued</li>
+					<li><strong>Encouraging pride:</strong> Quality facilities inspire pride</li>
+				</ol>
+
+				<h2>Conclusion: Invest in Culture</h2>
+				<p>The locker room is more than storage—it's a culture-building tool. When you invest in a professional locker room with custom wood lockers, you're investing in team culture, identity, and success.</p>
+				<p>After 30+ years, we've seen the impact. Programs with professional locker rooms don't just look better—they perform better, recruit better, and build stronger cultures.</p>
+
+				<div class="inline-cta">
+					<h3>Build Your Championship Culture</h3>
+					<p>Get a free custom design consultation and see how wood lockers can transform your team culture.</p>
+					<a class="btn-secondary" href="/contact">Get Free Consultation</a>
+				</div>
+
+				<div class="related-links">
+					<p>
+						<strong>Related Articles:</strong>
+						<a href="/blog/blog-post-recruiting">Locker Rooms That Win Recruits</a> ·
+						<a href="/blog/blog-post-design">Locker Room Planning Process</a>
+					</p>
+				</div>
+
+				<div class="faq-section" id="faq">
+					<h2>Locker Room Culture FAQ</h2>
+					{faqItems.map((item) => {
+						return (
+							<div class="faq-item">
+								<h3 class="faq-question">{item.question}</h3>
+								<p class="faq-answer">{item.answer}</p>
+							</div>
+						);
+					})}
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<section class="cta-section">
+		<div class="container">
+			<div class="cta-content">
+				<h2>Ready to Build Championship Culture?</h2>
+				<p>Get a free custom design consultation and see how wood lockers can transform your team culture.</p>
+				<a class="btn-primary" href="/contact">Get Free Consultation</a>
+			</div>
+		</div>
+	</section>
+
+	<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+</BaseLayout>
+
+<style>
+	:global(:root) {
+		--bg-off-white: #f9f7f2;
+		--border-color: #e3dfd7;
+		--text-gray: #4a4a4a;
+		--accent-color: #fe5900;
+		--text-white: #ffffff;
+	}
+
+	.container {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+
+	.page-header {
+		background: var(--bg-off-white);
+		padding: 4rem 0;
+		text-align: center;
+	}
+
+	.article-meta {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		font-size: 0.9rem;
+		color: var(--accent-color);
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		margin-bottom: 1rem;
+	}
+
+	.page-header h1 {
+		font-size: clamp(2rem, 4vw, 3rem);
+		margin-bottom: 1rem;
+		line-height: 1.25;
+	}
+
+	.lede {
+		max-width: 760px;
+		margin: 0 auto;
+		font-size: 1.2rem;
+		color: var(--text-gray);
+		line-height: 1.8;
+	}
+
+	.blog-section {
+		padding: 4rem 0;
+	}
+
+	.blog-content {
+		background: var(--bg-off-white);
+		border: 1px solid var(--border-color);
+		border-radius: 12px;
+		padding: 3rem;
+	}
+
+	.blog-content h2 {
+		margin-top: 2.5rem;
+		margin-bottom: 1rem;
+		font-size: 2rem;
+	}
+
+	.blog-content h2:first-of-type {
+		margin-top: 0;
+	}
+
+	.blog-content h3 {
+		margin-top: 2rem;
+		margin-bottom: 0.75rem;
+		font-size: 1.35rem;
+	}
+
+	.blog-content p {
+		color: var(--text-gray);
+		font-size: 1.05rem;
+		line-height: 1.8;
+		margin-bottom: 1rem;
+	}
+
+	.blog-content ul,
+	.blog-content ol {
+		margin: 1.5rem 0;
+		padding-left: 1.5rem;
+		color: var(--text-gray);
+		line-height: 1.8;
+	}
+
+	.blog-content li + li {
+		margin-top: 0.5rem;
+	}
+
+	.blog-content a {
+		color: var(--accent-color);
+		text-decoration: none;
+	}
+
+	.blog-content a:hover {
+		text-decoration: underline;
+	}
+
+	.message-comparison {
+		background: #fff;
+		padding: 2rem;
+		border-radius: 8px;
+		margin: 2rem 0;
+		border: 1px solid var(--border-color);
+	}
+
+	.message-comparison p {
+		margin-bottom: 0.75rem;
+	}
+
+	.message-comparison ul {
+		margin: 1rem 0 1.5rem 2rem;
+	}
+
+	.message-comparison ul:last-of-type {
+		margin-bottom: 0;
+	}
+
+	.inline-cta {
+		background: var(--accent-color);
+		padding: 2.5rem;
+		border-radius: 12px;
+		color: var(--text-white);
+		text-align: center;
+		margin: 3rem 0;
+	}
+
+	.inline-cta h3 {
+		margin-top: 0;
+		font-size: 1.75rem;
+		color: var(--text-white);
+	}
+
+	.inline-cta p {
+		color: rgba(255, 255, 255, 0.92);
+		margin-bottom: 1.5rem;
+	}
+
+	.btn-secondary,
+	.btn-primary {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.9rem 2rem;
+		border-radius: 999px;
+		font-weight: 600;
+		text-decoration: none;
+		letter-spacing: 0.04em;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.btn-secondary {
+		background: var(--text-white);
+		color: var(--accent-color);
+	}
+
+	.btn-primary {
+		background: var(--accent-color);
+		color: var(--text-white);
+	}
+
+	.btn-secondary:hover,
+	.btn-primary:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	}
+
+	.related-links {
+		margin-top: 3rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--border-color);
+	}
+
+	.related-links a {
+		color: var(--accent-color);
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.related-links a:hover {
+		text-decoration: underline;
+	}
+
+	.cta-section {
+		background: #121212;
+		color: #fff;
+		padding: 4rem 0;
+		margin-top: 2rem;
+	}
+
+	.cta-content {
+		text-align: center;
+		background: #1f1f1f;
+		padding: 3rem;
+		border-radius: 16px;
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+	}
+
+	.cta-content h2 {
+		margin-top: 0;
+		font-size: 2.25rem;
+		color: #fff;
+	}
+
+	.cta-content p {
+		color: #d8d8d8;
+		margin-bottom: 2rem;
+		font-size: 1.1rem;
+		line-height: 1.7;
+	}
+
+	.faq-section {
+		margin-top: 3rem;
+	}
+
+	.faq-item {
+		border: 1px solid var(--border-color);
+		border-radius: 10px;
+		padding: 1rem 1.25rem;
+		margin-bottom: 1rem;
+		background: #fff;
+	}
+
+	.faq-question {
+		font-weight: 600;
+		color: #222;
+		margin-bottom: 0.75rem;
+	}
+
+	.faq-answer {
+		margin: 0.75rem 0 0;
+	}
+
+	@media (max-width: 768px) {
+		.article-meta {
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.blog-content {
+			padding: 2rem;
+		}
+
+		.inline-cta {
+			padding: 2rem;
+		}
+
+		.cta-content {
+			padding: 2rem;
+		}
+
+		.message-comparison {
+			padding: 1.5rem;
+		}
+	}
+</style>

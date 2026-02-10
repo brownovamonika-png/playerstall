@@ -1,0 +1,267 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const post = {
+	title: 'Maintaining Your Wood Lockers: 30 Years of Care Tips',
+	description:
+		'After three decades of making wood lockers, we\'ve learned what works and what doesn\'t. Here are our proven tips for keeping your lockers looking professional for 15+ years.',
+	category: 'Maintenance',
+	datePublished: '2024-12-28',
+	readTime: '8 min read',
+	author: 'PlayerStall Editorial Team',
+	slug: 'maintaining-wood-lockers',
+	wordCount: 1800
+};
+
+const faqItems = [
+	{
+		question: 'What cleaners are safe for wood lockers?',
+		answer:
+			'Use mild soap and water, wood-specific cleaners, or damp microfiber cloths. Avoid harsh chemicals, bleach, abrasive scrubbers, excessive water, and oil-based cleaners. Wipe down surfaces regularly and remove standing water immediately.'
+	},
+	{
+		question: 'When should I repair vs. replace a damaged locker?',
+		answer:
+			'With our modular design, most damage can be repaired: minor scratches can be sanded and refinished; damaged doors, worn hardware, or damaged drawers can be replaced individually. Contact us for replacement parts. Address issues early—don\'t wait for small problems to become big ones.'
+	},
+	{
+		question: 'How do I maximize the lifetime guarantee?',
+		answer:
+			'Follow maintenance guidelines, address issues promptly, contact us for any concerns, and keep records of maintenance. Our lifetime guarantee covers manufacturing defects. Proper care ensures your lockers stay covered and last 15+ years.'
+	}
+];
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Article',
+			headline: post.title,
+			description: post.description,
+			datePublished: post.datePublished,
+			dateModified: post.datePublished,
+			wordCount: post.wordCount,
+			author: { '@type': 'Organization', name: post.author },
+			publisher: { '@type': 'Organization', name: 'PlayerStall', logo: { '@type': 'ImageObject', url: 'https://playerstall.com/images/logoblack2.png' } },
+			mainEntityOfPage: { '@type': 'WebPage', '@id': `https://playerstall.com/blog/${post.slug}` }
+		},
+		{ '@type': 'FAQPage', mainEntity: faqItems.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) }
+	]
+};
+---
+
+<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
+	<section class="page-header">
+		<div class="container">
+			<div class="article-meta">
+				<span class="blog-date">December 28, 2024 · {post.readTime}</span>
+				<span class="blog-category">{post.category}</span>
+			</div>
+			<h1>{post.title}</h1>
+			<p class="lede">
+				After three decades of making wood lockers, we've learned what works and what doesn't. Here are our proven tips for keeping your lockers looking professional for 15+ years.
+			</p>
+		</div>
+	</section>
+
+	<section class="blog-section">
+		<div class="container">
+			<article class="blog-content">
+				<h2 id="why">Why Maintenance Matters</h2>
+				<p>Proper maintenance is the key to getting 15+ years of professional appearance from your wood lockers. After 30 years in this business, we've seen lockers that look brand new after a decade, and we've seen lockers that need replacement after just a few years.</p>
+				<p>The difference? Maintenance.</p>
+
+				<h2 id="daily">Daily Maintenance: The Basics</h2>
+				<h3>Regular Cleaning</h3>
+				<p>Daily cleaning is essential for maintaining your lockers' appearance:</p>
+				<ul>
+					<li>Wipe down surfaces with a damp cloth</li>
+					<li>Remove any standing water immediately</li>
+					<li>Clean up spills as soon as they happen</li>
+					<li>Keep ventilation areas clear</li>
+				</ul>
+
+				<h3>What to Use (and What to Avoid)</h3>
+				<p><strong>Safe cleaners:</strong></p>
+				<ul>
+					<li>Mild soap and water</li>
+					<li>Wood-specific cleaners</li>
+					<li>Damp microfiber cloths</li>
+				</ul>
+				<p><strong>Avoid:</strong></p>
+				<ul>
+					<li>Harsh chemicals or bleach</li>
+					<li>Abrasive scrubbers</li>
+					<li>Excessive water</li>
+					<li>Oil-based cleaners</li>
+				</ul>
+
+				<h2 id="weekly">Weekly Maintenance Tasks</h2>
+				<p>Set aside 30 minutes each week for these tasks:</p>
+				<ol>
+					<li><strong>Deep clean:</strong> Thoroughly clean all surfaces</li>
+					<li><strong>Check hardware:</strong> Ensure locks, hinges, and handles are functioning</li>
+					<li><strong>Inspect for damage:</strong> Look for scratches, dents, or wear</li>
+					<li><strong>Ventilation check:</strong> Ensure air can flow properly</li>
+				</ol>
+
+				<h2 id="monthly">Monthly Maintenance: The Deep Dive</h2>
+				<h3>Thorough Inspection</h3>
+				<p>Once a month, do a complete inspection:</p>
+				<ul>
+					<li>Check all hardware for tightness</li>
+					<li>Inspect for any signs of moisture damage</li>
+					<li>Look for areas that need touch-up</li>
+					<li>Test all locks and mechanisms</li>
+				</ul>
+
+				<h3>Touch-Up Work</h3>
+				<p>Our modular design means you can replace individual parts. If you notice wear or damage:</p>
+				<ul>
+					<li>Contact us for replacement parts</li>
+					<li>Minor scratches can often be sanded and refinished</li>
+					<li>Don't wait—address issues early</li>
+				</ul>
+
+				<h2 id="preventing">Preventing Common Problems</h2>
+				<h3>Moisture Control</h3>
+				<p>Wood lockers need proper ventilation. Ensure:</p>
+				<ul>
+					<li>Ventilation slots remain clear</li>
+					<li>Wet equipment is allowed to dry</li>
+					<li>Locker room has adequate air circulation</li>
+					<li>No standing water accumulates</li>
+				</ul>
+
+				<h3>Scratch Prevention</h3>
+				<p>Prevent scratches by:</p>
+				<ul>
+					<li>Using proper equipment storage</li>
+					<li>Avoiding dragging equipment</li>
+					<li>Keeping sharp objects away from surfaces</li>
+					<li>Using protective pads when needed</li>
+				</ul>
+
+				<h2 id="repair-vs-replace">When to Repair vs. Replace</h2>
+				<p>With our modular design, most damage can be repaired rather than replaced:</p>
+				<ul>
+					<li><strong>Minor scratches:</strong> Sand and refinish</li>
+					<li><strong>Damaged door:</strong> Replace just the door</li>
+					<li><strong>Worn hardware:</strong> Replace hardware components</li>
+					<li><strong>Damaged drawer:</strong> Replace just the drawer</li>
+				</ul>
+				<p>This modular approach saves money and extends your lockers' life significantly.</p>
+
+				<h2 id="seasonal">Seasonal Maintenance</h2>
+				<h3>Pre-Season</h3>
+				<p>Before each season begins:</p>
+				<ul>
+					<li>Deep clean all lockers</li>
+					<li>Inspect and repair any damage</li>
+					<li>Update player names and numbers</li>
+					<li>Test all locks and mechanisms</li>
+				</ul>
+
+				<h3>Post-Season</h3>
+				<p>After each season:</p>
+				<ul>
+					<li>Thorough cleaning and inspection</li>
+					<li>Address any accumulated wear</li>
+					<li>Plan for any needed repairs</li>
+					<li>Prepare for next season</li>
+				</ul>
+
+				<h2 id="guarantee">Maximizing Your Lifetime Guarantee</h2>
+				<p>Our lifetime guarantee covers manufacturing defects. To ensure you're covered:</p>
+				<ul>
+					<li>Follow these maintenance guidelines</li>
+					<li>Address issues promptly</li>
+					<li>Contact us for any concerns</li>
+					<li>Keep records of maintenance</li>
+				</ul>
+
+				<h2 id="mistakes">Common Mistakes to Avoid</h2>
+				<p>After 30 years, we've seen these mistakes repeatedly:</p>
+				<ul>
+					<li><strong>Using harsh chemicals:</strong> Damages the wood finish</li>
+					<li><strong>Ignoring small issues:</strong> They become big problems</li>
+					<li><strong>Poor ventilation:</strong> Leads to moisture damage</li>
+					<li><strong>Neglecting hardware:</strong> Causes premature failure</li>
+				</ul>
+
+				<h2>Conclusion: Maintenance is an Investment</h2>
+				<p>Proper maintenance isn't just about keeping lockers clean—it's about protecting your investment. With the right care, your wood lockers will look professional for 15+ years.</p>
+				<p>Remember: Our modular design means you can maintain and repair individual components, extending your lockers' life and protecting your investment.</p>
+
+				<div class="inline-cta">
+					<h3>Need Replacement Parts?</h3>
+					<p>Our modular design means you can replace individual parts. Contact us for replacement components.</p>
+					<a class="btn-secondary" href="/contact">Contact Us</a>
+				</div>
+
+				<div class="related-links">
+					<p><strong>Related Articles:</strong> <a href="/blog/wood-vs-metal-sports-lockers-comparison">Wood vs Metal Lockers</a> · <a href="/about#guarantee">Lifetime Guarantee</a></p>
+				</div>
+
+				<div class="faq-section" id="faq">
+					<h2>Maintenance FAQ</h2>
+					{faqItems.map((item) => (
+						<div class="faq-item">
+							<h3 class="faq-question">{item.question}</h3>
+							<p class="faq-answer">{item.answer}</p>
+						</div>
+					))}
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<section class="cta-section">
+		<div class="container">
+			<div class="cta-content">
+				<h2>Have Maintenance Questions?</h2>
+				<p>Get expert advice on maintaining your wood lockers from 30+ years of experience.</p>
+				<a class="btn-primary" href="/contact">Contact Us</a>
+			</div>
+		</div>
+	</section>
+
+	<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+</BaseLayout>
+
+<style>
+	:global(:root) { --bg-off-white: #f9f7f2; --border-color: #e3dfd7; --text-gray: #4a4a4a; --accent-color: #fe5900; --text-white: #ffffff; }
+	.container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+	.page-header { background: var(--bg-off-white); padding: 4rem 0; text-align: center; }
+	.article-meta { display: flex; gap: 1rem; justify-content: center; font-size: 0.9rem; color: var(--accent-color); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+	.page-header h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; line-height: 1.25; }
+	.lede { max-width: 760px; margin: 0 auto; font-size: 1.2rem; color: var(--text-gray); line-height: 1.8; }
+	.blog-section { padding: 4rem 0; }
+	.blog-content { background: var(--bg-off-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; }
+	.blog-content h2 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 2rem; }
+	.blog-content h2:first-of-type { margin-top: 0; }
+	.blog-content h3 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.35rem; }
+	.blog-content p, .blog-content ul, .blog-content ol { color: var(--text-gray); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
+	.blog-content ul, .blog-content ol { padding-left: 1.5rem; margin: 1.5rem 0; }
+	.blog-content li + li { margin-top: 0.5rem; }
+	.blog-content a { color: var(--accent-color); text-decoration: none; }
+	.blog-content a:hover { text-decoration: underline; }
+	.inline-cta { background: var(--accent-color); padding: 2.5rem; border-radius: 12px; color: var(--text-white); text-align: center; margin: 3rem 0; }
+	.inline-cta h3 { margin-top: 0; font-size: 1.75rem; color: var(--text-white); }
+	.inline-cta p { color: rgba(255,255,255,0.92); margin-bottom: 1.5rem; }
+	.related-links { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
+	.related-links a { color: var(--accent-color); text-decoration: none; font-weight: 600; }
+	.btn-secondary, .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+	.btn-secondary { background: var(--text-white); color: var(--accent-color); }
+	.btn-primary { background: var(--accent-color); color: var(--text-white); }
+	.btn-secondary:hover, .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+	.cta-section { background: #121212; color: #fff; padding: 4rem 0; margin-top: 2rem; }
+	.cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
+	.cta-content h2 { margin-top: 0; font-size: 2.25rem; color: #fff; }
+	.cta-content p { color: #d8d8d8; margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.7; }
+	.faq-section { margin-top: 3rem; }
+	.faq-item { border: 1px solid var(--border-color); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; background: #fff; }
+	.faq-question { font-weight: 600; color: #222; margin-bottom: 0.75rem; }
+	.faq-answer { margin: 0.75rem 0 0; }
+	@media (max-width: 768px) { .article-meta { flex-direction: column; gap: 0.5rem; } .blog-content { padding: 2rem; } .inline-cta, .cta-content { padding: 2rem; } }
+</style>

@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const post = {
+  title: 'Athletic Lockers- Safety tips in the Locker Room',
+  description: 'Safety tips in the Locker Room   While sitting in your athletic lockers, look around at the potential for injury. Staying safe is a given, especially on the fie',
+  category: 'Uncategorized',
+  datePublished: '2017-05-14',
+  readTime: '5 min read',
+  author: 'PlayerStall',
+  slug: 'athletic-lockers-safety-tips-locker-room',
+  wordCount: 383
+};
+
+const content = `<span style="font-weight: 400;">Safety tips in the Locker Room</span>
+
+&nbsp;
+
+<span style="font-weight: 400;">While sitting in your athletic lockers, look around at the potential for injury. Staying safe is a given, especially on the field or the ice. We make sure all our sports gear is in shape, ready to protect us from hits, bumps and bruises. Once you take your gear off, you still need to be cognisant of some of the dangers outside the playing arena. The locker room can cause a ton of injuries so here are a few tips to keep you and your teammates safe so you are are ready for the next game.</span>
+
+&nbsp;
+<ul>
+ 	<li style="font-weight: 400;"><span style="font-weight: 400;">If you have any valuables, keep them locked inside your sports lockers.</span></li>
+ 	<li style="font-weight: 400;"><span style="font-weight: 400;">After everyone has left the locker room, make sure all the <a href="http://customsportslockers.com/athletic-lockers/">athletic lockers</a> are locked, and lock the main door behind you.</span></li>
+ 	<li style="font-weight: 400;"><span style="font-weight: 400;">Wear shoes in the locker room. Slippery floors can cause some major damage to ligaments and limbs- store some shoes in those <strong>athletic lockers</strong> so you can slip them on when you are walking around.</span></li>
+ 	<li style="font-weight: 400;"><span style="font-weight: 400;">If you are heading to the weight room, bring a buddy. Having a spotter will let you lift without worrying about injuries.</span></li>
+ 	<li style="font-weight: 400;"><span style="font-weight: 400;">If your sports equipment is sweaty, hang it up right away in athletic lockers. This will dry it out and will prevent bacteria growing which may cause infections.</span></li>
+</ul>
+&nbsp;
+
+<span style="font-weight: 400;">At PlayerStall, we build the highest value athletic lockers in the business. Other products out there may claim to be the best drying unit but they can’t match us in quality, price or design. We back up our product with a lifetime guarantee. Does the other <a href="http://customsportslockers.com/sports-lockers/">sports lockers</a> out there match up? Not a chance!</span>
+
+&nbsp;
+
+<img class="size-full wp-image-203" src="http://customsportslockers.com/wp-content/uploads/2016/03/custom_sm.png" alt="athletic lockers" width="250" height="168">
+
+<span style="font-weight: 400;">If you are looking for locker room lockers or mudroom lockers for our garage, PlayerStall is the best <em>sports equipment storage</em> solution out there.</span>`;
+---
+
+<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
+  <section class="page-header">
+    <div class="container">
+      <div class="article-meta">
+        <span class="blog-date">{post.datePublished ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown'} · {post.readTime}</span>
+        <span class="blog-category">{post.category}</span>
+      </div>
+      <h1>{post.title}</h1>
+      {post.description && <p class="lede">{post.description}</p>}
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <div class="container">
+      <article class="blog-content">
+        <Fragment set:html={content} />
+      </article>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready for Custom Sports Lockers?</h2>
+        <p>Get a free design consultation. 30+ years experience. Lifetime guarantee.</p>
+        <a class="btn-primary" href="/contact">Get Free Consultation</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  :global(:root) { --bg-off-white: #f9f7f2; --border-color: #e3dfd7; --text-gray: #4a4a4a; --accent-color: #fe5900; --text-white: #ffffff; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+  .page-header { background: var(--bg-off-white); padding: 4rem 0; text-align: center; }
+  .article-meta { display: flex; gap: 1rem; justify-content: center; font-size: 0.9rem; color: var(--accent-color); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+  .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; line-height: 1.25; }
+  .lede { max-width: 760px; margin: 0 auto; font-size: 1.2rem; color: var(--text-gray); line-height: 1.8; }
+  .blog-section { padding: 4rem 0; }
+  .blog-content { background: var(--bg-off-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; }
+  .blog-content :global(h2) { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 2rem; }
+  .blog-content :global(h2:first-of-type) { margin-top: 0; }
+  .blog-content :global(h3), .blog-content :global(h4) { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.35rem; }
+  .blog-content :global(p), .blog-content :global(ul) { color: var(--text-gray); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
+  .blog-content :global(ul) { padding-left: 1.5rem; margin: 1.5rem 0; }
+  .blog-content :global(a) { color: var(--accent-color); text-decoration: none; }
+  .blog-content :global(a:hover) { text-decoration: underline; }
+  .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; background: var(--accent-color); color: var(--text-white); letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+  .cta-section { background: #121212; color: #fff; padding: 4rem 0; margin-top: 2rem; }
+  .cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 16px; }
+  .cta-content h2 { margin-top: 0; font-size: 2.25rem; color: #fff; }
+  .cta-content p { color: #d8d8d8; margin-bottom: 2rem; font-size: 1.1rem; }
+  @media (max-width: 768px) { .blog-content { padding: 2rem; } }
+</style>

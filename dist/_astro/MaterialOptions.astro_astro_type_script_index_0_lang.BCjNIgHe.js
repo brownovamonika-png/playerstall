@@ -1,1 +1,0 @@
-const e=document.getElementById("material-options-btn"),n=document.getElementById("material-options-colors"),o=document.querySelector(".material-options");e&&n&&o&&e.addEventListener("click",()=>{const t=n.hidden;n.hidden=!t,e.setAttribute("aria-expanded",String(t)),o.classList.toggle("material-options-open",t)});

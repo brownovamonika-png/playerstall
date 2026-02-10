@@ -1,7 +1,36 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Blog posts with masonry grid row spans for varied heights
+// TEMPORARY: Drafts shown on blog index for demo. To hide again, remove the glob/parseDraftPost/draftPosts block and the "...draftPosts" spread below.
+const DEFAULT_HERO = 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-1.jpg';
+const rawDrafts = import.meta.glob<{ default: string }>('./blog/drafts/*.astro', { query: '?raw', import: 'default', eager: true });
+function parseDraftPost(path: string, raw: string): { title: string; date: string; category: string; summary: string; heroImage: string; url: string; rowSpan: number; imageHeight: number } | null {
+	const slug = path.replace(/^.*\/([^/]+)\.astro$/, '$1');
+	const titleMatch = raw.match(/title:\s*['"]([^'"]*(?:\\.[^'"]*)*)['"]/);
+	const descMatch = raw.match(/description:\s*['"]([^'"]*(?:\\.[^'"]*)*)['"]/);
+	const categoryMatch = raw.match(/category:\s*['"]([^'"]*)['"]/);
+	const dateMatch = raw.match(/datePublished:\s*['"]([^'"]*)['"]/);
+	const title = titleMatch ? titleMatch[1].replace(/\\'/g, "'") : slug.replace(/-/g, ' ');
+	const description = descMatch ? descMatch[1].replace(/\\'/g, "'").slice(0, 200) : title;
+	const category = categoryMatch ? categoryMatch[1] : 'Blog';
+	const dateStr = dateMatch ? dateMatch[1] : '';
+	const date = dateStr ? new Date(dateStr + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Draft';
+	return {
+		title,
+		date,
+		category,
+		summary: description + (description.length >= 200 ? '…' : ''),
+		heroImage: DEFAULT_HERO,
+		url: `/blog/drafts/${slug}`,
+		rowSpan: 35 + (Math.abs(slug.length % 15)),
+		imageHeight: 220 + (slug.length % 3) * 40
+	};
+}
+const draftPosts = Object.entries(rawDrafts)
+	.map(([path, mod]) => parseDraftPost(path, typeof mod === 'string' ? mod : (mod?.default ?? '')))
+	.filter((p): p is NonNullable<ReturnType<typeof parseDraftPost>> => p != null);
+
+// Blog posts with masonry grid row spans for varied heights (curated + drafts for demo)
 const posts = [
 	{
 		title: 'Wood vs Metal Sports Lockers: The Complete 2025 Comparison Guide',
@@ -122,7 +151,9 @@ const posts = [
 		url: '/blog/installation-guide',
 		rowSpan: 45,
 		imageHeight: 300
-	}
+	},
+	// Drafts (temporary: visible for demo)
+	...draftPosts
 ];
 ---
 

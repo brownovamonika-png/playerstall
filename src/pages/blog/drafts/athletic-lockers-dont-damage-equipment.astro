@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const post = {
+  title: 'Athletic Lockers- Learn How to Wash Your Equipment Without Damaging It',
+  description: 'Athletic Lockers- Learn How to Wash Your Equipment Without Damaging It Are you looking for a sports equipment storage solution that is tailored to ensure all yo',
+  category: 'Athletic Lockers',
+  datePublished: '2017-04-29',
+  readTime: '5 min read',
+  author: 'PlayerStall',
+  slug: 'athletic-lockers-dont-damage-equipment',
+  wordCount: 668
+};
+
+const content = `<h1><span style="font-weight: 400;">Athletic Lockers- Learn How to Wash Your Equipment Without Damaging It</span></h1>
+<span style="font-weight: 400;">Are you looking for a sports equipment storage solution that is tailored to ensure all your hockey gear drys fast? PlayerStall<strong> Athletic Lockers</strong> design is ideal for storage, organization and as a sports equipment drying rack. Despite the drying process being first and most important part in keeping your sports equipment healthy, it is not enough to eliminate fungus, mold, and unpleasant smells. This article is going to teach you how to clean your sports equipment without damaging it and leave it fresh and free of harmful bacteria.</span>
+
+&nbsp;
+<h2><span style="font-weight: 400;">Washing your Sports Equipment</span></h2>
+&nbsp;
+<ul>
+ 	<li><span style="font-weight: 400;"> Put your shoulder pads, elbow pads and shoulder pads in your washing machine. Set the Cycle speed on “Gentle”.</span></li>
+</ul>
+&nbsp;
+<ul>
+ 	<li><span style="font-weight: 400;"> Ensure you have closed all the Velcro enclosures before you start the cycle to avoid the equipment from being caught on anything while it washes.</span></li>
+</ul>
+&nbsp;
+<ul>
+ 	<li><span style="font-weight: 400;"> Note that if you’re using a top loading machine, you will need to remove all the laces first, add the detergent and then start the machine.</span></li>
+</ul>
+&nbsp;
+<ul>
+ 	<li><span style="font-weight: 400;"> After the washing part is over, you need to put your socks, jerseys and other base layers in the machine. Why is this important? It is to ensure Velcro from your other gear does not cause any damage to this items. Also, remember to turn your clothes with logos inside out.</span></li>
+</ul>
+&nbsp;
+<h2><span style="font-weight: 400;">Cleaning your Shin guards</span></h2>
+&nbsp;
+
+<span style="font-weight: 400;">Shin guards can cause some odor due to the sweating while playing. However, to protect your shin guards, don’t wash them with the washing machine because they may get destroyed from banging in the machine as a result of the spin cycle. Instead;</span>
+
+&nbsp;
+<ul>
+ 	<li><span style="font-weight: 400;"> Add Warm water in your bath tab </span></li>
+ 	<li><span style="font-weight: 400;"> Add some disinfectants and laundry detergent in your bath tab</span></li>
+ 	<li><span style="font-weight: 400;"> Let them soak.</span></li>
+ 	<li><span style="font-weight: 400;"> Rinse them with clean water</span></li>
+</ul>
+&nbsp;
+<h2><span style="font-weight: 400;">Drying using your Athletic Lockers</span></h2>
+&nbsp;
+
+<span style="font-weight: 400;">The last process of the cleaning process is the drying part. For better results avoid the dryer and instead use our wood lockers to assist you to easily hang and organize your equipment after washing them. This ensures that every time you need to go for practice; your equipment is clean, fresh and free from any infections. We have a previous post that shows you how to create your own disinfecting spray so you can spray down your sports equipment when you don't have time to wash it- you can read it <a href="http://customsportslockers.com/2017/04/23/sport-equipment-storage/">here</a>.</span>
+
+[caption id="attachment_477" align="alignright" width="149"]<img class=" wp-image-477" src="http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-2b-169x300.jpg" alt="football locker" width="149" height="264"> sports locker[/caption]
+
+<span style="font-weight: 400;">Any of our <strong>athletic lockers</strong> are perfectly suited to be used as a drying rack. Our <em>sports lockers</em> are the most durable <a href="http://customsportslockers.com/">wood lockers</a> on the market, hands down! Whether you are looking for hockey lockers, football lockers, or mudroom lockers to keep your garage neat and organized, PlayerStall Wood Lockers are an affordable choice. Feel free to check out our competitors and their specs, and you will see that not only do we use the thickest and sturdiest materials, but we beat anybody on price. </span>
+
+&nbsp;
+
+<span style="font-weight: 400;">If you have a school, college or professional team and are contemplating some locker room lockers, give us a call and we will send you our Team Discount price list which offers steep discounts on our sports lockers.</span>`;
+---
+
+<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
+  <section class="page-header">
+    <div class="container">
+      <div class="article-meta">
+        <span class="blog-date">{post.datePublished ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown'} · {post.readTime}</span>
+        <span class="blog-category">{post.category}</span>
+      </div>
+      <h1>{post.title}</h1>
+      {post.description && <p class="lede">{post.description}</p>}
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <div class="container">
+      <article class="blog-content">
+        <Fragment set:html={content} />
+      </article>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready for Custom Sports Lockers?</h2>
+        <p>Get a free design consultation. 30+ years experience. Lifetime guarantee.</p>
+        <a class="btn-primary" href="/contact">Get Free Consultation</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  :global(:root) { --bg-off-white: #f9f7f2; --border-color: #e3dfd7; --text-gray: #4a4a4a; --accent-color: #fe5900; --text-white: #ffffff; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+  .page-header { background: var(--bg-off-white); padding: 4rem 0; text-align: center; }
+  .article-meta { display: flex; gap: 1rem; justify-content: center; font-size: 0.9rem; color: var(--accent-color); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+  .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; line-height: 1.25; }
+  .lede { max-width: 760px; margin: 0 auto; font-size: 1.2rem; color: var(--text-gray); line-height: 1.8; }
+  .blog-section { padding: 4rem 0; }
+  .blog-content { background: var(--bg-off-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; }
+  .blog-content :global(h2) { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 2rem; }
+  .blog-content :global(h2:first-of-type) { margin-top: 0; }
+  .blog-content :global(h3), .blog-content :global(h4) { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.35rem; }
+  .blog-content :global(p), .blog-content :global(ul) { color: var(--text-gray); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
+  .blog-content :global(ul) { padding-left: 1.5rem; margin: 1.5rem 0; }
+  .blog-content :global(a) { color: var(--accent-color); text-decoration: none; }
+  .blog-content :global(a:hover) { text-decoration: underline; }
+  .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; background: var(--accent-color); color: var(--text-white); letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+  .cta-section { background: #121212; color: #fff; padding: 4rem 0; margin-top: 2rem; }
+  .cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 16px; }
+  .cta-content h2 { margin-top: 0; font-size: 2.25rem; color: #fff; }
+  .cta-content p { color: #d8d8d8; margin-bottom: 2rem; font-size: 1.1rem; }
+  @media (max-width: 768px) { .blog-content { padding: 2rem; } }
+</style>

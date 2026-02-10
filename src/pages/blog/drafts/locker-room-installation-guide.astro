@@ -1,0 +1,253 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const post = {
+	title: 'Locker Room Installation Guide: What to Expect and How to Prepare',
+	description:
+		'Complete guide to locker room installation. Learn what to expect, how to prepare, timeline planning, and ensuring a successful installation that minimizes disruption to your program.',
+	category: 'Installation',
+	datePublished: '2024-11-10',
+	readTime: '9 min read',
+	author: 'PlayerStall Editorial Team',
+	slug: 'locker-room-installation-guide',
+	wordCount: 1900
+};
+
+const faqItems = [
+	{
+		question: 'How long does custom locker manufacturing and installation take?',
+		answer:
+			'Standard orders: 4-6 weeks manufacturing. Custom designs: 6-8 weeks. Large orders: 8-10 weeks. Installation duration: small (10-20 lockers) 1-2 days, medium (20-50) 3-5 days, large (50-100) 1-2 weeks. Plan 3-4 months before desired completion date.'
+	},
+	{
+		question: 'Can installation happen during the season?',
+		answer:
+			'It\'s possible but not ideal. We recommend off-season installation to minimize disruption. If installation must happen during the season, we can work around schedules. Phased installation in sections is an option for some facilities.'
+	},
+	{
+		question: 'What if something doesn\'t fit during installation?',
+		answer:
+			'Pre-installation measurements prevent this. If issues arise, we address them immediately. Our modular design makes adjustments easy. You don\'t need to be present the entire time, but having someone available for questions is helpful.'
+	}
+];
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Article',
+			headline: post.title,
+			description: post.description,
+			datePublished: post.datePublished,
+			dateModified: post.datePublished,
+			wordCount: post.wordCount,
+			author: { '@type': 'Organization', name: post.author },
+			publisher: { '@type': 'Organization', name: 'PlayerStall', logo: { '@type': 'ImageObject', url: 'https://playerstall.com/images/logoblack2.png' } },
+			mainEntityOfPage: { '@type': 'WebPage', '@id': `https://playerstall.com/blog/${post.slug}` }
+		},
+		{ '@type': 'FAQPage', mainEntity: faqItems.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) }
+	]
+};
+---
+
+<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
+	<section class="page-header">
+		<div class="container">
+			<div class="article-meta">
+				<span class="blog-date">November 10, 2024 · {post.readTime}</span>
+				<span class="blog-category">{post.category}</span>
+			</div>
+			<h1>{post.title}</h1>
+			<p class="lede">
+				Complete guide to locker room installation. Learn what to expect, how to prepare, timeline planning, and ensuring a successful installation that minimizes disruption to your program.
+			</p>
+		</div>
+	</section>
+
+	<section class="blog-section">
+		<div class="container">
+			<article class="blog-content">
+				<h2 id="introduction">Introduction: Planning for Success</h2>
+				<p>Proper installation planning is the key to a successful locker room project. After 30+ years and hundreds of installations, we've learned what makes installations smooth and what causes problems.</p>
+				<p>This guide walks you through everything you need to know about locker room installation, from preparation to completion.</p>
+
+				<h2 id="timeline">Timeline Planning</h2>
+				<p>Understanding the timeline helps you plan effectively:</p>
+
+				<h3>Custom Manufacturing Time</h3>
+				<p>Custom wood lockers require manufacturing time:</p>
+				<ul>
+					<li><strong>Standard orders:</strong> 4-6 weeks</li>
+					<li><strong>Custom designs:</strong> 6-8 weeks</li>
+					<li><strong>Large orders:</strong> 8-10 weeks</li>
+					<li><strong>Peak season:</strong> May add 2-4 weeks</li>
+				</ul>
+				<p><strong>Plan ahead:</strong> Start planning 3-4 months before your desired completion date.</p>
+
+				<h3>Installation Duration</h3>
+				<p>Installation time depends on project size:</p>
+				<ul>
+					<li><strong>Small (10-20 lockers):</strong> 1-2 days</li>
+					<li><strong>Medium (20-50 lockers):</strong> 3-5 days</li>
+					<li><strong>Large (50-100 lockers):</strong> 1-2 weeks</li>
+					<li><strong>Very large (100+ lockers):</strong> 2-3 weeks</li>
+				</ul>
+
+				<h2 id="preparation">Pre-Installation Preparation</h2>
+				<p>Proper preparation prevents problems:</p>
+
+				<h3>Space Preparation</h3>
+				<ul>
+					<li><strong>Clear the space completely:</strong> Remove all existing lockers and furniture</li>
+					<li><strong>Remove old lockers:</strong> Coordinate removal before installation</li>
+					<li><strong>Clean the area:</strong> Ensure clean, ready space</li>
+					<li><strong>Check access routes:</strong> Ensure clear paths for delivery</li>
+				</ul>
+
+				<h3>Infrastructure Checks</h3>
+				<ul>
+					<li><strong>Electrical:</strong> Ensure adequate power if needed</li>
+					<li><strong>Lighting:</strong> Verify lighting is adequate</li>
+					<li><strong>Ventilation:</strong> Check HVAC systems</li>
+					<li><strong>Flooring:</strong> Ensure floor is ready</li>
+				</ul>
+
+				<h3>Coordination</h3>
+				<ul>
+					<li><strong>Schedule with other contractors:</strong> Coordinate timing</li>
+					<li><strong>Notify stakeholders:</strong> Coaches, athletes, facilities</li>
+					<li><strong>Plan for disruption:</strong> Minimize impact on programs</li>
+					<li><strong>Arrange access:</strong> Ensure installers have access</li>
+				</ul>
+
+				<h2 id="during">What to Expect During Installation</h2>
+				<h3>Day 1: Delivery and Setup</h3>
+				<ul>
+					<li>Lockers delivered to site</li>
+					<li>Installation team arrives</li>
+					<li>Layout verification</li>
+					<li>Beginning of installation</li>
+				</ul>
+
+				<h3>Installation Process</h3>
+				<ul>
+					<li>Positioning and leveling</li>
+					<li>Securing to walls/floors</li>
+					<li>Installing hardware</li>
+					<li>Testing all components</li>
+					<li>Final adjustments</li>
+				</ul>
+
+				<h3>Final Day: Completion</h3>
+				<ul>
+					<li>Final inspection</li>
+					<li>Testing all locks and mechanisms</li>
+					<li>Cleaning and touch-ups</li>
+					<li>Walkthrough with facility staff</li>
+					<li>Handover and documentation</li>
+				</ul>
+
+				<h2 id="disruption">Minimizing Disruption</h2>
+				<p>Plan installation to minimize impact:</p>
+				<ul>
+					<li><strong>Schedule during off-season:</strong> Best time for installation</li>
+					<li><strong>Phased installation:</strong> Install in sections if possible</li>
+					<li><strong>Quick turnaround:</strong> Our efficient process minimizes downtime</li>
+					<li><strong>Clear communication:</strong> Keep everyone informed</li>
+				</ul>
+
+				<h2 id="quality">Quality Checks</h2>
+				<p>During installation, verify:</p>
+				<ul>
+					<li><strong>Proper alignment:</strong> Lockers are level and aligned</li>
+					<li><strong>Hardware function:</strong> All locks and mechanisms work</li>
+					<li><strong>Customization accuracy:</strong> Colors, logos, names are correct</li>
+					<li><strong>Finish quality:</strong> No damage or defects</li>
+					<li><strong>Complete installation:</strong> All components installed</li>
+				</ul>
+
+				<h2 id="post">Post-Installation</h2>
+				<p>After installation is complete:</p>
+				<ul>
+					<li><strong>Final walkthrough:</strong> Review everything together</li>
+					<li><strong>Documentation:</strong> Receive warranty and care information</li>
+					<li><strong>Training:</strong> Learn maintenance basics</li>
+					<li><strong>Support contact:</strong> Know who to call for questions</li>
+				</ul>
+
+				<h2>Conclusion: Smooth Installation</h2>
+				<p>Proper planning and preparation ensure smooth installation. By following this guide and working with our team, your installation will be efficient and successful.</p>
+				<p>Our experienced installation teams have completed hundreds of projects. We know how to minimize disruption and deliver quality results.</p>
+
+				<div class="inline-cta">
+					<h3>Plan Your Installation</h3>
+					<p>Get a free consultation and learn about our installation process.</p>
+					<a class="btn-secondary" href="/contact">Contact Us</a>
+				</div>
+
+				<div class="related-links">
+					<p><strong>Related Articles:</strong> <a href="/blog/7-step-locker-room-planning-process">Locker Room Planning</a> · <a href="/blog/maintaining-wood-lockers">Maintenance Guide</a></p>
+				</div>
+
+				<div class="faq-section" id="faq">
+					<h2>Installation FAQ</h2>
+					{faqItems.map((item) => (
+						<div class="faq-item">
+							<h3 class="faq-question">{item.question}</h3>
+							<p class="faq-answer">{item.answer}</p>
+						</div>
+					))}
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<section class="cta-section">
+		<div class="container">
+			<div class="cta-content">
+				<h2>Ready to Plan Your Installation?</h2>
+				<p>Get a free consultation and learn about our installation process.</p>
+				<a class="btn-primary" href="/contact">Contact Us</a>
+			</div>
+		</div>
+	</section>
+
+	<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+</BaseLayout>
+
+<style>
+	:global(:root) { --bg-off-white: #f9f7f2; --border-color: #e3dfd7; --text-gray: #4a4a4a; --accent-color: #fe5900; --text-white: #ffffff; }
+	.container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+	.page-header { background: var(--bg-off-white); padding: 4rem 0; text-align: center; }
+	.article-meta { display: flex; gap: 1rem; justify-content: center; font-size: 0.9rem; color: var(--accent-color); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+	.page-header h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; line-height: 1.25; }
+	.lede { max-width: 760px; margin: 0 auto; font-size: 1.2rem; color: var(--text-gray); line-height: 1.8; }
+	.blog-section { padding: 4rem 0; }
+	.blog-content { background: var(--bg-off-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; }
+	.blog-content h2 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 2rem; }
+	.blog-content h2:first-of-type { margin-top: 0; }
+	.blog-content h3 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.35rem; }
+	.blog-content p, .blog-content ul { color: var(--text-gray); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
+	.blog-content ul { padding-left: 1.5rem; margin: 1.5rem 0; }
+	.blog-content li + li { margin-top: 0.5rem; }
+	.blog-content a { color: var(--accent-color); text-decoration: none; }
+	.blog-content a:hover { text-decoration: underline; }
+	.inline-cta { background: var(--accent-color); padding: 2.5rem; border-radius: 12px; color: var(--text-white); text-align: center; margin: 3rem 0; }
+	.inline-cta h3 { margin-top: 0; font-size: 1.75rem; color: var(--text-white); }
+	.inline-cta p { color: rgba(255,255,255,0.92); margin-bottom: 1.5rem; }
+	.related-links { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
+	.related-links a { color: var(--accent-color); text-decoration: none; font-weight: 600; }
+	.btn-secondary, .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+	.btn-secondary { background: var(--text-white); color: var(--accent-color); }
+	.btn-primary { background: var(--accent-color); color: var(--text-white); }
+	.btn-secondary:hover, .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+	.cta-section { background: #121212; color: #fff; padding: 4rem 0; margin-top: 2rem; }
+	.cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
+	.cta-content h2 { margin-top: 0; font-size: 2.25rem; color: #fff; }
+	.cta-content p { color: #d8d8d8; margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.7; }
+	.faq-section { margin-top: 3rem; }
+	.faq-item { border: 1px solid var(--border-color); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; background: #fff; }
+	.faq-question { font-weight: 600; color: #222; margin-bottom: 0.75rem; }
+	.faq-answer { margin: 0.75rem 0 0; }
+	@media (max-width: 768px) { .article-meta { flex-direction: column; gap: 0.5rem; } .blog-content { padding: 2rem; } .inline-cta, .cta-content { padding: 2rem; } }
+</style>
