@@ -141,7 +141,7 @@
 		.cta-box {
 			background: #1a1a1a;
 			color: white;
-			padding: 25px;
+			padding: 30px;
 			border-radius: 8px;
 			margin: 2rem 0;
 			text-align: center;
@@ -149,7 +149,7 @@
 
 		.cta-box h3 {
 			font-family: 'Oswald', sans-serif;
-			font-size: 1.3rem;
+			font-size: 1.5rem;
 			font-weight: 600;
 			margin-bottom: 10px;
 			color: white;
@@ -164,17 +164,54 @@
 			display: inline-block;
 			background: #fe5900;
 			color: white;
-			padding: 12px 30px;
+			padding: 15px 40px;
 			text-decoration: none;
 			border-radius: 4px;
-			font-weight: 500;
+			font-family: 'Oswald', sans-serif;
+			font-weight: 600;
+			font-size: 1.2rem;
 			text-transform: uppercase;
-			letter-spacing: 1px;
+			letter-spacing: 1.5px;
 			transition: background 0.3s ease;
+			margin-top: 10px;
 		}
 
 		.cta-button:hover {
 			background: #cc4700;
+		}
+
+		.cta-subtitle {
+			font-size: 0.95rem;
+			color: #fe5900;
+			margin-top: 12px;
+			font-weight: 500;
+		}
+
+		.info-box {
+			background: #f8f9fa;
+			border: 1px solid #e0e0e0;
+			border-radius: 8px;
+			padding: 25px;
+			margin: 1.5rem 0;
+		}
+
+		.info-box p {
+			margin-bottom: 0.8rem;
+			color: #333;
+		}
+
+		.info-box p:last-child {
+			margin-bottom: 0;
+		}
+
+		.info-note {
+			background: #fff5f0;
+			padding: 12px 15px;
+			border-radius: 4px;
+			border-left: 4px solid #fe5900;
+			font-size: 0.95rem;
+			color: #666;
+			margin-top: 12px;
 		}
 
 		.email-signature {
@@ -241,6 +278,26 @@
 			text-decoration: underline;
 		}
 
+		.free-badge {
+			display: inline-block;
+			background: #fe5900;
+			color: white;
+			font-size: 0.75rem;
+			padding: 2px 8px;
+			border-radius: 3px;
+			font-weight: 600;
+			letter-spacing: 0.5px;
+			vertical-align: middle;
+			margin-left: 5px;
+		}
+
+		.model-note {
+			font-size: 0.9rem;
+			color: #666;
+			font-style: italic;
+			padding-left: 10px;
+		}
+
 		@media (max-width: 768px) {
 			body {
 				padding: 10px;
@@ -257,6 +314,11 @@
 			.section-header {
 				font-size: 1.2rem;
 			}
+
+			.cta-button {
+				padding: 12px 25px;
+				font-size: 1rem;
+			}
 		}
 	</style>
 </head>
@@ -264,25 +326,27 @@
 	<div class="email-container">
 		<div class="email-header">
 			<h1>PLAYERSTALL</h1>
-			<p>Premium Wood Sports Lockers | Made in North America</p>
+			<p>Premium Wood Sports Lockers | Made in Canada | 30+ Years Experience</p>
 		</div>
 
 		<div class="email-body">
-			<p><strong>Subject:</strong> Your Custom Wood Sports Locker Quote - [Project Name/Team Name]</p>
+			<p><strong>Subject:</strong> Your Custom Sports Locker Quote - [Project Name/Team Name]</p>
 
-			<p>Hi Dana,</p>
+			<p>Hi [Customer Name],</p>
 
-			<p>Thank you for contacting PlayerStall regarding custom wood sports lockers for [Team Name/Facility Name]. I've reviewed your request and prepared a detailed quote for your project, which I've attached below.</p>
+			<p>Thank you for contacting PlayerStall regarding custom sports lockers for [Team Name/Facility Name]. I've reviewed your request and prepared a detailed quote for your project, which I've attached below.</p>
 
+			<!-- QUOTE SUMMARY -->
 			<div class="section-header">Quote Summary</div>
 			<div class="highlight-box">
 				<ul class="price-list">
-					<li><strong>50 Stadium Wood Lockers</strong></li>
+					<li><strong>[Quantity] Stadium Lockers</strong></li>
 					<li>Detailed pricing breakdown (see attached estimate)</li>
 					<li><strong>Total value included:</strong> $130 in free upgrades per locker ($45 Prefinish + $35 Edging + $50 Backing)</li>
 				</ul>
 			</div>
 
+			<!-- FLAGSHIP MODEL -->
 			<div class="section-header">Our Flagship Model - The Stadium Locker</div>
 			<p>Our Stadium Locker is <strong>$599 per locker</strong> and includes <strong>$130 in free upgrades</strong>:</p>
 			<ul class="benefits-list">
@@ -291,21 +355,21 @@
 				<li><strong>Free Backing ($50 Value)</strong> - Full backing included on all team orders</li>
 			</ul>
 
+			<!-- ADDITIONAL OPTIONS -->
 			<div class="section-header">Additional Options</div>
 			<p style="color: #666666; font-style: italic;">(Priced at Our Cost - No Markup)</p>
 			<ul class="price-list">
 				<li>Cushions: <strong>+$80 per locker</strong></li>
 				<li>Name Plates: <strong>+$10 per locker</strong></li>
-				<li>Lacquered prefinished wood options available</li>
-				<li>Lock boxes available</li>
+				<li>Lock boxes: <strong>+$80 per locker</strong></li>
 			</ul>
 
+			<!-- COMPLETE MODEL LINEUP -->
 			<div class="section-header">Complete Model Lineup</div>
-			<p style="font-size: 1.1rem; font-weight: 500; color: #fe5900; margin-bottom: 1rem;">Great Wood Lockers at a Great Price</p>
 			<p>We offer several models to fit different needs and budgets:</p>
 			
 			<ul class="price-list">
-				<li><strong>Semi Pro - $349</strong> (Best Value)<br>
+				<li><strong>Semi Pro - $349</strong><br>
 					<small style="color: #666666;">Includes: Free Prefinished wood ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)</small></li>
 				<li><strong>Varsity - $449</strong><br>
 					<small style="color: #666666;">Includes: Free Prefinished wood ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)</small></li>
@@ -314,57 +378,75 @@
 				<li><strong>Stadium - $599</strong> (Our Flagship Model)<br>
 					<small style="color: #666666;">Includes: Free Prefinish ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)</small></li>
 				<li><strong>Corner Units - $599</strong><br>
-					<small style="color: #666666;">Perfect for maximizing corner space in your locker room</small></li>
+					<small style="color: #666666;">Perfect for maximizing corner space in your locker room</small><br>
+					<small class="info-note" style="display: inline-block; margin-top: 6px;">Note: Corner units come fully assembled</small></li>
 			</ul>
 
 			<p style="background: #fff5f0; padding: 15px; border-radius: 4px; border-left: 4px solid #fe5900;">
 				<strong>All Team orders include Free Backing ($50 Value) on every model.</strong>
 			</p>
 
+			<!-- VIEW OUR WORK -->
 			<div class="section-header">View Our Work</div>
 			<ul class="price-list">
-				<li><a href="http://customsportslockers.com/gallery/" style="color: #fe5900; text-decoration: none;">Full Gallery: http://customsportslockers.com/gallery/</a></li>
-				<li><a href="http://customsportslockers.com/" style="color: #fe5900; text-decoration: none;">Model Comparison: http://customsportslockers.com/</a> (homepage, halfway down the page)</li>
+				<li><a href="http://customsportslockers.com/gallery/" style="color: #fe5900; text-decoration: none; font-weight: 500;">Full Gallery: customsportslockers.com/gallery/</a></li>
+				<li><a href="http://customsportslockers.com/" style="color: #fe5900; text-decoration: none; font-weight: 500;">Model Comparison: customsportslockers.com/</a> (homepage, halfway down the page)</li>
 			</ul>
 
+			<!-- WHY PLAYERSTALL -->
 			<div class="section-header">Why PlayerStall?</div>
-			<p>At PlayerStall, <strong>we only make Wood Sports Lockers, and that's it!</strong> Our sole focus is to make the highest quality, low cost wood locker in the Industry. Our wood sports lockers are the <strong>highest value Sports Lockers in the industry</strong>.</p>
-
 			<p>With 30+ years of experience serving collegiate and professional teams across North America, we understand what makes a great locker room. Our lockers are:</p>
 
 			<ul class="benefits-list">
-				<li><strong>Made in North America</strong> - 100% made in North America with premium materials and craftsmanship you can trust</li>
-				<li><strong>Built to Last a Lifetime</strong> - Made from 3/4" Birch Wood, these lockers are built strong and will last a lifetime, backed by our lifetime guarantee</li>
-				<li><strong>Fully Modular</strong> - Our lockers are of a modular design, so if a piece gets broken in the future, give us a call and we will ship you replacement pieces right away</li>
-				<li><strong>Custom-Sized</strong> - We custom design your locker rooms free of charge to suit your particular locker room dimensions so the locker room fits perfectly with no wasted room or awkward gaps</li>
-				<li><strong>Perfect for Rough Environments</strong> - Our lockers are perfect for the rough environment of a locker room</li>
+				<li><strong>Made in Canada</strong> - Premium materials and craftsmanship you can trust</li>
+				<li><strong>Built to Last a Lifetime</strong> - These lockers are built strong and will last a lifetime, backed by our lifetime guarantee</li>
+				<li><strong>Fully Modular</strong> - If a piece gets broken in the future, you can call us and we will send a replacement right away</li>
+				<li><strong>Custom-Sized</strong> - Perfect fit for your space with no wasted room or awkward gaps</li>
 			</ul>
 
-			<div class="cta-box">
-				<h3>Next Steps</h3>
-				<p>To ensure we create the perfect custom-sized solution for your locker room, please send a quick drawing of the room with accurate dimensions. This allows us to custom-size the lockers to fit your space perfectly with no wasted room or awkward gaps.</p>
-				<p style="margin-top: 15px;"><strong>This quote is valid for 60 days.</strong> I'm here to answer any questions, discuss customization options, or help you choose the best model for your needs and budget.</p>
-				<a href="tel:18885841444" class="cta-button">Call 1 (888) 584-1444</a>
+			<!-- SHIPPING & ASSEMBLY -->
+			<div class="section-header">Shipping & Assembly Information</div>
+			<div class="info-box">
+				<p>If you have a room drawing or room layout, we can provide you with a more accurate timeline. Generally, we will ship your order in <strong>4 to 8 weeks</strong>, depending on the level of customization required.</p>
+				<p>Assembly is very easy - <strong>just like IKEA furniture!</strong> I would budget around <strong>20 to 30 minutes per unit</strong> for assembly. Our lockers are designed to be straightforward to put together.</p>
+				<div class="info-note">
+					<strong>Note:</strong> Corner units come fully assembled already, so no assembly time needed for those.
+				</div>
 			</div>
 
+			<!-- NEXT STEPS -->
+			<div class="section-header">Next Steps</div>
+			<p>To ensure we create the perfect custom-sized solution for your locker room, please send a quick drawing of the room with accurate dimensions. This allows us to custom-size the lockers to fit your space perfectly with no wasted room or awkward gaps.</p>
+			<p>This quote is valid for <strong>60 days</strong>. I'm here to answer any questions, discuss customization options, or help you choose the best model for your needs and budget.</p>
+
+			<!-- CTA -->
+			<div class="cta-box">
+				<h3>CALL 1 (888) 584-1444 TO ORDER</h3>
+				<p class="cta-subtitle">Available Now - Free Consultation</p>
+				<a href="tel:18885841444" class="cta-button">Call Now: 1 (888) 584-1444</a>
+				<p style="margin-top: 15px; color: #999; font-size: 0.9rem;">You can reach me directly at 1 (888) 584-1444 or simply reply to this email anytime.</p>
+			</div>
+
+			<!-- SIGNATURE -->
 			<div class="email-signature">
+				<p>I look forward to helping you create an exceptional locker room solution for your team.</p>
+				<br>
 				<p class="signature-name">Monika</p>
 				<p class="signature-title">Custom Locker Specialist</p>
 				<p class="signature-company">PlayerStall</p>
 				<p class="signature-contact">
 					1 (888) 584-1444<br>
-					<a href="mailto:sales@lockers.world" style="color: #fe5900;">sales@lockers.world</a><br>
+					<a href="mailto:info@customsportslockers.com" style="color: #fe5900;">info@customsportslockers.com</a><br>
 					<a href="http://customsportslockers.com" style="color: #fe5900;">CustomSportsLockers.com</a>
 				</p>
 				<div class="signature-tagline">
-					<strong>30+ Years Experience</strong> | <strong>Lifetime Guarantee</strong> | <strong>Made in North America</strong> | <strong>Free Design Consultation</strong>
+					<strong>30+ Years Experience</strong> | <strong>Lifetime Guarantee</strong> | <strong>Made in Canada</strong> | <strong>Free Design Consultation</strong>
 				</div>
 			</div>
 		</div>
 
 		<div class="email-footer">
-			<p>I look forward to helping you create an exceptional locker room solution for your team.</p>
-			<p style="margin-top: 10px;">Best regards,<br>Monika<br><a href="mailto:sales@lockers.world" style="color: #fe5900;">sales@lockers.world</a></p>
+			<p>&copy; PlayerStall | <a href="http://customsportslockers.com">CustomSportsLockers.com</a></p>
 		</div>
 	</div>
 </body>

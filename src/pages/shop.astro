@@ -39,7 +39,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<!-- Semi Pro -->
 						<div class="shop-product-item" data-price="349" data-category="lockers">
 							<div class="shop-product-image">
-								<img src="/semi-pro-locker.jpg" alt="Semi Pro Locker" />
+								<img src="/images/semi-pro-locker-new.png" alt="Semi Pro Locker" />
 							</div>
 							<div class="shop-product-content">
 								<div class="shop-product-categories">Lockers - Sports Equipment</div>
@@ -484,14 +484,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		height: 100%;
 		object-fit: cover;
 		display: block;
-		filter: grayscale(100%);
-		transition: filter 0.3s;
 		outline: none;
 		border: none;
 	}
 
 	.shop-product-item:hover .shop-product-image img {
-		filter: grayscale(0%);
 	}
 
 	.shop-badge {
@@ -695,7 +692,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.shop-accessory-trigger:hover .shop-product-image img {
-		filter: grayscale(0%);
 	}
 
 	/* Accessory cards: fixed image size for consistency */

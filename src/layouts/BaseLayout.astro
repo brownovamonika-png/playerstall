@@ -46,13 +46,12 @@ const { title, description = "Premium wood lockers at unbeatable prices. Quick s
 		<header>
 			<nav class="navbar">
 				<div class="nav-container">
-					<ul class="nav-links nav-links-left">
+					<ul class="nav-links nav-links-center">
 						<li><a href="/">HOME</a></li>
 						<li><a href="/shop">SHOP</a></li>
-						<li><a href="/sport">SPORT</a></li>
 						<li class="nav-dropdown">
-							<span class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" id="by-sport-trigger">BY SPORT</span>
-							<ul class="nav-dropdown-menu" role="menu" aria-labelledby="by-sport-trigger">
+							<span class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" id="by-sport-copy-trigger">BY SPORT</span>
+							<ul class="nav-dropdown-menu" role="menu" aria-labelledby="by-sport-copy-trigger">
 								<li role="none"><a href="/sport/football" role="menuitem">Football</a></li>
 								<li role="none"><a href="/sport/hockey" role="menuitem">Hockey</a></li>
 								<li role="none"><a href="/sport/basketball" role="menuitem">Basketball</a></li>
@@ -62,11 +61,11 @@ const { title, description = "Premium wood lockers at unbeatable prices. Quick s
 							</ul>
 						</li>
 						<li><a href="/gallery">GALLERY</a></li>
-					</ul>
-					<a href="/" class="logo">
-						<h1>PLAYERSTALL</h1>
-					</a>
-					<ul class="nav-links nav-links-right">
+						<li class="nav-logo-item">
+							<a href="/" class="logo">
+								<h1>PLAYERSTALL</h1>
+							</a>
+						</li>
 						<li><a href="/our-process">OUR PROCESS</a></li>
 						<li><a href="/blog">BLOG</a></li>
 						<li><a href="/contact">CONTACT</a></li>
@@ -350,16 +349,16 @@ const { title, description = "Premium wood lockers at unbeatable prices. Quick s
 
 	.nav-container {
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
-		gap: 40px;
+		gap: 0;
 		position: relative;
 	}
 
 	.logo {
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
+		position: relative;
+		left: auto;
+		transform: none;
 		text-decoration: none;
 		color: #ffffff;
 		transition: color 0.3s;
@@ -400,6 +399,22 @@ const { title, description = "Premium wood lockers at unbeatable prices. Quick s
 
 	.nav-links-right {
 		justify-content: flex-end;
+	}
+
+	.nav-links-center {
+		justify-content: center;
+		flex: unset;
+		width: 100%;
+	}
+
+	.nav-logo-item {
+		display: flex;
+		align-items: center;
+	}
+
+	.nav-logo-item .logo {
+		position: relative;
+		margin: 0 20px;
 	}
 
 	.logo {
@@ -826,21 +841,34 @@ const { title, description = "Premium wood lockers at unbeatable prices. Quick s
 	}
 
 	function initBySportDropdown() {
-		const trigger = document.getElementById('by-sport-trigger');
-		const dropdown = document.querySelector('.nav-dropdown');
-		if (!trigger || !dropdown) return;
+		const dropdowns = document.querySelectorAll('.nav-dropdown');
+		dropdowns.forEach((dropdown) => {
+			const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+			if (!trigger) return;
 
-		trigger.addEventListener('click', (e) => {
-			e.preventDefault();
-			dropdown.classList.toggle('open');
-			trigger.setAttribute('aria-expanded', dropdown.classList.contains('open'));
+			trigger.addEventListener('click', (e) => {
+				e.preventDefault();
+				// Close other dropdowns first
+				dropdowns.forEach((other) => {
+					if (other !== dropdown) {
+						other.classList.remove('open');
+						const otherTrigger = other.querySelector('.nav-dropdown-trigger');
+						if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+					}
+				});
+				dropdown.classList.toggle('open');
+				trigger.setAttribute('aria-expanded', dropdown.classList.contains('open'));
+			});
 		});
 
 		document.addEventListener('click', (e) => {
-			if (!dropdown.contains(e.target)) {
-				dropdown.classList.remove('open');
-				trigger.setAttribute('aria-expanded', 'false');
-			}
+			dropdowns.forEach((dropdown) => {
+				if (!dropdown.contains(e.target)) {
+					dropdown.classList.remove('open');
+					const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+					if (trigger) trigger.setAttribute('aria-expanded', 'false');
+				}
+			});
 		});
 	}
 

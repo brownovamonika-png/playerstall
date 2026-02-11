@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
-import MaterialOptions from '../components/MaterialOptions.astro';
 
 const lockerAccessoriesItems = [
 	{ href: '/accessories#stick-rack', image: '/stick-rack.png', alt: 'Stick Rack', category: 'LOCKER ADD-ONS', title: 'Stick Rack', price: 'Starting at $299' },
@@ -13,7 +12,7 @@ const lockerAccessoriesItems = [
 
 <BaseLayout
 	title="Elite Wood Locker - 24-Inch Wide, 76 Inches High, 19 Inches Deep | PlayerStall"
-	description="Elite wood locker: curved design, quick ship 2–4 weeks. 76&quot; H x 19&quot; D, widths 18&quot;–30&quot;. $599 base. Light Grey, Dark Grey. Custom 8–12 weeks. 5 year warranty."
+	description="Elite wood locker: curved design, quick ship 2–4 weeks. 76&quot; H x 19&quot; D, widths 18&quot;–30&quot;. $599 base. Designer White, White Sand, Fashion Grey, North Sea, Graphite, Black, Hollyberry, Lapis Blue + 4 woodgrains. Custom 8–12 weeks. 5 year warranty."
 >
 	<!-- Hero Section -->
 	<section class="product-hero-section">
@@ -85,17 +84,26 @@ const lockerAccessoriesItems = [
 						</div>
 						<div class="product-option">
 							<label class="option-label">Color:</label>
-							<span class="option-value">Maple</span>
+							<span class="option-value">Designer White</span>
+							<span class="swatch-group-label">Solid Colors</span>
 							<div class="option-swatches">
+								<button type="button" class="swatch active" data-color-code="DW" title="Designer White" aria-pressed="true">Designer White</button>
+								<button type="button" class="swatch" data-color-code="WS" title="White Sand">White Sand</button>
+								<button type="button" class="swatch" data-color-code="FG" title="Fashion Grey">Fashion Grey</button>
+								<button type="button" class="swatch" data-color-code="NS" title="North Sea">North Sea</button>
+								<button type="button" class="swatch" data-color-code="GR" title="Graphite">Graphite</button>
 								<button type="button" class="swatch" data-color-code="BL" title="Black">Black</button>
-								<button type="button" class="swatch" data-color-code="LG" title="Light Grey">Light Grey</button>
-								<button type="button" class="swatch" data-color-code="DG" title="Dark Grey">Dark Grey</button>
-								<button type="button" class="swatch" data-color-code="LH" title="Red">Red</button>
-								<button type="button" class="swatch" data-color-code="LLB" title="Blue">Blue</button>
-								<button type="button" class="swatch active" data-color-code="MP" title="Maple" aria-pressed="true">Maple</button>
+								<button type="button" class="swatch" data-color-code="HB" title="Hollyberry">Hollyberry</button>
+								<button type="button" class="swatch" data-color-code="LB" title="Lapis Blue">Lapis Blue</button>
+							</div>
+							<span class="swatch-group-label">Woodgrains</span>
+							<div class="option-swatches">
+								<button type="button" class="swatch" data-color-code="FM" title="Fusion Maple">Fusion Maple</button>
+								<button type="button" class="swatch" data-color-code="PO" title="Pasadena Oak">Pasadena Oak</button>
+								<button type="button" class="swatch" data-color-code="WH" title="Walnut Heights">Walnut Heights</button>
+								<button type="button" class="swatch" data-color-code="HW" title="Hampton Walnut">Hampton Walnut</button>
 							</div>
 							<p class="option-note">Custom colors are available upon request (custom orders, 8–12 weeks).</p>
-							<MaterialOptions />
 						</div>
 						<div class="product-option">
 							<label class="option-label">Accessories:</label>
@@ -180,13 +188,13 @@ const lockerAccessoriesItems = [
 					<li>Engineered for elite and professional facilities and high-traffic athletic locker rooms</li>
 					<li>14&quot; high foot locker provides comfortable seating and secure equipment storage</li>
 					<li>Available in 18&quot; to 30&quot; widths; standard configuration 24&quot; W x 76&quot; H x 19&quot; D with optional 4&quot; base</li>
-					<li>Custom orders (8–12 weeks): any size, any wood, or materials; custom colors upon request</li>
+					<li>Finishes: Designer White, White Sand, Fashion Grey, North Sea, Graphite, Black, Hollyberry, Lapis Blue, Fusion Maple, Pasadena Oak, Walnut Heights, Hampton Walnut; custom colors available upon request (8&#x2013;12 weeks)</li>
 					<li>5 year warranty</li>
 				</ul>
 
 				<h3 class="product-info-subheading">Options</h3>
 				<ul class="product-options-list">
-					<li>Choice of finishes: black, light grey, dark grey, or maple</li>
+					<li>Choice of 12 Wilsonart&reg; laminate finishes: 8 solid colors + 4 woodgrains</li>
 					<li>Vented front panel for increased airflow</li>
 					<li>Secure lock box integrated into the upper compartment</li>
 					<li>Bottom cushion or both cushions for added seating comfort</li>
@@ -408,12 +416,12 @@ const lockerAccessoriesItems = [
 
 	.option-label {
 		display: block;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		font-weight: 500;
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		letter-spacing: 0.1em;
 		margin-bottom: 8px;
 	}
 
@@ -482,6 +490,21 @@ const lockerAccessoriesItems = [
 		background: #fe5900;
 	}
 
+	.swatch-group-label {
+		display: block;
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin: 16px 0 8px;
+	}
+
+	.swatch-group-label:first-of-type {
+		margin-top: 4px;
+	}
+
 	.option-swatches {
 		display: flex;
 		flex-wrap: wrap;
@@ -519,12 +542,18 @@ const lockerAccessoriesItems = [
 	.swatch[data-color-code].active {
 		border-color: transparent;
 	}
-	.swatch[data-color-code="BL"]:hover { background: #2a2a2a; color: #fff; }
-	.swatch[data-color-code="LG"]:hover { background: #8a8b8e; color: #fff; }
-	.swatch[data-color-code="DG"]:hover { background: #3a3d42; color: #fff; }
-	.swatch[data-color-code="LH"]:hover { background: #8b0c16; color: #fff; }
-	.swatch[data-color-code="LLB"]:hover { background: #183a62; color: #fff; }
-	.swatch[data-color-code="MP"]:hover { background: #c8b898; color: #0d0d0d; }
+	.swatch[data-color-code="DW"]:hover, .swatch[data-color-code="DW"].active { background: #F5F5F5; color: #0d0d0d; }
+	.swatch[data-color-code="WS"]:hover, .swatch[data-color-code="WS"].active { background: #EDE8DA; color: #0d0d0d; }
+	.swatch[data-color-code="FG"]:hover, .swatch[data-color-code="FG"].active { background: #A8A8A8; color: #fff; }
+	.swatch[data-color-code="NS"]:hover, .swatch[data-color-code="NS"].active { background: #6E8090; color: #fff; }
+	.swatch[data-color-code="GR"]:hover, .swatch[data-color-code="GR"].active { background: #4D4D4D; color: #fff; }
+	.swatch[data-color-code="BL"]:hover, .swatch[data-color-code="BL"].active { background: #1A1A1A; color: #fff; }
+	.swatch[data-color-code="HB"]:hover, .swatch[data-color-code="HB"].active { background: #C41E3A; color: #fff; }
+	.swatch[data-color-code="LB"]:hover, .swatch[data-color-code="LB"].active { background: #1F4E8C; color: #fff; }
+	.swatch[data-color-code="FM"]:hover, .swatch[data-color-code="FM"].active { background: #DEC7A0; color: #0d0d0d; }
+	.swatch[data-color-code="PO"]:hover, .swatch[data-color-code="PO"].active { background: #A67C52; color: #fff; }
+	.swatch[data-color-code="WH"]:hover, .swatch[data-color-code="WH"].active { background: #6B4226; color: #fff; }
+	.swatch[data-color-code="HW"]:hover, .swatch[data-color-code="HW"].active { background: #4A2F1B; color: #fff; }
 
 	.product-specs-inline {
 		font-family: 'Yantramanav', sans-serif;

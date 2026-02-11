@@ -40,7 +40,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<div class="product-card" id="semi-pro">
 					<a href="/product-semi-pro-locker" class="product-link product-card-trigger-link">
 						<div class="product-image">
-							<img src="http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-Semipro.jpg" alt="Semi Pro Locker" loading="lazy" />
+							<img src="/images/semi-pro-locker-new.png" alt="Semi Pro Locker" loading="lazy" />
 						</div>
 						<div class="product-details">
 							<div class="product-position">Semi Pro</div>
@@ -681,8 +681,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		height: 100%;
 		object-fit: cover;
 		display: block;
-		filter: grayscale(100%);
-		transition: filter 0.3s ease;
 		transform: translateX(-15%);
 	}
 
@@ -693,7 +691,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.product-card:hover .product-image img {
-		filter: grayscale(0%);
 	}
 
 	.product-details {

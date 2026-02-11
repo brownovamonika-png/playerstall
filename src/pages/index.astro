@@ -30,7 +30,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					</div>
 				</div>
 			</div>
-			<div class="hero-slide" style="background-image: url('/images/topscorer/h1-img-6.jpg');">
+			<div class="hero-slide" style="background-image: url('/images/topscorer/h2-rev-slide-3.jpg');">
 				<div class="hero-slide-overlay"></div>
 				<div class="hero-slide-content">
 					<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
@@ -142,7 +142,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<!-- Semi Pro -->
 					<div class="home-shop-product-item">
 						<div class="home-shop-product-image">
-							<img src="/semi-pro-locker.jpg" alt="Semi Pro Locker" loading="lazy" />
+							<img src="/images/semi-pro-locker-new.png" alt="Semi Pro Locker" loading="lazy" />
 						</div>
 						<div class="home-shop-product-content">
 							<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -464,6 +464,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		z-index: 1;
 		animation: zoomIn 20s ease-in-out infinite;
 	}
+
 
 	.hero-slide.first-slide {
 		background-size: cover;
@@ -2123,12 +2124,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		height: 100%;
 		object-fit: cover;
 		display: block;
-		filter: grayscale(100%);
-		transition: filter 0.3s;
 	}
 
 	.home-shop-product-item:hover .home-shop-product-image img {
-		filter: grayscale(0%);
 	}
 
 	.home-shop-badge {
@@ -2405,8 +2403,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		height: 100%;
 		object-fit: contain;
 		display: block;
-		filter: grayscale(100%);
-		transition: filter 0.3s ease;
 	}
 
 	#semi-pro .product-image img,
@@ -2425,7 +2421,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.product-card:hover .product-image img {
-		filter: grayscale(0%);
 	}
 
 	.product-details {
