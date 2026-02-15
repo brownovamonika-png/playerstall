@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogPostLayout from '../../../layouts/BlogPostLayout.astro';
 
 const post = {
   title: 'The Anatomy of a Perfect Locker Room: Must-Have Features for Every Team',
@@ -175,58 +175,15 @@ const content = `<!-- wp:heading {"level":3} -->
 <!-- /wp:paragraph -->`;
 ---
 
-<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
-  <section class="page-header">
-    <div class="container">
-      <div class="article-meta">
-        <span class="blog-date">{post.datePublished ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown'} · {post.readTime}</span>
-        <span class="blog-category">{post.category}</span>
-      </div>
-      <h1>{post.title}</h1>
-      {post.description && <p class="lede">{post.description}</p>}
-    </div>
-  </section>
+<BlogPostLayout
+  title={post.title}
+  description={post.description}
+  category={post.category}
+  datePublished={post.datePublished}
+  readTime={post.readTime}
+  author={post.author}
+  tags={['Athletic Lockers', 'Sports Lockers']}
+>
+  <Fragment set:html={content} />
+</BlogPostLayout>
 
-  <section class="blog-section">
-    <div class="container">
-      <article class="blog-content">
-        <Fragment set:html={content} />
-      </article>
-    </div>
-  </section>
-
-  <section class="cta-section">
-    <div class="container">
-      <div class="cta-content">
-        <h2>Ready for Custom Sports Lockers?</h2>
-        <p>Get a free design consultation. 30+ years experience. Lifetime guarantee.</p>
-        <a class="btn-primary" href="/contact">Get Free Consultation</a>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
-
-<style>
-  :global(:root) { --bg-off-white: #f9f7f2; --border-color: #e3dfd7; --text-gray: #4a4a4a; --accent-color: #fe5900; --text-white: #ffffff; }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-  .page-header { background: var(--bg-off-white); padding: 4rem 0; text-align: center; }
-  .article-meta { display: flex; gap: 1rem; justify-content: center; font-size: 0.9rem; color: var(--accent-color); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
-  .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; line-height: 1.25; }
-  .lede { max-width: 760px; margin: 0 auto; font-size: 1.2rem; color: var(--text-gray); line-height: 1.8; }
-  .blog-section { padding: 4rem 0; }
-  .blog-content { background: var(--bg-off-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; }
-  .blog-content :global(h2) { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 2rem; }
-  .blog-content :global(h2:first-of-type) { margin-top: 0; }
-  .blog-content :global(h3), .blog-content :global(h4) { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.35rem; }
-  .blog-content :global(p), .blog-content :global(ul) { color: var(--text-gray); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
-  .blog-content :global(ul) { padding-left: 1.5rem; margin: 1.5rem 0; }
-  .blog-content :global(a) { color: var(--accent-color); text-decoration: none; }
-  .blog-content :global(a:hover) { text-decoration: underline; }
-  .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; background: var(--accent-color); color: var(--text-white); letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-  .cta-section { background: #121212; color: #fff; padding: 4rem 0; margin-top: 2rem; }
-  .cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 16px; }
-  .cta-content h2 { margin-top: 0; font-size: 2.25rem; color: #fff; }
-  .cta-content p { color: #d8d8d8; margin-bottom: 2rem; font-size: 1.1rem; }
-  @media (max-width: 768px) { .blog-content { padding: 2rem; } }
-</style>

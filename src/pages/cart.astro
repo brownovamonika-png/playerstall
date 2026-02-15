@@ -523,11 +523,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		justify-content: flex-end;
+		justify-content: space-between;
 		gap: 16px;
 		margin-top: 20px;
-		margin-left: auto;
-		width: fit-content;
+		margin-left: 0;
+		width: 100%;
 		max-width: 100%;
 	}
 
@@ -634,7 +634,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	:global(.cart-section .cart-collaterals) {
 		display: grid;
-		grid-template-columns: 1fr 460px;
+		grid-template-columns: 720px 1fr;
 		gap: 50px;
 		align-items: start;
 		margin-bottom: 52px;
@@ -646,8 +646,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 40px 36px 44px;
 		border: none;
 		box-sizing: border-box;
-		max-width: 380px;
-		margin-left: auto;
+		max-width: 600px;
+		margin-left: 0;
 	}
 
 	:global(.cart-section .cart_totals h2.cart-totals-title) {

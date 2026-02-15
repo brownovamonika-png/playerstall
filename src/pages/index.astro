@@ -30,7 +30,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					</div>
 				</div>
 			</div>
-			<div class="hero-slide" style="background-image: url('/images/topscorer/h2-rev-slide-3.jpg');">
+			<div class="hero-slide" style="background-image: url('/images/topscorer/h2-rev-slide-4.jpg');">
 				<div class="hero-slide-overlay"></div>
 				<div class="hero-slide-content">
 					<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
@@ -41,8 +41,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					</div>
 				</div>
 			</div>
-			<div class="hero-slide" style="background-image: url('/hockey-faceoff.png');">
-				<div class="hero-slide-overlay"></div>
+		<div class="hero-slide slide-bottom" style="background-image: url('/images/topscorer/h3-img-1.jpg');">
+			<div class="hero-slide-overlay"></div>
 				<div class="hero-slide-content">
 					<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
 					<p class="hero-slide-text">Wood, phenolic, and more — custom in 8–12 weeks. High style. Lower cost.</p>
@@ -259,6 +259,66 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					</div>
 					<div class="accordion-content">
 						<p>We have all the shapes and sizes that are required for most locker rooms. It is up to you and your style to choose from.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Trending Stats Section (TopScorer hockey style) -->
+	<section class="trending-stats-section">
+		<div class="trending-stats-container">
+			<div class="trending-stats-header">
+				<p class="trending-stats-subtitle">what's trending</p>
+				<h2 class="trending-stats-title">PLAYERSTALL EQUIPMENT</h2>
+			</div>
+			<div class="trending-stats-grid">
+				<div class="trending-stat-item">
+					<div class="trending-stat-circle">
+						<svg class="progress-ring" viewBox="0 0 140 140">
+							<circle class="progress-ring-bg" cx="70" cy="70" r="62" />
+							<circle class="progress-ring-fill" cx="70" cy="70" r="62" data-percent="35" />
+						</svg>
+						<div class="trending-stat-counter">
+							<span class="trending-stat-number" data-target="35">0</span>
+							<span class="trending-stat-percent">%</span>
+						</div>
+					</div>
+					<div class="trending-stat-info">
+						<h4 class="trending-stat-label">weight ratio</h4>
+						<p class="trending-stat-text">Premium wood construction at 35% less weight than metal — easier handling, faster setup, same lasting durability.</p>
+					</div>
+				</div>
+				<div class="trending-stat-item">
+					<div class="trending-stat-circle">
+						<svg class="progress-ring" viewBox="0 0 140 140">
+							<circle class="progress-ring-bg" cx="70" cy="70" r="62" />
+							<circle class="progress-ring-fill" cx="70" cy="70" r="62" data-percent="68" />
+						</svg>
+						<div class="trending-stat-counter">
+							<span class="trending-stat-number" data-target="68">0</span>
+							<span class="trending-stat-percent">%</span>
+						</div>
+					</div>
+					<div class="trending-stat-info">
+						<h4 class="trending-stat-label">cost savings</h4>
+						<p class="trending-stat-text">Save up to 68% compared to custom metal lockers while getting premium quality backed by our lifetime guarantee.</p>
+					</div>
+				</div>
+				<div class="trending-stat-item">
+					<div class="trending-stat-circle">
+						<svg class="progress-ring" viewBox="0 0 140 140">
+							<circle class="progress-ring-bg" cx="70" cy="70" r="62" />
+							<circle class="progress-ring-fill" cx="70" cy="70" r="62" data-percent="75" />
+						</svg>
+						<div class="trending-stat-counter">
+							<span class="trending-stat-number" data-target="75">0</span>
+							<span class="trending-stat-percent">%</span>
+						</div>
+					</div>
+					<div class="trending-stat-info">
+						<h4 class="trending-stat-label">faster install</h4>
+						<p class="trending-stat-text">Modular flat-pack design means 75% faster assembly — each locker goes together in just 20 to 30 minutes.</p>
 					</div>
 				</div>
 			</div>
@@ -489,6 +549,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		100% {
 			background-size: cover;
 			background-position: center center;
+			transform: scale(1);
+		}
+	}
+
+	.hero-slide.slide-bottom {
+		background-position: center bottom !important;
+	}
+	.hero-slide.slide-bottom.active {
+		animation: zoomInBottom 20s ease-in-out infinite;
+	}
+	@keyframes zoomInBottom {
+		0% {
+			background-size: cover;
+			background-position: center bottom;
+			transform: scale(1);
+		}
+		50% {
+			background-size: cover;
+			background-position: center bottom;
+			transform: scale(1.1);
+		}
+		100% {
+			background-size: cover;
+			background-position: center bottom;
 			transform: scale(1);
 		}
 	}
@@ -2693,6 +2777,133 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin-top: 15px;
 	}
 
+	/* What's Trending Stats Section – light style matching TopScorer hockey */
+	.trending-stats-section {
+		background: #f7f7f7;
+		padding: 100px 0;
+	}
+	.trending-stats-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+	.trending-stats-header {
+		text-align: center;
+		margin-bottom: 60px;
+	}
+	.trending-stats-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #b6b6b6;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin-bottom: 10px;
+	}
+	.trending-stats-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 700;
+		color: #1a1a1a;
+		text-transform: uppercase;
+		margin: 0;
+	}
+	.trending-stats-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 30px;
+	}
+	.trending-stat-item {
+		display: flex;
+		align-items: center;
+		gap: 24px;
+	}
+	/* Circle + SVG ring */
+	.trending-stat-circle {
+		position: relative;
+		width: 140px;
+		height: 140px;
+		flex-shrink: 0;
+	}
+	.progress-ring {
+		width: 100%;
+		height: 100%;
+		transform: rotate(-90deg);
+	}
+	.progress-ring-bg {
+		fill: none;
+		stroke: #e8e8e8;
+		stroke-width: 3;
+	}
+	.progress-ring-fill {
+		fill: none;
+		stroke: #1a1a1a;
+		stroke-width: 3;
+		stroke-linecap: round;
+		stroke-dasharray: 389.56;  /* 2 * π * 62 */
+		stroke-dashoffset: 389.56; /* starts fully hidden */
+		transition: stroke-dashoffset 0.05s linear;
+	}
+	.trending-stat-counter {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: flex;
+		align-items: baseline;
+	}
+	.trending-stat-number {
+		font-family: 'Oswald', sans-serif;
+		font-size: 40px;
+		font-weight: 700;
+		color: #1a1a1a;
+		line-height: 1;
+	}
+	.trending-stat-percent {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #1a1a1a;
+		margin-left: 2px;
+	}
+	/* Text info to the right */
+	.trending-stat-info {
+		flex: 1;
+	}
+	.trending-stat-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		color: #1a1a1a;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		margin: 0 0 8px 0;
+	}
+	.trending-stat-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	@media (max-width: 968px) {
+		.trending-stats-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (max-width: 640px) {
+		.trending-stats-grid {
+			grid-template-columns: 1fr;
+		}
+		.trending-stats-title {
+			font-size: 32px;
+		}
+		.trending-stat-circle {
+			width: 120px;
+			height: 120px;
+		}
+	}
+
 	/* Equipment Section (Our Process) */
 	.equipment-section {
 		background: #f7f7f7;
@@ -3244,6 +3455,78 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </style>
 
 <script>
+	// Counter + Circle Ring Animation (TopScorer style)
+	function initCounterAnimation() {
+		const counters = document.querySelectorAll('.trending-stat-number[data-target]');
+		const rings = document.querySelectorAll('.progress-ring-fill[data-percent]');
+		if (counters.length === 0) return;
+
+		const radius = 62;
+		const circumference = 2 * Math.PI * radius; // ≈ 389.56
+
+		let animated = false;
+
+		function animateCounters() {
+			if (animated) return;
+			animated = true;
+
+			const duration = 2000; // 2 seconds
+			const startTime = performance.now();
+
+			function easeOutCubic(t) {
+				return 1 - Math.pow(1 - t, 3);
+			}
+
+			function update(currentTime) {
+				const elapsed = currentTime - startTime;
+				const progress = Math.min(elapsed / duration, 1);
+				const easedProgress = easeOutCubic(progress);
+
+				// Animate numbers
+				counters.forEach(counter => {
+					const target = parseInt(counter.getAttribute('data-target'), 10);
+					const currentValue = Math.round(easedProgress * target);
+					counter.textContent = progress < 1 ? currentValue : target;
+				});
+
+				// Animate circle rings
+				rings.forEach(ring => {
+					const percent = parseInt(ring.getAttribute('data-percent'), 10);
+					const currentPercent = easedProgress * percent;
+					const offset = circumference - (currentPercent / 100) * circumference;
+					ring.style.strokeDashoffset = offset;
+				});
+
+				if (progress < 1) {
+					requestAnimationFrame(update);
+				}
+			}
+
+			requestAnimationFrame(update);
+		}
+
+		const section = document.querySelector('.trending-stats-section');
+		if (!section) return;
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					animateCounters();
+					observer.unobserve(entry.target);
+				}
+			});
+		}, { threshold: 0.2 });
+
+		observer.observe(section);
+	}
+
+	// Initialize counter animation
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initCounterAnimation);
+	} else {
+		initCounterAnimation();
+	}
+
 	// Hero Slider Functionality
 	function initHeroSlider() {
 		const slides = document.querySelectorAll('.hero-slide');

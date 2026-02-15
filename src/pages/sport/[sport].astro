@@ -2,6 +2,15 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 /* ───── Sport Data ───── */
+interface HighlightItem {
+	type: 'image' | 'text';
+	image?: string;
+	category?: string;
+	title?: string;
+	text?: string;
+	link?: string;
+}
+
 interface SportInfo {
 	title: string;
 	tagline: string;
@@ -9,6 +18,7 @@ interface SportInfo {
 	features: string[];
 	heroImage: string;
 	gallery: string[];
+	highlights?: HighlightItem[];
 	cta: string;
 }
 
@@ -42,12 +52,22 @@ const SPORT_DATA: Record<string, SportInfo> = {
 			'Ventilated compartments for pads and helmets',
 			'Equipment drying features',
 		],
-		heroImage: '/images/topscorer/h3-img-2.jpg',
+		heroImage: '/images/topscorer/h3-banner-img-1.jpg',
 		gallery: [
-			'/images/topscorer/h3-img-1.jpg',
+			'/images/topscorer/h3-blog-img-1.jpg',
+			'/images/topscorer/h3-blog-img-3.jpg',
 			'/images/topscorer/h3-img-4.jpg',
-			'/images/topscorer/h3-img-6.jpg',
-			'/images/topscorer/h3-banner-img-1.jpg',
+			'/images/topscorer/h3-blog-img-5.jpg',
+		],
+		highlights: [
+			{ type: 'text', category: 'Hockey Lockers', title: 'Built for the Toughest Equipment', text: 'Hockey equipment is among the most challenging to store. Our hockey lockers are built for skates, pads, sticks, and gear with specialized storage and drying features.', link: '/contact' },
+			{ type: 'image', image: '/images/topscorer/h3-blog-img-3.jpg' },
+			{ type: 'text', category: 'Hockey Lockers', title: 'Reinforced Construction', text: 'Heavy-duty build designed for the weight and bulk of hockey gear. Dedicated compartments for skates and stick storage keep everything organized and accessible.', link: '/contact' },
+			{ type: 'image', image: '/images/topscorer/h3-img-6.jpg' },
+			{ type: 'image', image: '/images/topscorer/h3-blog-img-5.jpg' },
+			{ type: 'text', category: 'Hockey Lockers', title: 'Ventilated Compartments', text: 'Purpose-built ventilation for pads, helmets, and gloves prevents moisture buildup, eliminates odor, and extends the life of expensive equipment.', link: '/contact' },
+			{ type: 'image', image: '/images/topscorer/h3-img-4.jpg' },
+			{ type: 'text', category: 'Hockey Lockers', title: 'Equipment Drying', text: 'Integrated drying features keep gear fresh, dry, and game-ready. Custom wood construction with premium finishes built to last a lifetime.', link: '/contact' },
 		],
 		cta: 'Get Hockey Locker Quote',
 	},
@@ -61,12 +81,12 @@ const SPORT_DATA: Record<string, SportInfo> = {
 			'Personal item compartments',
 			'Space-efficient layout',
 		],
-		heroImage: '/images/topscorer/basketball-arena-hero.jpg',
+		heroImage: '/images/topscorer/basketball-arena-game.jpg',
 		gallery: [
-			'/images/topscorer/basketball-gallery-1.jpg',
-			'/images/topscorer/basketball-gallery-2.jpg',
+			'/images/topscorer/basketball-dribble.png',
 			'/images/topscorer/basketball-gallery-3.jpg',
-			'/images/topscorer/basketball-gallery-4.jpg',
+			'/images/topscorer/basketball-dunk-aerial.jpg',
+			'/images/topscorer/basketball-gallery-2.jpg',
 		],
 		cta: 'Get Basketball Locker Quote',
 	},
@@ -80,12 +100,12 @@ const SPORT_DATA: Record<string, SportInfo> = {
 			'Helmet storage with ventilation',
 			'Easy access and durable construction',
 		],
-		heroImage: '/images/topscorer/h2-img-1.jpg',
+		heroImage: '/images/topscorer/lacrosse-field-hero.jpg',
 		gallery: [
-			'/images/topscorer/h2-rev-slide-2.jpg',
-			'/images/topscorer/h2-rev-slide-3.jpg',
-			'/images/topscorer/h2-img-2.jpg',
-			'/images/topscorer/h2-img-3.jpg',
+			'/images/topscorer/h2-blog-img-1-1.jpg',
+			'/images/topscorer/h2-blog-img-2-1.jpg',
+			'/images/topscorer/h2-blog-img-3-1.jpg',
+			'/images/topscorer/h2-blog-img-6.jpg',
 		],
 		cta: 'Get Baseball Locker Quote',
 	},
@@ -129,21 +149,31 @@ const SPORT_DATA: Record<string, SportInfo> = {
 	},
 };
 
-/* ───── Locker lineup ───── */
-const COLOR_SWATCHES: Record<string, string> = {
-	'Black': '#1a1a1a',
-	'Light Grey': '#b0b0b0',
-	'Dark Grey': '#4a4a4a',
-	'Maple': '#c4a574',
-};
+/* ───── Locker color options (Wilsonart) ───── */
+const SOLID_COLORS = [
+	{ code: 'DW', name: 'Designer White', hex: '#F5F5F5' },
+	{ code: 'WS', name: 'White Sand',     hex: '#EDE8DA' },
+	{ code: 'FG', name: 'Fashion Grey',   hex: '#A8A8A8' },
+	{ code: 'NS', name: 'North Sea',      hex: '#6E8090' },
+	{ code: 'GR', name: 'Graphite',       hex: '#4D4D4D' },
+	{ code: 'BL', name: 'Black',          hex: '#1A1A1A' },
+	{ code: 'HB', name: 'Hollyberry',     hex: '#C41E3A' },
+	{ code: 'LB', name: 'Lapis Blue',     hex: '#1F4E8C' },
+];
+const WOOD_COLORS = [
+	{ code: 'FM', name: 'Fusion Maple',   hex: '#DEC7A0' },
+	{ code: 'PO', name: 'Pasadena Oak',   hex: '#A67C52' },
+	{ code: 'WH', name: 'Walnut Heights', hex: '#6B4226' },
+	{ code: 'HW', name: 'Hampton Walnut', hex: '#4A2F1B' },
+];
 
 const LOCKERS = [
-	{ name: 'Semi Pro', image: '/images/semi-pro-locker-new.png', price: '$349.00', info: 'Entry-level wood locker. 3/4" solid wood construction, durable and ideal for schools and rec teams.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"', colors: ['Maple'], href: '/product-semi-pro-locker' },
-	{ name: 'Varsity', image: '/varsity-locker.jpg', price: '$449.00', info: 'Step-up design with 3/4" solid wood premium finish. Great for varsity and competitive programs.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', colors: ['Maple'], href: '/product-varsity-locker' },
-	{ name: 'Pro', image: '/pro-locker.jpg', price: '$549.00', info: 'MPW-6C plywood melamine construction. Reliable workhorse for team locker rooms. Ships in 3–4 weeks.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', colors: ['Black', 'Light Grey', 'Dark Grey', 'Maple'], href: '/product-pro-locker' },
-	{ name: 'Stadium', image: '/stadium-locker.jpg', price: '$599.00', info: 'Premium plywood melamine, stadium-grade. Heavy-duty build for high-traffic facilities. Ships in 3–4 weeks.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', colors: ['Black', 'Light Grey', 'Dark Grey', 'Maple'], href: '/product-stadium-locker' },
-	{ name: 'Elite', image: '/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png', price: '$599.00', info: 'Top-tier locker. Curved design, premium materials. Quick Ship 2–4 weeks in select widths and colors.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', colors: ['Light Grey', 'Dark Grey', 'Black', 'Maple'], href: '/product-elite-locker' },
-	{ name: 'Legendary', image: '/images/legendary-locker.png', price: '$599.00', info: 'Top-tier locker. Curved design, maximum durability and customization. Custom build 8–12 weeks.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', colors: ['Black', 'Light Grey', 'Dark Grey', 'Maple'], href: '/product-legendary-locker' },
+	{ name: 'Semi Pro', image: '/images/semi-pro-locker-new.png', price: '$349.00', info: 'Entry-level wood locker. 3/4" solid wood construction, durable and ideal for schools and rec teams.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"', href: '/product-semi-pro-locker' },
+	{ name: 'Varsity', image: '/varsity-locker.jpg', price: '$449.00', info: 'Step-up design with 3/4" solid wood premium finish. Great for varsity and competitive programs.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-varsity-locker' },
+	{ name: 'Pro', image: '/pro-locker.jpg', price: '$549.00', info: 'MPW-6C plywood melamine construction. Reliable workhorse for team locker rooms. Ships in 3–4 weeks.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-pro-locker' },
+	{ name: 'Stadium', image: '/stadium-locker.jpg', price: '$599.00', info: 'Premium plywood melamine, stadium-grade. Heavy-duty build for high-traffic facilities. Ships in 3–4 weeks.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-stadium-locker' },
+	{ name: 'Elite', image: '/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png', price: '$599.00', info: 'Top-tier locker. Curved design, premium materials. Quick Ship 2–4 weeks in select widths and colors.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-elite-locker' },
+	{ name: 'Legendary', image: '/images/legendary-locker.png', price: '$599.00', info: 'Top-tier locker. Curved design, maximum durability and customization. Custom build 8–12 weeks.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-legendary-locker' },
 ];
 
 /* ───── Route ───── */
@@ -165,37 +195,25 @@ if (!sport || !SPORT_DATA[sport]) {
 
 const data = SPORT_DATA[sport];
 const titleLabel = data.title.replace(' Lockers', '');
+const isDark = !!data.highlights && data.highlights.length > 0;
 ---
 
 <BaseLayout
 	title={`${data.title} | Custom Wood Lockers | PlayerStall`}
 	description={data.description}
 >
+<div class={isDark ? 'sp-page sp-page-dark' : 'sp-page'}>
 	<!-- ═══════ HERO BANNER ═══════ -->
 	<section class="sp-hero">
 		<div class="sp-hero-bg">
 			<img src={data.heroImage} alt={data.title} class="sp-hero-bg-image" />
 		</div>
-		<div class="sp-hero-overlay"></div>
 		<div class="sp-hero-content">
 			<div class="sp-hero-breadcrumb">
 				<a href="/">Home</a>
 				<span class="sp-bc-text">{titleLabel}</span>
 			</div>
 			<h1 class="sp-hero-title">{data.title}</h1>
-			<div class="sp-hero-ghost-text">{titleLabel}</div>
-		</div>
-	</section>
-
-	<!-- ═══════ INTRO TEXT ═══════ -->
-	<section class="sp-intro">
-		<div class="sp-intro-inner">
-			<p class="sp-intro-text">{data.description}</p>
-			<ul class="sp-intro-features">
-				{data.features.map((f) => (
-					<li>{f}</li>
-				))}
-			</ul>
 		</div>
 	</section>
 
@@ -207,37 +225,76 @@ const titleLabel = data.title.replace(' Lockers', '');
 				<h2 class="sp-lockers-title">Our Lockers</h2>
 			</div>
 
-			{LOCKERS.map((locker) => (
-				<article class="sp-locker-row">
-					<!-- Image (left) -->
-					<div class="sp-locker-img">
+			{/* ── Featured: Semi Pro ── */}
+			{LOCKERS.filter((l) => l.name === 'Semi Pro').map((locker) => (
+				<article class="sp-locker-featured">
+					<div class="sp-locker-featured-img">
 						<img src={locker.image} alt={`${locker.name} Locker`} loading="lazy" />
 					</div>
-
-					<!-- Details + color swatches (center-right) -->
-					<div class="sp-locker-details">
+					<div class="sp-locker-featured-nameblock">
 						<h3 class="sp-locker-name">{locker.name}</h3>
 						<p class="sp-locker-price">{locker.price}</p>
-						<p class="sp-locker-info">{locker.info}</p>
-						<p class="sp-locker-dims"><strong>Dimensions:</strong> {locker.dimensions}{locker.dimensionsNote ? ` (${locker.dimensionsNote})` : ''}</p>
 					</div>
-
-					<!-- Colors (right of details) -->
 					<div class="sp-locker-colors">
-						<span class="sp-locker-colors-label">Colors</span>
+						<span class="sp-swatch-group-label">Solid Colors</span>
 						<div class="sp-locker-swatches">
-							{locker.colors.map((c) => (
+							{SOLID_COLORS.map((c) => (
 								<span
 									class="sp-swatch"
-									style={`background:${COLOR_SWATCHES[c] ?? '#ccc'}; ${c === 'Light Grey' || c === 'Maple' ? 'border:1px solid #ddd;' : ''}`}
-									title={c}
+									style={`background:${c.hex}; ${c.code === 'DW' || c.code === 'WS' ? 'border:1px solid #ddd;' : ''}`}
+									title={c.name}
 								></span>
 							))}
 						</div>
-						<span class="sp-locker-color-list">{locker.colors.join(', ')}</span>
+						<span class="sp-swatch-group-label sp-swatch-group-label-wood">Woodgrains</span>
+						<div class="sp-locker-swatches">
+							{WOOD_COLORS.map((c) => (
+								<span
+									class="sp-swatch"
+									style={`background:${c.hex};`}
+									title={c.name}
+								></span>
+							))}
+						</div>
 					</div>
+					<div class="sp-locker-featured-action">
+						<a href={locker.href} class="sp-btn sp-btn-featured">View Details</a>
+					</div>
+				</article>
+			))}
 
-					<!-- Button (far right) -->
+			{/* ── Remaining lockers ── */}
+			{LOCKERS.filter((l) => l.name !== 'Semi Pro').map((locker) => (
+				<article class="sp-locker-row">
+					<div class="sp-locker-img">
+						<img src={locker.image} alt={`${locker.name} Locker`} loading="lazy" />
+					</div>
+					<div class="sp-locker-nameblock">
+						<h3 class="sp-locker-name">{locker.name}</h3>
+						<p class="sp-locker-price">{locker.price}</p>
+					</div>
+					<div class="sp-locker-colors">
+						<span class="sp-swatch-group-label">Solid Colors</span>
+						<div class="sp-locker-swatches">
+							{SOLID_COLORS.map((c) => (
+								<span
+									class="sp-swatch"
+									style={`background:${c.hex}; ${c.code === 'DW' || c.code === 'WS' ? 'border:1px solid #ddd;' : ''}`}
+									title={c.name}
+								></span>
+							))}
+						</div>
+						<span class="sp-swatch-group-label sp-swatch-group-label-wood">Woodgrains</span>
+						<div class="sp-locker-swatches">
+							{WOOD_COLORS.map((c) => (
+								<span
+									class="sp-swatch"
+									style={`background:${c.hex};`}
+									title={c.name}
+								></span>
+							))}
+						</div>
+					</div>
 					<div class="sp-locker-action">
 						<a href={locker.href} class="sp-btn sp-btn-view">View Details</a>
 					</div>
@@ -245,6 +302,30 @@ const titleLabel = data.title.replace(' Lockers', '');
 			))}
 		</div>
 	</section>
+
+	<!-- ═══════ HIGHLIGHTS GRID (checkerboard layout) ═══════ -->
+	{data.highlights && data.highlights.length > 0 && (
+		<section class="sp-highlights" aria-label={`${titleLabel} highlights`}>
+			<div class="sp-highlights-grid">
+				{data.highlights.map((item, i) => (
+					item.type === 'image' ? (
+						<div class="sp-hl-cell sp-hl-image">
+							<img src={item.image} alt={`${titleLabel} highlight ${i + 1}`} loading="lazy" />
+						</div>
+					) : (
+						<div class="sp-hl-cell sp-hl-text">
+							<div class="sp-hl-text-inner">
+								<span class="sp-hl-category">{item.category}</span>
+								<h3 class="sp-hl-title">{item.title}</h3>
+								<p class="sp-hl-desc">{item.text}</p>
+								<a href={item.link || '#'} class="sp-hl-link">Read More</a>
+							</div>
+						</div>
+					)
+				))}
+			</div>
+		</section>
+	)}
 
 	<!-- ═══════ BOTTOM GALLERY (4 images) ═══════ -->
 	<section class="sp-gallery" aria-label={`${titleLabel} imagery`}>
@@ -285,6 +366,7 @@ const titleLabel = data.title.replace(' Lockers', '');
 			</aside>
 		</div>
 	</section>
+</div>
 </BaseLayout>
 
 <style>
@@ -301,7 +383,7 @@ const titleLabel = data.title.replace(' Lockers', '');
 		justify-content: flex-start;
 		padding: 0 0 80px;
 		overflow: hidden;
-		min-height: 320px;
+		min-height: 500px;
 		width: 100%;
 	}
 	.sp-hero-bg {
@@ -312,22 +394,13 @@ const titleLabel = data.title.replace(' Lockers', '');
 		height: 100%;
 		z-index: 0;
 		overflow: hidden;
+		background: #0d0d0d;
 	}
 	.sp-hero-bg-image {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		object-position: center center;
-		filter: grayscale(100%);
-	}
-	.sp-hero-overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 100%);
-		z-index: 1;
 	}
 	.sp-hero-content {
 		position: relative;
@@ -366,20 +439,6 @@ const titleLabel = data.title.replace(' Lockers', '');
 		line-height: 1.1;
 		position: relative;
 		z-index: 10;
-	}
-	.sp-hero-ghost-text {
-		position: absolute;
-		font-family: 'Oswald', sans-serif;
-		font-size: 300px;
-		font-weight: 700;
-		color: rgba(255, 255, 255, 0.06);
-		text-transform: uppercase;
-		letter-spacing: -3px;
-		bottom: -50px;
-		left: 50%;
-		transform: translateX(-50%);
-		white-space: nowrap;
-		z-index: 1;
 	}
 
 	/* ── INTRO ── */
@@ -461,74 +520,129 @@ const titleLabel = data.title.replace(' Lockers', '');
 		margin: 0;
 	}
 
+	/* Featured locker (Semi Pro) — standalone horizontal row */
+	.sp-locker-featured {
+		display: grid;
+		grid-template-columns: 260px auto 1fr auto;
+		gap: 32px;
+		align-items: center;
+		background: transparent;
+		padding: 40px 20px;
+		margin-bottom: 40px;
+		border: none;
+	}
+	.sp-locker-featured-img {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.sp-locker-featured-img img {
+		max-width: 100%;
+		max-height: 450px;
+		object-fit: contain;
+		display: block;
+	}
+	.sp-locker-featured-nameblock {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 4px;
+	}
+	.sp-locker-featured-nameblock .sp-locker-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: #0d0d0d;
+	}
+	.sp-locker-featured-nameblock .sp-locker-price {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+	.sp-locker-featured .sp-locker-colors {
+		align-items: center;
+		justify-self: center;
+	}
+	.sp-locker-featured-action {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
+	.sp-btn-featured {
+		padding: 12px 30px;
+		font-size: 13px;
+		background: #0d0d0d;
+		color: #ffffff;
+		border: 2px solid #0d0d0d;
+	}
+	.sp-btn-featured:hover,
+	.sp-btn-featured:active {
+		background: #fe5900;
+		color: #ffffff;
+		border-color: #fe5900;
+	}
+
 	/* Each locker row: image | details | colors | button */
 	.sp-locker-row {
 		display: grid;
-		grid-template-columns: 220px 1fr 160px 140px;
-		gap: 30px;
+		grid-template-columns: 260px auto 1fr auto;
+		gap: 32px;
 		align-items: center;
-		background: #ffffff;
-		padding: 30px;
+		background: transparent;
+		padding: 40px 20px;
 		margin-bottom: 20px;
-		border: 1px solid #e8e8e8;
-		transition: box-shadow 0.25s;
+		border: none;
 	}
 	.sp-locker-row:hover {
-		box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+		box-shadow: none;
 	}
 
 	/* Image */
 	.sp-locker-img {
 		width: 100%;
-		aspect-ratio: 1;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 	.sp-locker-img img {
 		max-width: 100%;
-		max-height: 100%;
+		max-height: 280px;
 		object-fit: contain;
 		display: block;
 	}
 
-	/* Details */
-	.sp-locker-details {
+	/* Name + Price block (shared by all lockers) */
+	.sp-locker-nameblock {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
+		text-align: center;
 		gap: 4px;
 	}
+	.sp-locker-nameblock .sp-locker-name,
 	.sp-locker-name {
 		font-family: 'Oswald', sans-serif;
-		font-size: 24px;
+		font-size: 28px;
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.12em;
 		color: #0d0d0d;
 		margin: 0;
 	}
+	.sp-locker-nameblock .sp-locker-price,
 	.sp-locker-price {
-		font-family: 'Yantramanav', sans-serif;
+		font-family: 'Oswald', sans-serif;
 		font-size: 18px;
-		font-weight: 500;
-		color: #fe5900;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
 		margin: 0;
-	}
-	.sp-locker-info {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #666;
-		line-height: 1.6;
-		margin: 6px 0 0;
-	}
-	.sp-locker-dims {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #888;
-		margin: 4px 0 0;
-	}
-	.sp-locker-dims strong {
-		color: #555;
 	}
 
 	/* Colors column */
@@ -538,37 +652,41 @@ const titleLabel = data.title.replace(' Lockers', '');
 		align-items: center;
 		gap: 6px;
 	}
-	.sp-locker-colors-label {
+	.sp-swatch-group-label {
 		font-family: 'Oswald', sans-serif;
-		font-size: 12px;
+		font-size: 11px;
+		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.15em;
-		color: #999;
+		color: #0d0d0d;
+	}
+	.sp-swatch-group-label-wood {
+		margin-top: 8px;
 	}
 	.sp-locker-swatches {
 		display: flex;
-		gap: 6px;
+		gap: 5px;
 		justify-content: center;
+		flex-wrap: wrap;
 	}
 	.sp-swatch {
 		display: block;
-		width: 28px;
-		height: 28px;
-		border-radius: 4px;
+		width: 44px;
+		height: 44px;
+		border-radius: 0;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+		cursor: pointer;
+		transition: transform 0.2s;
 	}
-	.sp-locker-color-list {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 11px;
-		color: #999;
-		text-align: center;
+	.sp-swatch:hover {
+		transform: scale(1.15);
 	}
 
 	/* Action button */
 	.sp-locker-action {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: flex-end;
 	}
 
 	/* ── BUTTONS ── */
@@ -584,8 +702,8 @@ const titleLabel = data.title.replace(' Lockers', '');
 		border: none;
 	}
 	.sp-btn-view {
-		padding: 10px 22px;
-		font-size: 12px;
+		padding: 12px 30px;
+		font-size: 13px;
 		background: #0d0d0d;
 		color: #ffffff;
 		border: 2px solid #0d0d0d;
@@ -611,6 +729,93 @@ const titleLabel = data.title.replace(' Lockers', '');
 		width: 100%;
 		text-align: center;
 		box-sizing: border-box;
+	}
+
+	/* ── HIGHLIGHTS CHECKERBOARD GRID ── */
+	.sp-highlights {
+		padding: 0;
+		background: #0d0d0d;
+	}
+	.sp-highlights-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0;
+	}
+	.sp-hl-cell {
+		aspect-ratio: 1;
+		overflow: hidden;
+		position: relative;
+	}
+
+	/* Image cells */
+	.sp-hl-image {
+		background: #0d0d0d;
+	}
+	.sp-hl-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		filter: grayscale(100%);
+		transition: filter 0.4s, transform 0.4s;
+	}
+	.sp-hl-image:hover img {
+		filter: grayscale(0%);
+		transform: scale(1.04);
+	}
+
+	/* Text cells */
+	.sp-hl-text {
+		background: #0d0d0d;
+		display: flex;
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+	.sp-hl-text-inner {
+		padding: 30px 28px;
+	}
+	.sp-hl-category {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		font-weight: 400;
+		text-transform: uppercase;
+		letter-spacing: 0.25em;
+		color: #888;
+		display: block;
+		margin-bottom: 12px;
+	}
+	.sp-hl-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 22px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #ffffff;
+		margin: 0 0 14px;
+		line-height: 1.2;
+	}
+	.sp-hl-desc {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #999;
+		line-height: 1.7;
+		margin: 0 0 20px;
+	}
+	.sp-hl-link {
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #ffffff;
+		text-decoration: none;
+		border-bottom: 2px solid #ffffff;
+		padding-bottom: 2px;
+		transition: color 0.3s, border-color 0.3s;
+	}
+	.sp-hl-link:hover {
+		color: #fe5900;
+		border-color: #fe5900;
 	}
 
 	/* ── BOTTOM GALLERY ── */
@@ -713,13 +918,10 @@ const titleLabel = data.title.replace(' Lockers', '');
 
 	/* ── RESPONSIVE ── */
 	@media (max-width: 1024px) {
-		.sp-locker-row {
-			grid-template-columns: 180px 1fr 140px;
+		.sp-locker-row,
+		.sp-locker-featured {
+			grid-template-columns: 180px auto 1fr auto;
 			gap: 20px;
-		}
-		.sp-locker-action {
-			grid-column: 1 / -1;
-			justify-content: flex-start;
 		}
 	}
 
@@ -730,12 +932,31 @@ const titleLabel = data.title.replace(' Lockers', '');
 		.sp-gallery-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
+		.sp-highlights-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	@media (max-width: 768px) {
-		.sp-hero { min-height: 260px; padding-bottom: 50px; }
-		.sp-hero-title { font-size: 48px; }
-		.sp-hero-ghost-text { font-size: 180px; bottom: -30px; }
+		.sp-hero { min-height: 300px; padding-bottom: 50px; }
+		.sp-hero-title { font-size: 42px; }
+
+		.sp-locker-featured {
+			grid-template-columns: 1fr;
+			text-align: center;
+			padding: 30px 24px;
+			gap: 20px;
+		}
+		.sp-locker-featured-img {
+			max-width: 250px;
+			margin: 0 auto;
+		}
+		.sp-locker-featured .sp-locker-colors {
+			align-items: center;
+		}
+		.sp-locker-featured-action {
+			justify-content: center;
+		}
 
 		.sp-locker-row {
 			grid-template-columns: 1fr;
@@ -746,14 +967,13 @@ const titleLabel = data.title.replace(' Lockers', '');
 			max-width: 200px;
 			margin: 0 auto;
 		}
-		.sp-locker-details {
+		.sp-locker-nameblock {
 			align-items: center;
 		}
 		.sp-locker-colors {
 			align-items: center;
 		}
 		.sp-locker-action {
-			grid-column: 1;
 			justify-content: center;
 		}
 
@@ -762,17 +982,108 @@ const titleLabel = data.title.replace(' Lockers', '');
 	}
 
 	@media (max-width: 640px) {
-		.sp-hero { min-height: 220px; padding-bottom: 40px; }
-		.sp-hero-title { font-size: 36px; }
-		.sp-hero-ghost-text { font-size: 120px; bottom: -20px; }
+		.sp-hero { min-height: 240px; padding-bottom: 40px; }
+		.sp-hero-title { font-size: 32px; }
 
 		.sp-gallery-grid {
 			grid-template-columns: repeat(2, 1fr);
+		}
+		.sp-highlights-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.sp-hl-title {
+			font-size: 18px;
+		}
+		.sp-hl-desc {
+			font-size: 12px;
+		}
+		.sp-hl-text-inner {
+			padding: 20px 18px;
 		}
 
 		.sp-intro-features {
 			flex-direction: column;
 			align-items: center;
 		}
+	}
+
+	/* ── DARK THEME (pages with highlights) ── */
+	.sp-page-dark {
+		background: #0d0d0d;
+	}
+	.sp-page-dark .sp-hero-bg-image {
+		filter: none;
+	}
+	.sp-page-dark .sp-intro {
+		background: #0d0d0d;
+	}
+	.sp-page-dark .sp-intro-text {
+		color: #b0b0b0;
+	}
+	.sp-page-dark .sp-intro-features li {
+		color: #ccc;
+	}
+	.sp-page-dark .sp-lockers {
+		background: #f5f5f5;
+	}
+	.sp-page-dark .sp-lockers-title {
+		color: #0d0d0d;
+	}
+	.sp-page-dark .sp-locker-row {
+		background: transparent;
+		border: none;
+	}
+	.sp-page-dark .sp-locker-row:hover {
+		box-shadow: none;
+	}
+	.sp-page-dark .sp-locker-name {
+		color: #0d0d0d;
+	}
+	.sp-page-dark .sp-locker-info {
+		color: #666;
+	}
+	.sp-page-dark .sp-locker-dims {
+		color: #888;
+	}
+	.sp-page-dark .sp-locker-dims strong {
+		color: #555;
+	}
+	.sp-page-dark .sp-swatch-group-label {
+		color: #0d0d0d;
+	}
+	.sp-page-dark .sp-btn-view {
+		background: #0d0d0d;
+		color: #ffffff;
+		border-color: #0d0d0d;
+	}
+	.sp-page-dark .sp-btn-view:hover {
+		background: #fe5900;
+		color: #ffffff;
+		border-color: #fe5900;
+	}
+	.sp-page-dark .sp-cta-section {
+		background: #111111;
+	}
+	.sp-page-dark .sp-cta-heading {
+		color: #ffffff;
+	}
+	.sp-page-dark .sp-cta-text {
+		color: #999;
+	}
+	.sp-page-dark .sp-widget {
+		background: #1a1a1a;
+		border-color: #2a2a2a;
+	}
+	.sp-page-dark .sp-widget h3 {
+		color: #ffffff;
+	}
+	.sp-page-dark .sp-widget-links a {
+		color: #b0b0b0;
+	}
+	.sp-page-dark .sp-widget-links a:hover {
+		color: #fe5900;
+	}
+	.sp-page-dark .sp-widget-quote p {
+		color: #888;
 	}
 </style>
