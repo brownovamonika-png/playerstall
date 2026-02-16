@@ -376,6 +376,32 @@ const isDark = !!data.highlights && data.highlights.length > 0;
 			</aside>
 		</div>
 	</section>
+
+	<!-- Taste the Victory Banner -->
+	<section class="topscorer-banner" style="background-image: url('https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg');">
+		<div class="topscorer-banner-overlay"></div>
+		<div class="topscorer-banner-bg-text" aria-hidden="true">
+			<span class="topscorer-banner-bg-line">PLAY</span>
+			<span class="topscorer-banner-bg-line">OF THE WEEK</span>
+		</div>
+		<div class="topscorer-banner-content">
+			<p class="topscorer-banner-subtitle">Powerful Sports Theme</p>
+			<h2 class="topscorer-banner-title"><span class="topscorer-banner-title-strip">Taste the Victory</span></h2>
+			<p class="topscorer-banner-text">Etiam scelerisque tortor at lectus dapibus, nec fermentum feugiat diam. Morbi rutrum magna et dui feugiat, non tristique mi aliquam.</p>
+			<div class="topscorer-banner-buttons">
+				<a href="/shop" class="btn topscorer-btn-solid">Read more</a>
+				<a href="/contact" class="btn topscorer-btn-outline">Contact Us</a>
+			</div>
+		</div>
+		<div class="topscorer-banner-players" aria-hidden="true">
+			<div class="topscorer-banner-player-slide active"><img src="/images/topscorer/player-img-10.jpg" alt="" width="480" height="640" loading="eager" /></div>
+			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/soccer-player.png" alt="" width="480" height="640" loading="lazy" /></div>
+			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/hockey-player.png" alt="" width="480" height="640" loading="lazy" /></div>
+			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/basketball-player.png" alt="" width="480" height="640" loading="lazy" /></div>
+			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/baseball-player.png" alt="" width="480" height="640" loading="lazy" /></div>
+			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/player-football-blue-orange.png" alt="" width="480" height="640" loading="lazy" /></div>
+		</div>
+	</section>
 </div>
 </BaseLayout>
 
@@ -1109,4 +1135,234 @@ const isDark = !!data.highlights && data.highlights.length > 0;
 	.sp-page-dark .sp-widget-quote p {
 		color: #888;
 	}
+
+	/* Taste the Victory Banner */
+	.topscorer-banner {
+		position: relative;
+		min-height: 70vh;
+		background-size: cover;
+		background-position: center;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding: 80px clamp(20px, 6vw, 80px);
+		overflow: hidden;
+	}
+	.topscorer-banner-players {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		left: 0;
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		pointer-events: none;
+		z-index: 4;
+		padding-right: clamp(0px, 4vw, 40px);
+	}
+	.topscorer-banner-player-slide {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		opacity: 0;
+		transform: translateX(120px);
+		transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+	.topscorer-banner-player-slide.active {
+		opacity: 1;
+		transform: translateX(0);
+		z-index: 1;
+	}
+	.topscorer-banner-player-slide.exiting {
+		opacity: 0;
+		transform: translateX(-80px);
+		z-index: 0;
+	}
+	.topscorer-banner-player-slide img {
+		height: 90%;
+		max-height: 85vh;
+		width: auto;
+		max-width: min(480px, 45vw);
+		object-fit: contain;
+		object-position: bottom right;
+	}
+	.topscorer-banner-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.5);
+		z-index: 2;
+	}
+	.topscorer-banner-bg-text {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		pointer-events: none;
+		z-index: 3;
+		opacity: 0.12;
+	}
+	.topscorer-banner-bg-line {
+		display: block;
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(4rem, 18vw, 14rem);
+		font-weight: 700;
+		color: #ffffff;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		line-height: 0.85;
+		white-space: nowrap;
+	}
+	.topscorer-banner-content {
+		position: relative;
+		z-index: 4;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		text-align: left;
+		max-width: 560px;
+	}
+	.topscorer-banner-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.38em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.9);
+		margin: 0 0 14px 0;
+	}
+	.topscorer-banner-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(2.5rem, 6vw, 4rem);
+		font-weight: 700;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0 0 22px 0;
+		line-height: 1.05;
+		letter-spacing: 0.02em;
+	}
+	.topscorer-banner-title-strip {
+		display: inline-block;
+		background: #000000;
+		padding: 0.18em 0.4em 0.18em 0.5em;
+		margin-left: -0.5em;
+		box-decoration-break: clone;
+		-webkit-box-decoration-break: clone;
+	}
+	.topscorer-banner-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: rgba(255, 255, 255, 0.85);
+		line-height: 1.75;
+		margin: 0 0 26px 0;
+	}
+	.topscorer-banner-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 14px;
+	}
+	.topscorer-btn-solid {
+		background: #000000;
+		color: #ffffff;
+		border: 1px solid #000000;
+		padding: 14px 30px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		text-decoration: none;
+		transition: background 0.3s, border-color 0.3s, color 0.3s;
+	}
+	.topscorer-btn-solid:hover {
+		background: #fe5900;
+		border-color: #fe5900;
+		color: #ffffff;
+	}
+	.topscorer-btn-outline {
+		background: transparent;
+		color: #ffffff;
+		border: 1px solid #ffffff;
+		padding: 14px 30px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		text-decoration: none;
+		transition: background 0.3s, border-color 0.3s, color 0.3s;
+	}
+	.topscorer-btn-outline:hover {
+		background: #fe5900;
+		border-color: #fe5900;
+		color: #ffffff;
+	}
+
+	@media (max-width: 768px) {
+		.topscorer-banner {
+			min-height: 60vh;
+			padding: 60px 20px;
+		}
+		.topscorer-banner-content {
+			max-width: 100%;
+		}
+		.topscorer-banner-title {
+			font-size: clamp(2rem, 8vw, 3rem);
+		}
+		.topscorer-banner-buttons {
+			flex-direction: row;
+			gap: 12px;
+		}
+		.topscorer-banner-players {
+			padding-right: 10px;
+		}
+		.topscorer-banner-player-slide img {
+			max-height: 75vh;
+			max-width: min(320px, 55vw);
+		}
+	}
 </style>
+
+<script>
+	// Taste the Victory banner: 6 sport players slide in one by one with pause
+	function initBannerPlayers() {
+		const slides = document.querySelectorAll('.topscorer-banner-player-slide');
+		if (slides.length === 0) return;
+		let currentIndex = 0;
+		const pauseMs = 3500; // pause between slides (ms)
+
+		function goToNext() {
+			const current = slides[currentIndex];
+			const nextIndex = (currentIndex + 1) % slides.length;
+			const next = slides[nextIndex];
+			current.classList.add('exiting');
+			current.classList.remove('active');
+			next.classList.add('active');
+			next.classList.remove('exiting');
+			setTimeout(() => {
+				current.classList.remove('exiting');
+			}, 800);
+			currentIndex = nextIndex;
+		}
+
+		setInterval(goToNext, pauseMs);
+	}
+
+	// Initialize when DOM is ready
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', () => {
+			initBannerPlayers();
+		});
+	} else {
+		initBannerPlayers();
+	}
+</script>

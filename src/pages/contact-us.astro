@@ -53,20 +53,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					</div>
 
 					<div class="office-hours">
-						<h3>Business Hours</h3>
-						<div class="hours-list">
-							<div class="hours-item">
-								<span>Monday – Friday</span>
-								<span>9:00 AM – 5:00 PM</span>
-							</div>
-							<div class="hours-item">
-								<span>Saturday</span>
-								<span>10:00 AM – 2:00 PM</span>
-							</div>
-							<div class="hours-item">
-								<span>Sunday</span>
-								<span>Closed</span>
-							</div>
+						<h3>How We Stay Competitive</h3>
+						<div class="efficiency-note">
+							<p>As a smaller, focused business, we keep production costs down and efficiency high by managing most communications via email. This approach allows us to provide premium wood lockers at competitive prices while maintaining the quality and service you expect.</p>
+							<p><strong>We prefer email for all inquiries.</strong> It helps us serve you better and keeps our response times quick. We typically respond within 2–3 business days.</p>
+							<p>But if you still need to chat with us, we're more than happy to take your call:</p>
+							<p class="phone-center"><a href="tel:+18885878255">+1 (888) 58-STALL</a></p>
 						</div>
 					</div>
 				</div>
@@ -279,25 +271,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin-top: 3rem;
 	}
 
-	.hours-list {
-		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
-	}
-
-	.hours-item {
-		display: flex;
-		justify-content: space-between;
+	.efficiency-note {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 16px;
 		color: #666666;
-		padding-bottom: 0.75rem;
-		border-bottom: 1px solid #f0f0f0;
+		line-height: 1.7;
 	}
 
-	.hours-item span:last-child {
-		font-weight: 500;
+	.efficiency-note p {
+		margin-bottom: 1rem;
+	}
+
+	.efficiency-note p:last-child {
+		margin-bottom: 0;
+	}
+
+	.efficiency-note strong {
 		color: #0d0d0d;
+		font-weight: 600;
+	}
+
+	.efficiency-note a {
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 500;
+	}
+
+	.efficiency-note a:hover {
+		text-decoration: underline;
+	}
+
+	.phone-center {
+		text-align: left;
+		font-size: 18px;
+		margin-top: 1.5rem;
+	}
+
+	.phone-center a {
+		font-weight: 600;
 	}
 
 	.contact-item {

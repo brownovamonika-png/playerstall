@@ -73,6 +73,14 @@ const lockerAccessoriesItems = [
 
 					<div class="product-options">
 						<div class="product-option">
+							<label class="option-label">Deep:</label>
+							<span class="option-value">19&quot; (standard)</span>
+							<div class="option-swatches">
+								<button type="button" class="swatch deep-swatch active" title="19 inch deep" aria-pressed="true">19&quot;</button>
+								<button type="button" class="swatch deep-swatch" title="24 inch deep">24&quot;</button>
+							</div>
+						</div>
+						<div class="product-option">
 							<label class="option-label">Width:</label>
 							<span class="option-value">24&quot; (standard)</span>
 							<div class="option-swatches">
@@ -86,27 +94,29 @@ const lockerAccessoriesItems = [
 							</div>
 						</div>
 						<div class="product-option">
-							<label class="option-label">Color:</label>
-							<span class="option-value">Designer White</span>
-							<span class="swatch-group-label">Solid Colors</span>
-							<div class="option-swatches">
-								<button type="button" class="swatch active" data-color-code="DW" title="Designer White" aria-pressed="true">Designer White</button>
-								<button type="button" class="swatch" data-color-code="WS" title="White Sand">White Sand</button>
-								<button type="button" class="swatch" data-color-code="FG" title="Fashion Grey">Fashion Grey</button>
-								<button type="button" class="swatch" data-color-code="NS" title="North Sea">North Sea</button>
-								<button type="button" class="swatch" data-color-code="GR" title="Graphite">Graphite</button>
-								<button type="button" class="swatch" data-color-code="BL" title="Black">Black</button>
-								<button type="button" class="swatch" data-color-code="HB" title="Hollyberry">Hollyberry</button>
-								<button type="button" class="swatch" data-color-code="LB" title="Lapis Blue">Lapis Blue</button>
+							<label class="option-label" for="color-select">Color:</label>
+							<div class="color-select-wrapper">
+								<span class="color-preview" id="color-preview" style="background-color: #f5f5f0;"></span>
+								<select id="color-select" class="color-dropdown">
+									<optgroup label="Solid Colors">
+										<option value="DW" data-color="#f5f5f0" selected>Designer White</option>
+										<option value="WS" data-color="#e8dcc8">White Sand</option>
+										<option value="FG" data-color="#8b8680">Fashion Grey</option>
+										<option value="NS" data-color="#5b7c8d">North Sea</option>
+										<option value="GR" data-color="#4a4a4a">Graphite</option>
+										<option value="BL" data-color="#1a1a1a">Black</option>
+										<option value="HB" data-color="#8b2e3f">Hollyberry</option>
+										<option value="LB" data-color="#2e5f8d">Lapis Blue</option>
+									</optgroup>
+									<optgroup label="Woodgrains">
+										<option value="FM" data-color="#d4a574">Fusion Maple</option>
+										<option value="PO" data-color="#c4985e">Pasadena Oak</option>
+										<option value="WH" data-color="#6d5843">Walnut Heights</option>
+										<option value="HW" data-color="#5c4738">Hampton Walnut</option>
+									</optgroup>
+								</select>
 							</div>
-							<span class="swatch-group-label">Woodgrains</span>
-							<div class="option-swatches">
-								<button type="button" class="swatch" data-color-code="FM" title="Fusion Maple">Fusion Maple</button>
-								<button type="button" class="swatch" data-color-code="PO" title="Pasadena Oak">Pasadena Oak</button>
-								<button type="button" class="swatch" data-color-code="WH" title="Walnut Heights">Walnut Heights</button>
-								<button type="button" class="swatch" data-color-code="HW" title="Hampton Walnut">Hampton Walnut</button>
-							</div>
-							<p class="option-note">Custom colors are available upon request (custom orders, three months, 50% deposit).</p>
+							<p class="option-note"><a href="/colors/all-color-options-pdf.html" target="_blank" class="color-pdf-link">View All Color Options PDF</a></p>
 						</div>
 						<div class="product-option">
 							<label class="option-label">Accessories:</label>
@@ -185,19 +195,16 @@ const lockerAccessoriesItems = [
 
 				<h3 class="product-info-subheading">Features</h3>
 				<ul class="product-features-list">
-					<li>Premium tier with curved design and elite finishing; maximum customization</li>
-					<li>Premium plywood core with melamine or equivalent surface</li>
+					<li>MPW-6C plywood core with premium melamine surface for a furniture-grade look</li>
 					<li>High scratch resistance and impact durability; moisture-resistant, dimensionally stable</li>
-					<li>Engineered for elite and professional facilities and high-traffic athletic locker rooms</li>
+					<li>Engineered for high-traffic athletic locker rooms</li>
 					<li>14&quot; high foot locker provides comfortable seating and secure equipment storage</li>
 					<li>Available in 18&quot; to 30&quot; widths; standard configuration 24&quot; W x 76&quot; H x 19&quot; D with optional 4&quot; base</li>
-					<li>Finishes: Designer White, White Sand, Fashion Grey, North Sea, Graphite, Black, Hollyberry, Lapis Blue, Fusion Maple, Pasadena Oak, Walnut Heights, Hampton Walnut; custom colors available upon request (custom orders, three months, 50% deposit)</li>
 					<li>5 year warranty</li>
 				</ul>
 
 				<h3 class="product-info-subheading">Options</h3>
 				<ul class="product-options-list">
-					<li>Choice of 12 Wilsonart&reg; laminate finishes: 8 solid colors + 4 woodgrains</li>
 					<li>Vented front panel for increased airflow</li>
 					<li>Secure lock box integrated into the upper compartment</li>
 					<li>Bottom cushion or both cushions for added seating comfort</li>
@@ -489,6 +496,61 @@ const lockerAccessoriesItems = [
 		font-style: italic;
 	}
 
+	.color-select-wrapper {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.color-preview {
+		width: 30px;
+		height: 30px;
+		border: 2px solid #ddd;
+		border-radius: 2px;
+		flex-shrink: 0;
+		box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+	}
+
+	.color-dropdown {
+		width: auto;
+		max-width: 100%;
+		padding: 8px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+		background: #f0f0f0;
+		border: 2px solid transparent;
+		cursor: pointer;
+		transition: border-color 0.2s, background 0.2s;
+	}
+
+	.color-dropdown:hover {
+		background: #e8e8e8;
+		border-color: #ccc;
+	}
+
+	.color-dropdown:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 1px #fe5900;
+	}
+
+	.color-pdf-link {
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 500;
+		font-style: normal;
+		text-transform: none;
+		transition: color 0.2s;
+	}
+
+	.color-pdf-link:hover {
+		color: #e04d00;
+		text-decoration: underline;
+	}
+
 	.accessories-grid {
 		display: flex;
 		flex-wrap: wrap;
@@ -536,21 +598,6 @@ const lockerAccessoriesItems = [
 	.accessory-box.selected .accessory-square {
 		border-color: #fe5900;
 		background: #fe5900;
-	}
-
-	.swatch-group-label {
-		display: block;
-		font-family: 'Oswald', sans-serif;
-		font-size: 12px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		margin: 16px 0 8px;
-	}
-
-	.swatch-group-label:first-of-type {
-		margin-top: 4px;
 	}
 
 	.option-swatches {
@@ -914,27 +961,44 @@ const lockerAccessoriesItems = [
 			});
 		});
 
-		const modelEl = document.querySelector('.product-model[data-model-prefix]');
-		const getModelPrefix = () => modelEl ? (modelEl.getAttribute('data-model-prefix') || '') : '';
+		// Deep option handling
+		const deepOption = document.querySelectorAll('.product-option')[0];
+		const deepValueEl = deepOption ? deepOption.querySelector('.option-value') : null;
 
-		document.querySelectorAll('.product-option .swatch:not(.width-swatch)').forEach((btn) => {
+		document.querySelectorAll('.deep-swatch').forEach((btn) => {
 			btn.addEventListener('click', () => {
-				const option = btn.closest('.product-option');
-				if (!option) return;
-				option.querySelectorAll('.swatch:not(.width-swatch)').forEach((b) => {
+				document.querySelectorAll('.deep-swatch').forEach((b) => {
 					b.classList.remove('active');
 					b.setAttribute('aria-pressed', 'false');
 				});
 				btn.classList.add('active');
 				btn.setAttribute('aria-pressed', 'true');
-				const valueEl = option.querySelector('.option-value');
-				if (valueEl) valueEl.textContent = btn.getAttribute('title') || btn.textContent || '';
-				const code = btn.getAttribute('data-color-code') || '';
-				if (modelEl && code) {
-					modelEl.textContent = 'Model # ' + getModelPrefix() + '-24-' + code;
+				if (deepValueEl) {
+					const label = (btn.textContent || '').trim();
+					deepValueEl.textContent = label === '19"' ? '19" (standard)' : label;
 				}
 			});
 		});
+
+		const modelEl = document.querySelector('.product-model[data-model-prefix]');
+		const getModelPrefix = () => modelEl ? (modelEl.getAttribute('data-model-prefix') || '') : '';
+
+		const colorDropdown = document.getElementById('color-select');
+		const colorPreview = document.getElementById('color-preview');
+		if (colorDropdown && modelEl) {
+			colorDropdown.addEventListener('change', () => {
+				const code = colorDropdown.value;
+				if (code) {
+					modelEl.textContent = 'Model # ' + getModelPrefix() + '-24-' + code;
+				}
+				// Update color preview
+				const selectedOption = colorDropdown.options[colorDropdown.selectedIndex];
+				const color = selectedOption ? selectedOption.getAttribute('data-color') : null;
+				if (colorPreview && color) {
+					colorPreview.style.backgroundColor = color;
+				}
+			});
+		}
 
 		computeBaseFromWidth();
 		updatePrice();
