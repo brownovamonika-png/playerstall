@@ -14,8 +14,8 @@ print("=" * 60)
 print()
 
 # Get configuration
-email_to = os.getenv("RANKING_EMAIL_TO", "monika@customsportslockers.com")
-email_from = os.getenv("RANKING_EMAIL_FROM", "monika@customsportslockers.com")
+email_to = os.getenv("RANKING_EMAIL_TO", "playerstallsports@gmail.com")
+email_from = os.getenv("RANKING_EMAIL_FROM", "playerstallsports@gmail.com")
 smtp_user = os.getenv("RANKING_SMTP_USER", "")
 smtp_password = os.getenv("RANKING_SMTP_PASSWORD", "")
 smtp_server = os.getenv("RANKING_SMTP_SERVER", "smtp.gmail.com")

@@ -34,8 +34,8 @@ OUTPUT_DIR.mkdir(exist_ok=True)
 
 # Email Configuration (set via environment variables)
 EMAIL_ENABLED = os.getenv("RANKING_EMAIL_ENABLED", "false").lower() == "true"
-EMAIL_TO = os.getenv("RANKING_EMAIL_TO", "monika@customsportslockers.com")  # Default recipient
-EMAIL_FROM = os.getenv("RANKING_EMAIL_FROM", "monika@customsportslockers.com")  # Default sender
+EMAIL_TO = os.getenv("RANKING_EMAIL_TO", "playerstallsports@gmail.com")  # Default recipient
+EMAIL_FROM = os.getenv("RANKING_EMAIL_FROM", "playerstallsports@gmail.com")  # Default sender
 EMAIL_SMTP_SERVER = os.getenv("RANKING_SMTP_SERVER", "smtp.gmail.com")
 EMAIL_SMTP_PORT = int(os.getenv("RANKING_SMTP_PORT", "587"))
 EMAIL_SMTP_USER = os.getenv("RANKING_SMTP_USER", "")  # Usually same as EMAIL_FROM
