@@ -1,17 +1,17 @@
 #!/bin/bash
-# Quick email setup script for monika@customsportslockers.com
+# Quick email setup script for playerstallsports@gmail.com
 
 echo "📧 Setting up email for weekly ranking reports..."
 echo ""
 
 # Set email configuration
 export RANKING_EMAIL_ENABLED=true
-export RANKING_EMAIL_TO='monika@customsportslockers.com'
-export RANKING_EMAIL_FROM='monika@customsportslockers.com'
+export RANKING_EMAIL_TO='playerstallsports@gmail.com'
+export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
 export RANKING_SMTP_SERVER='smtp.gmail.com'
 export RANKING_SMTP_PORT='587'
 
-echo "✅ Email configured for: monika@customsportslockers.com"
+echo "✅ Email configured for: playerstallsports@gmail.com"
 echo ""
 echo "⚠️  You still need to set:"
 echo "   export RANKING_SMTP_USER='your-gmail@gmail.com'"

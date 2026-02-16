@@ -503,7 +503,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
   },
   "url": "https://playerstall.com",
   "telephone": "+11231245678901",
-  "email": "info@customsportslockers.com",
+  "email": "playerstallsports@gmail.com",
   "priceRange": "$$",
   "areaServed": {
     "@type": "Country",

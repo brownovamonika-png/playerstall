@@ -73,7 +73,7 @@ export RANKING_SMTP_PORT='587'
 
 ## Step 4: What Email Provider Are You Using?
 
-**monika@customsportslockers.com** could be hosted by:
+**playerstallsports@gmail.com** could be hosted by:
 
 ### Option A: Google Workspace
 - SMTP: `smtp.gmail.com`
@@ -98,9 +98,9 @@ export RANKING_SMTP_PORT='587'
 ```bash
 # Get app password from: https://myaccount.google.com/apppasswords
 export RANKING_EMAIL_ENABLED=true
-export RANKING_EMAIL_TO='monika@customsportslockers.com'
-export RANKING_EMAIL_FROM='monika@customsportslockers.com'
-export RANKING_SMTP_USER='monika@customsportslockers.com'
+export RANKING_EMAIL_TO='playerstallsports@gmail.com'
+export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
+export RANKING_SMTP_USER='playerstallsports@gmail.com'
 export RANKING_SMTP_PASSWORD='your-app-password-here'  # Use app password!
 export RANKING_SMTP_SERVER='smtp.gmail.com'
 export RANKING_SMTP_PORT='587'
@@ -112,9 +112,9 @@ python3 guides/diagnose_email.py
 
 ```bash
 export RANKING_EMAIL_ENABLED=true
-export RANKING_EMAIL_TO='monika@customsportslockers.com'
-export RANKING_EMAIL_FROM='monika@customsportslockers.com'
-export RANKING_SMTP_USER='monika@customsportslockers.com'
+export RANKING_EMAIL_TO='playerstallsports@gmail.com'
+export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
+export RANKING_SMTP_USER='playerstallsports@gmail.com'
 export RANKING_SMTP_PASSWORD='Freshst@rt2025'
 export RANKING_SMTP_SERVER='smtp.office365.com'  # Different server!
 export RANKING_SMTP_PORT='587'
@@ -126,12 +126,12 @@ python3 guides/diagnose_email.py
 
 ## Most Common Issue: Google Workspace Needs App Password
 
-If `monika@customsportslockers.com` is Google Workspace:
+If `playerstallsports@gmail.com` is Google Workspace:
 
 1. **Regular password won't work** - need app password
 2. **Get app password:**
    - Go to: https://myaccount.google.com/apppasswords
-   - Sign in with monika@customsportslockers.com
+   - Sign in with playerstallsports@gmail.com
    - Generate app password
    - Use that instead of `Freshst@rt2025`
 

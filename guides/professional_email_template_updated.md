@@ -1,22 +1,22 @@
 # Professional Email Template - PlayerStall
-## Complete Quote Response Email (Updated February 2025)
+## Complete Quote Response Email (Website-Style Version)
 
 **Use Case:** Response to customer inquiry with quote attachment  
-**Includes:** All current pricing, shipping & assembly info, and professional formatting
+**Includes:** All current information + website messaging and branding
 
 ---
 
-## Professional Email Template
+## Professional Email Template (Website-Style)
 
 ```
-Subject: Your Custom Sports Locker Quote - [Project Name/Team Name]
+Subject: Your Custom Wood Sports Locker Quote - [Project Name/Team Name]
 
-Hi [Customer Name],
+Hi Dana,
 
-Thank you for contacting PlayerStall regarding custom sports lockers for [Team Name/Facility Name]. I've reviewed your request and prepared a detailed quote for your project, which I've attached below.
+Thank you for contacting PlayerStall regarding custom wood sports lockers for [Team Name/Facility Name]. I've reviewed your request and prepared a detailed quote for your project, which I've attached below.
 
 QUOTE SUMMARY
-• [Quantity] Stadium Lockers
+• 50 Stadium Wood Lockers
 • Detailed pricing breakdown (see attached estimate)
 • Total value included: $130 in free upgrades per locker ($45 Prefinish + $35 Edging + $50 Backing)
 
@@ -29,12 +29,13 @@ Our Stadium Locker is $599 per locker and includes $130 in free upgrades:
 ADDITIONAL OPTIONS (Priced at Our Cost - No Markup)
 • Cushions: +$80 per locker
 • Name Plates: +$10 per locker
-• Lock boxes: +$80 per locker
+• Lacquered prefinished wood options available
+• Lock boxes available
 
-COMPLETE MODEL LINEUP
+COMPLETE MODEL LINEUP - GREAT WOOD LOCKERS AT A GREAT PRICE
 We offer several models to fit different needs and budgets:
 
-• Semi Pro - $349
+• Semi Pro - $349 (Best Value)
   Includes: Free Prefinished wood ($45 Value), Free Edging ($35 Value), and Free Backing ($50 Value)
 
 • Varsity - $449
@@ -48,7 +49,6 @@ We offer several models to fit different needs and budgets:
 
 • Corner Units - $599
   Perfect for maximizing corner space in your locker room
-  Note: Corner units come fully assembled
 
 All Team orders include Free Backing ($50 Value) on every model.
 
@@ -57,27 +57,20 @@ VIEW OUR WORK
 • Model Comparison: http://customsportslockers.com/ (homepage, halfway down the page)
 
 WHY PLAYERSTALL?
+At PlayerStall, we only make Wood Sports Lockers, and that's it! Our sole focus is to make the highest quality, low cost wood locker in the Industry. Our wood sports lockers are the highest value Sports Lockers in the industry.
+
 With 30+ years of experience serving collegiate and professional teams across North America, we understand what makes a great locker room. Our lockers are:
 
-✓ Canadian-owned and operated since 1996 - Premium materials and craftsmanship you can trust
-✓ Built to Last a Lifetime - These lockers are built strong and will last a lifetime, backed by our lifetime guarantee
-✓ Fully Modular - If a piece gets broken in the future, you can call us and we will send a replacement right away
-✓ Custom-Sized - Perfect fit for your space with no wasted room or awkward gaps
-
-SHIPPING & ASSEMBLY INFORMATION
-If you have a room drawing or room layout, we can provide you with a more accurate timeline. Generally, we will ship your order in 4 to 8 weeks, depending on the level of customization required.
-
-Assembly is very easy - just like IKEA furniture! I would budget around 20 to 30 minutes per unit for assembly. Our lockers are designed to be straightforward to put together.
-
-Note: Corner units come fully assembled already, so no assembly time needed for those.
+✓ Made in North America - 100% made in North America with premium materials and craftsmanship you can trust
+✓ Built to Last a Lifetime - Made from 3/4" Birch Wood, these lockers are built strong and will last a lifetime, backed by our lifetime guarantee
+✓ Fully Modular - Our lockers are of a modular design, so if a piece gets broken in the future, give us a call and we will ship you replacement pieces right away
+✓ Custom-Sized - We custom design your locker rooms free of charge to suit your particular locker room dimensions so the locker room fits perfectly with no wasted room or awkward gaps
+✓ Perfect for Rough Environments - Our lockers are perfect for the rough environment of a locker room
 
 NEXT STEPS
 To ensure we create the perfect custom-sized solution for your locker room, please send a quick drawing of the room with accurate dimensions. This allows us to custom-size the lockers to fit your space perfectly with no wasted room or awkward gaps.
 
 This quote is valid for 60 days. I'm here to answer any questions, discuss customization options, or help you choose the best model for your needs and budget.
-
-CALL 1 (888) 584-1444 TO ORDER
-Available Now - Free Consultation
 
 You can reach me directly at 1 (888) 584-1444 or simply reply to this email anytime.
 
@@ -88,23 +81,65 @@ Monika
 Custom Locker Specialist
 PlayerStall
 1 (888) 584-1444
-info@customsportslockers.com
+playerstallsports@gmail.com
 CustomSportsLockers.com
 
-30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation
+30+ Years Experience | Lifetime Guarantee | Made in North America | Free Design Consultation
 ```
 
 ---
 
-## Customization Notes
+## Alternative: More Concise Version (Website-Style)
 
-**Replace these placeholders before sending:**
-- `[Customer Name]` - Customer's first name
-- `[Project Name/Team Name]` - Use actual team/facility name
-- `[Team Name/Facility Name]` - Use in opening if you have it
-- `[Quantity]` - Adjust quantity as needed (e.g., 64)
+If you prefer a shorter version while keeping all information:
+
+```
+Subject: Your Custom Wood Sports Locker Quote - [Project Name/Team Name]
+
+Hi Dana,
+
+Thank you for contacting PlayerStall! I've reviewed your request and prepared a detailed quote for 50 Stadium Wood Lockers, which I've attached below.
+
+QUOTE HIGHLIGHTS
+• 50 Stadium Wood Lockers @ $599 each
+• Includes: Free Prefinish ($45 Value), Free Edging ($35 Value), Free Backing ($50 Value)
+• Additional Options: Cushions (+$80), Name Plates (+$10) - priced at our cost
+
+OUR COMPLETE MODEL LINEUP - GREAT WOOD LOCKERS AT A GREAT PRICE
+• Semi Pro: $349 (Best Value - includes all free upgrades)
+• Varsity: $449 (includes all free upgrades)
+• Pro: $549 (includes all free upgrades)
+• Stadium: $599 (our flagship - includes all free upgrades)
+• Corner Units: $599
+
+All Team orders include Free Backing ($50 Value) on every model.
+
+VIEW OUR WORK
+• Full Gallery: http://customsportslockers.com/gallery/
+• Model Comparison: http://customsportslockers.com/ (homepage, halfway down)
+
+WHY PLAYERSTALL?
+We only make Wood Sports Lockers - that's it! Our sole focus is the highest quality, low cost wood locker in the Industry. 30+ years of experience | 100% Made in North America | Lifetime guarantee | Fully modular (easy replacement) | Custom-sized to fit perfectly | Free custom design consultation
+
+NEXT STEPS
+To custom-size the lockers perfectly for your space, please send a quick drawing of the room with accurate dimensions.
+
+This quote is valid for 60 days. I'm here to answer questions or discuss options.
+
+Call me at 1 (888) 584-1444 or reply to this email.
+
+Best regards,
+Monika
+Custom Locker Specialist
+PlayerStall
+1 (888) 584-1444
+playerstallsports@gmail.com
+CustomSportsLockers.com
+
+30+ Years Experience | Lifetime Guarantee | Made in North America | Free Design Consultation
+```
 
 ---
 
-*Last Updated: February 2025*  
+*Last Updated: January 2025*  
 *Prepared for: PlayerStall / CustomSportsLockers.com*

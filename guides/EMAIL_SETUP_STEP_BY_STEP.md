@@ -1,6 +1,6 @@
 # Email Setup - Step by Step Instructions
 
-**Set up weekly ranking reports to be emailed to monika@customsportslockers.com**
+**Set up weekly ranking reports to be emailed to playerstallsports@gmail.com**
 
 ---
 
@@ -87,12 +87,12 @@ export RANKING_EMAIL_ENABLED=true
 
 ### Command 2: Set Recipient Email (Already Set!)
 ```bash
-export RANKING_EMAIL_TO='monika@customsportslockers.com'
+export RANKING_EMAIL_TO='playerstallsports@gmail.com'
 ```
 
 ### Command 3: Set Sender Email
 ```bash
-export RANKING_EMAIL_FROM='monika@customsportslockers.com'
+export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
 ```
 
 ### Command 4: Set SMTP Server
@@ -144,9 +144,9 @@ python3 guides/weekly_ranking_check.py
 ### What Should Happen:
 
 1. Script runs and checks rankings
-2. You see: `📧 Sending email to monika@customsportslockers.com...`
-3. You see: `✅ Email sent successfully to monika@customsportslockers.com`
-4. Check your email inbox at `monika@customsportslockers.com`
+2. You see: `📧 Sending email to playerstallsports@gmail.com...`
+3. You see: `✅ Email sent successfully to playerstallsports@gmail.com`
+4. Check your email inbox at `playerstallsports@gmail.com`
 5. You should receive an email with subject: `Weekly Ranking Report - [Date] | CustomSportsLockers.com`
 
 ### If You See Errors:
@@ -181,8 +181,8 @@ Right now, the email settings only last for this terminal session. To make them 
    ```bash
    # Weekly Ranking Report Email Configuration
    export RANKING_EMAIL_ENABLED=true
-   export RANKING_EMAIL_TO='monika@customsportslockers.com'
-   export RANKING_EMAIL_FROM='monika@customsportslockers.com'
+   export RANKING_EMAIL_TO='playerstallsports@gmail.com'
+   export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
    export RANKING_SMTP_SERVER='smtp.gmail.com'
    export RANKING_SMTP_PORT='587'
    export RANKING_SMTP_USER='your-gmail@gmail.com'
@@ -211,7 +211,7 @@ Now every time you run:
 python3 guides/weekly_ranking_check.py
 ```
 
-You'll automatically receive an email at `monika@customsportslockers.com` with your weekly ranking report!
+You'll automatically receive an email at `playerstallsports@gmail.com` with your weekly ranking report!
 
 ---
 
@@ -269,7 +269,7 @@ Should show Python 3.7 or higher.
 
 **Check:**
 1. Spam/junk folder
-2. Email address is correct: `monika@customsportslockers.com`
+2. Email address is correct: `playerstallsports@gmail.com`
 3. Script output shows "Email sent successfully"
 4. Wait a few minutes (sometimes delayed)
 
@@ -297,8 +297,8 @@ cd "/Users/monikabrownova/Documents/github/player-stall December 19 2025"
 
 # Set email configuration
 export RANKING_EMAIL_ENABLED=true
-export RANKING_EMAIL_TO='monika@customsportslockers.com'
-export RANKING_EMAIL_FROM='monika@customsportslockers.com'
+export RANKING_EMAIL_TO='playerstallsports@gmail.com'
+export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
 export RANKING_SMTP_SERVER='smtp.gmail.com'
 export RANKING_SMTP_PORT='587'
 export RANKING_SMTP_USER='your-gmail@gmail.com'

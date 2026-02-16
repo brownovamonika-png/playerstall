@@ -1,6 +1,6 @@
 # Email Setup Complete ✅
 
-**Your email is configured for: monika@customsportslockers.com**
+**Your email is configured for: playerstallsports@gmail.com**
 
 ---
 
@@ -20,9 +20,9 @@ python3 guides/weekly_ranking_check.py
 cd "/Users/monikabrownova/Documents/github/player-stall December 19 2025"
 
 export RANKING_EMAIL_ENABLED=true
-export RANKING_EMAIL_TO='monika@customsportslockers.com'
-export RANKING_EMAIL_FROM='monika@customsportslockers.com'
-export RANKING_SMTP_USER='monika@customsportslockers.com'
+export RANKING_EMAIL_TO='playerstallsports@gmail.com'
+export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
+export RANKING_SMTP_USER='playerstallsports@gmail.com'
 export RANKING_SMTP_PASSWORD='Freshst@rt2025'
 export RANKING_SMTP_SERVER='smtp.gmail.com'
 export RANKING_SMTP_PORT='587'
@@ -36,7 +36,7 @@ python3 guides/weekly_ranking_check.py
 
 ### If Using Google Workspace:
 
-If `monika@customsportslockers.com` is a Google Workspace email, you may need:
+If `playerstallsports@gmail.com` is a Google Workspace email, you may need:
 
 1. **App Password** (not regular password)
    - Go to: https://myaccount.google.com/apppasswords
@@ -84,7 +84,7 @@ When you run the ranking check:
 
 1. Script checks rankings
 2. Generates report
-3. Sends email to: `monika@customsportslockers.com`
+3. Sends email to: `playerstallsports@gmail.com`
 4. You see: `✅ Email sent successfully`
 
 **Check your inbox!** (Also check spam folder)
@@ -106,9 +106,9 @@ Add these lines:
 ```bash
 # Weekly Ranking Report Email
 export RANKING_EMAIL_ENABLED=true
-export RANKING_EMAIL_TO='monika@customsportslockers.com'
-export RANKING_EMAIL_FROM='monika@customsportslockers.com'
-export RANKING_SMTP_USER='monika@customsportslockers.com'
+export RANKING_EMAIL_TO='playerstallsports@gmail.com'
+export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
+export RANKING_SMTP_USER='playerstallsports@gmail.com'
 export RANKING_SMTP_PASSWORD='Freshst@rt2025'
 export RANKING_SMTP_SERVER='smtp.gmail.com'
 export RANKING_SMTP_PORT='587'
@@ -144,7 +144,7 @@ source ~/.zshrc
 
 1. Check spam folder
 2. Wait 5-10 minutes (sometimes delayed)
-3. Verify email address: `monika@customsportslockers.com`
+3. Verify email address: `playerstallsports@gmail.com`
 4. Test with different email address first
 
 ---

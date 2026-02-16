@@ -37,7 +37,7 @@ HTML SIGNATURE CODE (Copy this entire section):
 					<span style="color: #0066cc; font-size: 12px;">d</span>
 				</td>
 				<td style="padding-bottom: 4px;">
-					<a href="mailto:monika@customsportslockers.com" style="color: #0d0d0d; text-decoration: none; font-size: 13px;">monika@customsportslockers.com</a>
+					<a href="mailto:playerstallsports@gmail.com" style="color: #0d0d0d; text-decoration: none; font-size: 13px;">playerstallsports@gmail.com</a>
 				</td>
 			</tr>
 			<tr>
@@ -108,7 +108,7 @@ SIMPLIFIED HTML VERSION (Better compatibility):
 </p>
 <p style="margin: 0; padding-top: 12px; border-top: 1px solid #e0e0e0;">
 	Phone: <a href="tel:+18885841444" style="color: #0d0d0d; text-decoration: none;">1 (888) 584-1444</a> (Toll Free)<br>
-	Email: <a href="mailto:monika@customsportslockers.com" style="color: #0d0d0d; text-decoration: none;">monika@customsportslockers.com</a><br>
+	Email: <a href="mailto:playerstallsports@gmail.com" style="color: #0d0d0d; text-decoration: none;">playerstallsports@gmail.com</a><br>
 	Web: <a href="https://customsportslockers.com" style="color: #0d0d0d; text-decoration: none;">CustomSportsLockers.com</a><br>
 	Address: 2934 200 St, Langley BC, Canada
 </p>
@@ -132,7 +132,7 @@ Custom Locker Specialist
 PLAYERSTALL
 
 Phone: 1 (888) 58-STALL
-Email: monika@customsportslockers.com
+Email: playerstallsports@gmail.com
 Web: CustomSportsLockers.com
 Address: 7300-7398 Colonial Rd, Brooklyn, NY 11209, USA
 
@@ -160,7 +160,7 @@ CONTACT INFORMATION INCLUDED:
 ✓ Name: Monika
 ✓ Title: Custom Locker Specialist
 ✓ Company: PlayerStall
-✓ Email: monika@customsportslockers.com
+✓ Email: playerstallsports@gmail.com
 ✓ Phone: 1 (888) 584-1444 (Toll Free)
 ✓ Website: CustomSportsLockers.com
 ✓ Address: 2934 200 St, Langley BC, Canada

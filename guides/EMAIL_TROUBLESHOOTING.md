@@ -15,8 +15,8 @@ python3 guides/weekly_ranking_check.py
 ### What to Look For:
 
 **✅ Good Signs:**
-- `📧 Sending email to monika@customsportslockers.com...`
-- `✅ Email sent successfully to monika@customsportslockers.com`
+- `📧 Sending email to playerstallsports@gmail.com...`
+- `✅ Email sent successfully to playerstallsports@gmail.com`
 
 **❌ Problem Signs:**
 - `📧 Email disabled` → Email not enabled
@@ -49,8 +49,8 @@ python3 guides/weekly_ranking_check.py
 
 **Fix:**
 ```bash
-export RANKING_EMAIL_TO='monika@customsportslockers.com'
-export RANKING_EMAIL_FROM='monika@customsportslockers.com'
+export RANKING_EMAIL_TO='playerstallsports@gmail.com'
+export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
 ```
 
 Then run the script again.
@@ -111,7 +111,7 @@ export RANKING_SMTP_PORT='587'
    - Search for "Weekly Ranking Report"
 
 2. **Email Address Typo**
-   - Verify: `monika@customsportslockers.com`
+   - Verify: `playerstallsports@gmail.com`
    - Check for typos
 
 3. **Email Server Delay**
@@ -138,7 +138,7 @@ import smtplib
 from email.mime.text import MIMEText
 
 # Get configuration
-email_to = os.getenv("RANKING_EMAIL_TO", "monika@customsportslockers.com")
+email_to = os.getenv("RANKING_EMAIL_TO", "playerstallsports@gmail.com")
 smtp_user = os.getenv("RANKING_SMTP_USER", "")
 smtp_password = os.getenv("RANKING_SMTP_PASSWORD", "")
 
@@ -218,8 +218,8 @@ cd "/Users/monikabrownova/Documents/github/player-stall December 19 2025"
 
 # Set all email configuration
 export RANKING_EMAIL_ENABLED=true
-export RANKING_EMAIL_TO='monika@customsportslockers.com'
-export RANKING_EMAIL_FROM='monika@customsportslockers.com'
+export RANKING_EMAIL_TO='playerstallsports@gmail.com'
+export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
 export RANKING_SMTP_SERVER='smtp.gmail.com'
 export RANKING_SMTP_PORT='587'
 
@@ -239,7 +239,7 @@ python3 guides/weekly_ranking_check.py
 
 ## 📧 Alternative: Test with Gmail Address
 
-If `monika@customsportslockers.com` isn't receiving emails, test with a Gmail address first:
+If `playerstallsports@gmail.com` isn't receiving emails, test with a Gmail address first:
 
 ```bash
 # Temporarily change recipient

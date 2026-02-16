@@ -1,5 +1,5 @@
 # Quick Email Setup - Copy & Paste Commands
-# Email: monika@customsportslockers.com
+# Email: playerstallsports@gmail.com
 
 # STEP 1: Navigate to project
 cd "/Users/monikabrownova/Documents/github/player-stall December 19 2025"
@@ -8,10 +8,10 @@ cd "/Users/monikabrownova/Documents/github/player-stall December 19 2025"
 export RANKING_EMAIL_ENABLED=true
 
 # STEP 3: Set recipient (already configured)
-export RANKING_EMAIL_TO='monika@customsportslockers.com'
+export RANKING_EMAIL_TO='playerstallsports@gmail.com'
 
 # STEP 4: Set sender
-export RANKING_EMAIL_FROM='monika@customsportslockers.com'
+export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
 
 # STEP 5: Set SMTP server
 export RANKING_SMTP_SERVER='smtp.gmail.com'

@@ -80,7 +80,7 @@ source guides/email_config.sh
 python3 guides/google_ranking_tracker.py
 ```
 
-Reports will be emailed to: `monika@customsportslockers.com`
+Reports will be emailed to: `playerstallsports@gmail.com`
 
 ---
 

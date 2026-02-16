@@ -78,7 +78,7 @@ Monika
 Custom Locker Specialist
 PlayerStall
 1 (888) 584-1444
-info@customsportslockers.com
+playerstallsports@gmail.com
 CustomSportsLockers.com
 
 30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation
@@ -130,7 +130,7 @@ Monika
 Custom Locker Specialist
 PlayerStall
 1 (888) 584-1444
-info@customsportslockers.com
+playerstallsports@gmail.com
 CustomSportsLockers.com
 
 30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation

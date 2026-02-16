@@ -1,11 +1,11 @@
 # Email Configuration for Weekly Ranking Reports
-# Recipient: monika@customsportslockers.com
+# Recipient: playerstallsports@gmail.com
 
 # Copy these lines to your terminal:
 
 export RANKING_EMAIL_ENABLED=true
-export RANKING_EMAIL_TO='monika@customsportslockers.com'
-export RANKING_EMAIL_FROM='monika@customsportslockers.com'
+export RANKING_EMAIL_TO='playerstallsports@gmail.com'
+export RANKING_EMAIL_FROM='playerstallsports@gmail.com'
 export RANKING_SMTP_SERVER='smtp.gmail.com'
 export RANKING_SMTP_PORT='587'
 
