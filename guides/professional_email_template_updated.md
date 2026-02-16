@@ -59,7 +59,7 @@ VIEW OUR WORK
 WHY PLAYERSTALL?
 With 30+ years of experience serving collegiate and professional teams across North America, we understand what makes a great locker room. Our lockers are:
 
-✓ Made in Canada - Premium materials and craftsmanship you can trust
+✓ Canadian-owned and operated since 1996 - Premium materials and craftsmanship you can trust
 ✓ Built to Last a Lifetime - These lockers are built strong and will last a lifetime, backed by our lifetime guarantee
 ✓ Fully Modular - If a piece gets broken in the future, you can call us and we will send a replacement right away
 ✓ Custom-Sized - Perfect fit for your space with no wasted room or awkward gaps
@@ -91,7 +91,7 @@ PlayerStall
 info@customsportslockers.com
 CustomSportsLockers.com
 
-30+ Years Experience | Lifetime Guarantee | Made in Canada | Free Design Consultation
+30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation
 ```
 
 ---

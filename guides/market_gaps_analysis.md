@@ -129,11 +129,11 @@ Based on comprehensive market research, the sports locker industry has significa
 - **Content Strategy**: Position wood lockers as the sustainable choice with data and certifications
 - **Key Topics**:
   - "Why Wood Lockers Are More Sustainable Than Metal: The Environmental Facts"
-  - "Made in Canada: Supporting Local Manufacturing and Reducing Carbon Footprint"
+  - "Canadian-owned and operated since 1996: Supporting Local Manufacturing and Reducing Carbon Footprint"
   - "Wood as a Renewable Resource: The Lifecycle of a Locker"
   - "LEED Certification and Locker Rooms: How Wood Lockers Help"
   - "The Longevity Advantage: Fewer Replacements = Less Waste"
-- **Unique Positioning**: Leverage "Made in Canada" and wood's natural sustainability
+- **Unique Positioning**: Leverage "Canadian-owned and operated since 1996" and wood's natural sustainability
 - **Content Formats**: Sustainability reports, certifications, environmental impact calculators, green facility case studies
 
 ---
@@ -252,7 +252,7 @@ Based on CustomSportsLockers.com's unique positioning:
 1. **30+ Years Experience** - Use for authority in all content
 2. **Family Business** - Personal stories and long-term relationships
 3. **Wood Focus** - Natural advantage for wellness, sustainability, culture
-4. **Made in Canada** - Sustainability and quality positioning
+4. **Canadian-owned and operated since 1996** - Sustainability and quality positioning
 5. **Lifetime Guarantee** - Support with maintenance and care content
 6. **Modular Design** - Emphasize in TCO and post-sale content
 7. **Free Design Service** - Highlight in buyer journey content

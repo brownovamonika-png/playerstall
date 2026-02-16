@@ -149,7 +149,7 @@
 - Reliability and accountability
 
 **Messaging:**
-- "100% Made in Canada"
+- "100% Canadian-owned and operated since 1996"
 - "Made in North America"
 - Implies higher quality standards
 - Appeals to patriotic/ethical purchasing
@@ -561,7 +561,7 @@
 5. **Heritage**: Family business vs. corporate entities
 6. **Focus**: Exclusive wood lockers vs. general storage
 7. **Guarantee**: Lifetime vs. limited warranties
-8. **Origin**: Made in Canada vs. overseas manufacturing
+8. **Origin**: Canadian-owned and operated since 1996 vs. overseas manufacturing
 
 ---
 
@@ -604,7 +604,7 @@
 - **Core**: Wood quality + competitive pricing + customization + lifetime guarantee
 - **Emotional**: Culture building, team identity, recruiting tool
 - **Functional**: Durability, modular design, sport-specific solutions
-- **Service**: Free design, family business commitment, made in Canada
+- **Service**: Free design, family business commitment, Canadian-owned and operated since 1996
 
 ### Brand Voice
 - **Tone**: Authentic, personal, passionate, expert, relationship-focused

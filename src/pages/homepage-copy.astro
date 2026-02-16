@@ -7,70 +7,70 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	description="Custom wood sports lockers at unbeatable prices. Quick ship in 2–4 weeks or custom in 8–12 weeks. 30+ years experience. Lifetime guarantee. Free consultation."
 >
 
-<!-- ============================================
-     HERO SLIDER SECTION 
-     ============================================ -->
-<section class="ts-hero-slider" id="hero">
-	<div class="ts-hero-container">
-		<!-- Slide 1 -->
-		<div class="ts-slide active" data-slide="0">
-			<div class="ts-slide-bg" style="background-image: url('https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/p4-img.jpg');"></div>
-			<div class="ts-slide-content">
-				<h1 class="ts-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
-				<p class="ts-slide-text">Quick ship in 2–4 weeks or custom in 8–12 weeks. We'll match any USA competitor's price.</p>
-			<div class="ts-slide-buttons">
-				<a href="/shop" class="ts-hero-btn ts-hero-btn-primary">Shop Quick Ship</a>
-				<a href="/contact#quote-form" class="ts-hero-btn ts-hero-btn-secondary">Request a Quote</a>
+<!-- Hero Slider Section -->
+<section class="hero-slider" id="hero">
+	<div class="hero-slider-container">
+		<div class="hero-slide active first-slide" style="background-image: url('https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/p4-img.jpg');">
+			<div class="hero-slide-content">
+				<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
+				<p class="hero-slide-text">Quick ship in 2–4 weeks or custom in 8–12 weeks. We'll match any USA competitor's price.</p>
+				<div class="hero-slide-buttons">
+					<a href="/shop" class="btn btn-slide-primary">Shop Quick Ship</a>
+					<a href="/contact#quote-form" class="btn btn-slide-secondary">Request a Quote</a>
+				</div>
+			</div>
+		</div>
+		<div class="hero-slide" style="background-image: url('https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/p4-title-img.jpg');">
+			<div class="hero-slide-overlay"></div>
+			<div class="hero-slide-content">
+				<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
+				<p class="hero-slide-text">Your timeline. Your way. Stadium & Elite quick ship (2–4 weeks) — or custom size, wood & materials.</p>
+				<div class="hero-slide-buttons">
+					<a href="/shop" class="btn btn-slide-primary">View Shop</a>
+					<a href="/contact" class="btn btn-slide-secondary">Contact Us</a>
+				</div>
+			</div>
+		</div>
+		<div class="hero-slide" style="background-image: url('/images/topscorer/h2-rev-slide-4.jpg');">
+			<div class="hero-slide-overlay"></div>
+			<div class="hero-slide-content">
+				<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
+				<p class="hero-slide-text">We focus on core models so production never stops. That's how we keep prices low.</p>
+				<div class="hero-slide-buttons">
+					<a href="/contact" class="btn btn-slide-primary">Learn Why</a>
+					<a href="/contact" class="btn btn-slide-secondary">Contact Us</a>
+				</div>
+			</div>
+		</div>
+	<div class="hero-slide slide-bottom" style="background-image: url('/images/topscorer/h3-img-1.jpg');">
+		<div class="hero-slide-overlay"></div>
+			<div class="hero-slide-content">
+				<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
+				<p class="hero-slide-text">Wood, phenolic, and more — custom in 8–12 weeks. High style. Lower cost.</p>
+				<div class="hero-slide-buttons">
+					<a href="/hockey" class="btn btn-slide-primary">By Sport</a>
+					<a href="/contact#quote-form" class="btn btn-slide-secondary">Get a Quote</a>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Slide 2 -->
-	<div class="ts-slide" data-slide="1">
-		<div class="ts-slide-bg" style="background-image: url('https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/p4-title-img.jpg');"></div>
-		<div class="ts-slide-overlay"></div>
-		<div class="ts-slide-content">
-			<h1 class="ts-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
-			<p class="ts-slide-text">Your timeline. Your way. Stadium & Elite quick ship (2–4 weeks) — or custom size, wood & materials.</p>
-			<div class="ts-slide-buttons">
-				<a href="/shop" class="ts-hero-btn ts-hero-btn-primary">View Shop</a>
-				<a href="/contact" class="ts-hero-btn ts-hero-btn-secondary">Contact Us</a>
-			</div>
-		</div>
+	<div class="hero-slider-nav">
+		<button class="slider-nav-btn slider-nav-prev" aria-label="Previous slide">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<path d="M15 18l-6-6 6-6"/>
+			</svg>
+		</button>
+		<button class="slider-nav-btn slider-nav-next" aria-label="Next slide">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<path d="M9 18l6-6-6-6"/>
+			</svg>
+		</button>
 	</div>
-	<!-- Slide 3 -->
-	<div class="ts-slide" data-slide="2">
-		<div class="ts-slide-bg" style="background-image: url('/images/topscorer/h2-rev-slide-4.jpg');"></div>
-		<div class="ts-slide-overlay"></div>
-		<div class="ts-slide-content">
-			<h1 class="ts-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
-			<p class="ts-slide-text">We focus on core models so production never stops. That's how we keep prices low.</p>
-			<div class="ts-slide-buttons">
-				<a href="/contact" class="ts-hero-btn ts-hero-btn-primary">Learn Why</a>
-				<a href="/contact" class="ts-hero-btn ts-hero-btn-secondary">Contact Us</a>
-			</div>
-		</div>
-	</div>
-	<!-- Slide 4 -->
-	<div class="ts-slide" data-slide="3">
-		<div class="ts-slide-bg" style="background-image: url('/images/topscorer/h3-img-1.jpg');"></div>
-		<div class="ts-slide-overlay"></div>
-		<div class="ts-slide-content">
-			<h1 class="ts-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
-			<p class="ts-slide-text">Wood, phenolic, and more — custom in 8–12 weeks. High style. Lower cost.</p>
-			<div class="ts-slide-buttons">
-				<a href="/hockey" class="ts-hero-btn ts-hero-btn-primary">By Sport</a>
-				<a href="/contact#quote-form" class="ts-hero-btn ts-hero-btn-secondary">Get a Quote</a>
-			</div>
-			</div>
-		</div>
-	</div>
-	<!-- Decorative corner images (like TopScorer) -->
-	<div class="ts-hero-corner-images">
-		<img src="/images/topscorer/h1-rev-img-1.png" alt="" class="ts-corner-img ts-corner-1" />
-		<img src="/images/topscorer/h1-rev-img-2.png" alt="" class="ts-corner-img ts-corner-2" />
-		<img src="/images/topscorer/h1-rev-img-3.png" alt="" class="ts-corner-img ts-corner-3" />
-		<img src="/images/topscorer/h1-rev-img-4.png" alt="" class="ts-corner-img ts-corner-4" />
-		<img src="/images/topscorer/h1-rev-img-5.png" alt="" class="ts-corner-img ts-corner-5" />
+	<div class="hero-slider-dots">
+		<button class="slider-dot active" aria-label="Slide 1"></button>
+		<button class="slider-dot" aria-label="Slide 2"></button>
+		<button class="slider-dot" aria-label="Slide 3"></button>
+		<button class="slider-dot" aria-label="Slide 4"></button>
 	</div>
 </section>
 
@@ -166,7 +166,43 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				</div>
 			</div>
 		</div>
+	</div>
+</section>
 
+<!-- ============================================
+     NEXT MATCH / COUNTDOWN SECTION
+     ============================================ -->
+<section class="ts-countdown-section">
+	<div class="ts-countdown-bg" style="background-image: url('/images/gallery/Surrey-Locker-Room.jpg');"></div>
+	<div class="ts-countdown-overlay"></div>
+	<div class="ts-section-header light">
+		<span class="ts-section-label">WHAT'S TRENDING</span>
+		<h2 class="ts-section-title">GET YOUR CUSTOM LOCKER ROOM IN</h2>
+	</div>
+	<div class="ts-countdown-timer" id="countdown">
+		<div class="ts-timer-block">
+			<span class="ts-timer-number" id="countdown-days">00</span>
+			<span class="ts-timer-label">DAY</span>
+		</div>
+		<div class="ts-timer-block">
+			<span class="ts-timer-number" id="countdown-hours">00</span>
+			<span class="ts-timer-label">HOUR</span>
+		</div>
+		<div class="ts-timer-block">
+			<span class="ts-timer-number" id="countdown-mins">00</span>
+			<span class="ts-timer-label">MINUTE</span>
+		</div>
+		<div class="ts-timer-block">
+			<span class="ts-timer-number" id="countdown-secs">00</span>
+			<span class="ts-timer-label">SECOND</span>
+		</div>
+	</div>
+	<a href="/contact" class="ts-match-cta">Get Started Today</a>
+	<p class="ts-match-phone">Call us at <a href="tel:+18885878255" class="ts-match-phone-link">1 (888) 58-STALL</a></p>
+</section>
+
+<section class="home-shop-section">
+	<div class="home-shop-container">
 		<!-- Materials We Use Section -->
 		<div class="home-shop-section-header home-shop-section-header-spaced">
 			<p class="home-shop-section-subtitle">THE LOCKER ROOM</p>
@@ -175,14 +211,50 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		<div class="ts-spotlight-inner-centered">
 			<div class="ts-spotlight-content">
 				<a href="/services" class="ts-spotlight-position">Premium Materials Collection</a>
-				<h3 class="ts-spotlight-name">Materials We Use</h3>
 				<div class="ts-spotlight-meta">
 					<span>6-Layer Plywood</span> | <a href="javascript:void(0);" id="melamineLinkBtn" class="material-link">Melamine Finishes</a> | <a href="javascript:void(0);" id="woodGrainLinkBtn" class="material-link">Wood Grain</a> | <a href="javascript:void(0);" id="phenolicLinkBtn" class="material-link">Phenolic Options</a> | <span>ENF Certified</span> | <span>Fully Customizable</span>
 				</div>
-				<h5 class="ts-spotlight-bio-title">Materials We Use</h5>
 				<p class="ts-spotlight-bio">Built with premium 6-layer melamine-faced plywood featuring superior moisture resistance, termite protection, and fire-rated construction. Our proprietary layering process creates a core that's 40% stronger than standard plywood while meeting or exceeding all safety codes. Choose from an extensive range of melamine and laminate finishes including authentic woodgrain patterns, designer solid colors, and textured finishes. Each finish delivers exceptional durability and easy maintenance while maintaining the aesthetic appeal of natural wood. Also available in phenolic plastic for extreme durability in high-moisture locker room environments with 100% waterproof construction—perfect for pool areas, ice rinks, or any facility requiring maximum moisture resistance. All materials are ENF certified (zero harmful chemicals), water-resistant, and anti-fungal. Available in any dimension with your choice of finish, color, and hardware. Custom colors available upon request.</p>
 				<div class="materials-buttons-container">
 					<button id="viewAllColorsBtn" class="ts-btn ts-btn-filled">View All Colors</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============================================
+     SERVICES / ACCORDION SECTION
+     ============================================ -->
+<section class="ts-services-section">
+	<div class="ts-services-inner">
+		<div class="ts-section-header">
+			<span class="ts-section-label">OUR PROCESS</span>
+			<h2 class="ts-section-title">HOW WE WORK WITH YOU</h2>
+		</div>
+		<div class="ts-services-tabs">
+			<div class="ts-tab active" data-tab="0">
+				<h4 class="ts-tab-title">Free Consultation</h4>
+				<div class="ts-tab-content">
+					<p>Every project starts with a free, no-obligation design consultation. Our team will work with you to understand your exact requirements, space constraints, and aesthetic preferences to deliver the perfect locker room solution.</p>
+				</div>
+			</div>
+			<div class="ts-tab" data-tab="1">
+				<h4 class="ts-tab-title">Custom Design</h4>
+				<div class="ts-tab-content">
+					<p>Choose from 6 locker models with fully customizable dimensions, wood species, finishes, and color options. From standard quick-ship models to fully bespoke installations, we build exactly what you need.</p>
+				</div>
+			</div>
+			<div class="ts-tab" data-tab="2">
+				<h4 class="ts-tab-title">Manufacturing</h4>
+				<div class="ts-tab-content">
+					<p>Our state-of-the-art manufacturing facility produces every locker with precision CNC cutting, hand-finished joinery, and multiple quality checkpoints. Quick ship in 2-4 weeks, custom in 8-12 weeks.</p>
+				</div>
+			</div>
+			<div class="ts-tab" data-tab="3">
+				<h4 class="ts-tab-title">Delivery & Install</h4>
+				<div class="ts-tab-content">
+					<p>We coordinate delivery nationwide and provide detailed installation guides. Our lockers are designed for easy assembly by your facilities team, with phone/video support always available.</p>
 				</div>
 			</div>
 		</div>
@@ -236,41 +308,71 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<a href="/services" class="ts-btn ts-btn-outline-dark">Explore Customization</a>
 				<a href="/contact#quote-form" class="ts-btn ts-btn-filled-dark">Get Custom Quote</a>
 			</div>
-		</div>
+			</div>
 		</div>
 	</div>
 </section>
 
 <!-- ============================================
-     NEXT MATCH / COUNTDOWN SECTION
+     PLAYERSTALL EQUIPMENT SECTION
      ============================================ -->
-<section class="ts-countdown-section">
-	<div class="ts-countdown-bg" style="background-image: url('/images/topscorer/h1-img-1.jpg');"></div>
-	<div class="ts-countdown-overlay"></div>
-	<div class="ts-section-header light">
-		<span class="ts-section-label">WHAT'S TRENDING</span>
-		<h2 class="ts-section-title">NEXT PROJECT</h2>
+<section class="trending-stats-section">
+	<div class="trending-stats-container">
+		<div class="trending-stats-header">
+			<p class="trending-stats-subtitle">what's trending</p>
+			<h2 class="trending-stats-title">PLAYERSTALL EQUIPMENT</h2>
+		</div>
+		<div class="trending-stats-grid">
+			<div class="trending-stat-item">
+				<div class="trending-stat-circle">
+					<svg class="progress-ring" viewBox="0 0 140 140">
+						<circle class="progress-ring-bg" cx="70" cy="70" r="62" />
+						<circle class="progress-ring-fill" cx="70" cy="70" r="62" data-percent="35" />
+					</svg>
+					<div class="trending-stat-counter">
+						<span class="trending-stat-number" data-target="35">0</span>
+						<span class="trending-stat-percent">%</span>
+					</div>
+				</div>
+				<div class="trending-stat-info">
+					<h4 class="trending-stat-label">weight ratio</h4>
+					<p class="trending-stat-text">Premium wood construction at 35% less weight than metal — easier handling, faster setup, same lasting durability.</p>
+				</div>
+			</div>
+			<div class="trending-stat-item">
+				<div class="trending-stat-circle">
+					<svg class="progress-ring" viewBox="0 0 140 140">
+						<circle class="progress-ring-bg" cx="70" cy="70" r="62" />
+						<circle class="progress-ring-fill" cx="70" cy="70" r="62" data-percent="68" />
+					</svg>
+					<div class="trending-stat-counter">
+						<span class="trending-stat-number" data-target="68">0</span>
+						<span class="trending-stat-percent">%</span>
+					</div>
+				</div>
+				<div class="trending-stat-info">
+					<h4 class="trending-stat-label">cost savings</h4>
+					<p class="trending-stat-text">Save up to 68% compared to custom metal lockers while getting premium quality backed by our lifetime guarantee.</p>
+				</div>
+			</div>
+			<div class="trending-stat-item">
+				<div class="trending-stat-circle">
+					<svg class="progress-ring" viewBox="0 0 140 140">
+						<circle class="progress-ring-bg" cx="70" cy="70" r="62" />
+						<circle class="progress-ring-fill" cx="70" cy="70" r="62" data-percent="75" />
+					</svg>
+					<div class="trending-stat-counter">
+						<span class="trending-stat-number" data-target="75">0</span>
+						<span class="trending-stat-percent">%</span>
+					</div>
+				</div>
+				<div class="trending-stat-info">
+					<h4 class="trending-stat-label">faster install</h4>
+					<p class="trending-stat-text">Modular flat-pack design means 75% faster assembly — each locker goes together in just 20 to 30 minutes.</p>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="ts-countdown-timer" id="countdown">
-		<div class="ts-timer-block">
-			<span class="ts-timer-number" id="countdown-days">00</span>
-			<span class="ts-timer-label">DAY</span>
-		</div>
-		<div class="ts-timer-block">
-			<span class="ts-timer-number" id="countdown-hours">00</span>
-			<span class="ts-timer-label">HOUR</span>
-		</div>
-		<div class="ts-timer-block">
-			<span class="ts-timer-number" id="countdown-mins">00</span>
-			<span class="ts-timer-label">MINUTE</span>
-		</div>
-		<div class="ts-timer-block">
-			<span class="ts-timer-number" id="countdown-secs">00</span>
-			<span class="ts-timer-label">SECOND</span>
-		</div>
-	</div>
-	<a href="/contact" class="ts-match-cta">Get Started Today</a>
-	<p class="ts-match-phone">Call us at <a href="tel:+18885878255" class="ts-match-phone-link">1 (888) 58-STALL</a></p>
 </section>
 
 <!-- ============================================
@@ -300,158 +402,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<span>Warranty</span>
 		</div>
 		<a href="/services" class="ts-btn ts-btn-filled ts-btn-large">Read More</a>
-	</div>
-</section>
-
-<!-- ============================================
-     RANKING / STATS SECTION
-     ============================================ -->
-<section class="ts-ranking-section">
-	<div class="ts-ranking-inner">
-		<div class="ts-section-header">
-			<span class="ts-section-label">WHAT'S TRENDING</span>
-			<h2 class="ts-section-title">Ranking every<br>LOCKER</h2>
-		</div>
-		<p class="ts-ranking-text">From quick-ship Stadium lockers to fully custom Pro and Legendary models, we deliver premium wood craftsmanship at prices competitors simply cannot match. 30+ years of manufacturing excellence and a lifetime guarantee back every unit.</p>
-	</div>
-</section>
-
-<!-- ============================================
-     TROPHIES / INSTALLATIONS SECTION
-     ============================================ -->
-<section class="ts-trophies-section">
-	<div class="ts-vertical-text ts-vertical-left">T&nbsp;&nbsp;R&nbsp;&nbsp;O&nbsp;&nbsp;P&nbsp;&nbsp;H&nbsp;&nbsp;Y</div>
-	<div class="ts-trophies-inner">
-		<div class="ts-section-header">
-			<span class="ts-section-label">What's trending</span>
-			<h2 class="ts-section-title">LATEST INSTALLATIONS</h2>
-		</div>
-		<div class="ts-trophies-grid">
-			<div class="ts-trophy-card">
-				<div class="ts-trophy-icon">
-					<img src="/images/topscorer/h1-rev-img-1.png" alt="Installation 2025" />
-				</div>
-				<span class="ts-trophy-type">football</span>
-				<h5 class="ts-trophy-season">Project 2025</h5>
-			</div>
-			<div class="ts-trophy-card">
-				<div class="ts-trophy-icon">
-					<img src="/images/topscorer/h1-rev-img-2.png" alt="Installation 2024" />
-				</div>
-				<span class="ts-trophy-type">hockey</span>
-				<h5 class="ts-trophy-season">Project 2024</h5>
-			</div>
-			<div class="ts-trophy-card">
-				<div class="ts-trophy-icon">
-					<img src="/images/topscorer/h1-rev-img-3.png" alt="Installation 2024" />
-				</div>
-				<span class="ts-trophy-type">basketball</span>
-				<h5 class="ts-trophy-season">Project 2024</h5>
-			</div>
-			<div class="ts-trophy-card">
-				<div class="ts-trophy-icon">
-					<img src="/images/topscorer/h1-rev-img-4.png" alt="Installation 2023" />
-				</div>
-				<span class="ts-trophy-type">baseball</span>
-				<h5 class="ts-trophy-season">Project 2023</h5>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- ============================================
-     SECOND BLOG / NEWS ROW
-     ============================================ -->
-<section class="ts-news-row-section">
-	<div class="ts-news-row-grid">
-		<div class="ts-news-row-item">
-			<div class="ts-news-row-image">
-				<img src="/images/topscorer/h3-img-4.jpg" alt="Sports locker room design tips" loading="lazy" />
-			</div>
-			<div class="ts-news-row-content">
-				<a href="/blog" class="ts-news-category">Design</a>
-				<h4><a href="/blog">Locker Room Design Tips</a></h4>
-				<a href="/blog" class="ts-read-more">Read More</a>
-			</div>
-		</div>
-		<div class="ts-news-row-item">
-			<div class="ts-news-row-image">
-				<img src="/images/topscorer/h1-img-1.jpg" alt="NCAA locker room standards" loading="lazy" />
-			</div>
-			<div class="ts-news-row-content">
-				<a href="/blog" class="ts-news-category">Standards</a>
-				<h4><a href="/blog">NCAA Locker Standards</a></h4>
-				<a href="/blog" class="ts-read-more">Read More</a>
-			</div>
-		</div>
-		<div class="ts-news-row-item">
-			<div class="ts-news-row-image">
-				<img src="/images/topscorer/h2-rev-slide-2.jpg" alt="How wood lockers boost recruiting" loading="lazy" />
-			</div>
-			<div class="ts-news-row-content">
-				<a href="/blog" class="ts-news-category">Recruiting</a>
-				<h4><a href="/blog">Wood Lockers & Recruiting</a></h4>
-				<a href="/blog" class="ts-read-more">Read More</a>
-			</div>
-		</div>
-		<div class="ts-news-row-item">
-			<div class="ts-news-row-image">
-				<img src="/images/topscorer/h2-rev-slide-3.jpg" alt="Best locker materials compared" loading="lazy" />
-			</div>
-			<div class="ts-news-row-content">
-				<a href="/blog" class="ts-news-category">Materials</a>
-				<h4><a href="/blog">Best Locker Materials</a></h4>
-				<a href="/blog" class="ts-read-more">Read More</a>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- ============================================
-     SERVICES / ACCORDION SECTION
-     ============================================ -->
-<section class="ts-services-section">
-	<div class="ts-services-inner">
-		<div class="ts-services-tabs">
-			<div class="ts-tab active" data-tab="0">
-				<h4 class="ts-tab-title">Free Consultation</h4>
-				<div class="ts-tab-content">
-					<p>Every project starts with a free, no-obligation design consultation. Our team will work with you to understand your exact requirements, space constraints, and aesthetic preferences to deliver the perfect locker room solution.</p>
-				</div>
-			</div>
-			<div class="ts-tab" data-tab="1">
-				<h4 class="ts-tab-title">Custom Design</h4>
-				<div class="ts-tab-content">
-					<p>Choose from 6 locker models with fully customizable dimensions, wood species, finishes, and color options. From standard quick-ship models to fully bespoke installations, we build exactly what you need.</p>
-				</div>
-			</div>
-			<div class="ts-tab" data-tab="2">
-				<h4 class="ts-tab-title">Manufacturing</h4>
-				<div class="ts-tab-content">
-					<p>Our state-of-the-art manufacturing facility produces every locker with precision CNC cutting, hand-finished joinery, and multiple quality checkpoints. Quick ship in 2-4 weeks, custom in 8-12 weeks.</p>
-				</div>
-			</div>
-			<div class="ts-tab" data-tab="3">
-				<h4 class="ts-tab-title">Delivery & Install</h4>
-				<div class="ts-tab-content">
-					<p>We coordinate delivery nationwide and provide detailed installation guides. Our lockers are designed for easy assembly by your facilities team, with phone/video support always available.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- ============================================
-     INSTAGRAM / GALLERY SECTION
-     ============================================ -->
-<section class="ts-instagram-section">
-	<div class="ts-instagram-label">Follow us on instagram</div>
-	<div class="ts-instagram-grid">
-		<a href="/gallery" class="ts-insta-item"><img src="/images/topscorer/h2-img-1.jpg" alt="Custom sports locker installation" loading="lazy" /></a>
-		<a href="/gallery" class="ts-insta-item"><img src="/images/topscorer/h2-img-2.jpg" alt="Premium wood locker room" loading="lazy" /></a>
-		<a href="/gallery" class="ts-insta-item"><img src="/images/topscorer/h2-img-3.jpg" alt="Collegiate locker room design" loading="lazy" /></a>
-		<a href="/gallery" class="ts-insta-item"><img src="/images/topscorer/h3-img-2.jpg" alt="Professional team lockers" loading="lazy" /></a>
-		<a href="/gallery" class="ts-insta-item"><img src="/images/topscorer/h1-img-3.jpg" alt="Custom wood sports lockers" loading="lazy" /></a>
 	</div>
 </section>
 
@@ -663,6 +613,385 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	color: #ffffff;
 	border-color: #fe5900;
 }
+
+/* ===========================================
+   HERO SLIDER (from index.astro)
+   =========================================== */
+.hero-slider {
+	position: relative;
+	height: 70vh;
+	min-height: 490px;
+	max-height: 70vh;
+	overflow: hidden;
+	margin-top: 0;
+	width: 100%;
+	background: #000000;
+}
+
+.hero-slider-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.hero-slide {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	opacity: 0;
+	transition: opacity 1.5s ease-in-out;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.hero-slide.active {
+	opacity: 1;
+	z-index: 1;
+	animation: zoomIn 20s ease-in-out infinite;
+}
+
+.hero-slide.first-slide {
+	background-size: cover;
+	background-position: center center;
+}
+
+.hero-slide.first-slide.active {
+	animation: zoomInFirst 20s ease-in-out infinite;
+}
+
+@keyframes zoomIn {
+	0% {
+		background-size: cover;
+		background-position: center center;
+		transform: scale(1);
+	}
+	50% {
+		background-size: cover;
+		background-position: center center;
+		transform: scale(1.1);
+	}
+	100% {
+		background-size: cover;
+		background-position: center center;
+		transform: scale(1);
+	}
+}
+
+.hero-slide.slide-bottom {
+	background-position: center bottom !important;
+	filter: contrast(1.15) brightness(1.05) saturate(1.1);
+}
+.hero-slide.slide-bottom.active {
+	animation: zoomInBottom 20s ease-in-out infinite;
+}
+@keyframes zoomInBottom {
+	0% {
+		background-size: cover;
+		background-position: center bottom;
+		transform: scale(1);
+	}
+	50% {
+		background-size: cover;
+		background-position: center bottom;
+		transform: scale(1.1);
+	}
+	100% {
+		background-size: cover;
+		background-position: center bottom;
+		transform: scale(1);
+	}
+}
+
+@keyframes zoomInFirst {
+	0% {
+		background-size: cover;
+		background-position: center center;
+		transform: scale(1);
+	}
+	50% {
+		background-size: cover;
+		background-position: center center;
+		transform: scale(1.1);
+	}
+	100% {
+		background-size: cover;
+		background-position: center center;
+		transform: scale(1);
+	}
+}
+
+.hero-slide-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+	z-index: 2;
+}
+
+.hero-slider-container > .hero-slide:first-child:not(.hero-slide-topscorer) .hero-slide-overlay {
+	display: none;
+}
+
+.hero-slide-content {
+	position: relative;
+	z-index: 10;
+	text-align: center;
+	color: #ffffff;
+	max-width: 1000px;
+	padding: 10.5vh 40px 0;
+	width: 100%;
+}
+
+.hero-slide:not(.active) .hero-slide-content {
+	opacity: 0;
+	transform: translateY(50px);
+}
+
+.hero-slide.active .hero-slide-content {
+	opacity: 1;
+	transform: translateY(0);
+	transition: opacity 1s ease-out 0.3s, transform 1s ease-out 0.3s;
+}
+
+.hero-slide-title {
+	font-family: 'Oswald', sans-serif;
+	font-size: 46px;
+	font-weight: 700;
+	color: #ffffff;
+	text-transform: uppercase;
+	line-height: 1;
+	margin: 0 0 16px 0;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+	letter-spacing: 2px;
+}
+
+.hero-slide:not(.active) .hero-slide-title {
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+.hero-slide.active .hero-slide-title {
+	opacity: 1;
+	transform: translateY(0);
+	animation: slideInUpTitle 1s ease-out 0.5s both;
+}
+
+.hero-slide-text {
+	font-family: 'Yantramanav', sans-serif;
+	font-size: 18px;
+	color: #ffffff;
+	line-height: 1.3;
+	margin: 0 0 39px 0;
+	font-weight: 300;
+	text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	letter-spacing: 0.3px;
+}
+
+.hero-slide:not(.active) .hero-slide-text {
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+.hero-slide.active .hero-slide-text {
+	opacity: 1;
+	transform: translateY(0);
+	animation: slideInUpText 1s ease-out 0.7s both;
+}
+
+@keyframes slideInUpTitle {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideInUpText {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.hero-slide-buttons {
+	display: flex;
+	gap: 40px;
+	justify-content: center;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.hero-slide:not(.active) .hero-slide-buttons {
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+.hero-slide.active .hero-slide-buttons {
+	opacity: 1;
+	transform: translateY(0);
+	animation: slideInUpButtons 1s ease-out 0.9s both;
+}
+
+@keyframes slideInUpButtons {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.btn-slide-primary {
+	background: #000000;
+	color: #ffffff;
+	border: 2px solid #000000;
+	padding: 10px 25px;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 0.15em;
+	font-size: 12px;
+	transition: all 0.3s ease;
+	font-family: 'Yantramanav', sans-serif;
+	display: inline-block;
+	line-height: 1.4;
+	min-width: 136px;
+	text-align: center;
+	transform: scale(1);
+	transform-origin: center;
+}
+
+.btn-slide-primary:hover,
+.btn-slide-primary:active,
+.btn-slide-primary:focus {
+	background: #fe5900;
+	color: #ffffff;
+	border-color: #fe5900;
+}
+
+.btn-slide-secondary {
+	background: #ffffff;
+	color: #000000;
+	border: 2px solid #ffffff;
+	padding: 10px 25px;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 0.15em;
+	font-size: 12px;
+	transition: all 0.3s ease;
+	font-family: 'Yantramanav', sans-serif;
+	display: inline-block;
+	line-height: 1.4;
+	min-width: 136px;
+	text-align: center;
+	transform: scale(1);
+	transform-origin: center;
+}
+
+.btn-slide-secondary:hover,
+.btn-slide-secondary:active,
+.btn-slide-secondary:focus {
+	background: #fe5900;
+	color: #ffffff;
+	border-color: #fe5900;
+}
+
+.hero-slider-nav {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 24px;
+	z-index: 20;
+	pointer-events: none;
+}
+
+.slider-nav-btn {
+	background: rgba(255, 255, 255, 0.15);
+	border: 2px solid rgba(255, 255, 255, 0.6);
+	color: #ffffff;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
+	pointer-events: all;
+	backdrop-filter: blur(8px);
+}
+
+.slider-nav-next {
+	margin-right: 40px;
+}
+
+.slider-nav-btn:hover {
+	background: rgba(255, 255, 255, 0.25);
+	border-color: #ffffff;
+	transform: scale(1.05);
+}
+
+.slider-nav-btn svg {
+	width: 20px;
+	height: 20px;
+}
+
+.hero-slider-dots {
+	position: absolute;
+	bottom: 40px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	gap: 12px;
+	z-index: 20;
+	align-items: center;
+}
+
+.slider-dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.4);
+	border: 2px solid rgba(255, 255, 255, 0.6);
+	cursor: pointer;
+	transition: all 0.3s ease;
+	padding: 0;
+}
+
+.slider-dot.active {
+	background: #ffffff;
+	border-color: #ffffff;
+	width: 12px;
+	height: 12px;
+}
+
+.slider-dot:hover {
+	background: rgba(255, 255, 255, 0.7);
+	border-color: rgba(255, 255, 255, 0.9);
+}
+
 /* General buttons used elsewhere on page */
 .ts-btn-filled {
 	background: #000000;
@@ -731,7 +1060,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 .ts-section-label {
 	display: block;
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 13px;
+	font-size: 15px;
 	letter-spacing: 6px;
 	text-transform: uppercase;
 	color: #8c8c8c;
@@ -739,7 +1068,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 }
 .ts-section-title {
 	font-family: 'Oswald', sans-serif;
-	font-size: clamp(32px, 4vw, 52px);
+	font-size: clamp(36px, 4vw, 56px);
 	font-weight: 700;
 	text-transform: uppercase;
 	color: #0d0d0d;
@@ -777,7 +1106,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
    =========================================== */
 .ts-scores-section {
 	position: relative;
-	padding: 80px 60px;
+	padding: 120px 80px;
 	background: #ffffff;
 }
 .ts-scores-inner {
@@ -786,7 +1115,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 }
 .ts-section-description {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 16px;
+	font-size: 18px;
 	line-height: 1.7;
 	color: #666;
 	max-width: 700px;
@@ -796,7 +1125,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 .ts-scores-grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	gap: 30px;
+	gap: 160px;
 	margin-top: 50px;
 	max-width: 1100px;
 	margin-left: auto;
@@ -806,7 +1135,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 .ts-score-card {
 	text-align: center;
 	padding: 40px 20px;
-	border: 1px solid #f0f0f0;
+	border: none;
 	transition: box-shadow 0.3s ease;
 }
 .ts-score-card:hover {
@@ -814,9 +1143,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 }
 .ts-shipping-card {
 	text-align: center;
-	padding: 25px 25px;
+	padding: 40px 35px;
 	background: #ffffff;
-	border: 2px solid #e6e6e6;
+	border: none;
 	transition: all 0.3s ease;
 	box-sizing: border-box;
 	overflow: hidden;
@@ -825,25 +1154,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	height: 100%;
 }
 .ts-shipping-card:hover {
-	border-color: #fe5900;
 	box-shadow: 0 15px 50px rgba(0,0,0,0.1);
 	transform: translateY(-5px);
 }
 .ts-shipping-card.ts-featured {
-	border-color: #666;
-	background: #f8f8f8;
+	background: #ffffff;
 	position: relative;
 }
 .ts-shipping-badge {
 	display: inline-block;
 	padding: 5px 14px;
 	font-family: 'Oswald', sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.15em;
-	margin-bottom: 10px;
-	align-self: flex-start;
+	margin-bottom: 35px;
+	align-self: center;
 }
 .ts-badge-quick {
 	background: #1a1a1a;
@@ -855,26 +1182,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 }
 .ts-shipping-title {
 	font-family: 'Oswald', sans-serif;
-	font-size: 28px;
+	font-size: 32px;
 	font-weight: 700;
 	text-transform: uppercase;
 	color: #1a1a1a;
+	margin-bottom: 20px;
 	margin: 0 0 10px 0;
 	line-height: 1.2;
 	text-align: center;
 }
 .ts-shipping-description {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 14px;
-	line-height: 1.6;
+	font-size: 16px;
+	line-height: 1.8;
 	color: #666;
-	margin-bottom: 15px;
+	margin-bottom: 25px;
 	text-align: center;
 }
 .ts-shipping-features {
 	list-style: none;
 	padding: 0;
-	margin: 0 0 20px 0;
+	margin: 0 0 30px 0;
 	text-align: center;
 	flex-grow: 1;
 	display: flex;
@@ -883,10 +1211,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 }
 .ts-shipping-features li {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 13px;
-	line-height: 1.5;
+	font-size: 15px;
+	line-height: 1.8;
 	color: #333;
-	padding: 6px 0;
+	padding: 10px 0;
 	border-bottom: 1px solid #f0f0f0;
 	position: relative;
 	text-align: center;
@@ -902,19 +1230,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	justify-content: center;
 	width: 100%;
 	margin-bottom: 0;
-	margin-top: auto;
+	margin-top: 30px;
 }
 .ts-shipping-card .ts-score-buttons .ts-btn {
 	max-width: none !important;
-	width: 180px;
+	width: 207px;
 	flex: 0 0 auto;
 	margin: 0;
 	box-sizing: border-box;
 	display: inline-block;
-	padding: 8px 16px;
+	padding: 9px 18px;
 	text-align: center;
 	white-space: normal;
-	font-size: 11px;
+	font-size: 13px;
 	letter-spacing: 1px;
 	line-height: 1.3;
 }
@@ -1439,7 +1767,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0,0,0,0.6);
+	background: rgba(0,0,0,0.15);
 }
 .ts-features-content {
 	position: relative;
@@ -1474,12 +1802,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 }
 .ts-features-tags span {
 	font-family: 'Oswald', sans-serif;
-	font-size: 12px;
+	font-size: 14px;
+	font-weight: 600;
 	letter-spacing: 3px;
 	text-transform: uppercase;
-	color: rgba(255,255,255,0.5);
-	border-bottom: 1px solid rgba(255,255,255,0.2);
+	color: rgba(255,255,255,0.95);
+	border-bottom: 2px solid rgba(255,255,255,0.5);
 	padding-bottom: 5px;
+	text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 /* ===========================================
@@ -1500,57 +1830,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	line-height: 1.8;
 	color: #8c8c8c;
 	margin-top: 30px;
-}
-
-/* ===========================================
-   TROPHIES SECTION
-   =========================================== */
-.ts-trophies-section {
-	position: relative;
-	padding: 100px 60px;
-	background: #f9f9f9;
-}
-.ts-trophies-inner {
-	max-width: 1200px;
-	margin: 0 auto;
-}
-.ts-trophies-grid {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 30px;
-}
-.ts-trophy-card {
-	text-align: center;
-	padding: 40px 20px;
-	background: #ffffff;
-	transition: box-shadow 0.3s ease;
-}
-.ts-trophy-card:hover {
-	box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-.ts-trophy-icon {
-	margin-bottom: 15px;
-}
-.ts-trophy-icon img {
-	width: 80px;
-	height: 80px;
-	object-fit: contain;
-}
-.ts-trophy-type {
-	display: block;
-	font-family: 'Yantramanav', sans-serif;
-	font-size: 12px;
-	letter-spacing: 3px;
-	text-transform: uppercase;
-	color: #b6b6b6;
-	margin-bottom: 5px;
-}
-.ts-trophy-season {
-	font-family: 'Oswald', sans-serif;
-	font-size: 18px;
-	font-weight: 600;
-	color: #0d0d0d;
-	margin: 0;
 }
 
 /* ===========================================
@@ -1685,41 +1964,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 }
 
 /* ===========================================
-   INSTAGRAM SECTION
-   =========================================== */
-.ts-instagram-section {
-	padding: 0;
-}
-.ts-instagram-label {
-	text-align: center;
-	font-family: 'Yantramanav', sans-serif;
-	font-size: 13px;
-	letter-spacing: 6px;
-	text-transform: uppercase;
-	color: #cccccc;
-	padding: 30px 0;
-}
-.ts-instagram-grid {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	gap: 0;
-}
-.ts-insta-item {
-	overflow: hidden;
-	aspect-ratio: 1;
-}
-.ts-insta-item img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	transition: transform 0.5s ease, filter 0.5s ease;
-}
-.ts-insta-item:hover img {
-	transform: scale(1.1);
-	filter: brightness(0.7);
-}
-
-/* ===========================================
    SCROLL ANIMATIONS
    =========================================== */
 .ts-animate {
@@ -1751,9 +1995,123 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 }
 
 /* ===========================================
+   PLAYERSTALL EQUIPMENT STATS SECTION
+   =========================================== */
+.trending-stats-section {
+	background: #f7f7f7;
+	padding: 100px 0;
+}
+.trending-stats-container {
+	max-width: 1300px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+.trending-stats-header {
+	text-align: center;
+	margin-bottom: 60px;
+}
+.trending-stats-subtitle {
+	font-family: 'Yantramanav', sans-serif;
+	font-size: 13px;
+	color: #b6b6b6;
+	letter-spacing: 0.3em;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+.trending-stats-title {
+	font-family: 'Oswald', sans-serif;
+	font-size: 48px;
+	font-weight: 700;
+	color: #1a1a1a;
+	text-transform: uppercase;
+	margin: 0;
+}
+.trending-stats-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
+}
+.trending-stat-item {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+}
+/* Circle + SVG ring */
+.trending-stat-circle {
+	position: relative;
+	width: 140px;
+	height: 140px;
+	flex-shrink: 0;
+}
+.progress-ring {
+	width: 100%;
+	height: 100%;
+	transform: rotate(-90deg);
+}
+.progress-ring-bg {
+	fill: none;
+	stroke: #e8e8e8;
+	stroke-width: 3;
+}
+.progress-ring-fill {
+	fill: none;
+	stroke: #1a1a1a;
+	stroke-width: 3;
+	stroke-linecap: round;
+	stroke-dasharray: 389.56;  /* 2 * π * 62 */
+	stroke-dashoffset: 389.56; /* starts fully hidden */
+	transition: stroke-dashoffset 0.05s linear;
+}
+.trending-stat-counter {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	align-items: baseline;
+}
+.trending-stat-number {
+	font-family: 'Oswald', sans-serif;
+	font-size: 40px;
+	font-weight: 700;
+	color: #1a1a1a;
+	line-height: 1;
+}
+.trending-stat-percent {
+	font-family: 'Oswald', sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+	color: #1a1a1a;
+	margin-left: 2px;
+}
+/* Text info to the right */
+.trending-stat-info {
+	flex: 1;
+}
+.trending-stat-label {
+	font-family: 'Oswald', sans-serif;
+	font-size: 15px;
+	font-weight: 600;
+	color: #1a1a1a;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	margin: 0 0 8px 0;
+}
+.trending-stat-text {
+	font-family: 'Yantramanav', sans-serif;
+	font-size: 14px;
+	color: #8c8c8c;
+	line-height: 1.6;
+	margin: 0;
+}
+
+/* ===========================================
    RESPONSIVE
    =========================================== */
 @media (max-width: 1024px) {
+	.trending-stats-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
 	.ts-scores-grid {
 		grid-template-columns: 1fr;
 		gap: 30px;
@@ -1769,9 +2127,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 	.ts-store-item {
 		min-width: calc(33.333% - 14px);
-	}
-	.ts-trophies-grid {
-		grid-template-columns: repeat(2, 1fr);
 	}
 	.ts-news-row-grid {
 		grid-template-columns: repeat(2, 1fr);
@@ -1818,8 +2173,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		gap: 8px;
 	}
 	.ts-shipping-card .ts-score-buttons .ts-btn {
-		padding: 9px 16px;
-		font-size: 10px;
+		padding: 10px 18px;
+		font-size: 12px;
 	}
 	.ts-spotlight-inner {
 		grid-template-columns: 1fr;
@@ -1839,12 +2194,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.ts-ranking-section {
 		padding: 60px 20px;
 	}
-	.ts-trophies-section {
-		padding: 60px 20px;
-	}
-	.ts-trophies-grid {
-		grid-template-columns: repeat(2, 1fr);
-	}
 	.ts-news-row-grid {
 		grid-template-columns: 1fr;
 	}
@@ -1857,9 +2206,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.ts-countdown-timer {
 		gap: 20px;
 	}
-	.ts-instagram-grid {
-		grid-template-columns: repeat(3, 1fr);
-	}
 	.ts-carousel-prev {
 		left: 0;
 	}
@@ -1867,6 +2213,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		right: 0;
 	}
 }
+@media (max-width: 640px) {
+	.trending-stats-grid {
+		grid-template-columns: 1fr;
+	}
+	.trending-stats-title {
+		font-size: 32px;
+	}
+	.trending-stat-circle {
+		width: 120px;
+		height: 120px;
+	}
+}
+
 @media (max-width: 480px) {
 	.ts-slide-buttons {
 		flex-direction: row;
@@ -1893,19 +2252,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		gap: 6px;
 	}
 	.ts-shipping-card .ts-score-buttons .ts-btn {
-		font-size: 9px;
-		padding: 8px 12px;
+		font-size: 10px;
+		padding: 9px 14px;
 		flex: 1 1 auto;
-		min-width: 85px;
+		min-width: 98px;
 	}
 	.ts-store-item {
 		min-width: 100%;
-	}
-	.ts-trophies-grid {
-		grid-template-columns: 1fr;
-	}
-	.ts-instagram-grid {
-		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
@@ -2095,34 +2448,146 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 	// =====================
-	// HERO SLIDER
+	// HERO SLIDER (TS-SLIDE)
 	// =====================
-	const slides = document.querySelectorAll('.ts-slide');
-	let currentSlide = 0;
-	let slideInterval: ReturnType<typeof setInterval>;
+	const tsSlides = document.querySelectorAll('.ts-slide');
+	let currentTsSlide = 0;
+	let tsSlideInterval: ReturnType<typeof setInterval>;
 
-	function goToSlide(index: number) {
-		slides.forEach((slide, i) => {
+	function goToTsSlide(index: number) {
+		tsSlides.forEach((slide, i) => {
 			slide.classList.toggle('active', i === index);
 		});
-		currentSlide = index;
+		currentTsSlide = index;
 	}
 
-	function nextSlide() {
-		goToSlide((currentSlide + 1) % slides.length);
+	function nextTsSlide() {
+		goToTsSlide((currentTsSlide + 1) % tsSlides.length);
 	}
 
-	function startSlider() {
-		slideInterval = setInterval(nextSlide, 6000);
+	function startTsSlider() {
+		if (tsSlides.length > 0) {
+			tsSlideInterval = setInterval(nextTsSlide, 6000);
+		}
 	}
 
-	startSlider();
+	startTsSlider();
+
+	// =====================
+	// HERO SLIDER (from index.astro)
+	// =====================
+	function initHeroSlider() {
+		const heroSlides = document.querySelectorAll('.hero-slide');
+		const dots = document.querySelectorAll('.slider-dot');
+		const prevBtn = document.querySelector('.slider-nav-prev');
+		const nextBtn = document.querySelector('.slider-nav-next');
+		
+		if (heroSlides.length === 0) return;
+
+		let currentSlide = 0;
+		let autoPlayInterval: ReturnType<typeof setInterval>;
+
+		function showSlide(index: number) {
+			// Remove active class from all slides and dots
+			heroSlides.forEach(slide => {
+				slide.classList.remove('active');
+				// Reset animation
+				(slide as HTMLElement).style.animation = 'none';
+				setTimeout(() => {
+					if (slide.classList.contains('active')) {
+						(slide as HTMLElement).style.animation = '';
+					}
+				}, 10);
+			});
+			dots.forEach(dot => dot.classList.remove('active'));
+
+			// Add active class to current slide and dot
+			const activeSlide = heroSlides[index] as HTMLElement;
+			activeSlide.classList.add('active');
+			dots[index].classList.add('active');
+			
+			// Restart animation
+			activeSlide.style.animation = 'none';
+			setTimeout(() => {
+				if (activeSlide.classList.contains('first-slide')) {
+					activeSlide.style.animation = 'zoomInFirst 20s ease-in-out infinite';
+				} else if (activeSlide.classList.contains('slide-bottom')) {
+					activeSlide.style.animation = 'zoomInBottom 20s ease-in-out infinite';
+				} else {
+					activeSlide.style.animation = 'zoomIn 20s ease-in-out infinite';
+				}
+			}, 10);
+			
+			currentSlide = index;
+		}
+
+		function nextSlide() {
+			const next = (currentSlide + 1) % heroSlides.length;
+			showSlide(next);
+		}
+
+		function prevSlide() {
+			const prev = (currentSlide - 1 + heroSlides.length) % heroSlides.length;
+			showSlide(prev);
+		}
+
+		function startAutoPlay() {
+			autoPlayInterval = setInterval(nextSlide, 5000);
+		}
+
+		function stopAutoPlay() {
+			if (autoPlayInterval) {
+				clearInterval(autoPlayInterval);
+			}
+		}
+
+		// Navigation button events
+		if (nextBtn) {
+			nextBtn.addEventListener('click', () => {
+				stopAutoPlay();
+				nextSlide();
+				startAutoPlay();
+			});
+		}
+
+		if (prevBtn) {
+			prevBtn.addEventListener('click', () => {
+				stopAutoPlay();
+				prevSlide();
+				startAutoPlay();
+			});
+		}
+
+		// Dot navigation
+		dots.forEach((dot, index) => {
+			dot.addEventListener('click', () => {
+				stopAutoPlay();
+				showSlide(index);
+				startAutoPlay();
+			});
+		});
+
+		// Pause autoplay on hover
+		const slider = document.querySelector('.hero-slider');
+		if (slider) {
+			slider.addEventListener('mouseenter', stopAutoPlay);
+			slider.addEventListener('mouseleave', startAutoPlay);
+		}
+
+		// Ensure first slide is visible on load
+		showSlide(0);
+		// Start autoplay
+		startAutoPlay();
+	}
+
+	// Initialize hero slider
+	initHeroSlider();
 
 	// =====================
 	// COUNTDOWN TIMER
 	// =====================
 	const targetDate = new Date();
-	targetDate.setDate(targetDate.getDate() + 14); // 2 weeks from now
+	targetDate.setDate(targetDate.getDate() + 84); // 12 weeks from now
 
 	function updateCountdown() {
 		const now = new Date().getTime();
@@ -2201,7 +2666,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	// SCROLL ANIMATIONS
 	// =====================
 	const animElements = document.querySelectorAll(
-		'.ts-section-header, .ts-score-card, .ts-spotlight-image, .ts-spotlight-content, .ts-blog-card, .ts-store-item, .ts-features-content, .ts-ranking-inner, .ts-trophy-card, .ts-news-row-item, .ts-tab'
+		'.ts-section-header, .ts-score-card, .ts-spotlight-image, .ts-spotlight-content, .ts-blog-card, .ts-store-item, .ts-features-content, .ts-ranking-inner, .ts-news-row-item, .ts-tab'
 	);
 
 	const observerOptions = {
@@ -2227,6 +2692,76 @@ document.addEventListener('DOMContentLoaded', () => {
 		(el as HTMLElement).style.transition = 'opacity 0.6s ease, transform 0.6s ease';
 		observer.observe(el);
 	});
+
+	// =====================
+	// PLAYERSTALL EQUIPMENT COUNTER ANIMATION
+	// =====================
+	function initCounterAnimation() {
+		const counters = document.querySelectorAll('.trending-stat-number[data-target]');
+		const rings = document.querySelectorAll('.progress-ring-fill[data-percent]');
+		if (counters.length === 0) return;
+
+		const radius = 62;
+		const circumference = 2 * Math.PI * radius; // ≈ 389.56
+
+		let animated = false;
+
+		function animateCounters() {
+			if (animated) return;
+			animated = true;
+
+			const duration = 2000; // 2 seconds
+			const startTime = performance.now();
+
+			function easeOutCubic(t: number) {
+				return 1 - Math.pow(1 - t, 3);
+			}
+
+			function update(currentTime: number) {
+				const elapsed = currentTime - startTime;
+				const progress = Math.min(elapsed / duration, 1);
+				const easedProgress = easeOutCubic(progress);
+
+				// Animate numbers
+				counters.forEach(counter => {
+					const target = parseInt(counter.getAttribute('data-target') || '0', 10);
+					const currentValue = Math.round(easedProgress * target);
+					counter.textContent = progress < 1 ? String(currentValue) : String(target);
+				});
+
+				// Animate circle rings
+				rings.forEach(ring => {
+					const percent = parseInt(ring.getAttribute('data-percent') || '0', 10);
+					const currentPercent = easedProgress * percent;
+					const offset = circumference - (currentPercent / 100) * circumference;
+					(ring as SVGCircleElement).style.strokeDashoffset = String(offset);
+				});
+
+				if (progress < 1) {
+					requestAnimationFrame(update);
+				}
+			}
+
+			requestAnimationFrame(update);
+		}
+
+		const section = document.querySelector('.trending-stats-section');
+		if (!section) return;
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					animateCounters();
+					observer.unobserve(entry.target);
+				}
+			});
+		}, { threshold: 0.2 });
+
+		observer.observe(section);
+	}
+
+	// Initialize counter animation
+	initCounterAnimation();
 
 	// =====================
 	// COLOR MODAL

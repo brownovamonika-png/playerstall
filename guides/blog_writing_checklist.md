@@ -59,7 +59,7 @@
   - [ ] Key messaging included:
     - [ ] 30+ years experience (3-5 mentions)
     - [ ] Lifetime guarantee (1-2 mentions)
-    - [ ] Made in Canada (when relevant)
+    - [ ] Canadian-owned and operated since 1996 (when relevant)
     - [ ] Free consultation CTA
 
 ---

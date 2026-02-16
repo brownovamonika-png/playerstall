@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout 
-	title="Premium Wood Lockers. Unbeatable Prices. | PlayerStall"
+	title="Home Page Junk | PlayerStall"
 	description="High-quality sports lockers at unbeatable prices. Quick ship in 2–4 weeks (Stadium & Elite) or custom wood, phenolic & more in 8–12 weeks. Price match guarantee. 30+ years experience."
 >
 	<!-- Hero Slider Section -->
@@ -33,7 +33,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<div class="hero-slide" style="background-image: url('/images/topscorer/h2-rev-slide-4.jpg');">
 				<div class="hero-slide-overlay"></div>
 				<div class="hero-slide-content">
-					<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
+					<h1 class="hero-slide-title">Home Page Junk</h1>
 					<p class="hero-slide-text">We focus on core models so production never stops. That's how we keep prices low.</p>
 					<div class="hero-slide-buttons">
 						<a href="/contact" class="btn btn-slide-primary">Learn Why</a>
@@ -464,6 +464,59 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					</div>
 				</div>
 			</div>
+		</div>
+	</section>
+
+	<!-- ============================================
+	     LATEST INSTALLATIONS SECTION
+	     ============================================ -->
+	<section class="ts-trophies-section">
+		<div class="ts-vertical-text ts-vertical-left">T&nbsp;&nbsp;R&nbsp;&nbsp;O&nbsp;&nbsp;P&nbsp;&nbsp;H&nbsp;&nbsp;Y</div>
+		<div class="ts-trophies-inner">
+			<div class="ts-section-header">
+				<span class="ts-section-label">What's trending</span>
+				<h2 class="ts-section-title">LATEST INSTALLATIONS</h2>
+			</div>
+			<div class="ts-trophies-grid">
+				<div class="ts-trophy-card">
+					<div class="ts-trophy-image">
+						<img src="/images/gallery/langley-rivermen-locker-room.PNG" alt="Langley Rivermen Hockey Locker Room Installation" />
+					</div>
+					<h5 class="ts-trophy-season">Project 2025</h5>
+				</div>
+				<div class="ts-trophy-card">
+					<div class="ts-trophy-image">
+						<img src="/images/gallery/Surrey-Locker-Room.jpg" alt="Surrey Multi-Sport Facility Locker Room" />
+					</div>
+					<h5 class="ts-trophy-season">Project 2024</h5>
+				</div>
+				<div class="ts-trophy-card">
+					<div class="ts-trophy-image">
+						<img src="/images/gallery/college-bois-boulogne-vestiaires-1.jpg" alt="Bois-de-Boulogne College Locker Room" />
+					</div>
+					<h5 class="ts-trophy-season">Project 2023</h5>
+				</div>
+				<div class="ts-trophy-card">
+					<div class="ts-trophy-image">
+						<img src="/images/gallery/athletic-lockers-blazers.jpg" alt="Blazers Athletics Multi-Sport Locker Room" />
+					</div>
+					<h5 class="ts-trophy-season">Project 2022</h5>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================
+	     INSTAGRAM / GALLERY SECTION
+	     ============================================ -->
+	<section class="ts-instagram-section">
+		<div class="ts-instagram-label">Follow us on instagram</div>
+		<div class="ts-instagram-grid">
+			<a href="/gallery" class="ts-insta-item"><img src="/images/topscorer/h2-img-1.jpg" alt="Custom sports locker installation" loading="lazy" /></a>
+			<a href="/gallery" class="ts-insta-item"><img src="/images/topscorer/h2-img-2.jpg" alt="Premium wood locker room" loading="lazy" /></a>
+			<a href="/gallery" class="ts-insta-item"><img src="/images/topscorer/h2-img-3.jpg" alt="Collegiate locker room design" loading="lazy" /></a>
+			<a href="/gallery" class="ts-insta-item"><img src="/images/topscorer/h3-img-2.jpg" alt="Professional team lockers" loading="lazy" /></a>
+			<a href="/gallery" class="ts-insta-item"><img src="/images/topscorer/h1-img-3.jpg" alt="Custom wood sports lockers" loading="lazy" /></a>
 		</div>
 	</section>
 </BaseLayout>
@@ -3452,6 +3505,194 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			transform-origin: center;
 		}
 	}
+
+	/* ===========================================
+	   LATEST INSTALLATIONS SECTION
+	   =========================================== */
+	.ts-section-header {
+		text-align: center;
+		margin-bottom: 50px;
+	}
+	.ts-section-header.light .ts-section-label,
+	.ts-section-header.light .ts-section-title {
+		color: #ffffff;
+	}
+	.ts-section-label {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		letter-spacing: 6px;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		margin-bottom: 10px;
+	}
+	.ts-section-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(36px, 4vw, 56px);
+		font-weight: 700;
+		text-transform: uppercase;
+		color: #0d0d0d;
+		line-height: 1.1;
+		margin: 0;
+	}
+	.ts-vertical-text {
+		position: absolute;
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		letter-spacing: 8px;
+		text-transform: uppercase;
+		color: #cccccc;
+		writing-mode: vertical-lr;
+		transform: rotate(180deg);
+		z-index: 1;
+	}
+	.ts-vertical-left {
+		left: 30px;
+		top: 50%;
+		transform: rotate(180deg) translateY(50%);
+	}
+	.ts-trophies-section {
+		position: relative;
+		padding: 100px 60px;
+		background: #f9f9f9;
+	}
+	.ts-trophies-inner {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+	.ts-trophies-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 30px;
+	}
+	.ts-trophy-card {
+		text-align: center;
+		background: #ffffff;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		overflow: hidden;
+		border: 1px solid #e0e0e0;
+	}
+	.ts-trophy-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+	}
+	.ts-trophy-image {
+		width: 100%;
+		height: 250px;
+		overflow: hidden;
+		background: #f0f0f0;
+	}
+	.ts-trophy-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+	.ts-trophy-card:hover .ts-trophy-image img {
+		transform: scale(1.1);
+	}
+	.ts-trophy-type {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		letter-spacing: 3px;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		margin: 15px 0 5px;
+	}
+	.ts-trophy-season {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d;
+		margin: 0 0 20px;
+		text-transform: uppercase;
+	}
+
+	/* Responsive styles for latest installations */
+	@media (max-width: 1024px) {
+		.ts-trophies-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 20px;
+		}
+		.ts-trophy-image {
+			height: 200px;
+		}
+		.ts-vertical-text {
+			display: none;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.ts-trophies-section {
+			padding: 60px 20px;
+		}
+		.ts-trophies-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 15px;
+		}
+		.ts-trophy-image {
+			height: 180px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.ts-trophies-grid {
+			grid-template-columns: 1fr;
+			gap: 15px;
+		}
+		.ts-trophy-image {
+			height: 220px;
+		}
+	}
+
+	/* ===========================================
+	   INSTAGRAM / GALLERY SECTION
+	   =========================================== */
+	.ts-instagram-section {
+		padding: 0;
+	}
+	.ts-instagram-label {
+		text-align: center;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		letter-spacing: 6px;
+		text-transform: uppercase;
+		color: #cccccc;
+		padding: 30px 0;
+	}
+	.ts-instagram-grid {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 0;
+	}
+	.ts-insta-item {
+		overflow: hidden;
+		aspect-ratio: 1;
+	}
+	.ts-insta-item img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease, filter 0.5s ease;
+	}
+	.ts-insta-item:hover img {
+		transform: scale(1.1);
+		filter: brightness(0.7);
+	}
+
+	/* Responsive styles for Instagram section */
+	@media (max-width: 1024px) {
+		.ts-instagram-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media (max-width: 480px) {
+		.ts-instagram-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
 </style>
 
 <script>
@@ -3809,6 +4050,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		document.addEventListener('DOMContentLoaded', initAccordion);
 	} else {
 		initAccordion();
+	}
+
+	// Scroll animation observer for trophy cards
+	function initScrollAnimations() {
+		const elementsToAnimate = document.querySelectorAll('.ts-trophy-card');
+		
+		if (elementsToAnimate.length === 0) return;
+		
+		const observerOptions = {
+			threshold: 0.15,
+			rootMargin: '0px 0px -50px 0px'
+		};
+		
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry, i) => {
+				if (entry.isIntersecting) {
+					setTimeout(() => {
+						(entry.target as HTMLElement).style.opacity = '1';
+						(entry.target as HTMLElement).style.transform = 'translateY(0)';
+					}, i * 100);
+					observer.unobserve(entry.target);
+				}
+			});
+		}, observerOptions);
+		
+		elementsToAnimate.forEach(el => {
+			(el as HTMLElement).style.opacity = '0';
+			(el as HTMLElement).style.transform = 'translateY(30px)';
+			(el as HTMLElement).style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+			observer.observe(el);
+		});
+	}
+
+	// Initialize scroll animations when DOM is ready
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initScrollAnimations);
+	} else {
+		initScrollAnimations();
 	}
 </script>
 

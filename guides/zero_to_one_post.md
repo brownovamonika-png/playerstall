@@ -101,7 +101,7 @@ We offer FREE custom design consultations.
 
 DM us or visit the link in bio.
 
-100% Made in Canada | Lifetime Guarantee | 30+ Years Experience"
+100% Canadian-owned and operated since 1996 | Lifetime Guarantee | 30+ Years Experience"
 ```
 
 ---
@@ -140,7 +140,7 @@ Questions? Drop them below. I read every comment.
 
 #SportsLockers #AthleticFacilities #LockerRoomDesign #WoodLockers #AthleticDirectors #TeamCulture #RecruitingEdge
 
-100% Made in Canada | Lifetime Guarantee | 30+ Years Experience
+100% Canadian-owned and operated since 1996 | Lifetime Guarantee | 30+ Years Experience
 ```
 
 ---
@@ -197,7 +197,7 @@ What questions do you have about planning your locker room project? Drop them in
 
 #AthleticFacilities #SportsLockers #FacilityManagement #AthleticDirectors #LockerRoomDesign #WoodLockers #TeamCulture
 
-100% Made in Canada | Lifetime Guarantee | 30+ Years Experience
+100% Canadian-owned and operated since 1996 | Lifetime Guarantee | 30+ Years Experience
 ```
 
 ---
@@ -230,7 +230,7 @@ Questions? Drop them below. I read every comment.
 ---
 
 Learn more: [Link to website/blog post]
-100% Made in Canada | Lifetime Guarantee | 30+ Years Experience
+100% Canadian-owned and operated since 1996 | Lifetime Guarantee | 30+ Years Experience
 ```
 
 ---
@@ -305,7 +305,7 @@ If you want to discuss your specific project, feel free to DM me or visit [link]
 
 ### Option C: Behind-the-Scenes
 - Wood locker in production
-- "Made in Canada" emphasis
+- "Canadian-owned and operated since 1996" emphasis
 - Craftsmanship visible
 
 ### Design Style:

@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout 
 	title="Shop - Custom Sports Lockers | PlayerStall"
-	description="Shop for custom wood sports lockers and accessories. Premium quality lockers made in Canada with 5 year warranty."
+	description="Shop luxury custom-built wood sports lockers and accessories. Quick ship in one month or custom-built in three months. Full color options. 50% deposit to begin. 5 year warranty."
 >
 	<!-- Hero Section (same image as contact page) -->
 	<section class="shop-hero-section">
@@ -36,79 +36,133 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 					<!-- Products Grid: Semi Pro, Varsity, Pro, Stadium, Elite, Legendary -->
 					<div class="shop-products-grid">
-						<!-- Semi Pro -->
-						<div class="shop-product-item" data-price="349" data-category="lockers">
-							<div class="shop-product-image">
-								<img src="/images/semi-pro-locker-new.png" alt="Semi Pro Locker" />
-							</div>
-							<div class="shop-product-content">
-								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/product-semi-pro-locker">Semi Pro</a></h5>
-								<span class="shop-product-price">$349.00</span>
+					<!-- Semi Pro -->
+					<div class="shop-product-item" data-price="349" data-category="lockers">
+						<div class="shop-product-image">
+							<img src="/images/semi-pro-locker-new.png" alt="Semi Pro Locker" />
+							<div class="shop-product-overlay">
+								<button class="shop-add-to-cart-btn-overlay" 
+									data-product-id="semi-pro"
+									data-product-name="Semi Pro"
+									data-product-price="349"
+									data-product-image="/images/semi-pro-locker-new.png">
+									Add to Cart
+								</button>
 							</div>
 						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Lockers - Sports Equipment</div>
+							<h5 class="shop-product-title"><a href="/product-semi-pro-locker">Semi Pro</a></h5>
+							<span class="shop-product-price">$349.00</span>
+						</div>
+					</div>
 
-						<!-- Varsity -->
-						<div class="shop-product-item" data-price="449" data-category="lockers">
-							<div class="shop-product-image">
-								<img src="/varsity-locker.jpg" alt="Varsity Locker" />
-							</div>
-							<div class="shop-product-content">
-								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/product-varsity-locker">Varsity</a></h5>
-								<span class="shop-product-price">$449.00</span>
+					<!-- Varsity -->
+					<div class="shop-product-item" data-price="449" data-category="lockers">
+						<div class="shop-product-image">
+							<img src="/varsity-locker.jpg" alt="Varsity Locker" />
+							<div class="shop-product-overlay">
+								<button class="shop-add-to-cart-btn-overlay" 
+									data-product-id="varsity"
+									data-product-name="Varsity"
+									data-product-price="449"
+									data-product-image="/varsity-locker.jpg">
+									Add to Cart
+								</button>
 							</div>
 						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Lockers - Sports Equipment</div>
+							<h5 class="shop-product-title"><a href="/product-varsity-locker">Varsity</a></h5>
+							<span class="shop-product-price">$449.00</span>
+						</div>
+					</div>
 
-						<!-- Pro -->
-						<div class="shop-product-item" data-price="549" data-category="lockers">
-							<div class="shop-product-image">
-								<img src="/pro-locker.jpg" alt="Pro Locker" />
-							</div>
-							<div class="shop-product-content">
-								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/product-pro-locker">Pro</a></h5>
-								<span class="shop-product-price">$549.00</span>
-							</div>
+				<!-- Pro -->
+				<div class="shop-product-item" data-price="599" data-category="lockers">
+					<div class="shop-product-image">
+						<img src="/pro-locker.jpg" alt="Pro Locker" />
+						<div class="shop-product-overlay">
+							<button class="shop-add-to-cart-btn-overlay" 
+								data-product-id="pro"
+								data-product-name="Pro"
+								data-product-price="599"
+								data-product-image="/pro-locker.jpg">
+								Add to Cart
+							</button>
 						</div>
+					</div>
+					<div class="shop-product-content">
+						<div class="shop-product-categories">Lockers - Sports Equipment</div>
+						<h5 class="shop-product-title"><a href="/product-pro-locker">Pro</a></h5>
+						<span class="shop-product-price">$599.00</span>
+					</div>
+				</div>
 
-						<!-- Stadium -->
-						<div class="shop-product-item" data-price="599" data-category="lockers">
-							<div class="shop-product-image">
-								<img src="/stadium-locker.jpg" alt="Stadium Locker" />
-							</div>
-							<div class="shop-product-content">
-								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/product-stadium-locker">Stadium</a></h5>
-								<span class="shop-product-price">$599.00</span>
+					<!-- Stadium -->
+					<div class="shop-product-item" data-price="599" data-category="lockers">
+						<div class="shop-product-image">
+							<img src="/stadium-locker.jpg" alt="Stadium Locker" />
+							<div class="shop-product-overlay">
+								<button class="shop-add-to-cart-btn-overlay" 
+									data-product-id="stadium"
+									data-product-name="Stadium"
+									data-product-price="599"
+									data-product-image="/stadium-locker.jpg">
+									Add to Cart
+								</button>
 							</div>
 						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Lockers - Sports Equipment</div>
+							<h5 class="shop-product-title"><a href="/product-stadium-locker">Stadium</a></h5>
+							<span class="shop-product-price">$599.00</span>
+						</div>
+					</div>
 
-						<!-- Elite -->
-						<div class="shop-product-item" data-price="599" data-category="lockers">
-							<div class="shop-product-image">
-								<span class="shop-badge new">New</span>
-								<img src="/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png" alt="Elite Locker" loading="lazy" />
-							</div>
-							<div class="shop-product-content">
-								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/product-elite-locker">Elite</a></h5>
-								<span class="shop-product-price">$599.00</span>
+					<!-- Elite -->
+					<div class="shop-product-item" data-price="599" data-category="lockers">
+						<div class="shop-product-image">
+							<span class="shop-badge new">New</span>
+							<img src="/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png" alt="Elite Locker" loading="lazy" />
+							<div class="shop-product-overlay">
+								<button class="shop-add-to-cart-btn-overlay" 
+									data-product-id="elite"
+									data-product-name="Elite Locker"
+									data-product-price="599"
+									data-product-image="/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png">
+									Add to Cart
+								</button>
 							</div>
 						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Lockers - Sports Equipment</div>
+							<h5 class="shop-product-title"><a href="/product-elite-locker">Elite</a></h5>
+							<span class="shop-product-price">$599.00</span>
+						</div>
+					</div>
 
-						<!-- Legendary -->
-						<div class="shop-product-item" data-price="599" data-category="lockers">
-							<div class="shop-product-image">
-								<span class="shop-badge new">New</span>
-								<img src="/images/legendary-locker.png" alt="Legendary Locker" loading="lazy" />
-							</div>
-							<div class="shop-product-content">
-								<div class="shop-product-categories">Lockers - Sports Equipment</div>
-								<h5 class="shop-product-title"><a href="/product-legendary-locker">Legendary</a></h5>
-								<span class="shop-product-price">$599.00</span>
+					<!-- Legendary -->
+					<div class="shop-product-item" data-price="599" data-category="lockers">
+						<div class="shop-product-image">
+							<span class="shop-badge new">New</span>
+							<img src="/images/legendary-locker.png" alt="Legendary Locker" loading="lazy" />
+							<div class="shop-product-overlay">
+								<button class="shop-add-to-cart-btn-overlay" 
+									data-product-id="legendary"
+									data-product-name="Legendary"
+									data-product-price="599"
+									data-product-image="/images/legendary-locker.png">
+									Add to Cart
+								</button>
 							</div>
 						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Lockers - Sports Equipment</div>
+							<h5 class="shop-product-title"><a href="/product-legendary-locker">Legendary</a></h5>
+							<span class="shop-product-price">$599.00</span>
+						</div>
+					</div>
 
 					</div>
 
@@ -119,11 +173,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<!-- Accessories (same card style as lockers; click image opens PDP-style modal) -->
 	<section class="shop-accessories-section" id="accessories">
 		<div class="shop-accessories-container">
-			<div class="shop-accessories-header">
-				<p class="shop-accessories-subtitle">finishing touches</p>
-				<h2 class="shop-accessories-title">locker accessories</h2>
-				<p class="shop-accessories-tagline">Dial in every detail – airflow, storage, comfort, and branding.</p>
-			</div>
+		<div class="shop-section-header">
+			<p class="shop-section-subtitle">finishing touches</p>
+			<h2 class="shop-section-title">LOCKER ACCESSORIES</h2>
+		</div>
 			<div class="shop-products-grid shop-accessories-grid">
 				<!-- Cushions -->
 				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/cushion-logo.png" data-acc-title="Cushions" data-acc-price="+ $75.00 (top or bottom) / $150.00 (both)" data-acc-desc="High-density foam cushions upholstered for comfort and durability – available on the top, bottom, or both.">
@@ -305,7 +358,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 100%);
+		background: rgba(0, 0, 0, 0.2);
 		z-index: 1;
 	}
 
@@ -399,7 +452,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		font-size: 48px;
 		font-weight: 600;
 		color: #0d0d0d;
-		text-transform: lowercase;
+		text-transform: uppercase;
 		margin: 0;
 	}
 
@@ -638,38 +691,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 20px;
 	}
 
-	.shop-accessories-header {
-		text-align: center;
-		margin-bottom: 50px;
-	}
-
-	.shop-accessories-subtitle {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		text-transform: uppercase;
-		letter-spacing: 0.15em;
-		color: #8c8c8c;
-		margin: 0 0 10px;
-	}
-
-	.shop-accessories-title {
-		font-family: 'Oswald', sans-serif;
-		font-size: 42px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		margin: 0;
-		letter-spacing: 0.02em;
-	}
-
-	.shop-accessories-tagline {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 16px;
-		color: #666666;
-		max-width: 700px;
-		margin: 15px auto 0;
-		line-height: 1.7;
-	}
 
 	.shop-accessories-grid {
 		margin-bottom: 0;
@@ -914,9 +935,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		}
 		.shop-accessories-grid {
 			grid-template-columns: 1fr;
-		}
-		.shop-accessories-title {
-			font-size: 28px;
 		}
 	}
 </style>

@@ -18,7 +18,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<span>Checkout</span>
 			</div>
 			<h1 class="blog-page-title">Checkout</h1>
-			<div class="blog-background-text">checkout</div>
 		</div>
 	</section>
 
@@ -201,6 +200,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 									<thead>
 										<tr>
 											<th class="product-name">Product</th>
+											<th class="product-quantity">Quantity</th>
 											<th class="product-total">Subtotal</th>
 										</tr>
 									</thead>
@@ -209,7 +209,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 									</tbody>
 									<tfoot>
 										<tr class="cart-subtotal">
-											<th>Subtotal</th>
+											<th colspan="2">Subtotal</th>
 											<td>
 												<span class="woocommerce-Price-amount amount">
 													<bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="checkout-subtotal">0.00</span></bdi>
@@ -217,13 +217,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 											</td>
 										</tr>
 										<tr class="woocommerce-shipping-totals shipping">
-											<th>Shipping</th>
+											<th colspan="2">Shipping</th>
 											<td data-title="Shipping">
 												<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="checkout-shipping-amount">0.00</span></bdi></span>
 											</td>
 										</tr>
 										<tr class="order-total">
-											<th>Total</th>
+											<th colspan="2">Total</th>
 											<td>
 												<strong>
 													<span class="woocommerce-Price-amount amount">
@@ -571,6 +571,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		border-collapse: collapse;
 		margin-bottom: 30px;
 		border: none;
+		table-layout: fixed;
 	}
 
 	.shop_table thead {
@@ -579,7 +580,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.shop_table th {
-		padding: 20px 15px;
+		padding: 20px 0;
 		font-family: 'Oswald', sans-serif;
 		font-size: 13px;
 		font-weight: 600;
@@ -588,77 +589,116 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		letter-spacing: 0.1em;
 		text-align: left;
 		vertical-align: middle;
+	}
+
+	.shop_table th.product-name {
+		width: 50%;
+		text-align: left;
+	}
+
+	.shop_table th.product-quantity {
+		text-align: center;
+		width: 15%;
+		padding: 20px 0;
+		padding-left: 0.1em;
 	}
 
 	.shop_table th.product-total {
 		text-align: right;
-		width: 140px;
-		min-width: 140px;
-		box-sizing: border-box;
-		padding-left: 15px;
+		width: 35%;
+		padding: 20px 0;
 	}
 
 	.shop_table tbody td {
-		padding: 20px 15px;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #0d0d0d;
 		border-bottom: 1px solid #e0e0e0;
-		vertical-align: middle;
 	}
 
 	.shop_table tbody td.product-name {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		font-weight: 600;
-		color: #0d0d0d;
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		color: #0d0d0d !important;
+		text-align: left !important;
+		text-transform: uppercase !important;
+		letter-spacing: 0.1em !important;
+		padding: 20px 0 !important;
+		vertical-align: middle !important;
+		width: 50% !important;
+	}
+
+	.shop_table tbody td.product-quantity {
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		color: #0d0d0d !important;
+		text-align: center !important;
+		width: 15% !important;
+		padding: 20px 0 !important;
+		vertical-align: middle !important;
 	}
 
 	.shop_table tbody td.product-total {
-		text-align: right;
-		width: 140px;
-		min-width: 140px;
-		box-sizing: border-box;
-		padding-left: 15px;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		font-weight: 400;
-		color: #0d0d0d;
+		text-align: right !important;
+		width: 35% !important;
+		padding: 20px 0 !important;
+		padding-right: 0 !important;
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		color: #0d0d0d !important;
+		vertical-align: middle !important;
 	}
 
 	.shop_table tbody td.product-total .woocommerce-Price-amount {
 		display: block;
-		text-align: right;
-		margin-left: auto;
+		text-align: right !important;
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		color: #0d0d0d !important;
+		width: 100%;
 	}
-
-	.product-quantity {
-		font-weight: 400;
-		color: #0d0d0d;
+	
+	.shop_table tbody td.product-total .woocommerce-Price-amount bdi {
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		color: #0d0d0d !important;
+		text-align: right !important;
+		display: inline-block;
+		width: 100%;
+	}
+	
+	.shop_table tbody td.product-total .woocommerce-Price-amount .woocommerce-Price-currencySymbol {
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		color: #0d0d0d !important;
 	}
 
 	.shop_table tfoot th {
-		padding: 12px 15px 12px 0;
-		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		text-align: left;
-		border: none;
+		padding: 12px 0 !important;
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		color: #0d0d0d !important;
+		text-transform: uppercase !important;
+		letter-spacing: 0.1em !important;
+		text-align: left !important;
+		border: none !important;
+		width: 65% !important;
 	}
 
 	.shop_table tfoot td {
-		width: 140px;
-		min-width: 140px;
-		box-sizing: border-box;
-		padding: 12px 15px 12px 15px;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #0d0d0d;
-		text-align: right;
-		border: none;
+		width: 35% !important;
+		padding: 12px 0 !important;
+		padding-right: 0 !important;
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		color: #0d0d0d !important;
+		text-align: right !important;
+		border: none !important;
 	}
 
 	.shop_table .order-total th,
@@ -666,15 +706,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		border-top: 1px solid #e0e0e0;
 		padding-top: 15px;
 		padding-bottom: 15px;
-		padding-left: 15px;
-		padding-right: 15px;
+		padding-left: 0;
+		padding-right: 0;
 		font-size: 15px;
 	}
 
+	.shop_table .order-total th {
+		width: 65% !important;
+	}
+
 	.shop_table .order-total td {
-		width: 140px;
-		min-width: 140px;
-		text-align: right;
+		width: 35% !important;
+		text-align: right !important;
 	}
 
 	.shop_table .order-total th {
@@ -687,16 +730,53 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.shop_table .order-total td {
-		font-family: 'Yantramanav', sans-serif;
+		font-family: 'Oswald', sans-serif;
 		font-size: 15px;
+		font-weight: 600;
 		color: #0d0d0d;
 	}
 
 	.shop_table .order-total td strong {
-		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
-		font-weight: 600;
-		color: #0d0d0d;
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 18px !important;
+		font-weight: 600 !important;
+		color: #0d0d0d !important;
+		display: block;
+		text-align: right !important;
+		width: 100%;
+	}
+	
+	.shop_table .order-total td strong .woocommerce-Price-amount {
+		display: block;
+		text-align: right !important;
+		width: 100%;
+	}
+	
+	.shop_table .order-total td strong .woocommerce-Price-amount bdi {
+		display: inline-block;
+		text-align: right !important;
+		width: 100%;
+	}
+	
+	.shop_table tfoot .woocommerce-Price-amount {
+		font-family: 'Oswald', sans-serif !important;
+		font-weight: 600 !important;
+		display: block;
+		text-align: right !important;
+		width: 100%;
+	}
+	
+	.shop_table tfoot .woocommerce-Price-amount bdi {
+		font-family: 'Oswald', sans-serif !important;
+		font-weight: 600 !important;
+		text-align: right !important;
+		display: inline-block;
+		width: 100%;
+	}
+	
+	.shop_table tfoot .woocommerce-Price-currencySymbol {
+		font-family: 'Oswald', sans-serif !important;
+		font-weight: 600 !important;
 	}
 
 	.woocommerce-shipping-methods {
@@ -913,7 +993,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			let html = '';
 
 			if (cart.length === 0) {
-				html = '<tr><td colspan="2" style="text-align: center; padding: 40px;">Your cart is empty. <a href="/shop">Return to shop</a></td></tr>';
+				html = '<tr><td colspan="3" style="text-align: center; padding: 40px;">Your cart is empty. <a href="/shop">Return to shop</a></td></tr>';
 				if (subtotalEl) subtotalEl.textContent = '0.00';
 				if (totalAmount) totalAmount.textContent = '0.00';
 			} else {
@@ -923,8 +1003,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					html += `
 						<tr class="cart_item">
 							<td class="product-name">
-								${item.name.toUpperCase()}&nbsp;
-								<strong class="product-quantity">${item.quantity}</strong>
+								${item.name}
+							</td>
+							<td class="product-quantity">
+								${item.quantity}
 							</td>
 							<td class="product-total">
 								<span class="woocommerce-Price-amount amount">

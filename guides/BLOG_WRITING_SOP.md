@@ -239,14 +239,14 @@ const structuredData = {
 - [ ] Include specific data (percentages, timeframes, costs)
 - [ ] Reference 30+ years experience 3-5 times
 - [ ] Mention lifetime guarantee 1-2 times
-- [ ] Include "Made in Canada" when relevant
+- [ ] Include "Canadian-owned and operated since 1996" when relevant
 
 #### Key Messaging to Weave In
 
 **Always include (naturally):**
 - ✅ **30+ years experience** (authority)
 - ✅ **Lifetime guarantee** (confidence)
-- ✅ **Made in Canada** (quality)
+- ✅ **Canadian-owned and operated since 1996** (quality)
 - ✅ **Wood superiority** (core differentiator)
 - ✅ **Free consultation** (CTA)
 - ✅ **Custom design** (unique value)
@@ -283,7 +283,7 @@ const structuredData = {
    - [ ] "custom design", "custom lockers", "customized lockers"
    - [ ] "locker room design", "athletic facility lockers"
    - [ ] "wood lockers", "wooden lockers", "solid wood lockers"
-   - [ ] "Made in Canada", "North American made"
+   - [ ] "Canadian-owned and operated since 1996", "North American made"
    - [ ] "lifetime warranty", "lifetime guarantee"
 
 #### Conclusion (200-300 words)

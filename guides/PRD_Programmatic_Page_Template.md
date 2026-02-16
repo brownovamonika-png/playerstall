@@ -135,9 +135,9 @@ Example: "Texas Football Wood Lockers | Custom Made in USA"
 
 **3. Meta Description** (150-160 characters)
 ```
-Looking for [sport] wood lockers in [state]? CustomSportsLockers.com offers custom [sport] lockers made in Canada with lifetime guarantee. Free design consultation.
+Looking for [sport] wood lockers in [state]? CustomSportsLockers.com offers custom [sport] lockers Canadian-owned and operated since 1996 with lifetime guarantee. Free design consultation.
 ```
-Example: "Looking for football wood lockers in Texas? CustomSportsLockers.com offers custom football lockers made in Canada with lifetime guarantee. Free design consultation."
+Example: "Looking for football wood lockers in Texas? CustomSportsLockers.com offers custom football lockers Canadian-owned and operated since 1996 with lifetime guarantee. Free design consultation."
 
 **4. Introduction Section** (200-300 words)
 - Hook: Address the specific need for [sport] lockers in [state]
@@ -161,7 +161,7 @@ Example: "Looking for football wood lockers in Texas? CustomSportsLockers.com of
 - Wood construction benefits for [sport]
 - Modular design advantages
 - Lifetime guarantee and durability
-- Made in Canada quality
+- Canadian-owned and operated since 1996 quality
 
 **7. Product Tiers for [Sport]** (200-300 words)
 - Semi Pro tier: $349 (sale price)
@@ -173,7 +173,7 @@ Example: "Looking for football wood lockers in Texas? CustomSportsLockers.com of
 **8. Local Service & Support** (150-200 words)
 - Free custom design consultation
 - Serving [state] teams and facilities
-- Made in Canada, shipped to [state]
+- Canadian-owned and operated since 1996, shipped to [state]
 - Lifetime guarantee and support
 
 **9. Call-to-Action Section** (100-150 words)
@@ -359,7 +359,7 @@ Examples:
 **Value Proposition**:
 - Address user intent (finding [sport] lockers in [state])
 - Highlight CustomSportsLockers.com differentiators:
-  - Made in Canada
+  - Canadian-owned and operated since 1996
   - Lifetime guarantee
   - Free custom design
   - 30+ years experience
@@ -513,7 +513,7 @@ Examples:
 
 **Meta Title**: Texas Football Wood Lockers | Custom Made in USA
 
-**Meta Description**: Looking for football wood lockers in Texas? CustomSportsLockers.com offers custom football lockers made in Canada with lifetime guarantee. Free design consultation.
+**Meta Description**: Looking for football wood lockers in Texas? CustomSportsLockers.com offers custom football lockers Canadian-owned and operated since 1996 with lifetime guarantee. Free design consultation.
 
 **Introduction** (First 200 words):
 > Texas is home to some of the most passionate football programs in the country, from Friday night lights at high schools to powerhouse collegiate programs like the University of Texas and Texas A&M. When it comes to outfitting your football locker room, you need lockers that can withstand the demands of Texas-sized expectations.

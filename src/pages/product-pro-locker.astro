@@ -12,10 +12,13 @@ const lockerAccessoriesItems = [
 
 <BaseLayout
 	title="Pro Wood Locker - 24-Inch Wide, 76 Inches High, 19 Inches Deep | PlayerStall"
-	description="Pro wood locker: MPW-6C plywood melamine, 76&quot; H x 19&quot; D, widths 18&quot;–30&quot;. $549 base. Designer White, White Sand, Fashion Grey, North Sea, Graphite, Black, Hollyberry, Lapis Blue + 4 woodgrains. 3–4 weeks. 5 year warranty."
+	description="Pro wood locker: MPW-6C plywood melamine, 76&quot; H x 19&quot; D, widths 18&quot;–30&quot;. $549 base. Full color options. Quick ship in one month (24&quot; or 30&quot;) or custom-built in three months. 50% deposit to begin. 5 year warranty."
 >
 	<!-- Hero Section -->
 	<section class="product-hero-section">
+		<div class="product-hero-background">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Pro Locker" class="product-hero-bg-image" />
+		</div>
 		<div class="product-hero-background-overlay"></div>
 		<div class="product-hero-container">
 			<div class="product-breadcrumbs">
@@ -25,7 +28,7 @@ const lockerAccessoriesItems = [
 				<span class="breadcrumbs-sep">/</span>
 				<span class="breadcrumbs-current">Pro Locker</span>
 			</div>
-			<div class="product-background-text">locker</div>
+			<h1 class="product-page-title">Pro</h1>
 		</div>
 	</section>
 
@@ -62,7 +65,7 @@ const lockerAccessoriesItems = [
 
 					<p class="product-model" data-model-prefix="PRO">Model # PRO-24-MP</p>
 
-					<p class="product-lead-time">Lead time: usually ships within 3-4 weeks</p>
+					<p class="product-lead-time">Lead time: quick ship in one month (24" or 30" widths, one signature color) · Custom-built in three months</p>
 
 					<div class="product-price-block">
 						<span class="product-price" data-base-price="549">$549.00</span>
@@ -103,7 +106,7 @@ const lockerAccessoriesItems = [
 								<button type="button" class="swatch" data-color-code="WH" title="Walnut Heights">Walnut Heights</button>
 								<button type="button" class="swatch" data-color-code="HW" title="Hampton Walnut">Hampton Walnut</button>
 							</div>
-							<p class="option-note">Custom colors are available upon request (custom orders, 8–12 weeks).</p>
+							<p class="option-note">Custom colors are available upon request (custom orders, three months, 50% deposit).</p>
 						</div>
 						<div class="product-option">
 							<label class="option-label">Accessories:</label>
@@ -133,10 +136,10 @@ const lockerAccessoriesItems = [
 									<span class="accessory-square"></span>
 									<span class="accessory-label">Skate hooks (+$25)</span>
 								</button>
-								<button type="button" class="accessory-box" data-price="75" title="Custom logo — custom orders only, not quick ship">
-									<span class="accessory-square"></span>
-									<span class="accessory-label">Custom logo (+$75) · custom orders only, not quick ship</span>
-								</button>
+							<button type="button" class="accessory-box" data-price="75" title="Custom logo — custom orders only">
+								<span class="accessory-square"></span>
+								<span class="accessory-label">Custom logo (+$75) · custom orders only</span>
+							</button>
 								<button type="button" class="accessory-box" data-price="12" title="4 hooks">
 									<span class="accessory-square"></span>
 									<span class="accessory-label">4 hooks (+$12)</span>
@@ -187,7 +190,7 @@ const lockerAccessoriesItems = [
 					<li>Engineered for high-traffic athletic locker rooms</li>
 					<li>14&quot; high foot locker provides comfortable seating and secure equipment storage</li>
 					<li>Available in 18&quot; to 30&quot; widths; standard configuration 24&quot; W x 76&quot; H x 19&quot; D with optional 4&quot; base</li>
-					<li>Finishes: Designer White, White Sand, Fashion Grey, North Sea, Graphite, Black, Hollyberry, Lapis Blue, Fusion Maple, Pasadena Oak, Walnut Heights, Hampton Walnut; custom colors available upon request (8–12 weeks)</li>
+					<li>Finishes: Designer White, White Sand, Fashion Grey, North Sea, Graphite, Black, Hollyberry, Lapis Blue, Fusion Maple, Pasadena Oak, Walnut Heights, Hampton Walnut; custom colors available upon request (custom orders, three months, 50% deposit)</li>
 					<li>5 year warranty</li>
 				</ul>
 
@@ -198,12 +201,16 @@ const lockerAccessoriesItems = [
 					<li>Secure lock box integrated into the upper compartment</li>
 					<li>Bottom cushion or both cushions for added seating comfort</li>
 					<li>Skate hooks for hockey or figure skating storage</li>
-					<li>Custom logo option for teams or programs (custom orders only; not available for quick ship)</li>
+					<li>Custom logo option for teams or programs (custom orders only)</li>
 					<li>Name plate and additional gear hooks</li>
 				</ul>
 
 				<h3 class="product-info-subheading">Downloads</h3>
 				<ul class="product-downloads-list">
+					<li><a href="/colors/all-color-options-pdf.html" target="_blank">All Color Options PDF</a></li>
+					<li><a href="/colors/laminate-colors-pdf.html" target="_blank">Laminate Colors PDF</a></li>
+					<li><a href="/colors/woodgrain-colors-pdf.html" target="_blank">Woodgrain Colors PDF</a></li>
+					<li><a href="/colors/phenolic-colors-pdf.html" target="_blank">Phenolic Colors PDF</a></li>
 					<li><a href="/contact">Request spec sheet &amp; quote</a></li>
 					<li><a href="/contact">Installation support</a></li>
 					<li><a href="/shop">View all lockers</a></li>
@@ -230,34 +237,63 @@ const lockerAccessoriesItems = [
 
 	.product-hero-section {
 		position: relative;
-		background: #f7f7f7;
-		padding: 80px 0 50px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
 		overflow: hidden;
+		min-height: 320px;
+	}
+
+	.product-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.product-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
 	}
 
 	.product-hero-background-overlay {
 		position: absolute;
-		inset: 0;
-		background: linear-gradient(135deg, rgba(13, 13, 13, 0.04) 0%, transparent 100%);
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
 	}
 
 	.product-hero-container {
 		position: relative;
-		z-index: 2;
+		z-index: 10;
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
+		text-align: left;
+		width: 100%;
 	}
 
 	.product-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
 		margin-bottom: 20px;
 	}
 
 	.product-breadcrumbs a {
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
 		transition: color 0.3s;
 	}
@@ -268,11 +304,23 @@ const lockerAccessoriesItems = [
 
 	.breadcrumbs-sep {
 		margin: 0 8px;
-		color: #b6b6b6;
+		color: rgba(255, 255, 255, 0.6);
 	}
 
 	.breadcrumbs-current {
-		color: #0d0d0d;
+		color: #ffffff;
+	}
+
+	.product-page-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 72px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0 0 0 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
 	}
 
 	.product-background-text {
@@ -280,7 +328,7 @@ const lockerAccessoriesItems = [
 		font-family: 'Oswald', sans-serif;
 		font-size: 200px;
 		font-weight: 700;
-		color: rgba(13, 13, 13, 0.04);
+		color: rgba(255, 255, 255, 0.06);
 		text-transform: uppercase;
 		letter-spacing: -2px;
 		bottom: -30px;
@@ -741,6 +789,10 @@ const lockerAccessoriesItems = [
 	}
 
 	@media (max-width: 1024px) {
+		.product-page-title {
+			font-size: 56px;
+		}
+
 		.product-layout {
 			grid-template-columns: 1fr;
 			gap: 40px;
@@ -753,6 +805,10 @@ const lockerAccessoriesItems = [
 	}
 
 	@media (max-width: 768px) {
+		.product-page-title {
+			font-size: 42px;
+		}
+
 		.product-title {
 			font-size: 22px;
 		}
@@ -777,6 +833,10 @@ const lockerAccessoriesItems = [
 	}
 
 	@media (max-width: 480px) {
+		.product-page-title {
+			font-size: 32px;
+		}
+
 		.product-title {
 			font-size: 18px;
 		}
