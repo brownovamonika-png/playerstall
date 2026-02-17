@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Stadium Locker Quote | PlayerStall</title>
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700|Oswald:600,700|Open+Sans:400,600&display=swap" rel="stylesheet">
+	<style>
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+
+		body {
+			font-family: 'Open Sans', 'Lato', Arial, sans-serif;
+			line-height: 1.7;
+			color: #0d0d0d;
+			background: #f5f5f5;
+			padding: 20px;
+		}
+
+		.email-container {
+			max-width: 700px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			overflow: hidden;
+		}
+
+		.email-header {
+			background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+			color: white;
+			padding: 30px;
+			text-align: center;
+		}
+
+		.email-header h1 {
+			font-family: 'Oswald', sans-serif;
+			font-size: 2rem;
+			font-weight: 700;
+			margin-bottom: 5px;
+			letter-spacing: 1px;
+			color: #cc9900;
+		}
+
+		.email-header .subtitle {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.2rem;
+			font-weight: 600;
+			opacity: 0.95;
+			letter-spacing: 0.5px;
+			margin-bottom: 5px;
+			color: #ffffff;
+		}
+
+		.email-header p {
+			font-size: 0.9rem;
+			opacity: 0.85;
+		}
+
+		.email-body {
+			padding: 40px;
+		}
+
+		.email-body p {
+			font-size: 1rem;
+			line-height: 1.8;
+			margin-bottom: 1.2rem;
+			color: #0d0d0d;
+		}
+
+		.email-body strong {
+			font-weight: 600;
+			color: #0d0d0d;
+		}
+
+		.section-header {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.4rem;
+			font-weight: 600;
+			color: #cc9900;
+			margin-top: 2rem;
+			margin-bottom: 1rem;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			border-left: 4px solid #cc9900;
+			padding-left: 15px;
+		}
+
+		.highlight-box {
+			background: #fdf8ed;
+			border-left: 4px solid #cc9900;
+			padding: 20px;
+			margin: 1.5rem 0;
+			border-radius: 4px;
+		}
+
+		.price-list {
+			list-style: none;
+			padding: 0;
+			margin: 1rem 0;
+		}
+
+		.price-list li {
+			padding: 12px 0;
+			border-bottom: 1px solid #e0e0e0;
+			font-size: 1rem;
+			line-height: 1.6;
+		}
+
+		.price-list li:last-child {
+			border-bottom: none;
+		}
+
+		.price-list strong {
+			color: #cc9900;
+			font-weight: 600;
+		}
+
+		.benefits-list {
+			list-style: none;
+			padding: 0;
+			margin: 1.5rem 0;
+		}
+
+		.benefits-list li {
+			padding: 10px 0 10px 30px;
+			position: relative;
+			font-size: 1rem;
+			line-height: 1.7;
+		}
+
+		.benefits-list li:before {
+			content: "✓";
+			position: absolute;
+			left: 0;
+			color: #cc9900;
+			font-weight: bold;
+			font-size: 1.2rem;
+		}
+
+		.discount-box {
+			background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+			color: white;
+			padding: 25px;
+			border-radius: 8px;
+			margin: 1.5rem 0;
+			border-left: 5px solid #cc9900;
+		}
+
+		.discount-box h3 {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.2rem;
+			font-weight: 600;
+			color: #cc9900;
+			margin-bottom: 8px;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+		}
+
+		.discount-box p {
+			color: #e0e0e0;
+			margin-bottom: 0.6rem;
+			font-size: 1rem;
+			line-height: 1.7;
+		}
+
+		.discount-box p:last-child {
+			margin-bottom: 0;
+		}
+
+		.discount-box strong {
+			color: #ffffff;
+		}
+
+		.color-box {
+			background: #fdf8ed;
+			border: 2px dashed #cc9900;
+			border-radius: 8px;
+			padding: 25px;
+			margin: 1.5rem 0;
+			text-align: center;
+		}
+
+		.color-box h3 {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.1rem;
+			font-weight: 600;
+			color: #cc9900;
+			margin-bottom: 8px;
+			text-transform: uppercase;
+		}
+
+		.color-box p {
+			margin-bottom: 0.5rem;
+			color: #333;
+		}
+
+		.color-box .timeline-note {
+			font-size: 0.9rem;
+			color: #666;
+			font-style: italic;
+			margin-top: 8px;
+			margin-bottom: 0;
+		}
+
+		.info-box {
+			background: #f8f9fa;
+			border: 1px solid #e0e0e0;
+			border-radius: 8px;
+			padding: 25px;
+			margin: 1.5rem 0;
+		}
+
+		.info-box p {
+			margin-bottom: 0.8rem;
+			color: #333;
+		}
+
+		.info-box p:last-child {
+			margin-bottom: 0;
+		}
+
+		.info-note {
+			background: #fdf8ed;
+			padding: 12px 15px;
+			border-radius: 4px;
+			border-left: 4px solid #cc9900;
+			font-size: 0.95rem;
+			color: #666;
+			margin-top: 12px;
+		}
+
+		.cta-box {
+			background: #0a0a0a;
+			color: white;
+			padding: 30px;
+			border-radius: 8px;
+			margin: 2rem 0;
+			text-align: center;
+		}
+
+		.cta-box h3 {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.5rem;
+			font-weight: 600;
+			margin-bottom: 10px;
+			color: white;
+		}
+
+		.cta-box p {
+			color: #cccccc;
+			margin-bottom: 15px;
+		}
+
+		.cta-button {
+			display: inline-block;
+			background: #cc9900;
+			color: white;
+			padding: 15px 40px;
+			text-decoration: none;
+			border-radius: 4px;
+			font-family: 'Oswald', sans-serif;
+			font-weight: 600;
+			font-size: 1.2rem;
+			text-transform: uppercase;
+			letter-spacing: 1.5px;
+			transition: background 0.3s ease;
+			margin-top: 10px;
+		}
+
+		.cta-button:hover {
+			background: #b38600;
+		}
+
+		.cta-subtitle {
+			font-size: 0.95rem;
+			color: #ffbb00;
+			margin-top: 12px;
+			font-weight: 500;
+		}
+
+		.selected-options {
+			background: #fdf8ed;
+			border: 1px solid #e6d49a;
+			border-radius: 8px;
+			padding: 20px;
+			margin: 1rem 0;
+		}
+
+		.selected-options .option-row {
+			display: flex;
+			justify-content: space-between;
+			padding: 8px 0;
+			border-bottom: 1px solid #e6d49a;
+			font-size: 1rem;
+		}
+
+		.selected-options .option-row:last-child {
+			border-bottom: none;
+		}
+
+		.selected-options .option-label {
+			color: #333;
+		}
+
+		.selected-options .option-detail {
+			color: #cc9900;
+			font-weight: 600;
+		}
+
+		.email-signature {
+			margin-top: 2.5rem;
+			padding-top: 2rem;
+			border-top: 2px solid #e0e0e0;
+		}
+
+		.email-signature p { margin-bottom: 0.5rem; }
+
+		.signature-name {
+			font-weight: 600;
+			font-size: 1.1rem;
+			color: #0d0d0d;
+		}
+
+		.signature-title {
+			color: #cc9900;
+			font-weight: 500;
+		}
+
+		.signature-company {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.2rem;
+			font-weight: 600;
+			color: #0d0d0d;
+			margin-top: 10px;
+		}
+
+		.signature-contact {
+			color: #666666;
+			font-size: 0.95rem;
+		}
+
+		.signature-tagline {
+			margin-top: 15px;
+			padding-top: 15px;
+			border-top: 1px solid #e0e0e0;
+			font-size: 0.85rem;
+			color: #666666;
+			text-align: center;
+		}
+
+		.signature-tagline strong {
+			color: #cc9900;
+		}
+
+		.email-footer {
+			background: #000000;
+			color: #cccccc;
+			padding: 20px;
+			text-align: center;
+			font-size: 0.85rem;
+		}
+
+		.email-footer a {
+			color: #ffbb00;
+			text-decoration: none;
+		}
+
+		.email-footer a:hover {
+			color: #cc9900;
+			text-decoration: underline;
+		}
+
+		@media (max-width: 768px) {
+			body { padding: 10px; }
+			.email-body { padding: 25px; }
+			.email-header h1 { font-size: 1.5rem; }
+			.section-header { font-size: 1.2rem; }
+			.cta-button { padding: 12px 25px; font-size: 1rem; }
+			.selected-options .option-row { flex-direction: column; gap: 2px; }
+		}
+	</style>
+</head>
+<body>
+	<div class="email-container">
+		<div class="email-header">
+			<h1>PLAYERSTALL</h1>
+			<div class="subtitle">The Stadium Locker</div>
+			<p>Our Flagship Wood Sports Locker | Canadian-owned and operated since 1996</p>
+		</div>
+
+		<div class="email-body">
+			<p><strong>Subject:</strong> Your Stadium Locker Quote</p>
+
+			<p>Hi MD,</p>
+
+			<p>Thank you so much for reaching out to PlayerStall! First off, congratulations on the new football program — that's really exciting, and I'd love to help you get the locker room looking incredible for your team right from the start.</p>
+
+			<p>I've reviewed your request for 130 Stadium Lockers and put together a detailed quote for you, which I've attached below.</p>
+
+			<!-- QUOTE SUMMARY -->
+			<div class="section-header">Quote Summary</div>
+			<div class="highlight-box">
+				<ul class="price-list">
+					<li><strong>130 Stadium Lockers @ $599 per locker</strong></li>
+					<li>Detailed pricing breakdown (see attached estimate)</li>
+				</ul>
+			</div>
+
+			<!-- YOUR SELECTED OPTIONS -->
+			<div class="section-header">Your Selected Options</div>
+			<div class="selected-options">
+				<div class="option-row">
+					<span class="option-label">Lock Boxes</span>
+					<span class="option-detail">+$80 per locker</span>
+				</div>
+				<div class="option-row">
+					<span class="option-label">Name Plate Holders</span>
+					<span class="option-detail">+$10 per locker (Silver)</span>
+				</div>
+				<div class="option-row">
+					<span class="option-label">Padded Seat Cushions</span>
+					<span class="option-detail">+$80 per locker (Navy)</span>
+				</div>
+				<div class="option-row">
+					<span class="option-label">Hooks (Four per locker)</span>
+					<span class="option-detail">+$12 per locker</span>
+				</div>
+			</div>
+			<p style="color: #666; font-style: italic; font-size: 0.95rem;">All options are priced at our cost — no markup.</p>
+
+			<!-- CUSTOM SIZING & COLOR -->
+			<div class="section-header">Custom Sizing & Color Options</div>
+			<div class="color-box">
+				<h3>Make It Yours</h3>
+				<p>Our standard locker width is <strong>24 inches</strong>, but we also offer <strong>custom sizing</strong> to perfectly fit your locker room layout — just let me know if you need a different width and we'll make it happen.</p>
+				<p>We can also finish your lockers in <strong>melamine coated wood in any color you prefer</strong> to match your branding.</p>
+				<p class="timeline-note">Please note: Custom color and sizing orders require <strong>8 to 12 weeks</strong> for production, as each locker is custom-finished to your exact specifications.</p>
+			</div>
+
+			<!-- DISCOUNT -->
+			<div class="discount-box">
+				<h3>Your Discount — Goes Towards Assembly</h3>
+				<p>I've included a <strong>special discount</strong> on your attached quote. This discount can go directly towards the cost of assembly, helping to bring down your overall project costs.</p>
+				<p>And here's the best part — assembly is incredibly easy, <strong>just like putting together IKEA furniture!</strong> Each locker takes only about <strong>20 to 30 minutes</strong> to assemble. This flat-pack approach is actually one of the ways we keep our prices lower than most of the competition while still delivering premium quality.</p>
+			</div>
+
+			<!-- VIEW OUR WORK -->
+			<div class="section-header">View Our Work</div>
+			<ul class="price-list">
+				<li><a href="http://customsportslockers.com/gallery/" style="color: #cc9900; text-decoration: none; font-weight: 500;">Full Gallery: customsportslockers.com/gallery/</a></li>
+				<li><a href="http://customsportslockers.com/" style="color: #cc9900; text-decoration: none; font-weight: 500;">Model Comparison: customsportslockers.com/</a> (homepage, halfway down the page)</li>
+			</ul>
+
+			<!-- WHY PLAYERSTALL -->
+			<div class="section-header">Why PlayerStall?</div>
+			<p>With 30+ years of experience serving collegiate and professional teams across North America, we know what it takes to build a locker room your players will be proud of. Our lockers are:</p>
+
+			<ul class="benefits-list">
+				<li><strong>Canadian-owned and operated since 1996</strong> — Premium materials and craftsmanship you can trust</li>
+				<li><strong>Built to Last a Lifetime</strong> — These lockers are built strong and will last a lifetime, backed by our lifetime guarantee</li>
+				<li><strong>Fully Modular</strong> — If a piece ever gets damaged, just give us a call and we'll ship replacement parts right away</li>
+			</ul>
+
+			<!-- SHIPPING -->
+			<div class="section-header">Shipping Information</div>
+			<div class="info-box">
+				<p>If you have a room drawing or layout, I can provide a more accurate timeline. Generally, we ship in <strong>4 to 8 weeks</strong> for standard finishes, or <strong>8 to 12 weeks</strong> if you go with a custom color or sizing.</p>
+				<p>Shipping to: <strong>Cedar Rapids, Iowa 52404</strong></p>
+			</div>
+
+			<!-- NEXT STEPS -->
+			<div class="section-header">Next Steps</div>
+			<p>To get things rolling, if you could send over a quick drawing of the locker room with accurate dimensions, I can custom-size everything to fit your space perfectly — no wasted room, no awkward gaps. We do the custom design work for you at no extra charge!</p>
+			<p>Also, let me know if you'd like to go with the standard 24-inch width or if you need something different — I'm happy to work with whatever fits your space best.</p>
+			<p>This quote is valid for <strong>60 days</strong>. I'm here to answer any questions, talk through options, or help you figure out the best setup for the new program.</p>
+
+
+			<!-- SIGNATURE -->
+			<div class="email-signature">
+				<p>I'd love to help you build something great for the new football program — looking forward to working together on this!</p>
+				<br>
+				<p class="signature-name">Monika Brownova</p>
+				<p class="signature-title">Custom Locker Specialist</p>
+				<p class="signature-company">PLAYERSTALL</p>
+				<p class="signature-contact">
+					<span style="color: #999;">m</span>&nbsp;&nbsp;1 (888) 584-1444<br>
+					<span style="color: #999;">d</span>&nbsp;&nbsp;<a href="mailto:monika@customsportslockers.com" style="color: #cc9900;">monika@customsportslockers.com</a><br>
+					<span style="color: #999;">w</span>&nbsp;&nbsp;<a href="http://customsportslockers.com" style="color: #cc9900;">CustomSportsLockers.com</a><br>
+					<span style="color: #999;">z</span>&nbsp;&nbsp;2934 200 St, Langley BC, Canada
+				</p>
+				<div class="signature-social" style="margin-top: 12px;">
+					<a href="https://www.facebook.com/PlayerStall-1715059388770006/" style="color: #cc9900; text-decoration: none; margin-right: 12px;">Facebook</a>
+					<a href="https://www.linkedin.com/company-beta/16240818/" style="color: #cc9900; text-decoration: none; margin-right: 12px;">LinkedIn</a>
+					<a href="https://x.com/PSLockers" style="color: #cc9900; text-decoration: none; margin-right: 12px;">Twitter</a>
+					<a href="https://www.instagram.com/playerstallsports/" style="color: #cc9900; text-decoration: none;">Instagram</a>
+				</div>
+				<div class="signature-tagline">
+					<strong>30+ Years Experience</strong> | <strong>Lifetime Guarantee</strong> | <strong>Canadian-owned and operated since 1996</strong> | <strong>Free Design Consultation</strong>
+				</div>
+			</div>
+		</div>
+
+		<div class="email-footer">
+			<p>&copy; PlayerStall | <a href="http://customsportslockers.com">CustomSportsLockers.com</a></p>
+		</div>
+	</div>
+</body>
+</html>
