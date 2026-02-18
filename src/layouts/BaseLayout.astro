@@ -3,21 +3,63 @@ interface Props {
 	title: string;
 	description?: string;
 	headerBlack?: boolean;
+	ogImage?: string;
+	canonical?: string;
 }
 
-const { title, description = "Premium wood lockers at unbeatable prices. Quick ship in 2–4 weeks or custom in 8–12 weeks. Price match guarantee. 30+ years experience.", headerBlack = false } = Astro.props;
+const { 
+	title, 
+	description = "Premium wood lockers at unbeatable prices. Quick ship in 2–4 weeks or custom in 8–12 weeks. Price match guarantee. 30+ years experience.", 
+	headerBlack = false,
+	ogImage = "https://playerstall.com/images/logoblack2.png",
+	canonical = Astro.url.pathname === "/" ? "https://playerstall.com" : `https://playerstall.com${Astro.url.pathname}`
+} = Astro.props;
+
+// Ensure canonical URL doesn't have trailing slash (except for homepage)
+const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playerstall.com" 
+	? canonical.slice(0, -1) 
+	: canonical;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<link href="https://fonts.googleapis.com/css?family=Yantramanav:500,400|Oswald:600,700|Roboto:400&display=swap" rel="stylesheet" />
+		
+		<!-- Primary Meta Tags -->
 		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:site_name" content="PlayerStall" />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonicalUrl} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={ogImage} />
+		<meta name="twitter:site" content="@PSLockers" />
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		
+		<!-- Generator -->
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Yantramanav:500,400|Oswald:600,700|Roboto:400&display=swap" rel="stylesheet" />
+		
+		<!-- Schema Slot for Page-Specific Structured Data -->
+		<slot name="head" />
 	</head>
 	<body class={headerBlack ? 'header-black' : ''}>
 		<!-- Top Bar -->

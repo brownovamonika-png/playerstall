@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const post = {
+  title: 'Lockers for Sale- PlayerStall',
+  description: 'Quality wood lockers for sale—30+ years. Custom sports lockers for teams and home. Lifetime guarantee. Free consultation. PlayerStall has the right lockers for you.',
+  category: 'Buying Guides',
+  datePublished: '2017-05-21',
+  readTime: '4 min read',
+  author: 'PlayerStall',
+  slug: 'lockers-for-sale',
+  wordCount: 627
+};
+
+const content = `<h1>If you are looking for lockers for sale, you've come to the right place!</h1>
+PlayerStall Sports Lockers has had lockers for sale for over 3 decades and continues to be the market leader in producing the highest quality <em>wood lockers</em> in the business. There are a few things that set us apart from the wood locker competition:
+<ul>
+ 	<li>Price of our wood lockers</li>
+ 	<li>Quality</li>
+ 	<li>Service</li>
+ 	<li>Lifetime Guarantee</li>
+</ul>
+<h2><img class="size-medium wp-image-734 aligncenter" src="http://customsportslockers.com/wp-content/uploads/2016/03/Hockey-lockers-PlayerStall-300x225.jpg" alt="lockers for sale" width="300" height="225"></h2>
+<h2>&nbsp;</h2>
+<h2>Price</h2>
+If you are looking&nbsp;to <a href="/services">buy lockers</a> for that recruiting edge for your Amateur or professional team, we give steep discounts that nobody in the sports locker industry can match! If you are a parent with athletes in the house and are looking for a sports storage solution, check out our <a href="/gallery">gallery</a> to see what we can do for you. Learn more about <a href="/blog/professional-locker-rooms-help-recruitment">how professional locker rooms help recruitment</a>. Nobody in the wood locker industry can come close to us on price.
+<h2>&nbsp;</h2>
+<h2>Quality</h2>
+When looking for wood lockers, you have to compare apples to apples. Our sports lockers are made completely in North America using locally sourced materials. All our lockers come with 3/4" wood, which our competitors don't use. Most of the wood lockers out there are cheap lockers made overseas using flimsy materials that don't match up. That being said, our prices always beat their inferior product. Lots of companies out there have lockers for sale, but nobody can match up with our quality or price.
+<h2>&nbsp;</h2>
+<h2>Best in class Service</h2>
+PlayerStall sports lockers is a small family run business that puts you, the customer first. We have had lockers for sale for over 3 decades and have had countless happy customers over the years.
+
+Each room and needs are different. We work with our customers to custom design our locker systems to suit the individual needs of each&nbsp;customer. Check out our <a href="http://customsportslockers.com/gallery/">gallery</a>, <a href="https://plus.google.com/u/0/112158632216722039719">Google Plus</a> or our <a href="https://www.facebook.com/playerstallsports/">Facebook</a> Page and you can see that some of the designs have been tweaked to fit the needs of each team. We have completed countless locker rooms over the years and let us help you redesign that room in a Professional locker room. At PlayerStall Athletic Lockers, we make:
+<ul>
+ 	<li><a href="http://customsportslockers.com/football-lockers/">Football Lockers</a></li>
+ 	<li>Hockey Lockers</li>
+ 	<li>Baseball Lockers</li>
+ 	<li>Soccer Lockers</li>
+ 	<li>Basketball Lockers</li>
+ 	<li>Lacrosse Lockers</li>
+</ul>
+We have all types of lockers for sale- check out our sports lockers if you are looking to buy lockers.
+<h2>&nbsp;</h2>
+<h2>Lifetime Guarantee</h2>
+This is where we blow away the competition- nobody in the wood locker industry offers this type of guarantee. Our modular design looks great and it is so functional that we offer a lifetime guarantee! Our wood lockers are perfectly designed for the rough and tumble environment of a locker room. If any pieces are damaged, you give us a call and we will ship you out new pieces to repair your wood locker. We offer this type of guarantee because we never have to repair our sports lockers- the design and quality is so high that they never break.
+
+&nbsp;
+
+<img class="size-medium wp-image-716 aligncenter" src="http://customsportslockers.com/wp-content/uploads/2017/05/image1-300x225.jpg" alt="lockers for sale playerstall" width="300" height="225">
+
+&nbsp;
+
+If you are looking to buy lockers, you have come to the right place. PlayerStall has had lockers for sale for many years and continues to lead in Price, Quality and Service. Give us a call anytime to ask us about our locker room lockers.
+
+&nbsp;`;
+---
+
+<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
+  <section class="page-header">
+    <div class="container">
+      <div class="article-meta">
+        <span class="blog-date">{post.datePublished ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown'} · {post.readTime}</span>
+        <span class="blog-category">{post.category}</span>
+      </div>
+      <h1>{post.title}</h1>
+      {post.description && <p class="lede">{post.description}</p>}
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <div class="container">
+      <article class="blog-content">
+        <Fragment set:html={content} />
+      </article>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready for Custom Sports Lockers?</h2>
+        <p>Get a free design consultation. 30+ years experience. Lifetime guarantee.</p>
+        <a class="btn-primary" href="/contact">Get Free Consultation</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  :global(:root) { --bg-off-white: #f9f7f2; --border-color: #e3dfd7; --text-gray: #4a4a4a; --accent-color: #fe5900; --text-white: #ffffff; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+  .page-header { background: var(--bg-off-white); padding: 4rem 0; text-align: center; }
+  .article-meta { display: flex; gap: 1rem; justify-content: center; font-size: 0.9rem; color: var(--accent-color); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+  .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; line-height: 1.25; }
+  .lede { max-width: 760px; margin: 0 auto; font-size: 1.2rem; color: var(--text-gray); line-height: 1.8; }
+  .blog-section { padding: 4rem 0; }
+  .blog-content { background: var(--bg-off-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; }
+  .blog-content :global(h2) { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 2rem; }
+  .blog-content :global(h2:first-of-type) { margin-top: 0; }
+  .blog-content :global(h3), .blog-content :global(h4) { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.35rem; }
+  .blog-content :global(p), .blog-content :global(ul) { color: var(--text-gray); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
+  .blog-content :global(ul) { padding-left: 1.5rem; margin: 1.5rem 0; }
+  .blog-content :global(a) { color: var(--accent-color); text-decoration: none; }
+  .blog-content :global(a:hover) { text-decoration: underline; }
+  .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; background: var(--accent-color); color: var(--text-white); letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+  .cta-section { background: #121212; color: #fff; padding: 4rem 0; margin-top: 2rem; }
+  .cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 16px; }
+  .cta-content h2 { margin-top: 0; font-size: 2.25rem; color: #fff; }
+  .cta-content p { color: #d8d8d8; margin-bottom: 2rem; font-size: 1.1rem; }
+  @media (max-width: 768px) { .blog-content { padding: 2rem; } }
+</style>

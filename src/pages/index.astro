@@ -1,11 +1,118 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// LocalBusiness Schema for SEO
+const localBusinessSchema = {
+	"@context": "https://schema.org",
+	"@type": "LocalBusiness",
+	"name": "PlayerStall",
+	"alternateName": "CustomSportsLockers.com",
+	"description": "Premium wood sports lockers manufacturer specializing in custom athletic lockers for collegiate and professional teams. 30+ years experience with lifetime guarantee.",
+	"image": "https://playerstall.com/images/logoblack2.png",
+	"logo": "https://playerstall.com/images/logoblack2.png",
+	"url": "https://playerstall.com",
+	"telephone": "+11231245678901",
+	"email": "info@customsportslockers.com",
+	"priceRange": "$$",
+	"address": {
+		"@type": "PostalAddress",
+		"streetAddress": "7300-7398 Colonial Rd",
+		"addressLocality": "Brooklyn",
+		"addressRegion": "NY",
+		"postalCode": "11209",
+		"addressCountry": "US"
+	},
+	"geo": {
+		"@type": "GeoCoordinates",
+		"latitude": "40.6184",
+		"longitude": "-74.0302"
+	},
+	"openingHoursSpecification": [
+		{
+			"@type": "OpeningHoursSpecification",
+			"dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+			"opens": "09:00",
+			"closes": "17:00"
+		},
+		{
+			"@type": "OpeningHoursSpecification",
+			"dayOfWeek": "Saturday",
+			"opens": "10:00",
+			"closes": "14:00"
+		}
+	],
+	"serviceArea": {
+		"@type": "Country",
+		"name": "United States"
+	},
+	"areaServed": "US",
+	"sameAs": [
+		"https://www.facebook.com/PlayerStall-1715059388770006/",
+		"https://vimeo.com/playerstall",
+		"https://twitter.com/PSLockers",
+		"https://www.pinterest.com/playerstallspor/",
+		"https://www.linkedin.com/company/playerstall"
+	],
+	"hasOfferCatalog": {
+		"@type": "OfferCatalog",
+		"name": "Sports Lockers",
+		"itemListElement": [
+			{
+				"@type": "OfferCatalog",
+				"name": "Premium Wood Lockers",
+				"itemListElement": [
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Product",
+							"name": "Pro Locker",
+							"description": "Premium wood sports locker for collegiate and professional teams"
+						}
+					},
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Product",
+							"name": "Stadium Locker",
+							"description": "Quick ship wood sports locker, ships in 2-4 weeks"
+						}
+					},
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Product",
+							"name": "Elite Locker",
+							"description": "Premium curved-design wood sports locker"
+						}
+					}
+				]
+			}
+		]
+	}
+};
+
+// BreadcrumbList Schema
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{
+			"@type": "ListItem",
+			"position": 1,
+			"name": "Home",
+			"item": "https://playerstall.com"
+		}
+	]
+};
 ---
 
 <BaseLayout 
 	title="Premium Wood Lockers. Unbeatable Prices. | PlayerStall"
 	description="High-quality sports lockers at unbeatable prices. Quick ship in 2–4 weeks (Stadium & Elite) or custom wood, phenolic & more in 8–12 weeks. Price match guarantee. 30+ years experience."
 >
+	<!-- Schema.org Structured Data -->
+	<script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} slot="head" />
+	<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
 	<!-- Hero Slider Section -->
 	<section class="hero-slider" id="hero">
 		<div class="hero-slider-container">
@@ -86,7 +193,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<!-- Pro -->
 					<div class="home-shop-product-item">
 						<div class="home-shop-product-image">
-							<img src="/pro-locker.jpg" alt="Pro Locker" loading="lazy" />
+							<img src="/pro-locker.jpg" alt="Pro tier premium wood sports locker for collegiate athletic programs" loading="lazy" />
 						</div>
 						<div class="home-shop-product-content">
 							<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -97,7 +204,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<!-- Stadium -->
 					<div class="home-shop-product-item">
 						<div class="home-shop-product-image">
-							<img src="/stadium-locker.jpg" alt="Stadium Locker" loading="lazy" />
+							<img src="/stadium-locker.jpg" alt="Stadium locker quick ship wood sports locker ships in 2-4 weeks" loading="lazy" />
 						</div>
 						<div class="home-shop-product-content">
 							<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -109,7 +216,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<div class="home-shop-product-item">
 						<div class="home-shop-product-image">
 							<span class="home-shop-badge new">New</span>
-							<img src="/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png" alt="Elite Locker" loading="lazy" />
+							<img src="/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png" alt="Elite curved design premium wood sports locker for professional teams" loading="lazy" />
 						</div>
 						<div class="home-shop-product-content">
 							<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -121,7 +228,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<div class="home-shop-product-item">
 						<div class="home-shop-product-image">
 							<span class="home-shop-badge new">New</span>
-							<img src="/images/legendary-locker.png" alt="Legendary Locker" loading="lazy" />
+							<img src="/images/legendary-locker.png" alt="Legendary premium custom wood sports locker with maximum customization" loading="lazy" />
 						</div>
 						<div class="home-shop-product-content">
 							<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -142,7 +249,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<!-- Semi Pro -->
 					<div class="home-shop-product-item">
 						<div class="home-shop-product-image">
-							<img src="/semi-pro-locker.jpg" alt="Semi Pro Locker" loading="lazy" />
+							<img src="/semi-pro-locker.jpg" alt="Semi Pro essential wood sports locker for high school athletic programs" loading="lazy" />
 						</div>
 						<div class="home-shop-product-content">
 							<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -153,7 +260,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<!-- Varsity -->
 					<div class="home-shop-product-item">
 						<div class="home-shop-product-image">
-							<img src="/varsity-locker.jpg" alt="Varsity Locker" loading="lazy" />
+							<img src="/varsity-locker.jpg" alt="Varsity mid-tier wood sports locker for high school varsity programs" loading="lazy" />
 						</div>
 						<div class="home-shop-product-content">
 							<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -173,13 +280,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<section class="live-match">
 		<div class="live-badge">free</div>
 		<div class="match-container">
-			<div class="match-content">
-				<p class="match-subtitle">no obligation</p>
-				<h2 class="match-title">Free Custom Design Consultation</h2>
-				<p class="match-text">Get expert advice from 30+ years of experience. No obligation, just professional guidance to create the perfect locker room solution for your team.</p>
-				<a href="/contact" class="btn btn-primary btn-large match-cta">Get Started Today</a>
-				<p class="match-phone">Call us at <a href="tel:+18885878255" class="match-phone-link">1 (888) 58-STALL</a></p>
-			</div>
+		<div class="match-content">
+			<p class="match-subtitle">no obligation</p>
+			<h2 class="match-title">Free Custom Design Consultation</h2>
+			<p class="match-text">Get expert advice from 30+ years of experience. No obligation, just professional guidance to create the perfect locker room solution for your team. We've helped hundreds of programs upgrade their facilities with <a href="/blog/college-athletic-locker-guide" style="color: #fe5900; text-decoration: underline;">custom athletic lockers</a>.</p>
+			<a href="/contact" class="btn btn-primary btn-large match-cta">Get Started Today</a>
+			<p class="match-phone">Call us at <a href="tel:+18885878255" class="match-phone-link">1 (888) 58-STALL</a></p>
+		</div>
 		</div>
 	</section>
 
@@ -231,7 +338,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<span>+</span>
 					</div>
 					<div class="accordion-content">
-						<p>Every project starts with a free custom design consultation. We'll discuss your needs, space, budget, and vision to understand exactly what you're looking for. No obligation, just expert advice from 30+ years of experience.</p>
+						<p>Every project starts with a free custom design consultation. We'll discuss your needs, space, budget, and vision to understand exactly what you're looking for. No obligation, just expert advice from 30+ years of experience. <a href="/our-process" style="color: #fe5900;">Learn more about our process</a>.</p>
 					</div>
 				</div>
 				<div class="accordion-item">
@@ -240,7 +347,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<span>+</span>
 					</div>
 					<div class="accordion-content">
-						<p>We're confident in the quality of our wood sports lockers and back every locker with a 5 year warranty. Our modular design means damaged parts can be replaced individually—no need to replace the entire locker.</p>
+						<p>We're confident in the quality of our wood sports lockers and back every locker with a 5 year warranty. Our modular design means damaged parts can be replaced individually—no need to replace the entire locker. <a href="/blog/why-modular-design-matters" style="color: #fe5900;">Discover the advantages of modular locker design</a>.</p>
 					</div>
 				</div>
 				<div class="accordion-item">
@@ -258,7 +365,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<span>+</span>
 					</div>
 					<div class="accordion-content">
-						<p>We have all the shapes and sizes that are required for most locker rooms. It is up to you and your style to choose from.</p>
+						<p>We have all the shapes and sizes that are required for most locker rooms. From <a href="/hockey" style="color: #fe5900;">hockey lockers</a> to <a href="/sport/football" style="color: #fe5900;">football equipment storage</a>, we design sport-specific solutions. <a href="/blog/sport-specific-locker-design" style="color: #fe5900;">Explore our sport-specific design guide</a>.</p>
 					</div>
 				</div>
 			</div>
@@ -282,12 +389,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</div>
 		</div>
 		<div class="topscorer-banner-players" aria-hidden="true">
-			<div class="topscorer-banner-player-slide active"><img src="/images/topscorer/player-img-10.jpg" alt="" width="480" height="640" loading="eager" /></div>
-			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/soccer-player.png" alt="" width="480" height="640" loading="lazy" /></div>
-			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/hockey-player.png" alt="" width="480" height="640" loading="lazy" /></div>
-			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/basketball-player.png" alt="" width="480" height="640" loading="lazy" /></div>
-			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/baseball-player.png" alt="" width="480" height="640" loading="lazy" /></div>
-			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/player-football-blue-orange.png" alt="" width="480" height="640" loading="lazy" /></div>
+			<div class="topscorer-banner-player-slide active"><img src="/images/topscorer/player-img-10.jpg" alt="Football player representing sports locker room culture" width="480" height="640" loading="eager" /></div>
+			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/soccer-player.png" alt="Soccer player in professional sports locker facility" width="480" height="640" loading="lazy" /></div>
+			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/hockey-player.png" alt="Hockey player with custom wood sports lockers" width="480" height="640" loading="lazy" /></div>
+			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/basketball-player.png" alt="Basketball player in collegiate locker room" width="480" height="640" loading="lazy" /></div>
+			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/baseball-player.png" alt="Baseball player using professional athletic lockers" width="480" height="640" loading="lazy" /></div>
+			<div class="topscorer-banner-player-slide"><img src="/images/topscorer/player-football-blue-orange.png" alt="Football player in premium wood locker room" width="480" height="640" loading="lazy" /></div>
 		</div>
 	</section>
 
@@ -302,7 +409,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<div class="players-grid">
 				<div class="player-card">
 					<div class="player-image">
-						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-10.jpg" alt="Collegiate Football Program" />
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-10.jpg" alt="Collegiate football program coach testimonial for wood sports lockers" />
 					</div>
 					<div class="player-details">
 						<div class="player-position">Head Coach</div>
@@ -311,7 +418,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				</div>
 				<div class="player-card">
 					<div class="player-image">
-						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-11.jpg" alt="University Athletic Department" />
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-11.jpg" alt="University athletic director testimonial for custom athletic lockers" />
 					</div>
 					<div class="player-details">
 						<div class="player-position">Athletic Director</div>
@@ -320,7 +427,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				</div>
 				<div class="player-card">
 					<div class="player-image">
-						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-12.jpg" alt="Professional Sports Organization" />
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-12.jpg" alt="Professional sports facilities manager testimonial for premium wood lockers" />
 					</div>
 					<div class="player-details">
 						<div class="player-position">Facilities Manager</div>
@@ -329,7 +436,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				</div>
 				<div class="player-card">
 					<div class="player-image">
-						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-13.jpg" alt="Collegiate Hockey Program" />
+						<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/player-img-13.jpg" alt="Collegiate hockey coach testimonial for reinforced wood hockey lockers" />
 					</div>
 					<div class="player-details">
 						<div class="player-position">Hockey Coach</div>
@@ -344,13 +451,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<section class="ranking-section">
 		<div class="ranking-container">
 			<div class="ranking-image">
-				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-img-1.jpg" alt="Custom Wood Sports Lockers" loading="lazy" />
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-img-1.jpg" alt="Premium wood sports lockers outperform metal lockers in collegiate facilities" loading="lazy" />
 			</div>
 			<div class="ranking-content">
 				<p class="section-subtitle">why choose us</p>
 				<h2 class="section-title">WHY WOOD OUTPERFORMS<br>METAL</h2>
 				<p class="ranking-text">After 30+ years in the business, we've seen it all. Wood lockers aren't just a trend—they're a superior choice. Wood creates a professional, prestigious atmosphere that metal simply can't match. When properly cared for, wood outlasts metal. Our lockers have been in use for 15+ years and still look professional.</p>
-				<a href="/contact" class="btn btn-outline">Learn More</a>
+				<p class="ranking-text"><a href="/blog/wood-vs-metal-sports-lockers-comparison" style="color: #fe5900; text-decoration: underline;">Read our comprehensive wood vs metal comparison guide</a> to learn about durability, maintenance, and long-term value.</p>
+				<a href="/blog/wood-vs-metal-sports-lockers-comparison" class="btn btn-outline">Learn More</a>
 			</div>
 		</div>
 	</section>
@@ -359,7 +467,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<section class="ranking-section" style="background: #f8f8f8;">
 		<div class="ranking-container">
 			<div class="ranking-image">
-				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-img-1.jpg" alt="Custom Wood Sports Lockers" loading="lazy" />
+				<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/h3-img-1.jpg" alt="Premium wood sports lockers outperform metal lockers in collegiate facilities" loading="lazy" />
 			</div>
 			<div class="ranking-content">
 				<p class="section-subtitle">why our prices</p>

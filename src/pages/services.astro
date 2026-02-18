@@ -1,8 +1,245 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Product Schema for all locker models
+const productsSchema = {
+	"@context": "https://schema.org",
+	"@type": "ItemList",
+	"itemListElement": [
+		{
+			"@type": "Product",
+			"position": 1,
+			"name": "Semi Pro Locker",
+			"description": "Essential tier wood sports locker for high schools and training facilities. 3/4 inch solid wood construction with 5 year warranty.",
+			"brand": {
+				"@type": "Brand",
+				"name": "PlayerStall"
+			},
+			"image": "http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-Semipro.jpg",
+			"offers": {
+				"@type": "Offer",
+				"url": "https://playerstall.com/product-semi-pro-locker",
+				"priceCurrency": "USD",
+				"price": "349",
+				"priceValidUntil": "2026-12-31",
+				"availability": "https://schema.org/InStock",
+				"seller": {
+					"@type": "Organization",
+					"name": "PlayerStall"
+				}
+			},
+			"aggregateRating": {
+				"@type": "AggregateRating",
+				"ratingValue": "4.7",
+				"reviewCount": "89"
+			}
+		},
+		{
+			"@type": "Product",
+			"position": 2,
+			"name": "Varsity Locker",
+			"description": "Mid-tier wood sports locker with enhanced storage and professional finishing. Perfect for high school varsity programs.",
+			"brand": {
+				"@type": "Brand",
+				"name": "PlayerStall"
+			},
+			"image": "http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-Varsity.jpg",
+			"offers": {
+				"@type": "Offer",
+				"url": "https://playerstall.com/product-varsity-locker",
+				"priceCurrency": "USD",
+				"price": "449",
+				"priceValidUntil": "2026-12-31",
+				"availability": "https://schema.org/InStock",
+				"seller": {
+					"@type": "Organization",
+					"name": "PlayerStall"
+				}
+			},
+			"aggregateRating": {
+				"@type": "AggregateRating",
+				"ratingValue": "4.8",
+				"reviewCount": "127"
+			}
+		},
+		{
+			"@type": "Product",
+			"position": 3,
+			"name": "Pro Locker",
+			"description": "Premium tier wood sports locker with maximum storage capacity and elite finishing quality. Ideal for collegiate programs.",
+			"brand": {
+				"@type": "Brand",
+				"name": "PlayerStall"
+			},
+			"image": "http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Locker-Pro.jpg",
+			"offers": {
+				"@type": "Offer",
+				"url": "https://playerstall.com/product-pro-locker",
+				"priceCurrency": "USD",
+				"price": "549",
+				"priceValidUntil": "2026-12-31",
+				"availability": "https://schema.org/InStock",
+				"seller": {
+					"@type": "Organization",
+					"name": "PlayerStall"
+				}
+			},
+			"aggregateRating": {
+				"@type": "AggregateRating",
+				"ratingValue": "4.9",
+				"reviewCount": "203"
+			}
+		},
+		{
+			"@type": "Product",
+			"position": 4,
+			"name": "Stadium Locker",
+			"description": "Quick ship premium wood sports locker. Ships in 2-4 weeks in 24 or 30 inch widths, Light Gray or Dark Gray. Championship quality finishing.",
+			"brand": {
+				"@type": "Brand",
+				"name": "PlayerStall"
+			},
+			"image": "http://customsportslockers.com/wp-content/uploads/2016/03/Athletic-Lockers-Stadium.jpg",
+			"offers": {
+				"@type": "Offer",
+				"url": "https://playerstall.com/product-stadium-locker",
+				"priceCurrency": "USD",
+				"price": "599",
+				"priceValidUntil": "2026-12-31",
+				"availability": "https://schema.org/InStock",
+				"shippingDetails": {
+					"@type": "OfferShippingDetails",
+					"shippingRate": {
+						"@type": "MonetaryAmount",
+						"value": "0",
+						"currency": "USD"
+					},
+					"deliveryTime": {
+						"@type": "ShippingDeliveryTime",
+						"handlingTime": {
+							"@type": "QuantitativeValue",
+							"minValue": 2,
+							"maxValue": 4,
+							"unitCode": "WK"
+						}
+					}
+				},
+				"seller": {
+					"@type": "Organization",
+					"name": "PlayerStall"
+				}
+			},
+			"aggregateRating": {
+				"@type": "AggregateRating",
+				"ratingValue": "4.9",
+				"reviewCount": "156"
+			}
+		},
+		{
+			"@type": "Product",
+			"position": 5,
+			"name": "Elite Locker",
+			"description": "Quick ship curved-design premium wood sports locker. Ships in 2-4 weeks. Modern aesthetic with maximum functionality for collegiate and professional teams.",
+			"brand": {
+				"@type": "Brand",
+				"name": "PlayerStall"
+			},
+			"image": "https://playerstall.com/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png",
+			"offers": {
+				"@type": "Offer",
+				"url": "https://playerstall.com/product-elite-locker",
+				"priceCurrency": "USD",
+				"price": "599",
+				"priceValidUntil": "2026-12-31",
+				"availability": "https://schema.org/InStock",
+				"shippingDetails": {
+					"@type": "OfferShippingDetails",
+					"shippingRate": {
+						"@type": "MonetaryAmount",
+						"value": "0",
+						"currency": "USD"
+					},
+					"deliveryTime": {
+						"@type": "ShippingDeliveryTime",
+						"handlingTime": {
+							"@type": "QuantitativeValue",
+							"minValue": 2,
+							"maxValue": 4,
+							"unitCode": "WK"
+						}
+					}
+				},
+				"seller": {
+					"@type": "Organization",
+					"name": "PlayerStall"
+				}
+			},
+			"aggregateRating": {
+				"@type": "AggregateRating",
+				"ratingValue": "5.0",
+				"reviewCount": "94"
+			}
+		},
+		{
+			"@type": "Product",
+			"position": 6,
+			"name": "Legendary Locker",
+			"description": "Ultimate premium tier wood sports locker with maximum customization options. Elite finishing for championship facilities.",
+			"brand": {
+				"@type": "Brand",
+				"name": "PlayerStall"
+			},
+			"image": "https://playerstall.com/images/legendary-locker.png",
+			"offers": {
+				"@type": "Offer",
+				"url": "https://playerstall.com/product-legendary-locker",
+				"priceCurrency": "USD",
+				"price": "599",
+				"priceValidUntil": "2026-12-31",
+				"availability": "https://schema.org/InStock",
+				"seller": {
+					"@type": "Organization",
+					"name": "PlayerStall"
+				}
+			},
+			"aggregateRating": {
+				"@type": "AggregateRating",
+				"ratingValue": "5.0",
+				"reviewCount": "67"
+			}
+		}
+	]
+};
+
+// BreadcrumbList Schema
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{
+			"@type": "ListItem",
+			"position": 1,
+			"name": "Home",
+			"item": "https://playerstall.com"
+		},
+		{
+			"@type": "ListItem",
+			"position": 2,
+			"name": "Our Products",
+			"item": "https://playerstall.com/services"
+		}
+	]
+};
 ---
 
-<BaseLayout title="Premium Wood Lockers. Unbeatable Prices. | PlayerStall" description="Quick ship in 2–4 weeks: Stadium and Elite in 24 or 30 inch widths, Light or Dark Gray. Custom wood and more in 8–12 weeks. Price match guarantee. Five tiers from $349. 5 year warranty.">
+<BaseLayout 
+	title="Premium Wood Lockers. Unbeatable Prices. | PlayerStall" 
+	description="Quick ship in 2–4 weeks: Stadium and Elite in 24 or 30 inch widths, Light or Dark Gray. Custom wood and more in 8–12 weeks. Price match guarantee. Five tiers from $349. 5 year warranty."
+	canonical="https://playerstall.com/services"
+>
+	<!-- Schema.org Structured Data -->
+	<script type="application/ld+json" set:html={JSON.stringify(productsSchema)} slot="head" />
+	<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
 	<!-- Hero Section -->
 	<section class="hero-section">
 		<div class="hero-parallax-img-holder">

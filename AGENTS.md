@@ -23,6 +23,7 @@ This document serves as a reference guide for AI agents working on the PlayerSta
 
 ### Key Dependencies
 - `astro`: ^4.0.0
+- `@astrojs/mdx`: ^3.0.0 (MDX integration for blog posts)
 - `typescript`: ^5.3.0
 - `@astrojs/check`: ^0.9.0
 
@@ -34,28 +35,36 @@ This document serves as a reference guide for AI agents working on the PlayerSta
 │   ├── images/         # Image assets
 │   └── logos/          # Logo variations (50+ SVG files)
 ├── src/
+│   ├── content/        # Content Collections (MDX)
+│   │   ├── config.ts   # Content Collections schema
+│   │   └── blog/       # Blog posts (MDX format) - 48 posts
 │   ├── layouts/        # Layout components
 │   │   └── BaseLayout.astro  # Main layout wrapper
 │   ├── pages/          # Page components (file-based routing)
 │   │   ├── index.astro        # Homepage
-│   │   ├── about.astro         # About page
-│   │   ├── services.astro      # Products/Services page
-│   │   ├── locations.astro     # Locations page
-│   │   ├── contact.astro       # Contact page
-│   │   ├── shop.astro          # Shop page
-│   │   ├── cart.astro          # Shopping cart
-│   │   ├── checkout.astro      # Checkout page
-│   │   ├── gallery.astro       # Gallery page
-│   │   ├── hockey.astro        # Sport-specific page
-│   │   ├── blog.astro          # Blog listing
-│   │   ├── blog/               # Blog posts
+│   │   ├── about.astro        # About page
+│   │   ├── services.astro     # Products/Services page
+│   │   ├── locations.astro    # Locations page
+│   │   ├── contact.astro      # Contact page
+│   │   ├── shop.astro         # Shop page
+│   │   ├── cart.astro         # Shopping cart
+│   │   ├── checkout.astro     # Checkout page
+│   │   ├── gallery.astro      # Gallery page
+│   │   ├── hockey.astro       # Sport-specific page
+│   │   ├── blog.astro         # Blog listing (combines MDX + Astro)
+│   │   ├── blog/              # Blog posts
+│   │   │   ├── [slug].astro   # Dynamic route for MDX posts
+│   │   │   ├── *.astro        # Comprehensive guides (8 files)
+│   │   │   └── drafts/        # Draft blog posts
 │   │   ├── our-process.astro   # Process page
 │   │   └── our-process-1.astro # Alternative process page
 │   └── env.d.ts        # TypeScript environment definitions
+├── scripts/            # Utility scripts
+│   └── convert-blog-to-mdx.js  # Blog conversion script
 ├── dist/               # Build output (generated)
 ├── guides/             # Documentation and guides
 ├── html-files/         # Legacy HTML files
-├── astro.config.mjs     # Astro configuration
+├── astro.config.mjs    # Astro configuration (includes MDX integration)
 ├── package.json        # Dependencies and scripts
 ├── tsconfig.json       # TypeScript configuration
 └── README.md           # Project documentation
@@ -215,10 +224,88 @@ Based on existing code:
 
 ### Adding a New Blog Post
 
-1. Create new `.astro` file in `src/pages/blog/`
-2. Follow existing blog post structure
-3. Update `blog.astro` listing page if needed
-4. Update footer blog links in `BaseLayout.astro`
+**IMPORTANT**: The blog uses a **hybrid MDX + Astro architecture** as of February 2026.
+
+#### For Simple Blog Posts (Recommended - Use MDX):
+
+1. **Create MDX file**: `src/content/blog/post-slug.mdx`
+2. **Add YAML frontmatter**:
+   ```yaml
+   ---
+   title: "Post Title"
+   description: "SEO description (150-160 chars)"
+   category: "Football" # or Basketball, Hockey, College Athletics, etc.
+   datePublished: "2026-02-17"
+   readTime: "8 min read"
+   author: "PlayerStall Editorial Team"
+   wordCount: 1850
+   ---
+   ```
+3. **Write content in Markdown** below the frontmatter
+4. **Build/deploy** - the post will automatically appear on `/blog` listing page
+5. **No manual updates needed** - Content Collections handle everything
+
+**MDX Benefits**:
+- ✅ Clean Markdown editing (no HTML strings)
+- ✅ YAML frontmatter (easier than JavaScript objects)
+- ✅ Type-safe with Zod schema validation
+- ✅ Automatic discovery and routing
+- ✅ Better tooling support
+
+#### For Comprehensive Guides with FAQs (Use Astro):
+
+1. **Create Astro file**: `src/pages/blog/guide-slug.astro`
+2. **Copy structure from existing comprehensive guides**:
+   - `college-athletic-locker-guide.astro`
+   - `complete-guide-custom-sports-lockers.astro`
+   - `hockey-wood-lockers-complete-guide.astro`
+   - `wood-vs-metal-sports-lockers-comparison.astro`
+3. **Use for posts that need**:
+   - Dynamic FAQ rendering with schema markup
+   - Complex JSX components
+   - Custom JavaScript logic
+4. **Build/deploy** - direct routing via file-based system
+
+#### Moving Blog Posts from Drafts to Published:
+
+**CRITICAL WORKFLOW**: When moving posts from `src/pages/blog/drafts/` to published:
+
+1. **Assess complexity**:
+   - **Simple post** (standard content, no FAQs) → Convert to MDX
+   - **Complex guide** (FAQs, schema markup, JSX) → Keep as Astro
+
+2. **For simple posts** (most common):
+   ```bash
+   # Convert to MDX and move to Content Collections
+   # Create src/content/blog/post-slug.mdx
+   # Copy content, convert to Markdown format
+   # Add YAML frontmatter
+   # Delete original .astro file from drafts
+   ```
+
+3. **For complex guides**:
+   ```bash
+   # Move directly to src/pages/blog/
+   mv src/pages/blog/drafts/guide-name.astro src/pages/blog/
+   # Fix import path: change '../../../layouts' to '../../layouts'
+   ```
+
+4. **Test build**:
+   ```bash
+   npm run build
+   # Verify post appears correctly
+   ```
+
+**File Locations**:
+- ✅ **Published MDX posts**: `src/content/blog/` (48 posts)
+- ✅ **Published Astro guides**: `src/pages/blog/` (8 comprehensive guides)
+- 📝 **Drafts**: `src/pages/blog/drafts/` (unconverted)
+- 🔧 **Dynamic route**: `src/pages/blog/[slug].astro` (handles all MDX posts)
+- 📋 **Blog listing**: `src/pages/blog.astro` (combines MDX + Astro posts)
+
+**Schema Location**: `src/content/config.ts` defines the Content Collections schema
+
+**Note**: The blog listing page (`src/pages/blog.astro`) automatically discovers and displays all posts from both locations, sorted by date. No manual updates needed when adding MDX posts!
 
 ### Modifying Navigation
 
@@ -282,7 +369,11 @@ npm run preview
 - Multiple logo variations exist in `public/logos/` (50+ SVG files)
 - Some duplicate/experimental pages exist (`our-process.astro` and `our-process-1.astro`)
 - Legacy HTML files in `html-files/` directory
-- Blog structure includes both listing and individual post pages
+- **Blog uses hybrid MDX + Astro architecture** (converted February 2026):
+  - 48 simple posts in `src/content/blog/` as MDX
+  - 8 comprehensive guides in `src/pages/blog/` as Astro (with FAQs/schema)
+  - Dynamic routing via `src/pages/blog/[slug].astro`
+  - Content Collections for type-safe blog posts
 
 ### Known Patterns
 - Quote of the day rotates sports-themed motivational quotes
