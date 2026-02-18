@@ -6,20 +6,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	title="Cart - Custom Sports Lockers | PlayerStall"
 	description="Your shopping cart. View and manage your selected custom wood sports lockers."
 >
-	<!-- Top breadcrumb bar (match model: white bg, large light-gray breadcrumbs) -->
-	<section class="cart-top-bar">
-		<div class="qodef-content-grid cart-top-bar-inner">
-			<nav class="cart-breadcrumbs" aria-label="Breadcrumb">
+	<!-- Hero Section (same as blog page) -->
+	<section class="cart-hero-section">
+		<div class="cart-hero-background">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Cart" class="cart-hero-bg-image" />
+		</div>
+		<div class="cart-hero-background-overlay"></div>
+		<div class="cart-hero-container">
+			<div class="cart-breadcrumbs">
 				<a href="/">Home</a>
-				<span class="cart-breadcrumbs-sep">-</span>
-				<span class="cart-breadcrumbs-current">Cart</span>
-			</nav>
+				<span>Cart</span>
+			</div>
+			<h1 class="cart-page-title-display">Cart</h1>
+			<div class="cart-background-text">cart</div>
 		</div>
 	</section>
 
 	<!-- Cart Section -->
 	<section class="cart-section" aria-labelledby="cart-heading">
-		<h1 id="cart-heading" class="cart-page-title">Cart</h1>
+		<h1 id="cart-heading" class="visually-hidden">Cart</h1>
 		<div class="cart-container qodef-content-grid">
 			<div class="woocommerce">
 				<div class="woocommerce-notices-wrapper"></div>
@@ -145,64 +150,102 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 20px;
 	}
 
-	/* Top bar: breadcrumbs only, match model (white bg, large light-gray text) */
-	.cart-top-bar {
-		background: #ffffff;
-		padding: 28px 0 24px;
-		border-bottom: 1px solid #eee;
+	/* Cart Hero Section (same as blog page: full-bleed image + overlay + title) */
+	.cart-hero-section {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
+		overflow: hidden;
+		min-height: 320px;
+		width: 100%;
+		max-width: none;
+		margin: 0;
 	}
 
-	.cart-top-bar-inner {
+	.cart-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.cart-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
+	}
+
+	.cart-hero-background-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	.cart-hero-container {
+		position: relative;
+		z-index: 10;
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
+		text-align: left;
+		width: 100%;
 	}
 
 	.cart-breadcrumbs {
-		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
-		font-weight: 500;
-		color: #969696;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: rgba(255, 255, 255, 0.85);
 		text-transform: uppercase;
-		letter-spacing: 0.2em;
-		line-height: 1.2;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
 	}
 
 	.cart-breadcrumbs a {
-		color: #969696;
+		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
-		transition: color 0.2s;
+		transition: color 0.3s;
 	}
 
 	.cart-breadcrumbs a:hover {
-		color: #1c1c1c;
+		color: #fe5900;
 	}
 
-	.cart-breadcrumbs-sep {
-		margin: 0 0.35em;
-		color: #969696;
+	.cart-breadcrumbs span {
+		margin-left: 10px;
+		color: #ffffff;
 	}
 
-	.cart-breadcrumbs-current {
-		color: #1c1c1c;
+	.cart-page-title-display {
+		font-family: 'Oswald', sans-serif;
+		font-size: 72px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
+	}
+
+	.cart-background-text {
+		display: none;
 	}
 
 	/* Cart Section - use :global so styles apply to JS-inserted cart rows */
 	.cart-section {
 		padding: 50px 0 80px;
 		background: #ffffff;
-	}
-
-	.cart-page-title {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		padding: 0;
-		margin: -1px;
-		overflow: hidden;
-		clip: rect(0, 0, 0, 0);
-		white-space: nowrap;
-		border: 0;
 	}
 
 	:global(.cart-section .cart-container) {
@@ -523,11 +566,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		justify-content: flex-end;
+		justify-content: space-between;
 		gap: 16px;
 		margin-top: 20px;
-		margin-left: auto;
-		width: fit-content;
+		margin-left: 0;
+		width: 100%;
 		max-width: 100%;
 	}
 
@@ -634,7 +677,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	:global(.cart-section .cart-collaterals) {
 		display: grid;
-		grid-template-columns: 1fr 460px;
+		grid-template-columns: 720px 1fr;
 		gap: 50px;
 		align-items: start;
 		margin-bottom: 52px;
@@ -646,8 +689,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 40px 36px 44px;
 		border: none;
 		box-sizing: border-box;
-		max-width: 380px;
-		margin-left: auto;
+		max-width: 600px;
+		margin-left: 0;
 	}
 
 	:global(.cart-section .cart_totals h2.cart-totals-title) {
@@ -828,12 +871,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		.cart-collaterals {
 			grid-template-columns: 1fr;
 		}
+
+		.cart-page-title-display {
+			font-size: 56px;
+		}
 	}
 
 	@media (max-width: 768px) {
-		.cart-breadcrumbs {
-			font-size: 16px;
-			letter-spacing: 0.15em;
+		.cart-hero-section {
+			min-height: 300px;
+		}
+
+		.cart-page-title-display {
+			font-size: 42px;
 		}
 
 		.cart-section {
@@ -877,6 +927,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		:global(.cart-section .shop_table td.product-thumbnail:before) {
 			content: none;
 			display: none;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.cart-page-title-display {
+			font-size: 32px;
 		}
 	}
 	

@@ -1,0 +1,526 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact Us - PlayerStall" description="Get in touch with PlayerStall for inquiries, quotes, and support. Canadian-owned and operated since 1996, serving North America. 30+ years experience.">
+	<!-- Hero Section (same style as other pages) -->
+	<section class="contact-hero-section" id="hero">
+		<div class="contact-hero-background">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Contact PlayerStall" class="contact-hero-bg-image" />
+		</div>
+		<div class="contact-hero-background-overlay"></div>
+		<div class="contact-hero-container">
+			<div class="contact-hero-breadcrumbs">
+				<a href="/">Home</a>
+				<span>Contact Us</span>
+			</div>
+			<h1 class="contact-hero-page-title">Contact Us</h1>
+			<div class="contact-hero-background-text">contact</div>
+		</div>
+	</section>
+
+	<section class="contact-section">
+		<div class="container">
+			<div class="contact-header">
+				<h2>Get in Touch With Us</h2>
+				<p>We're here to help with all your sports locker needs. Whether you have questions about our products, need help with an order, or want to schedule a consultation — we'd love to hear from you.</p>
+			</div>
+			<div class="contact-grid">
+				<div class="contact-info-wrapper">
+					<div class="office-info">
+						<h3>Our Office</h3>
+						<div class="contact-item">
+							<span class="contact-icon">z</span>
+							<div>
+								<p>Canadian-owned and operated since 1996</p>
+								<p>Serving North America</p>
+							</div>
+						</div>
+						<div class="contact-item">
+							<span class="contact-icon">m</span>
+							<div>
+								<p><a href="tel:+18885878255">+1 (888) 58-STALL</a></p>
+								<p><a href="tel:+18885878255">+1 (888) 58-STALL</a></p>
+							</div>
+						</div>
+						<div class="contact-item">
+							<span class="contact-icon">d</span>
+							<div>
+								<p><a href="mailto:sales@lockers.world">sales@lockers.world</a></p>
+								<p><a href="mailto:info@customsportslockers.com">info@customsportslockers.com</a></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="office-hours">
+						<h3>How We Stay Competitive</h3>
+						<div class="efficiency-note">
+							<p>As a smaller, focused business, we keep production costs down and efficiency high by managing most communications via email. This approach allows us to provide premium wood lockers at competitive prices while maintaining the quality and service you expect.</p>
+							<p><strong>We prefer email for all inquiries.</strong> It helps us serve you better and keeps our response times quick. We typically respond within 2–3 business days.</p>
+							<p>But if you still need to chat with us, we're more than happy to take your call:</p>
+							<p class="phone-center"><a href="tel:+18885878255">+1 (888) 58-STALL</a></p>
+						</div>
+					</div>
+				</div>
+
+				<div class="contact-form-wrapper" id="contact-form">
+					<h2>Send Us a Message</h2>
+					<form class="contact-form" action="#" method="POST">
+						<div class="form-row">
+							<div class="form-group">
+								<label for="first-name">First Name <span class="required">*</span></label>
+								<input type="text" id="first-name" name="firstName" required />
+							</div>
+							<div class="form-group">
+								<label for="last-name">Last Name <span class="required">*</span></label>
+								<input type="text" id="last-name" name="lastName" required />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="email">Your Email <span class="required">*</span></label>
+							<input type="email" id="email" name="email" required />
+						</div>
+
+						<div class="form-group">
+							<label for="phone">Phone (optional)</label>
+							<input type="tel" id="phone" name="phone" />
+						</div>
+
+						<div class="form-group">
+							<label for="subject">Subject</label>
+							<select id="subject" name="subject">
+								<option value="">Select a topic</option>
+								<option value="general">General Inquiry</option>
+								<option value="order">Order Status</option>
+								<option value="warranty">Warranty</option>
+								<option value="custom">Custom Design</option>
+								<option value="other">Other</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="message">Your Message <span class="required">*</span></label>
+							<textarea id="message" name="message" rows="6" required placeholder="How can we help you?"></textarea>
+						</div>
+
+						<button type="submit" class="btn btn-primary">Send Message</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="cta-banner">
+				<p>Looking for a quote on custom lockers? <a href="/contact">Request a Quote</a> with full project details.</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(body) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #f7f7f7;
+		color: #0d0d0d;
+	}
+
+	.container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Hero Section */
+	.contact-hero-section {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
+		overflow: hidden;
+		min-height: 320px;
+	}
+
+	.contact-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.contact-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
+	}
+
+	.contact-hero-background-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	.contact-hero-container {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		text-align: left;
+		width: 100%;
+	}
+
+	.contact-hero-breadcrumbs {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: rgba(255, 255, 255, 0.85);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
+	}
+
+	.contact-hero-breadcrumbs a {
+		color: rgba(255, 255, 255, 0.85);
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.contact-hero-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.contact-hero-breadcrumbs span {
+		margin-left: 10px;
+		color: #ffffff;
+	}
+
+	.contact-hero-page-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 72px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
+	}
+
+	.contact-hero-background-text {
+		display: none;
+	}
+
+	/* Contact Section */
+	.contact-section {
+		padding: 5rem 0;
+		background: #ffffff;
+	}
+
+	.contact-header {
+		text-align: center;
+		max-width: 800px;
+		margin: 0 auto 4rem;
+	}
+
+	.contact-header h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin-bottom: 1.5rem;
+	}
+
+	.contact-header p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #666666;
+		line-height: 1.8;
+	}
+
+	.contact-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: start;
+	}
+
+	.contact-info-wrapper {
+		padding-right: 2rem;
+	}
+
+	.office-info h3,
+	.office-hours h3 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin-bottom: 2rem;
+	}
+
+	.office-hours {
+		margin-top: 3rem;
+	}
+
+	.efficiency-note {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #666666;
+		line-height: 1.7;
+	}
+
+	.efficiency-note p {
+		margin-bottom: 1rem;
+	}
+
+	.efficiency-note p:last-child {
+		margin-bottom: 0;
+	}
+
+	.efficiency-note strong {
+		color: #0d0d0d;
+		font-weight: 600;
+	}
+
+	.efficiency-note a {
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 500;
+	}
+
+	.efficiency-note a:hover {
+		text-decoration: underline;
+	}
+
+	.phone-center {
+		text-align: left;
+		font-size: 18px;
+		margin-top: 1.5rem;
+	}
+
+	.phone-center a {
+		font-weight: 600;
+	}
+
+	.contact-item {
+		display: flex;
+		gap: 1.5rem;
+		margin-bottom: 2rem;
+		align-items: flex-start;
+	}
+
+	.contact-icon {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		color: #fe5900;
+		min-width: 24px;
+		text-transform: lowercase;
+	}
+
+	.contact-item p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #666666;
+		line-height: 1.6;
+		margin: 0 0 0.5rem 0;
+	}
+
+	.contact-item a {
+		color: #666666;
+		text-decoration: none;
+		transition: color 0.3s ease;
+	}
+
+	.contact-item a:hover {
+		color: #fe5900;
+	}
+
+	/* Contact Form */
+	.contact-form-wrapper {
+		background: #fff;
+		border: 1px solid #e8e8e8;
+		padding: 2.5rem;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+	}
+
+	.contact-form-wrapper h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin-top: 0;
+		margin-bottom: 2rem;
+	}
+
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.25rem;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.form-group label {
+		margin-bottom: 0.5rem;
+		color: #0d0d0d;
+		font-weight: 500;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	.required {
+		color: #fe5900;
+		font-weight: 600;
+	}
+
+	.form-group input,
+	.form-group select,
+	.form-group textarea {
+		padding: 0.75rem;
+		border: 1px solid #bfbfbf;
+		border-radius: 0;
+		font-size: 15px;
+		font-family: 'Yantramanav', sans-serif;
+		transition: border-color 0.25s ease, box-shadow 0.25s ease;
+		background: #fff;
+		color: #0d0d0d;
+		width: 100%;
+	}
+
+	.form-group textarea {
+		resize: vertical;
+	}
+
+	.form-group input:focus,
+	.form-group select:focus,
+	.form-group textarea:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 2px rgba(254, 89, 0, 0.1);
+	}
+
+	.btn {
+		padding: 0.875rem 2rem;
+		border-radius: 0;
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.3s ease;
+		display: inline-block;
+		border: none;
+		cursor: pointer;
+		font-size: 1rem;
+		font-family: 'Yantramanav', sans-serif;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #fff;
+		border: 2px solid #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(254, 89, 0, 0.3);
+	}
+
+	/* CTA Banner */
+	.cta-banner {
+		text-align: center;
+		margin-top: 4rem;
+		padding: 2rem;
+		background: #f7f7f7;
+		border: 1px solid #e8e8e8;
+	}
+
+	.cta-banner p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #666666;
+		margin: 0;
+	}
+
+	.cta-banner a {
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.cta-banner a:hover {
+		text-decoration: underline;
+	}
+
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.contact-hero-section {
+			min-height: 280px;
+		}
+		.contact-hero-page-title {
+			font-size: 56px;
+		}
+		.contact-hero-background-text {
+			font-size: 220px;
+		}
+	}
+
+	@media (max-width: 968px) {
+		.contact-grid {
+			grid-template-columns: 1fr;
+			gap: 3rem;
+		}
+
+		.contact-info-wrapper {
+			padding-right: 0;
+		}
+
+		.contact-header h2 {
+			font-size: 36px;
+		}
+
+		.form-row {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.contact-hero-section {
+			min-height: 240px;
+			padding-bottom: 50px;
+		}
+		.contact-hero-page-title {
+			font-size: 42px;
+		}
+		.contact-hero-background-text {
+			font-size: 140px;
+		}
+
+		.contact-form-wrapper {
+			padding: 1.5rem;
+		}
+	}
+</style>

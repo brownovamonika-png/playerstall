@@ -85,7 +85,7 @@
 
 **Meta Description (150-160 characters):**
 - Format: `[Benefits] + [CTA] + [Primary Keyword]`
-- Example: `Premium wood sports lockers made in Canada. 30+ years experience, lifetime guarantee. Free custom design consultation.`
+- Example: `Premium wood sports lockers Canadian-owned and operated since 1996. 30+ years experience, lifetime guarantee. Free custom design consultation.`
 - Must include primary keyword naturally
 
 **H1 Heading:**
@@ -127,7 +127,7 @@
 - "team lockers", "sports facility lockers"
 
 **Brand/Value Terms:**
-- "Made in Canada", "North American made"
+- "Canadian-owned and operated since 1996", "North American made"
 - "lifetime warranty", "lifetime guarantee"
 - "30+ years experience", "30 years of experience"
 - "free consultation", "custom design consultation"
@@ -161,7 +161,7 @@
 **LSI Keywords:**
 - "wood athletic lockers", "metal lockers", "locker material comparison"
 - "collegiate lockers", "professional lockers"
-- "Made in Canada", "lifetime guarantee"
+- "Canadian-owned and operated since 1996", "lifetime guarantee"
 
 ### Example 2: Blog Post About Choosing Lockers
 
@@ -184,7 +184,7 @@
 **LSI Keywords:**
 - "college lockers", "professional lockers", "team lockers"
 - "locker room design", "athletic facility lockers"
-- "Made in Canada", "lifetime guarantee", "free consultation"
+- "Canadian-owned and operated since 1996", "lifetime guarantee", "free consultation"
 
 ### Example 3: Location-Specific Blog Post
 
@@ -207,7 +207,7 @@
 **LSI Keywords:**
 - "collegiate lockers", "college lockers", "university lockers"
 - "locker room design", "athletic facility lockers"
-- "Made in Canada", "lifetime guarantee"
+- "Canadian-owned and operated since 1996", "lifetime guarantee"
 
 ---
 
@@ -281,7 +281,7 @@
 | Element | Requirement | Example |
 |---------|-------------|---------|
 | **Title Tag** | Primary keyword + benefit (50-60 chars) | `Wood Sports Lockers: Complete 2025 Guide` |
-| **Meta Description** | Primary keyword + benefits + CTA (150-160 chars) | `Premium wood sports lockers made in Canada. 30+ years experience, lifetime guarantee. Free consultation.` |
+| **Meta Description** | Primary keyword + benefits + CTA (150-160 chars) | `Premium wood sports lockers Canadian-owned and operated since 1996. 30+ years experience, lifetime guarantee. Free consultation.` |
 | **H1** | Primary keyword + benefit | `Wood Sports Lockers: Complete 2025 Buyer's Guide` |
 | **First Paragraph** | Primary keyword within first 100 words | `After 30+ years manufacturing custom wood sports lockers...` |
 | **Primary Keyword Density** | 1-2% of total word count | 30-60 mentions in 3,000-word post |

@@ -410,7 +410,7 @@ npm run preview
 
 **Key Competitive Advantages**:
 - 30+ years experience (unique selling point)
-- Made in Canada (differentiation)
+- Canadian-owned and operated since 1996 (differentiation)
 - Lifetime guarantee (strong value prop)
 - Custom design consultation (free service)
 - Focus on collegiate/professional teams (niche expertise)
@@ -422,7 +422,7 @@ npm run preview
 #### Meta Tags (Required)
 - [ ] **Title Tag**: 50-60 characters, includes primary keyword, brand name
   - Format: `[Primary Keyword] | [Secondary Keyword] | PlayerStall`
-  - Example: `Custom Sports Lockers | Wood Athletic Lockers Made in Canada | PlayerStall`
+  - Example: `Custom Sports Lockers | Wood Athletic Lockers | Canadian-owned and operated since 1996  | PlayerStall`
 - [ ] **Meta Description**: 150-160 characters, includes CTA, key benefits
   - Must include: "30+ years experience", "Lifetime guarantee", "Free consultation"
 - [ ] **H1 Tag**: One per page, includes primary keyword, matches user intent

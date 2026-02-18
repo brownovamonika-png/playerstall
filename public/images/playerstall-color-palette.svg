@@ -1,0 +1,61 @@
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .color-text {
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-anchor: middle;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .color-hex {
+        font-family: 'Courier New', monospace;
+        font-size: 16px;
+        font-weight: 700;
+        text-anchor: middle;
+      }
+    </style>
+  </defs>
+  
+  <!-- Primary Orange -->
+  <rect x="0" y="0" width="200" height="400" fill="#fe5900"/>
+  <text x="100" y="185" class="color-text" fill="#ffffff">PRIMARY ORANGE</text>
+  <text x="100" y="220" class="color-hex" fill="#ffffff">#FE5900</text>
+  
+  <!-- Black -->
+  <rect x="200" y="0" width="200" height="400" fill="#000000"/>
+  <text x="300" y="185" class="color-text" fill="#ffffff">BLACK</text>
+  <text x="300" y="220" class="color-hex" fill="#ffffff">#000000</text>
+  
+  <!-- Dark Gray -->
+  <rect x="400" y="0" width="200" height="400" fill="#1a1a1a"/>
+  <text x="500" y="185" class="color-text" fill="#ffffff">DARK GRAY</text>
+  <text x="500" y="220" class="color-hex" fill="#ffffff">#1A1A1A</text>
+  
+  <!-- Text Dark -->
+  <rect x="600" y="0" width="200" height="400" fill="#0d0d0d"/>
+  <text x="700" y="185" class="color-text" fill="#ffffff">TEXT DARK</text>
+  <text x="700" y="220" class="color-hex" fill="#ffffff">#0D0D0D</text>
+  
+  <!-- White -->
+  <rect x="0" y="400" width="200" height="400" fill="#ffffff"/>
+  <rect x="0" y="400" width="200" height="400" fill="none" stroke="#e0e0e0" stroke-width="2"/>
+  <text x="100" y="585" class="color-text" fill="#0d0d0d">WHITE</text>
+  <text x="100" y="620" class="color-hex" fill="#0d0d0d">#FFFFFF</text>
+  
+  <!-- Gray Light -->
+  <rect x="200" y="400" width="200" height="400" fill="#cccccc"/>
+  <text x="300" y="585" class="color-text" fill="#0d0d0d">GRAY LIGHT</text>
+  <text x="300" y="620" class="color-hex" fill="#0d0d0d">#CCCCCC</text>
+  
+  <!-- Gray Medium -->
+  <rect x="400" y="400" width="200" height="400" fill="#b6b6b6"/>
+  <text x="500" y="585" class="color-text" fill="#0d0d0d">GRAY MEDIUM</text>
+  <text x="500" y="620" class="color-hex" fill="#0d0d0d">#B6B6B6</text>
+  
+  <!-- Gray Dark -->
+  <rect x="600" y="400" width="200" height="400" fill="#8c8c8c"/>
+  <text x="700" y="585" class="color-text" fill="#ffffff">GRAY DARK</text>
+  <text x="700" y="620" class="color-hex" fill="#ffffff">#8C8C8C</text>
+</svg>

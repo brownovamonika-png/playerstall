@@ -1,0 +1,1 @@
+import"./hoisted.B74hoRpg.js";typeof window<"u"&&document.addEventListener("DOMContentLoaded",()=>{const e=document.getElementById("requirements"),t=document.getElementById("requirements-count");if(!e||!t)return;function n(){const o=e.getAttribute("maxlength")||1e3,r=Number(o)-e.value.length;t.textContent=r+" characters left"}e.addEventListener("input",n),n()});

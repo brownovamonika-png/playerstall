@@ -375,7 +375,7 @@ In the meantime, here's what you can expect:
 • Free design consultation
 • Detailed quote with 30+ years of expertise
 • Lifetime guarantee on all wood lockers
-• Made in Canada quality
+• Canadian-owned and operated since 1996 quality
 
 If you have any urgent questions, please call us at [Phone Number].
 
@@ -423,7 +423,7 @@ Best regards,
 Custom Locker Specialist
 PlayerStall
 [Phone] | [Email]
-30+ Years Experience | Lifetime Guarantee | Made in Canada
+30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996
 ```
 
 ### 2. Response Time Goals
@@ -487,7 +487,7 @@ PlayerStall
 **In Every Response:**
 - 30+ years of experience
 - Lifetime guarantee
-- Made in Canada quality
+- Canadian-owned and operated since 1996 quality
 - Free design consultation
 - Custom solutions for collegiate/professional teams
 
@@ -515,7 +515,7 @@ Our team is reviewing your information and you can expect a detailed response fr
 What Makes PlayerStall Different:
 ✓ 30+ years of experience in custom wood sports lockers
 ✓ Lifetime guarantee on all products
-✓ Made in Canada quality craftsmanship
+✓ Canadian-owned and operated since 1996 quality craftsmanship
 ✓ Free design consultation included
 ✓ Serving collegiate and professional teams nationwide
 
@@ -588,7 +588,7 @@ Here's what's included in your quote:
 
 Why Choose PlayerStall:
 ✓ 30+ years of experience serving collegiate and professional teams
-✓ Made in Canada with premium materials
+✓ Canadian-owned and operated since 1996 with premium materials
 ✓ Lifetime guarantee (industry-leading)
 ✓ Free design consultation to optimize your space
 ✓ Custom solutions tailored to your team's needs

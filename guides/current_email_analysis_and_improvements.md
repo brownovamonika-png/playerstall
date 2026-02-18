@@ -37,7 +37,7 @@
 
 3. **Value Proposition:**
    - Doesn't emphasize "30+ years experience" (key differentiator)
-   - "Made in Canada" not mentioned (differentiator)
+   - "Canadian-owned and operated since 1996" not mentioned (differentiator)
    - "Free design consultation" not emphasized (competitive advantage)
 
 4. **Professional Polish:**
@@ -74,7 +74,7 @@ QUOTE SUMMARY
 
 WHY PLAYERSTALL?
 With 30+ years of experience serving collegiate and professional teams, we understand what makes a great locker room. Our lockers are:
-✓ Made in Canada with premium materials
+✓ Canadian-owned and operated since 1996 with premium materials
 ✓ Built to last a lifetime (with our lifetime guarantee)
 ✓ Fully modular - any piece can be replaced quickly
 ✓ Custom-sized to fit your space perfectly
@@ -109,7 +109,7 @@ PlayerStall
 playerstallsports@gmail.com
 CustomSportsLockers.com
 
-30+ Years Experience | Lifetime Guarantee | Made in Canada | Free Design Consultation
+30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation
 ```
 
 ### Option 2: More Consultative Version
@@ -131,7 +131,7 @@ I've attached a detailed quote for 50 Stadium Lockers below, but before we dive 
 OUR APPROACH
 At PlayerStall, we've been crafting custom wood sports lockers for over 30 years, serving collegiate and professional teams across North America. What sets us apart:
 
-✓ Made in Canada Quality: Premium materials and craftsmanship
+✓ Canadian-owned and operated since 1996 Quality: Premium materials and craftsmanship
 ✓ Lifetime Guarantee: Built to last, backed by our guarantee
 ✓ Free Design Consultation: We'll help optimize your locker room layout
 ✓ Modular Design: Easy replacement of any piece if needed
@@ -173,7 +173,7 @@ PlayerStall
 playerstallsports@gmail.com
 CustomSportsLockers.com
 
-30+ Years Experience | Lifetime Guarantee | Made in Canada | Free Design Consultation
+30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation
 ```
 
 ---
@@ -187,7 +187,7 @@ CustomSportsLockers.com
 
 ### 2. Value Proposition Emphasis
 - **Added:** "30+ years experience" (key differentiator)
-- **Added:** "Made in Canada" (quality differentiator)
+- **Added:** "Canadian-owned and operated since 1996" (quality differentiator)
 - **Added:** "Free Design Consultation" (competitive advantage)
 - **Benefit:** Highlights what makes PlayerStall unique
 
@@ -220,7 +220,7 @@ CustomSportsLockers.com
 | **Opening** | "Thanks for your inquiry" | Personalized project acknowledgment | More personal, shows attention |
 | **Value Props** | Mentioned but not emphasized | Front and center with checkmarks | Better differentiation |
 | **30+ Years** | Not mentioned | Emphasized in signature | Key differentiator |
-| **Made in Canada** | Not mentioned | In signature | Quality differentiator |
+| **Canadian-owned and operated since 1996** | Not mentioned | In signature | Quality differentiator |
 | **Free Consultation** | Not mentioned | Emphasized | Competitive advantage |
 | **Structure** | Pricing-focused | Consultative flow | More professional |
 | **Call-to-Action** | Implied | Clear numbered steps | Better conversion |
@@ -246,7 +246,7 @@ PlayerStall
 playerstallsports@gmail.com
 CustomSportsLockers.com
 
-30+ Years Experience | Lifetime Guarantee | Made in Canada | Free Design Consultation
+30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation
 ```
 
 ### 2. Add Opening Line
@@ -263,7 +263,7 @@ Add before pricing:
 ```
 WHY PLAYERSTALL?
 With 30+ years of experience serving collegiate and professional teams, our lockers are:
-✓ Made in Canada with premium materials
+✓ Canadian-owned and operated since 1996 with premium materials
 ✓ Built to last a lifetime (lifetime guarantee)
 ✓ Fully modular - any piece can be replaced quickly
 ```
@@ -341,7 +341,7 @@ Test these variations:
 ### High Priority (Do Immediately)
 1. ✅ Add professional signature with differentiators
 2. ✅ Add "30+ years experience" mention
-3. ✅ Add "Made in Canada" mention
+3. ✅ Add "Canadian-owned and operated since 1996" mention
 4. ✅ Improve subject line
 
 ### Medium Priority (This Week)
@@ -419,7 +419,7 @@ Monika
 ### Immediate Actions
 1. **Add professional signature** with key differentiators
 2. **Emphasize "30+ years experience"** in every email
-3. **Add "Made in Canada"** to reinforce quality
+3. **Add "Canadian-owned and operated since 1996"** to reinforce quality
 4. **Improve subject line** to be more specific
 
 ### Your Email is Already Strong Because:
@@ -429,7 +429,7 @@ Monika
 - ✅ Helpful and responsive
 
 ### What Makes It Even Better:
-- Add key differentiators (30+ years, Made in Canada)
+- Add key differentiators (30+ years, Canadian-owned and operated since 1996)
 - More consultative language
 - Professional signature block
 - Clear next steps and timeline

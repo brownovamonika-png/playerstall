@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
-import MaterialOptions from '../components/MaterialOptions.astro';
+
 
 const lockerAccessoriesItems = [
 	{ href: '/accessories#stick-rack', image: '/stick-rack.png', alt: 'Stick Rack', category: 'LOCKER ADD-ONS', title: 'Stick Rack', price: 'Starting at $299' },
@@ -13,10 +13,13 @@ const lockerAccessoriesItems = [
 
 <BaseLayout
 	title="Semi Pro Wood Locker - 24-Inch Wide, 76 Inches High, 19 Inches Deep | PlayerStall"
-	description="Semi Pro wood locker: 3/4&quot; solid wood, 76&quot; H x 19&quot; D, widths 18&quot;–30&quot;. $349 base. Black, Light Grey, Dark Grey, Maple. 3–4 weeks. 5 year warranty."
+	description="Semi Pro wood locker: 3/4&quot; solid wood, 76&quot; H x 19&quot; D, widths 18&quot;–30&quot;. $349 base. Full color options. Quick ship in one month (24&quot; or 30&quot;) or custom-built in three months. 50% deposit to begin. 5 year warranty."
 >
 	<!-- Hero Section -->
 	<section class="product-hero-section">
+		<div class="product-hero-background">
+			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Semi Pro Locker" class="product-hero-bg-image" />
+		</div>
 		<div class="product-hero-background-overlay"></div>
 		<div class="product-hero-container">
 			<div class="product-breadcrumbs">
@@ -26,7 +29,7 @@ const lockerAccessoriesItems = [
 				<span class="breadcrumbs-sep">/</span>
 				<span class="breadcrumbs-current">Semi Pro Locker</span>
 			</div>
-			<div class="product-background-text">locker</div>
+			<h1 class="product-page-title">Semi Pro</h1>
 		</div>
 	</section>
 
@@ -38,7 +41,7 @@ const lockerAccessoriesItems = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="/images/Athletic-Locker-Semipro.jpg"
+							src="/images/semi-pro-locker-new.png"
 							alt="Semi Pro wood athletic locker for locker rooms"
 							class="product-main-image"
 						/>
@@ -46,7 +49,7 @@ const lockerAccessoriesItems = [
 					</div>
 					<div class="product-gallery-thumbs">
 						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="/images/Athletic-Locker-Semipro.jpg" alt="Semi Pro locker view 1" />
+							<img src="/images/semi-pro-locker-new.png" alt="Semi Pro locker view 1" />
 						</button>
 						<button type="button" class="thumb" aria-label="View image 2">
 							<img src="/images/wood-locer-room-front-2.png" alt="Locker view 2" />
@@ -61,15 +64,22 @@ const lockerAccessoriesItems = [
 				<div class="product-detail">
 					<h1 class="product-title">Semi Pro Locker – 24&quot; Wide, 76 Inches High, 19 Inches Deep</h1>
 
-					<p class="product-model" data-model-prefix="SP">Model # SP-24-MP</p>
+					<p class="product-model" data-model-prefix="SP">Model # SP-24-FM</p>
 
-					<p class="product-lead-time">Lead time: usually ships within 3-4 weeks</p>
+					<p class="product-lead-time">Lead time: quick ship in one month (24" or 30" widths, one signature color) · Custom-built in three months</p>
 
 					<div class="product-price-block">
 						<span class="product-price" data-base-price="349">$349.00</span>
 					</div>
 
 					<div class="product-options">
+						<div class="product-option">
+							<label class="option-label">Deep:</label>
+							<span class="option-value">19&quot; (standard)</span>
+							<div class="option-swatches">
+								<button type="button" class="swatch deep-swatch active" title="19 inch deep" aria-pressed="true">19&quot;</button>
+							</div>
+						</div>
 						<div class="product-option">
 							<label class="option-label">Width:</label>
 							<span class="option-value">24&quot; (standard)</span>
@@ -85,26 +95,12 @@ const lockerAccessoriesItems = [
 						</div>
 						<div class="product-option">
 							<label class="option-label">Color:</label>
-							<span class="option-value">Maple</span>
-							<div class="option-swatches">
-								<button type="button" class="swatch" data-color-code="BL" title="Black">Black</button>
-								<button type="button" class="swatch" data-color-code="LG" title="Light Grey">Light Grey</button>
-								<button type="button" class="swatch" data-color-code="DG" title="Dark Grey">Dark Grey</button>
-								<button type="button" class="swatch" data-color-code="LH" title="Red">Red</button>
-								<button type="button" class="swatch" data-color-code="LLB" title="Blue">Blue</button>
-								<button type="button" class="swatch active" data-color-code="MP" title="Maple" aria-pressed="true">Maple</button>
-							</div>
-							<p class="option-note">Custom colors are available upon request (custom orders, 8–12 weeks).</p>
-							<MaterialOptions />
+							<span class="option-value">Fusion Maple</span>
 						</div>
 						<div class="product-option">
 							<label class="option-label">Accessories:</label>
 							<span class="option-value">Select add-ons to update price</span>
 							<div class="accessories-grid">
-								<button type="button" class="accessory-box" data-price="40" title="Vented front">
-									<span class="accessory-square"></span>
-									<span class="accessory-label">Vented front (+$40)</span>
-								</button>
 								<button type="button" class="accessory-box" data-price="80" title="Lock box">
 									<span class="accessory-square"></span>
 									<span class="accessory-label">Lock box (+$80)</span>
@@ -112,10 +108,6 @@ const lockerAccessoriesItems = [
 								<button type="button" class="accessory-box" data-price="75" title="Bottom cushion">
 									<span class="accessory-square"></span>
 									<span class="accessory-label">Bottom cushion (+$75)</span>
-								</button>
-								<button type="button" class="accessory-box" data-price="150" title="Top &amp; bottom cushions">
-									<span class="accessory-square"></span>
-									<span class="accessory-label">Top &amp; bottom cushions (+$150)</span>
 								</button>
 								<button type="button" class="accessory-box" data-price="10" title="Name plate">
 									<span class="accessory-square"></span>
@@ -125,10 +117,10 @@ const lockerAccessoriesItems = [
 									<span class="accessory-square"></span>
 									<span class="accessory-label">Skate hooks (+$25)</span>
 								</button>
-								<button type="button" class="accessory-box" data-price="75" title="Custom logo — custom orders only, not quick ship">
-									<span class="accessory-square"></span>
-									<span class="accessory-label">Custom logo (+$75) · custom orders only, not quick ship</span>
-								</button>
+							<button type="button" class="accessory-box" data-price="75" title="Custom logo — custom orders only">
+								<span class="accessory-square"></span>
+								<span class="accessory-label">Custom logo (+$75) · custom orders only</span>
+							</button>
 								<button type="button" class="accessory-box" data-price="12" title="4 hooks">
 									<span class="accessory-square"></span>
 									<span class="accessory-label">4 hooks (+$12)</span>
@@ -138,7 +130,7 @@ const lockerAccessoriesItems = [
 						<div class="product-specs-inline">
 							<p><strong>Standard size shown:</strong> 24&quot; W x 76&quot; H x 19&quot; D</p>
 							<p><strong>Base:</strong> optional 4&quot; high base can be added</p>
-							<p><strong>Weight:</strong> approx. 175 lbs</p>
+							<p><strong>Weight:</strong> approx. 66 lbs</p>
 						</div>
 					</div>
 
@@ -174,32 +166,24 @@ const lockerAccessoriesItems = [
 
 				<h3 class="product-info-subheading">Features</h3>
 				<ul class="product-features-list">
-					<li>3/4&quot; solid wood construction with professional, durable finish</li>
+					<li>Made from 3/4&quot; cabinetry grade maple plywood</li>
 					<li>Moisture-resistant and engineered for athletic locker rooms</li>
 					<li>Modular design for easy repair or replacement of components</li>
 					<li>14&quot; high foot locker provides comfortable seating and secure equipment storage</li>
 					<li>Available in 18&quot; to 30&quot; widths; standard configuration 24&quot; W x 76&quot; H x 19&quot; D with optional 4&quot; base</li>
-					<li>Finishes: black, light grey, dark grey, or maple to match your room design; custom colors are available upon request (custom orders, 8–12 weeks)</li>
 					<li>5 year warranty</li>
 				</ul>
 
 				<h3 class="product-info-subheading">Options</h3>
 				<ul class="product-options-list">
-					<li>Choice of finishes: black, light grey, dark grey, or maple</li>
-					<li>Vented front panel for increased airflow</li>
+					<li>Available in Fusion Maple finish</li>
 					<li>Secure lock box integrated into the upper compartment</li>
-					<li>Bottom cushion or both cushions for added seating comfort</li>
+					<li>Bottom cushion for added seating comfort</li>
 					<li>Skate hooks for hockey or figure skating storage</li>
-					<li>Custom logo option for teams or programs (custom orders only; not available for quick ship)</li>
+					<li>Custom logo option for teams or programs (custom orders only)</li>
 					<li>Name plate and additional gear hooks</li>
 				</ul>
 
-				<h3 class="product-info-subheading">Downloads</h3>
-				<ul class="product-downloads-list">
-					<li><a href="/contact">Request spec sheet &amp; quote</a></li>
-					<li><a href="/contact">Installation support</a></li>
-					<li><a href="/shop">View all lockers</a></li>
-				</ul>
 			</div>
 
 			<LockerAccessories title="LOCKER ACCESSORIES" items={lockerAccessoriesItems} />
@@ -222,34 +206,63 @@ const lockerAccessoriesItems = [
 
 	.product-hero-section {
 		position: relative;
-		background: #f7f7f7;
-		padding: 80px 0 50px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
 		overflow: hidden;
+		min-height: 320px;
+	}
+
+	.product-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.product-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
 	}
 
 	.product-hero-background-overlay {
 		position: absolute;
-		inset: 0;
-		background: linear-gradient(135deg, rgba(13, 13, 13, 0.04) 0%, transparent 100%);
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
 	}
 
 	.product-hero-container {
 		position: relative;
-		z-index: 2;
+		z-index: 10;
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
+		text-align: left;
+		width: 100%;
 	}
 
 	.product-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
 		margin-bottom: 20px;
 	}
 
 	.product-breadcrumbs a {
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
 		transition: color 0.3s;
 	}
@@ -260,11 +273,23 @@ const lockerAccessoriesItems = [
 
 	.breadcrumbs-sep {
 		margin: 0 8px;
-		color: #b6b6b6;
+		color: rgba(255, 255, 255, 0.6);
 	}
 
 	.breadcrumbs-current {
-		color: #0d0d0d;
+		color: #ffffff;
+	}
+
+	.product-page-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 72px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0 0 0 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
 	}
 
 	.product-background-text {
@@ -272,7 +297,7 @@ const lockerAccessoriesItems = [
 		font-family: 'Oswald', sans-serif;
 		font-size: 200px;
 		font-weight: 700;
-		color: rgba(13, 13, 13, 0.04);
+		color: rgba(255, 255, 255, 0.06);
 		text-transform: uppercase;
 		letter-spacing: -2px;
 		bottom: -30px;
@@ -407,12 +432,12 @@ const lockerAccessoriesItems = [
 
 	.option-label {
 		display: block;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		font-weight: 500;
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		letter-spacing: 0.1em;
 		margin-bottom: 8px;
 	}
 
@@ -430,6 +455,47 @@ const lockerAccessoriesItems = [
 		color: #8c8c8c;
 		margin: 6px 0 0;
 		font-style: italic;
+	}
+
+	.color-dropdown {
+		width: auto;
+		max-width: 100%;
+		padding: 8px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+		background: #f0f0f0;
+		border: 2px solid transparent;
+		cursor: pointer;
+		transition: border-color 0.2s, background 0.2s;
+		margin-bottom: 8px;
+	}
+
+	.color-dropdown:hover {
+		background: #e8e8e8;
+		border-color: #ccc;
+	}
+
+	.color-dropdown:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 1px #fe5900;
+	}
+
+	.color-pdf-link {
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 500;
+		font-style: normal;
+		text-transform: none;
+		transition: color 0.2s;
+	}
+
+	.color-pdf-link:hover {
+		color: #e04d00;
+		text-decoration: underline;
 	}
 
 	.accessories-grid {
@@ -508,22 +574,6 @@ const lockerAccessoriesItems = [
 		border-color: #fe5900;
 		box-shadow: 0 0 0 1px #fe5900;
 	}
-	/* Color swatches: show as text only; show color only on hover */
-	.swatch[data-color-code] {
-		background: transparent;
-		color: #0d0d0d;
-		border-color: #ccc;
-	}
-	.swatch[data-color-code]:hover,
-	.swatch[data-color-code].active {
-		border-color: transparent;
-	}
-	.swatch[data-color-code="BL"]:hover { background: #2a2a2a; color: #fff; }
-	.swatch[data-color-code="LG"]:hover { background: #8a8b8e; color: #fff; }
-	.swatch[data-color-code="DG"]:hover { background: #3a3d42; color: #fff; }
-	.swatch[data-color-code="LH"]:hover { background: #8b0c16; color: #fff; }
-	.swatch[data-color-code="LLB"]:hover { background: #183a62; color: #fff; }
-	.swatch[data-color-code="MP"]:hover { background: #c8b898; color: #0d0d0d; }
 
 	.product-specs-inline {
 		font-family: 'Yantramanav', sans-serif;
@@ -712,6 +762,10 @@ const lockerAccessoriesItems = [
 	}
 
 	@media (max-width: 1024px) {
+		.product-page-title {
+			font-size: 56px;
+		}
+
 		.product-layout {
 			grid-template-columns: 1fr;
 			gap: 40px;
@@ -723,6 +777,10 @@ const lockerAccessoriesItems = [
 	}
 
 	@media (max-width: 768px) {
+		.product-page-title {
+			font-size: 42px;
+		}
+
 		.product-title {
 			font-size: 22px;
 		}
@@ -746,6 +804,10 @@ const lockerAccessoriesItems = [
 	}
 
 	@media (max-width: 480px) {
+		.product-page-title {
+			font-size: 32px;
+		}
+
 		.product-title {
 			font-size: 18px;
 		}
@@ -805,8 +867,27 @@ const lockerAccessoriesItems = [
 			priceEl.textContent = formatPrice(basePrice + extras);
 		};
 
-		const widthOption = document.querySelector('.product-option');
+		const productOptions = document.querySelectorAll('.product-option');
+		const deepOption = Array.from(productOptions).find(opt => opt.querySelector('.deep-swatch'));
+		const deepValueEl = deepOption ? deepOption.querySelector('.option-value') : null;
+		
+		const widthOption = Array.from(productOptions).find(opt => opt.querySelector('.width-swatch'));
 		const widthValueEl = widthOption ? widthOption.querySelector('.option-value') : null;
+
+		document.querySelectorAll('.deep-swatch').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				document.querySelectorAll('.deep-swatch').forEach((b) => {
+					b.classList.remove('active');
+					b.setAttribute('aria-pressed', 'false');
+				});
+				btn.classList.add('active');
+				btn.setAttribute('aria-pressed', 'true');
+				if (deepValueEl) {
+					const label = (btn.textContent || '').trim();
+					deepValueEl.textContent = label === '19"' ? '19" (standard)' : label;
+				}
+			});
+		});
 
 		document.querySelectorAll('.width-swatch').forEach((btn) => {
 			btn.addEventListener('click', () => {
@@ -824,27 +905,6 @@ const lockerAccessoriesItems = [
 			});
 		});
 
-		const modelEl = document.querySelector('.product-model[data-model-prefix]');
-		const getModelPrefix = () => modelEl ? (modelEl.getAttribute('data-model-prefix') || '') : '';
-
-		document.querySelectorAll('.product-option .swatch:not(.width-swatch)').forEach((btn) => {
-			btn.addEventListener('click', () => {
-				const option = btn.closest('.product-option');
-				if (!option) return;
-				option.querySelectorAll('.swatch:not(.width-swatch)').forEach((b) => {
-					b.classList.remove('active');
-					b.setAttribute('aria-pressed', 'false');
-				});
-				btn.classList.add('active');
-				btn.setAttribute('aria-pressed', 'true');
-				const valueEl = option.querySelector('.option-value');
-				if (valueEl) valueEl.textContent = btn.getAttribute('title') || btn.textContent || '';
-				const code = btn.getAttribute('data-color-code') || '';
-				if (modelEl && code) {
-					modelEl.textContent = 'Model # ' + getModelPrefix() + '-24-' + code;
-				}
-			});
-		});
 
 		computeBaseFromWidth();
 		updatePrice();

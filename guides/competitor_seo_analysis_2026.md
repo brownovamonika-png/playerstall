@@ -14,7 +14,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 - **SEO Failures:** Weak meta descriptions, missing schema markup, thin content
 - **Content Gaps:** Limited blog content, missing comparison pages, weak local SEO
 - **Technical Issues:** Missing Open Graph tags, no structured data, poor mobile optimization
-- **Competitive Advantages:** PlayerStall's "Made in Canada" + "30+ years" + "Lifetime guarantee" messaging is unique
+- **Competitive Advantages:** PlayerStall's "Canadian-owned and operated since 1996" + "30+ years" + "Lifetime guarantee" messaging is unique
 
 **Estimated Opportunity:** 40-50% increase in organic traffic within 6-12 months by addressing these gaps.
 
@@ -33,13 +33,13 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 - Current: "Wood Sports Lockers by All Wood Lockers"
 - **Score:** 6/10
 - **Issues:** Generic, missing location, no unique value proposition
-- **Your Opportunity:** "Custom Wood Sports Lockers | Made in Canada | 30+ Years Experience | PlayerStall"
+- **Your Opportunity:** "Custom Wood Sports Lockers | Canadian-owned and operated since 1996 | 30+ Years Experience | PlayerStall"
 
 **Meta Description:**
 - Current: "Wood Sports Lockers by All Wood Lockers" (identical to title - BAD)
 - **Score:** 2/10
 - **Issues:** No CTA, no benefits, no differentiation
-- **Your Opportunity:** "Premium wood sports lockers made in Canada. 30+ years experience, lifetime guarantee. Free custom design consultation for collegiate & professional teams. Get quote today!"
+- **Your Opportunity:** "Premium wood sports lockers Canadian-owned and operated since 1996. 30+ years experience, lifetime guarantee. Free custom design consultation for collegiate & professional teams. Get quote today!"
 
 **Content Quality:**
 - **Word Count:** ~800 words (THIN)
@@ -64,7 +64,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 - ❌ No sport-specific pages
 
 **Competitive Advantages (Your Opportunities):**
-1. **Made in Canada** vs their "Made in USA" - unique positioning
+1. **Canadian-owned and operated since 1996** vs their "Made in USA" - unique positioning
 2. **30+ years experience** - they don't emphasize experience
 3. **Lifetime guarantee** - they don't mention warranty prominently
 4. **Free custom design consultation** - they have CAD but not consultation emphasis
@@ -72,7 +72,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 
 **Action Items:**
 - [ ] Create comprehensive "Wood Sports Lockers Guide" (2,500+ words)
-- [ ] Add LocalBusiness schema with "Made in Canada" emphasis
+- [ ] Add LocalBusiness schema with "Canadian-owned and operated since 1996" emphasis
 - [ ] Create comparison page: "Wood vs Metal Sports Lockers"
 - [ ] Add sport-specific pages (football, hockey, basketball)
 - [ ] Create FAQ schema with common questions
@@ -115,7 +115,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 
 **Competitive Advantages:**
 1. **Lifetime guarantee** vs their 25-year warranty
-2. **Made in Canada** vs their California location
+2. **Canadian-owned and operated since 1996** vs their California location
 3. **30+ years experience** - they don't emphasize this
 4. **Content marketing** - they have none, you can dominate
 
@@ -160,7 +160,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 **Competitive Advantages:**
 1. **Wood vs Laminate** - you can create comparison content
 2. **Lifetime guarantee** vs 5-year warranty
-3. **Made in Canada** - unique positioning
+3. **Canadian-owned and operated since 1996** - unique positioning
 4. **Content depth** - you can out-depth them
 
 **Action Items:**
@@ -192,7 +192,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 - ❌ No comparison content
 
 **Competitive Advantages:**
-1. **Made in Canada** vs their Ohio location
+1. **Canadian-owned and operated since 1996** vs their Ohio location
 2. **30+ years experience** - they don't emphasize this
 3. **Wood specialization** - they focus on laminate
 4. **Content marketing** - opportunity to outpace
@@ -245,7 +245,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 **Competitive Advantages:**
 1. **Solid wood vs Particleboard** - major quality differentiator
 2. **Sports specialization** - they're general lockers
-3. **Made in Canada** - unique positioning
+3. **Canadian-owned and operated since 1996** - unique positioning
 4. **30+ years experience** - they don't emphasize
 5. **Content depth** - you can create sport-specific comprehensive guides
 
@@ -298,7 +298,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 **Competitive Advantages:**
 1. **Sports specialization** - they're general premium lockers
 2. **Wood focus** - they offer multiple materials (less specialized)
-3. **Made in Canada** - unique positioning
+3. **Canadian-owned and operated since 1996** - unique positioning
 4. **Lifetime guarantee** - they don't emphasize warranty
 5. **Content marketing** - opportunity to outpace
 
@@ -348,14 +348,14 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 - ❌ Not sports-specific
 
 **Competitive Advantages:**
-1. **Made in Canada** - unique vs "Made in USA"
+1. **Canadian-owned and operated since 1996** - unique vs "Made in USA"
 2. **Sports specialization** - they're general custom lockers
 3. **30+ years experience** - they don't emphasize
 4. **Lifetime guarantee** - they don't emphasize
 5. **Content marketing** - opportunity
 
 **Action Items:**
-- [ ] Create "Made in Canada vs Made in USA" content (if appropriate)
+- [ ] Create "Canadian-owned and operated since 1996 vs Made in USA" content (if appropriate)
 - [ ] Create sport-specific custom design content
 - [ ] Add Open Graph tags
 - [ ] Create comprehensive custom design guides
@@ -367,7 +367,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 ### 1. Meta Descriptions
 - **Issue:** Generic, weak, or missing
 - **Your Opportunity:** Create compelling, benefit-driven meta descriptions with CTAs
-- **Example:** "Premium wood sports lockers made in Canada. 30+ years experience, lifetime guarantee. Free custom design consultation. Get quote today!"
+- **Example:** "Premium wood sports lockers Canadian-owned and operated since 1996. 30+ years experience, lifetime guarantee. Free custom design consultation. Get quote today!"
 
 ### 2. Schema Markup
 - **Issue:** Missing LocalBusiness, Product, FAQPage schema
@@ -509,7 +509,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
     "@type": "Country",
     "name": "United States"
   },
-  "description": "Custom wood sports lockers made in Canada. 30+ years experience. Lifetime guarantee."
+  "description": "Custom wood sports lockers Canadian-owned and operated since 1996. 30+ years experience. Lifetime guarantee."
 }
 ```
 
@@ -528,8 +528,8 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 ### Open Graph Tags (Missing on Most Competitors)
 
 ```html
-<meta property="og:title" content="Custom Wood Sports Lockers | Made in Canada | PlayerStall">
-<meta property="og:description" content="Premium wood sports lockers made in Canada. 30+ years experience, lifetime guarantee. Free custom design consultation.">
+<meta property="og:title" content="Custom Wood Sports Lockers | Canadian-owned and operated since 1996 | PlayerStall">
+<meta property="og:description" content="Premium wood sports lockers Canadian-owned and operated since 1996. 30+ years experience, lifetime guarantee. Free custom design consultation.">
 <meta property="og:image" content="https://playerstall.com/images/og-image.jpg">
 <meta property="og:url" content="https://playerstall.com">
 <meta property="og:type" content="website">
@@ -540,7 +540,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 ```html
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Custom Wood Sports Lockers | PlayerStall">
-<meta name="twitter:description" content="Premium wood sports lockers made in Canada. 30+ years experience, lifetime guarantee.">
+<meta name="twitter:description" content="Premium wood sports lockers Canadian-owned and operated since 1996. 30+ years experience, lifetime guarantee.">
 <meta name="twitter:image" content="https://playerstall.com/images/twitter-card.jpg">
 ```
 
@@ -548,7 +548,7 @@ After analyzing 15 major competitors in the sports locker industry, we've identi
 
 ## Competitive Advantages to Emphasize
 
-### 1. Made in Canada
+### 1. Canadian-owned and operated since 1996
 - **Competitor Status:** Most competitors are "Made in USA"
 - **Your Advantage:** Unique positioning, quality messaging
 - **Action:** Emphasize in all content, meta descriptions, schema
@@ -682,7 +682,7 @@ The competitive analysis reveals **significant opportunities** for PlayerStall t
 
 1. **Superior SEO:** Better meta tags, schema markup, Open Graph tags
 2. **Content Depth:** Comprehensive guides, comparison content, blog posts
-3. **Unique Positioning:** Made in Canada, 30+ years, lifetime guarantee
+3. **Unique Positioning:** Canadian-owned and operated since 1996, 30+ years, lifetime guarantee
 4. **Technical Excellence:** Schema markup, structured data, mobile optimization
 
 **Key Takeaway:** Most competitors have weak SEO and thin content. PlayerStall can dominate by creating comprehensive, well-optimized content that addresses user intent and showcases unique advantages.

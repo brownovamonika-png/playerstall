@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayerStall Phenolic Lockers Catalog</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Yantramanav:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Yantramanav', sans-serif;
+            color: #0d0d0d;
+            line-height: 1.6;
+            background: #f5f5f5;
+        }
+        
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.5in;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+        
+        .page:last-child {
+            page-break-after: auto;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        h1 {
+            font-size: 42px;
+            color: #fe5900;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 32px;
+            color: #000000;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #fe5900;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 24px;
+            color: #fe5900;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        h4 {
+            font-size: 18px;
+            color: #000000;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 4px solid #000000;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 16px;
+            color: #fe5900;
+            font-weight: 500;
+        }
+        
+        .intro {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .intro h2 {
+            color: #fe5900;
+            border-bottom: 3px solid #fe5900;
+        }
+        
+        .intro p {
+            color: #ffffff;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-box {
+            background: #f9f9f9;
+            border-left: 4px solid #fe5900;
+            padding: 20px;
+            border-radius: 4px;
+        }
+        
+        .feature-box h4 {
+            color: #fe5900;
+            margin-top: 0;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .color-swatch {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .color-box {
+            width: 100%;
+            height: 80px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            border: 2px solid #ddd;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: #000000;
+        }
+        
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        
+        .specs-table th {
+            background: #000000;
+            color: #ffffff;
+            padding: 12px;
+            text-align: left;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .specs-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .specs-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .highlight-box {
+            background: #fe5900;
+            color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .highlight-box h3 {
+            color: #ffffff;
+            margin-top: 0;
+        }
+        
+        .highlight-box p {
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 3px solid #000000;
+            text-align: center;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-box {
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .contact-box strong {
+            display: block;
+            color: #fe5900;
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .guarantee-badge {
+            background: #1a1a1a;
+            color: #fe5900;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 700;
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                padding: 0.5in;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Cover -->
+    <div class="page">
+        <div class="header">
+            <div class="logo">PLAYERSTALL</div>
+            <div class="tagline">Premium Sports Locker Solutions</div>
+        </div>
+        
+        <div style="text-align: center; margin: 100px 0;">
+            <h1 style="font-size: 56px; margin-bottom: 30px;">PHENOLIC LOCKERS</h1>
+            <p style="font-size: 20px; color: #666; margin-bottom: 40px;">Superior Durability for High-Performance Environments</p>
+            <div class="guarantee-badge">LIFETIME GUARANTEE</div>
+        </div>
+        
+        <div class="intro">
+            <h2>Why Choose Phenolic Lockers?</h2>
+            <p style="font-size: 16px; line-height: 1.8;">
+                Phenolic lockers represent the pinnacle of locker technology, combining exceptional durability with 
+                modern aesthetics. Manufactured from high-pressure compact laminate, these lockers are engineered to 
+                withstand the most demanding athletic environments while maintaining their appearance for decades.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8;">
+                With over 30 years of experience in sports locker solutions, PlayerStall delivers phenolic lockers 
+                that exceed industry standards. Our Canadian-owned and operated company has been serving collegiate 
+                and professional teams since 1996, earning a reputation for quality, reliability, and exceptional service.
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p style="font-size: 12px; color: #666;">© 2026 PlayerStall. All rights reserved.</p>
+        </div>
+    </div>
+    
+    <!-- Page 2: Features & Benefits -->
+    <div class="page">
+        <div class="header">
+            <div class="logo">PLAYERSTALL</div>
+            <div class="tagline">Phenolic Locker Features</div>
+        </div>
+        
+        <h2>Unmatched Performance Features</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h4>🛡️ Extreme Durability</h4>
+                <p>Phenolic material is virtually indestructible, resisting impact, scratches, and dents far better than metal or wood alternatives.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>💧 100% Waterproof</h4>
+                <p>Non-porous surface completely resists moisture, preventing rust, corrosion, warping, or mold growth in humid environments.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>🧼 Easy Maintenance</h4>
+                <p>Smooth, non-porous surface cleans easily with standard cleaners. No special treatments or maintenance required.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>🔥 Fire Resistant</h4>
+                <p>Meets Class A fire rating standards, providing superior fire resistance for enhanced facility safety.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>🦠 Anti-Bacterial</h4>
+                <p>Non-porous surface inhibits bacterial growth, promoting a healthier, more hygienic locker room environment.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>🎨 Color-Fast</h4>
+                <p>Color is embedded throughout the material, not just surface coating. Won't chip, peel, or fade over time.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>♻️ Eco-Friendly</h4>
+                <p>Made from sustainable materials with low VOC emissions, meeting or exceeding environmental standards.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>⚙️ Custom Hardware</h4>
+                <p>Available with various locking mechanisms, hinges, and accessories to match your specific requirements.</p>
+            </div>
+        </div>
+        
+        <div class="highlight-box">
+            <h3>Perfect for High-Traffic Athletic Facilities</h3>
+            <p>Phenolic lockers are the preferred choice for collegiate and professional sports teams, 
+            fitness centers, aquatic facilities, and any high-moisture environment where durability is paramount.</p>
+        </div>
+        
+        <h2 style="margin-top: 40px;">Technical Advantages</h2>
+        
+        <ul style="columns: 2; column-gap: 30px; font-size: 14px;">
+            <li><strong>Impact Resistant:</strong> 15x stronger than wood</li>
+            <li><strong>Moisture Proof:</strong> <0.1% water absorption</li>
+            <li><strong>Graffiti Resistant:</strong> Easy marking removal</li>
+            <li><strong>Chemical Resistant:</strong> Withstands harsh cleaners</li>
+            <li><strong>Odor Resistant:</strong> Non-porous, no odor retention</li>
+            <li><strong>UV Stable:</strong> Won't fade in sunlight</li>
+            <li><strong>Temperature Stable:</strong> -40°F to 180°F range</li>
+            <li><strong>Corrosion Proof:</strong> No rust or oxidation</li>
+        </ul>
+    </div>
+    
+    <!-- Page 3: Smooth Standard Colors -->
+    <div class="page">
+        <div class="header">
+            <div class="logo">PLAYERSTALL</div>
+            <div class="tagline">Phenolic Color Options</div>
+        </div>
+        
+        <h2>Smooth Standard Colors</h2>
+        <p style="font-size: 15px; margin-bottom: 25px;">
+            Our phenolic lockers are available in a curated selection of smooth standard colors, 
+            designed to complement any facility aesthetic while maintaining professional appearance. 
+            Colors are solid throughout the material, ensuring long-lasting beauty.
+        </p>
+        
+        <div class="color-grid">
+            <div class="color-swatch">
+                <div class="color-box" style="background: #1a1a1a;"></div>
+                <div class="color-name">BLACK</div>
+                <div style="font-size: 11px; color: #666;">Classic & Professional</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #4a4a4a;"></div>
+                <div class="color-name">GRAPHITE</div>
+                <div style="font-size: 11px; color: #666;">Modern Neutral</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #2c4a6e;"></div>
+                <div class="color-name">NAVY BLUE</div>
+                <div style="font-size: 11px; color: #666;">Team Favorite</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #5a7fa6;"></div>
+                <div class="color-name">STEEL BLUE</div>
+                <div style="font-size: 11px; color: #666;">Contemporary Cool</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #8b0000;"></div>
+                <div class="color-name">CARDINAL RED</div>
+                <div style="font-size: 11px; color: #666;">Bold Statement</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #c84b31;"></div>
+                <div class="color-name">BURNT ORANGE</div>
+                <div style="font-size: 11px; color: #666;">Energetic Warmth</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #1e4d2b;"></div>
+                <div class="color-name">FOREST GREEN</div>
+                <div style="font-size: 11px; color: #666;">Natural & Fresh</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #6b8e23;"></div>
+                <div class="color-name">OLIVE GREEN</div>
+                <div style="font-size: 11px; color: #666;">Sophisticated Earth</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #4b0082;"></div>
+                <div class="color-name">DEEP PURPLE</div>
+                <div style="font-size: 11px; color: #666;">Regal & Unique</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #704214;"></div>
+                <div class="color-name">SADDLE BROWN</div>
+                <div style="font-size: 11px; color: #666;">Rich & Warm</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #8b4513;"></div>
+                <div class="color-name">COPPER</div>
+                <div style="font-size: 11px; color: #666;">Distinctive Metallic</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #b8860b;"></div>
+                <div class="color-name">GOLD</div>
+                <div style="font-size: 11px; color: #666;">Premium Accent</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #5f6a6a;"></div>
+                <div class="color-name">SLATE GRAY</div>
+                <div style="font-size: 11px; color: #666;">Industrial Chic</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #708090;"></div>
+                <div class="color-name">SILVER GRAY</div>
+                <div style="font-size: 11px; color: #666;">Sleek & Modern</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #f5deb3;"></div>
+                <div class="color-name">WHEAT</div>
+                <div style="font-size: 11px; color: #666;">Soft Neutral</div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #d2b48c;"></div>
+                <div class="color-name">TAN</div>
+                <div style="font-size: 11px; color: #666;">Classic Warmth</div>
+            </div>
+        </div>
+        
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-top: 30px;">
+            <h3>Custom Color Matching Available</h3>
+            <p>Need to match your school or team colors exactly? We offer custom color matching services to ensure 
+            your phenolic lockers perfectly complement your facility's branding and aesthetic. Contact us for details 
+            on custom color options and minimum order requirements.</p>
+        </div>
+        
+        <div style="background: #1a1a1a; color: #fe5900; padding: 20px; border-radius: 8px; margin-top: 20px; text-align: center;">
+            <strong style="font-size: 16px; font-family: 'Oswald', sans-serif;">
+                All colors feature smooth, non-textured finish for easy cleaning and maintenance
+            </strong>
+        </div>
+    </div>
+    
+    <!-- Page 4: Specifications -->
+    <div class="page">
+        <div class="header">
+            <div class="logo">PLAYERSTALL</div>
+            <div class="tagline">Technical Specifications</div>
+        </div>
+        
+        <h2>Material Specifications</h2>
+        
+        <table class="specs-table">
+            <tr>
+                <th>Property</th>
+                <th>Specification</th>
+            </tr>
+            <tr>
+                <td><strong>Material Type</strong></td>
+                <td>High-Pressure Compact Laminate (HPCL)</td>
+            </tr>
+            <tr>
+                <td><strong>Core Material</strong></td>
+                <td>Phenolic resin-impregnated kraft paper</td>
+            </tr>
+            <tr>
+                <td><strong>Surface Finish</strong></td>
+                <td>Smooth, non-textured, color-through</td>
+            </tr>
+            <tr>
+                <td><strong>Panel Thickness</strong></td>
+                <td>1/2" (12mm) standard | 5/8" (16mm) heavy-duty</td>
+            </tr>
+            <tr>
+                <td><strong>Density</strong></td>
+                <td>1.35 g/cm³ minimum</td>
+            </tr>
+            <tr>
+                <td><strong>Water Absorption</strong></td>
+                <td><0.1% (24-hour immersion test)</td>
+            </tr>
+            <tr>
+                <td><strong>Fire Rating</strong></td>
+                <td>Class A (ASTM E84)</td>
+            </tr>
+            <tr>
+                <td><strong>Impact Resistance</strong></td>
+                <td>20+ lb-ft (NEMA LD3)</td>
+            </tr>
+            <tr>
+                <td><strong>Chemical Resistance</strong></td>
+                <td>Excellent (NEMA LD3 7.9)</td>
+            </tr>
+            <tr>
+                <td><strong>Bacteria Resistance</strong></td>
+                <td>Passes ASTM G21 & G22</td>
+            </tr>
+            <tr>
+                <td><strong>VOC Emissions</strong></td>
+                <td>CARB Phase 2 compliant</td>
+            </tr>
+            <tr>
+                <td><strong>Temperature Range</strong></td>
+                <td>-40°F to 180°F (-40°C to 82°C)</td>
+            </tr>
+        </table>
+        
+        <h2 style="margin-top: 40px;">Standard Configurations</h2>
+        
+        <table class="specs-table">
+            <tr>
+                <th>Configuration</th>
+                <th>Width</th>
+                <th>Depth</th>
+                <th>Height</th>
+            </tr>
+            <tr>
+                <td><strong>Single Tier</strong></td>
+                <td>12" / 15" / 18"</td>
+                <td>12" / 15" / 18"</td>
+                <td>72"</td>
+            </tr>
+            <tr>
+                <td><strong>Double Tier</strong></td>
+                <td>12" / 15" / 18"</td>
+                <td>12" / 15" / 18"</td>
+                <td>36" per tier</td>
+            </tr>
+            <tr>
+                <td><strong>Triple Tier</strong></td>
+                <td>12" / 15"</td>
+                <td>12" / 15"</td>
+                <td>24" per tier</td>
+            </tr>
+            <tr>
+                <td><strong>Z-Locker</strong></td>
+                <td>12" / 15"</td>
+                <td>12" / 15" / 18"</td>
+                <td>72"</td>
+            </tr>
+            <tr>
+                <td><strong>Team Locker</strong></td>
+                <td>18" / 24" / 30"</td>
+                <td>18" / 24"</td>
+                <td>72" / 84"</td>
+            </tr>
+        </table>
+        
+        <h2 style="margin-top: 40px;">Hardware Options</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h4>Locking Mechanisms</h4>
+                <ul style="margin: 10px 0 0 0; padding-left: 20px; font-size: 13px;">
+                    <li>Built-in combination locks</li>
+                    <li>Key locks (master keyed available)</li>
+                    <li>Digital keypad locks</li>
+                    <li>RFID card reader locks</li>
+                    <li>Padlock-ready hasps</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Accessories</h4>
+                <ul style="margin: 10px 0 0 0; padding-left: 20px; font-size: 13px;">
+                    <li>Sloped tops (dust prevention)</li>
+                    <li>Integrated benches</li>
+                    <li>Interior hooks and shelves</li>
+                    <li>Ventilation options</li>
+                    <li>Numbering and nameplates</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="highlight-box" style="margin-top: 30px;">
+            <h3>Certifications & Compliance</h3>
+            <p>All PlayerStall phenolic lockers meet or exceed:</p>
+            <p style="font-size: 14px; margin-top: 15px;">
+                NEMA LD3 • ASTM E84 • GREENGUARD • CARB Phase 2 • ADA Compliant • ISO 9001
+            </p>
+        </div>
+    </div>
+    
+    <!-- Page 5: Applications & Installation -->
+    <div class="page">
+        <div class="header">
+            <div class="logo">PLAYERSTALL</div>
+            <div class="tagline">Applications & Installation</div>
+        </div>
+        
+        <h2>Ideal Applications</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h4>🏈 Athletic Facilities</h4>
+                <p>Collegiate and professional sports locker rooms, training facilities, and equipment storage areas.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>🏊 Aquatic Centers</h4>
+                <p>Pool facilities, water parks, and natatoriums where moisture resistance is critical.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>💪 Fitness Centers</h4>
+                <p>Gyms, health clubs, and recreation centers with high-traffic locker room usage.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>🏢 Corporate Wellness</h4>
+                <p>Employee fitness centers, changing facilities, and corporate wellness programs.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>⚽ Sports Complexes</h4>
+                <p>Multi-sport facilities, tournament venues, and community recreation centers.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>🏥 Healthcare</h4>
+                <p>Medical facilities, rehabilitation centers, and healthcare staff changing areas.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>🏭 Industrial</h4>
+                <p>Manufacturing plants, warehouses, and industrial facilities requiring durable storage.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>⛳ Country Clubs</h4>
+                <p>Golf clubs, tennis facilities, and private athletic clubs.</p>
+            </div>
+        </div>
+        
+        <h2 style="margin-top: 40px;">Professional Installation Services</h2>
+        
+        <p style="font-size: 15px; margin-bottom: 20px;">
+            PlayerStall offers comprehensive installation services to ensure your phenolic lockers are properly 
+            installed, level, secure, and ready for years of dependable service.
+        </p>
+        
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h4>Installation Includes:</h4>
+                <ul style="margin: 10px 0 0 0; padding-left: 20px; font-size: 13px;">
+                    <li>Site assessment and preparation</li>
+                    <li>Professional installation team</li>
+                    <li>Leveling and anchoring</li>
+                    <li>Hardware installation and adjustment</li>
+                    <li>Final inspection and walkthrough</li>
+                    <li>Post-installation support</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Installation Timeline:</h4>
+                <ul style="margin: 10px 0 0 0; padding-left: 20px; font-size: 13px;">
+                    <li>Small projects (< 20 lockers): 1-2 days</li>
+                    <li>Medium projects (20-50 lockers): 3-5 days</li>
+                    <li>Large projects (50+ lockers): 1-2 weeks</li>
+                    <li>Flexible scheduling available</li>
+                    <li>Minimal facility disruption</li>
+                    <li>Weekend/off-hours installation available</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h2 style="margin-top: 40px;">Maintenance & Care</h2>
+        
+        <div style="background: #f9f9f9; padding: 25px; border-radius: 8px;">
+            <h3>Easy Maintenance Protocol</h3>
+            
+            <h4>Daily Cleaning:</h4>
+            <ul style="font-size: 14px;">
+                <li>Wipe surfaces with damp cloth and mild soap solution</li>
+                <li>Remove any spills or stains immediately</li>
+                <li>Ensure proper ventilation for interior drying</li>
+            </ul>
+            
+            <h4 style="margin-top: 15px;">Weekly Deep Clean:</h4>
+            <ul style="font-size: 14px;">
+                <li>Use standard commercial cleaners or disinfectants</li>
+                <li>Clean hinges and locks with appropriate lubricants</li>
+                <li>Inspect doors for proper alignment</li>
+            </ul>
+            
+            <h4 style="margin-top: 15px;">Annual Inspection:</h4>
+            <ul style="font-size: 14px;">
+                <li>Check all hardware for wear or looseness</li>
+                <li>Inspect panels for any damage (rare)</li>
+                <li>Verify locking mechanisms function properly</li>
+                <li>Tighten any loose fasteners</li>
+            </ul>
+            
+            <div style="background: #fe5900; color: white; padding: 15px; border-radius: 4px; margin-top: 20px; text-align: center;">
+                <strong>No special treatments, coatings, or sealants required • No rust prevention needed</strong>
+            </div>
+        </div>
+        
+        <div class="highlight-box" style="margin-top: 30px;">
+            <h3>PlayerStall Support</h3>
+            <p>Every phenolic locker installation includes comprehensive support documentation, 
+            maintenance guidelines, and access to our customer service team for the life of your product.</p>
+        </div>
+    </div>
+    
+    <!-- Page 6: Why PlayerStall -->
+    <div class="page">
+        <div class="header">
+            <div class="logo">PLAYERSTALL</div>
+            <div class="tagline">Why Choose PlayerStall</div>
+        </div>
+        
+        <h2>The PlayerStall Difference</h2>
+        
+        <div style="background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%); color: white; padding: 30px; border-radius: 8px; margin-bottom: 30px;">
+            <h3 style="color: #fe5900; margin-top: 0;">30+ Years of Excellence</h3>
+            <p style="font-size: 16px; line-height: 1.8;">
+                Since 1996, PlayerStall has been the trusted partner for collegiate and professional sports teams 
+                across North America. Our Canadian-owned and operated company brings three decades of expertise 
+                to every project, from initial consultation through final installation and beyond.
+            </p>
+        </div>
+        
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h4>🏆 Proven Track Record</h4>
+                <p>Hundreds of successful installations at top-tier athletic facilities, with customer satisfaction ratings consistently above 95%.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>🎯 Custom Solutions</h4>
+                <p>Every project receives personalized design consultation to ensure the perfect fit for your space, budget, and requirements.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>💯 Quality Guarantee</h4>
+                <p>Lifetime guarantee on all phenolic lockers. We stand behind our products with comprehensive warranty coverage.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>🚚 Nationwide Service</h4>
+                <p>Complete project management from design through installation, serving facilities throughout the United States and Canada.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>⚡ Fast Turnaround</h4>
+                <p>Efficient manufacturing and installation processes mean your project is completed on time and on budget.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>💬 Expert Support</h4>
+                <p>Dedicated customer service team available throughout your project and for the lifetime of your lockers.</p>
+            </div>
+        </div>
+        
+        <h2 style="margin-top: 40px;">Our Process</h2>
+        
+        <div style="background: #f9f9f9; padding: 30px; border-radius: 8px;">
+            <ol style="font-size: 15px; line-height: 2;">
+                <li><strong>Free Consultation:</strong> We discuss your needs, facility requirements, and budget to develop the perfect solution.</li>
+                
+                <li><strong>Custom Design:</strong> Our team creates detailed layouts and 3D renderings showing exactly how your lockers will look.</li>
+                
+                <li><strong>Material Selection:</strong> Choose from our smooth standard colors or request custom color matching for your school/team colors.</li>
+                
+                <li><strong>Detailed Quote:</strong> Receive a comprehensive quote covering materials, hardware, delivery, and installation.</li>
+                
+                <li><strong>Manufacturing:</strong> Your phenolic lockers are crafted to exacting specifications using premium materials.</li>
+                
+                <li><strong>Professional Installation:</strong> Our experienced installation team ensures perfect placement, leveling, and anchoring.</li>
+                
+                <li><strong>Final Walkthrough:</strong> We review every detail with you and ensure complete satisfaction before project completion.</li>
+                
+                <li><strong>Ongoing Support:</strong> Our team remains available for any questions, maintenance guidance, or future needs.</li>
+            </ol>
+        </div>
+        
+        <div class="highlight-box" style="margin-top: 30px;">
+            <h3>Ready to Upgrade Your Facility?</h3>
+            <p>Contact PlayerStall today for a free consultation and discover why hundreds of athletic facilities 
+            trust us for their phenolic locker needs. Let's create a locker room solution that exceeds your expectations.</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <div class="guarantee-badge">LIFETIME GUARANTEE ON ALL PHENOLIC LOCKERS</div>
+        </div>
+    </div>
+    
+    <!-- Page 7: Contact & Next Steps -->
+    <div class="page">
+        <div class="header">
+            <div class="logo">PLAYERSTALL</div>
+            <div class="tagline">Get Started Today</div>
+        </div>
+        
+        <div style="text-align: center; margin: 50px 0;">
+            <h1>Let's Build Your Perfect Locker Room</h1>
+            <p style="font-size: 18px; color: #666; margin-bottom: 40px;">
+                Whether you're planning a new facility or upgrading an existing locker room, 
+                PlayerStall is ready to help you create a solution that exceeds expectations.
+            </p>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #fe5900 0%, #c84b31 100%); color: white; padding: 40px; border-radius: 8px; text-align: center; margin-bottom: 40px;">
+            <h2 style="color: white; border: none; margin-bottom: 20px;">Get Your Free Consultation</h2>
+            <p style="font-size: 16px; margin-bottom: 25px;">
+                Our locker room experts are ready to discuss your project and provide personalized recommendations.
+            </p>
+            <div style="background: white; color: #fe5900; padding: 20px 40px; border-radius: 50px; display: inline-block; font-size: 20px; font-weight: 700; font-family: 'Oswald', sans-serif;">
+                100% FREE • NO OBLIGATION
+            </div>
+        </div>
+        
+        <div class="contact-info">
+            <div class="contact-box">
+                <strong>📧 EMAIL</strong>
+                <p style="font-size: 15px;">info@customsportslockers.com</p>
+                <p style="font-size: 12px; color: #666;">We respond within 24 hours</p>
+            </div>
+            
+            <div class="contact-box">
+                <strong>📞 PHONE</strong>
+                <p style="font-size: 15px;">+ (123) 124-567-8901</p>
+                <p style="font-size: 12px; color: #666;">Monday - Friday, 9AM - 5PM EST</p>
+            </div>
+            
+            <div class="contact-box">
+                <strong>📍 LOCATION</strong>
+                <p style="font-size: 15px;">7300-7398 Colonial Rd<br>Brooklyn, NY 11209</p>
+                <p style="font-size: 12px; color: #666;">Serving all of North America</p>
+            </div>
+        </div>
+        
+        <div style="background: #f9f9f9; padding: 30px; border-radius: 8px; margin-top: 40px;">
+            <h3>What Happens Next?</h3>
+            <div class="feature-grid">
+                <div>
+                    <h4 style="color: #fe5900;">1️⃣ Contact Us</h4>
+                    <p style="font-size: 14px;">Reach out via email or phone to schedule your free consultation.</p>
+                </div>
+                
+                <div>
+                    <h4 style="color: #fe5900;">2️⃣ Share Your Vision</h4>
+                    <p style="font-size: 14px;">Tell us about your facility, timeline, and what you're looking for.</p>
+                </div>
+                
+                <div>
+                    <h4 style="color: #fe5900;">3️⃣ Receive Custom Design</h4>
+                    <p style="font-size: 14px;">Get detailed layouts, 3D renderings, and a comprehensive quote.</p>
+                </div>
+                
+                <div>
+                    <h4 style="color: #fe5900;">4️⃣ Enjoy Your New Lockers</h4>
+                    <p style="font-size: 14px;">Sit back while we handle manufacturing, delivery, and installation.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: #000000; color: #fe5900; padding: 25px; border-radius: 8px; text-align: center; margin-top: 40px;">
+            <h3 style="color: #fe5900; margin: 0;">Questions? We Have Answers.</h3>
+            <p style="color: white; font-size: 14px; margin: 15px 0 0 0;">
+                Our team is here to guide you through every step of the process. No question is too big or too small.
+            </p>
+        </div>
+        
+        <div class="footer" style="margin-top: 60px;">
+            <div style="border-top: 3px solid #000000; padding-top: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                    <div style="text-align: left;">
+                        <div class="logo" style="font-size: 32px; margin-bottom: 10px;">PLAYERSTALL</div>
+                        <p style="font-size: 13px; color: #666; margin: 0;">Premium Sports Locker Solutions</p>
+                        <p style="font-size: 13px; color: #666; margin: 5px 0 0 0;">Canadian-owned and operated since 1996</p>
+                    </div>
+                    
+                    <div style="text-align: right;">
+                        <p style="font-size: 12px; color: #666; margin: 0;">© 2026 PlayerStall. All rights reserved.</p>
+                        <p style="font-size: 12px; color: #666; margin: 5px 0 0 0;">Phenolic Lockers Catalog v1.0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Add print-friendly styling
+        window.onload = function() {
+            // Add any interactive elements if needed
+            console.log('PlayerStall Phenolic Catalog loaded');
+        };
+    </script>
+</body>
+</html>

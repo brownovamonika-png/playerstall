@@ -55,23 +55,23 @@ Based on market gaps analysis and brand voice, here are prioritized social conte
 
 ---
 
-### 3. **Behind-the-Scenes: Made in Canada**
+### 3. **Behind-the-Scenes: Canadian-owned and operated since 1996**
 **Market Gap**: Sustainability, Authenticity  
 **Effort**: ⭐ Low | **Impact**: ⭐⭐⭐ High
 
 **Content Ideas:**
 - **Photo/video series showing manufacturing**
-  - "100% Made in Canada" - photo of workshop
+  - "100% Canadian-owned and operated since 1996" - photo of workshop
   - "Our team crafting your lockers" - process shots
   - "Quality control: Every locker checked" - inspection moment
   - "Family business = personal commitment" - team photo
 
 - **Format**: Instagram Reels/Stories, LinkedIn post, Facebook post
 - **Co-creation**: Take photos during normal work, add captions
-- **Hook**: "See how we make your lockers: 100% made in Canada, 100% family-owned"
+- **Hook**: "See how we make your lockers: 100% Canadian-owned and operated since 1996, 100% family-owned"
 
 **Why It Works:**
-- Leverages "Made in Canada" differentiator
+- Leverages "Canadian-owned and operated since 1996" differentiator
 - Builds trust and authenticity
 - Low effort (just document existing process)
 - Humanizes the brand
@@ -395,7 +395,7 @@ Based on market gaps analysis and brand voice, here are prioritized social conte
 Based on brand analysis, always include:
 - **30+ years experience** (authority)
 - **Family business** (authenticity)
-- **Made in Canada** (quality, sustainability)
+- **Canadian-owned and operated since 1996** (quality, sustainability)
 - **Lifetime guarantee** (confidence)
 - **Wood superiority** (core differentiator)
 - **Culture building** (emotional connection)

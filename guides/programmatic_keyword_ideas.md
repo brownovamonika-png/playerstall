@@ -88,13 +88,13 @@ This document outlines programmatic keyword opportunities for CustomSportsLocker
 - Lifetime guarantee
 - Custom logo
 - Team branding
-- Made in Canada
+- Canadian-owned and operated since 1996
 - Free custom design
 
 **Example Outputs**:
 - football lockers with lifetime guarantee
 - modular hockey lockers
-- custom basketball lockers made in Canada
+- custom basketball lockers Canadian-owned and operated since 1996
 
 ---
 
@@ -242,13 +242,13 @@ This document outlines programmatic keyword opportunities for CustomSportsLocker
 - Lifetime guarantee
 - Custom logo
 - Team branding
-- Made in Canada
+- Canadian-owned and operated since 1996
 - Free custom design
 
 **Example Outputs**:
 - football athletic lockers with lifetime guarantee
 - hockey lockers modular design
-- basketball lockers made in Canada
+- basketball lockers Canadian-owned and operated since 1996
 
 **Estimated Pages**: 50+
 
@@ -456,7 +456,7 @@ This document outlines programmatic keyword opportunities for CustomSportsLocker
 - free custom design sports lockers
 - modular [sport] lockers
 - custom logo [sport] lockers
-- made in Canada [sport] lockers
+- Canadian-owned and operated since 1996 [sport] lockers
 
 **Estimated Pages**: 30+
 

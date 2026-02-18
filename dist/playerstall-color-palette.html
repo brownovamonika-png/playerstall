@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayerStall Color Palette</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f5f5;
+            font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+        }
+        
+        .palette-container {
+            width: 800px;
+            height: 800px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .color-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .color-block:hover {
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .color-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .color-hex {
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Primary Orange - Feature it prominently */
+        .primary-orange {
+            background: #fe5900;
+            color: #ffffff;
+        }
+        
+        /* Black */
+        .black {
+            background: #000000;
+            color: #ffffff;
+        }
+        
+        /* Dark Gray */
+        .dark-gray {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+        
+        /* Text Dark */
+        .text-dark {
+            background: #0d0d0d;
+            color: #ffffff;
+        }
+        
+        /* White */
+        .white {
+            background: #ffffff;
+            color: #0d0d0d;
+            border: 1px solid #e0e0e0;
+        }
+        
+        /* Gray variations */
+        .gray-light {
+            background: #cccccc;
+            color: #0d0d0d;
+        }
+        
+        .gray-medium {
+            background: #b6b6b6;
+            color: #0d0d0d;
+        }
+        
+        .gray-dark {
+            background: #8c8c8c;
+            color: #ffffff;
+        }
+        
+        @media (max-width: 900px) {
+            .palette-container {
+                width: 600px;
+                height: 600px;
+            }
+            
+            .color-name {
+                font-size: 11px;
+            }
+            
+            .color-hex {
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 650px) {
+            .palette-container {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .color-name {
+                font-size: 8px;
+            }
+            
+            .color-hex {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="palette-container">
+        <!-- Row 1 -->
+        <div class="color-block primary-orange">
+            <div class="color-name">Primary Orange</div>
+            <div class="color-hex">#FE5900</div>
+        </div>
+        
+        <div class="color-block black">
+            <div class="color-name">Black</div>
+            <div class="color-hex">#000000</div>
+        </div>
+        
+        <div class="color-block dark-gray">
+            <div class="color-name">Dark Gray</div>
+            <div class="color-hex">#1A1A1A</div>
+        </div>
+        
+        <div class="color-block text-dark">
+            <div class="color-name">Text Dark</div>
+            <div class="color-hex">#0D0D0D</div>
+        </div>
+        
+        <!-- Row 2 -->
+        <div class="color-block white">
+            <div class="color-name">White</div>
+            <div class="color-hex">#FFFFFF</div>
+        </div>
+        
+        <div class="color-block gray-light">
+            <div class="color-name">Gray Light</div>
+            <div class="color-hex">#CCCCCC</div>
+        </div>
+        
+        <div class="color-block gray-medium">
+            <div class="color-name">Gray Medium</div>
+            <div class="color-hex">#B6B6B6</div>
+        </div>
+        
+        <div class="color-block gray-dark">
+            <div class="color-name">Gray Dark</div>
+            <div class="color-hex">#8C8C8C</div>
+        </div>
+    </div>
+</body>
+</html>

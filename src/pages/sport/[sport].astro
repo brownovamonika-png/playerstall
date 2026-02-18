@@ -1,77 +1,237 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const SPORT_DATA: Record<string, { title: string; description: string; features: string[]; image: string; cta: string }> = {
+/* ───── Sport Data ───── */
+interface HighlightItem {
+	type: 'image' | 'text';
+	image?: string;
+	category?: string;
+	title?: string;
+	text?: string;
+	link?: string;
+}
+
+interface BannerQuote {
+	quote: string;
+	author: string;
+}
+
+interface SportInfo {
+	title: string;
+	tagline: string;
+	description: string;
+	features: string[];
+	heroImage: string;
+	gallery: string[];
+	highlights?: HighlightItem[];
+	cta: string;
+	bannerTitle: string;
+	bannerQuotes: BannerQuote[];
+}
+
+const SPORT_DATA: Record<string, SportInfo> = {
 	football: {
 		title: 'Football Lockers',
-		description: 'Football equipment is bulky, heavy, and needs proper ventilation. Our football lockers are designed for helmets, pads, cleats, and uniforms while keeping everything organized and dry.',
+		tagline: 'Custom wood storage for football equipment - helmets, pads, cleats, uniforms & protective gear',
+		description: 'Custom football lockers and team storage solutions for professional, collegiate, and high school teams. Organized storage for helmets, shoulder pads, cleats, uniforms, gloves, and all football equipment. 30+ years building wood athletic lockers across the United States.',
 		features: [
-			'Spacious compartments for helmets and shoulder pads',
-			'Enhanced ventilation to prevent moisture buildup',
-			'Dedicated storage for cleats and footwear',
-			'Uniform hanging space and reinforced construction',
+			'Spacious compartments for helmets, shoulder pads, and chest protectors',
+			'Enhanced ventilation to prevent moisture buildup and equipment odor',
+			'Dedicated storage for cleats, footwear, and training shoes',
+			'Uniform hanging space with reinforced construction for heavy gear',
+			'Organized storage for gloves, mouthguards, and protective equipment',
+			'Built for professional, NCAA, and high school football programs',
 		],
-		image: '/images/topscorer/football-hero-our-team.jpg',
+		heroImage: '/images/topscorer/h1-img-3.jpg',
+		gallery: [
+			'/images/topscorer/blog-1-img-2.jpg',
+			'/images/topscorer/blog-1-img-3.jpg',
+			'/images/topscorer/blog-1-img-4.jpg',
+			'/images/topscorer/team-title-img.jpg',
+		],
 		cta: 'Get Football Locker Quote',
+		bannerTitle: 'Champions Start Here',
+		bannerQuotes: [
+			{ quote: 'Winners never quit and quitters never win.', author: 'Vince Lombardi' },
+			{ quote: 'The difference between a successful person and others is not a lack of strength, not a lack of knowledge, but rather a lack in will.', author: 'Vince Lombardi' },
+			{ quote: "It's not whether you get knocked down, it's whether you get up.", author: 'Vince Lombardi' },
+		],
 	},
 	hockey: {
 		title: 'Hockey Lockers',
-		description: 'Hockey equipment is among the most challenging to store. Our hockey lockers are built for skates, pads, sticks, and gear with specialized storage and drying features.',
+		tagline: 'Custom wood storage for hockey equipment - skates, pads, sticks, helmets & goalie gear',
+		description: 'Custom hockey lockers and team storage solutions for professional, collegiate, and high school teams. Organized storage for skates, pads, sticks, helmets, gloves, goalie equipment, and all hockey gear. 30+ years building wood athletic lockers across the United States and Canada.',
 		features: [
-			'Reinforced construction for heavy gear',
-			'Compartments for skates and stick storage',
-			'Ventilated compartments for pads and helmets',
-			'Equipment drying features',
+			'Reinforced construction for heavy hockey gear and goalie equipment',
+			'Specialized compartments for skates, sticks, and helmet storage',
+			'Ventilated compartments for pads, gloves, and protective equipment',
+			'Equipment drying features to prevent moisture and odor buildup',
+			'Storage for jerseys, pants, shoulder pads, and shin guards',
+			'Built for NHL, NCAA, junior hockey, and high school programs',
 		],
-		image: '/images/topscorer/h3-img-1.jpg',
+		heroImage: '/images/topscorer/h3-banner-img-1.jpg',
+		gallery: [
+			'/images/topscorer/h3-banner-img-3.jpg',
+			'/images/topscorer/h3-blog-img-7.jpg',
+			'/images/topscorer/h3-blog-img-5.jpg',
+			'/images/topscorer/h3-blog-img-6.jpg',
+		],
+		highlights: [
+			{ type: 'text', category: 'Hockey Lockers', title: 'Built for the Toughest Equipment', text: 'Hockey equipment is among the most challenging to store. Our hockey lockers are built for skates, pads, sticks, and gear with specialized storage and drying features.', link: '/contact' },
+			{ type: 'image', image: '/images/topscorer/h3-blog-img-3.jpg' },
+			{ type: 'text', category: 'Hockey Lockers', title: 'Reinforced Construction', text: 'Heavy-duty build designed for the weight and bulk of hockey gear. Dedicated compartments for skates and stick storage keep everything organized and accessible.', link: '/contact' },
+			{ type: 'image', image: '/images/topscorer/h3-img-6.jpg' },
+			{ type: 'image', image: '/images/topscorer/h3-blog-img-5.jpg' },
+			{ type: 'text', category: 'Hockey Lockers', title: 'Ventilated Compartments', text: 'Purpose-built ventilation for pads, helmets, and gloves prevents moisture buildup, eliminates odor, and extends the life of expensive equipment.', link: '/contact' },
+			{ type: 'image', image: '/images/topscorer/h3-img-4.jpg' },
+			{ type: 'text', category: 'Hockey Lockers', title: 'Equipment Drying', text: 'Integrated drying features keep gear fresh, dry, and game-ready. Custom wood construction with premium finishes built to last a lifetime.', link: '/contact' },
+		],
 		cta: 'Get Hockey Locker Quote',
+		bannerTitle: 'Rule the Ice',
+		bannerQuotes: [
+			{ quote: "You miss 100% of the shots you don't take.", author: 'Wayne Gretzky' },
+			{ quote: 'A good hockey player plays where the puck is. A great hockey player plays where the puck is going to be.', author: 'Wayne Gretzky' },
+			{ quote: 'Hockey is a unique sport in the sense that you need each and every guy helping each other and pulling in the same direction to be successful.', author: 'Wayne Gretzky' },
+		],
 	},
 	basketball: {
 		title: 'Basketball Lockers',
-		description: 'Our basketball lockers provide sleek, organized storage for shoes, uniforms, and personal items with a professional, modern appearance.',
+		tagline: 'Custom wood storage for basketball equipment - shoes, uniforms, training gear & accessories',
+		description: 'Custom basketball lockers and team storage solutions for professional, collegiate, and high school teams. Organized storage for basketball shoes, uniforms, practice gear, training equipment, and accessories. 30+ years building wood athletic lockers across the United States.',
 		features: [
-			'Sleek and organized design',
-			'Dedicated shoe and uniform storage',
-			'Personal item compartments',
-			'Space-efficient layout',
+			'Sleek, organized design for basketball shoes and sneaker storage',
+			'Dedicated uniform hanging space with jersey and shorts compartments',
+			'Personal item storage for phones, wallets, and valuables',
+			'Space-efficient layout perfect for modern basketball facilities',
+			'Storage for training gear, water bottles, and team equipment',
+			'Built for NBA, NCAA, Division I, and high school basketball programs',
 		],
-		image: '/images/topscorer/basketball-dribble.png',
+		heroImage: '/images/topscorer/basketball-team-lineup.png',
+		gallery: [
+			'/images/topscorer/basketball-dribble.png',
+			'/images/topscorer/basketball-gallery-3.jpg',
+			'/images/topscorer/basketball-dunk-aerial.jpg',
+			'/images/topscorer/basketball-gallery-2.jpg',
+		],
 		cta: 'Get Basketball Locker Quote',
+		bannerTitle: 'Game Day Ready',
+		bannerQuotes: [
+			{ quote: "I've failed over and over and over again in my life. And that is why I succeed.", author: 'Michael Jordan' },
+			{ quote: 'Talent wins games, but teamwork and intelligence win championships.', author: 'Michael Jordan' },
+			{ quote: "I can accept failure, everyone fails at something. But I can't accept not trying.", author: 'Michael Jordan' },
+		],
 	},
 	baseball: {
 		title: 'Baseball Lockers',
-		description: 'Customized storage for bats, gloves, helmets, and uniforms. Our baseball lockers keep everything organized and accessible.',
+		tagline: 'Custom wood storage for baseball equipment - bats, gloves, helmets, uniforms & catcher\'s gear',
+		description: 'Custom baseball lockers and team storage solutions for professional, collegiate, and high school teams. Organized storage for bats, gloves, helmets, cleats, catcher\'s gear, uniforms, and all baseball equipment. 30+ years building wood athletic lockers across the United States.',
 		features: [
-			'Equipment-specific compartments',
-			'Uniform and gear organization',
-			'Easy access and durable construction',
+			'Equipment-specific compartments for bats, gloves, and catcher\'s gear',
+			'Uniform hanging space with helmet and cleat storage',
+			'Dedicated storage for batting gloves, protective equipment, and accessories',
+			'Ventilated compartments for helmets, shin guards, and chest protectors',
+			'Easy access design for game day and practice equipment',
+			'Durable wood construction built for professional and collegiate teams',
 		],
-		image: '/images/topscorer/h2-blog-img-2-1.jpg',
+		heroImage: '/images/topscorer/h2-img-1.jpg',
+		gallery: [
+			'/images/topscorer/h2-blog-img-3-1.jpg',
+			'/images/topscorer/h2-blog-img-1-1.jpg',
+			'/images/topscorer/h2-blog-img-2-1.jpg',
+			'/images/topscorer/h2-blog-img-6.jpg',
+		],
 		cta: 'Get Baseball Locker Quote',
+		bannerTitle: 'Diamond Champions',
+		bannerQuotes: [
+			{ quote: "It ain't over till it's over.", author: 'Yogi Berra' },
+			{ quote: 'Baseball is 90% mental and the other half is physical.', author: 'Yogi Berra' },
+			{ quote: 'You can observe a lot by watching.', author: 'Yogi Berra' },
+		],
 	},
 	soccer: {
 		title: 'Soccer Lockers',
-		description: 'Organized storage for cleats, shin guards, uniforms, and equipment. Our soccer lockers keep everything accessible and professional.',
+		tagline: 'Custom wood storage for soccer equipment - cleats, shin guards, uniforms & training gear',
+		description: 'Custom soccer lockers and team storage solutions for professional, collegiate, and high school teams. Organized storage for cleats, shin guards, uniforms, goalkeeper gloves, training equipment, and all soccer gear. 30+ years building wood athletic lockers across the United States.',
 		features: [
-			'Compartments for cleats and gear',
-			'Uniform hanging and ventilated storage',
+			'Compartments for cleats, soccer shoes, and training footwear',
+			'Shin guard storage with ventilation to prevent odor',
+			'Uniform hanging space for jerseys, shorts, and warm-up gear',
+			'Specialized storage for goalkeeper gloves, equipment, and pads',
+			'Space for soccer balls, water bottles, and training accessories',
+			'Built for MLS, NCAA, youth soccer, and high school programs',
 		],
-		image: '/images/topscorer/soccer.jpg',
+		heroImage: '/images/topscorer/soccer-field-aerial.png',
+		gallery: [
+			'/images/topscorer/soccer-players-celebrating-1.png',
+			'/images/topscorer/soccer-referee.png',
+			'/images/topscorer/soccer-ball-grass.png',
+			'/images/topscorer/soccer-players-celebrating-2.png',
+		],
 		cta: 'Get Soccer Locker Quote',
+		bannerTitle: 'Goal Driven Excellence',
+		bannerQuotes: [
+			{ quote: 'Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing.', author: 'Pelé' },
+			{ quote: 'Everything is practice.', author: 'Pelé' },
+			{ quote: 'The more difficult the victory, the greater the happiness in winning.', author: 'Pelé' },
+		],
 	},
 	lacrosse: {
 		title: 'Lacrosse Lockers',
-		description: 'Custom storage for sticks, helmets, pads, gloves, and uniforms. Our lacrosse lockers are built to handle the full range of equipment.',
+		tagline: 'Custom wood storage for lacrosse equipment - sticks, helmets, pads, gloves & uniforms',
+		description: 'Custom lacrosse lockers and team storage solutions for professional, collegiate, and high school teams. Organized storage for lacrosse sticks, helmets, shoulder pads, gloves, cleats, goalie equipment, and all lacrosse gear. 30+ years building wood athletic lockers across the United States.',
 		features: [
-			'Stick storage and equipment compartments',
-			'Ventilated storage for pads and helmets',
-			'Durable construction for heavy use',
+			'Specialized stick storage for attack, midfield, and defense sticks',
+			'Ventilated compartments for helmets, pads, and protective equipment',
+			'Storage for shoulder pads, arm guards, rib pads, and gloves',
+			'Cleats and footwear compartments with proper ventilation',
+			'Goalie equipment storage for oversized gear and specialized pads',
+			'Built for NCAA Division I, club lacrosse, and high school programs',
 		],
-		image: '/images/topscorer/h3-img-1.jpg',
+		heroImage: '/images/topscorer/lacrosse-field-closeup.png',
+		gallery: [
+			'/images/topscorer/lacrosse-players-action.png',
+			'/images/topscorer/lacrosse-sticks-ball.png',
+			'/images/topscorer/lacrosse-team-huddle.png',
+			'/images/topscorer/lacrosse-goal-orange.png',
+		],
 		cta: 'Get Lacrosse Locker Quote',
+		bannerTitle: 'Built for Battle',
+		bannerQuotes: [
+			{ quote: 'The will to win is important, but the will to prepare is vital.', author: 'Joe Paterno' },
+			{ quote: 'Champions are made when no one is watching.', author: 'Unknown' },
+			{ quote: "Hard work beats talent when talent doesn't work hard.", author: 'Tim Notke' },
+		],
 	},
 };
 
+/* ───── Locker color options (Wilsonart) ───── */
+const SOLID_COLORS = [
+	{ code: 'DW', name: 'Designer White', hex: '#F5F5F5' },
+	{ code: 'WS', name: 'White Sand',     hex: '#EDE8DA' },
+	{ code: 'FG', name: 'Fashion Grey',   hex: '#A8A8A8' },
+	{ code: 'NS', name: 'North Sea',      hex: '#6E8090' },
+	{ code: 'GR', name: 'Graphite',       hex: '#4D4D4D' },
+	{ code: 'BL', name: 'Black',          hex: '#1A1A1A' },
+	{ code: 'HB', name: 'Hollyberry',     hex: '#C41E3A' },
+	{ code: 'LB', name: 'Lapis Blue',     hex: '#1F4E8C' },
+];
+const WOOD_COLORS = [
+	{ code: 'FM', name: 'Fusion Maple',   hex: '#DEC7A0' },
+	{ code: 'PO', name: 'Pasadena Oak',   hex: '#A67C52' },
+	{ code: 'WH', name: 'Walnut Heights', hex: '#6B4226' },
+	{ code: 'HW', name: 'Hampton Walnut', hex: '#4A2F1B' },
+];
+
+const LOCKERS = [
+	{ name: 'Semi Pro', image: '/images/semi-pro-locker-new.png', price: '$349.00', info: 'Entry-level wood locker. 3/4" solid wood construction, durable and ideal for schools and rec teams.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"', href: '/product-semi-pro-locker' },
+	{ name: 'Varsity', image: '/varsity-locker.jpg', price: '$449.00', info: 'Step-up design with 3/4" solid wood premium finish. Great for varsity and competitive programs.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-varsity-locker' },
+	{ name: 'Pro', image: '/pro-locker.jpg', price: '$549.00', info: 'MPW-6C plywood melamine construction. Reliable workhorse for team locker rooms. Quick ship in one month or custom-built in three months.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-pro-locker' },
+	{ name: 'Stadium', image: '/stadium-locker.jpg', price: '$599.00', info: 'Premium plywood melamine, stadium-grade. Heavy-duty build for high-traffic facilities. Quick ship in one month or custom-built in three months.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-stadium-locker' },
+	{ name: 'Elite', image: '/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png', price: '$599.00', info: 'Top-tier locker. Curved design, premium materials. Quick ship in one month (24" or 30", one signature color).', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-elite-locker' },
+	{ name: 'Legendary', image: '/images/legendary-locker.png', price: '$599.00', info: 'Top-tier locker. Curved design, maximum durability and customization. Custom-built in three months with full color options.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-legendary-locker' },
+];
+
+/* ───── Route ───── */
 export function getStaticPaths() {
 	return [
 		{ params: { sport: 'football' } },
@@ -90,212 +250,433 @@ if (!sport || !SPORT_DATA[sport]) {
 
 const data = SPORT_DATA[sport];
 const titleLabel = data.title.replace(' Lockers', '');
+const isDark = !!data.highlights && data.highlights.length > 0;
 
-const COLOR_SWATCHES: Record<string, string> = {
-	'Black': '#1a1a1a',
-	'Light Grey': '#b0b0b0',
-	'Dark Grey': '#4a4a4a',
-	'Maple': '#c4a574',
+// SEO-enhanced titles for all sports
+const pageTitles: Record<string, string> = {
+	football: 'Custom Football Lockers | Wood Athletic Storage for Teams | PlayerStall',
+	hockey: 'Custom Hockey Lockers | Wood Athletic Storage for Teams | PlayerStall',
+	basketball: 'Custom Basketball Lockers | Wood Athletic Storage for Teams | PlayerStall',
+	baseball: 'Custom Baseball Lockers | Wood Athletic Storage for Teams | PlayerStall',
+	soccer: 'Custom Soccer Lockers | Wood Athletic Storage for Teams | PlayerStall',
+	lacrosse: 'Custom Lacrosse Lockers | Wood Athletic Storage for Teams | PlayerStall',
 };
-
-const LOCKERS = [
-	{ name: 'Semi Pro', image: '/semi-pro-locker.jpg', price: '$349.00', info: 'Entry-level wood locker. 3/4" solid wood construction, durable and ideal for schools and rec teams.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"', colors: ['Maple'], href: '/product-semi-pro-locker' },
-	{ name: 'Varsity', image: '/varsity-locker.jpg', price: '$449.00', info: 'Step-up design with 3/4" solid wood premium finish. Great for varsity and competitive programs.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', colors: ['Maple'], href: '/product-varsity-locker' },
-	{ name: 'Pro', image: '/pro-locker.jpg', price: '$549.00', info: 'MPW-6C plywood melamine construction. Reliable workhorse for team locker rooms. Ships in 3–4 weeks.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', colors: ['Black', 'Light Grey', 'Dark Grey', 'Maple'], href: '/product-pro-locker' },
-	{ name: 'Stadium', image: '/stadium-locker.jpg', price: '$599.00', info: 'Premium plywood melamine, stadium-grade. Heavy-duty build for high-traffic facilities. Ships in 3–4 weeks.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', colors: ['Black', 'Light Grey', 'Dark Grey', 'Maple'], href: '/product-stadium-locker' },
-	{ name: 'Elite', image: '/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png', price: '$599.00', info: 'Top-tier locker. Curved design, premium materials. Quick Ship 2–4 weeks in select widths and colors.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', colors: ['Light Grey', 'Dark Grey', 'Black', 'Maple'], href: '/product-elite-locker' },
-	{ name: 'Legendary', image: '/images/legendary-locker.png', price: '$599.00', info: 'Top-tier locker. Curved design, maximum durability and customization. Custom build 8–12 weeks.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', colors: ['Black', 'Light Grey', 'Dark Grey', 'Maple'], href: '/product-legendary-locker' },
-];
+const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | PlayerStall`;
 ---
 
 <BaseLayout
-	title={`${data.title} | Custom Wood Lockers | PlayerStall`}
+	title={pageTitle}
 	description={data.description}
 >
-	<!-- Hero with slide-style content (sport, title, description, features, CTAs) -->
-	<section class="sport-page-hero">
-		<div class="sport-page-hero-bg" style={`background-image: url('${data.image}');`}></div>
-		<div class="sport-page-hero-overlay"></div>
-		<div class="sport-page-hero-container">
-			<div class="sport-page-breadcrumbs">
+<div class={isDark ? 'sp-page sp-page-dark' : 'sp-page'}>
+	<!-- ═══════ HERO BANNER ═══════ -->
+	<section class={`sp-hero sp-hero-${sport}`}>
+		<div class="sp-hero-bg">
+			<img src={data.heroImage} alt={data.title} class="sp-hero-bg-image" />
+		</div>
+		<div class="sp-hero-content">
+			<div class="sp-hero-breadcrumb">
 				<a href="/">Home</a>
-				<a href="/sport">Sport</a>
-				<span>{titleLabel}</span>
+				<span class="sp-bc-text">{titleLabel}</span>
 			</div>
-			<p class="sport-page-hero-label">Sport</p>
-			<h1 class="sport-page-title">{data.title}</h1>
-			<p class="sport-page-hero-description">{data.description}</p>
-			<ul class="sport-page-hero-features">
-				{data.features.map((f) => (
-					<li>{f}</li>
-				))}
-			</ul>
-			<div class="sport-page-hero-buttons">
-				<a href={sport === 'hockey' ? '/hockey' : `#sport-page-content`} class="btn sport-page-hero-btn-outline">{titleLabel} Guide</a>
-				<a href="/contact#quote-form" class="btn btn-primary">Get Quote</a>
-			</div>
+			<h1 class="sp-hero-title">{data.title}</h1>
 		</div>
 	</section>
 
-	<!-- Our Lockers: image left, details right (one row per locker) -->
-	<section class="sport-page-lockers">
-		<div class="sport-page-lockers-inner">
-			<div class="sport-page-lockers-list">
-				{LOCKERS.map((locker) => (
-					<article class="sport-locker-row">
-						<div class="sport-locker-row-image">
-							<img src={locker.image} alt={`${locker.name} Locker`} loading="lazy" />
+	<!-- ═══════ LOCKERS LIST ═══════ -->
+	<section class="sp-lockers">
+		<div class="sp-lockers-inner">
+			<div class="home-shop-section-header">
+				<p class="home-shop-section-subtitle">THE LOCKER ROOM</p>
+				<h2 class="home-shop-section-title">OUR LOCKERS</h2>
+			</div>
+			<div class="sp-lockers-intro">
+				<a href="/services" class="ts-spotlight-position">Premium Wood Locker Collection</a>
+				<div class="ts-spotlight-meta">
+					<span>6 Models Available</span> | <span>Quick Ship & Custom Options</span> | <span>2-12 Week Delivery</span> | <span>Lifetime Warranty</span> | <span>Free Consultation</span>
+				</div>
+				<p class="ts-spotlight-bio">Choose from 6 premium wood locker models designed specifically for athletic teams. Our collection ranges from the essential Semi Pro and Varsity models perfect for high school teams, to our elite Pro, Stadium, Elite, and Legendary models built for collegiate and professional facilities. Every locker features premium 6-layer melamine-faced plywood construction with superior moisture resistance and fire-rated materials. Quick ship models (Stadium & Elite) deliver in 2-4 weeks, while fully custom lockers ship in 8-12 weeks with your choice of dimensions, finishes, colors, and hardware. All backed by our lifetime warranty on wood construction and 5-year materials guarantee.</p>
+			</div>
+
+			{/* ── Featured: Semi Pro ── */}
+			{LOCKERS.filter((l) => l.name === 'Semi Pro').map((locker) => (
+				<article class="sp-locker-featured">
+					<div class="sp-locker-featured-nameblock">
+						<h3 class="sp-locker-name">{locker.name}</h3>
+						<p class="sp-locker-price">{locker.price}</p>
+					</div>
+					<div class="sp-locker-angles">
+						<div class="sp-locker-angle">
+							<img src={locker.image} alt={`${locker.name} Locker - Right Angle`} loading="lazy" />
 						</div>
-						<div class="sport-locker-row-details">
-							<h3 class="sport-locker-row-name">{locker.name}</h3>
-							<p class="sport-locker-row-price">{locker.price}</p>
-							<p class="sport-locker-row-info">{locker.info}</p>
-							<div class="sport-locker-row-specs">
-								<p class="sport-locker-row-dimensions"><strong>Dimensions:</strong> {locker.dimensions}{locker.dimensionsNote ? ` (${locker.dimensionsNote})` : ''}</p>
-								<div class="sport-locker-row-colors-wrap">
-									<strong>Colors:</strong>
-									<div class="sport-locker-color-swatches" aria-label={`Available colors: ${locker.colors.join(', ')}`}>
-										{locker.colors.map((colorName) => (
-											<span
-												class="sport-locker-swatch"
-												style={`background-color: ${COLOR_SWATCHES[colorName] ?? '#ccc'}; ${colorName === 'Light Grey' || colorName === 'Maple' ? 'border: 1px solid #ddd;' : ''}`}
-												title={colorName}
-											></span>
-										))}
-									</div>
-									<span class="sport-locker-color-names">{locker.colors.join(', ')}</span>
-								</div>
+						<div class="sp-locker-angle">
+							<img src={locker.image} alt={`${locker.name} Locker - Straight On`} loading="lazy" />
+						</div>
+						<div class="sp-locker-angle">
+							<img src={locker.image} alt={`${locker.name} Locker - Left Angle`} loading="lazy" />
+						</div>
+						<div class="sp-locker-angle">
+							<img src={locker.image} alt={`${locker.name} Locker - Back View`} loading="lazy" />
+						</div>
+					</div>
+					<div class="sp-locker-featured-action">
+						<a href={locker.href} class="sp-btn sp-btn-featured">View Details</a>
+					</div>
+				</article>
+			))}
+
+			{/* ── Varsity ── */}
+			{LOCKERS.filter((l) => l.name === 'Varsity').map((locker) => (
+				<article class="sp-locker-featured">
+					<div class="sp-locker-featured-nameblock">
+						<h3 class="sp-locker-name">{locker.name}</h3>
+						<p class="sp-locker-price">{locker.price}</p>
+					</div>
+					<div class="sp-locker-angles">
+						<div class="sp-locker-angle">
+							<img src="/images/varsity-locker-front.png" alt={`${locker.name} Locker - Front View`} loading="lazy" />
+						</div>
+						<div class="sp-locker-angle">
+							<img src="/images/varsity-locker-open.png" alt={`${locker.name} Locker - Open View`} loading="lazy" />
+						</div>
+					</div>
+					<div class="sp-locker-featured-action">
+						<a href={locker.href} class="sp-btn sp-btn-featured">View Details</a>
+					</div>
+				</article>
+			))}
+
+			{/* ── Remaining lockers ── */}
+			{LOCKERS.filter((l) => l.name !== 'Semi Pro' && l.name !== 'Varsity').map((locker) => (
+				<article class="sp-locker-featured">
+					<div class="sp-locker-featured-nameblock">
+						<h3 class="sp-locker-name">{locker.name}</h3>
+						<p class="sp-locker-price">{locker.price}</p>
+					</div>
+					<div class="sp-locker-angles">
+						<div class="sp-locker-angle">
+							<img src={locker.image} alt={`${locker.name} Locker - Front View`} loading="lazy" />
+						</div>
+						<div class="sp-locker-angle">
+							<img src={locker.image} alt={`${locker.name} Locker - Side View`} loading="lazy" />
+						</div>
+						<div class="sp-locker-angle">
+							<img src={locker.image} alt={`${locker.name} Locker - Detail View`} loading="lazy" />
+						</div>
+						<div class="sp-locker-angle">
+							<img src={locker.image} alt={`${locker.name} Locker - Interior View`} loading="lazy" />
+						</div>
+					</div>
+					<div class="sp-locker-featured-action">
+						<a href={locker.href} class="sp-btn sp-btn-featured">View Details</a>
+					</div>
+				</article>
+			))}
+		</div>
+	</section>
+
+	<!-- ═══════ HIGHLIGHTS GRID (checkerboard layout) ═══════ -->
+	{sport !== 'hockey' && data.highlights && data.highlights.length > 0 && (
+		<section class="sp-highlights" aria-label={`${titleLabel} highlights`}>
+			<div class="sp-highlights-grid">
+				{data.highlights.map((item, i) => (
+					item.type === 'image' ? (
+						<div class="sp-hl-cell sp-hl-image">
+							<img src={item.image} alt={`${titleLabel} highlight ${i + 1}`} loading="lazy" />
+						</div>
+					) : (
+						<div class="sp-hl-cell sp-hl-text">
+							<div class="sp-hl-text-inner">
+								<span class="sp-hl-category">{item.category}</span>
+								<h3 class="sp-hl-title">{item.title}</h3>
+								<p class="sp-hl-desc">{item.text}</p>
+								<a href={item.link || '#'} class="sp-hl-link">Read More</a>
 							</div>
 						</div>
-						<div class="sport-locker-row-actions">
-							<a href={locker.href} class="btn sport-locker-row-btn">View product</a>
-						</div>
-					</article>
+					)
+				))}
+			</div>
+		</section>
+	)}
+
+	<!-- ═══════ BOTTOM GALLERY (4 images) ═══════ -->
+	<section class="sp-gallery" aria-label={`${titleLabel} imagery`}>
+		<div class="sp-gallery-grid">
+			{data.gallery.map((img, i) => (
+				<div class="sp-gallery-item">
+					<img src={img} alt={`${titleLabel} ${i + 1}`} loading="lazy" />
+				</div>
+			))}
+		</div>
+	</section>
+
+	<!-- ═══════ CTA SECTION (Materials We Use Style) ═══════ -->
+	<section class="home-shop-section">
+		<div class="home-shop-container">
+			<div class="home-shop-section-header">
+				<p class="home-shop-section-subtitle">THE LOCKER ROOM</p>
+				<h2 class="home-shop-section-title">READY TO UPGRADE YOUR {titleLabel.toUpperCase()} LOCKER ROOM?</h2>
+			</div>
+			<div class="ts-spotlight-inner-centered">
+				<div class="ts-spotlight-content">
+					<a href="/services" class="ts-spotlight-position">Custom {titleLabel} Storage Solutions</a>
+					{sport === 'football' ? (
+						<>
+							<div class="ts-spotlight-meta">
+								<span>Helmets</span> | <span>Shoulder Pads</span> | <span>Cleats</span> | <span>Uniforms</span> | <span>Gloves</span> | <span>Protective Gear</span> | <span>Chest Protectors</span> | <span>Mouthguards</span> | <span>Training Equipment</span>
+							</div>
+							<p class="ts-spotlight-bio">Custom football locker room solutions designed for professional and collegiate teams. Our wood athletic lockers provide organized storage for all your football equipment including helmets, shoulder pads, chest protectors, cleats, uniforms, gloves, mouthguards, and protective gear. With 30+ years of experience building team locker rooms across the United States, we specialize in custom football storage systems that keep your practice equipment, training gear, and game day essentials organized and accessible. From high school football teams to professional NFL facilities, our football lockers are built to handle everything from Riddell helmets to Nike cleats, Schutt pads to Under Armour uniforms. Expert football locker room design, installation, and customization. Free consultation, lifetime warranty on wood construction, 5-year warranty on all materials. Serving teams nationwide with custom wood lockers, team storage solutions, and complete locker room renovations.</p>
+						</>
+					) : sport === 'hockey' ? (
+						<>
+							<div class="ts-spotlight-meta">
+								<span>Skates</span> | <span>Sticks</span> | <span>Helmets</span> | <span>Pads</span> | <span>Gloves</span> | <span>Goalie Gear</span> | <span>Jerseys</span> | <span>Shin Guards</span> | <span>Equipment Drying</span>
+							</div>
+							<p class="ts-spotlight-bio">Custom hockey locker room solutions designed for professional and collegiate teams. Our wood athletic lockers provide organized storage for all your hockey equipment including skates, sticks, helmets, pads, gloves, goalie gear, jerseys, and protective equipment. With 30+ years of experience building team locker rooms across the United States and Canada, we specialize in custom hockey storage systems that keep your practice equipment, training gear, and game day essentials organized and accessible. From high school hockey teams to professional NHL facilities, our hockey lockers are built to handle everything from Bauer skates to CCM sticks, Warrior gloves to Vaughn goalie pads. Expert hockey locker room design with equipment drying features, installation, and customization. Free consultation, lifetime warranty on wood construction, 5-year warranty on all materials. Serving teams nationwide with custom wood lockers, team storage solutions, and complete locker room renovations.</p>
+						</>
+					) : sport === 'basketball' ? (
+						<>
+							<div class="ts-spotlight-meta">
+								<span>Basketball Shoes</span> | <span>Sneakers</span> | <span>Uniforms</span> | <span>Jerseys</span> | <span>Shorts</span> | <span>Training Gear</span> | <span>Water Bottles</span> | <span>Personal Items</span> | <span>Team Accessories</span>
+							</div>
+							<p class="ts-spotlight-bio">Custom basketball locker room solutions designed for professional and collegiate teams. Our wood athletic lockers provide organized storage for all your basketball equipment including shoes, sneakers, uniforms, jerseys, shorts, training gear, water bottles, and team accessories. With 30+ years of experience building team locker rooms across the United States, we specialize in custom basketball storage systems that keep your practice equipment, training gear, and game day essentials organized and accessible. From high school basketball teams to professional NBA facilities, our basketball lockers are built to handle everything from Nike basketball shoes to Adidas jerseys, Under Armour training gear to team equipment. Expert basketball locker room design, installation, and customization. Free consultation, lifetime warranty on wood construction, 5-year warranty on all materials. Serving teams nationwide with custom wood lockers, team storage solutions, and complete locker room renovations.</p>
+						</>
+					) : sport === 'baseball' ? (
+						<>
+							<div class="ts-spotlight-meta">
+								<span>Bats</span> | <span>Gloves</span> | <span>Helmets</span> | <span>Cleats</span> | <span>Catcher's Gear</span> | <span>Batting Gloves</span> | <span>Uniforms</span> | <span>Protective Equipment</span> | <span>Dugout Storage</span>
+							</div>
+							<p class="ts-spotlight-bio">Custom baseball locker room solutions designed for professional and collegiate teams. Our wood athletic lockers provide organized storage for all your baseball equipment including bats, gloves, helmets, cleats, catcher's gear, batting gloves, uniforms, and protective equipment. With 30+ years of experience building team locker rooms across the United States, we specialize in custom baseball storage systems that keep your dugout equipment, training gear, and game day essentials organized and accessible. From high school baseball teams to professional MLB facilities, our baseball lockers are built to handle everything from Louisville Sluggers to Wilson gloves, Rawlings catcher's mitts to Nike cleats. Expert baseball locker room design, installation, and customization. Free consultation, lifetime warranty on wood construction, 5-year warranty on all materials. Serving teams nationwide with custom wood lockers, team storage solutions, and complete locker room renovations.</p>
+						</>
+					) : sport === 'soccer' ? (
+						<>
+							<div class="ts-spotlight-meta">
+								<span>Cleats</span> | <span>Shin Guards</span> | <span>Goalkeeper Gloves</span> | <span>Uniforms</span> | <span>Jerseys</span> | <span>Training Gear</span> | <span>Soccer Balls</span> | <span>Water Bottles</span> | <span>Team Accessories</span>
+							</div>
+							<p class="ts-spotlight-bio">Custom soccer locker room solutions designed for professional and collegiate teams. Our wood athletic lockers provide organized storage for all your soccer equipment including cleats, shin guards, goalkeeper gloves, uniforms, jerseys, training gear, and team accessories. With 30+ years of experience building team locker rooms across the United States, we specialize in custom soccer storage systems that keep your practice equipment, training gear, and game day essentials organized and accessible. From high school soccer teams to professional MLS facilities, our soccer lockers are built to handle everything from Adidas cleats to Nike jerseys, goalkeeper equipment to team training gear. Expert soccer locker room design, installation, and customization. Free consultation, lifetime warranty on wood construction, 5-year warranty on all materials. Serving teams nationwide with custom wood lockers, team storage solutions, and complete locker room renovations.</p>
+						</>
+					) : sport === 'lacrosse' ? (
+						<>
+							<div class="ts-spotlight-meta">
+								<span>Lacrosse Sticks</span> | <span>Helmets</span> | <span>Shoulder Pads</span> | <span>Gloves</span> | <span>Cleats</span> | <span>Goalie Gear</span> | <span>Uniforms</span> | <span>Arm Guards</span> | <span>Rib Pads</span>
+							</div>
+							<p class="ts-spotlight-bio">Custom lacrosse locker room solutions designed for professional and collegiate teams. Our wood athletic lockers provide organized storage for all your lacrosse equipment including sticks, helmets, shoulder pads, gloves, cleats, goalie gear, uniforms, and protective equipment. With 30+ years of experience building team locker rooms across the United States, we specialize in custom lacrosse storage systems that keep your practice equipment, training gear, and game day essentials organized and accessible. From high school lacrosse teams to NCAA Division I facilities, our lacrosse lockers are built to handle everything from attack sticks to goalie equipment, shoulder pads to protective gear. Expert lacrosse locker room design, installation, and customization. Free consultation, lifetime warranty on wood construction, 5-year warranty on all materials. Serving teams nationwide with custom wood lockers, team storage solutions, and complete locker room renovations.</p>
+						</>
+					) : (
+						<p class="ts-spotlight-bio">With 30+ years of experience serving collegiate and professional teams across North America, we understand what makes a great locker room. Free design consultation, 5 year warranty.</p>
+					)}
+					<div class="materials-buttons-container">
+						<a href="/contact#quote-form" class="ts-btn ts-btn-filled">{data.cta}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Taste the Victory Banner -->
+	<section class="topscorer-banner" style={`background-image: url('/images/topscorer/${sport === 'football' ? 'h1-img-3.jpg' : sport === 'hockey' ? 'hockey-arena-wide.png' : sport === 'basketball' ? 'basketball-court-arena.png' : sport === 'soccer' ? 'soccer-field-stadium.png' : sport === 'lacrosse' ? 'lacrosse-field-game.png' : 'lacrosse-field-hero.jpg'}');`}>
+		<div class="topscorer-banner-overlay"></div>
+		<div class="topscorer-banner-bg-text" aria-hidden="true">
+			<span class="topscorer-banner-bg-line">{sport.toUpperCase()}</span>
+		</div>
+		<div class="topscorer-banner-content">
+			<p class="topscorer-banner-subtitle">Powerful Sports Theme</p>
+			<h2 class="topscorer-banner-title">{data.bannerTitle}</h2>
+			<div class="topscorer-banner-quotes">
+				{data.bannerQuotes.map((quoteItem, index) => (
+					<blockquote class={`topscorer-banner-quote ${index === 0 ? 'active' : ''}`}>
+						<p class="topscorer-banner-quote-text">"{quoteItem.quote}"</p>
+						<cite class="topscorer-banner-quote-author">— {quoteItem.author}</cite>
+					</blockquote>
 				))}
 			</div>
 		</div>
-	</section>
-
-	<!-- Bottom image strip (4 panels) – same layout for every sport -->
-	<section class="sport-page-bottom-strip" aria-label={`${titleLabel} imagery`}>
-		<div class="sport-page-bottom-strip-inner">
-			<div class="sport-page-bottom-strip-panel sport-page-bottom-strip-panel-img">
-				<img src="/images/topscorer/blog-1-img-4.jpg" alt={titleLabel} loading="lazy" />
-			</div>
-			<div class="sport-page-bottom-strip-panel sport-page-bottom-strip-panel-img">
-				<img src="/images/topscorer/blog-1-img-2.jpg" alt={titleLabel} loading="lazy" />
-			</div>
-			<div class="sport-page-bottom-strip-panel sport-page-bottom-strip-panel-img">
-				<img src="/images/topscorer/blog-1-img-3.jpg" alt={titleLabel} loading="lazy" />
-			</div>
-			<div class="sport-page-bottom-strip-panel sport-page-bottom-strip-panel-img">
-				<img src="/images/topscorer/blog-1-masonry-img-6.jpg" alt={titleLabel} loading="lazy" />
-			</div>
+		<div class="topscorer-banner-players" aria-hidden="true">
+			{sport === 'baseball' ? (
+				<div class="topscorer-banner-player-slide" data-initial-slide="true"><img data-src="/images/topscorer/h2-blog-img-2-1-nobg.png" alt="" width="480" height="640" /></div>
+			) : sport === 'football' ? (
+				<div class="topscorer-banner-player-slide" data-initial-slide="true"><img data-src="/images/topscorer/player-img-6.png" alt="" width="480" height="640" /></div>
+			) : sport === 'hockey' ? (
+				<div class="topscorer-banner-player-slide" data-initial-slide="true"><img data-src="/images/topscorer/player-img-11-nobg.png" alt="" width="480" height="640" /></div>
+			) : sport === 'basketball' ? (
+				<div class="topscorer-banner-player-slide" data-initial-slide="true"><img data-src="/images/topscorer/basketball-player-standing-nobg.png" alt="" width="480" height="640" /></div>
+			) : sport === 'soccer' ? (
+				<div class="topscorer-banner-player-slide" data-initial-slide="true"><img data-src="/images/topscorer/soccer-player.png" alt="" width="480" height="640" /></div>
+		) : sport === 'lacrosse' ? (
+			<div class="topscorer-banner-player-slide" data-initial-slide="true"><img data-src="/images/topscorer/lacrosse-player-nobg.png" alt="" width="480" height="640" /></div>
+		) : (
+				<>
+					<div class="topscorer-banner-player-slide active"><img src="/images/topscorer/player-img-10.jpg" alt="" width="480" height="640" loading="eager" /></div>
+					<div class="topscorer-banner-player-slide"><img src="/images/topscorer/soccer-player.png" alt="" width="480" height="640" loading="lazy" /></div>
+					<div class="topscorer-banner-player-slide"><img src="/images/topscorer/hockey-player.png" alt="" width="480" height="640" loading="lazy" /></div>
+					<div class="topscorer-banner-player-slide"><img src="/images/topscorer/basketball-player.png" alt="" width="480" height="640" loading="lazy" /></div>
+					<div class="topscorer-banner-player-slide"><img src="/images/topscorer/baseball-player.png" alt="" width="480" height="640" loading="lazy" /></div>
+					<div class="topscorer-banner-player-slide"><img src="/images/topscorer/player-football-blue-orange.png" alt="" width="480" height="640" loading="lazy" /></div>
+				</>
+			)}
 		</div>
 	</section>
-
-	<!-- Sport-specific content (description, features, CTA, sidebar) – under lockers / under images -->
-	<section id="sport-page-content" class="sport-page-content">
-		<div class="sport-page-container">
-			<div class="sport-page-main">
-				<p class="sport-page-description">{data.description}</p>
-				<ul class="sport-page-features">
-					{data.features.map((f) => (
-						<li>{f}</li>
-					))}
-				</ul>
-				<a href="/contact#quote-form" class="btn btn-primary">{data.cta}</a>
-			</div>
-			<aside class="sport-page-sidebar">
-				<div class="sport-page-widget">
-					<h3>Other sports</h3>
-					<ul class="sport-page-links">
-						<li><a href="/sport/football">Football Lockers</a></li>
-						<li><a href="/sport/hockey">Hockey Lockers</a></li>
-						<li><a href="/sport/basketball">Basketball Lockers</a></li>
-						<li><a href="/sport/baseball">Baseball Lockers</a></li>
-						<li><a href="/sport/soccer">Soccer Lockers</a></li>
-						<li><a href="/sport/lacrosse">Lacrosse Lockers</a></li>
-					</ul>
-				</div>
-				<div class="sport-page-widget sport-page-cta">
-					<h3>Get a quote</h3>
-					<p>Free design consultation. 30+ years experience, 5 year warranty.</p>
-					<a href="/contact#quote-form" class="btn btn-primary">Request a quote</a>
-				</div>
-			</aside>
-		</div>
-	</section>
+</div>
 </BaseLayout>
 
 <style>
-	.sport-page-hero {
+	/* ═══════════════════════════════════════════
+	   TopScorer-style sport page
+	   Fonts: Oswald 600/700 (headings), Yantramanav 400/500 (body)
+	   ═══════════════════════════════════════════ */
+
+	/* ── HERO (matches blog / shop / gallery hero) ── */
+	.sp-hero {
 		position: relative;
-		min-height: 520px;
 		display: flex;
-		align-items: center;
+		align-items: flex-end;
+		justify-content: flex-start;
+		padding: 0 0 80px;
 		overflow: hidden;
-	}
-
-	.sport-page-hero-bg {
-		position: absolute;
-		inset: 0;
-		background-size: cover;
-		background-position: center;
-		filter: grayscale(40%);
-	}
-
-	.sport-page-hero-overlay {
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.65) 100%);
-	}
-
-	.sport-page-hero-container {
-		position: relative;
-		z-index: 2;
-		max-width: 560px;
-		margin-left: auto;
-		margin-right: 20px;
-		padding: 60px 20px 60px;
+		min-height: 500px;
 		width: 100%;
-		box-sizing: border-box;
 	}
-
-	.sport-page-hero-label {
+	.sp-hero-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+		background: #0d0d0d;
+	}
+	.sp-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+	}
+	.sp-hero-baseball .sp-hero-bg-image {
+		object-position: center bottom;
+	}
+	.sp-hero-basketball .sp-hero-bg-image {
+		object-position: center 20%;
+		image-rendering: -webkit-optimize-contrast;
+		image-rendering: crisp-edges;
+	}
+	.sp-hero-soccer .sp-hero-bg-image {
+		object-position: center center;
+		object-fit: cover;
+		image-rendering: -webkit-optimize-contrast;
+		image-rendering: crisp-edges;
+		filter: contrast(1.15) brightness(1.05) saturate(1.1);
+		transform: translateZ(0);
+		backface-visibility: hidden;
+		-webkit-font-smoothing: antialiased;
+		will-change: transform;
+		width: 100%;
+	}
+	.sp-hero-lacrosse .sp-hero-bg-image {
+		object-position: center 55%;
+		image-rendering: -webkit-optimize-contrast;
+		image-rendering: crisp-edges;
+		filter: contrast(1.15) brightness(1.05) saturate(1.1);
+		transform: translateZ(0);
+		backface-visibility: hidden;
+		-webkit-font-smoothing: antialiased;
+	}
+	/* Basketball topscorer banner background */
+	.sp-page:has(.sp-hero-basketball) .topscorer-banner {
+		background-position: center bottom;
+	}
+	/* Soccer topscorer banner background */
+	.sp-page:has(.sp-hero-soccer) .topscorer-banner {
+		background-position: center bottom;
+	}
+	/* Lacrosse topscorer banner background */
+	.sp-page:has(.sp-hero-lacrosse) .topscorer-banner {
+		background-position: center center;
+	}
+	/* Lacrosse topscorer banner player */
+	.sp-page:has(.sp-hero-lacrosse) .topscorer-banner-player-slide img {
+		height: 140%;
+		max-height: 85vh;
+		max-width: min(650px, 55vw);
+		transform: translateX(80px);
+	}
+	.sp-page:has(.sp-hero-lacrosse) .topscorer-banner-player-slide.active img {
+		transform: translateX(80px);
+	}
+	.sp-hero-content {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		text-align: left;
+		width: 100%;
+	}
+	.sp-hero-breadcrumb {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
-		text-transform: uppercase;
-		letter-spacing: 0.15em;
 		color: rgba(255, 255, 255, 0.85);
-		margin: 0 0 8px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
+	}
+	.sp-hero-breadcrumb a {
+		color: rgba(255, 255, 255, 0.85);
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+	.sp-hero-breadcrumb a:hover { color: #fe5900; }
+	.sp-bc-text {
+		margin-left: 10px;
+		color: #ffffff;
+	}
+	.sp-hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 52px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
 	}
 
-	.sport-page-hero-description {
+	/* ── INTRO ── */
+	.sp-intro {
+		background: #ffffff;
+		padding: 60px 0;
+	}
+	.sp-intro-inner {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 0 20px;
+		text-align: center;
+	}
+	.sp-intro-text {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 17px;
-		line-height: 1.55;
-		color: rgba(255, 255, 255, 0.95);
-		max-width: 520px;
-		margin: 0 0 20px;
+		font-size: 18px;
+		line-height: 1.8;
+		color: #555;
+		margin: 0 0 30px;
 	}
-
-	.sport-page-hero-features {
+	.sp-intro-features {
 		list-style: none;
-		margin: 0 0 28px;
 		padding: 0;
-		max-width: 420px;
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 10px 30px;
 	}
-
-	.sport-page-hero-features li {
+	.sp-intro-features li {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 15px;
-		color: rgba(255, 255, 255, 0.95);
-		padding: 6px 0 6px 24px;
+		color: #333;
 		position: relative;
+		padding-left: 18px;
 	}
-
-	.sport-page-hero-features li::before {
+	.sp-intro-features li::before {
 		content: '';
 		position: absolute;
 		left: 0;
@@ -307,460 +688,1032 @@ const LOCKERS = [
 		border-radius: 50%;
 	}
 
-	.sport-page-hero-buttons {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 14px;
+	/* ── LOCKERS LIST ── */
+	.sp-lockers {
+		background: #f5f5f5;
+		padding: 70px 0 80px;
 	}
-
-	.sport-page-hero-btn-outline {
-		background: transparent;
-		border: 2px solid #fff;
-		color: #fff;
-	}
-
-	.sport-page-hero-btn-outline:hover {
-		background: #fff;
-		color: #0d0d0d;
-		border-color: #fff;
-	}
-
-	.sport-page-breadcrumbs {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		margin-bottom: 16px;
-		color: rgba(255, 255, 255, 0.9);
-	}
-
-	.sport-page-breadcrumbs a {
-		color: rgba(255, 255, 255, 0.9);
-		text-decoration: none;
-	}
-
-	.sport-page-breadcrumbs a:hover {
-		color: #fe5900;
-	}
-
-	.sport-page-breadcrumbs span {
-		margin-left: 8px;
-		color: #fff;
-	}
-
-	.sport-page-title {
-		font-family: 'Oswald', sans-serif;
-		font-size: 56px;
-		font-weight: 600;
-		color: #fff;
-		text-transform: uppercase;
-		margin: 0 0 16px;
-		letter-spacing: 0.02em;
-	}
-
-	.sport-page-content {
-		background: #f0f0f0;
-		padding: 60px 0 80px;
-	}
-
-	.sport-page-container {
-		max-width: 1300px;
-		margin: 0 auto;
-		padding: 0 20px;
-		display: grid;
-		grid-template-columns: 1fr 320px;
-		gap: 60px;
-		align-items: start;
-	}
-
-	.sport-page-description {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 18px;
-		color: #666;
-		line-height: 1.8;
-		margin: 0 0 1.5rem;
-	}
-
-	.sport-page-features {
-		list-style: none;
-		padding: 0;
-		margin: 0 0 2rem;
-	}
-
-	.sport-page-features li {
-		position: relative;
-		padding-left: 1.5rem;
-		margin-bottom: 0.75rem;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 16px;
-		color: #0d0d0d;
-		line-height: 1.6;
-	}
-
-	.sport-page-features li::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0.5em;
-		width: 6px;
-		height: 6px;
-		background: #fe5900;
-		border-radius: 50%;
-	}
-
-	.btn {
-		display: inline-block;
-		padding: 0.875rem 2rem;
-		background: #fe5900;
-		color: #fff;
-		text-decoration: none;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		border: 2px solid #fe5900;
-		transition: background 0.3s, border-color 0.3s, transform 0.2s;
-	}
-
-	.btn:hover {
-		background: #e04d00;
-		border-color: #e04d00;
-		transform: translateY(-2px);
-	}
-
-	.sport-page-widget {
-		background: #f7f7f7;
-		border: 1px solid #e8e8e8;
-		padding: 1.5rem;
-		margin-bottom: 1.5rem;
-	}
-
-	.sport-page-widget h3 {
-		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
-		font-weight: 600;
-		text-transform: uppercase;
-		margin: 0 0 1rem;
-		color: #0d0d0d;
-	}
-
-	.sport-page-links {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-
-	.sport-page-links li {
-		margin-bottom: 0.5rem;
-	}
-
-	.sport-page-links a {
-		color: #0d0d0d;
-		text-decoration: none;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 15px;
-	}
-
-	.sport-page-links a:hover {
-		color: #fe5900;
-	}
-
-	.sport-page-cta p {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #666;
-		line-height: 1.6;
-		margin: 0 0 1rem;
-	}
-
-	.sport-page-cta .btn {
-		display: block;
-		width: 100%;
-		max-width: 100%;
-		text-align: center;
-		box-sizing: border-box;
-		line-height: 1.3;
-		margin: 0;
-	}
-
-	@media (max-width: 968px) {
-		.sport-page-container {
-			grid-template-columns: 1fr;
-		}
-
-		.sport-page-title {
-			font-size: 40px;
-		}
-	}
-
-	/* Lockers: image left, details right (one row per locker) */
-	.sport-page-lockers {
-		background: #f0f0f0;
-		padding: 60px 0 80px;
-	}
-
-	.sport-page-lockers-inner {
+	.sp-lockers-inner {
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
 	}
-
-	.sport-page-lockers-list {
-		display: flex;
-		flex-direction: column;
-		gap: 5rem;
-	}
-
-	.sport-locker-row {
-		display: grid;
-		grid-template-columns: 280px 1fr auto;
-		gap: 2rem;
-		align-items: center;
-	}
-
-	/* Image left, details center, button right */
-	.sport-locker-row-image {
-		grid-column: 1;
-		aspect-ratio: 1;
-		overflow: visible;
-		background: transparent;
-	}
-
-	.sport-locker-row-details {
-		grid-column: 2;
-	}
-
-	.sport-locker-row-actions {
-		grid-column: 3;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.sport-locker-row-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: contain;
-		object-position: center;
-		display: block;
-		background: transparent;
-	}
-
-	.sport-locker-row-details {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
+	.sp-lockers-header {
 		text-align: center;
-		align-items: center;
+		margin-bottom: 50px;
 	}
-
-	.sport-locker-row-name {
-		font-family: 'Oswald', sans-serif;
-		font-size: 26px;
-		font-weight: 700;
+	.sp-lockers-intro {
+		max-width: 1100px;
+		margin: 0 auto 60px;
+		text-align: center;
+	}
+	.sp-lockers-intro .ts-spotlight-bio {
+		column-count: 2;
+		column-gap: 40px;
+		text-align: left;
+	}
+	@media (max-width: 768px) {
+		.sp-lockers-intro .ts-spotlight-bio {
+			column-count: 1;
+		}
+	}
+	.sp-lockers-sub {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
 		text-transform: uppercase;
 		letter-spacing: 0.2em;
-		margin: 0;
-		color: #0d0d0d;
-		line-height: 1.2;
-	}
-
-	.sport-locker-row-price {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 18px;
-		font-weight: 500;
 		color: #fe5900;
-		margin: 0;
-	}
-
-	.sport-locker-row-info {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 15px;
-		color: #444;
-		line-height: 1.6;
-		margin: 0.5rem 0 0;
-	}
-
-	.sport-locker-row-specs {
-		margin-top: 0.75rem;
-		padding-top: 0.75rem;
-		border-top: 1px solid #eee;
-	}
-
-	.sport-locker-row-dimensions {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #555;
-		line-height: 1.5;
-		margin: 0 0 0.5rem;
-	}
-
-	.sport-locker-row-dimensions strong {
-		color: #0d0d0d;
-		font-weight: 600;
-	}
-
-	.sport-locker-row-dimensions,
-	.sport-locker-row-colors-wrap {
-		text-align: center;
-	}
-
-	.sport-locker-row-colors-wrap {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #555;
-		margin: 0;
-	}
-
-	.sport-locker-row-colors-wrap strong {
 		display: block;
+		margin-bottom: 8px;
+	}
+	.sp-lockers-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 42px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
 		color: #0d0d0d;
-		font-weight: 600;
-		margin-bottom: 0.35rem;
+		margin: 0;
 	}
 
-	.sport-locker-color-swatches {
+	/* Featured locker (Semi Pro) — horizontal one-line layout */
+	.sp-locker-featured {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		gap: 20px;
+		align-items: center;
+		background: transparent;
+		padding: 40px 20px;
+		margin-bottom: 40px;
+		border: none;
+	}
+	.sp-locker-featured-nameblock {
 		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
+		flex-direction: column;
+		align-items: flex-start;
+		text-align: left;
+		gap: 2px;
+		min-width: 180px;
+	}
+	.sp-locker-featured-nameblock .sp-locker-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(28px, 3.5vw, 38px);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+		margin: 0;
+		line-height: 1.1;
+	}
+	.sp-locker-featured-nameblock .sp-locker-price {
+		font-family: 'Oswald', sans-serif;
+		font-size: 22px;
+		font-weight: 600;
+		color: #666666;
+		margin: 8px 0 0;
+		text-align: right;
+		display: block;
+	}
+	.sp-locker-angles {
+		display: flex;
+		gap: 0;
+		justify-content: center;
+		align-items: center;
+	}
+	.sp-locker-angle {
+		display: flex;
+		align-items: center;
+		background: transparent;
+		padding: 0;
+		transition: opacity 0.3s;
+	}
+	.sp-locker-angle:hover {
+		opacity: 0.85;
+	}
+	.sp-locker-angle img {
+		max-width: 100%;
+		max-height: 320px;
+		height: auto;
+		object-fit: contain;
+		display: block;
+	}
+	.angle-label {
+		display: none;
+	}
+	.sp-locker-featured-action {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
+	.sp-btn-featured {
+		padding: 12px 30px;
+		font-size: 13px;
+		background: #0d0d0d;
+		color: #ffffff;
+		border: 2px solid #0d0d0d;
+	}
+	.sp-btn-featured:hover,
+	.sp-btn-featured:active {
+		background: #fe5900;
+		color: #ffffff;
+		border-color: #fe5900;
+	}
+
+	/* Each locker row: image | details | colors | button */
+	.sp-locker-row {
+		display: grid;
+		grid-template-columns: 260px auto 1fr auto;
+		gap: 32px;
+		align-items: center;
+		background: transparent;
+		padding: 40px 20px;
+		margin-bottom: 20px;
+		border: none;
+	}
+	.sp-locker-row:hover {
+		box-shadow: none;
+	}
+
+	/* Image */
+	.sp-locker-img {
+		width: 100%;
+		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin: 0.35rem 0 0.25rem;
 	}
-
-	.sport-locker-swatch {
-		display: inline-block;
-		width: 28px;
-		height: 28px;
-		border-radius: 4px;
-		flex-shrink: 0;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-	}
-
-	.sport-locker-color-names {
-		font-size: 13px;
-		color: #666;
-		display: block;
-		margin-top: 0.15rem;
-	}
-
-	.sport-locker-row-btn {
-		display: inline-block;
-		padding: 0.5rem 1rem;
-		font-size: 12px;
-		text-align: center;
-	}
-
-	@media (max-width: 768px) {
-		.sport-locker-row {
-			grid-template-columns: 1fr;
-			text-align: center;
-		}
-
-		.sport-locker-row-image {
-			grid-column: 1;
-			max-width: 240px;
-			margin: 0 auto;
-		}
-
-		.sport-locker-row-details {
-			grid-column: 1;
-			align-items: center;
-		}
-
-		.sport-locker-row-actions {
-			grid-column: 1;
-			margin-top: 0.5rem;
-		}
-
-		.sport-locker-row-info,
-		.sport-locker-row-specs {
-			text-align: center;
-		}
-
-		.sport-locker-color-swatches {
-			justify-content: center;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.sport-page-hero-container {
-			padding: 40px 20px 40px;
-		}
-
-		.sport-page-hero-description {
-			font-size: 15px;
-		}
-
-		.sport-page-hero-features li {
-			font-size: 14px;
-		}
-	}
-
-	@media (max-width: 640px) {
-		.sport-page-title {
-			font-size: 32px;
-		}
-
-		.sport-page-hero {
-			min-height: 480px;
-			align-items: flex-end;
-		}
-
-		.sport-page-hero-container {
-			padding: 32px 20px 40px;
-		}
-
-		.sport-page-hero-description {
-			font-size: 14px;
-		}
-
-		.sport-page-hero-features {
-			margin-bottom: 20px;
-		}
-
-		.sport-page-hero-features li {
-			font-size: 13px;
-			padding: 4px 0 4px 20px;
-		}
-
-		.sport-page-hero-buttons {
-			gap: 10px;
-		}
-
-		.sport-page-hero-buttons .btn {
-			padding: 0.5rem 1rem;
-			font-size: 13px;
-		}
-	}
-
-	/* Bottom strip (4 images) – same for every sport */
-	.sport-page-bottom-strip {
-		background: #0d0d0d;
-		padding: 0;
-		overflow: hidden;
-	}
-	.sport-page-bottom-strip-inner {
-		display: flex;
-		width: 100%;
+	.sp-locker-img img {
 		max-width: 100%;
-		margin: 0;
+		max-height: 280px;
+		object-fit: contain;
+		display: block;
 	}
-	.sport-page-bottom-strip-panel {
-		flex: 1 1 0;
-		min-width: 0;
-		aspect-ratio: 4/3;
-	}
-	.sport-page-bottom-strip-panel-img {
-		background: none;
+
+	/* Name + Price block (shared by all lockers) */
+	.sp-locker-nameblock {
 		display: flex;
-		align-items: stretch;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 4px;
 	}
-	.sport-page-bottom-strip-panel-img img {
+	.sp-locker-nameblock .sp-locker-name,
+	.sp-locker-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(24px, 3vw, 32px);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+		margin: 0;
+		line-height: 1.1;
+	}
+	.sp-locker-nameblock .sp-locker-price,
+	.sp-locker-price {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		color: #666666;
+		margin: 8px 0 0;
+		text-align: right;
+		display: block;
+	}
+
+	/* Colors column */
+	.sp-locker-colors {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 6px;
+	}
+	.sp-swatch-group-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		color: #0d0d0d;
+	}
+	.sp-swatch-group-label-wood {
+		margin-top: 8px;
+	}
+	.sp-locker-swatches {
+		display: flex;
+		gap: 5px;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.sp-swatch {
+		display: block;
+		width: 44px;
+		height: 44px;
+		border-radius: 0;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+		cursor: pointer;
+		transition: transform 0.2s;
+	}
+	.sp-swatch:hover {
+		transform: scale(1.15);
+	}
+
+	/* Action button */
+	.sp-locker-action {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	/* ── BUTTONS ── */
+	.sp-btn {
+		display: inline-block;
+		font-family: 'Oswald', sans-serif;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		text-decoration: none;
+		transition: all 0.3s;
+		cursor: pointer;
+		border: none;
+	}
+	.sp-btn-view {
+		padding: 12px 30px;
+		font-size: 13px;
+		background: #0d0d0d;
+		color: #ffffff;
+		border: 2px solid #0d0d0d;
+	}
+	.sp-btn-view:hover {
+		background: #fe5900;
+		border-color: #fe5900;
+		color: #ffffff;
+	}
+	.sp-btn-primary {
+		padding: 14px 36px;
+		font-size: 14px;
+		background: #fe5900;
+		color: #ffffff;
+		border: 2px solid #fe5900;
+	}
+	.sp-btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+	}
+	.sp-btn-block {
+		display: block;
+		width: 100%;
+		text-align: center;
+		box-sizing: border-box;
+	}
+
+	/* ── HIGHLIGHTS CHECKERBOARD GRID ── */
+	.sp-highlights {
+		padding: 0;
+		background: #0d0d0d;
+	}
+	.sp-highlights-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0;
+	}
+	.sp-hl-cell {
+		aspect-ratio: 1;
+		overflow: hidden;
+		position: relative;
+	}
+
+	/* Image cells */
+	.sp-hl-image {
+		background: #0d0d0d;
+	}
+	.sp-hl-image img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		display: block;
+		filter: grayscale(100%);
+		transition: filter 0.4s, transform 0.4s;
+	}
+	.sp-hl-image:hover img {
+		filter: grayscale(0%);
+		transform: scale(1.04);
+	}
+
+	/* Text cells */
+	.sp-hl-text {
+		background: #0d0d0d;
+		display: flex;
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+	.sp-hl-text-inner {
+		padding: 30px 28px;
+	}
+	.sp-hl-category {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		font-weight: 400;
+		text-transform: uppercase;
+		letter-spacing: 0.25em;
+		color: #888;
+		display: block;
+		margin-bottom: 12px;
+	}
+	.sp-hl-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 22px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #ffffff;
+		margin: 0 0 14px;
+		line-height: 1.2;
+	}
+	.sp-hl-desc {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #999;
+		line-height: 1.7;
+		margin: 0 0 20px;
+	}
+	.sp-hl-link {
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #ffffff;
+		text-decoration: none;
+		border-bottom: 2px solid #ffffff;
+		padding-bottom: 2px;
+		transition: color 0.3s, border-color 0.3s;
+	}
+	.sp-hl-link:hover {
+		color: #fe5900;
+		border-color: #fe5900;
+	}
+
+	/* ── BOTTOM GALLERY ── */
+	.sp-gallery {
+		padding: 0;
+		background: #0d0d0d;
+	}
+	.sp-gallery-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0;
+	}
+	.sp-gallery-item {
+		aspect-ratio: 4 / 4.14;
+		overflow: hidden;
+	}
+	.sp-gallery-item img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		transition: transform 0.4s, filter 0.4s;
+		filter: grayscale(20%);
+	}
+	.sp-gallery-item:hover img {
+		transform: scale(1.05);
+		filter: grayscale(0%);
+	}
+
+	/* ── MATERIALS WE USE SECTION (from homepage) ── */
+	.home-shop-section {
+		position: relative;
+		padding: 100px 0;
+		background: #ffffff;
+		overflow: hidden;
+	}
+	.home-shop-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		position: relative;
+		z-index: 10;
+	}
+	.home-shop-section-header {
+		text-align: center;
+		margin-bottom: 60px;
+	}
+	.home-shop-section-subtitle {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		letter-spacing: 6px;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		margin-bottom: 10px;
+	}
+	.home-shop-section-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(32px, 4vw, 52px);
+		font-weight: 700;
+		text-transform: uppercase;
+		color: #0d0d0d;
+		line-height: 1.1;
+		margin: 0;
+	}
+	.ts-spotlight-inner-centered {
+		max-width: 900px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	.ts-spotlight-content {
+		text-align: center;
+	}
+	.ts-spotlight-position {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		letter-spacing: 4px;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		text-decoration: none;
+	}
+	.ts-spotlight-position:hover {
+		color: #fe5900;
+	}
+	.ts-spotlight-meta {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin: 25px 0;
+		line-height: 1.8;
+	}
+	.ts-spotlight-meta span {
+		display: inline;
+	}
+	.ts-spotlight-bio {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		line-height: 1.8;
+		color: #666666;
+		margin-bottom: 30px;
+		text-align: center;
+	}
+	.materials-buttons-container {
+		text-align: center;
+		margin-top: 30px;
+	}
+	.ts-btn {
+		display: inline-block;
+		padding: 16px 40px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 3px;
+		text-decoration: none;
+		transition: all 0.3s ease;
+		text-align: center;
+		cursor: pointer;
+	}
+	.ts-btn-filled {
+		background: #000000;
+		color: #ffffff;
+		border: 2px solid #000000;
+	}
+	.ts-btn-filled:hover {
+		background: #fe5900;
+		border-color: #fe5900;
+		color: #ffffff;
+	}
+
+	/* ── RESPONSIVE ── */
+	@media (max-width: 1024px) {
+		.sp-locker-row {
+			grid-template-columns: 180px auto 1fr auto;
+			gap: 20px;
+		}
+		.sp-locker-angles {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 20px;
+		}
+	}
+
+	@media (max-width: 968px) {
+		.sp-cta-inner {
+			grid-template-columns: 1fr;
+		}
+		.sp-gallery-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.sp-highlights-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.sp-hero { min-height: 300px; padding-bottom: 50px; }
+		.sp-hero-title { font-size: 42px; }
+
+		.sp-locker-featured {
+			padding: 30px 24px;
+			gap: 24px;
+		}
+		.sp-locker-angles {
+			grid-template-columns: 1fr;
+			gap: 16px;
+		}
+		.sp-locker-angle img {
+			max-height: 220px;
+		}
+
+		.sp-locker-row {
+			grid-template-columns: 1fr;
+			text-align: center;
+			padding: 24px;
+		}
+		.sp-locker-img {
+			max-width: 200px;
+			margin: 0 auto;
+		}
+		.sp-locker-nameblock {
+			align-items: center;
+		}
+		.sp-locker-colors {
+			align-items: center;
+		}
+		.sp-locker-action {
+			justify-content: center;
+		}
+
+		.sp-lockers-title { font-size: 32px; }
+		.sp-cta-heading { font-size: 28px; }
+	}
+
+	@media (max-width: 640px) {
+		.sp-hero { min-height: 240px; padding-bottom: 40px; }
+		.sp-hero-title { font-size: 32px; }
+
+		.sp-gallery-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.sp-highlights-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.sp-hl-title {
+			font-size: 18px;
+		}
+		.sp-hl-desc {
+			font-size: 12px;
+		}
+		.sp-hl-text-inner {
+			padding: 20px 18px;
+		}
+
+		.sp-intro-features {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+
+	/* ── DARK THEME (pages with highlights) ── */
+	.sp-page-dark {
+		background: #0d0d0d;
+	}
+	.sp-page-dark .sp-hero-bg-image {
+		filter: none;
+	}
+	.sp-page-dark .sp-intro {
+		background: #0d0d0d;
+	}
+	.sp-page-dark .sp-intro-text {
+		color: #b0b0b0;
+	}
+	.sp-page-dark .sp-intro-features li {
+		color: #ccc;
+	}
+	.sp-page-dark .sp-lockers {
+		background: #f5f5f5;
+	}
+	.sp-page-dark .sp-lockers-title {
+		color: #0d0d0d;
+	}
+	.sp-page-dark .sp-locker-row {
+		background: transparent;
+		border: none;
+	}
+	.sp-page-dark .sp-locker-row:hover {
+		box-shadow: none;
+	}
+	.sp-page-dark .sp-locker-name {
+		color: #0d0d0d;
+	}
+	.sp-page-dark .sp-locker-info {
+		color: #666;
+	}
+	.sp-page-dark .sp-locker-dims {
+		color: #888;
+	}
+	.sp-page-dark .sp-locker-dims strong {
+		color: #555;
+	}
+	.sp-page-dark .sp-swatch-group-label {
+		color: #0d0d0d;
+	}
+	.sp-page-dark .sp-btn-view {
+		background: #0d0d0d;
+		color: #ffffff;
+		border-color: #0d0d0d;
+	}
+	.sp-page-dark .sp-btn-view:hover {
+		background: #fe5900;
+		color: #ffffff;
+		border-color: #fe5900;
+	}
+	.sp-page-dark .sp-cta-section {
+		background: #111111;
+	}
+	.sp-page-dark .sp-cta-heading {
+		color: #ffffff;
+	}
+	.sp-page-dark .sp-cta-text {
+		color: #999;
+	}
+	.sp-page-dark .sp-widget {
+		background: #1a1a1a;
+		border-color: #2a2a2a;
+	}
+	.sp-page-dark .sp-widget h3 {
+		color: #ffffff;
+	}
+	.sp-page-dark .sp-widget-links a {
+		color: #b0b0b0;
+	}
+	.sp-page-dark .sp-widget-links a:hover {
+		color: #fe5900;
+	}
+	.sp-page-dark .sp-widget-quote p {
+		color: #888;
+	}
+
+	/* Taste the Victory Banner */
+	.topscorer-banner {
+		position: relative;
+		min-height: 49vh;
+		background-size: cover;
+		background-position: center;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding: 56px clamp(20px, 6vw, 80px);
+		overflow: hidden;
+	}
+	/* Hockey page - position background to bottom */
+	.sp-page:has(.sp-hero-hockey) .topscorer-banner {
+		background-position: center 70%;
+	}
+	.topscorer-banner-players {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		left: 0;
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		pointer-events: none;
+		z-index: 4;
+		padding-right: clamp(0px, 4vw, 40px);
+	}
+	.topscorer-banner-player-slide {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		opacity: 0;
+		transform: translateX(120px);
+		transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1), transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+	.topscorer-banner-player-slide.active {
+		opacity: 1;
+		transform: translateX(0);
+		z-index: 1;
+	}
+	.topscorer-banner-player-slide.exiting {
+		opacity: 0;
+		transform: translateX(-80px);
+		z-index: 0;
+	}
+	.topscorer-banner-player-slide img {
+		height: 90%;
+		max-height: 60vh;
+		width: auto;
+		max-width: min(480px, 45vw);
+		object-fit: contain;
+		object-position: bottom right;
+	}
+	.topscorer-banner-player-slide[data-initial-slide] img {
+		object-position: bottom right;
+		transform: translateY(0);
+	}
+	/* Hockey page - make player bigger and position lower */
+	.sp-page:has(.sp-hero-hockey) .topscorer-banner-player-slide img {
+		height: 110%;
+		max-height: 70vh;
+		max-width: min(550px, 50vw);
+		object-position: bottom right;
+		transform: translateY(60px);
+	}
+	.sp-page:has(.sp-hero-hockey) .topscorer-banner-player-slide.active img {
+		transform: translateY(60px);
+	}
+	/* Soccer page - position player more to the left */
+	.sp-page:has(.sp-hero-soccer) .topscorer-banner-player-slide img {
+		transform: translateX(-80px);
+	}
+	.sp-page:has(.sp-hero-soccer) .topscorer-banner-player-slide.active img {
+		transform: translateX(-80px);
+	}
+	.topscorer-banner-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.5);
+		z-index: 2;
+	}
+	.topscorer-banner-bg-text {
+		position: absolute;
+		bottom: 40px;
+		right: 40px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: flex-end;
+		pointer-events: none;
+		z-index: 3;
+		opacity: 0.12;
+	}
+	.topscorer-banner-bg-line {
+		display: block;
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(2.8rem, 12.6vw, 9.8rem);
+		font-weight: 700;
+		color: #ffffff;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		line-height: 0.85;
+		white-space: nowrap;
+	}
+	.topscorer-banner-content {
+		position: relative;
+		z-index: 4;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		text-align: left;
+		max-width: 560px;
+	}
+	.topscorer-banner-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.38em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.9);
+		margin: 0 0 14px 0;
+	}
+	.topscorer-banner-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(2.5rem, 6vw, 4rem);
+		font-weight: 700;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0 0 46px 0;
+		line-height: 1.05;
+		letter-spacing: 0.02em;
+	}
+	.topscorer-banner-title-strip {
+		display: inline-block;
+		background: #000000;
+		padding: 0.18em 0.4em 0.18em 0.5em;
+		margin-left: -0.5em;
+		box-decoration-break: clone;
+		-webkit-box-decoration-break: clone;
+	}
+	.topscorer-banner-quotes {
+		position: relative;
+		min-height: 100px;
+		margin-bottom: 26px;
+		width: 100%;
+		display: block;
+	}
+	.topscorer-banner-quote {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		max-width: 520px;
+		margin: 0;
+		padding-left: 20px;
+		border-left: 3px solid #fe5900;
+		opacity: 0;
+		transform: translateY(20px);
+		transition: opacity 0.6s ease, transform 0.6s ease;
+		pointer-events: none;
+		box-sizing: border-box;
+		display: block !important;
+		writing-mode: horizontal-tb !important;
+	}
+	.topscorer-banner-quote.active {
+		opacity: 1;
+		transform: translateY(0);
+		pointer-events: auto;
+	}
+	.topscorer-banner-quote-text {
+		font-family: 'Yantramanav', sans-serif !important;
+		font-size: 18px;
+		font-style: italic;
+		color: rgba(255, 255, 255, 0.95);
+		line-height: 1.5;
+		margin: 0 0 12px 0;
+		display: block !important;
+		word-break: normal !important;
+		overflow-wrap: break-word !important;
+		white-space: normal !important;
+		writing-mode: horizontal-tb !important;
+		text-orientation: upright !important;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+	.topscorer-banner-quote-author {
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		font-style: normal;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		color: rgba(255, 255, 255, 0.6);
+		display: block;
+		margin-top: 0;
+	}
+	.topscorer-banner-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 14px;
+	}
+	.topscorer-btn-solid {
+		background: #000000;
+		color: #ffffff;
+		border: 1px solid #000000;
+		padding: 14px 30px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		text-decoration: none;
+		transition: background 0.3s, border-color 0.3s, color 0.3s;
+	}
+	.topscorer-btn-solid:hover {
+		background: #fe5900;
+		border-color: #fe5900;
+		color: #ffffff;
+	}
+	.topscorer-btn-outline {
+		background: transparent;
+		color: #ffffff;
+		border: 1px solid #ffffff;
+		padding: 14px 30px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		text-decoration: none;
+		transition: background 0.3s, border-color 0.3s, color 0.3s;
+	}
+	.topscorer-btn-outline:hover {
+		background: #fe5900;
+		border-color: #fe5900;
+		color: #ffffff;
+	}
+
+	@media (max-width: 768px) {
+		.topscorer-banner {
+			min-height: 42vh;
+			padding: 42px 20px;
+		}
+		.topscorer-banner-content {
+			max-width: 100%;
+		}
+		.topscorer-banner-title {
+			font-size: clamp(2rem, 8vw, 3rem);
+		}
+		.topscorer-banner-quotes {
+			min-height: 150px;
+		}
+		.topscorer-banner-bg-text {
+			bottom: 20px;
+			right: 20px;
+		}
+		.topscorer-banner-buttons {
+			flex-direction: row;
+			gap: 12px;
+		}
+		.topscorer-banner-players {
+			padding-right: 10px;
+		}
+		.topscorer-banner-player-slide img {
+			max-height: 52vh;
+			max-width: min(320px, 55vw);
+		}
 	}
 </style>
+
+<script>
+	// Taste the Victory banner: 6 sport players slide in one by one with pause
+	function initBannerPlayers() {
+		const slides = document.querySelectorAll('.topscorer-banner-player-slide');
+		if (slides.length === 0) return;
+		let currentIndex = 0;
+		const pauseMs = 3500; // pause between slides (ms)
+
+		function goToNext() {
+			const current = slides[currentIndex];
+			const nextIndex = (currentIndex + 1) % slides.length;
+			const next = slides[nextIndex];
+			current.classList.add('exiting');
+			current.classList.remove('active');
+			next.classList.add('active');
+			next.classList.remove('exiting');
+			setTimeout(() => {
+				current.classList.remove('exiting');
+			}, 800);
+			currentIndex = nextIndex;
+		}
+
+		setInterval(goToNext, pauseMs);
+	}
+
+	// Rotate quotes in sync with player slides
+	function initBannerQuotes() {
+		const quotes = document.querySelectorAll('.topscorer-banner-quote');
+		if (quotes.length <= 1) return;
+		let currentIndex = 0;
+		const pauseMs = 3500; // pause between quotes (ms) - same as player slides
+
+		function goToNext() {
+			const current = quotes[currentIndex];
+			const nextIndex = (currentIndex + 1) % quotes.length;
+			const next = quotes[nextIndex];
+			current.classList.remove('active');
+			next.classList.add('active');
+			currentIndex = nextIndex;
+		}
+
+		setInterval(goToNext, pauseMs);
+	}
+
+	// Animate initial slide on page load
+	function initInitialSlide() {
+		const initialSlide = document.querySelector('[data-initial-slide="true"]');
+		if (!initialSlide) return;
+
+		const banner = document.querySelector('.topscorer-banner');
+		if (!banner) return;
+
+		// Use Intersection Observer to trigger animation when banner section is visible
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					// Load image if it has data-src (lazy load)
+					const img = initialSlide.querySelector('img[data-src]');
+					if (img && !img.src) {
+						img.src = img.dataset.src;
+						// Add active class after a small delay to ensure image starts loading
+						setTimeout(() => {
+							initialSlide.classList.add('active');
+						}, 50);
+					} else {
+						initialSlide.classList.add('active');
+					}
+				} else {
+					// Remove active class when scrolling away to reset animation
+					initialSlide.classList.remove('active');
+				}
+			});
+		}, {
+			threshold: 0.3, // Trigger when 30% of section is visible
+			rootMargin: '0px' // No extra margin - trigger only when actually in viewport
+		});
+
+		observer.observe(banner);
+	}
+
+	// Initialize when DOM is ready
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', () => {
+			initBannerPlayers();
+			initBannerQuotes();
+			initInitialSlide();
+		});
+	} else {
+		initBannerPlayers();
+		initBannerQuotes();
+		initInitialSlide();
+	}
+</script>
