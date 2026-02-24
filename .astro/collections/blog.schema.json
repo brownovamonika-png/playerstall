@@ -1,0 +1,54 @@
+{
+  "$ref": "#/definitions/blog",
+  "definitions": {
+    "blog": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "default": ""
+        },
+        "category": {
+          "type": "string",
+          "default": "Uncategorized"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "datePublished": {
+          "type": "string"
+        },
+        "readTime": {
+          "type": "string",
+          "default": "5 min read"
+        },
+        "author": {
+          "type": "string",
+          "default": "PlayerStall"
+        },
+        "wordCount": {
+          "type": "number"
+        },
+        "heroImage": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "datePublished"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

@@ -1,0 +1,36 @@
+# Robots.txt for PlayerStall / CustomSportsLockers.com
+# https://playerstall.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Disallow admin and private pages
+Disallow: /cart
+Disallow: /checkout
+Disallow: /admin/
+Disallow: /api/
+
+# Disallow search and filter parameters
+Disallow: /*?*utm_*
+Disallow: /*?*ref=
+Disallow: /*?*fbclid=
+
+# Allow specific CSS, JS, and images for crawlers
+Allow: /images/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Sitemap location
+Sitemap: https://playerstall.com/sitemap.xml
+
+# Crawl-delay for specific bots (optional - only if experiencing server load issues)
+# User-agent: Googlebot
+# Crawl-delay: 0
+
+User-agent: Bingbot
+Crawl-delay: 1

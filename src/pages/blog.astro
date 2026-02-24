@@ -1,160 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { getBlogHeroUrl } from '../lib/blog-hero';
 
-// TEMPORARY: Drafts shown on blog index for demo. To hide again, remove the glob/parseDraftPost/draftPosts block and the "...draftPosts" spread below.
-const DEFAULT_HERO = 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-1.jpg';
-const rawDrafts = import.meta.glob<{ default: string }>('./blog/drafts/*.astro', { query: '?raw', import: 'default', eager: true });
-function parseDraftPost(path: string, raw: string): { title: string; date: string; category: string; summary: string; heroImage: string; url: string; rowSpan: number; imageHeight: number } | null {
-	const slug = path.replace(/^.*\/([^/]+)\.astro$/, '$1');
-	const titleMatch = raw.match(/title:\s*['"]([^'"]*(?:\\.[^'"]*)*)['"]/);
-	const descMatch = raw.match(/description:\s*['"]([^'"]*(?:\\.[^'"]*)*)['"]/);
-	const categoryMatch = raw.match(/category:\s*['"]([^'"]*)['"]/);
-	const dateMatch = raw.match(/datePublished:\s*['"]([^'"]*)['"]/);
-	const title = titleMatch ? titleMatch[1].replace(/\\'/g, "'") : slug.replace(/-/g, ' ');
-	const description = descMatch ? descMatch[1].replace(/\\'/g, "'").slice(0, 200) : title;
-	const category = categoryMatch ? categoryMatch[1] : 'Blog';
-	const dateStr = dateMatch ? dateMatch[1] : '';
-	const date = dateStr ? new Date(dateStr + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Draft';
-	return {
-		title,
-		date,
-		category,
-		summary: description + (description.length >= 200 ? '…' : ''),
-		heroImage: DEFAULT_HERO,
-		url: `/blog/drafts/${slug}`,
-		rowSpan: 35 + (Math.abs(slug.length % 15)),
-		imageHeight: 220 + (slug.length % 3) * 40
-	};
-}
-const draftPosts = Object.entries(rawDrafts)
-	.map(([path, mod]) => parseDraftPost(path, typeof mod === 'string' ? mod : (mod?.default ?? '')))
-	.filter((p): p is NonNullable<ReturnType<typeof parseDraftPost>> => p != null);
+// Only MDX posts from src/content/blog (Content Collections)
+const mdxPosts = await getCollection('blog');
 
-// Blog posts with masonry grid row spans for varied heights (curated + drafts for demo)
-const posts = [
-	{
-		title: 'Wood vs Metal Sports Lockers: The Complete 2025 Comparison Guide',
-		date: 'January 15, 2025',
-		category: 'Design',
-		summary: 'After 30+ years in the business, we\'ve seen it all. Here\'s the truth about wood vs metal lockers—what works, what doesn\'t, and why wood is making a comeback in modern athletic facilities.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-1.jpg',
-		url: '/blog/wood-vs-metal',
-		rowSpan: 45,
-		imageHeight: 300
-	},
-	{
-		title: 'The True Cost of Sports Lockers: 15-Year Total Cost of Ownership Analysis',
-		date: 'January 10, 2025',
-		category: 'Planning',
-		summary: 'Most athletic directors focus on upfront costs, but the real value is in total cost of ownership. We break down the hidden costs and show you how to calculate the true ROI of your locker room investment.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-2.jpg',
-		url: '/blog/roi-analysis',
-		rowSpan: 40,
-		imageHeight: 250
-	},
-	{
-		title: 'Locker Rooms That Win Recruits: What Top Athletes Actually Notice',
-		date: 'January 5, 2025',
-		category: 'Recruiting',
-		summary: 'Coaches call it their "number one recruiting tool." Learn what recruits actually notice in locker rooms and how professional facilities can give you a competitive edge in recruiting top talent.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-3.jpg',
-		url: '/blog/recruiting-impact',
-		rowSpan: 45,
-		imageHeight: 300
-	},
-	{
-		title: 'Maintaining Your Wood Lockers: 30 Years of Care Tips',
-		date: 'December 28, 2024',
-		category: 'Maintenance',
-		summary: 'After three decades of making wood lockers, we\'ve learned what works and what doesn\'t. Here are our proven tips for keeping your lockers looking professional for 15+ years.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-4.jpg',
-		url: '/blog/maintenance-tips',
-		rowSpan: 40,
-		imageHeight: 250
-	},
-	{
-		title: 'The 7-Step Locker Room Planning Process: From Budget to Installation',
-		date: 'December 20, 2024',
-		category: 'Design',
-		summary: 'A comprehensive guide for athletic directors navigating their first locker room project. Learn how to plan, budget, and execute a successful locker room renovation or installation.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-6.jpg',
-		url: '/blog/planning-process',
-		rowSpan: 50,
-		imageHeight: 350
-	},
-	{
-		title: 'Building Championship Culture: The Psychology of Locker Room Design',
-		date: 'December 15, 2024',
-		category: 'Culture',
-		summary: 'How locker design shapes team identity and builds belonging. Learn how the right locker room can transform team culture and create spaces where athletes feel valued and inspired.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-7.jpg',
-		url: '/blog/team-culture',
-		rowSpan: 45,
-		imageHeight: 300
-	},
-	{
-		title: 'Hockey Locker Room Setup: Everything You Need to Know',
-		date: 'December 10, 2024',
-		category: 'Hockey',
-		summary: 'Complete guide to hockey locker room setup. Learn about equipment storage, stick racks, ventilation, and creating the perfect hockey facility for your team.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-8.jpg',
-		url: '/blog/hockey-setup',
-		rowSpan: 40,
-		imageHeight: 250
-	},
-	{
-		title: 'Complete Guide to Customizing Your Sports Lockers',
-		date: 'December 5, 2024',
-		category: 'Customization',
-		summary: 'Learn about seat options, lock systems, interior hardware, and creating the perfect custom locker for your team. Everything you need to know about locker customization.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/blog-1-masonry-img-10.jpg',
-		url: '/blog/customization-guide',
-		rowSpan: 45,
-		imageHeight: 300
-	},
-	{
-		title: 'Why Modular Design Matters: The Hidden Value of Replaceable Parts',
-		date: 'November 28, 2024',
-		category: 'Design',
-		summary: 'Learn how modular locker design saves money and extends locker life. Discover the benefits of replaceable parts and easy maintenance that keeps your lockers looking professional for 15+ years.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-9.jpg',
-		url: '/blog/modular-design',
-		rowSpan: 40,
-		imageHeight: 250
-	},
-	{
-		title: 'College Athletic Facilities: Choosing the Right Locker Solution',
-		date: 'November 20, 2024',
-		category: 'College Athletics',
-		summary: 'Complete guide for college athletic facilities choosing locker solutions. Learn about budget planning, multi-sport needs, and creating facilities that support recruiting and team success.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/blog-1-masonry-img-12.jpg',
-		url: '/blog/college-athletic-locker-guide',
-		rowSpan: 45,
-		imageHeight: 300
-	},
-	{
-		title: 'Sport-Specific Locker Design: Meeting Each Sport\'s Unique Needs',
-		date: 'November 15, 2024',
-		category: 'Design',
-		summary: 'Every sport has unique equipment needs. Learn how to design lockers for football, basketball, hockey, baseball, and soccer with sport-specific configurations that maximize organization and functionality.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/blog-1-masonry-img-13.jpg',
-		url: '/blog/sport-specific',
-		rowSpan: 40,
-		imageHeight: 250
-	},
-	{
-		title: 'Locker Room Installation Guide: What to Expect and How to Prepare',
-		date: 'November 10, 2024',
-		category: 'Installation',
-		summary: 'Complete guide to locker room installation. Learn what to expect, how to prepare, timeline planning, and ensuring a successful installation that minimizes disruption to your program.',
-		heroImage: 'https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/blog-1-masonry-img-7.jpg',
-		url: '/blog/installation-guide',
-		rowSpan: 45,
-		imageHeight: 300
-	},
-	// Drafts (temporary: visible for demo)
-	...draftPosts
-];
+const posts = mdxPosts
+	.map(entry => {
+		const dateObj = new Date(entry.data.datePublished + 'T12:00:00');
+		return {
+			title: entry.data.title,
+			date: dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+			category: entry.data.category || 'Blog',
+			summary: (entry.data.description || entry.data.title).slice(0, 200) + '…',
+			heroImage: getBlogHeroUrl({ slug: entry.slug, heroImage: entry.data.heroImage, category: entry.data.category, tags: entry.data.tags }),
+			url: `/blog/${entry.slug}`,
+			rowSpan: 35 + (Math.abs(entry.slug.length % 15)),
+			imageHeight: 220 + (entry.slug.length % 3) * 40,
+			dateSort: dateObj.getTime()
+		};
+	})
+	.sort((a, b) => b.dateSort - a.dateSort);
 ---
 
 <BaseLayout title="Blog - Sports Locker Insights & Tips | PlayerStall" description="Expert insights on sports lockers, locker room design, and athletic facility management. Tips from 30+ years of experience.">
