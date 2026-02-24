@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { getBlogHeroUrl } from '../lib/blog-hero';
+import { slugify } from '../lib/slug';
 
 const mdxPosts = await getCollection('blog');
 
@@ -61,15 +62,15 @@ const mosaicPosts = posts.slice(0, 9);
 				<div class="blog-mosaic">
 					{mosaicPosts.map((post, index) => (
 						<article class={index === 0 ? 'blog-card featured' : 'blog-card'}>
+							<div class="blog-card-meta">
+								<a href={`/categories/${slugify(post.category)}`} class="blog-card-category">{post.category}</a>
+								<span class="blog-card-date">{post.date}</span>
+							</div>
 							<a href={post.url ?? '#'} class="blog-card-link">
 								<div class="blog-card-image">
 									<img src={post.heroImage} alt={post.title} loading="lazy" />
 								</div>
 								<div class="blog-card-body">
-									<div class="blog-card-meta">
-										<span class="blog-card-category">{post.category}</span>
-										<span class="blog-card-date">{post.date}</span>
-									</div>
 									<h2 class="blog-card-title">{post.title}</h2>
 									<p class="blog-card-excerpt">{post.summary}</p>
 									<span class="blog-card-cta">Read More</span>
@@ -324,6 +325,14 @@ const mosaicPosts = posts.slice(0, 9);
 		flex: 1;
 	}
 
+	.blog-card > .blog-card-meta {
+		padding: 12px 20px 0;
+	}
+
+	.blog-card.featured > .blog-card-meta {
+		padding: 12px 24px 0;
+	}
+
 	.blog-card-meta {
 		display: flex;
 		flex-wrap: wrap;
@@ -339,6 +348,13 @@ const mosaicPosts = posts.slice(0, 9);
 	.blog-card-category {
 		color: #fe5900;
 		font-weight: 500;
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+
+	.blog-card-category:hover {
+		color: #e04d00;
+		text-decoration: underline;
 	}
 
 	.blog-card-date {

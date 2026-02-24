@@ -5,6 +5,20 @@
 
 const CDN_BASE = 'https://playerstall.b-cdn.net/images/';
 
+/** Legacy hero image paths that may 404 on CDN; when frontmatter uses these, we fall back to a known-good gallery image */
+const LEGACY_HERO_BLOCKLIST = [
+	'blog-post-locker-room-1.jpg',
+	'blog-post-custom-lockers.jpg',
+	'blog-post-athletic-lockers-1.jpg',
+	'blog-post-college-lockers.jpg',
+	'blog-locker-room-featured-1.jpg',
+	'hero-wood-sports-lockers.png',
+	'football-hero-our-team.jpg',
+	'hockey-player.png',
+	'basketball-dribble.png',
+	'customer-lockers/moose-locker-room-2.jpg',
+];
+
 /** Image filenames in public/images/bunny-net, grouped by topic so sport-specific posts get matching imagery */
 const TOPIC_IMAGE_FILENAMES: Record<string, string[]> = {
 	baseball: [
@@ -103,8 +117,8 @@ for (const [topic, filenames] of Object.entries(TOPIC_IMAGE_FILENAMES)) {
 _pools['ice hockey'] = _pools['hockey'] ?? [];
 const TOPIC_POOLS = _pools as Record<TopicKey | 'generic', string[]>;
 
-/** Fallback when no topic match (use generic pool) */
-export const DEFAULT_BLOG_HERO = TOPIC_POOLS.generic[0];
+/** Fallback when no topic match or when heroImage is blocklisted; use a known-good gallery image so we never 404 */
+export const DEFAULT_BLOG_HERO = CDN_BASE + 'h1-img-8.jpg';
 
 /** Normalize for matching: lowercase, no spaces/hyphens */
 function norm(s: string): string {
@@ -149,7 +163,12 @@ export function getBlogHeroUrl(options: {
 	category?: string;
 	tags?: string[];
 }): string {
-	if (options.heroImage?.trim()) return options.heroImage.trim();
+	const raw = options.heroImage?.trim();
+	if (raw) {
+		const isBlocklisted = LEGACY_HERO_BLOCKLIST.some((bad) => raw.includes(bad));
+		if (!isBlocklisted) return raw;
+		return DEFAULT_BLOG_HERO;
+	}
 	const topic = resolveTopic(options.category, options.tags);
 	const poolKey = topicToPoolKey(topic);
 	const pool = TOPIC_POOLS[poolKey];
