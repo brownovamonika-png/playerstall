@@ -147,7 +147,7 @@ python3 guides/weekly_ranking_check.py
 2. You see: `📧 Sending email to playerstallsports@gmail.com...`
 3. You see: `✅ Email sent successfully to playerstallsports@gmail.com`
 4. Check your email inbox at `playerstallsports@gmail.com`
-5. You should receive an email with subject: `Weekly Ranking Report - [Date] | CustomSportsLockers.com`
+5. You should receive an email with subject: `Weekly Ranking Report - [Date] | playerstall.com`
 
 ### If You See Errors:
 
@@ -217,7 +217,7 @@ You'll automatically receive an email at `playerstallsports@gmail.com` with your
 
 ## 📧 What You'll Receive
 
-**Email Subject:** `Weekly Ranking Report - 2026-01-24 | CustomSportsLockers.com`
+**Email Subject:** `Weekly Ranking Report - 2026-01-24 | playerstall.com`
 
 **Email Content:**
 - Summary statistics (how many keywords ranking)

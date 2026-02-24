@@ -42,7 +42,7 @@
 
 1. **Go to Google Search Console:**
    - Visit: https://search.google.com/search-console
-   - Select property: `https://customsportslockers.com/`
+   - Select property: `https://playerstall.com/`
 
 2. **Navigate to Performance:**
    - Click **Performance** in left sidebar
@@ -86,7 +86,7 @@ Average Position: 12.5
    **For "custom sports lockers":**
    - Go to Google.com
    - Search: `custom sports lockers`
-   - Look for your website: `customsportslockers.com`
+   - Look for your website: `playerstall.com`
    - Note the position (1-10 on page 1, 11-20 on page 2, etc.)
 
 3. **Record Positions:**

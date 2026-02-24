@@ -1,4 +1,4 @@
-# CustomSportsLockers.com - Website Summary
+# playerstall.com - Website Summary
 
 ## Company Overview
 
@@ -215,5 +215,5 @@ PlayerStall offers four main locker models, each designed for different needs an
 
 ## Summary
 
-PlayerStall (CustomSportsLockers.com) is a specialized manufacturer of wood sports lockers with a strong focus on quality, durability, and customization. The company serves collegiate and professional sports teams, as well as individual customers, offering four main product tiers (Semi Pro, Varsity, Pro, Stadium) with competitive pricing. Their 30+ years of experience, lifetime guarantee, and free custom design service position them as a value leader in the sports locker industry. The modular design and easy replacement parts system make their lockers practical for high-use environments, while customization options allow teams to create branded locker rooms that enhance team pride and recruiting efforts.
+PlayerStall (playerstall.com) is a specialized manufacturer of wood sports lockers with a strong focus on quality, durability, and customization. The company serves collegiate and professional sports teams, as well as individual customers, offering four main product tiers (Semi Pro, Varsity, Pro, Stadium) with competitive pricing. Their 30+ years of experience, lifetime guarantee, and free custom design service position them as a value leader in the sports locker industry. The modular design and easy replacement parts system make their lockers practical for high-use environments, while customization options allow teams to create branded locker rooms that enhance team pride and recruiting efforts.
 

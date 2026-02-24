@@ -663,7 +663,7 @@ PlayerStall
 - [ ] Create email templates (5 templates above)
 - [ ] Set response time goal: 24 hours maximum
 - [ ] Update contact form with recommended fields
-- [ ] Create separate email address: quotes@customsportslockers.com or estimates@customsportslockers.com
+- [ ] Create separate email address: quotes@playerstall.com or estimates@playerstall.com
 - [ ] Add response time promise to contact page: "We respond within 24 hours"
 
 ### Short-Term Improvements (Month 1)
@@ -736,4 +736,4 @@ PlayerStall can differentiate itself through superior customer communication and
 ---
 
 *Last Updated: January 2025*  
-*Prepared for: PlayerStall / CustomSportsLockers.com*
+*Prepared for: PlayerStall (playerstall.com)*

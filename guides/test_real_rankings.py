@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 # Configuration
-WEBSITE_URL = "https://customsportslockers.com/"
+WEBSITE_URL = "https://playerstall.com/"
 LOCATION_NAME = "United States"
 LANGUAGE_CODE = "en"
 

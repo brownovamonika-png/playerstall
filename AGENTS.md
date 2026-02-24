@@ -11,7 +11,7 @@ This document serves as a reference guide for AI agents working on the PlayerSta
 - **Target Market**: Collegiate and professional sports teams
 - **Location**: Langley, BC (2934 200 Street, Langley, BC V2Z 2C1 Canada)
 - **Contact Email**: sales@playerstall.com
-- **Website**: PlayerStall / CustomSportsLockers.com
+- **Website**: PlayerStall (playerstall.com)
 
 ## Tech Stack
 
@@ -643,7 +643,7 @@ npm run preview
 ### Local SEO Strategy
 
 **Business Information** (Keep Consistent):
-- **Name**: PlayerStall / CustomSportsLockers.com
+- **Name**: PlayerStall (playerstall.com)
 - **Address**: 2934 200 Street, Langley, BC V2Z 2C1 Canada
 - **Phone**: 1 888 584 1444
 - **Email**: sales@playerstall.com

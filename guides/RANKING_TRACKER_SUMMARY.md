@@ -2,7 +2,7 @@
 
 **Created:** January 24, 2026  
 **Purpose:** Track weekly keyword rankings for CustomSportsLockers.com  
-**Website:** https://customsportslockers.com/  
+**Website:** https://playerstall.com/  
 **Location:** United States
 
 ---

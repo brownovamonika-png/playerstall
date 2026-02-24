@@ -1,8 +1,8 @@
-# WordPress Publishing Guide - Blog Posts for CustomSportsLockers.com
+# WordPress Publishing Guide - Blog Posts for playerstall.com
 
 ## Overview
 
-This guide provides step-by-step instructions for publishing the two blog posts to your WordPress site at https://customsportslockers.com/
+This guide provides step-by-step instructions for publishing the two blog posts to your WordPress site at https://playerstall.com/
 
 ---
 
@@ -26,7 +26,7 @@ This guide provides step-by-step instructions for publishing the two blog posts 
 
 ### Step 1: Access WordPress Admin
 
-1. Log into your WordPress admin panel at: `https://customsportslockers.com/wp-admin/`
+1. Log into your WordPress admin panel at: `https://playerstall.com/wp-admin/`
 2. Navigate to **Posts → Add New**
 
 ### Step 2: Set Up Post Basics

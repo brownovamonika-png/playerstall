@@ -44,7 +44,7 @@ Upload these 3 images to WordPress Media Library:
 - Copy each image URL from WordPress Media Library
 - Replace the placeholder paths in HTML:
   - Find: `/images/Athletic-Locker-Pro.jpg`
-  - Replace with: `https://customsportslockers.com/wp-content/uploads/2025/01/Athletic-Locker-Pro.jpg`
+  - Replace with: `https://playerstall.com/wp-content/uploads/2025/01/Athletic-Locker-Pro.jpg`
   - (Use actual WordPress URLs)
 
 ### Step 6: Configure Yoast SEO Plugin

@@ -85,7 +85,7 @@ locker room design, football lockers, athletic facilities, locker room planning,
 
 The HTML now includes 2 outbound links:
 - ✅ Link to NCAA.org (2 instances)
-- ✅ Link to customsportslockers.com/contact/
+- ✅ Link to playerstall.com/contact/
 
 These should appear automatically when you paste the HTML.
 

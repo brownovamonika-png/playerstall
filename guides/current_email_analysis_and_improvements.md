@@ -83,7 +83,7 @@ NEXT STEPS
 To ensure we create the perfect solution for your space, I'd love to see a quick drawing of the room with accurate dimensions. This allows us to custom-size the lockers to fit perfectly - no wasted space, no awkward gaps.
 
 You can view our full gallery and see examples of our work here:
-http://customsportslockers.com/gallery/
+http://playerstall.com/gallery/
 
 For a side-by-side comparison of our models, check out our homepage - the comparison is halfway down the page.
 
@@ -107,7 +107,7 @@ Custom Locker Specialist
 PlayerStall
 1 (888) 584-1444
 playerstallsports@gmail.com
-CustomSportsLockers.com
+playerstall.com
 
 30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation
 ```
@@ -151,8 +151,8 @@ We also offer other models:
 
 VIEW OUR WORK
 See examples of our installations:
-• Gallery: http://customsportslockers.com/gallery/
-• Model Comparison: http://customsportslockers.com/ (homepage, halfway down)
+• Gallery: http://playerstall.com/gallery/
+• Model Comparison: http://playerstall.com/ (homepage, halfway down)
 
 NEXT STEPS
 1. Review the attached quote
@@ -171,7 +171,7 @@ Custom Locker Specialist
 PlayerStall
 1 (888) 584-1444
 playerstallsports@gmail.com
-CustomSportsLockers.com
+playerstall.com
 
 30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation
 ```
@@ -244,7 +244,7 @@ Custom Locker Specialist
 PlayerStall
 1 (888) 584-1444
 playerstallsports@gmail.com
-CustomSportsLockers.com
+playerstall.com
 
 30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation
 ```
@@ -377,7 +377,7 @@ To provide you with the most accurate quote, I'd like to learn more about your p
 
 I'll prepare a detailed quote within 24 hours once I have this information.
 
-In the meantime, you can view our gallery: http://customsportslockers.com/gallery/
+In the meantime, you can view our gallery: http://playerstall.com/gallery/
 
 Feel free to call me at 1 (888) 584-1444 if you have any questions.
 
@@ -441,4 +441,4 @@ Monika
 ---
 
 *Last Updated: January 2025*  
-*Prepared for: PlayerStall / CustomSportsLockers.com*
+*Prepared for: PlayerStall / playerstall.com*

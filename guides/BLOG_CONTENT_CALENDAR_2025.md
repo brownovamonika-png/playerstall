@@ -9,12 +9,12 @@
 ## Publishing Strategy
 
 ### Dual Platform Publishing
-- **WordPress Site** (customsportslockers.com): Use Yoast SEO plugin
+- **WordPress Site** (playerstall.com): Use Yoast SEO plugin
 - **Astro Site** (playerstall.com): Use new BLOG_WRITING_SOP.md process
 
 ### SEO Tools by Platform
 
-**WordPress (customsportslockers.com):**
+**WordPress (playerstall.com):**
 - ✅ **Yoast SEO** - Yes, use this! It's perfect for WordPress
 - ✅ **Rank Math** - Alternative to Yoast (also good)
 - ✅ **Schema Pro** - For FAQ schema markup

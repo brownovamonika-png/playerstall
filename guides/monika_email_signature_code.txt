@@ -45,7 +45,7 @@ HTML SIGNATURE CODE (Copy this entire section):
 					<span style="color: #0066cc; font-size: 12px;">w</span>
 				</td>
 				<td style="padding-bottom: 4px;">
-					<a href="https://customsportslockers.com" style="color: #0d0d0d; text-decoration: none; font-size: 13px;">CustomSportsLockers.com</a>
+					<a href="https://playerstall.com" style="color: #0d0d0d; text-decoration: none; font-size: 13px;">playerstall.com</a>
 				</td>
 			</tr>
 			<tr>
@@ -109,7 +109,7 @@ SIMPLIFIED HTML VERSION (Better compatibility):
 <p style="margin: 0; padding-top: 12px; border-top: 1px solid #e0e0e0;">
 	Phone: <a href="tel:+18885841444" style="color: #0d0d0d; text-decoration: none;">1 (888) 584-1444</a> (Toll Free)<br>
 	Email: <a href="mailto:playerstallsports@gmail.com" style="color: #0d0d0d; text-decoration: none;">playerstallsports@gmail.com</a><br>
-	Web: <a href="https://customsportslockers.com" style="color: #0d0d0d; text-decoration: none;">CustomSportsLockers.com</a><br>
+	Web: <a href="https://playerstall.com" style="color: #0d0d0d; text-decoration: none;">playerstall.com</a><br>
 	Address: 2934 200 St, Langley BC, Canada
 </p>
 <p style="margin: 12px 0 0 0; padding-top: 12px; border-top: 1px solid #e0e0e0; font-size: 12px;">
@@ -133,7 +133,7 @@ PLAYERSTALL
 
 Phone: 1 (888) 58-STALL
 Email: playerstallsports@gmail.com
-Web: CustomSportsLockers.com
+Web: playerstall.com
 Address: 7300-7398 Colonial Rd, Brooklyn, NY 11209, USA
 
 Facebook | LinkedIn | Twitter | Instagram
@@ -162,7 +162,7 @@ CONTACT INFORMATION INCLUDED:
 ✓ Company: PlayerStall
 ✓ Email: playerstallsports@gmail.com
 ✓ Phone: 1 (888) 584-1444 (Toll Free)
-✓ Website: CustomSportsLockers.com
+✓ Website: playerstall.com
 ✓ Address: 2934 200 St, Langley BC, Canada
 ✓ Social Media: Facebook, LinkedIn, Twitter, Instagram
 ✓ Key Differentiators: 30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation

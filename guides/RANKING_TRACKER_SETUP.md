@@ -1,6 +1,6 @@
 # Ranking Tracker Setup Guide
 
-**Purpose:** Set up automated weekly ranking tracking for CustomSportsLockers.com
+**Purpose:** Set up automated weekly ranking tracking for playerstall.com
 
 ---
 

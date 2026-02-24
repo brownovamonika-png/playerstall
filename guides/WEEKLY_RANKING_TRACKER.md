@@ -1,7 +1,7 @@
-# Weekly Ranking Tracker - CustomSportsLockers.com
+# Weekly Ranking Tracker - playerstall.com
 
 **Purpose:** Track weekly keyword rankings for all blog post target keywords  
-**Website:** https://customsportslockers.com/  
+**Website:** https://playerstall.com/  
 **Location:** United States  
 **Frequency:** Weekly (every Monday)
 

@@ -21,7 +21,7 @@ If you have DataForSEO MCP server configured, you can check rankings directly:
    ```
 
 2. **Find your website in results:**
-   - Look for https://customsportslockers.com/
+   - Look for https://playerstall.com/
    - Note the position (1-100)
 
 3. **Record in CSV:**
@@ -41,7 +41,7 @@ result = mcp_dataforseo_serp_organic_live_advanced(
 
 # Find your website
 for idx, item in enumerate(result['items'], start=1):
-    if 'customsportslockers.com' in item.get('url', ''):
+    if 'playerstall.com' in item.get('url', ''):
         print(f"Position: #{idx}")
         break
 ```
@@ -53,7 +53,7 @@ for idx, item in enumerate(result['items'], start=1):
 ### Step 1: Access Search Console
 
 1. Go to: https://search.google.com/search-console
-2. Select your property: `https://customsportslockers.com/`
+2. Select your property: `https://playerstall.com/`
 
 ### Step 2: Check Performance
 

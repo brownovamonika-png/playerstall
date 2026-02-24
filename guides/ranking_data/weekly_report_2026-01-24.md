@@ -1,6 +1,6 @@
 # Weekly Ranking Report - 2026-01-24
 
-**Website:** https://customsportslockers.com/  
+**Website:** https://playerstall.com/  
 **Location:** United States  
 **Total Keywords Tracked:** 23
 

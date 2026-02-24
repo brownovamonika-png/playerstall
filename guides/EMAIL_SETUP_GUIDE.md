@@ -274,7 +274,7 @@ See `RANKING_TRACKER_SETUP.md` for GitHub Actions setup.
 
 You'll receive:
 
-**Subject:** `Weekly Ranking Report - 2026-01-24 | CustomSportsLockers.com`
+**Subject:** `Weekly Ranking Report - 2026-01-24 | playerstall.com`
 
 **Content:**
 - Summary statistics

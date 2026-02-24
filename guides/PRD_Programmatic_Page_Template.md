@@ -1,6 +1,6 @@
 # Product Requirement Document (PRD)
 ## Programmatic SEO Page Template v1.0
-### CustomSportsLockers.com / PlayerStall
+### playerstall.com / PlayerStall
 
 **Document Version**: 1.0  
 **Date**: November 2025  
@@ -11,7 +11,7 @@
 
 ## Executive Summary
 
-This PRD defines the requirements for building the first programmatic SEO page template for CustomSportsLockers.com. Based on comprehensive keyword research using DataForSEO, we've identified **Location + Sport combinations** as the highest-ROI programmatic opportunity, with **LOW competition** (11 competition index) and **30-170 monthly searches** per location.
+This PRD defines the requirements for building the first programmatic SEO page template for playerstall.com. Based on comprehensive keyword research using DataForSEO, we've identified **Location + Sport combinations** as the highest-ROI programmatic opportunity, with **LOW competition** (11 competition index) and **30-170 monthly searches** per location.
 
 **Primary Template**: `[State] [Sport] Wood Lockers`  
 **Example**: "Texas Football Wood Lockers", "California Basketball Wood Lockers"
@@ -29,7 +29,7 @@ This PRD defines the requirements for building the first programmatic SEO page t
 ## 1. Problem Statement
 
 ### Current State
-- CustomSportsLockers.com has limited SEO coverage for location-based searches
+- playerstall.com has limited SEO coverage for location-based searches
 - Competitors are not targeting location + sport combinations (LOW competition opportunity)
 - Missing programmatic content that scales to hundreds of pages
 - No systematic approach to capture local search intent
@@ -110,7 +110,7 @@ This PRD defines the requirements for building the first programmatic SEO page t
 
 **Strategic Value**: 
 - High conversion rate despite lower volume
-- Positions CustomSportsLockers.com as educational authority
+- Positions playerstall.com as educational authority
 - Differentiates wood lockers (your specialty) vs. metal (competitor focus)
 
 ---
@@ -135,18 +135,18 @@ Example: "Texas Football Wood Lockers | Custom Made in USA"
 
 **3. Meta Description** (150-160 characters)
 ```
-Looking for [sport] wood lockers in [state]? CustomSportsLockers.com offers custom [sport] lockers Canadian-owned and operated since 1996 with lifetime guarantee. Free design consultation.
+Looking for [sport] wood lockers in [state]? playerstall.com offers custom [sport] lockers Canadian-owned and operated since 1996 with lifetime guarantee. Free design consultation.
 ```
-Example: "Looking for football wood lockers in Texas? CustomSportsLockers.com offers custom football lockers Canadian-owned and operated since 1996 with lifetime guarantee. Free design consultation."
+Example: "Looking for football wood lockers in Texas? playerstall.com offers custom football lockers Canadian-owned and operated since 1996 with lifetime guarantee. Free design consultation."
 
 **4. Introduction Section** (200-300 words)
 - Hook: Address the specific need for [sport] lockers in [state]
 - Local context: Mention state's sports culture, teams, or facilities
 - Problem statement: Why quality wood lockers matter for [sport]
-- Solution preview: CustomSportsLockers.com's approach
+- Solution preview: playerstall.com's approach
 
 **Example Opening**:
-> "Texas is home to some of the most passionate football programs in the country, from high school powerhouses to collegiate champions. When it comes to outfitting your football locker room, you need lockers that can withstand the demands of Texas-sized expectations. CustomSportsLockers.com specializes in custom wood football lockers designed specifically for the unique needs of Texas football programs."
+> "Texas is home to some of the most passionate football programs in the country, from high school powerhouses to collegiate champions. When it comes to outfitting your football locker room, you need lockers that can withstand the demands of Texas-sized expectations. playerstall.com specializes in custom wood football lockers designed specifically for the unique needs of Texas football programs."
 
 **5. Why [Sport] Lockers in [State]?** (300-400 words)
 - State-specific sports culture and traditions
@@ -226,7 +226,7 @@ Wood vs Metal [Sport] Lockers: Which is Better?
 **6. Recommendation for [Sport] Programs** (200-300 words)
 - Why wood is better for [sport] (your positioning)
 - When metal might make sense (honest assessment)
-- CustomSportsLockers.com's wood advantage
+- playerstall.com's wood advantage
 
 **7. CTA Section** (100-150 words)
 - Free consultation for [sport] programs
@@ -271,7 +271,7 @@ Examples:
 - Hero image: [Sport] lockers (sport-specific imagery)
 - Product images: Show lockers with [sport] equipment
 - Location context images (if available): [State] teams or facilities
-- Alt text: "[State] [Sport] Wood Lockers - CustomSportsLockers.com"
+- Alt text: "[State] [Sport] Wood Lockers - playerstall.com"
 - File naming: `[state]-[sport]-wood-lockers.jpg`
 
 **Page Speed**:
@@ -358,7 +358,7 @@ Examples:
 
 **Value Proposition**:
 - Address user intent (finding [sport] lockers in [state])
-- Highlight CustomSportsLockers.com differentiators:
+- Highlight playerstall.com differentiators:
   - Canadian-owned and operated since 1996
   - Lifetime guarantee
   - Free custom design
@@ -513,12 +513,12 @@ Examples:
 
 **Meta Title**: Texas Football Wood Lockers | Custom Made in USA
 
-**Meta Description**: Looking for football wood lockers in Texas? CustomSportsLockers.com offers custom football lockers Canadian-owned and operated since 1996 with lifetime guarantee. Free design consultation.
+**Meta Description**: Looking for football wood lockers in Texas? playerstall.com offers custom football lockers Canadian-owned and operated since 1996 with lifetime guarantee. Free design consultation.
 
 **Introduction** (First 200 words):
 > Texas is home to some of the most passionate football programs in the country, from Friday night lights at high schools to powerhouse collegiate programs like the University of Texas and Texas A&M. When it comes to outfitting your football locker room, you need lockers that can withstand the demands of Texas-sized expectations.
 > 
-> CustomSportsLockers.com specializes in custom wood football lockers designed specifically for the unique needs of Texas football programs. Our lockers are built to handle everything from helmets and pads to cleats and uniforms, all while maintaining the professional appearance that Texas teams expect.
+> playerstall.com specializes in custom wood football lockers designed specifically for the unique needs of Texas football programs. Our lockers are built to handle everything from helmets and pads to cleats and uniforms, all while maintaining the professional appearance that Texas teams expect.
 > 
 > Whether you're upgrading a high school locker room in Dallas, outfitting a college program in Austin, or building a new facility in Houston, our custom wood football lockers are made to last a lifetime. With 30+ years of experience and a lifetime guarantee, we're the trusted choice for Texas football programs.
 
@@ -678,5 +678,5 @@ Examples:
 
 ---
 
-*This PRD is based on comprehensive keyword research using DataForSEO tools and analysis of CustomSportsLockers.com's business model and target market.*
+*This PRD is based on comprehensive keyword research using DataForSEO tools and analysis of playerstall.com's business model and target market.*
 

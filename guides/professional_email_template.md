@@ -53,8 +53,8 @@ We offer several models to fit different needs and budgets:
 All Team orders include Free Backing ($50 Value) on every model.
 
 VIEW OUR WORK
-• Full Gallery: http://customsportslockers.com/gallery/
-• Model Comparison: http://customsportslockers.com/ (homepage, halfway down the page)
+• Full Gallery: http://playerstall.com/gallery/
+• Model Comparison: http://playerstall.com/ (homepage, halfway down the page)
 
 WHY PLAYERSTALL?
 With 30+ years of experience serving collegiate and professional teams across North America, we understand what makes a great locker room. Our lockers are:
@@ -79,7 +79,7 @@ Custom Locker Specialist
 PlayerStall
 1 (888) 584-1444
 playerstallsports@gmail.com
-CustomSportsLockers.com
+playerstall.com
 
 30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation
 ```
@@ -112,8 +112,8 @@ OUR COMPLETE MODEL LINEUP
 All Team orders include Free Backing ($50 Value) on every model.
 
 VIEW OUR WORK
-• Full Gallery: http://customsportslockers.com/gallery/
-• Model Comparison: http://customsportslockers.com/ (homepage, halfway down)
+• Full Gallery: http://playerstall.com/gallery/
+• Model Comparison: http://playerstall.com/ (homepage, halfway down)
 
 WHY PLAYERSTALL?
 30+ years of experience | Canadian-owned and operated since 1996 quality | Lifetime guarantee | Fully modular (easy replacement) | Custom-sized to fit perfectly
@@ -131,7 +131,7 @@ Custom Locker Specialist
 PlayerStall
 1 (888) 584-1444
 playerstallsports@gmail.com
-CustomSportsLockers.com
+playerstall.com
 
 30+ Years Experience | Lifetime Guarantee | Canadian-owned and operated since 1996 | Free Design Consultation
 ```
@@ -210,7 +210,7 @@ CustomSportsLockers.com
 ---
 
 *Last Updated: January 2025*  
-*Prepared for: PlayerStall / CustomSportsLockers.com*
+*Prepared for: PlayerStall / playerstall.com*
 npm run dev
 npm run dev
 

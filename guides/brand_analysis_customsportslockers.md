@@ -1,4 +1,4 @@
-# CustomSportsLockers.com - Brand Analysis
+# playerstall.com - Brand Analysis
 ## Target Industry, Value Propositions & Brand Voice
 
 ---
@@ -614,5 +614,5 @@
 
 ---
 
-*Analysis completed based on comprehensive website crawl and content analysis of CustomSportsLockers.com*
+*Analysis completed based on comprehensive website crawl and content analysis of playerstall.com*
 

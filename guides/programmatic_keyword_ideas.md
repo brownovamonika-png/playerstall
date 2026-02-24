@@ -1,8 +1,8 @@
-# Programmatic SEO Keyword Ideas for CustomSportsLockers.com
+# Programmatic SEO Keyword Ideas for playerstall.com
 
 ## Executive Summary
 
-This document outlines programmatic keyword opportunities for CustomSportsLockers.com (PlayerStall) to scale SEO content creation. These templates can generate hundreds of targeted landing pages by combining variables across sports, markets, locations, product tiers, and buyer intent.
+This document outlines programmatic keyword opportunities for playerstall.com (PlayerStall) to scale SEO content creation. These templates can generate hundreds of targeted landing pages by combining variables across sports, markets, locations, product tiers, and buyer intent.
 
 **Estimated Scale**: 500+ programmatic page opportunities identified
 
@@ -603,5 +603,5 @@ Each programmatic page should include:
 
 ---
 
-*Generated using Perplexity MCP research and CustomSportsLockers.com business analysis*
+*Generated using Perplexity MCP research and playerstall.com business analysis*
 

@@ -119,7 +119,7 @@ export RANKING_SMTP_PORT='587'
    - Sometimes emails are delayed
 
 4. **Email Provider Blocking**
-   - Check if customsportslockers.com email server is blocking
+   - Check if playerstall.com email server is blocking
    - Try sending to a Gmail address to test
 
 ---
@@ -248,7 +248,7 @@ export RANKING_EMAIL_TO='your-gmail@gmail.com'
 # Run script
 python3 guides/weekly_ranking_check.py
 
-# If this works, the issue is with customsportslockers.com email
+# If this works, the issue is with playerstall.com email
 # If this doesn't work, the issue is with Gmail setup
 ```
 

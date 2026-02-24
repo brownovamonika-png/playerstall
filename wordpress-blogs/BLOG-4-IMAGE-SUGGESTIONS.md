@@ -52,7 +52,7 @@ You have several locker images in your project that could work:
 
 **Example**:
 ```html
-<img src="https://customsportslockers.com/wp-content/uploads/2025/01/Athletic-Locker-Pro.jpg" alt="Football locker room design with custom wood lockers showing proper equipment storage and team branding" />
+<img src="https://playerstall.com/wp-content/uploads/2025/01/Athletic-Locker-Pro.jpg" alt="Football locker room design with custom wood lockers showing proper equipment storage and team branding" />
 ```
 
 ---

@@ -53,7 +53,7 @@ After the fix, you should see:
 ## Current Status
 
 **"hockey lockers"**: Position #9 (Page 1) ✅
-- Your site: `customsportslockers.com/hockey-lockers/`
+- Your site: `playerstall.com/hockey-lockers/`
 - Title: "Hockey Lockers- PlayerStall"
 
 ## Next Steps
@@ -82,7 +82,7 @@ After the fix, you should see:
    - Common issues: Wrong credentials, API rate limits, network issues
 
 4. **Verify website URL**:
-   - Script looks for: `customsportslockers.com`
+   - Script looks for: `playerstall.com`
    - Make sure your site appears in SERP results
 
 ---

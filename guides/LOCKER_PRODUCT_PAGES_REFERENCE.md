@@ -13,10 +13,10 @@ One **dedicated product page per locker model** was created, in **PlayerStall st
 
 | Locker    | Page route                    | Base price | Image source |
 |----------|-------------------------------|------------|--------------|
-| Semi Pro | `/product-semi-pro-locker`    | $349       | customsportslockers.com (Semipro) |
-| Varsity  | `/product-varsity-locker`    | $449       | customsportslockers.com (Varsity)  |
-| Pro      | `/product-pro-locker`        | $549       | customsportslockers.com (Pro)      |
-| Stadium  | `/product-stadium-locker`    | $599       | customsportslockers.com (Stadium)  |
+| Semi Pro | `/product-semi-pro-locker`    | $349       | playerstall.com (Semipro) |
+| Varsity  | `/product-varsity-locker`    | $449       | playerstall.com (Varsity)  |
+| Pro      | `/product-pro-locker`        | $549       | playerstall.com (Pro)      |
+| Stadium  | `/product-stadium-locker`    | $599       | playerstall.com (Stadium)  |
 
 **Source files:**  
 `src/pages/product-semi-pro-locker.astro`, `product-varsity-locker.astro`, `product-pro-locker.astro`, `product-stadium-locker.astro`.

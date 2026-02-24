@@ -2,7 +2,7 @@
 
 **Date:** January 13-19, 2025  
 **Posts:** 2 WordPress-ready blog posts  
-**Platform:** WordPress (customsportslockers.com)  
+**Platform:** WordPress (playerstall.com)  
 **SEO Tool:** Yoast SEO
 
 ---
@@ -27,7 +27,7 @@
 
 ### Step 1: Create New Post in WordPress
 
-1. Log into WordPress Admin: `https://customsportslockers.com/wp-admin/`
+1. Log into WordPress Admin: `https://playerstall.com/wp-admin/`
 2. Go to **Posts → Add New**
 3. Switch to **Text/HTML editor** (not Visual editor)
 

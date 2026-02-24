@@ -1,4 +1,4 @@
-# Keyword Search Volume Analysis for CustomSportsLockers.com
+# Keyword Search Volume Analysis for playerstall.com
 ## DataForSEO Research Findings
 
 **Analysis Date**: November 2025  

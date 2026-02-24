@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Google Ranking Tracker for CustomSportsLockers.com
+Google Ranking Tracker for playerstall.com
 Checks Google keyword rankings and generates weekly reports with position and page information.
 
 Usage:
@@ -26,7 +26,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 # Configuration
-WEBSITE_URL = "https://customsportslockers.com/"
+WEBSITE_URL = "https://playerstall.com/"
 LOCATION_NAME = "United States"
 LANGUAGE_CODE = "en"
 OUTPUT_DIR = Path(__file__).parent / "ranking_data"
@@ -173,12 +173,12 @@ def find_website_ranking(serp_data: Dict, website_url: str) -> Optional[int]:
     
     Args:
         serp_data: DataForSEO API response (array format)
-        website_url: Your website URL to find (e.g., "customsportslockers.com")
+        website_url: Your website URL to find (e.g., "playerstall.com")
     
     Returns:
         Ranking position (1-100) or None if not found
     """
-    # Extract domain from URL (e.g., "customsportslockers.com" from "https://customsportslockers.com/")
+    # Extract domain from URL (e.g., "playerstall.com" from "https://playerstall.com/")
     domain = website_url.replace("https://", "").replace("http://", "").replace("www.", "").rstrip("/")
     domain_variants = [domain, f"www.{domain}", f"https://{domain}", f"https://www.{domain}"]
     
@@ -488,7 +488,7 @@ def send_email_report(report_content: str, report_file: Path, date: str):
     try:
         # Create email message
         msg = MIMEMultipart('alternative')
-        msg['Subject'] = f"Weekly Ranking Report - {date} | CustomSportsLockers.com"
+        msg['Subject'] = f"Weekly Ranking Report - {date} | playerstall.com"
         msg['From'] = EMAIL_FROM or EMAIL_SMTP_USER
         msg['To'] = EMAIL_TO
         
@@ -524,7 +524,7 @@ def send_email_report(report_content: str, report_file: Path, date: str):
             </div>
             <hr>
             <p><em>Report generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</em></p>
-            <p><small>This is an automated weekly ranking report for CustomSportsLockers.com</small></p>
+            <p><small>This is an automated weekly ranking report for playerstall.com</small></p>
         </body>
         </html>
         """
@@ -540,7 +540,7 @@ Location: {LOCATION_NAME}
 
 ---
 Report generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-This is an automated weekly ranking report for CustomSportsLockers.com
+This is an automated weekly ranking report for playerstall.com
         """
         
         # Attach both versions
@@ -573,7 +573,7 @@ This is an automated weekly ranking report for CustomSportsLockers.com
 def main():
     """Main function to run weekly Google ranking check."""
     print("=" * 60)
-    print("Google Ranking Tracker - CustomSportsLockers.com")
+    print("Google Ranking Tracker - playerstall.com")
     print("=" * 60)
     print()
     

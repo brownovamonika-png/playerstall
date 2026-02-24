@@ -73,7 +73,7 @@ source ~/.zshrc
 
 Every Monday (or whenever you run the script):
 
-**Email Subject:** `Weekly Ranking Report - [Date] | CustomSportsLockers.com`
+**Email Subject:** `Weekly Ranking Report - [Date] | playerstall.com`
 
 **Email Includes:**
 - Summary statistics

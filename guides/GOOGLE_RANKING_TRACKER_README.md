@@ -1,6 +1,6 @@
 # Google Ranking Tracker
 
-**Automated weekly Google ranking analysis for CustomSportsLockers.com**
+**Automated weekly Google ranking analysis for playerstall.com**
 
 ---
 

@@ -1,6 +1,6 @@
 # Yoast SEO Guide for WordPress Blog Posts
 
-**Platform:** WordPress (customsportslockers.com)  
+**Platform:** WordPress (playerstall.com)  
 **Plugin:** Yoast SEO  
 **Purpose:** Optimize blog posts for search engines
 
@@ -35,7 +35,7 @@
 ### Basic Configuration
 
 **General Settings:**
-- **Site Name:** PlayerStall / CustomSportsLockers
+- **Site Name:** PlayerStall (playerstall.com)
 - **Separator:** | (pipe)
 - **Homepage Title:** Custom Sports Lockers | PlayerStall
 - **Homepage Meta Description:** [Your description]
@@ -293,4 +293,4 @@ WordPress Admin → Posts → Add New
 ---
 
 *Guide Created: December 2025*  
-*For WordPress blog posts on customsportslockers.com*
+*For WordPress blog posts on playerstall.com*

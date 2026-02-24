@@ -1,7 +1,7 @@
-# CustomSportsLockers.com WordPress Blogs
+# playerstall.com WordPress Blogs
 ## Complete Blog Content Library
 
-**Purpose:** All WordPress-ready blog content for CustomSportsLockers.com  
+**Purpose:** All WordPress-ready blog content for playerstall.com  
 **Location:** `/wordpress-blogs/`  
 **Last Updated:** December 2025
 
