@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { getBlogHeroUrl } from '../lib/blog-hero';
 
-// Only MDX posts from src/content/blog (Content Collections)
 const mdxPosts = await getCollection('blog');
 
 const posts = mdxPosts
@@ -12,20 +11,35 @@ const posts = mdxPosts
 		return {
 			title: entry.data.title,
 			date: dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+			dateShort: dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'short' }),
+			monthKey: dateObj.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit' }),
 			category: entry.data.category || 'Blog',
 			summary: (entry.data.description || entry.data.title).slice(0, 200) + '…',
 			heroImage: getBlogHeroUrl({ slug: entry.slug, heroImage: entry.data.heroImage, category: entry.data.category, tags: entry.data.tags }),
 			url: `/blog/${entry.slug}`,
-			rowSpan: 35 + (Math.abs(entry.slug.length % 15)),
-			imageHeight: 220 + (entry.slug.length % 3) * 40,
 			dateSort: dateObj.getTime()
 		};
 	})
 	.sort((a, b) => b.dateSort - a.dateSort);
+
+const recentPosts = posts.slice(0, 12);
+
+const archivesByMonth = posts.reduce<{ monthKey: string; monthLabel: string; posts: typeof posts }[]>((acc, post) => {
+	const key = post.monthKey;
+	const label = post.dateShort;
+	const existing = acc.find((g) => g.monthKey === key);
+	if (existing) {
+		existing.posts.push(post);
+	} else {
+		acc.push({ monthKey: key, monthLabel: label, posts: [post] });
+	}
+	return acc;
+}, []).sort((a, b) => b.monthKey.localeCompare(a.monthKey));
+
+const mosaicPosts = posts.slice(0, 9);
 ---
 
 <BaseLayout title="Blog - Sports Locker Insights & Tips | PlayerStall" description="Expert insights on sports lockers, locker room design, and athletic facility management. Tips from 30+ years of experience.">
-	<!-- Hero Section (same as shop: image + overlay + title "Blog") -->
 	<section class="blog-hero-section">
 		<div class="blog-hero-background">
 			<img src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/02/h1-img-8.jpg" alt="Blog" class="blog-hero-bg-image" />
@@ -41,35 +55,67 @@ const posts = mdxPosts
 		</div>
 	</section>
 
-	<!-- Masonry Blog Section -->
-	<section class="masonry-blog-section" id="blog-posts">
-		<div class="container">
-			<div class="masonry-blog-grid">
-				{posts.map((post) => (
-					<article class="masonry-blog-article" style={`grid-row-end: span ${post.rowSpan};`}>
-						<a href={post.url ?? '#'} style="display: block; text-decoration: none; color: inherit;">
-							<div class="masonry-blog-image" style={`height: ${post.imageHeight}px;`}>
-								<img src={post.heroImage} alt={post.title} loading="lazy" />
-							</div>
-							<div class="masonry-blog-content">
-								<div class="masonry-blog-meta">
-									<a href={`/blog?category=${post.category.toLowerCase()}`} class="masonry-blog-category">{post.category}</a>
-									<span class="masonry-blog-date">{post.date}</span>
+	<section class="blog-content-section" id="blog-posts">
+		<div class="blog-container">
+			<main class="blog-main">
+				<div class="blog-mosaic">
+					{mosaicPosts.map((post, index) => (
+						<article class={index === 0 ? 'blog-card featured' : 'blog-card'}>
+							<a href={post.url ?? '#'} class="blog-card-link">
+								<div class="blog-card-image">
+									<img src={post.heroImage} alt={post.title} loading="lazy" />
 								</div>
-								<h4 class="masonry-blog-title">
-									<a href={post.url ?? '#'}>{post.title}</a>
-								</h4>
-								<p class="masonry-blog-excerpt">{post.summary}</p>
-								<a href={post.url ?? '#'} class="masonry-blog-read-more">Read More</a>
-							</div>
-						</a>
-					</article>
-				))}
-			</div>
+								<div class="blog-card-body">
+									<div class="blog-card-meta">
+										<span class="blog-card-category">{post.category}</span>
+										<span class="blog-card-date">{post.date}</span>
+									</div>
+									<h2 class="blog-card-title">{post.title}</h2>
+									<p class="blog-card-excerpt">{post.summary}</p>
+									<span class="blog-card-cta">Read More</span>
+								</div>
+							</a>
+						</article>
+					))}
+				</div>
+			</main>
+
+			<aside class="blog-sidebar">
+				<nav class="sidebar-block sidebar-recent" aria-label="Recent posts">
+					<h3 class="sidebar-title">Recent Posts</h3>
+					<ol class="recent-list">
+						{recentPosts.map((post) => (
+							<li>
+								<a href={post.url ?? '#'}>{post.title}</a>
+							</li>
+						))}
+					</ol>
+				</nav>
+
+				<div class="sidebar-block sidebar-archives" aria-label="Archives by date">
+					<h3 class="sidebar-title">Archives</h3>
+					<div class="archives-list">
+						{archivesByMonth.map((group) => (
+							<details class="archive-month" open={group.monthKey === archivesByMonth[0]?.monthKey}>
+								<summary class="archive-month-summary">
+									<span class="archive-month-label">{group.monthLabel}</span>
+									<span class="archive-month-count">({group.posts.length})</span>
+								</summary>
+								<ul class="archive-posts">
+									{group.posts.map((post) => (
+										<li>
+											<a href={post.url ?? '#'}>{post.title}</a>
+										</li>
+									))}
+								</ul>
+							</details>
+						))}
+					</div>
+				</div>
+			</aside>
 		</div>
 	</section>
 
-	<!-- CTA Section -->
 	<section class="cta-section">
 		<div class="container">
 			<div class="cta-content">
@@ -82,6 +128,7 @@ const posts = mdxPosts
 </BaseLayout>
 
 <style>
+	/* Hero (match shop.astro) */
 	:global(body) {
 		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
 		background: #ffffff;
@@ -91,15 +138,13 @@ const posts = mdxPosts
 		line-height: 1.6;
 	}
 
-	/* Only content sections get max-width/padding; hero is full-bleed like our-process */
-	.masonry-blog-section .container,
+	.blog-container,
 	.cta-section .container {
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
 	}
 
-	/* Blog Hero Section (same as our-process: full-bleed image + overlay + title) */
 	.blog-hero-section {
 		position: relative;
 		display: flex;
@@ -191,6 +236,294 @@ const posts = mdxPosts
 		display: none;
 	}
 
+	/* Two-column layout: main (2/3) + sidebar (1/3) */
+	.blog-content-section {
+		background: #ffffff;
+		padding: 48px 0 64px;
+	}
+
+	.blog-container {
+		display: grid;
+		grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+		gap: 48px;
+		align-items: start;
+	}
+
+	.blog-main {
+		min-width: 0;
+	}
+
+	/* Mosaic: featured card spans 2x2, rest in grid */
+	.blog-mosaic {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 28px;
+		grid-auto-rows: minmax(220px, auto);
+	}
+
+	.blog-card.featured {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+
+	.blog-card.featured .blog-card-image {
+		aspect-ratio: 16 / 9;
+	}
+
+	.blog-card.featured .blog-card-body {
+		padding: 24px;
+	}
+
+	.blog-card.featured .blog-card-title {
+		font-size: 24px;
+	}
+
+	.blog-card {
+		background: #fff;
+		border: 1px solid #e8e8e8;
+		border-radius: 6px;
+		overflow: hidden;
+		transition: box-shadow 0.25s, border-color 0.25s;
+	}
+
+	.blog-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	}
+
+	.blog-card-link {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.blog-card-image {
+		aspect-ratio: 16 / 10;
+		overflow: hidden;
+		background: #f0f0f0;
+	}
+
+	.blog-card-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.35s;
+	}
+
+	.blog-card:hover .blog-card-image img {
+		transform: scale(1.04);
+	}
+
+	.blog-card-body {
+		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+	}
+
+	.blog-card-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-bottom: 10px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #8c8c8c;
+	}
+
+	.blog-card-category {
+		color: #fe5900;
+		font-weight: 500;
+	}
+
+	.blog-card-date {
+		color: #8c8c8c;
+	}
+
+	.blog-card-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 1.35;
+		color: #0d0d0d;
+		margin: 0 0 10px;
+		transition: color 0.25s;
+	}
+
+	.blog-card:hover .blog-card-title {
+		color: #fe5900;
+	}
+
+	.blog-card-excerpt {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #666;
+		line-height: 1.55;
+		margin: 0 0 12px;
+		flex: 1;
+	}
+
+	.blog-card-cta {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-weight: 500;
+		color: #0d0d0d;
+		transition: color 0.25s;
+	}
+
+	.blog-card:hover .blog-card-cta {
+		color: #fe5900;
+	}
+
+	/* Sidebar */
+	.blog-sidebar {
+		position: sticky;
+		top: 100px;
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	.sidebar-block {
+		background: #f8f8f8;
+		border: 1px solid #e8e8e8;
+		border-radius: 6px;
+		padding: 20px;
+	}
+
+	.sidebar-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+		margin: 0 0 16px;
+		padding-bottom: 12px;
+		border-bottom: 2px solid #fe5900;
+	}
+
+	.recent-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		counter-reset: recent;
+	}
+
+	.recent-list li {
+		position: relative;
+		padding-left: 0;
+		margin-bottom: 10px;
+		font-size: 14px;
+		line-height: 1.4;
+	}
+
+	.recent-list li:last-child {
+		margin-bottom: 0;
+	}
+
+	.recent-list a {
+		color: #0d0d0d;
+		text-decoration: none;
+		display: block;
+		padding: 6px 0;
+		border-bottom: 1px solid transparent;
+		transition: color 0.2s, border-color 0.2s;
+	}
+
+	.recent-list a:hover {
+		color: #fe5900;
+		border-bottom-color: #fe5900;
+	}
+
+	.archives-list {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.archive-month {
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.archive-month:last-child {
+		border-bottom: none;
+	}
+
+	.archive-month-summary {
+		list-style: none;
+		cursor: pointer;
+		padding: 10px 0;
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.archive-month-summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.archive-month-summary::after {
+		content: '▼';
+		font-size: 10px;
+		color: #8c8c8c;
+		transition: transform 0.2s;
+	}
+
+	.archive-month[open] .archive-month-summary::after {
+		transform: rotate(-180deg);
+	}
+
+	.archive-month-count {
+		font-size: 12px;
+		font-weight: 500;
+		color: #8c8c8c;
+		margin-left: 8px;
+	}
+
+	.archive-posts {
+		list-style: none;
+		margin: 0;
+		padding: 0 0 12px 16px;
+	}
+
+	.archive-posts li {
+		margin-bottom: 6px;
+		font-size: 13px;
+	}
+
+	.archive-posts li:last-child {
+		margin-bottom: 0;
+	}
+
+	.archive-posts a {
+		color: #444;
+		text-decoration: none;
+		display: block;
+		padding: 4px 0;
+		transition: color 0.2s;
+	}
+
+	.archive-posts a:hover {
+		color: #fe5900;
+	}
+
+	/* Responsive */
+
+	/* CTA */
 	.btn {
 		display: inline-block;
 		padding: 15px 40px;
@@ -214,143 +547,6 @@ const posts = mdxPosts
 		border-color: #e04d00;
 	}
 
-	.btn-outline {
-		background: transparent;
-		color: #0d0d0d;
-		border: 2px solid #bfbfbf;
-	}
-
-	.btn-outline:hover {
-		border-color: #0d0d0d;
-		color: #0d0d0d;
-	}
-
-	.hero-image {
-		position: absolute;
-		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: 5;
-	}
-
-	.hero-image img {
-		max-width: 810px;
-		height: auto;
-	}
-
-	.container {
-		max-width: 1300px;
-		margin: 0 auto;
-		padding: 0 20px;
-	}
-
-	/* Masonry Blog Section */
-	.masonry-blog-section {
-		background: #ffffff;
-		padding: 80px 0;
-	}
-
-	.masonry-blog-grid {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 25px;
-		grid-auto-rows: 10px;
-	}
-
-	.masonry-blog-article {
-		background: #ffffff;
-		overflow: hidden;
-	}
-
-	.masonry-blog-image {
-		width: 100%;
-		overflow: hidden;
-		margin-bottom: 20px;
-	}
-
-	.masonry-blog-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 0.5s;
-	}
-
-	.masonry-blog-article:hover .masonry-blog-image img {
-		transform: scale(1.05);
-	}
-
-	.masonry-blog-content {
-		padding: 0 0 20px;
-	}
-
-	.masonry-blog-meta {
-		display: flex;
-		gap: 15px;
-		margin-bottom: 15px;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-	}
-
-	.masonry-blog-category {
-		color: #8c8c8c;
-		text-decoration: none;
-		transition: color 0.3s;
-	}
-
-	.masonry-blog-category:hover {
-		color: #fe5900;
-	}
-
-	.masonry-blog-date {
-		color: #8c8c8c;
-	}
-
-	.masonry-blog-title {
-		font-family: 'Oswald', sans-serif;
-		font-size: 20px;
-		font-weight: 600;
-		color: #0d0d0d;
-		margin-bottom: 15px;
-		line-height: 1.3;
-	}
-
-	.masonry-blog-title a {
-		color: #0d0d0d;
-		text-decoration: none;
-		transition: color 0.3s;
-	}
-
-	.masonry-blog-article:hover .masonry-blog-title a {
-		color: #fe5900;
-	}
-
-	.masonry-blog-excerpt {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #666666;
-		line-height: 1.6;
-		margin-bottom: 15px;
-	}
-
-	.masonry-blog-read-more {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		color: #0d0d0d;
-		text-decoration: none;
-		display: inline-block;
-		transition: color 0.3s;
-		font-weight: 500;
-	}
-
-	.masonry-blog-article:hover .masonry-blog-read-more {
-		color: #fe5900;
-	}
-
-	/* CTA Section */
 	.cta-section {
 		padding: 5rem 0;
 		background: #0d0d0d;
@@ -383,15 +579,24 @@ const posts = mdxPosts
 		font-size: 18px;
 	}
 
-	@media (max-width: 1200px) {
-		.masonry-blog-grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-	}
-
 	@media (max-width: 1024px) {
-		.blog-page-title {
-			font-size: 56px;
+		.blog-container {
+			grid-template-columns: 1fr;
+		}
+
+		.blog-mosaic {
+			grid-template-columns: 1fr;
+		}
+
+		.blog-card.featured {
+			grid-column: span 1;
+			grid-row: span 1;
+		}
+
+		.blog-sidebar {
+			position: static;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
 		}
 	}
 
@@ -404,24 +609,13 @@ const posts = mdxPosts
 			font-size: 42px;
 		}
 
-		.masonry-blog-section .container {
-			padding: 0 1.5rem;
+		.blog-mosaic {
+			grid-template-columns: 1fr;
+			gap: 24px;
 		}
 
-		.cta-section .container {
-			padding: 0 1.5rem;
-		}
-
-		.hero-buttons {
-			flex-direction: column;
-		}
-
-		.playoff-text {
-			font-size: 100px;
-		}
-
-		.masonry-blog-grid {
-			grid-template-columns: repeat(2, 1fr);
+		.blog-sidebar {
+			grid-template-columns: 1fr;
 		}
 
 		.cta-content h2 {
@@ -433,10 +627,5 @@ const posts = mdxPosts
 		.blog-page-title {
 			font-size: 32px;
 		}
-
-		.masonry-blog-grid {
-			grid-template-columns: 1fr;
-		}
 	}
 </style>
-
