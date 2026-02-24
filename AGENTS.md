@@ -9,8 +9,8 @@ This document serves as a reference guide for AI agents working on the PlayerSta
 ### Key Business Information
 - **Business Type**: Custom sports locker manufacturer
 - **Target Market**: Collegiate and professional sports teams
-- **Location**: Brooklyn, NY (7300-7398 Colonial Rd, Brooklyn, NY 11209, USA)
-- **Contact Email**: info@customsportslockers.com
+- **Location**: Langley, BC (2934 200 Street, Langley, BC V2Z 2C1 Canada)
+- **Contact Email**: sales@playerstall.com
 - **Website**: PlayerStall / CustomSportsLockers.com
 
 ## Tech Stack
@@ -241,9 +241,9 @@ Based on existing code:
 3. Top bar social links (if needed)
 
 **Key Fields**:
-- Address: 7300-7398 Colonial Rd, Brooklyn, NY 11209, USA
-- Email: info@customsportslockers.com
-- Phone: + (123) 124-567-8901 (placeholder - verify actual number)
+- Address: 2934 200 Street, Langley, BC V2Z 2C1 Canada
+- Email: sales@playerstall.com
+- Phone: 1 888 584 1444
 
 ### Working with Images
 
@@ -376,20 +376,20 @@ npm run preview
   "image": "https://playerstall.com/images/logoblack2.png",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "7300-7398 Colonial Rd",
-    "addressLocality": "Brooklyn",
-    "addressRegion": "NY",
-    "postalCode": "11209",
-    "addressCountry": "US"
+    "streetAddress": "2934 200 Street",
+    "addressLocality": "Langley",
+    "addressRegion": "BC",
+    "postalCode": "V2Z 2C1",
+    "addressCountry": "CA"
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 40.6184,
-    "longitude": -74.0302
+    "latitude": 49.1044,
+    "longitude": -122.6607
   },
   "url": "https://playerstall.com",
-  "telephone": "+11231245678901",
-  "email": "info@customsportslockers.com",
+  "telephone": "+18885841444",
+  "email": "sales@playerstall.com",
   "priceRange": "$$",
   "serviceArea": {
     "@type": "Country",
@@ -553,9 +553,9 @@ npm run preview
 
 **Business Information** (Keep Consistent):
 - **Name**: PlayerStall / CustomSportsLockers.com
-- **Address**: 7300-7398 Colonial Rd, Brooklyn, NY 11209, USA
-- **Phone**: + (123) 124-567-8901 (verify actual number)
-- **Email**: info@customsportslockers.com
+- **Address**: 2934 200 Street, Langley, BC V2Z 2C1 Canada
+- **Phone**: 1 888 584 1444
+- **Email**: sales@playerstall.com
 
 **Local SEO Checklist**:
 - [ ] Google Business Profile created and optimized
@@ -682,6 +682,9 @@ npm run preview
 **Primary Font**: Yantramanav (body), Oswald (headings)
 **Cart Storage Key**: `playerstall_cart`
 **Dev Server Port**: `4321`
+**Phone**: 1 888 584 1444
+**Email**: sales@playerstall.com
+**Address**: 2934 200 Street, Langley, BC V2Z 2C1 Canada
 
 ## When Making Changes
 

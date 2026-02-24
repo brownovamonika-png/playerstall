@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 48" width="380" height="48" aria-label="PlayerStall">
+  <defs>
+    <!-- Locker stripes icon: two vertical bars (locker doors / jersey stripes) -->
+    <g id="locker-icon">
+      <rect x="0" y="4" width="10" height="40" rx="2" fill="#fe5900"/>
+      <rect x="16" y="4" width="10" height="40" rx="2" fill="#fe5900"/>
+    </g>
+  </defs>
+  <use href="#locker-icon"/>
+  <text x="42" y="34" font-family="Oswald, sans-serif" font-size="28" font-weight="600" fill="currentColor" text-anchor="start" letter-spacing="0.05em">PLAYERSTALL</text>
+</svg>

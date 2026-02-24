@@ -1,14 +1,10 @@
 node_modules
-.venv-bg
-
-# Estimates from various companies
+.venv-bg# Estimates from various companies
 estimate from varies companies/
 *estimate*.txt
 locker-estimates-comparison.txt
 grid-estimate.txt# Jason Vietnam Production Request - colored lockers
 *Jason*Vietnam*
 *colored*locker*
-*Production*Request*
-
-# Guides directory
+*Production*Request*# Guides directory
 guides/

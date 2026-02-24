@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base Construction Instructions | PlayerStall Stadium Lockers</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Yantramanav:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Yantramanav', sans-serif;
+            background: #ffffff;
+            color: #0d0d0d;
+            padding: 0 0 80px;
+        }
+        
+        /* ========== Materials We Use section style (from homepage) ========== */
+        .home-shop-section {
+            position: relative;
+            padding: 100px 0;
+            background: #ffffff;
+            overflow: hidden;
+        }
+        
+        .home-shop-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .home-shop-section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .home-shop-section-subtitle {
+            display: block;
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 13px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: #8c8c8c;
+            margin-bottom: 10px;
+        }
+        
+        .home-shop-section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(32px, 4vw, 52px);
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #0d0d0d;
+            line-height: 1.1;
+            margin: 0;
+        }
+        
+        .ts-spotlight-inner-centered {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .ts-spotlight-content {
+            text-align: left;
+        }
+        
+        .ts-spotlight-position {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #8c8c8c;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .ts-spotlight-position:hover {
+            color: #0d0d0d;
+        }
+        
+        .ts-spotlight-meta {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 14px;
+            color: #8c8c8c;
+            margin-bottom: 25px;
+        }
+        
+        .ts-spotlight-meta a {
+            color: #0d0d0d;
+            text-decoration: none;
+        }
+        
+        .ts-spotlight-meta a:hover {
+            text-decoration: underline;
+        }
+        
+        .ts-spotlight-bio {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #666666;
+            margin-bottom: 30px;
+        }
+        
+        .ts-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid #000000;
+        }
+        
+        .ts-btn-filled {
+            background: #000000;
+            color: #ffffff;
+        }
+        
+        .ts-btn-filled:hover {
+            background: #333;
+            border-color: #333;
+            color: #ffffff;
+        }
+        
+        .materials-buttons-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        /* Base construction diagram — isometric (same as Grid PDF) */
+        .base-diagram-wrap {
+            max-width: 560px;
+            margin: 0 auto 40px;
+            padding: 0;
+            border: 1px solid #444;
+            background: #3a3a3a;
+            overflow: hidden;
+        }
+        
+        .base-diagram-wrap figcaption {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #b6b6b6;
+            text-align: center;
+            margin-top: 0;
+            padding: 14px 20px;
+        }
+        
+        .base-diagram-wrap svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        
+        /* Bullet list — no orange */
+        .instruction-list {
+            list-style: none;
+            max-width: 720px;
+            margin: 28px auto 0;
+            padding-left: 0;
+        }
+        
+        .instruction-list li {
+            position: relative;
+            padding-left: 22px;
+            margin-bottom: 14px;
+        }
+        
+        .instruction-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+            line-height: 1.5;
+            color: #0d0d0d;
+        }
+        
+        .instruction-content h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #0d0d0d;
+            margin-bottom: 4px;
+        }
+        
+        .instruction-content p {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #444;
+            margin: 0;
+        }
+        
+        .instruction-note {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #8c8c8c;
+            margin-top: 24px;
+            padding: 16px 20px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .instruction-note strong {
+            color: #0d0d0d;
+        }
+        
+        @media print {
+            body { padding: 20px 0; }
+            .materials-buttons-container { display: none; }
+        }
+        
+        @media (max-width: 768px) {
+            .home-shop-section { padding: 60px 0; }
+            .base-diagram-wrap { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="home-shop-section">
+        <div class="home-shop-container">
+            <div class="home-shop-section-header">
+                <p class="home-shop-section-subtitle">THE LOCKER ROOM</p>
+                <h2 class="home-shop-section-title">BASE CONSTRUCTION</h2>
+            </div>
+            
+            <div class="ts-spotlight-inner-centered">
+                <div class="ts-spotlight-content">
+                    <a href="/" class="ts-spotlight-position">Installation Guide</a>
+                    <div class="ts-spotlight-meta">
+                        <span>2×4 Lumber</span> | <span>Plywood Runners</span> | <span>1″ Wood Screws</span> | <span>24″ O.C. Cross Members</span> | <span>4″ Curb</span>
+                    </div>
+                    
+                    <!-- Diagram: isometric base construction (match to Grid PDF reference) -->
+                    <figure class="base-diagram-wrap" aria-label="Base construction diagram">
+                        <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="base-diagram-title">
+                            <title id="base-diagram-title">2×4 frame with two plywood deck strips, space 24″ on center</title>
+                            <defs>
+                                <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#4a4a4a" stroke-width="0.4" opacity="0.7"/>
+                                </pattern>
+                                <marker id="arrow-teal" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                    <polygon points="0 0, 10 5, 0 10" fill="#5ec4c4"/>
+                                </marker>
+                            </defs>
+                            <rect width="560" height="320" fill="#3a3a3a"/>
+                            <rect width="560" height="320" fill="url(#grid)"/>
+                            <!-- 2×4 FRAME: five pieces — two long sides, two short ends, one cross-member (isometric parallelogram + center line) -->
+                            <g fill="#b8956a" stroke="#4a3720" stroke-width="1.2">
+                                <path d="M 200 222 L 360 222 L 400 278 L 240 278 Z"/>
+                                <line x1="280" y1="222" x2="320" y2="278" stroke="#4a3720" stroke-width="1.2"/>
+                            </g>
+                            <g fill="#000">
+                                <circle cx="220" cy="238" r="2"/><circle cx="280" cy="238" r="2"/><circle cx="340" cy="238" r="2"/>
+                                <circle cx="260" cy="256" r="2"/><circle cx="320" cy="256" r="2"/>
+                            </g>
+                            <!-- Two PLYWOOD DECK strips: long narrow planks (front-to-back), floating above left and right halves -->
+                            <g fill="#b8956a" stroke="#4a3720" stroke-width="1.2">
+                                <path d="M 212 152 L 268 152 L 308 208 L 252 208 Z"/>
+                                <path d="M 292 152 L 348 152 L 388 208 L 332 208 Z"/>
+                            </g>
+                            <g fill="#000">
+                                <circle cx="228" cy="172" r="2"/><circle cx="260" cy="172" r="2"/><circle cx="332" cy="172" r="2"/><circle cx="364" cy="172" r="2"/>
+                            </g>
+                            <!-- Four teal arrows: left strip left end → left frame corner; left strip right end → cross-member; right strip left end → cross-member; right strip right end → right frame corner -->
+                            <g stroke="#5ec4c4" stroke-width="2" fill="none" marker-end="url(#arrow-teal)">
+                                <line x1="252" y1="208" x2="228" y2="248"/>
+                                <line x1="308" y1="208" x2="298" y2="248"/>
+                                <line x1="332" y1="208" x2="302" y2="248"/>
+                                <line x1="388" y1="208" x2="372" y2="268"/>
+                            </g>
+                            <!-- SPACE @ 24" ON CENTER: horizontal teal dimension line between the two strips, with vertical ticks at inner edges -->
+                            <line x1="268" y1="178" x2="332" y2="178" stroke="#5ec4c4" stroke-width="1.2"/>
+                            <line x1="268" y1="175" x2="268" y2="181" stroke="#5ec4c4" stroke-width="1.2"/>
+                            <line x1="332" y1="175" x2="332" y2="181" stroke="#5ec4c4" stroke-width="1.2"/>
+                            <text x="300" y="165" text-anchor="middle" font-family="Yantramanav, sans-serif" font-size="11" font-weight="600" fill="#fff">SPACE @ 24" ON CENTER</text>
+                            <!-- Label: 1/2" x 4" PLYWOOD DECK with teal leader to left strip -->
+                            <line x1="180" y1="168" x2="232" y2="178" stroke="#5ec4c4" stroke-width="1.2"/>
+                            <text x="120" y="162" font-family="Yantramanav, sans-serif" font-size="11" font-weight="600" fill="#fff">1/2" x 4" PLYWOOD DECK</text>
+                            <!-- Label: 2"x4" FRAME with teal leader to frame -->
+                            <line x1="240" y1="278" x2="260" y2="268" stroke="#5ec4c4" stroke-width="1.2"/>
+                            <text x="140" y="298" font-family="Yantramanav, sans-serif" font-size="11" font-weight="600" fill="#fff">2"x4" FRAME</text>
+                        </svg>
+                        <figcaption>To determine base size subtract 3″ from locker depth for toe kick. Cross members ~24″ on center.</figcaption>
+                    </figure>
+                    
+                    <p class="ts-spotlight-bio">
+                        To determine base size, subtract 3 inches from locker depth to create toe kick space. Cross members need to be added approximately every 24 inches on center. Build the frame with pressure-treated 2×4 lumber and 1″ wood screws; attach 1/2″×4″ plywood runners on the long edges for decking. Secure the frame to the back wall and shim level (front to back and end to end). Level the base—not each locker—front to back, side to side, and plumb. Curb height is 4″ (or per project).
+                    </p>
+                    
+                    <ul class="instruction-list" aria-label="Base construction steps">
+                        <li>
+                            <div class="instruction-content">
+                                <h4>Build the frame</h4>
+                                <p>Cut pressure-treated 2×4 lumber and use 1″ wood screws to build the base frame.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="instruction-content">
+                                <h4>Add decking</h4>
+                                <p>Attach 1/2″×4″ plywood runners on the long edges of the frame to create a decking surface for the lockers.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="instruction-content">
+                                <h4>Secure to wall</h4>
+                                <p>Nail or screw the frame to the back wall and shim to level (front to back and end to end).</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="instruction-content">
+                                <h4>Level the base</h4>
+                                <p>Level the base front to back, side to side, and plumb. Level the base rather than leveling each locker.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="instruction-content">
+                                <h4>Curb height</h4>
+                                <p>Build the curb to 4″ tall (or per project specifications).</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <p class="instruction-note">
+                        <strong>Note:</strong> Sizes may vary based on project. See shop drawings for project-specific details.
+                    </p>
+                    
+                    <div class="materials-buttons-container">
+                        <a href="/" class="ts-btn ts-btn-filled">Back to PlayerStall</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

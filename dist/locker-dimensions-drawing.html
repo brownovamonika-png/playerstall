@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayerStall Stadium Locker Dimensions | 24" W x 24" D x 76" H</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Yantramanav:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Yantramanav', sans-serif;
+            background: #ffffff;
+            color: #0d0d0d;
+            padding: 40px 0 80px;
+        }
+        
+        /* Same container as homepage Materials section */
+        .home-shop-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .home-shop-section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .home-shop-section-subtitle {
+            display: block;
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 13px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: #8c8c8c;
+            margin-bottom: 10px;
+        }
+        
+        .home-shop-section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #0d0d0d;
+            line-height: 1.1;
+        }
+        
+        .drawing-intro {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 32px;
+        }
+        
+        /* Technical drawing sheet: same style as reference (blueprint / schematic) */
+        .drawing-sheet {
+            background: #fff;
+            border: 1px solid #000;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 24px 28px 32px;
+        }
+        
+        .drawing-sheet-top {
+            margin-bottom: 0;
+            width: 100%;
+        }
+        
+        .drawing-sheet-top .drawing-views {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .drawing-sheet-top .drawing-view {
+            flex: 0 0 auto;
+            display: block;
+            margin-left: 20%;
+        }
+        
+        .drawing-sheet-top .drawing-view svg {
+            display: block;
+            vertical-align: top;
+        }
+        
+        .drawing-sheet-bottom {
+            width: 100%;
+            margin-top: -20px;
+        }
+        
+        .drawing-sheet svg {
+            display: block;
+        }
+        
+        .drawing-title-block {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Yantramanav', sans-serif;
+        }
+        
+        .drawing-model {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: #000;
+            margin-bottom: 4px;
+        }
+        
+        .drawing-desc {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #000;
+            margin-bottom: 2px;
+        }
+        
+        .drawing-dims {
+            font-size: 11px;
+            color: #000;
+            margin-top: 6px;
+        }
+        
+        .drawing-views {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        
+        .drawing-view {
+            flex: 0 0 auto;
+        }
+        
+        .drawing-view-label {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #000;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        
+        .drawing-note {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 10px;
+            line-height: 1.5;
+            color: #000;
+            margin-top: 20px;
+            padding: 12px 16px;
+            border: 1px solid #000;
+            max-width: 520px;
+        }
+        
+        .dimension-note {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 13px;
+            color: #8c8c8c;
+            text-align: center;
+            margin-top: 24px;
+            line-height: 1.6;
+        }
+        
+        .dimension-note strong {
+            color: #0d0d0d;
+        }
+        
+        .spec-block {
+            padding: 4px 28px 20px;
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+        }
+        
+        .spec-block h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+            color: #0d0d0d;
+        }
+        
+        .spec-block p {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #444;
+        }
+        
+        .pdf-actions {
+            text-align: center;
+            margin-top: 24px;
+        }
+        .pdf-actions button {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 14px;
+            padding: 10px 20px;
+            background: #0d0d0d;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .pdf-actions button:hover {
+            background: #333;
+        }
+        @media print {
+            body { background: #fff; padding: 0; }
+            .home-shop-container { max-width: 100%; }
+            .drawing-sheet { box-shadow: none; }
+            .spec-block { background: #fff; border-color: #ccc; }
+            .pdf-actions { display: none; }
+        }
+        
+        @media (max-width: 768px) {
+            .drawing-sheet {
+                padding: 16px 20px 24px;
+            }
+            .drawing-views {
+                gap: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="home-shop-section">
+        <div class="home-shop-container">
+            <div class="home-shop-section-header">
+                <span class="home-shop-section-subtitle">THE LOCKER ROOM</span>
+                <h2 class="home-shop-section-title">STADIUM LOCKER DIMENSIONS</h2>
+            </div>
+            <p class="drawing-intro">
+                Lockers are 76" high; with the addition of the 4" base, total height measures 80". Front elevation with dimensions and widths as shown.
+            </p>
+            
+            <div class="drawing-sheet">
+                <div class="drawing-sheet-top">
+                    <div class="drawing-views">
+                        <div class="drawing-view">
+                            <svg width="416" height="559" viewBox="0 0 320 430" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <marker id="dimArrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#000"/></marker>
+                            </defs>
+                            <!-- Scale: 3 px/in. Body 76"=228, base 4"=12. Top 12"=36, middle 51¼"=153.75, bottom 12¾"=38.25. Total 80"=240 -->
+                            <!-- Thick black outline - locker body (76" = 228px) -->
+                            <rect x="60" y="40" width="72" height="228" fill="none" stroke="#000" stroke-width="2.5"/>
+                            <!-- Three compartment dividers (thick) -->
+                            <line x1="60" y1="76" x2="132" y2="76" stroke="#000" stroke-width="2"/>
+                            <line x1="60" y1="229.75" x2="132" y2="229.75" stroke="#000" stroke-width="2"/>
+                            <!-- Base (slightly narrower: 23 ¾" = 71.25px) -->
+                            <rect x="60.375" y="268" width="71.25" height="12" fill="none" stroke="#000" stroke-width="2.5"/>
+                            <!-- VERTICAL: Compartment heights INSIDE left (thin lines) -->
+                            <line x1="78" y1="40" x2="78" y2="76" stroke="#000" stroke-width="1" marker-end="url(#dimArrow)" marker-start="url(#dimArrow)"/>
+                            <text x="78" y="58" font-family="sans-serif" font-size="11" fill="#000" text-anchor="middle">12"</text>
+                            <line x1="78" y1="76" x2="78" y2="229.75" stroke="#000" stroke-width="1" marker-end="url(#dimArrow)" marker-start="url(#dimArrow)"/>
+                            <text x="78" y="152.875" font-family="sans-serif" font-size="11" fill="#000" text-anchor="middle">51 ¼"</text>
+                            <line x1="78" y1="229.75" x2="78" y2="268" stroke="#000" stroke-width="1" marker-end="url(#dimArrow)" marker-start="url(#dimArrow)"/>
+                            <text x="78" y="248.875" font-family="sans-serif" font-size="11" fill="#000" text-anchor="middle">12 ¾"</text>
+                            <!-- VERTICAL: 80" (total) and 4" OUTSIDE right with extension lines -->
+                            <line x1="132" y1="40" x2="140" y2="40" stroke="#000" stroke-width="1"/>
+                            <line x1="131.625" y1="280" x2="140" y2="280" stroke="#000" stroke-width="1"/>
+                            <line x1="140" y1="40" x2="140" y2="280" stroke="#000" stroke-width="1" marker-end="url(#dimArrow)" marker-start="url(#dimArrow)"/>
+                            <text x="152" y="160" font-family="sans-serif" font-size="11" fill="#000" text-anchor="middle">80"</text>
+                            <line x1="132" y1="268" x2="140" y2="268" stroke="#000" stroke-width="1"/>
+                            <line x1="131.625" y1="280" x2="140" y2="280" stroke="#000" stroke-width="1"/>
+                            <line x1="140" y1="268" x2="140" y2="280" stroke="#000" stroke-width="1" marker-end="url(#dimArrow)" marker-start="url(#dimArrow)"/>
+                            <text x="152" y="274" font-family="sans-serif" font-size="11" fill="#000" text-anchor="middle">4"</text>
+                            <!-- HORIZONTAL: 24" OUTSIDE above (extension lines up from top corners) -->
+                            <line x1="60" y1="40" x2="60" y2="26" stroke="#000" stroke-width="1"/>
+                            <line x1="132" y1="40" x2="132" y2="26" stroke="#000" stroke-width="1"/>
+                            <line x1="60" y1="26" x2="132" y2="26" stroke="#000" stroke-width="1" marker-end="url(#dimArrow)" marker-start="url(#dimArrow)"/>
+                            <text x="96" y="18" font-family="sans-serif" font-size="11" fill="#000" text-anchor="middle">24"</text>
+                            <!-- HORIZONTAL: 23 ¾" OUTSIDE below (extension lines down from base corners) -->
+                            <line x1="60.375" y1="280" x2="60.375" y2="294" stroke="#000" stroke-width="1"/>
+                            <line x1="131.625" y1="280" x2="131.625" y2="294" stroke="#000" stroke-width="1"/>
+                            <line x1="60.375" y1="294" x2="131.625" y2="294" stroke="#000" stroke-width="1" marker-end="url(#dimArrow)" marker-start="url(#dimArrow)"/>
+                            <text x="96" y="306" font-family="sans-serif" font-size="11" fill="#000" text-anchor="middle">23 ¾"</text>
+                        </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="drawing-sheet-bottom">
+                    <div class="spec-block">
+                        <h4>Locker dimensions</h4>
+                        <p>
+                            <strong>80" total height</strong> (76" locker body + 4" base). Width at top 24", base 23 3/4".<br>
+                            Compartments: 12" top, 51 ¼" middle, 12 ¾" bottom. Also available 24" W × 24" D, 19" deep.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="pdf-actions">
+                <button type="button" onclick="window.print();">Save as PDF</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
