@@ -4,11 +4,18 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getBlogHeroUrl } from '../../lib/blog-hero';
 
 export async function getStaticPaths() {
+  const staticBlogSlugs = new Set(
+    Object.keys(import.meta.glob('./*.astro', { eager: false }))
+      .map((path) => path.replace(/^\.\/(.*)\.astro$/, '$1'))
+      .filter((s) => s !== '[slug]')
+  );
   const blogEntries = await getCollection('blog');
-  return blogEntries.map(entry => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+  return blogEntries
+    .filter((entry) => !staticBlogSlugs.has(entry.slug))
+    .map((entry) => ({
+      params: { slug: entry.slug },
+      props: { entry },
+    }));
 }
 
 const { entry } = Astro.props;

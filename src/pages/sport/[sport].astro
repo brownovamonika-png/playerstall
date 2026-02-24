@@ -1681,8 +1681,8 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 			entries.forEach(entry => {
 				if (entry.isIntersecting) {
 					// Load image if it has data-src (lazy load)
-					const img = initialSlide.querySelector('img[data-src]');
-					if (img && !img.src) {
+					const img = initialSlide.querySelector<HTMLImageElement>('img[data-src]');
+					if (img && img.dataset.src && !img.src) {
 						img.src = img.dataset.src;
 						// Add active class after a small delay to ensure image starts loading
 						setTimeout(() => {
