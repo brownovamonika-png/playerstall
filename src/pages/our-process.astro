@@ -740,6 +740,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		accordionHeaders.forEach(header => {
 			header.addEventListener('click', () => {
 				const item = header.parentElement;
+				if (!item) return;
 				const isActive = item.classList.contains('active');
 
 				// Close all items
