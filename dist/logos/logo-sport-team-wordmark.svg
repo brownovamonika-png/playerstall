@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 40" width="320" height="40" aria-label="PlayerStall">
+  <!-- Clean wordmark with orange accent line (sport / finish-line feel) -->
+  <text x="0" y="28" font-family="Oswald, sans-serif" font-size="26" font-weight="600" fill="currentColor" text-anchor="start" letter-spacing="0.05em">PLAYERSTALL</text>
+  <rect x="0" y="34" width="48" height="3" rx="1.5" fill="#fe5900"/>
+</svg>

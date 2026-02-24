@@ -992,6 +992,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	border-color: rgba(255, 255, 255, 0.9);
 }
 
+@media (max-width: 768px) {
+	.hero-slide-buttons .btn-slide-primary,
+	.hero-slide-buttons .btn-slide-secondary {
+		transform: scale(0.6);
+		transform-origin: center;
+	}
+	.hero-slider-nav .slider-nav-btn {
+		transform: scale(0.6);
+	}
+	.hero-slider-dots .slider-dot,
+	.hero-slider-dots .slider-dot.active {
+		transform: scale(0.6);
+	}
+}
+
 /* General buttons used elsewhere on page */
 .ts-btn-filled {
 	background: #000000;

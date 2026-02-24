@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 100" width="440" height="100" aria-label="PlayerStall">
+  <!-- Full wordmark, elegant typography - modern stylish (Pinterest / interior design identity style) -->
+  <text x="0" y="52" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="600" fill="#1a1a1a" text-anchor="start" letter-spacing="0.12em">PLAYERSTALL</text>
+  <line x1="0" y1="64" x2="140" y2="64" stroke="#fe5900" stroke-width="1.25" stroke-linecap="round"/>
+  <text x="0" y="82" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="500" fill="#8c8c8c" text-anchor="start" letter-spacing="0.2em">Custom Sports Lockers</text>
+</svg>

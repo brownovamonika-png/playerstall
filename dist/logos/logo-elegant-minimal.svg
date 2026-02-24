@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" width="360" height="120" aria-label="PlayerStall">
+  <!-- Elegant minimal style: sleek initials + refined wordmark (Pinterest / Judith Gamiel style) -->
+  <text x="0" y="52" font-family="Georgia, 'Times New Roman', serif" font-size="48" font-weight="600" fill="#1a1a1a" text-anchor="start" letter-spacing="0.02em">PS</text>
+  <text x="0" y="88" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="500" fill="#4a4a4a" text-anchor="start" letter-spacing="0.35em">PLAYERSTALL</text>
+  <line x1="0" y1="98" x2="72" y2="98" stroke="#fe5900" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

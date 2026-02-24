@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 100" width="480" height="100" aria-label="PlayerStall">
+  <!-- Same bold typography + subtle accent line (t-shirt / statement style) -->
+  <text x="0" y="58" font-family="Oswald, sans-serif" font-size="52" font-weight="700" fill="#0d0d0d" text-anchor="start" letter-spacing="0.08em">PLAYERSTALL</text>
+  <rect x="0" y="72" width="80" height="4" fill="#fe5900"/>
+</svg>
