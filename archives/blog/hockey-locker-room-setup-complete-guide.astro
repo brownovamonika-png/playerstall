@@ -1,0 +1,500 @@
+---
+import BaseLayout from '../../src/layouts/BaseLayout.astro';
+
+const post = {
+	title: 'Hockey Locker Room Setup: Everything You Need to Know',
+	description:
+		'Complete guide to hockey locker room setup. Learn about equipment storage, stick racks, ventilation, and creating the perfect hockey facility for your team.',
+	category: 'Hockey',
+	datePublished: '2024-12-10',
+	readTime: '9 min read',
+	author: 'PlayerStall Editorial Team',
+	slug: 'hockey-locker-room-setup-complete-guide',
+	wordCount: 1800
+};
+
+const faqItems = [
+	{
+		question: 'What makes hockey locker rooms different from other sports?',
+		answer:
+			'Hockey has unique equipment requirements: skates need secure, ventilated storage; sticks require dedicated rack systems; heavy pads (shoulder, shin, elbow) need ample space; helmets need proper ventilation; and players often have multiple jerseys and large equipment bags. Hockey equipment also gets wet and needs superior ventilation to prevent moisture buildup and odors.'
+	},
+	{
+		question: 'Why are wood lockers ideal for hockey facilities?',
+		answer:
+			'Wood lockers are perfect for hockey because: 1) Wood breathes naturally, preventing moisture buildup that metal lockers trap, 2) They withstand heavy equipment and daily use better than alternatives, 3) They can be customized for hockey-specific needs like ventilation grills and equipment configurations, and 4) They create a warmer, more comfortable environment after ice time compared to cold metal surfaces.'
+	},
+	{
+		question: 'What essential components do I need for a hockey locker room?',
+		answer:
+			'A complete hockey locker room setup includes: 1) Main locker units (Varsity or Pro tier recommended for enhanced storage), 2) Hockey stick racks (3/4" White Birch, standard 60" x 30" x 16"), 3) Corner shelf units for additional storage, 4) Custom branding with team colors and logos, and 5) Proper ventilation systems including lift-up seats with vent slots or ventilation grills.'
+	},
+	{
+		question: 'How important is ventilation in a hockey locker room?',
+		answer:
+			'Ventilation is critical for hockey facilities. Wet equipment must dry properly to prevent odors, mold, and equipment damage. Choose lockers with ventilation options like lift-up seats with vent slots or ventilation grills. Ensure adequate room air circulation, and consider ventilation grills for maximum airflow. Proper ventilation also helps maintain equipment quality and extends locker life.'
+	}
+];
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Article',
+			headline: post.title,
+			description: post.description,
+			datePublished: post.datePublished,
+			dateModified: post.datePublished,
+			wordCount: post.wordCount,
+			author: {
+				'@type': 'Organization',
+				name: post.author
+			},
+			publisher: {
+				'@type': 'Organization',
+				name: 'PlayerStall',
+				logo: {
+					'@type': 'ImageObject',
+					url: 'https://playerstall.com/images/logoblack2.png'
+				}
+			},
+			mainEntityOfPage: {
+				'@type': 'WebPage',
+				'@id': `https://playerstall.com/blog/${post.slug}`
+			}
+		},
+		{
+			'@type': 'FAQPage',
+			mainEntity: faqItems.map((item) => ({
+				'@type': 'Question',
+				name: item.question,
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: item.answer
+				}
+			}))
+		}
+	]
+};
+---
+
+<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
+	<section class="page-header">
+		<div class="container">
+			<div class="article-meta">
+				<span class="blog-date">December 10, 2024 · {post.readTime}</span>
+				<span class="blog-category">{post.category}</span>
+			</div>
+			<h1>{post.title}</h1>
+			<p class="lede">
+				Complete guide to hockey locker room setup. Learn about equipment storage, stick racks, ventilation, and creating the perfect hockey facility for your team.
+			</p>
+		</div>
+	</section>
+
+	<section class="blog-section">
+		<div class="container">
+			<article class="blog-content">
+				<h2 id="introduction">Introduction: The Unique Needs of Hockey</h2>
+				<p>
+					Hockey has unique equipment requirements that make locker room design especially important. From skates to sticks to heavy pads, hockey equipment needs specialized storage solutions.
+				</p>
+				<p>
+					After 30+ years working with hockey programs, we've learned what makes a great hockey locker room. Here's everything you need to know.
+				</p>
+
+				<h2 id="equipment-storage">Hockey Equipment Storage Requirements</h2>
+				<p>Hockey players need to store more equipment than most athletes:</p>
+				<ul>
+					<li><strong>Skates:</strong> Need secure, ventilated storage</li>
+					<li><strong>Sticks:</strong> Require dedicated rack systems</li>
+					<li><strong>Pads:</strong> Shoulder pads, shin guards, elbow pads</li>
+					<li><strong>Helmets:</strong> Need proper ventilation</li>
+					<li><strong>Jerseys and uniforms:</strong> Multiple sets per player</li>
+					<li><strong>Equipment bags:</strong> Large bags need space</li>
+				</ul>
+
+				<h2 id="why-wood">Why Wood Lockers Work for Hockey</h2>
+				<p>Wood lockers are ideal for hockey facilities because:</p>
+				<ul>
+					<li><strong>Ventilation:</strong> Wood breathes, preventing moisture buildup</li>
+					<li><strong>Durability:</strong> Withstands heavy equipment and daily use</li>
+					<li><strong>Customization:</strong> Can be designed for hockey-specific needs</li>
+					<li><strong>Warmth:</strong> Creates comfortable environment after ice time</li>
+				</ul>
+
+				<h2 id="essential-components">Essential Hockey Locker Room Components</h2>
+
+				<h3>1. Main Locker Units</h3>
+				<p>Our wood lockers provide ample space for all hockey equipment. We recommend:</p>
+				<ul>
+					<li><strong>Varsity or Pro tier:</strong> Enhanced storage capacity</li>
+					<li><strong>Custom configurations:</strong> Designed for hockey equipment</li>
+					<li><strong>Ventilation options:</strong> Keep equipment dry</li>
+				</ul>
+
+				<h3>2. Hockey Stick Racks</h3>
+				<p>
+					Essential for any hockey locker room. Our <a href="/products/accessories">hockey stick racks</a> feature:
+				</p>
+				<ul>
+					<li>3/4" White Birch wood construction</li>
+					<li>Standard size: 60" x 30" x 16"</li>
+					<li>Easy assembly with included hardware</li>
+					<li>Custom sizes available</li>
+				</ul>
+
+				<h3>3. Corner Shelf Units</h3>
+				<p>Maximize space with corner units. Perfect for:</p>
+				<ul>
+					<li>Additional equipment storage</li>
+					<li>Team supplies</li>
+					<li>Coach storage</li>
+				</ul>
+
+				<h2 id="ventilation">Ventilation: Critical for Hockey</h2>
+				<p>Hockey equipment gets wet and needs to dry. Proper ventilation is essential:</p>
+				<ul>
+					<li>Choose lockers with ventilation options</li>
+					<li>Ensure adequate room air circulation</li>
+					<li>Use lift-up seats with vent slots</li>
+					<li>Consider ventilation grills for maximum airflow</li>
+				</ul>
+
+				<h2 id="layout-considerations">Layout Considerations</h2>
+				<p>When designing your hockey locker room:</p>
+				<ul>
+					<li><strong>Space for equipment bags:</strong> Players need room to move</li>
+					<li><strong>Stick rack placement:</strong> Easy access but out of the way</li>
+					<li><strong>Drying areas:</strong> Space for wet equipment to dry</li>
+					<li><strong>Coach visibility:</strong> Coaches need to see the room</li>
+				</ul>
+
+				<h2 id="customization">Customization for Hockey</h2>
+				<p>Make your locker room uniquely yours:</p>
+				<ul>
+					<li>Team colors and logos</li>
+					<li>Player names and numbers</li>
+					<li>Hockey-specific graphics</li>
+					<li>Custom configurations for equipment</li>
+				</ul>
+
+				<h2 id="maintenance">Maintenance for Hockey Facilities</h2>
+				<p>Hockey locker rooms need extra attention:</p>
+				<ul>
+					<li>Daily cleaning to remove moisture</li>
+					<li>Regular inspection for water damage</li>
+					<li>Ensure ventilation remains clear</li>
+					<li>Clean stick racks regularly</li>
+				</ul>
+
+				<h2 id="complete-package">Complete Hockey Locker Room Package</h2>
+				<p>For a complete setup, consider:</p>
+				<ol>
+					<li>Main locker units (wood lockers)</li>
+					<li>Hockey stick racks</li>
+					<li>Corner shelf units</li>
+					<li>Custom branding and personalization</li>
+					<li>Proper ventilation systems</li>
+				</ol>
+
+				<h2>Conclusion: Building the Perfect Hockey Facility</h2>
+				<p>
+					A well-designed hockey locker room supports your team's success. With the right combination of wood lockers, stick racks, and proper ventilation, you can create a facility that serves your team for 15+ years.
+				</p>
+				<p>
+					Our free custom design consultation can help you plan the perfect hockey locker room for your program.
+				</p>
+
+				<div class="inline-cta">
+					<h3>Design Your Hockey Locker Room</h3>
+					<p>Get a free custom design consultation for your hockey facility.</p>
+					<a class="btn-secondary" href="/contact">Get Free Consultation</a>
+				</div>
+
+				<div class="related-links">
+					<p>
+						<strong>Related Articles:</strong>
+						<a href="/hockey">Hockey Lockers</a> ·
+						<a href="/products/accessories">Hockey Accessories</a> ·
+						<a href="/blog/7-step-locker-room-planning-process">Locker Room Planning</a>
+					</p>
+				</div>
+
+				<div class="faq-section" id="faq">
+					<h2>Hockey Locker Room FAQ</h2>
+					{faqItems.map((item) => {
+						return (
+							<div class="faq-item">
+								<h3 class="faq-question">{item.question}</h3>
+								<p class="faq-answer">{item.answer}</p>
+							</div>
+						);
+					})}
+				</div>
+				
+				<div class="related-links" style="margin-top: 3rem; padding: 2rem; background: #f7f7f7; border-radius: 8px;">
+					<p>
+						<strong>Related Hockey Articles:</strong>
+						<a href="/blog/hockey-lockers-complete-guide-to-custom-athletic-storage-solutions">Hockey Lockers Complete Guide</a> ·
+						<a href="/blog/hockey-wood-lockers-complete-guide">Hockey Wood Lockers Complete Guide</a> ·
+						<a href="/blog/hockey-stick-racks">Hockey Stick Racks</a> ·
+						<a href="/blog/use-a-stick-rack-to-keep-your-sticks-organized">Stick Rack Organization</a> ·
+						<a href="/blog/stick-racks-smelly-socks-how-to-tame-the-chaos-in-a-hockey-locker-room">Taming Hockey Locker Room Chaos</a> ·
+						<a href="/blog/from-junior-a-to-ncaa-what-the-best-programs-do-differently-with-their-lockers">Junior A to NCAA Programs</a> ·
+						<a href="/blog/complete-guide-custom-sports-lockers">Complete Custom Lockers Guide</a>
+					</p>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<section class="cta-section">
+		<div class="container">
+			<div class="cta-content">
+				<h2>Ready to Design Your Hockey Locker Room?</h2>
+				<p>Get a free custom design consultation and see how we can create the perfect hockey facility.</p>
+				<a class="btn-primary" href="/contact">Get Free Consultation</a>
+			</div>
+		</div>
+	</section>
+
+	<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+</BaseLayout>
+
+<style>
+	:global(:root) {
+		--bg-off-white: #f9f7f2;
+		--border-color: #e3dfd7;
+		--text-gray: #4a4a4a;
+		--accent-color: #fe5900;
+		--text-white: #ffffff;
+	}
+
+	.container {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+
+	.page-header {
+		background: var(--bg-off-white);
+		padding: 4rem 0;
+		text-align: center;
+	}
+
+	.article-meta {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		font-size: 0.9rem;
+		color: var(--accent-color);
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		margin-bottom: 1rem;
+	}
+
+	.page-header h1 {
+		font-size: clamp(2rem, 4vw, 3rem);
+		margin-bottom: 1rem;
+		line-height: 1.25;
+	}
+
+	.lede {
+		max-width: 760px;
+		margin: 0 auto;
+		font-size: 1.2rem;
+		color: var(--text-gray);
+		line-height: 1.8;
+	}
+
+	.blog-section {
+		padding: 4rem 0;
+	}
+
+	.blog-content {
+		background: var(--bg-off-white);
+		border: 1px solid var(--border-color);
+		border-radius: 12px;
+		padding: 3rem;
+	}
+
+	.blog-content h2 {
+		margin-top: 2.5rem;
+		margin-bottom: 1rem;
+		font-size: 2rem;
+	}
+
+	.blog-content h2:first-of-type {
+		margin-top: 0;
+	}
+
+	.blog-content h3 {
+		margin-top: 2rem;
+		margin-bottom: 0.75rem;
+		font-size: 1.35rem;
+	}
+
+	.blog-content p {
+		color: var(--text-gray);
+		font-size: 1.05rem;
+		line-height: 1.8;
+		margin-bottom: 1rem;
+	}
+
+	.blog-content ul,
+	.blog-content ol {
+		margin: 1.5rem 0;
+		padding-left: 1.5rem;
+		color: var(--text-gray);
+		line-height: 1.8;
+	}
+
+	.blog-content li + li {
+		margin-top: 0.5rem;
+	}
+
+	.blog-content a {
+		color: var(--accent-color);
+		text-decoration: none;
+	}
+
+	.blog-content a:hover {
+		text-decoration: underline;
+	}
+
+	.inline-cta {
+		background: var(--accent-color);
+		padding: 2.5rem;
+		border-radius: 12px;
+		color: var(--text-white);
+		text-align: center;
+		margin: 3rem 0;
+	}
+
+	.inline-cta h3 {
+		margin-top: 0;
+		font-size: 1.75rem;
+		color: var(--text-white);
+	}
+
+	.inline-cta p {
+		color: rgba(255, 255, 255, 0.92);
+		margin-bottom: 1.5rem;
+	}
+
+	.btn-secondary,
+	.btn-primary {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.9rem 2rem;
+		border-radius: 999px;
+		font-weight: 600;
+		text-decoration: none;
+		letter-spacing: 0.04em;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.btn-secondary {
+		background: var(--text-white);
+		color: var(--accent-color);
+	}
+
+	.btn-primary {
+		background: var(--accent-color);
+		color: var(--text-white);
+	}
+
+	.btn-secondary:hover,
+	.btn-primary:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	}
+
+	.related-links {
+		margin-top: 3rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--border-color);
+	}
+
+	.related-links a {
+		color: var(--accent-color);
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.related-links a:hover {
+		text-decoration: underline;
+	}
+
+	.cta-section {
+		background: #121212;
+		color: #fff;
+		padding: 4rem 0;
+		margin-top: 2rem;
+	}
+
+	.cta-content {
+		text-align: center;
+		background: #1f1f1f;
+		padding: 3rem;
+		border-radius: 16px;
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+	}
+
+	.cta-content h2 {
+		margin-top: 0;
+		font-size: 2.25rem;
+		color: #fff;
+	}
+
+	.cta-content p {
+		color: #d8d8d8;
+		margin-bottom: 2rem;
+		font-size: 1.1rem;
+		line-height: 1.7;
+	}
+
+	.faq-section {
+		margin-top: 3rem;
+	}
+
+	.faq-item {
+		border: 1px solid var(--border-color);
+		border-radius: 10px;
+		padding: 1rem 1.25rem;
+		margin-bottom: 1rem;
+		background: #fff;
+	}
+
+	.faq-question {
+		font-weight: 600;
+		color: #222;
+		margin-bottom: 0.75rem;
+	}
+
+	.faq-answer {
+		margin: 0.75rem 0 0;
+	}
+
+	@media (max-width: 768px) {
+		.article-meta {
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.blog-content {
+			padding: 2rem;
+		}
+
+		.inline-cta {
+			padding: 2rem;
+		}
+
+		.cta-content {
+			padding: 2rem;
+		}
+	}
+</style>

@@ -1,0 +1,261 @@
+---
+import BaseLayout from '../../src/layouts/BaseLayout.astro';
+
+const post = {
+	title: 'Sport-Specific Locker Design: Meeting Each Sport\'s Unique Needs',
+	description:
+		'Every sport has unique equipment needs. Learn how to design lockers for football, basketball, hockey, baseball, and soccer with sport-specific configurations that maximize organization and functionality.',
+	category: 'Locker Room Design',
+	datePublished: '2024-11-15',
+	readTime: '10 min read',
+	author: 'PlayerStall Editorial Team',
+	slug: 'sport-specific-locker-design',
+	wordCount: 2100
+};
+
+const faqItems = [
+	{
+		question: 'What locker configuration is best for football?',
+		answer:
+			'Football needs Varsity or Pro tier, 18" width minimum, lift-up seat with ventilation for wet cleats, multiple hanging rods for uniforms, and extra hooks for pads and equipment. Custom team colors and branding complete the setup.'
+	},
+	{
+		question: 'Why do hockey lockers need special ventilation?',
+		answer:
+			'Hockey equipment gets wet and must dry to prevent odors and damage. Use Varsity or Pro tier with maximum ventilation: lift-up seat with ventilation grill, adequate room air circulation, and hockey stick racks. See our hockey locker room guide for full details.'
+	},
+	{
+		question: 'Can one facility serve multiple sports?',
+		answer:
+			'Yes. Use flexible design with lockers that adapt to different sports, modular components for reconfiguration, universal features that work for all sports, and sport-specific zones when possible. Our free design consultation helps plan multi-sport layouts.'
+	}
+];
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Article',
+			headline: post.title,
+			description: post.description,
+			datePublished: post.datePublished,
+			dateModified: post.datePublished,
+			wordCount: post.wordCount,
+			author: { '@type': 'Organization', name: post.author },
+			publisher: { '@type': 'Organization', name: 'PlayerStall', logo: { '@type': 'ImageObject', url: 'https://playerstall.com/images/logoblack2.png' } },
+			mainEntityOfPage: { '@type': 'WebPage', '@id': `https://playerstall.com/blog/${post.slug}` }
+		},
+		{ '@type': 'FAQPage', mainEntity: faqItems.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) }
+	]
+};
+---
+
+<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
+	<section class="page-header">
+		<div class="container">
+			<div class="article-meta">
+				<span class="blog-date">November 15, 2024 · {post.readTime}</span>
+				<span class="blog-category">{post.category}</span>
+			</div>
+			<h1>{post.title}</h1>
+			<p class="lede">
+				Every sport has unique equipment needs. Learn how to design lockers for football, basketball, hockey, baseball, and soccer with sport-specific configurations that maximize organization and functionality.
+			</p>
+		</div>
+	</section>
+
+	<section class="blog-section">
+		<div class="container">
+			<article class="blog-content">
+				<h2 id="why">Why Sport-Specific Design Matters</h2>
+				<p>One size doesn't fit all when it comes to sports lockers. Football players need space for helmets and pads. Hockey players need ventilation for wet equipment. Basketball players need organization for shoes and uniforms.</p>
+				<p>After 30+ years, we've learned that sport-specific design isn't just nice to have—it's essential for functionality and athlete satisfaction.</p>
+
+				<h2 id="football">Football Locker Requirements</h2>
+				<p>Football has the most equipment of any sport. Design considerations:</p>
+				<h3>Equipment Storage Needs</h3>
+				<ul>
+					<li><strong>Helmets:</strong> Need secure, ventilated storage</li>
+					<li><strong>Shoulder pads:</strong> Large, bulky items</li>
+					<li><strong>Cleats:</strong> Multiple pairs per player</li>
+					<li><strong>Uniforms:</strong> Home and away sets</li>
+					<li><strong>Practice gear:</strong> Additional equipment</li>
+				</ul>
+				<h3>Recommended Configuration</h3>
+				<ul>
+					<li>Varsity or Pro tier for enhanced storage</li>
+					<li>Lift-up seat with ventilation for wet cleats</li>
+					<li>Multiple hanging rods for uniforms</li>
+					<li>Extra hooks for pads and equipment</li>
+					<li>Custom team colors and branding</li>
+				</ul>
+
+				<h2 id="basketball">Basketball Locker Requirements</h2>
+				<p>Basketball has minimal equipment but needs organization:</p>
+				<h3>Equipment Storage Needs</h3>
+				<ul>
+					<li><strong>Shoes:</strong> Game shoes and practice shoes</li>
+					<li><strong>Uniforms:</strong> Home and away jerseys</li>
+					<li><strong>Personal items:</strong> Minimal equipment</li>
+					<li><strong>Accessories:</strong> Wristbands, headbands</li>
+				</ul>
+				<h3>Recommended Configuration</h3>
+				<ul>
+					<li>Semi Pro or Varsity tier (less storage needed)</li>
+					<li>Fixed seat with open cubby for shoes</li>
+					<li>Hanging rod for uniforms</li>
+					<li>Clean, organized appearance</li>
+					<li>Team branding and player names</li>
+				</ul>
+
+				<h2 id="hockey">Hockey Locker Requirements</h2>
+				<p>Hockey has unique needs due to wet equipment:</p>
+				<h3>Equipment Storage Needs</h3>
+				<ul>
+					<li><strong>Skates:</strong> Need ventilation to dry</li>
+					<li><strong>Sticks:</strong> Require dedicated racks</li>
+					<li><strong>Pads:</strong> Shoulder, shin, elbow pads</li>
+					<li><strong>Wet equipment:</strong> Needs proper ventilation</li>
+					<li><strong>Equipment bags:</strong> Large bags need space</li>
+				</ul>
+				<h3>Recommended Configuration</h3>
+				<ul>
+					<li>Varsity or Pro tier with maximum ventilation</li>
+					<li>Lift-up seat with ventilation grill</li>
+					<li>Hockey stick racks (see our <a href="/products/accessories">accessories</a>)</li>
+					<li>Corner shelf units for additional storage</li>
+					<li>Proper air circulation design</li>
+				</ul>
+				<p>See our complete <a href="/blog/hockey-locker-room-setup-complete-guide">hockey locker room guide</a> for more details.</p>
+
+				<h2 id="baseball">Baseball Locker Requirements</h2>
+				<p>Baseball equipment needs careful organization:</p>
+				<h3>Equipment Storage Needs</h3>
+				<ul>
+					<li><strong>Bats:</strong> Multiple bats per player</li>
+					<li><strong>Gloves:</strong> Game and practice gloves</li>
+					<li><strong>Cleats:</strong> Metal and molded cleats</li>
+					<li><strong>Uniforms:</strong> Home, away, and alternate</li>
+					<li><strong>Protective gear:</strong> Catcher's equipment</li>
+				</ul>
+				<h3>Recommended Configuration</h3>
+				<ul>
+					<li>Varsity tier for adequate storage</li>
+					<li>Multiple compartments for organization</li>
+					<li>Hanging space for uniforms</li>
+					<li>Ventilation for cleats</li>
+					<li>Custom team colors</li>
+				</ul>
+
+				<h2 id="soccer">Soccer Locker Requirements</h2>
+				<p>Soccer has moderate equipment needs:</p>
+				<h3>Equipment Storage Needs</h3>
+				<ul>
+					<li><strong>Cleats:</strong> Game and practice pairs</li>
+					<li><strong>Shin guards:</strong> Need proper storage</li>
+					<li><strong>Uniforms:</strong> Home and away sets</li>
+					<li><strong>Soccer balls:</strong> Personal balls</li>
+				</ul>
+				<h3>Recommended Configuration</h3>
+				<ul>
+					<li>Semi Pro or Varsity tier</li>
+					<li>Ventilation for cleats</li>
+					<li>Organized compartments</li>
+					<li>Hanging space for uniforms</li>
+					<li>Team branding</li>
+				</ul>
+
+				<h2 id="multi-sport">Multi-Sport Facilities</h2>
+				<p>Many facilities serve multiple sports. Design strategies:</p>
+				<ul>
+					<li><strong>Flexible design:</strong> Lockers that adapt to different sports</li>
+					<li><strong>Modular components:</strong> Easy to reconfigure</li>
+					<li><strong>Universal features:</strong> Work for all sports</li>
+					<li><strong>Sport-specific zones:</strong> Dedicated areas when possible</li>
+				</ul>
+
+				<h2 id="customization">Customization for Each Sport</h2>
+				<p>Beyond storage, customize for sport identity:</p>
+				<ul>
+					<li>Sport-specific graphics and logos</li>
+					<li>Team colors for each sport</li>
+					<li>Player names and numbers</li>
+					<li>Sport-specific branding elements</li>
+				</ul>
+
+				<h2>Conclusion: Design for Success</h2>
+				<p>Sport-specific locker design isn't just about storage—it's about creating spaces that support each sport's unique needs. When lockers are designed for the sport, athletes are better organized, equipment is better cared for, and facilities function better.</p>
+				<p>Our free custom design consultation helps you create sport-specific solutions that maximize functionality and athlete satisfaction.</p>
+
+				<div class="inline-cta">
+					<h3>Design Sport-Specific Lockers</h3>
+					<p>Get a free custom design consultation for your sport-specific needs.</p>
+					<a class="btn-secondary" href="/contact">Get Free Consultation</a>
+				</div>
+
+				<div class="related-links">
+					<p><strong>Related Articles:</strong> <a href="/hockey">Sport-Specific Lockers</a> · <a href="/blog/hockey-locker-room-setup-complete-guide">Hockey Setup Guide</a> · <a href="/blog/7-step-locker-room-planning-process">Locker Room Planning</a></p>
+				</div>
+
+				<div class="faq-section" id="faq">
+					<h2>Sport-Specific Design FAQ</h2>
+					{faqItems.map((item) => (
+						<div class="faq-item">
+							<h3 class="faq-question">{item.question}</h3>
+							<p class="faq-answer">{item.answer}</p>
+						</div>
+					))}
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<section class="cta-section">
+		<div class="container">
+			<div class="cta-content">
+				<h2>Ready to Design Sport-Specific Lockers?</h2>
+				<p>Get a free custom design consultation and see how we can meet your sport's unique needs.</p>
+				<a class="btn-primary" href="/contact">Get Free Consultation</a>
+			</div>
+		</div>
+	</section>
+
+	<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+</BaseLayout>
+
+<style>
+	:global(:root) { --bg-off-white: #f9f7f2; --border-color: #e3dfd7; --text-gray: #4a4a4a; --accent-color: #fe5900; --text-white: #ffffff; }
+	.container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+	.page-header { background: var(--bg-off-white); padding: 4rem 0; text-align: center; }
+	.article-meta { display: flex; gap: 1rem; justify-content: center; font-size: 0.9rem; color: var(--accent-color); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+	.page-header h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; line-height: 1.25; }
+	.lede { max-width: 760px; margin: 0 auto; font-size: 1.2rem; color: var(--text-gray); line-height: 1.8; }
+	.blog-section { padding: 4rem 0; }
+	.blog-content { background: var(--bg-off-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; }
+	.blog-content h2 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 2rem; }
+	.blog-content h2:first-of-type { margin-top: 0; }
+	.blog-content h3 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.35rem; }
+	.blog-content p, .blog-content ul { color: var(--text-gray); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
+	.blog-content ul { padding-left: 1.5rem; margin: 1.5rem 0; }
+	.blog-content li + li { margin-top: 0.5rem; }
+	.blog-content a { color: var(--accent-color); text-decoration: none; }
+	.blog-content a:hover { text-decoration: underline; }
+	.inline-cta { background: var(--accent-color); padding: 2.5rem; border-radius: 12px; color: var(--text-white); text-align: center; margin: 3rem 0; }
+	.inline-cta h3 { margin-top: 0; font-size: 1.75rem; color: var(--text-white); }
+	.inline-cta p { color: rgba(255,255,255,0.92); margin-bottom: 1.5rem; }
+	.related-links { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
+	.related-links a { color: var(--accent-color); text-decoration: none; font-weight: 600; }
+	.btn-secondary, .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+	.btn-secondary { background: var(--text-white); color: var(--accent-color); }
+	.btn-primary { background: var(--accent-color); color: var(--text-white); }
+	.btn-secondary:hover, .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+	.cta-section { background: #121212; color: #fff; padding: 4rem 0; margin-top: 2rem; }
+	.cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
+	.cta-content h2 { margin-top: 0; font-size: 2.25rem; color: #fff; }
+	.cta-content p { color: #d8d8d8; margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.7; }
+	.faq-section { margin-top: 3rem; }
+	.faq-item { border: 1px solid var(--border-color); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; background: #fff; }
+	.faq-question { font-weight: 600; color: #222; margin-bottom: 0.75rem; }
+	.faq-answer { margin: 0.75rem 0 0; }
+	@media (max-width: 768px) { .article-meta { flex-direction: column; gap: 0.5rem; } .blog-content { padding: 2rem; } .inline-cta, .cta-content { padding: 2rem; } }
+</style>

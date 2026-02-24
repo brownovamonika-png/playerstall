@@ -997,7 +997,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				if (subtotalEl) subtotalEl.textContent = '0.00';
 				if (totalAmount) totalAmount.textContent = '0.00';
 			} else {
-				cart.forEach(item => {
+				cart.forEach((item: { name: string; price: number; quantity: number }) => {
 					const itemTotal = item.price * item.quantity;
 					subtotal += itemTotal;
 					html += `
@@ -1036,15 +1036,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		const shippingFields = document.getElementById('shippingFields');
 		
 		if (shipToDifferentAddress && shippingFields) {
-			shipToDifferentAddress.addEventListener('change', function() {
-				if (this.checked) {
-					shippingFields.style.display = 'block';
+			shipToDifferentAddress.addEventListener('change', () => {
+				const checkbox = shipToDifferentAddress as HTMLInputElement;
+				if (checkbox.checked) {
+					(shippingFields as HTMLElement).style.display = 'block';
 					const shippingRequiredFields = shippingFields.querySelectorAll('[id$="_field"] input[required], [id$="_field"] select[required]');
 					shippingRequiredFields.forEach(field => {
 						field.setAttribute('required', 'required');
 					});
 				} else {
-					shippingFields.style.display = 'none';
+					(shippingFields as HTMLElement).style.display = 'none';
 					const shippingRequiredFields = shippingFields.querySelectorAll('[id$="_field"] input, [id$="_field"] select');
 					shippingRequiredFields.forEach(field => {
 						field.removeAttribute('required');
@@ -1056,16 +1057,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		// Show/hide payment method descriptions
 		const paymentMethods = document.querySelectorAll('.wc_payment_method input[type="radio"]');
 		paymentMethods.forEach(method => {
-			method.addEventListener('change', function() {
+			method.addEventListener('change', () => {
+				const radio = method as HTMLInputElement;
 				// Hide all payment boxes
 				document.querySelectorAll('.payment_box').forEach(box => {
-					box.style.display = 'none';
+					(box as HTMLElement).style.display = 'none';
 				});
 				// Show selected payment box
-				if (this.checked) {
-					const paymentBox = this.closest('.wc_payment_method').querySelector('.payment_box');
+				if (radio.checked) {
+					const paymentBox = (radio.closest('.wc_payment_method') as HTMLElement | null)?.querySelector('.payment_box');
 					if (paymentBox) {
-						paymentBox.style.display = 'block';
+						(paymentBox as HTMLElement).style.display = 'block';
 					}
 				}
 			});
@@ -1074,9 +1076,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		// Show initial payment box for checked method
 		const checkedPayment = document.querySelector('.wc_payment_method input[type="radio"]:checked');
 		if (checkedPayment) {
-			const paymentBox = checkedPayment.closest('.wc_payment_method').querySelector('.payment_box');
+			const paymentBox = (checkedPayment as HTMLElement).closest('.wc_payment_method')?.querySelector('.payment_box');
 			if (paymentBox) {
-				paymentBox.style.display = 'block';
+				(paymentBox as HTMLElement).style.display = 'block';
 			}
 		}
 

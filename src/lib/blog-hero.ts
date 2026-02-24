@@ -95,10 +95,13 @@ const TOPIC_IMAGE_FILENAMES: Record<string, string[]> = {
 const TOPIC_KEYS = ['basketball', 'football', 'hockey', 'ice hockey', 'baseball', 'lacrosse', 'soccer'] as const;
 type TopicKey = (typeof TOPIC_KEYS)[number];
 
-const TOPIC_POOLS: Record<TopicKey | 'generic', string[]> = {};
+const _pools: Record<string, string[]> = {};
 for (const [topic, filenames] of Object.entries(TOPIC_IMAGE_FILENAMES)) {
-	TOPIC_POOLS[topic as TopicKey | 'generic'] = filenames.map((f) => CDN_BASE + f);
+	_pools[topic] = filenames.map((f) => CDN_BASE + f);
 }
+// 'ice hockey' maps to same pool as 'hockey' for topic resolution
+_pools['ice hockey'] = _pools['hockey'] ?? [];
+const TOPIC_POOLS = _pools as Record<TopicKey | 'generic', string[]>;
 
 /** Fallback when no topic match (use generic pool) */
 export const DEFAULT_BLOG_HERO = TOPIC_POOLS.generic[0];

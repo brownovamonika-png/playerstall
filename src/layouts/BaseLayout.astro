@@ -989,18 +989,20 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	// Handle header scroll behavior
 	function initHeaderScroll() {
 		const header = document.querySelector('header');
-		const heroSlider = document.querySelector('.hero-slider');
+		const heroSlider = document.querySelector('.hero-slider') as HTMLElement | null;
 		
 		if (!header || !heroSlider) return;
 
+		const sliderEl = heroSlider;
+		const headerEl = header;
 		function handleScroll() {
 			const scrollY = window.scrollY;
-			const heroHeight = heroSlider.offsetHeight;
+			const heroHeight = sliderEl.offsetHeight;
 			
 			if (scrollY > heroHeight - 100) {
-				header.classList.add('scrolled');
+				headerEl.classList.add('scrolled');
 			} else {
-				header.classList.remove('scrolled');
+				headerEl.classList.remove('scrolled');
 			}
 		}
 
@@ -1012,11 +1014,11 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	function updateCartCount() {
 		try {
 			const cart = localStorage.getItem('playerstall_cart');
-			const cartData = cart ? JSON.parse(cart) : [];
-			const totalItems = cartData.reduce((sum, item) => sum + (item.quantity || 1), 0);
+			const cartData: { quantity?: number }[] = cart ? JSON.parse(cart) : [];
+			const totalItems = cartData.reduce((sum: number, item: { quantity?: number }) => sum + (item.quantity || 1), 0);
 			const cartCounts = document.querySelectorAll('.cart-count');
 			cartCounts.forEach((el) => {
-				el.textContent = totalItems;
+				el.textContent = String(totalItems);
 			});
 		} catch (e) {
 			console.error('Error updating cart count:', e);
@@ -1075,11 +1077,12 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		trigger.addEventListener('click', (e) => {
 			e.preventDefault();
 			dropdown.classList.toggle('open');
-			trigger.setAttribute('aria-expanded', dropdown.classList.contains('open'));
+			trigger.setAttribute('aria-expanded', dropdown.classList.contains('open') ? 'true' : 'false');
 		});
 
 		document.addEventListener('click', (e) => {
-			if (!dropdown.contains(e.target)) {
+			const target = e.target as Node | null;
+			if (target && !dropdown.contains(target)) {
 				dropdown.classList.remove('open');
 				trigger.setAttribute('aria-expanded', 'false');
 			}
@@ -1095,24 +1098,28 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 
 		if (!header || !btn || !panel) return;
 
+		const headerEl = header;
+		const btnEl = btn;
+		const panelEl = panel;
+
 		function isOpen() {
-			return header.classList.contains('menu-open');
+			return headerEl.classList.contains('menu-open');
 		}
 
 		function openMenu() {
-			header.classList.add('menu-open');
+			headerEl.classList.add('menu-open');
 			document.body.classList.add('menu-open');
-			btn.setAttribute('aria-expanded', 'true');
-			btn.setAttribute('aria-label', 'Close menu');
-			panel.setAttribute('aria-hidden', 'false');
+			btnEl.setAttribute('aria-expanded', 'true');
+			btnEl.setAttribute('aria-label', 'Close menu');
+			panelEl.setAttribute('aria-hidden', 'false');
 		}
 
 		function closeMenu() {
-			header.classList.remove('menu-open');
+			headerEl.classList.remove('menu-open');
 			document.body.classList.remove('menu-open');
-			btn.setAttribute('aria-expanded', 'false');
-			btn.setAttribute('aria-label', 'Open menu');
-			panel.setAttribute('aria-hidden', 'true');
+			btnEl.setAttribute('aria-expanded', 'false');
+			btnEl.setAttribute('aria-label', 'Open menu');
+			panelEl.setAttribute('aria-hidden', 'true');
 			if (mobileBySportDropdown) {
 				mobileBySportDropdown.classList.remove('open');
 				if (mobileBySportTrigger) mobileBySportTrigger.setAttribute('aria-expanded', 'false');
@@ -1124,13 +1131,14 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 			else openMenu();
 		}
 
-		btn.addEventListener('click', (e) => {
+		btnEl.addEventListener('click', (e) => {
 			e.preventDefault();
 			toggleMenu();
 		});
 
-		panel.addEventListener('click', (e) => {
-			const link = e.target.closest('a');
+		panelEl.addEventListener('click', (e) => {
+			const target = e.target as HTMLElement | null;
+			const link = target?.closest?.('a');
 			if (link && link.getAttribute('href')) {
 				closeMenu();
 			}
@@ -1138,7 +1146,8 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 
 		document.addEventListener('click', (e) => {
 			if (!isOpen()) return;
-			if (!panel.contains(e.target) && !btn.contains(e.target)) {
+			const target = e.target as Node | null;
+			if (target && !panelEl.contains(target) && !btnEl.contains(target)) {
 				closeMenu();
 			}
 		});
@@ -1160,7 +1169,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				e.preventDefault();
 				mobileBySportDropdown.classList.toggle('open');
 				const expanded = mobileBySportDropdown.classList.contains('open');
-				mobileBySportTrigger.setAttribute('aria-expanded', expanded);
+				mobileBySportTrigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
 			});
 		}
 	}

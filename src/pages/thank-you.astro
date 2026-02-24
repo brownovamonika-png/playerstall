@@ -1,0 +1,263 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="Thank You | Quote Request Received | PlayerStall"
+	description="Thanks for contacting PlayerStall. We've received your quote request and will respond within 2–3 business days. Custom sports lockers, 30+ years experience."
+>
+	<section class="thank-you-hero">
+		<div class="thank-you-hero-bg">
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Thank you from PlayerStall" class="thank-you-hero-image" />
+		</div>
+		<div class="thank-you-hero-overlay"></div>
+		<div class="thank-you-hero-container">
+			<div class="thank-you-breadcrumbs">
+				<a href="/">Home</a>
+				<span>Thank you</span>
+			</div>
+			<h1 class="thank-you-title">Thank you</h1>
+		</div>
+	</section>
+
+	<section class="thank-you-section">
+		<div class="container">
+			<div class="thank-you-card">
+				<div class="thank-you-icon" aria-hidden="true">✓</div>
+				<h2>We've received your request</h2>
+				<p class="thank-you-lead">
+					Thanks for getting in touch. A member of our team will review your project details and send you a detailed quote within <strong>2–3 business days</strong>.
+				</p>
+				<p class="thank-you-note">
+					In the meantime, feel free to call us at <a href="tel:+18885841444">1 888 584 1444</a> or email <a href="mailto:sales@playerstall.com">sales@playerstall.com</a> if you have any immediate questions.
+				</p>
+				<div class="thank-you-actions">
+					<a href="/" class="btn btn-primary">Back to home</a>
+					<a href="/services" class="btn btn-secondary">View our lockers</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(body) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #f7f7f7;
+		color: #0d0d0d;
+	}
+
+	.container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.thank-you-hero {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
+		overflow: hidden;
+		min-height: 320px;
+	}
+
+	.thank-you-hero-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.thank-you-hero-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
+	}
+
+	.thank-you-hero-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	.thank-you-hero-container {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		text-align: left;
+		width: 100%;
+	}
+
+	.thank-you-breadcrumbs {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: rgba(255, 255, 255, 0.85);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
+	}
+
+	.thank-you-breadcrumbs a {
+		color: rgba(255, 255, 255, 0.85);
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.thank-you-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.thank-you-breadcrumbs span {
+		margin-left: 10px;
+		color: #ffffff;
+	}
+
+	.thank-you-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 72px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.1;
+	}
+
+	.thank-you-section {
+		padding: 5rem 0;
+		background: #ffffff;
+	}
+
+	.thank-you-card {
+		max-width: 640px;
+		margin: 0 auto;
+		text-align: center;
+		background: #fff;
+		border: 1px solid #e8e8e8;
+		padding: 3rem 2.5rem;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+	}
+
+	.thank-you-icon {
+		width: 64px;
+		height: 64px;
+		margin: 0 auto 1.5rem;
+		background: #fe5900;
+		color: #fff;
+		font-size: 32px;
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+	}
+
+	.thank-you-card h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 1rem;
+	}
+
+	.thank-you-lead {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #0d0d0d;
+		line-height: 1.7;
+		margin: 0 0 1rem;
+	}
+
+	.thank-you-note {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #666666;
+		line-height: 1.6;
+		margin: 0 0 2rem;
+	}
+
+	.thank-you-note a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	.thank-you-note a:hover {
+		text-decoration: underline;
+	}
+
+	.thank-you-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		justify-content: center;
+	}
+
+	.btn {
+		padding: 0.875rem 2rem;
+		border-radius: 6px;
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.3s ease;
+		display: inline-block;
+		font-size: 1rem;
+		font-family: 'Yantramanav', sans-serif;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #fff;
+		border: 2px solid #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(254, 89, 0, 0.3);
+	}
+
+	.btn-secondary {
+		background: transparent;
+		color: #0d0d0d;
+		border: 2px solid #0d0d0d;
+	}
+
+	.btn-secondary:hover {
+		background: #0d0d0d;
+		color: #fff;
+		transform: translateY(-2px);
+	}
+
+	@media (max-width: 768px) {
+		.thank-you-hero {
+			min-height: 240px;
+			padding-bottom: 50px;
+		}
+		.thank-you-title {
+			font-size: 42px;
+		}
+		.thank-you-card {
+			padding: 2rem 1.5rem;
+		}
+		.thank-you-actions {
+			flex-direction: column;
+		}
+		.btn {
+			width: 100%;
+			text-align: center;
+		}
+	}
+</style>

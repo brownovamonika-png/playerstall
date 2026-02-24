@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const thankYouUrl = `${Astro.url.origin}/thank-you`;
 ---
 
 <BaseLayout
@@ -50,6 +52,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<p class="form-intro">Fields marked with <span class="required">*</span> are required.</p>
 
 					<form class="quote-form" action="https://formspree.io/f/xqedgojb" method="POST" enctype="multipart/form-data">
+						<input type="hidden" name="_next" value={thankYouUrl} />
 						<div class="form-section">
 							<h3>Project &amp; Locker Details</h3>
 							<div class="form-group">
@@ -640,15 +643,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	// Character counter for quote requirements field
 	if (typeof window !== 'undefined') {
 		document.addEventListener('DOMContentLoaded', () => {
-			const textarea = document.getElementById('requirements');
+			const textarea = document.getElementById('requirements') as HTMLTextAreaElement | null;
 			const counter = document.getElementById('requirements-count');
 			if (!textarea || !counter) return;
+			const ta = textarea;
+			const ct = counter;
 			function updateCount() {
-				const max = textarea.getAttribute('maxlength') || 1000;
-				const remaining = Number(max) - textarea.value.length;
-				counter.textContent = remaining + ' characters left';
+				const max = ta.getAttribute('maxlength') || 1000;
+				const remaining = Number(max) - ta.value.length;
+				ct.textContent = remaining + ' characters left';
 			}
-			textarea.addEventListener('input', updateCount);
+			ta.addEventListener('input', updateCount);
 			updateCount();
 		});
 	}

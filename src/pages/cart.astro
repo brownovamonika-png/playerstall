@@ -77,7 +77,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 											<form class="woocommerce-shipping-calculator" action="/cart" method="post">
 												<section class="woocommerce-shipping-calculator-form" style="display:none;">
 													<p class="form-row form-row-wide" id="calc_shipping_country_field">
-														<select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state country_select" rel="calc_shipping_state">
+														<select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state country_select" data-state-field="calc_shipping_state">
 															<option value="">Select a country / region</option>
 															<option value="CA">Canada</option>
 															<option value="US">United States</option>
@@ -961,7 +961,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			return cart ? JSON.parse(cart) : [];
 		}
 
-		function saveCart(cart) {
+		function saveCart(cart: { quantity: number; price?: number; name?: string; image?: string }[]) {
 			localStorage.setItem('playerstall_cart', JSON.stringify(cart));
 			updateCartCount();
 			renderCart();
@@ -969,7 +969,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 		function updateCartCount() {
 			const cart = getCart();
-			const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+			const totalItems = cart.reduce((sum: number, item: { quantity: number }) => sum + item.quantity, 0);
 			const cartCount = document.querySelector('.cart-count');
 			if (cartCount) {
 				cartCount.textContent = totalItems;
@@ -986,18 +986,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			const totalEl = document.getElementById('cart-total');
 
 			if (cart.length === 0) {
-				if (container) container.style.display = 'none';
-				if (emptyMessage) emptyMessage.style.display = 'block';
+				if (container) (container as HTMLElement).style.display = 'none';
+				if (emptyMessage) (emptyMessage as HTMLElement).style.display = 'block';
 				return;
 			}
 
-			if (container) container.style.display = 'block';
-			if (emptyMessage) emptyMessage.style.display = 'none';
+			if (container) (container as HTMLElement).style.display = 'block';
+			if (emptyMessage) (emptyMessage as HTMLElement).style.display = 'none';
 
 			let subtotal = 0;
 			let html = '';
 
-			cart.forEach((item, index) => {
+			cart.forEach((item: { name: string; image: string; price: number; quantity: number }, index: number) => {
 				const itemTotal = item.price * item.quantity;
 				subtotal += itemTotal;
 
@@ -1046,9 +1046,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 			// Attach event listeners
 			document.querySelectorAll('.remove').forEach(btn => {
-				btn.addEventListener('click', function(e) {
+				btn.addEventListener('click', (e) => {
 					e.preventDefault();
-					const index = parseInt(this.getAttribute('data-index'));
+					const el = e.currentTarget as HTMLElement;
+					const index = parseInt(el.getAttribute('data-index') ?? '0', 10);
 					const cart = getCart();
 					cart.splice(index, 1);
 					saveCart(cart);
@@ -1056,10 +1057,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			});
 
 			document.querySelectorAll('.qty-input').forEach(input => {
-				input.addEventListener('change', function() {
-					const index = parseInt(this.getAttribute('data-index'));
-					const quantity = Math.min(999, Math.max(1, parseInt(this.value) || 1));
-					this.value = quantity;
+				input.addEventListener('change', () => {
+					const el = input as HTMLInputElement;
+					const index = parseInt(el.getAttribute('data-index') ?? '0', 10);
+					const quantity = Math.min(999, Math.max(1, parseInt(el.value, 10) || 1));
+					el.value = String(quantity);
 					const cart = getCart();
 					cart[index].quantity = quantity;
 					saveCart(cart);
@@ -1068,13 +1070,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			});
 
 			document.querySelectorAll('.qty-up').forEach(btn => {
-				btn.addEventListener('click', function() {
-					const index = parseInt(this.getAttribute('data-index'));
-					const control = this.closest('.quantity-control');
-					const input = control ? control.querySelector('.qty-input') : null;
+				btn.addEventListener('click', () => {
+					const control = (btn as HTMLElement).closest('.quantity-control');
+					const input = control ? control.querySelector('.qty-input') as HTMLInputElement | null : null;
 					if (!input) return;
-					const quantity = Math.min(999, (parseInt(input.value) || 1) + 1);
-					input.value = quantity;
+					const index = parseInt(input.getAttribute('data-index') ?? '0', 10);
+					const quantity = Math.min(999, (parseInt(input.value, 10) || 1) + 1);
+					input.value = String(quantity);
 					const cart = getCart();
 					cart[index].quantity = quantity;
 					saveCart(cart);
@@ -1083,13 +1085,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			});
 
 			document.querySelectorAll('.qty-down').forEach(btn => {
-				btn.addEventListener('click', function() {
-					const index = parseInt(this.getAttribute('data-index'));
-					const control = this.closest('.quantity-control');
-					const input = control ? control.querySelector('.qty-input') : null;
+				btn.addEventListener('click', () => {
+					const control = (btn as HTMLElement).closest('.quantity-control');
+					const input = control ? control.querySelector('.qty-input') as HTMLInputElement | null : null;
 					if (!input) return;
-					const quantity = Math.max(1, (parseInt(input.value) || 1) - 1);
-					input.value = quantity;
+					const index = parseInt(input.getAttribute('data-index') ?? '0', 10);
+					const quantity = Math.max(1, (parseInt(input.value, 10) || 1) - 1);
+					input.value = String(quantity);
 					const cart = getCart();
 					cart[index].quantity = quantity;
 					saveCart(cart);
@@ -1114,12 +1116,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			const shippingDisplay = document.querySelector('.shipping-display');
 			
 			if (shippingCalculatorButton && shippingCalculatorForm) {
-				shippingCalculatorButton.addEventListener('click', function(e) {
+				shippingCalculatorButton.addEventListener('click', (e) => {
 					e.preventDefault();
-					const isHidden = shippingCalculatorForm.style.display === 'none' || !shippingCalculatorForm.style.display;
-					shippingCalculatorForm.style.display = isHidden ? 'block' : 'none';
-					if (shippingDisplay) shippingDisplay.style.display = isHidden ? 'none' : 'block';
-					this.textContent = isHidden ? 'Cancel' : 'Calculate shipping';
+					const formEl = shippingCalculatorForm as HTMLElement;
+					const btnEl = shippingCalculatorButton as HTMLElement;
+					const isHidden = formEl.style.display === 'none' || !formEl.style.display;
+					formEl.style.display = isHidden ? 'block' : 'none';
+					if (shippingDisplay) (shippingDisplay as HTMLElement).style.display = isHidden ? 'none' : 'block';
+					btnEl.textContent = isHidden ? 'Cancel' : 'Calculate shipping';
 				});
 			}
 		}, 100);
@@ -1131,20 +1135,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		
 		if (shippingMethods.length && shippingCostEl && totalEl) {
 			shippingMethods.forEach(method => {
-				method.addEventListener('change', function() {
+				method.addEventListener('change', () => {
 					const cart = getCart();
-					const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-					let shippingCost = 0.00;
-					
-					if (this.value === 'flat_rate') {
-						shippingCost = 0.00;
+					const subtotal = cart.reduce((sum: number, item: { price: number; quantity: number }) => sum + (item.price * item.quantity), 0);
+					const inputEl = method as HTMLInputElement;
+					if (inputEl.value === 'flat_rate') {
 						shippingCostEl.textContent = '0.00';
-					} else if (this.value === 'local_pickup') {
-						shippingCost = 0.00;
+					} else if (inputEl.value === 'local_pickup') {
 						shippingCostEl.textContent = '0.00';
 					}
-					
-					const total = subtotal + shippingCost;
+					const total = subtotal + 0.00;
 					totalEl.textContent = total.toFixed(2);
 				});
 			});
