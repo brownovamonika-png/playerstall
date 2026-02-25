@@ -986,19 +986,21 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 </style>
 
 <script>
-	// Handle header scroll behavior
+	// Handle header scroll behavior (homepage hero-slider or blog post-hero)
 	function initHeaderScroll() {
 		const header = document.querySelector('header');
 		const heroSlider = document.querySelector('.hero-slider') as HTMLElement | null;
-		
-		if (!header || !heroSlider) return;
+		const postHero = document.querySelector('.post-hero') as HTMLElement | null;
+		const heroEl = heroSlider ?? postHero;
 
-		const sliderEl = heroSlider;
+		if (!header || !heroEl) return;
+
 		const headerEl = header;
+		const heroForScroll = heroEl;
 		function handleScroll() {
 			const scrollY = window.scrollY;
-			const heroHeight = sliderEl.offsetHeight;
-			
+			const heroHeight = heroForScroll.offsetHeight;
+
 			if (scrollY > heroHeight - 100) {
 				headerEl.classList.add('scrolled');
 			} else {
