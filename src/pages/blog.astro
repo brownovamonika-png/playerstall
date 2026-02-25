@@ -25,17 +25,19 @@ const posts = mdxPosts
 
 const recentPosts = posts.slice(0, 12);
 
-const archivesByMonth = posts.reduce<{ monthKey: string; monthLabel: string; posts: typeof posts }[]>((acc, post) => {
+const archivesByMonth = posts.reduce<{ monthKey: string; monthLabel: string; archiveSlug: string; posts: typeof posts }[]>((acc, post) => {
 	const key = post.monthKey;
 	const label = post.dateShort;
+	const [mm, yyyy] = key.split('/');
+	const archiveSlug = `${yyyy}-${mm}`;
 	const existing = acc.find((g) => g.monthKey === key);
 	if (existing) {
 		existing.posts.push(post);
 	} else {
-		acc.push({ monthKey: key, monthLabel: label, posts: [post] });
+		acc.push({ monthKey: key, monthLabel: label, archiveSlug, posts: [post] });
 	}
 	return acc;
-}, []).sort((a, b) => b.monthKey.localeCompare(a.monthKey));
+}, []).sort((a, b) => b.archiveSlug.localeCompare(a.archiveSlug));
 
 const mosaicPosts = posts.slice(0, 9);
 ---
@@ -93,26 +95,18 @@ const mosaicPosts = posts.slice(0, 9);
 					</ol>
 				</nav>
 
-				<div class="sidebar-block sidebar-archives" aria-label="Archives by date">
+				<nav class="sidebar-block sidebar-archives" aria-label="Archives by date">
 					<h3 class="sidebar-title">Archives</h3>
-					<div class="archives-list">
+					<ul class="archives-list">
 						{archivesByMonth.map((group) => (
-							<details class="archive-month" open={group.monthKey === archivesByMonth[0]?.monthKey}>
-								<summary class="archive-month-summary">
-									<span class="archive-month-label">{group.monthLabel}</span>
-									<span class="archive-month-count">({group.posts.length})</span>
-								</summary>
-								<ul class="archive-posts">
-									{group.posts.map((post) => (
-										<li>
-											<a href={post.url ?? '#'}>{post.title}</a>
-										</li>
-									))}
-								</ul>
-							</details>
+							<li>
+								<a href={`/blog/archives/${group.archiveSlug}`} class="archive-link">
+									{group.monthLabel} ({group.posts.length})
+								</a>
+							</li>
 						))}
-					</div>
-				</div>
+					</ul>
+				</nav>
 			</aside>
 		</div>
 	</section>
@@ -460,81 +454,34 @@ const mosaicPosts = posts.slice(0, 9);
 	}
 
 	.archives-list {
-		display: flex;
-		flex-direction: column;
-		gap: 4px;
-	}
-
-	.archive-month {
-		border-bottom: 1px solid #e0e0e0;
-	}
-
-	.archive-month:last-child {
-		border-bottom: none;
-	}
-
-	.archive-month-summary {
-		list-style: none;
-		cursor: pointer;
-		padding: 10px 0;
-		font-family: 'Oswald', sans-serif;
-		font-size: 14px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: #0d0d0d;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.archive-month-summary::-webkit-details-marker {
-		display: none;
-	}
-
-	.archive-month-summary::after {
-		content: '▼';
-		font-size: 10px;
-		color: #8c8c8c;
-		transition: transform 0.2s;
-	}
-
-	.archive-month[open] .archive-month-summary::after {
-		transform: rotate(-180deg);
-	}
-
-	.archive-month-count {
-		font-size: 12px;
-		font-weight: 500;
-		color: #8c8c8c;
-		margin-left: 8px;
-	}
-
-	.archive-posts {
 		list-style: none;
 		margin: 0;
-		padding: 0 0 12px 16px;
+		padding: 0;
 	}
 
-	.archive-posts li {
-		margin-bottom: 6px;
-		font-size: 13px;
+	.archives-list li {
+		margin-bottom: 10px;
+		font-size: 14px;
+		line-height: 1.4;
 	}
 
-	.archive-posts li:last-child {
+	.archives-list li:last-child {
 		margin-bottom: 0;
 	}
 
-	.archive-posts a {
-		color: #444;
+	.archive-link {
+		color: #0d0d0d;
 		text-decoration: none;
 		display: block;
-		padding: 4px 0;
-		transition: color 0.2s;
+		padding: 6px 0;
+		border-bottom: 1px solid transparent;
+		transition: color 0.2s, border-color 0.2s;
+		font-family: 'Yantramanav', sans-serif;
 	}
 
-	.archive-posts a:hover {
+	.archive-link:hover {
 		color: #fe5900;
+		border-bottom-color: #fe5900;
 	}
 
 	/* Responsive */

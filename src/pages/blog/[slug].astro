@@ -10,16 +10,59 @@ export async function getStaticPaths() {
       .map((path) => path.replace(/^\.\/(.*)\.astro$/, '$1'))
       .filter((s) => s !== '[slug]')
   );
-  const blogEntries = await getCollection('blog');
-  return blogEntries
-    .filter((entry) => !staticBlogSlugs.has(entry.slug))
-    .map((entry) => ({
+  const allEntries = await getCollection('blog');
+  const blogEntries = allEntries.filter((e) => !staticBlogSlugs.has(e.slug));
+  const sorted = [...blogEntries].sort((a, b) =>
+    new Date(b.data.datePublished).getTime() - new Date(a.data.datePublished).getTime()
+  );
+
+  return sorted.map((entry, i) => {
+    const prevEntry = i > 0 ? { slug: sorted[i - 1].slug, title: sorted[i - 1].data.title } : null;
+    const nextEntry = i < sorted.length - 1 ? { slug: sorted[i + 1].slug, title: sorted[i + 1].data.title } : null;
+    const sameCategory = sorted.filter(
+      (e) => e.slug !== entry.slug && e.data.category === entry.data.category
+    );
+    const toRelated = (e: typeof sorted[0]) => ({
+      slug: e.slug,
+      title: e.data.title,
+      datePublished: e.data.datePublished,
+      category: e.data.category,
+      heroImage: e.data.heroImage,
+      tags: e.data.tags,
+    });
+    const relatedEntries = sameCategory
+      .slice(0, 3)
+      .map(toRelated);
+    if (relatedEntries.length < 3) {
+      const rest = sorted
+        .filter((e) => e.slug !== entry.slug && !sameCategory.some((s) => s.slug === e.slug))
+        .slice(0, 3 - relatedEntries.length);
+      for (const e of rest) {
+        relatedEntries.push(toRelated(e));
+      }
+    }
+
+    const sidebarCategories = [...new Set(sorted.map((e) => e.data.category).filter(Boolean))].sort().map((cat) => ({ name: cat, slug: slugify(cat) }));
+    const sidebarLatestPosts = sorted
+      .filter((e) => e.slug !== entry.slug)
+      .slice(0, 4)
+      .map((e) => ({
+        slug: e.slug,
+        title: e.data.title,
+        datePublished: e.data.datePublished,
+        category: e.data.category,
+        heroImage: e.data.heroImage,
+        tags: e.data.tags,
+      }));
+
+    return {
       params: { slug: entry.slug },
-      props: { entry },
-    }));
+      props: { entry, prevEntry, nextEntry, relatedEntries, sidebarCategories, sidebarLatestPosts },
+    };
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, prevEntry, nextEntry, relatedEntries, sidebarCategories, sidebarLatestPosts } = Astro.props;
 const { Content } = await entry.render();
 const post = entry.data;
 const heroUrl = getBlogHeroUrl({
@@ -28,80 +71,286 @@ const heroUrl = getBlogHeroUrl({
   category: post.category,
   tags: post.tags,
 });
+const formattedDate = post.datePublished
+  ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  : '';
+const categorySlug = slugify(post.category);
 ---
 
-<BaseLayout title={post.title + ' | PlayerStall'} description={post.description}>
-  <section class="post-hero">
-    <div class="post-hero-bg">
-      <img src={heroUrl} alt="" class="post-hero-image" />
-    </div>
-    <div class="post-hero-overlay"></div>
-    <div class="container post-hero-content">
-      <div class="article-meta">
-        <span class="blog-date">{post.datePublished ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown'} · {post.readTime}</span>
-        <a class="blog-category" href={`/categories/${slugify(post.category)}`}>{post.category}</a>
+<BaseLayout
+  title={`${post.title} | PlayerStall`}
+  description={post.description || ''}
+  ogImage={heroUrl}
+>
+  <article class="blog-post">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-wrap" aria-label="Breadcrumb">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li><a href="/">Home</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href={`/categories/${categorySlug}`}>{post.category}</a></li>
+          <li aria-current="page">{post.title}</li>
+        </ol>
       </div>
-      {post.tags?.length ? (
-        <div class="blog-tags">
-          {post.tags.map((tag) => (
-            <a class="blog-tag" href={`/tags/${slugify(tag)}`}>{tag.replace(/-/g, ' ')}</a>
-          ))}
+    </nav>
+
+    <!-- Hero -->
+    <header class="post-hero">
+      <div class="post-hero-bg">
+        <img src={heroUrl} alt="" class="post-hero-image" />
+      </div>
+      <div class="post-hero-overlay"></div>
+      <div class="container post-hero-content">
+        <div class="article-meta">
+          <a class="blog-category" href={`/categories/${categorySlug}`}>{post.category}</a>
+          <time class="blog-date" datetime={post.datePublished}>{formattedDate}</time>
         </div>
-      ) : null}
-      <h1>{post.title}</h1>
-      {post.description && <p class="lede">{post.description}</p>}
-    </div>
-  </section>
-
-  <section class="blog-section">
-    <div class="container">
-      <article class="blog-content">
-        <Content />
-      </article>
-    </div>
-  </section>
-
-  <section class="cta-section">
-    <div class="container">
-      <div class="cta-content">
-        <h2>Ready for Custom Sports Lockers?</h2>
-        <p>Get a free design consultation. 30+ years experience. Lifetime guarantee.</p>
-        <a class="btn-primary" href="/contact">Get Free Consultation</a>
+        <h1 class="post-title">{post.title}</h1>
+        {post.description && <p class="lede">{post.description}</p>}
       </div>
-    </div>
-  </section>
+    </header>
+
+    <!-- Main content: 2/3 post + 1/3 About us sidebar -->
+    <section class="blog-section">
+      <div class="blog-layout container">
+        <div class="blog-main-col">
+          <div class="blog-content">
+            <Content />
+          </div>
+
+          <!-- Tags & author -->
+          <footer class="post-footer">
+            {post.tags?.length ? (
+              <div class="blog-tags">
+                {post.tags.map((tag) => (
+                  <a class="blog-tag" href={`/tags/${slugify(tag)}`}>{tag.replace(/-/g, ' ')}</a>
+                ))}
+              </div>
+            ) : null}
+            <p class="author-line">By {post.author}</p>
+          </footer>
+
+          <!-- Prev / Next -->
+          <nav class="post-nav" aria-label="Post navigation">
+            {prevEntry ? (
+              <a class="post-nav-link prev" href={`/blog/${prevEntry.slug}`}>
+                <span class="post-nav-label">Previous</span>
+                <span class="post-nav-title">{prevEntry.title}</span>
+              </a>
+            ) : <span class="post-nav-link prev empty" />}
+            {nextEntry ? (
+              <a class="post-nav-link next" href={`/blog/${nextEntry.slug}`}>
+                <span class="post-nav-label">Next</span>
+                <span class="post-nav-title">{nextEntry.title}</span>
+              </a>
+            ) : <span class="post-nav-link next empty" />}
+          </nav>
+        </div>
+
+        <aside class="blog-sidebar" aria-label="About PlayerStall">
+          <div class="sidebar-about">
+            <h3 class="sidebar-title">About us</h3>
+            <p class="sidebar-text">PlayerStall has been building custom wood sports lockers for collegiate and professional teams for over 30 years. Canadian-owned and operated since 1996, we offer a lifetime guarantee and free design consultation.</p>
+            <a class="btn-primary sidebar-cta" href="/about">Learn more</a>
+            <a class="sidebar-link" href="/contact">Get free consultation</a>
+          </div>
+          {sidebarCategories.length > 0 ? (
+            <div class="sidebar-categories">
+              <h3 class="sidebar-title">Categories</h3>
+              <ul class="sidebar-category-list">
+                {sidebarCategories.map((cat) => (
+                  <li><a href={`/categories/${cat.slug}`} class="sidebar-category-link">{cat.name}</a></li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {sidebarLatestPosts.length > 0 ? (
+            <div class="sidebar-latest">
+              <h3 class="sidebar-title">Latest posts</h3>
+              <ul class="sidebar-latest-list">
+                {sidebarLatestPosts.map((post) => {
+                  const postDate = post.datePublished
+                    ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                    : '';
+                  const postDateUpper = postDate.toUpperCase();
+                  const postHeroUrl = getBlogHeroUrl({ slug: post.slug, heroImage: post.heroImage, category: post.category, tags: post.tags });
+                  return (
+                    <li class="sidebar-latest-item">
+                      <a href={`/blog/${post.slug}`} class="sidebar-latest-link">
+                        <div class="sidebar-latest-thumb">
+                          <img src={postHeroUrl} alt={post.title} loading="lazy" />
+                        </div>
+                        <div class="sidebar-latest-text">
+                          <span class="sidebar-latest-date">{postDateUpper}</span>
+                          <span class="sidebar-latest-title">{post.title}</span>
+                        </div>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : null}
+        </aside>
+      </div>
+    </section>
+
+    <!-- Related posts -->
+    {relatedEntries.length > 0 ? (
+      <section class="related-section">
+        <div class="container">
+          <h2 class="related-title">Related posts</h2>
+          <ul class="related-list">
+            {relatedEntries.map((rel) => {
+              const relDate = rel.datePublished
+                ? new Date(rel.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                : '';
+              const relHeroUrl = getBlogHeroUrl({ slug: rel.slug, heroImage: rel.heroImage, category: rel.category, tags: rel.tags });
+              return (
+              <li>
+                <a class="related-card" href={`/blog/${rel.slug}`}>
+                  <div class="related-card-image">
+                    <img src={relHeroUrl} alt={rel.title} loading="lazy" />
+                  </div>
+                  <div class="related-card-body">
+                    <span class="related-card-date">{relDate}</span>
+                    <h3 class="related-card-title">{rel.title}</h3>
+                  </div>
+                </a>
+              </li>
+            )})}
+          </ul>
+        </div>
+      </section>
+    ) : null}
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Ready for Custom Sports Lockers?</h2>
+          <p>Get a free design consultation. 30+ years experience. Lifetime guarantee.</p>
+          <a class="btn-primary" href="/contact">Get Free Consultation</a>
+        </div>
+      </div>
+    </section>
+  </article>
 </BaseLayout>
 
 <style>
-  :global(:root) { --bg-off-white: #f9f7f2; --border-color: #e3dfd7; --text-gray: #4a4a4a; --accent-color: #fe5900; --text-white: #ffffff; }
+  :global(:root) {
+    --blog-bg: #f9f7f2;
+    --blog-border: #e3dfd7;
+    --blog-text: #0d0d0d;
+    --blog-text-muted: #4a4a4a;
+    --accent: #fe5900;
+    --white: #ffffff;
+  }
   .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-  .post-hero { position: relative; min-height: 320px; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 0 4rem; overflow: hidden; }
+  .blog-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; align-items: start; }
+  .blog-main-col { min-width: 0; }
+  .blog-sidebar { position: sticky; top: 100px; }
+  .sidebar-about { padding: 1.5rem; border: 1px solid var(--blog-border); border-radius: 0; background: var(--white); }
+  .sidebar-title { font-family: 'Oswald', sans-serif; font-size: 1.25rem; font-weight: 600; margin: 0 0 1rem; color: var(--blog-text); text-transform: uppercase; letter-spacing: 0.04em; }
+  .sidebar-text { font-size: 0.95rem; color: var(--blog-text-muted); line-height: 1.65; margin: 0 0 1.25rem; }
+  .sidebar-cta { display: block; width: 100%; max-width: 100%; box-sizing: border-box; margin-bottom: 0.75rem; border-radius: 0; text-align: center; background: #000; color: #fff; border: 1px solid #000; }
+  .sidebar-cta:hover { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+  .sidebar-link { display: block; text-align: center; font-size: 0.9rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+  .sidebar-link:hover { text-decoration: underline; }
+
+  .sidebar-categories { margin-top: 1.5rem; padding: 1.5rem; border: 1px solid var(--blog-border); border-radius: 0; background: var(--white); }
+  .sidebar-categories .sidebar-title { margin-bottom: 0.75rem; }
+  .sidebar-category-list { list-style: none; margin: 0; padding: 0; }
+  .sidebar-category-list li { margin-bottom: 0.5rem; }
+  .sidebar-category-list li:last-child { margin-bottom: 0; }
+  .sidebar-category-link { display: block; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--blog-text); text-decoration: none; }
+  .sidebar-category-link:hover { color: var(--accent); text-decoration: underline; }
+
+  .sidebar-latest { margin-top: 1.5rem; padding: 1.5rem; border: 1px solid var(--blog-border); border-radius: 0; background: var(--white); }
+  .sidebar-latest .sidebar-title { margin-bottom: 0.75rem; }
+  .sidebar-latest-list { list-style: none; margin: 0; padding: 0; }
+  .sidebar-latest-item { margin-bottom: 1rem; }
+  .sidebar-latest-item:last-child { margin-bottom: 0; }
+  .sidebar-latest-link { display: flex; gap: 0.75rem; align-items: flex-start; text-decoration: none; color: inherit; }
+  .sidebar-latest-link:hover .sidebar-latest-title { color: var(--accent); }
+  .sidebar-latest-thumb { flex-shrink: 0; width: 70px; height: 70px; overflow: hidden; background: #f0f0f0; }
+  .sidebar-latest-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+  .sidebar-latest-text { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+  .sidebar-latest-date { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--blog-text-muted); }
+  .sidebar-latest-title { font-family: 'Oswald', sans-serif; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--blog-text); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+  .breadcrumb-wrap { padding: 1rem 0; background: var(--white); border-bottom: 1px solid var(--blog-border); }
+  .breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; margin: 0; padding: 0; list-style: none; font-size: 0.9rem; color: var(--blog-text-muted); }
+  .breadcrumb li:not(:last-child)::after { content: '/'; margin-left: 0.35rem; color: #999; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb li[aria-current="page"] { color: var(--blog-text); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .post-hero { position: relative; min-height: 380px; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 0 4rem; overflow: hidden; }
   .post-hero-bg { position: absolute; inset: 0; z-index: 0; }
   .post-hero-image { width: 100%; height: 100%; object-fit: cover; object-position: center center; }
-  .post-hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 50%, transparent 100%); }
+  .post-hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.35) 50%, transparent 100%); }
   .post-hero-content { position: relative; z-index: 2; text-align: center; }
-  .article-meta { display: flex; gap: 1rem; justify-content: center; font-size: 0.9rem; color: var(--accent-color); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
-  .blog-category { color: var(--accent-color); text-decoration: none; }
+  .article-meta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .blog-category { color: var(--accent); text-decoration: none; }
   .blog-category:hover { text-decoration: underline; }
-  .blog-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1rem; }
-  .blog-tag { display: inline-block; padding: 0.25rem 0.6rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent-color); background: rgba(254, 89, 0, 0.12); border-radius: 999px; text-decoration: none; transition: background 0.2s, color 0.2s; }
-  .blog-tag:hover { background: rgba(254, 89, 0, 0.22); text-decoration: none; color: var(--accent-color); }
-  .post-hero-content h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; line-height: 1.25; color: var(--text-white); }
-  .lede { max-width: 760px; margin: 0 auto; font-size: 1.2rem; color: #e8e8e8; line-height: 1.8; }
-  .blog-section { padding: 4rem 0; }
-  .blog-content { background: var(--bg-off-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; }
-  .blog-content :global(h2) { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 2rem; }
+  .blog-date { color: rgba(255,255,255,0.9); text-decoration: none; }
+  .post-title { font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 700; margin: 0 0 1rem; line-height: 1.2; color: var(--white); }
+  .lede { max-width: 720px; margin: 0 auto; font-size: 1.15rem; color: rgba(255,255,255,0.9); line-height: 1.7; }
+
+  .blog-section { padding: 3rem 0 4rem; background: var(--white); }
+  .blog-content { background: var(--white); border: 1px solid var(--blog-border); border-radius: 0; padding: 2.5rem 3rem; }
+  .blog-content :global(h2) { font-family: 'Oswald', sans-serif; margin-top: 2.25rem; margin-bottom: 1rem; font-size: 1.75rem; color: var(--blog-text); }
   .blog-content :global(h2:first-of-type) { margin-top: 0; }
-  .blog-content :global(h3), .blog-content :global(h4) { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.35rem; }
-  .blog-content :global(p), .blog-content :global(ul) { color: var(--text-gray); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
+  .blog-content :global(h3), .blog-content :global(h4) { margin-top: 1.75rem; margin-bottom: 0.6rem; font-size: 1.25rem; color: var(--blog-text); }
+  .blog-content :global(p), .blog-content :global(ul) { color: var(--blog-text-muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
   .blog-content :global(ul) { padding-left: 1.5rem; margin: 1.5rem 0; }
-  .blog-content :global(a) { color: var(--accent-color); text-decoration: none; }
+  .blog-content :global(a) { color: var(--accent); text-decoration: none; }
   .blog-content :global(a:hover) { text-decoration: underline; }
-  .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; background: var(--accent-color); color: var(--text-white); letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .blog-content :global(img) { max-width: 100%; height: auto; border-radius: 0; }
+
+  .post-footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--blog-border); }
+  .blog-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+  .blog-tag { display: inline-block; padding: 0.25rem 0.6rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); background: rgba(254, 89, 0, 0.12); border-radius: 6px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+  .blog-tag:hover { background: rgba(254, 89, 0, 0.22); color: var(--accent); }
+  .author-line { margin: 0; font-size: 0.95rem; color: var(--blog-text-muted); }
+
+  .post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--blog-border); }
+  .post-nav-link { display: block; padding: 1rem; background: var(--white); border: 1px solid var(--blog-border); border-radius: 0; text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s; }
+  .post-nav-link:hover { border-color: var(--accent); box-shadow: 0 4px 12px rgba(254, 89, 0, 0.12); }
+  .post-nav-link.empty { background: transparent; border-color: transparent; pointer-events: none; }
+  .post-nav-link.next { text-align: right; }
+  .post-nav-label { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.25rem; }
+  .post-nav-title { font-weight: 600; color: var(--blog-text); line-height: 1.3; }
+  .post-nav-link .post-nav-title { font-size: 1rem; }
+
+  .related-section { padding: 3rem 0; background: var(--white); border-top: 1px solid var(--blog-border); }
+  .related-title { font-family: 'Oswald', sans-serif; font-size: 1.75rem; margin: 0 0 1.5rem; color: var(--blog-text); }
+  .related-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .related-card { display: block; background: var(--blog-bg); border: 1px solid var(--blog-border); border-radius: 0; text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s; overflow: hidden; }
+  .related-card:hover { border-color: var(--accent); box-shadow: 0 6px 16px rgba(254, 89, 0, 0.1); }
+  .related-card:hover .related-card-image img { transform: scale(1.04); }
+  .related-card-image { aspect-ratio: 16 / 10; overflow: hidden; background: #f0f0f0; }
+  .related-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s; }
+  .related-card-body { padding: 1.25rem; }
+  .related-card-date { font-size: 0.8rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; display: block; }
+  .related-card-title { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 600; margin: 0.5rem 0 0; color: var(--blog-text); line-height: 1.35; }
+
+  .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 0; font-weight: 600; text-decoration: none; background: var(--accent); color: var(--white); letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
   .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-  .cta-section { background: #121212; color: #fff; padding: 4rem 0; margin-top: 2rem; }
-  .cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 16px; }
+  .sidebar-about .sidebar-cta { background: #000 !important; color: #fff; border: 1px solid #000; }
+  .sidebar-about .sidebar-cta:hover { background: #1a1a1a !important; border-color: #1a1a1a; color: #fff; }
+  .cta-section { background: #121212; color: #fff; padding: 4rem 0; }
+  .cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 0; }
   .cta-content h2 { margin-top: 0; font-size: 2.25rem; color: #fff; }
   .cta-content p { color: #d8d8d8; margin-bottom: 2rem; font-size: 1.1rem; }
-  @media (max-width: 768px) { .blog-content { padding: 2rem; } }
+
+  @media (max-width: 768px) {
+    .blog-layout { grid-template-columns: 1fr; }
+    .blog-sidebar { position: static; }
+    .blog-content { padding: 1.75rem 1.5rem; }
+    .related-list { grid-template-columns: 1fr; }
+    .post-nav { grid-template-columns: 1fr; }
+  }
 </style>

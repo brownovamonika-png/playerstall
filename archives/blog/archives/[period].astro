@@ -1,0 +1,372 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { slugify } from '../../../lib/slug';
+
+export async function getStaticPaths() {
+	const mdxPosts = await getCollection('blog');
+	const periodSet = new Set<string>();
+	mdxPosts.forEach((entry) => {
+		const dateObj = new Date(entry.data.datePublished + 'T12:00:00');
+		const y = dateObj.getFullYear();
+		const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+		periodSet.add(`${y}-${m}`);
+	});
+	return Array.from(periodSet).sort((a, b) => b.localeCompare(a)).map((period) => ({
+		params: { period },
+		props: { period },
+	}));
+}
+
+const { period } = Astro.props;
+const [year, month] = period.split('-');
+const monthNum = parseInt(month, 10);
+const yearNum = parseInt(year, 10);
+
+const mdxPosts = await getCollection('blog');
+const archivePosts = mdxPosts
+	.filter((entry) => {
+		const d = new Date(entry.data.datePublished + 'T12:00:00');
+		return d.getFullYear() === yearNum && d.getMonth() + 1 === monthNum;
+	})
+	.map((entry) => {
+		const dateObj = new Date(entry.data.datePublished + 'T12:00:00');
+		return {
+			title: entry.data.title,
+			date: dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+			category: entry.data.category || 'Blog',
+			url: `/blog/${entry.slug}`,
+			dateSort: dateObj.getTime(),
+		};
+	})
+	.sort((a, b) => b.dateSort - a.dateSort);
+
+const monthLabel = new Date(yearNum, monthNum - 1, 1).toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+const title = `Blog archives – ${monthLabel} | PlayerStall`;
+const description = `All blog posts from ${monthLabel}. Sports locker insights and tips from PlayerStall.`;
+---
+
+<BaseLayout title={title} description={description}>
+	<section class="blog-hero-section">
+		<div class="blog-hero-background">
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Blog archives" class="blog-hero-bg-image" />
+		</div>
+		<div class="blog-hero-background-overlay"></div>
+		<div class="blog-hero-container">
+			<div class="blog-breadcrumbs">
+				<a href="/">Home</a>
+				<a href="/blog">Blog</a>
+				<span>Archives: {monthLabel}</span>
+			</div>
+			<h1 class="blog-page-title">Archives: {monthLabel}</h1>
+			<div class="blog-background-text">archives</div>
+		</div>
+	</section>
+
+	<section class="blog-content-section">
+		<div class="blog-container blog-archive-container">
+			<main class="blog-main">
+				<p class="archive-back">
+					<a href="/blog">← Back to Blog</a>
+				</p>
+				<ul class="archive-posts-list">
+					{archivePosts.map((post) => (
+						<li class="archive-post-item">
+							<a href={post.url} class="archive-post-link">
+								<span class="archive-post-title">{post.title}</span>
+								<span class="archive-post-meta">
+									{post.date}
+									{post.category ? (
+										<>
+											{' · '}
+											<a href={`/categories/${slugify(post.category)}`} class="archive-post-category">{post.category}</a>
+										</>
+									) : null}
+								</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</main>
+		</div>
+	</section>
+
+	<section class="cta-section">
+		<div class="container">
+			<div class="cta-content">
+				<h2>Have Questions About Your Locker Room Project?</h2>
+				<p>Get expert advice from 30+ years of experience. Free custom design consultation.</p>
+				<a href="/contact" class="btn btn-primary btn-large">Get Free Consultation</a>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	:global(body) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #ffffff;
+		color: #0d0d0d;
+		margin: 0;
+		padding: 0;
+		line-height: 1.6;
+	}
+
+	.blog-container,
+	.cta-section .container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.blog-hero-section {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
+		overflow: hidden;
+		min-height: 320px;
+		width: 100%;
+		max-width: none;
+		margin: 0;
+	}
+
+	.blog-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.blog-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
+	}
+
+	.blog-hero-background-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	.blog-hero-container {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		text-align: left;
+		width: 100%;
+	}
+
+	.blog-breadcrumbs {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: rgba(255, 255, 255, 0.85);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
+	}
+
+	.blog-breadcrumbs a {
+		color: rgba(255, 255, 255, 0.85);
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.blog-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.blog-breadcrumbs span {
+		margin-left: 10px;
+		color: #ffffff;
+	}
+
+	.blog-page-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 72px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
+	}
+
+	.blog-background-text {
+		display: none;
+	}
+
+	.blog-content-section {
+		background: #ffffff;
+		padding: 48px 0 64px;
+	}
+
+	.blog-archive-container {
+		display: block;
+	}
+
+	.archive-back {
+		margin: 0 0 24px;
+		font-size: 14px;
+	}
+
+	.archive-back a {
+		color: #fe5900;
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+
+	.archive-back a:hover {
+		color: #e04d00;
+		text-decoration: underline;
+	}
+
+	.archive-posts-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border: 1px solid #e8e8e8;
+		border-radius: 6px;
+		overflow: hidden;
+	}
+
+	.archive-post-item {
+		border-bottom: 1px solid #e8e8e8;
+	}
+
+	.archive-post-item:last-child {
+		border-bottom: none;
+	}
+
+	.archive-post-link {
+		display: block;
+		padding: 16px 20px;
+		text-decoration: none;
+		color: inherit;
+		transition: background 0.2s;
+	}
+
+	.archive-post-link:hover {
+		background: #f8f8f8;
+	}
+
+	.archive-post-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d;
+		display: block;
+		margin-bottom: 6px;
+		transition: color 0.2s;
+	}
+
+	.archive-post-link:hover .archive-post-title {
+		color: #fe5900;
+	}
+
+	.archive-post-meta {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+	}
+
+	.archive-post-category {
+		color: #fe5900;
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+
+	.archive-post-category:hover {
+		color: #e04d00;
+		text-decoration: underline;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 15px 40px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		font-size: 20px;
+		transition: all 0.3s;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #ffffff;
+		border: 2px solid #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+	}
+
+	.cta-section {
+		padding: 5rem 0;
+		background: #0d0d0d;
+		color: #fff;
+		text-align: center;
+	}
+
+	.cta-content h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 600;
+		color: #fff;
+		text-transform: uppercase;
+		margin-bottom: 1.5rem;
+	}
+
+	.cta-content p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 20px;
+		color: #ccc;
+		margin-bottom: 2rem;
+		max-width: 700px;
+		margin-left: auto;
+		margin-right: auto;
+		line-height: 1.8;
+	}
+
+	.btn-large {
+		padding: 18px 50px;
+		font-size: 18px;
+	}
+
+	@media (max-width: 768px) {
+		.blog-hero-section {
+			min-height: 300px;
+		}
+
+		.blog-page-title {
+			font-size: 42px;
+		}
+
+		.cta-content h2 {
+			font-size: 36px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.blog-page-title {
+			font-size: 32px;
+		}
+	}
+</style>
