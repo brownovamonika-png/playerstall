@@ -10,21 +10,62 @@ export interface LockerAccessoryItem {
 	price: string;
 }
 
-interface Props {
-	items: LockerAccessoryItem[];
-	title?: string;
+/** Item with modal data: same card look as shop, opens accessory modal with sliding images. */
+export interface LockerAccessoryModalItem {
+	accImage: string;
+	accTitle: string;
+	accPrice: string;
+	accDesc: string;
+	image: string;
+	alt: string;
+	title: string;
+	accImage2?: string;
+	accImage3?: string;
+	accImage4?: string;
 }
 
-const { items, title = 'LOCKER ACCESSORIES' } = Astro.props;
+interface Props {
+	items: (LockerAccessoryItem | LockerAccessoryModalItem)[];
+	title?: string;
+	/** When true, items must have accImage/accTitle/accPrice/accDesc; cards open the shared accessory modal (sliding images). */
+	useModal?: boolean;
+}
+
+const { items, title = 'LOCKER ACCESSORIES', useModal = false } = Astro.props;
+
+function isModalItem(item: LockerAccessoryItem | LockerAccessoryModalItem): item is LockerAccessoryModalItem {
+	return useModal && 'accImage' in item && 'accTitle' in item;
+}
 ---
 
-<section class="locker-accessories">
+<section class={`locker-accessories ${useModal ? 'locker-accessories--modal' : ''}`}>
 	<div class="locker-accessories-inner">
 		<h2 class="locker-accessories-heading">{title}</h2>
 		<div class="locker-accessories-slider">
 			<div class="locker-accessories-track">
 				<div class="locker-accessories-track-set">
-					{items.map((item) => (
+					{items.map((item) => isModalItem(item) ? (
+						<div
+							class="locker-accessories-card shop-accessory-item"
+							data-acc-image={item.accImage}
+							data-acc-image-2={item.accImage2}
+							data-acc-image-3={item.accImage3}
+							data-acc-image-4={item.accImage4}
+							data-acc-title={item.accTitle}
+							data-acc-price={item.accPrice}
+							data-acc-desc={item.accDesc}
+						>
+							<button type="button" class="shop-accessory-trigger">
+								<div class="shop-product-image">
+									<img src={item.image} alt={item.alt} loading="lazy" />
+								</div>
+								<div class="shop-product-content">
+									<div class="shop-product-categories">Accessories</div>
+									<h5 class="shop-product-title">{item.title}</h5>
+								</div>
+							</button>
+						</div>
+					) : (
 						<a href={item.href} class="locker-accessories-card">
 							<div class="locker-accessories-card-image-wrap">
 								{item.tag && (
@@ -46,7 +87,28 @@ const { items, title = 'LOCKER ACCESSORIES' } = Astro.props;
 					))}
 				</div>
 				<div class="locker-accessories-track-set" aria-hidden="true">
-					{items.map((item) => (
+					{items.map((item) => isModalItem(item) ? (
+						<div
+							class="locker-accessories-card shop-accessory-item"
+							data-acc-image={item.accImage}
+							data-acc-image-2={item.accImage2}
+							data-acc-image-3={item.accImage3}
+							data-acc-image-4={item.accImage4}
+							data-acc-title={item.accTitle}
+							data-acc-price={item.accPrice}
+							data-acc-desc={item.accDesc}
+						>
+							<button type="button" class="shop-accessory-trigger">
+								<div class="shop-product-image">
+									<img src={item.image} alt={item.alt} loading="lazy" />
+								</div>
+								<div class="shop-product-content">
+									<div class="shop-product-categories">Accessories</div>
+									<h5 class="shop-product-title">{item.title}</h5>
+								</div>
+							</button>
+						</div>
+					) : (
 						<a href={item.href} class="locker-accessories-card">
 							<div class="locker-accessories-card-image-wrap">
 								{item.tag && (
@@ -143,6 +205,61 @@ const { items, title = 'LOCKER ACCESSORIES' } = Astro.props;
 	.locker-accessories-card:hover {
 		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 		transform: translateY(-2px);
+	}
+
+	/* Modal mode: shop-style card (button trigger, image + content like shop) */
+	.locker-accessories--modal .locker-accessories-card.shop-accessory-item {
+		padding: 0;
+		text-align: left;
+	}
+	.locker-accessories--modal .shop-accessory-trigger {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		padding: 0;
+		border: none;
+		background: none;
+		color: inherit;
+		cursor: pointer;
+		font: inherit;
+		text-align: left;
+	}
+	.locker-accessories--modal .shop-product-image {
+		width: 100%;
+		aspect-ratio: 1;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #f7f7f7;
+	}
+	.locker-accessories--modal .shop-product-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		display: block;
+	}
+	.locker-accessories--modal .shop-product-content {
+		padding: 16px;
+	}
+	.locker-accessories--modal .shop-product-categories {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #8c8c8c;
+		margin: 0 0 4px;
+	}
+	.locker-accessories--modal .shop-product-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin: 0;
+		line-height: 1.25;
 	}
 
 	.locker-accessories-card-image-wrap {

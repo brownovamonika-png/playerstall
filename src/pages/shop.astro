@@ -18,7 +18,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<span>Shop</span>
 			</div>
 			<h1 class="shop-page-title">Shop</h1>
-			<div class="shop-background-text">shop</div>
 		</div>
 	</section>
 
@@ -34,81 +33,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<!-- Main Content -->
 			<div class="shop-main">
 
-					<!-- Products Grid: Semi Pro, Varsity, Pro, Stadium, Elite, Legendary -->
-					<div class="shop-products-grid">
-					<!-- Semi Pro -->
-					<div class="shop-product-item" data-price="349" data-category="lockers">
-						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/semi-pro-locker-new.png" alt="Semi Pro Locker" />
+					<!-- Lockers: top row Pro, Stadium, Elite, Legendary; bottom row Semi Pro, Varsity (centered) -->
+					<div class="shop-products-grid shop-lockers-grid">
+					<!-- Pro -->
+					<div class="shop-product-item" data-price="599" data-category="lockers">
+						<div class="shop-product-image shop-locker-image">
+							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Pro Locker" />
 							<div class="shop-product-overlay">
 								<button class="shop-add-to-cart-btn-overlay" 
-									data-product-id="semi-pro"
-									data-product-name="Semi Pro"
-									data-product-price="349"
-									data-product-image="https://playerstall.b-cdn.net/images/semi-pro-locker-new.png">
+									data-product-id="pro"
+									data-product-name="Pro"
+									data-product-price="599"
+									data-product-image="https://playerstall.b-cdn.net/images/legendary-locker.png">
 									Add to Cart
 								</button>
 							</div>
 						</div>
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Lockers - Sports Equipment</div>
-							<h5 class="shop-product-title"><a href="/product-semi-pro-locker">Semi Pro</a></h5>
-							<span class="shop-product-price">$349.00</span>
+							<h5 class="shop-product-title"><a href="/product-pro-locker">Pro</a></h5>
+							<span class="shop-product-price">$599</span>
 						</div>
 					</div>
-
-					<!-- Varsity -->
-					<div class="shop-product-item" data-price="449" data-category="lockers">
-						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/varsity-locker.jpg" alt="Varsity Locker" />
-							<div class="shop-product-overlay">
-								<button class="shop-add-to-cart-btn-overlay" 
-									data-product-id="varsity"
-									data-product-name="Varsity"
-									data-product-price="449"
-									data-product-image="/varsity-locker.jpg">
-									Add to Cart
-								</button>
-							</div>
-						</div>
-						<div class="shop-product-content">
-							<div class="shop-product-categories">Lockers - Sports Equipment</div>
-							<h5 class="shop-product-title"><a href="/product-varsity-locker">Varsity</a></h5>
-							<span class="shop-product-price">$449.00</span>
-						</div>
-					</div>
-
-				<!-- Pro -->
-				<div class="shop-product-item" data-price="599" data-category="lockers">
-					<div class="shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/pro-locker.jpg" alt="Pro Locker" />
-						<div class="shop-product-overlay">
-							<button class="shop-add-to-cart-btn-overlay" 
-								data-product-id="pro"
-								data-product-name="Pro"
-								data-product-price="599"
-								data-product-image="/pro-locker.jpg">
-								Add to Cart
-							</button>
-						</div>
-					</div>
-					<div class="shop-product-content">
-						<div class="shop-product-categories">Lockers - Sports Equipment</div>
-						<h5 class="shop-product-title"><a href="/product-pro-locker">Pro</a></h5>
-						<span class="shop-product-price">$599.00</span>
-					</div>
-				</div>
 
 					<!-- Stadium -->
 					<div class="shop-product-item" data-price="599" data-category="lockers">
-						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/stadium-locker.jpg" alt="Stadium Locker" />
+						<div class="shop-product-image shop-locker-image">
+							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Stadium Locker" />
 							<div class="shop-product-overlay">
 								<button class="shop-add-to-cart-btn-overlay" 
 									data-product-id="stadium"
 									data-product-name="Stadium"
 									data-product-price="599"
-									data-product-image="/stadium-locker.jpg">
+									data-product-image="https://playerstall.b-cdn.net/images/legendary-locker.png">
 									Add to Cart
 								</button>
 							</div>
@@ -116,21 +73,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Lockers - Sports Equipment</div>
 							<h5 class="shop-product-title"><a href="/product-stadium-locker">Stadium</a></h5>
-							<span class="shop-product-price">$599.00</span>
+							<span class="shop-product-price">$599</span>
 						</div>
 					</div>
 
 					<!-- Elite -->
 					<div class="shop-product-item" data-price="599" data-category="lockers">
-						<div class="shop-product-image">
+						<div class="shop-product-image shop-locker-image">
 							<span class="shop-badge new">New</span>
-							<img src="https://playerstall.b-cdn.net/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png" alt="Elite Locker" loading="lazy" />
+							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Elite Locker" loading="lazy" />
 							<div class="shop-product-overlay">
 								<button class="shop-add-to-cart-btn-overlay" 
 									data-product-id="elite"
 									data-product-name="Elite Locker"
 									data-product-price="599"
-									data-product-image="https://playerstall.b-cdn.net/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png">
+									data-product-image="https://playerstall.b-cdn.net/images/legendary-locker.png">
 									Add to Cart
 								</button>
 							</div>
@@ -138,13 +95,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Lockers - Sports Equipment</div>
 							<h5 class="shop-product-title"><a href="/product-elite-locker">Elite</a></h5>
-							<span class="shop-product-price">$599.00</span>
+							<span class="shop-product-price">$599</span>
 						</div>
 					</div>
 
 					<!-- Legendary -->
 					<div class="shop-product-item" data-price="599" data-category="lockers">
-						<div class="shop-product-image">
+						<div class="shop-product-image shop-locker-image">
 							<span class="shop-badge new">New</span>
 							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Legendary Locker" loading="lazy" />
 							<div class="shop-product-overlay">
@@ -160,7 +117,49 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Lockers - Sports Equipment</div>
 							<h5 class="shop-product-title"><a href="/product-legendary-locker">Legendary</a></h5>
-							<span class="shop-product-price">$599.00</span>
+							<span class="shop-product-price">$599</span>
+						</div>
+					</div>
+
+					<!-- Semi Pro (bottom row, centered) -->
+					<div class="shop-product-item shop-locker-bottom-item" data-price="349" data-category="lockers">
+						<div class="shop-product-image shop-locker-image">
+							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Semi Pro Locker" />
+							<div class="shop-product-overlay">
+								<button class="shop-add-to-cart-btn-overlay" 
+									data-product-id="semi-pro"
+									data-product-name="Semi Pro"
+									data-product-price="349"
+									data-product-image="https://playerstall.b-cdn.net/images/legendary-locker.png">
+									Add to Cart
+								</button>
+							</div>
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Lockers - Sports Equipment</div>
+							<h5 class="shop-product-title"><a href="/product-semi-pro-locker">Semi Pro</a></h5>
+							<span class="shop-product-price">$349</span>
+						</div>
+					</div>
+
+					<!-- Varsity (bottom row, centered) -->
+					<div class="shop-product-item shop-locker-bottom-item" data-price="449" data-category="lockers">
+						<div class="shop-product-image shop-locker-image">
+							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Varsity Locker" />
+							<div class="shop-product-overlay">
+								<button class="shop-add-to-cart-btn-overlay" 
+									data-product-id="varsity"
+									data-product-name="Varsity"
+									data-product-price="449"
+									data-product-image="https://playerstall.b-cdn.net/images/legendary-locker.png">
+									Add to Cart
+								</button>
+							</div>
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Lockers - Sports Equipment</div>
+							<h5 class="shop-product-title"><a href="/product-varsity-locker">Varsity</a></h5>
+							<span class="shop-product-price">$449</span>
 						</div>
 					</div>
 
@@ -178,11 +177,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<h2 class="shop-section-title">LOCKER ACCESSORIES</h2>
 		</div>
 			<div class="shop-products-grid shop-accessories-grid">
-				<!-- Cushions -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/cushion-logo.png" data-acc-title="Cushions" data-acc-price="+ $75.00 (top or bottom) / $150.00 (both)" data-acc-desc="High-density foam cushions upholstered for comfort and durability – available on the top, bottom, or both.">
+				<!-- Cushions (two sliding images in modal) -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-image-2="https://playerstall.b-cdn.net/images/cushion-logo.png" data-acc-title="Cushions" data-acc-price="$75.00 (top or bottom) / $150.00 (both)" data-acc-desc="High-density foam cushions upholstered for comfort and durability – available on the top, bottom, or both.">
 					<button type="button" class="shop-accessory-trigger">
 						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/cushion-logo.png" alt="Locker cushion with team logo" loading="lazy" />
+							<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Locker cushion with team logo" loading="lazy" />
 						</div>
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Accessories</div>
@@ -190,11 +189,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 					</button>
 				</div>
-				<!-- Coat Rod -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/coat-rod.png" data-acc-title="Coat Rod" data-acc-price="Call for pricing" data-acc-desc="Heavy-duty coat rod for jerseys, jackets, and gear – sized to match each locker style.">
+				<!-- Coat Rod (two picture options in modal) -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-image-2="https://playerstall.b-cdn.net/images/cushion-logo.png" data-acc-title="Coat Rod" data-acc-price="$20.00" data-acc-desc="Heavy-duty coat rod for jerseys, jackets, and gear – sized to match each locker style.">
 					<button type="button" class="shop-accessory-trigger">
 						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/coat-rod.png" alt="Coat rod for lockers" loading="lazy" />
+							<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Coat rod for lockers" loading="lazy" />
 						</div>
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Accessories</div>
@@ -202,11 +201,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 					</button>
 				</div>
-				<!-- Hooks -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/wall-hook.png" data-acc-title="Hooks" data-acc-price="Call for pricing" data-acc-desc="Additional interior hooks for bags, helmets, and everyday gear, matched to your locker layout.">
+				<!-- Hooks (two picture options, Black/Silver, $20) -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-image-2="https://playerstall.b-cdn.net/images/cushion-logo.png" data-acc-title="Hooks" data-acc-price="$15.00" data-acc-desc="Additional interior hooks for bags, helmets, and everyday gear, matched to your locker layout.">
 					<button type="button" class="shop-accessory-trigger">
 						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/wall-hook.png" alt="Interior locker hook" loading="lazy" />
+							<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Interior locker hook" loading="lazy" />
 						</div>
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Accessories</div>
@@ -214,11 +213,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 					</button>
 				</div>
-				<!-- Name Plate -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/name-plate.png" data-acc-title="Name Plate" data-acc-price="+ $10.00" data-acc-desc="Clean, simple name plate for player identification – ideal for teams that want a classic, organized look.">
+				<!-- Name Plate (two picture options, Black/Silver, $10) -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-image-2="https://playerstall.b-cdn.net/images/cushion-logo.png" data-acc-title="Name Plate" data-acc-price="$10.00" data-acc-desc="Clean, simple name plate for player identification – ideal for teams that want a classic, organized look.">
 					<button type="button" class="shop-accessory-trigger">
 						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/name-plate.png" alt="Locker name plate" loading="lazy" />
+							<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Locker name plate" loading="lazy" />
 						</div>
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Accessories</div>
@@ -226,11 +225,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 					</button>
 				</div>
-				<!-- Skate Hooks -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/skate-hook.png" data-acc-title="Skate Hooks" data-acc-price="+ $25.00" data-acc-desc="Additional wall-mounted hooks positioned for skates or gear, perfect for hockey or figure skating locker rooms.">
+				<!-- Skate Hooks (same style as Hooks: two images, Black/Silver, $25) -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-image-2="https://playerstall.b-cdn.net/images/cushion-logo.png" data-acc-title="Skate Hooks" data-acc-price="$25.00" data-acc-desc="Additional wall-mounted hooks positioned for skates or gear, perfect for hockey or figure skating locker rooms.">
 					<button type="button" class="shop-accessory-trigger">
 						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/skate-hook.png" alt="Skate hook for hockey lockers" loading="lazy" />
+							<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Skate hook for hockey lockers" loading="lazy" />
 						</div>
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Accessories</div>
@@ -239,10 +238,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					</button>
 				</div>
 				<!-- Custom Logo -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/custom-logo-example.png" data-acc-title="Custom Logo" data-acc-price="+ $75.00" data-acc-desc="Team or program branding applied to the locker face – reinforce your identity every time players walk in.">
+				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-title="Custom Logo" data-acc-price="+ $75.00" data-acc-desc="Team or program branding applied to the locker face – reinforce your identity every time players walk in.">
 					<button type="button" class="shop-accessory-trigger">
 						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/custom-logo-example.png" alt="Custom team logo on wood" loading="lazy" />
+							<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Custom team logo on wood" loading="lazy" />
 						</div>
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Accessories</div>
@@ -250,23 +249,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 					</button>
 				</div>
-				<!-- Bench -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/wood-lockers-starting-lineup.jpg" data-acc-title="Bench" data-acc-price="From $225" data-acc-desc="Free-standing bench for locker rooms. Standard size: 24&quot; W x 76&quot; H x 19&quot; D. Optional 4&quot; base. Colors: Black, Light Grey, Dark Grey, Maple." data-acc-view-href="/product-wood-locker-bench">
-					<button type="button" class="shop-accessory-trigger">
-						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/wood-lockers-starting-lineup.jpg" alt="Bench for locker rooms" loading="lazy" />
-						</div>
-						<div class="shop-product-content">
-							<div class="shop-product-categories">Accessories</div>
-							<h5 class="shop-product-title">Bench</h5>
-						</div>
-					</button>
-				</div>
 				<!-- Stick Rack -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="/stick-rack.png" data-acc-title="Stick Rack" data-acc-price="Starting at $299" data-acc-desc="Dedicated stick storage that keeps sticks organized, off the floor, and easy to grab on the way to the ice." data-acc-view-href="/accessories#stick-rack">
+				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-title="Stick Rack" data-acc-price="Starting at $299" data-acc-desc="Dedicated stick storage that keeps sticks organized, off the floor, and easy to grab on the way to the ice." data-acc-view-href="/accessories#stick-rack">
 					<button type="button" class="shop-accessory-trigger">
 						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/stick-rack.png" alt="Stick rack for locker rooms" loading="lazy" />
+							<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Stick rack for locker rooms" loading="lazy" />
 						</div>
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Accessories</div>
@@ -274,11 +261,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 					</button>
 				</div>
-				<!-- Lock Box -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-title="Lock Box with Digital Key Lock" data-acc-price="+ $80.00" data-acc-desc="Secure lock box with digital key lock for phones, wallets, and other valuables inside each locker." data-acc-view-href="/accessories#lock-box">
+				<!-- Lock Box (4 image options) -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-image-2="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-image-3="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-image-4="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-title="Lock Box with Digital Key Lock" data-acc-price="$80.00" data-acc-desc="Lock box with slow-closing hinge that closes gently and securely. Fitted with an electronic touchable keypad and RFID card lock: password or card entry, programmable master and user codes, battery-powered with emergency external power." data-acc-view-href="/accessories#lock-box">
 					<button type="button" class="shop-accessory-trigger">
 						<div class="shop-product-image">
-							<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Lock box with digital key lock" loading="lazy" />
+							<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Lock box with digital keypad and RFID lock" loading="lazy" />
 						</div>
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Accessories</div>
@@ -297,17 +284,158 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<button type="button" class="acc-modal-close" aria-label="Close">&times;</button>
 			<div class="acc-modal-layout">
 				<div class="acc-modal-gallery">
-					<img id="acc-modal-image" src="" alt="" />
+					<div class="acc-modal-slider" id="acc-modal-slider">
+						<div class="acc-modal-slides" id="acc-modal-slides">
+							<div class="acc-modal-slide">
+								<img id="acc-modal-image" src="" alt="" />
+							</div>
+							<div class="acc-modal-slide" id="acc-modal-slide-2">
+								<img id="acc-modal-image-2" src="" alt="" />
+							</div>
+							<div class="acc-modal-slide" id="acc-modal-slide-3">
+								<img id="acc-modal-image-3" src="" alt="" />
+							</div>
+							<div class="acc-modal-slide" id="acc-modal-slide-4">
+								<img id="acc-modal-image-4" src="" alt="" />
+							</div>
+						</div>
+						<div class="acc-modal-slider-dots" id="acc-modal-slider-nav" hidden>
+							<button type="button" class="acc-modal-slider-dot active" data-slide="0" aria-label="Image 1" aria-current="true"></button>
+							<button type="button" class="acc-modal-slider-dot" data-slide="1" aria-label="Image 2"></button>
+							<button type="button" class="acc-modal-slider-dot" data-slide="2" aria-label="Image 3"></button>
+							<button type="button" class="acc-modal-slider-dot" data-slide="3" aria-label="Image 4"></button>
+						</div>
+					</div>
 				</div>
 				<div class="acc-modal-detail">
 					<h2 id="acc-modal-title" class="acc-modal-title"></h2>
 					<p id="acc-modal-price" class="acc-modal-price"></p>
 					<p id="acc-modal-desc" class="acc-modal-desc"></p>
+					<p id="acc-modal-size" class="acc-modal-size" hidden></p>
 					<div id="acc-modal-ctas" class="acc-modal-ctas"></div>
+					<!-- Cushion: Colors available PDF link (above the line) -->
+					<div id="acc-modal-colors-pdf-above" class="acc-modal-colors-pdf-above" hidden>
+						<a href="/colors/cushion-colors-pdf.html" target="_blank" rel="noopener noreferrer" class="acc-modal-colors-pdf-link">Colors available (PDF)</a>
+					</div>
+					<!-- Cushion: color, placement (bottom / both), Add to cart (below the line) -->
+					<div id="acc-modal-color-sheet" class="acc-modal-color-sheet" hidden>
+						<div class="acc-modal-cushion-options">
+							<label for="acc-cushion-color-select" class="acc-modal-cushion-label">Color</label>
+							<select id="acc-cushion-color-select" class="acc-modal-cushion-select" aria-label="Select cushion color">
+								<option value="white">White</option>
+								<option value="black">Black</option>
+								<option value="charcoal">Charcoal</option>
+								<option value="grey">Grey</option>
+								<option value="red">Red</option>
+								<option value="navy">Navy</option>
+								<option value="blue">Blue</option>
+								<option value="green">Green</option>
+							</select>
+						</div>
+						<div class="acc-modal-cushion-options acc-modal-cushion-placement">
+							<span class="acc-modal-cushion-label">Placement</span>
+							<div class="acc-modal-cushion-radios" role="radiogroup" aria-label="Cushion placement">
+								<label class="acc-modal-cushion-radio-label">
+									<input type="radio" name="acc-cushion-placement" value="bottom" checked class="acc-modal-cushion-radio" />
+									<span>Bottom cushion ($75)</span>
+								</label>
+								<label class="acc-modal-cushion-radio-label">
+									<input type="radio" name="acc-cushion-placement" value="both" class="acc-modal-cushion-radio" />
+									<span>Both top &amp; bottom ($150)</span>
+								</label>
+							</div>
+						</div>
+						<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+							<label for="acc-cushion-qty" class="acc-modal-cushion-label">Quantity</label>
+							<input type="number" id="acc-cushion-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+						</div>
+						<div class="acc-modal-cushion-add">
+							<button type="button" id="acc-cushion-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+						</div>
+					</div>
+					<!-- Coat Rod: color (Black / Silver), Add to cart -->
+					<div id="acc-modal-coat-rod" class="acc-modal-color-sheet" hidden>
+						<div class="acc-modal-cushion-options">
+							<label for="acc-coat-rod-color-select" class="acc-modal-cushion-label">Color</label>
+							<select id="acc-coat-rod-color-select" class="acc-modal-cushion-select" aria-label="Select coat rod color">
+								<option value="black">Black</option>
+								<option value="silver">Silver</option>
+							</select>
+						</div>
+						<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+							<label for="acc-coat-rod-qty" class="acc-modal-cushion-label">Quantity</label>
+							<input type="number" id="acc-coat-rod-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+						</div>
+						<div class="acc-modal-cushion-add">
+							<button type="button" id="acc-coat-rod-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+						</div>
+					</div>
+					<!-- Hooks: color (Black / Silver), Quantity, Add to cart -->
+					<div id="acc-modal-hooks" class="acc-modal-color-sheet" hidden>
+						<div class="acc-modal-cushion-options">
+							<label for="acc-hooks-color-select" class="acc-modal-cushion-label">Color</label>
+							<select id="acc-hooks-color-select" class="acc-modal-cushion-select" aria-label="Select hooks color">
+								<option value="black">Black</option>
+								<option value="silver">Silver</option>
+							</select>
+						</div>
+						<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+							<label for="acc-hooks-qty" class="acc-modal-cushion-label">Quantity</label>
+							<input type="number" id="acc-hooks-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+						</div>
+						<div class="acc-modal-cushion-add">
+							<button type="button" id="acc-hooks-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+						</div>
+					</div>
+					<!-- Skate Hooks: color (Black / Silver), Quantity, Add to cart -->
+					<div id="acc-modal-skate-hooks" class="acc-modal-color-sheet" hidden>
+						<div class="acc-modal-cushion-options">
+							<label for="acc-skate-hooks-color-select" class="acc-modal-cushion-label">Color</label>
+							<select id="acc-skate-hooks-color-select" class="acc-modal-cushion-select" aria-label="Select skate hooks color">
+								<option value="black">Black</option>
+								<option value="silver">Silver</option>
+							</select>
+						</div>
+						<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+							<label for="acc-skate-hooks-qty" class="acc-modal-cushion-label">Quantity</label>
+							<input type="number" id="acc-skate-hooks-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+						</div>
+						<div class="acc-modal-cushion-add">
+							<button type="button" id="acc-skate-hooks-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+						</div>
+					</div>
+					<!-- Name Plate: color (Black / Silver), Add to cart -->
+					<div id="acc-modal-name-plate" class="acc-modal-color-sheet" hidden>
+						<div class="acc-modal-cushion-options">
+							<label for="acc-name-plate-color-select" class="acc-modal-cushion-label">Color</label>
+							<select id="acc-name-plate-color-select" class="acc-modal-cushion-select" aria-label="Select name plate color">
+								<option value="black">Black</option>
+								<option value="silver">Silver</option>
+							</select>
+						</div>
+						<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+							<label for="acc-name-plate-qty" class="acc-modal-cushion-label">Quantity</label>
+							<input type="number" id="acc-name-plate-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+						</div>
+						<div class="acc-modal-cushion-add">
+							<button type="button" id="acc-name-plate-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+						</div>
+					</div>
+					<!-- Lock Box: Add to cart only -->
+					<div id="acc-modal-lock-box" class="acc-modal-color-sheet" hidden>
+						<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+							<label for="acc-lock-box-qty" class="acc-modal-cushion-label">Quantity</label>
+							<input type="number" id="acc-lock-box-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+						</div>
+						<div class="acc-modal-cushion-add">
+							<button type="button" id="acc-lock-box-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </BaseLayout>
 
 <style>
@@ -406,21 +534,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		line-height: 1.1;
 		position: relative;
 		z-index: 10;
-	}
-
-	.shop-background-text {
-		position: absolute;
-		font-family: 'Oswald', sans-serif;
-		font-size: 300px;
-		font-weight: 700;
-		color: rgba(255, 255, 255, 0.06);
-		text-transform: uppercase;
-		letter-spacing: -3px;
-		bottom: -50px;
-		left: 50%;
-		transform: translateX(-50%);
-		white-space: nowrap;
-		z-index: 1;
 	}
 
 	/* Shop Section (matches gallery "the locker room" / sport-specific lockers) */
@@ -539,6 +652,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		display: block;
 		outline: none;
 		border: none;
+	}
+	/* Lockers: Legendary image fits in full (shrunk to fit) */
+	.shop-locker-image img {
+		object-fit: contain;
+		object-position: center center;
+	}
+
+	/* Lockers grid: bottom row (Semi Pro, Varsity) centered in 4-column layout */
+	.shop-lockers-grid .shop-product-item:nth-child(5) {
+		grid-column: 2;
+	}
+	.shop-lockers-grid .shop-product-item:nth-child(6) {
+		grid-column: 3;
 	}
 
 	.shop-product-item:hover .shop-product-image img {
@@ -699,6 +825,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.shop-accessory-item {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 	}
 
 	.shop-accessory-trigger {
@@ -710,22 +837,38 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		cursor: pointer;
 		font: inherit;
 		color: inherit;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 
 	.shop-accessory-trigger:hover .shop-product-image img {
 	}
 
-	/* Accessory cards: fixed image size for consistency */
+	/* Accessory cards: all squares same fixed size, images fit inside */
 	.shop-accessory-item .shop-product-image {
-		aspect-ratio: none;
-		height: 220px;
+		width: 200px;
+		height: 200px;
+		flex-shrink: 0;
 		margin-bottom: 16px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #f7f7f7;
 	}
 
 	.shop-accessory-item .shop-product-image img {
 		width: 100%;
 		height: 100%;
 		object-fit: contain;
+		object-position: center center;
+		display: block;
+	}
+
+	.shop-accessory-item .shop-product-content {
+		width: 100%;
+		text-align: left;
 	}
 
 	.shop-accessory-item .shop-product-title {
@@ -806,11 +949,69 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		min-height: 280px;
 	}
 
-	.acc-modal-gallery img {
-		max-width: 100%;
-		max-height: 320px;
+	.acc-modal-slider {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		min-height: 240px;
+		overflow: hidden;
+	}
+
+	.acc-modal-slides {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		transition: transform 0.35s ease-in-out;
+	}
+
+	.acc-modal-slide {
+		flex: 0 0 100%;
+		min-width: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.acc-modal-slide img {
+		max-width: 50%;
+		max-height: 160px;
 		object-fit: contain;
 		display: block;
+	}
+
+	.acc-modal-slider-dots {
+		position: absolute;
+		bottom: 12px;
+		left: 0;
+		right: 0;
+		display: flex;
+		justify-content: center;
+		gap: 8px;
+		pointer-events: none;
+	}
+
+	.acc-modal-slider-dots .acc-modal-slider-dot {
+		pointer-events: auto;
+		width: 8px;
+		height: 8px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: rgba(0,0,0,0.25);
+		cursor: pointer;
+		transition: background 0.2s, transform 0.2s;
+	}
+
+	.acc-modal-slider-dots .acc-modal-slider-dot:hover {
+		background: rgba(0,0,0,0.45);
+	}
+
+	.acc-modal-slider-dots .acc-modal-slider-dot.active {
+		background: #fe5900;
+	}
+
+	.acc-modal-slider-dots[hidden] {
+		display: none;
 	}
 
 	.acc-modal-detail {
@@ -831,6 +1032,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		line-height: 1.2;
 	}
 
+	.acc-modal.acc-modal-is-lock-box .acc-modal-title {
+		margin-top: 15%;
+	}
+
 	.acc-modal-price {
 		font-family: 'Oswald', sans-serif;
 		font-size: 18px;
@@ -847,6 +1052,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		color: #333;
 		line-height: 1.6;
 		margin: 0 0 24px;
+	}
+
+	.acc-modal-size {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #555;
+		line-height: 1.5;
+		margin: -8px 0 24px;
 	}
 
 	.acc-modal-ctas {
@@ -884,6 +1097,133 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		color: #fff;
 	}
 
+	/* Cushion: color dropdown, See colors, Add to cart */
+	.acc-modal-color-sheet {
+		margin-top: 20px;
+		padding-top: 20px;
+		border-top: 1px solid rgba(0,0,0,0.08);
+	}
+	.acc-modal-color-sheet[hidden] {
+		display: none;
+	}
+	.acc-modal-cushion-options {
+		margin-bottom: 16px;
+	}
+	.acc-modal-cushion-label {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #4d4d4d;
+		margin-bottom: 8px;
+	}
+	.acc-modal-cushion-select {
+		width: 100%;
+		max-width: 280px;
+		padding: 10px 12px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #0d0d0d;
+		background: #fff;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		cursor: pointer;
+		appearance: auto;
+	}
+	.acc-modal-cushion-select:hover,
+	.acc-modal-cushion-select:focus {
+		border-color: #fe5900;
+		outline: none;
+	}
+	.acc-modal-cushion-qty {
+		margin-top: 16px;
+	}
+	.acc-modal-qty-input {
+		width: 100%;
+		max-width: 120px;
+		padding: 10px 12px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #0d0d0d;
+		background: #fff;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+	}
+	.acc-modal-qty-input:hover,
+	.acc-modal-qty-input:focus {
+		border-color: #fe5900;
+		outline: none;
+	}
+	.acc-modal-cushion-placement {
+		margin-top: 16px;
+	}
+	.acc-modal-cushion-placement .acc-modal-cushion-label {
+		margin-bottom: 8px;
+	}
+	.acc-modal-cushion-radios {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.acc-modal-cushion-radio-label {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #0d0d0d;
+		cursor: pointer;
+	}
+	.acc-modal-cushion-radio {
+		width: 18px;
+		height: 18px;
+		accent-color: #fe5900;
+		cursor: pointer;
+	}
+	.acc-modal-colors-pdf-above {
+		margin-top: 12px;
+		margin-bottom: 0;
+	}
+	.acc-modal-colors-pdf-above[hidden] {
+		display: none;
+	}
+	.acc-modal-colors-pdf-link {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		text-decoration: none;
+	}
+	.acc-modal-colors-pdf-link:hover {
+		text-decoration: underline;
+	}
+	.acc-modal-cushion-add {
+		margin-top: 8px;
+	}
+	.acc-modal-add-to-cart-btn {
+		display: inline-block;
+		padding: 12px 28px;
+		background: #0d0d0d;
+		color: #ffffff;
+		border: none;
+		border-radius: 4px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		cursor: pointer;
+		transition: background 0.3s ease;
+	}
+	.acc-modal-add-to-cart-btn:hover {
+		background: #fe5900;
+	}
+	.acc-modal-add-to-cart-btn.added {
+		background: #6b6b6b;
+		color: #fff;
+	}
+
 	@media (max-width: 768px) {
 		.acc-modal-layout {
 			grid-template-columns: 1fr;
@@ -900,6 +1240,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	@media (max-width: 1200px) {
 		.shop-products-grid {
 			grid-template-columns: repeat(3, 1fr);
+		}
+		.shop-lockers-grid .shop-product-item:nth-child(5),
+		.shop-lockers-grid .shop-product-item:nth-child(6) {
+			grid-column: auto;
 		}
 	}
 
@@ -981,19 +1325,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			updateCartCount();
 		}
 
-		function addToCart(product) {
+		function addToCart(product, quantity) {
+			const qty = Math.max(1, parseInt(quantity, 10) || 1);
 			const cart = getCart();
 			const existingItem = cart.find(item => item.id === product.id);
 			
 			if (existingItem) {
-				existingItem.quantity += 1;
+				existingItem.quantity += qty;
 			} else {
 				cart.push({
 					id: product.id,
 					name: product.name,
 					price: product.price,
 					image: product.image,
-					quantity: 1
+					quantity: qty
 				});
 			}
 			
@@ -1043,37 +1388,279 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		// Accessory PDP-style modal – open on image/card click, same look as locker product page
 		const accModal = document.getElementById('shop-accessory-modal');
 		const accModalImage = document.getElementById('acc-modal-image');
+		const accModalImage2 = document.getElementById('acc-modal-image-2');
+		const accModalImage3 = document.getElementById('acc-modal-image-3');
+		const accModalImage4 = document.getElementById('acc-modal-image-4');
+		const accModalSlide2 = document.getElementById('acc-modal-slide-2');
+		const accModalSlide3 = document.getElementById('acc-modal-slide-3');
+		const accModalSlide4 = document.getElementById('acc-modal-slide-4');
+		const accModalSlides = document.getElementById('acc-modal-slides');
+		const accModalSliderNav = document.getElementById('acc-modal-slider-nav');
+		const accModalSliderDots = document.querySelectorAll('.acc-modal-slider-dot');
 		const accModalTitle = document.getElementById('acc-modal-title');
 		const accModalPrice = document.getElementById('acc-modal-price');
 		const accModalDesc = document.getElementById('acc-modal-desc');
 		const accModalCtas = document.getElementById('acc-modal-ctas');
 
+		const accModalColorSheet = document.getElementById('acc-modal-color-sheet');
+
+		let accModalSlideIndex = 0;
+
+		function setAccModalSlide(index) {
+			if (!accModalSlides) return;
+			accModalSlideIndex = index;
+			accModalSlides.style.transform = 'translateX(-' + (accModalSlideIndex * 100) + '%)';
+			document.querySelectorAll('.acc-modal-slider-dot').forEach(function(dot, i) {
+				dot.classList.toggle('active', i === index);
+				dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+			});
+		}
+
 		function openAccModal(item) {
 			const img = item.getAttribute('data-acc-image');
+			const img2 = item.getAttribute('data-acc-image-2');
+			const img3 = item.getAttribute('data-acc-image-3');
+			const img4 = item.getAttribute('data-acc-image-4');
 			const title = item.getAttribute('data-acc-title');
 			const price = item.getAttribute('data-acc-price');
 			const desc = item.getAttribute('data-acc-desc');
-			const viewHref = item.getAttribute('data-acc-view-href');
 			if (!img || !title) return;
 			accModalImage.src = img;
 			accModalImage.alt = title;
+			const slideCount = img4 ? 4 : (img3 ? 3 : (img2 ? 2 : 1));
+			if (accModalSlide2) accModalSlide2.style.display = slideCount >= 2 ? '' : 'none';
+			if (accModalSlide3) accModalSlide3.style.display = slideCount >= 3 ? '' : 'none';
+			if (accModalSlide4) accModalSlide4.style.display = slideCount >= 4 ? '' : 'none';
+			if (accModalImage2 && img2) {
+				accModalImage2.src = img2;
+				accModalImage2.alt = title + ' (2)';
+			}
+			if (accModalImage3 && img3) {
+				accModalImage3.src = img3;
+				accModalImage3.alt = title + ' (3)';
+			}
+			if (accModalImage4 && img4) {
+				accModalImage4.src = img4;
+				accModalImage4.alt = title + ' (4)';
+			}
+			if (accModalSliderNav && accModalSliderDots.length) {
+				accModalSliderNav.hidden = slideCount <= 1;
+				accModalSliderDots.forEach(function(dot, i) {
+					dot.style.display = i < slideCount ? '' : 'none';
+				});
+				setAccModalSlide(0);
+			}
 			accModalTitle.textContent = title;
 			accModalPrice.textContent = price || '';
 			accModalDesc.textContent = desc || '';
-			accModalCtas.innerHTML = '';
-			if (viewHref) {
-				const viewLink = document.createElement('a');
-				viewLink.href = viewHref;
-				viewLink.textContent = 'View product';
-				accModalCtas.appendChild(viewLink);
+			const accModalSize = document.getElementById('acc-modal-size');
+			if (accModalSize) {
+				if (title === 'Name Plate') {
+					accModalSize.textContent = 'Size: 2 inches by 10 inches.';
+					accModalSize.hidden = false;
+				} else {
+					accModalSize.hidden = true;
+				}
 			}
-			const quoteLink = document.createElement('a');
-			quoteLink.href = '/contact#quote-form';
-			quoteLink.textContent = 'Request a quote';
-			quoteLink.className = viewHref ? 'acc-cta-secondary' : '';
-			accModalCtas.appendChild(quoteLink);
+			accModalCtas.innerHTML = '';
+			// Cushion: show Colors available PDF (above line) and color dropdown / Add to cart (below line)
+			const accModalColorsPdfAbove = document.getElementById('acc-modal-colors-pdf-above');
+			const accModalCoatRod = document.getElementById('acc-modal-coat-rod');
+			const accModalHooks = document.getElementById('acc-modal-hooks');
+			const accModalSkateHooks = document.getElementById('acc-modal-skate-hooks');
+			const accModalNamePlate = document.getElementById('acc-modal-name-plate');
+			const accModalLockBox = document.getElementById('acc-modal-lock-box');
+			if (accModalColorSheet) accModalColorSheet.hidden = title !== 'Cushions';
+			if (accModalColorsPdfAbove) accModalColorsPdfAbove.hidden = title !== 'Cushions';
+			if (accModalCoatRod) accModalCoatRod.hidden = title !== 'Coat Rod';
+			if (accModalHooks) accModalHooks.hidden = title !== 'Hooks';
+			if (accModalSkateHooks) accModalSkateHooks.hidden = title !== 'Skate Hooks';
+			if (accModalNamePlate) accModalNamePlate.hidden = title !== 'Name Plate';
+			if (accModalLockBox) accModalLockBox.hidden = title !== 'Lock Box with Digital Key Lock';
+			if (title === 'Lock Box with Digital Key Lock') {
+				accModal.classList.add('acc-modal-is-lock-box');
+			} else {
+				accModal.classList.remove('acc-modal-is-lock-box');
+			}
 			accModal.hidden = false;
 			document.body.style.overflow = 'hidden';
+		}
+
+		// Slider dots: click small circle to switch image (Cushions)
+		document.querySelectorAll('.acc-modal-slider-dot').forEach(function(dot) {
+			dot.addEventListener('click', function() {
+				if (accModalSliderNav && accModalSliderNav.hidden) return;
+				const slide = parseInt(this.getAttribute('data-slide'), 10);
+				if (!isNaN(slide)) setAccModalSlide(slide);
+			});
+		});
+
+		// Cushion Add to cart: color + placement (bottom $75 / both $150)
+		const accCushionColorSelect = document.getElementById('acc-cushion-color-select');
+		const accCushionAddToCartBtn = document.getElementById('acc-cushion-add-to-cart-btn');
+		const CUSHION_IMAGE = 'https://playerstall.b-cdn.net/images/cushion-logo.png';
+		const accCushionQty = document.getElementById('acc-cushion-qty');
+		if (accCushionAddToCartBtn && accCushionColorSelect) {
+			accCushionAddToCartBtn.addEventListener('click', function() {
+				const colorValue = accCushionColorSelect.value;
+				const colorLabel = accCushionColorSelect.options[accCushionColorSelect.selectedIndex].text;
+				const placementRadio = document.querySelector('input[name="acc-cushion-placement"]:checked');
+				const placement = placementRadio ? placementRadio.value : 'bottom';
+				const price = placement === 'both' ? 150 : 75;
+				const placementLabel = placement === 'both' ? 'Top & bottom' : 'Bottom';
+				const product = {
+					id: 'cushions-' + colorValue + '-' + placement,
+					name: 'Cushions (' + colorLabel + ') – ' + placementLabel,
+					price: price,
+					image: CUSHION_IMAGE
+				};
+				const qty = accCushionQty ? parseInt(accCushionQty.value, 10) || 1 : 1;
+				addToCart(product, qty);
+				const originalText = accCushionAddToCartBtn.textContent;
+				accCushionAddToCartBtn.textContent = 'Added!';
+				accCushionAddToCartBtn.classList.add('added');
+				setTimeout(function() {
+					accCushionAddToCartBtn.textContent = originalText;
+					accCushionAddToCartBtn.classList.remove('added');
+				}, 1500);
+			});
+		}
+
+		// Coat Rod Add to cart: color Black or Silver, $20
+		const accCoatRodColorSelect = document.getElementById('acc-coat-rod-color-select');
+		const accCoatRodAddToCartBtn = document.getElementById('acc-coat-rod-add-to-cart-btn');
+		const COAT_ROD_PRICE = 20;
+		const COAT_ROD_IMAGE = 'https://playerstall.b-cdn.net/images/lock-box.png';
+		const accCoatRodQty = document.getElementById('acc-coat-rod-qty');
+		if (accCoatRodAddToCartBtn && accCoatRodColorSelect) {
+			accCoatRodAddToCartBtn.addEventListener('click', function() {
+				const colorValue = accCoatRodColorSelect.value;
+				const colorLabel = accCoatRodColorSelect.options[accCoatRodColorSelect.selectedIndex].text;
+				const product = {
+					id: 'coat-rod-' + colorValue,
+					name: 'Coat Rod (' + colorLabel + ')',
+					price: COAT_ROD_PRICE,
+					image: COAT_ROD_IMAGE
+				};
+				const qty = accCoatRodQty ? parseInt(accCoatRodQty.value, 10) || 1 : 1;
+				addToCart(product, qty);
+				const originalText = accCoatRodAddToCartBtn.textContent;
+				accCoatRodAddToCartBtn.textContent = 'Added!';
+				accCoatRodAddToCartBtn.classList.add('added');
+				setTimeout(function() {
+					accCoatRodAddToCartBtn.textContent = originalText;
+					accCoatRodAddToCartBtn.classList.remove('added');
+				}, 1500);
+			});
+		}
+
+		// Hooks Add to cart: color Black or Silver, $20
+		const accHooksColorSelect = document.getElementById('acc-hooks-color-select');
+		const accHooksAddToCartBtn = document.getElementById('acc-hooks-add-to-cart-btn');
+		const HOOKS_PRICE = 15;
+		const HOOKS_IMAGE = 'https://playerstall.b-cdn.net/images/lock-box.png';
+		const accHooksQty = document.getElementById('acc-hooks-qty');
+		if (accHooksAddToCartBtn && accHooksColorSelect) {
+			accHooksAddToCartBtn.addEventListener('click', function() {
+				const colorValue = accHooksColorSelect.value;
+				const colorLabel = accHooksColorSelect.options[accHooksColorSelect.selectedIndex].text;
+				const product = {
+					id: 'hooks-' + colorValue,
+					name: 'Hooks (' + colorLabel + ')',
+					price: HOOKS_PRICE,
+					image: HOOKS_IMAGE
+				};
+				const qty = accHooksQty ? parseInt(accHooksQty.value, 10) || 1 : 1;
+				addToCart(product, qty);
+				const originalText = accHooksAddToCartBtn.textContent;
+				accHooksAddToCartBtn.textContent = 'Added!';
+				accHooksAddToCartBtn.classList.add('added');
+				setTimeout(function() {
+					accHooksAddToCartBtn.textContent = originalText;
+					accHooksAddToCartBtn.classList.remove('added');
+				}, 1500);
+			});
+		}
+
+		// Skate Hooks Add to cart: color Black or Silver, $25
+		const accSkateHooksColorSelect = document.getElementById('acc-skate-hooks-color-select');
+		const accSkateHooksAddToCartBtn = document.getElementById('acc-skate-hooks-add-to-cart-btn');
+		const SKATE_HOOKS_PRICE = 25;
+		const SKATE_HOOKS_IMAGE = 'https://playerstall.b-cdn.net/images/lock-box.png';
+		const accSkateHooksQty = document.getElementById('acc-skate-hooks-qty');
+		if (accSkateHooksAddToCartBtn && accSkateHooksColorSelect) {
+			accSkateHooksAddToCartBtn.addEventListener('click', function() {
+				const colorValue = accSkateHooksColorSelect.value;
+				const colorLabel = accSkateHooksColorSelect.options[accSkateHooksColorSelect.selectedIndex].text;
+				const product = {
+					id: 'skate-hooks-' + colorValue,
+					name: 'Skate Hooks (' + colorLabel + ')',
+					price: SKATE_HOOKS_PRICE,
+					image: SKATE_HOOKS_IMAGE
+				};
+				const qty = accSkateHooksQty ? parseInt(accSkateHooksQty.value, 10) || 1 : 1;
+				addToCart(product, qty);
+				const originalText = accSkateHooksAddToCartBtn.textContent;
+				accSkateHooksAddToCartBtn.textContent = 'Added!';
+				accSkateHooksAddToCartBtn.classList.add('added');
+				setTimeout(function() {
+					accSkateHooksAddToCartBtn.textContent = originalText;
+					accSkateHooksAddToCartBtn.classList.remove('added');
+				}, 1500);
+			});
+		}
+
+		// Name Plate Add to cart: color Black or Silver, $10
+		const accNamePlateColorSelect = document.getElementById('acc-name-plate-color-select');
+		const accNamePlateAddToCartBtn = document.getElementById('acc-name-plate-add-to-cart-btn');
+		const NAME_PLATE_PRICE = 10;
+		const NAME_PLATE_IMAGE = 'https://playerstall.b-cdn.net/images/lock-box.png';
+		const accNamePlateQty = document.getElementById('acc-name-plate-qty');
+		if (accNamePlateAddToCartBtn && accNamePlateColorSelect) {
+			accNamePlateAddToCartBtn.addEventListener('click', function() {
+				const colorValue = accNamePlateColorSelect.value;
+				const colorLabel = accNamePlateColorSelect.options[accNamePlateColorSelect.selectedIndex].text;
+				const product = {
+					id: 'name-plate-' + colorValue,
+					name: 'Name Plate (' + colorLabel + ')',
+					price: NAME_PLATE_PRICE,
+					image: NAME_PLATE_IMAGE
+				};
+				const qty = accNamePlateQty ? parseInt(accNamePlateQty.value, 10) || 1 : 1;
+				addToCart(product, qty);
+				const originalText = accNamePlateAddToCartBtn.textContent;
+				accNamePlateAddToCartBtn.textContent = 'Added!';
+				accNamePlateAddToCartBtn.classList.add('added');
+				setTimeout(function() {
+					accNamePlateAddToCartBtn.textContent = originalText;
+					accNamePlateAddToCartBtn.classList.remove('added');
+				}, 1500);
+			});
+		}
+
+		// Lock Box Add to cart: $80
+		const accLockBoxAddToCartBtn = document.getElementById('acc-lock-box-add-to-cart-btn');
+		const LOCK_BOX_PRICE = 80;
+		const LOCK_BOX_IMAGE = '/images/lock-box-keypad.png';
+		const accLockBoxQty = document.getElementById('acc-lock-box-qty');
+		if (accLockBoxAddToCartBtn) {
+			accLockBoxAddToCartBtn.addEventListener('click', function() {
+				const product = {
+					id: 'lock-box',
+					name: 'Lock Box with Digital Key Lock',
+					price: LOCK_BOX_PRICE,
+					image: LOCK_BOX_IMAGE
+				};
+				const qty = accLockBoxQty ? parseInt(accLockBoxQty.value, 10) || 1 : 1;
+				addToCart(product, qty);
+				const originalText = accLockBoxAddToCartBtn.textContent;
+				accLockBoxAddToCartBtn.textContent = 'Added!';
+				accLockBoxAddToCartBtn.classList.add('added');
+				setTimeout(function() {
+					accLockBoxAddToCartBtn.textContent = originalText;
+					accLockBoxAddToCartBtn.classList.remove('added');
+				}, 1500);
+			});
 		}
 
 		function closeAccModal() {

@@ -1,0 +1,405 @@
+---
+/**
+ * Shared accessory PDP-style modal: sliding images, dots, title/price/desc, and add-to-cart forms per accessory type.
+ * Used by shop.astro and product (spec sheet) pages. Binds to .shop-accessory-trigger inside .shop-accessory-item.
+ * Exposes addToCart and updateCartCount on window for other scripts (e.g. shop locker overlay).
+ */
+---
+<div id="shop-accessory-modal" class="acc-modal" role="dialog" aria-modal="true" aria-labelledby="acc-modal-title" hidden>
+	<div class="acc-modal-backdrop"></div>
+	<div class="acc-modal-box">
+		<button type="button" class="acc-modal-close" aria-label="Close">&times;</button>
+		<div class="acc-modal-layout">
+			<div class="acc-modal-gallery">
+				<div class="acc-modal-slider" id="acc-modal-slider">
+					<div class="acc-modal-slides" id="acc-modal-slides">
+						<div class="acc-modal-slide">
+							<img id="acc-modal-image" src="" alt="" />
+						</div>
+						<div class="acc-modal-slide" id="acc-modal-slide-2">
+							<img id="acc-modal-image-2" src="" alt="" />
+						</div>
+						<div class="acc-modal-slide" id="acc-modal-slide-3">
+							<img id="acc-modal-image-3" src="" alt="" />
+						</div>
+						<div class="acc-modal-slide" id="acc-modal-slide-4">
+							<img id="acc-modal-image-4" src="" alt="" />
+						</div>
+					</div>
+					<div class="acc-modal-slider-dots" id="acc-modal-slider-nav" hidden>
+						<button type="button" class="acc-modal-slider-dot active" data-slide="0" aria-label="Image 1" aria-current="true"></button>
+						<button type="button" class="acc-modal-slider-dot" data-slide="1" aria-label="Image 2"></button>
+						<button type="button" class="acc-modal-slider-dot" data-slide="2" aria-label="Image 3"></button>
+						<button type="button" class="acc-modal-slider-dot" data-slide="3" aria-label="Image 4"></button>
+					</div>
+				</div>
+			</div>
+			<div class="acc-modal-detail">
+				<h2 id="acc-modal-title" class="acc-modal-title"></h2>
+				<p id="acc-modal-price" class="acc-modal-price"></p>
+				<p id="acc-modal-desc" class="acc-modal-desc"></p>
+				<p id="acc-modal-size" class="acc-modal-size" hidden></p>
+				<div id="acc-modal-ctas" class="acc-modal-ctas"></div>
+				<div id="acc-modal-colors-pdf-above" class="acc-modal-colors-pdf-above" hidden>
+					<a href="/colors/cushion-colors-pdf.html" target="_blank" rel="noopener noreferrer" class="acc-modal-colors-pdf-link">Colors available (PDF)</a>
+				</div>
+				<div id="acc-modal-color-sheet" class="acc-modal-color-sheet" hidden>
+					<div class="acc-modal-cushion-options">
+						<label for="acc-cushion-color-select" class="acc-modal-cushion-label">Color</label>
+						<select id="acc-cushion-color-select" class="acc-modal-cushion-select" aria-label="Select cushion color">
+							<option value="white">White</option>
+							<option value="black">Black</option>
+							<option value="charcoal">Charcoal</option>
+							<option value="grey">Grey</option>
+							<option value="red">Red</option>
+							<option value="navy">Navy</option>
+							<option value="blue">Blue</option>
+							<option value="green">Green</option>
+						</select>
+					</div>
+					<div class="acc-modal-cushion-options acc-modal-cushion-placement">
+						<span class="acc-modal-cushion-label">Placement</span>
+						<div class="acc-modal-cushion-radios" role="radiogroup" aria-label="Cushion placement">
+							<label class="acc-modal-cushion-radio-label">
+								<input type="radio" name="acc-cushion-placement" value="bottom" checked class="acc-modal-cushion-radio" />
+								<span>Bottom cushion ($75)</span>
+							</label>
+							<label class="acc-modal-cushion-radio-label">
+								<input type="radio" name="acc-cushion-placement" value="both" class="acc-modal-cushion-radio" />
+								<span>Both top &amp; bottom ($150)</span>
+							</label>
+						</div>
+					</div>
+					<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+						<label for="acc-cushion-qty" class="acc-modal-cushion-label">Quantity</label>
+						<input type="number" id="acc-cushion-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+					</div>
+					<div class="acc-modal-cushion-add">
+						<button type="button" id="acc-cushion-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+					</div>
+				</div>
+				<div id="acc-modal-coat-rod" class="acc-modal-color-sheet" hidden>
+					<div class="acc-modal-cushion-options">
+						<label for="acc-coat-rod-color-select" class="acc-modal-cushion-label">Color</label>
+						<select id="acc-coat-rod-color-select" class="acc-modal-cushion-select" aria-label="Select coat rod color">
+							<option value="black">Black</option>
+							<option value="silver">Silver</option>
+						</select>
+					</div>
+					<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+						<label for="acc-coat-rod-qty" class="acc-modal-cushion-label">Quantity</label>
+						<input type="number" id="acc-coat-rod-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+					</div>
+					<div class="acc-modal-cushion-add">
+						<button type="button" id="acc-coat-rod-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+					</div>
+				</div>
+				<div id="acc-modal-hooks" class="acc-modal-color-sheet" hidden>
+					<div class="acc-modal-cushion-options">
+						<label for="acc-hooks-color-select" class="acc-modal-cushion-label">Color</label>
+						<select id="acc-hooks-color-select" class="acc-modal-cushion-select" aria-label="Select hooks color">
+							<option value="black">Black</option>
+							<option value="silver">Silver</option>
+						</select>
+					</div>
+					<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+						<label for="acc-hooks-qty" class="acc-modal-cushion-label">Quantity</label>
+						<input type="number" id="acc-hooks-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+					</div>
+					<div class="acc-modal-cushion-add">
+						<button type="button" id="acc-hooks-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+					</div>
+				</div>
+				<div id="acc-modal-skate-hooks" class="acc-modal-color-sheet" hidden>
+					<div class="acc-modal-cushion-options">
+						<label for="acc-skate-hooks-color-select" class="acc-modal-cushion-label">Color</label>
+						<select id="acc-skate-hooks-color-select" class="acc-modal-cushion-select" aria-label="Select skate hooks color">
+							<option value="black">Black</option>
+							<option value="silver">Silver</option>
+						</select>
+					</div>
+					<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+						<label for="acc-skate-hooks-qty" class="acc-modal-cushion-label">Quantity</label>
+						<input type="number" id="acc-skate-hooks-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+					</div>
+					<div class="acc-modal-cushion-add">
+						<button type="button" id="acc-skate-hooks-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+					</div>
+				</div>
+				<div id="acc-modal-name-plate" class="acc-modal-color-sheet" hidden>
+					<div class="acc-modal-cushion-options">
+						<label for="acc-name-plate-color-select" class="acc-modal-cushion-label">Color</label>
+						<select id="acc-name-plate-color-select" class="acc-modal-cushion-select" aria-label="Select name plate color">
+							<option value="black">Black</option>
+							<option value="silver">Silver</option>
+						</select>
+					</div>
+					<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+						<label for="acc-name-plate-qty" class="acc-modal-cushion-label">Quantity</label>
+						<input type="number" id="acc-name-plate-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+					</div>
+					<div class="acc-modal-cushion-add">
+						<button type="button" id="acc-name-plate-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+					</div>
+				</div>
+				<div id="acc-modal-lock-box" class="acc-modal-color-sheet" hidden>
+					<div class="acc-modal-cushion-options acc-modal-cushion-qty">
+						<label for="acc-lock-box-qty" class="acc-modal-cushion-label">Quantity</label>
+						<input type="number" id="acc-lock-box-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
+					</div>
+					<div class="acc-modal-cushion-add">
+						<button type="button" id="acc-lock-box-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style is:global>
+	.acc-modal { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+	.acc-modal[hidden] { display: none; }
+	.acc-modal-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6); }
+	.acc-modal-box { position: relative; width: 100%; max-width: 900px; max-height: 90vh; background: #fff; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); overflow: hidden; display: flex; flex-direction: column; }
+	.acc-modal-close { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border: none; background: rgba(0, 0, 0, 0.5); color: #fff; font-size: 28px; line-height: 1; cursor: pointer; z-index: 2; display: flex; align-items: center; justify-content: center; padding: 0; border-radius: 4px; transition: background 0.2s; }
+	.acc-modal-close:hover { background: #0d0d0d; }
+	.acc-modal-layout { display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
+	.acc-modal-gallery { background: #f7f7f7; display: flex; align-items: center; justify-content: center; padding: 40px; min-height: 280px; }
+	.acc-modal-slider { position: relative; width: 100%; height: 100%; min-height: 240px; overflow: hidden; }
+	.acc-modal-slides { display: flex; width: 100%; height: 100%; transition: transform 0.35s ease-in-out; }
+	.acc-modal-slide { flex: 0 0 100%; min-width: 0; display: flex; align-items: center; justify-content: center; }
+	.acc-modal-slide img { max-width: 50%; max-height: 160px; object-fit: contain; display: block; }
+	.acc-modal-slider-dots { position: absolute; bottom: 12px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; pointer-events: none; }
+	.acc-modal-slider-dots .acc-modal-slider-dot { pointer-events: auto; width: 8px; height: 8px; padding: 0; border: none; border-radius: 50%; background: rgba(0,0,0,0.25); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+	.acc-modal-slider-dots .acc-modal-slider-dot:hover { background: rgba(0,0,0,0.45); }
+	.acc-modal-slider-dots .acc-modal-slider-dot.active { background: #fe5900; }
+	.acc-modal-slider-dots[hidden] { display: none; }
+	.acc-modal-detail { padding: 40px 36px; display: flex; flex-direction: column; justify-content: center; }
+	.acc-modal-title { font-family: 'Oswald', sans-serif; font-size: 26px; font-weight: 600; color: #0d0d0d; text-transform: uppercase; margin: 0 0 12px; letter-spacing: 0.02em; line-height: 1.2; }
+	.acc-modal.acc-modal-is-lock-box .acc-modal-title { margin-top: 15%; }
+	.acc-modal-price { font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 600; color: #fe5900; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 20px; }
+	.acc-modal-desc { font-family: 'Yantramanav', sans-serif; font-size: 15px; color: #333; line-height: 1.6; margin: 0 0 24px; }
+	.acc-modal-size { font-family: 'Yantramanav', sans-serif; font-size: 14px; color: #555; line-height: 1.5; margin: -8px 0 24px; }
+	.acc-modal-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+	.acc-modal-ctas a { display: inline-block; padding: 12px 24px; background: #fe5900; color: #fff; font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; transition: background 0.2s; }
+	.acc-modal-ctas a:hover { background: #e04e00; }
+	.acc-modal-color-sheet { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.08); }
+	.acc-modal-color-sheet[hidden] { display: none; }
+	.acc-modal-cushion-options { margin-bottom: 16px; }
+	.acc-modal-cushion-label { display: block; font-family: 'Yantramanav', sans-serif; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #4d4d4d; margin-bottom: 8px; }
+	.acc-modal-cushion-select { width: 100%; max-width: 280px; padding: 10px 12px; font-family: 'Yantramanav', sans-serif; font-size: 15px; color: #0d0d0d; background: #fff; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; appearance: auto; }
+	.acc-modal-cushion-select:hover, .acc-modal-cushion-select:focus { border-color: #fe5900; outline: none; }
+	.acc-modal-cushion-qty { margin-top: 16px; }
+	.acc-modal-qty-input { width: 100%; max-width: 120px; padding: 10px 12px; font-family: 'Yantramanav', sans-serif; font-size: 15px; color: #0d0d0d; background: #fff; border: 1px solid #ccc; border-radius: 4px; }
+	.acc-modal-qty-input:hover, .acc-modal-qty-input:focus { border-color: #fe5900; outline: none; }
+	.acc-modal-cushion-placement { margin-top: 16px; }
+	.acc-modal-cushion-placement .acc-modal-cushion-label { margin-bottom: 8px; }
+	.acc-modal-cushion-radios { display: flex; flex-direction: column; gap: 8px; }
+	.acc-modal-cushion-radio-label { display: flex; align-items: center; gap: 10px; font-family: 'Yantramanav', sans-serif; font-size: 15px; color: #0d0d0d; cursor: pointer; }
+	.acc-modal-cushion-radio { width: 18px; height: 18px; accent-color: #fe5900; cursor: pointer; }
+	.acc-modal-colors-pdf-above { margin-top: 12px; margin-bottom: 0; }
+	.acc-modal-colors-pdf-above[hidden] { display: none; }
+	.acc-modal-colors-pdf-link { font-family: 'Yantramanav', sans-serif; font-size: 14px; color: #0d0d0d; text-decoration: none; }
+	.acc-modal-colors-pdf-link:hover { text-decoration: underline; }
+	.acc-modal-cushion-add { margin-top: 8px; }
+	.acc-modal-add-to-cart-btn { display: inline-block; padding: 12px 28px; background: #0d0d0d; color: #ffffff; border: none; border-radius: 4px; font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 0.3s ease; }
+	.acc-modal-add-to-cart-btn:hover { background: #fe5900; }
+	.acc-modal-add-to-cart-btn.added { background: #6b6b6b; color: #fff; }
+	@media (max-width: 768px) { .acc-modal-layout { grid-template-columns: 1fr; } .acc-modal-detail { padding: 24px 20px; } .acc-modal-title { font-size: 22px; } }
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		function getCart() {
+			const cart = localStorage.getItem('playerstall_cart');
+			return cart ? JSON.parse(cart) : [];
+		}
+		function saveCart(cart) {
+			localStorage.setItem('playerstall_cart', JSON.stringify(cart));
+			updateCartCount();
+		}
+		function addToCart(product, quantity) {
+			const qty = Math.max(1, parseInt(quantity, 10) || 1);
+			const cart = getCart();
+			const existingItem = cart.find(function(item) { return item.id === product.id; });
+			if (existingItem) {
+				existingItem.quantity += qty;
+			} else {
+				cart.push({
+					id: product.id,
+					name: product.name,
+					price: product.price,
+					image: product.image,
+					quantity: qty
+				});
+			}
+			saveCart(cart);
+			return cart;
+		}
+		function updateCartCount() {
+			const cart = getCart();
+			const totalItems = cart.reduce(function(sum, item) { return sum + item.quantity; }, 0);
+			const cartCount = document.querySelector('.cart-count');
+			if (cartCount) cartCount.textContent = totalItems;
+			window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { count: totalItems } }));
+		}
+		window.addToCart = addToCart;
+		window.updateCartCount = updateCartCount;
+		updateCartCount();
+
+		const accModal = document.getElementById('shop-accessory-modal');
+		const accModalImage = document.getElementById('acc-modal-image');
+		const accModalImage2 = document.getElementById('acc-modal-image-2');
+		const accModalImage3 = document.getElementById('acc-modal-image-3');
+		const accModalImage4 = document.getElementById('acc-modal-image-4');
+		const accModalSlide2 = document.getElementById('acc-modal-slide-2');
+		const accModalSlide3 = document.getElementById('acc-modal-slide-3');
+		const accModalSlide4 = document.getElementById('acc-modal-slide-4');
+		const accModalSlides = document.getElementById('acc-modal-slides');
+		const accModalSliderNav = document.getElementById('acc-modal-slider-nav');
+		const accModalSliderDots = document.querySelectorAll('.acc-modal-slider-dot');
+		const accModalTitle = document.getElementById('acc-modal-title');
+		const accModalPrice = document.getElementById('acc-modal-price');
+		const accModalDesc = document.getElementById('acc-modal-desc');
+		const accModalCtas = document.getElementById('acc-modal-ctas');
+		let accModalSlideIndex = 0;
+
+		function setAccModalSlide(index) {
+			if (!accModalSlides) return;
+			accModalSlideIndex = index;
+			accModalSlides.style.transform = 'translateX(-' + (accModalSlideIndex * 100) + '%)';
+			accModalSliderDots.forEach(function(dot, i) {
+				dot.classList.toggle('active', i === index);
+				dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+			});
+		}
+		function openAccModal(item) {
+			const img = item.getAttribute('data-acc-image');
+			const img2 = item.getAttribute('data-acc-image-2');
+			const img3 = item.getAttribute('data-acc-image-3');
+			const img4 = item.getAttribute('data-acc-image-4');
+			const title = item.getAttribute('data-acc-title');
+			const price = item.getAttribute('data-acc-price');
+			const desc = item.getAttribute('data-acc-desc');
+			if (!img || !title) return;
+			accModalImage.src = img;
+			accModalImage.alt = title;
+			const slideCount = img4 ? 4 : (img3 ? 3 : (img2 ? 2 : 1));
+			if (accModalSlide2) accModalSlide2.style.display = slideCount >= 2 ? '' : 'none';
+			if (accModalSlide3) accModalSlide3.style.display = slideCount >= 3 ? '' : 'none';
+			if (accModalSlide4) accModalSlide4.style.display = slideCount >= 4 ? '' : 'none';
+			if (accModalImage2 && img2) { accModalImage2.src = img2; accModalImage2.alt = title + ' (2)'; }
+			if (accModalImage3 && img3) { accModalImage3.src = img3; accModalImage3.alt = title + ' (3)'; }
+			if (accModalImage4 && img4) { accModalImage4.src = img4; accModalImage4.alt = title + ' (4)'; }
+			if (accModalSliderNav && accModalSliderDots.length) {
+				accModalSliderNav.hidden = slideCount <= 1;
+				accModalSliderDots.forEach(function(dot, i) { dot.style.display = i < slideCount ? '' : 'none'; });
+				setAccModalSlide(0);
+			}
+			accModalTitle.textContent = title;
+			accModalPrice.textContent = price || '';
+			accModalDesc.textContent = desc || '';
+			const accModalSize = document.getElementById('acc-modal-size');
+			if (accModalSize) {
+				if (title === 'Name Plate') {
+					accModalSize.textContent = 'Size: 2 inches by 10 inches.';
+					accModalSize.hidden = false;
+				} else {
+					accModalSize.hidden = true;
+				}
+			}
+			accModalCtas.innerHTML = '';
+			const accModalColorSheet = document.getElementById('acc-modal-color-sheet');
+			const accModalColorsPdfAbove = document.getElementById('acc-modal-colors-pdf-above');
+			if (accModalColorSheet) accModalColorSheet.hidden = title !== 'Cushions';
+			if (accModalColorsPdfAbove) accModalColorsPdfAbove.hidden = title !== 'Cushions';
+			const coatRod = document.getElementById('acc-modal-coat-rod');
+			const hooks = document.getElementById('acc-modal-hooks');
+			const skateHooks = document.getElementById('acc-modal-skate-hooks');
+			const namePlate = document.getElementById('acc-modal-name-plate');
+			const lockBox = document.getElementById('acc-modal-lock-box');
+			if (coatRod) coatRod.hidden = title !== 'Coat Rod';
+			if (hooks) hooks.hidden = title !== 'Hooks';
+			if (skateHooks) skateHooks.hidden = title !== 'Skate Hooks';
+			if (namePlate) namePlate.hidden = title !== 'Name Plate';
+			if (lockBox) lockBox.hidden = title !== 'Lock Box with Digital Key Lock';
+			if (title === 'Lock Box with Digital Key Lock') accModal.classList.add('acc-modal-is-lock-box');
+			else accModal.classList.remove('acc-modal-is-lock-box');
+			accModal.hidden = false;
+			document.body.style.overflow = 'hidden';
+		}
+		accModalSliderDots.forEach(function(dot) {
+			dot.addEventListener('click', function() {
+				if (accModalSliderNav && accModalSliderNav.hidden) return;
+				const slide = parseInt(this.getAttribute('data-slide'), 10);
+				if (!isNaN(slide)) setAccModalSlide(slide);
+			});
+		});
+
+		const CUSHION_IMAGE = 'https://playerstall.b-cdn.net/images/cushion-logo.png';
+		const COAT_ROD_IMAGE = 'https://playerstall.b-cdn.net/images/lock-box.png';
+		const LOCK_BOX_IMAGE = 'https://playerstall.b-cdn.net/images/lock-box.png';
+		function setupAddToCart(btnId, colorSelectId, qtyId, productFn, done) {
+			const btn = document.getElementById(btnId);
+			const colorSelect = colorSelectId ? document.getElementById(colorSelectId) : null;
+			const qtyEl = qtyId ? document.getElementById(qtyId) : null;
+			if (!btn) return;
+			btn.addEventListener('click', function() {
+				const product = productFn(colorSelect, qtyEl);
+				const qty = qtyEl ? (parseInt(qtyEl.value, 10) || 1) : 1;
+				addToCart(product, qty);
+				const orig = btn.textContent;
+				btn.textContent = 'Added!';
+				btn.classList.add('added');
+				setTimeout(function() { btn.textContent = orig; btn.classList.remove('added'); }, 1500);
+			});
+		}
+		setupAddToCart('acc-cushion-add-to-cart-btn', 'acc-cushion-color-select', 'acc-cushion-qty', function(sel, qty) {
+			const placementRadio = document.querySelector('input[name="acc-cushion-placement"]:checked');
+			const placement = placementRadio ? placementRadio.value : 'bottom';
+			const price = placement === 'both' ? 150 : 75;
+			const colorLabel = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : 'White';
+			const placementLabel = placement === 'both' ? 'Top & bottom' : 'Bottom';
+			return { id: 'cushions-' + (sel ? sel.value : 'white') + '-' + placement, name: 'Cushions (' + colorLabel + ') – ' + placementLabel, price: price, image: CUSHION_IMAGE };
+		});
+		setupAddToCart('acc-coat-rod-add-to-cart-btn', 'acc-coat-rod-color-select', 'acc-coat-rod-qty', function(sel) {
+			const colorLabel = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : 'Black';
+			return { id: 'coat-rod-' + (sel ? sel.value : 'black'), name: 'Coat Rod (' + colorLabel + ')', price: 20, image: COAT_ROD_IMAGE };
+		});
+		setupAddToCart('acc-hooks-add-to-cart-btn', 'acc-hooks-color-select', 'acc-hooks-qty', function(sel) {
+			const colorLabel = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : 'Black';
+			return { id: 'hooks-' + (sel ? sel.value : 'black'), name: 'Hooks (' + colorLabel + ')', price: 15, image: COAT_ROD_IMAGE };
+		});
+		setupAddToCart('acc-skate-hooks-add-to-cart-btn', 'acc-skate-hooks-color-select', 'acc-skate-hooks-qty', function(sel) {
+			const colorLabel = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : 'Black';
+			return { id: 'skate-hooks-' + (sel ? sel.value : 'black'), name: 'Skate Hooks (' + colorLabel + ')', price: 25, image: COAT_ROD_IMAGE };
+		});
+		setupAddToCart('acc-name-plate-add-to-cart-btn', 'acc-name-plate-color-select', 'acc-name-plate-qty', function(sel) {
+			const colorLabel = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : 'Black';
+			return { id: 'name-plate-' + (sel ? sel.value : 'black'), name: 'Name Plate (' + colorLabel + ')', price: 10, image: COAT_ROD_IMAGE };
+		});
+		setupAddToCart('acc-lock-box-add-to-cart-btn', null, 'acc-lock-box-qty', function() {
+			return { id: 'lock-box', name: 'Lock Box with Digital Key Lock', price: 80, image: LOCK_BOX_IMAGE };
+		});
+
+		function closeAccModal() {
+			accModal.hidden = true;
+			document.body.style.overflow = '';
+		}
+		document.querySelectorAll('.shop-accessory-trigger').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				const item = this.closest('.shop-accessory-item');
+				if (item) openAccModal(item);
+			});
+		});
+		if (accModal) {
+			const backdrop = accModal.querySelector('.acc-modal-backdrop');
+			const closeBtn = accModal.querySelector('.acc-modal-close');
+			if (backdrop) backdrop.addEventListener('click', closeAccModal);
+			if (closeBtn) closeBtn.addEventListener('click', closeAccModal);
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'Escape' && accModal && !accModal.hidden) closeAccModal();
+			});
+		}
+	});
+</script>

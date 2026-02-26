@@ -1,13 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
-
-const lockerAccessoriesItems = [
-	{ href: '/accessories#stick-rack', image: 'https://playerstall.b-cdn.net/images/stick-rack.png', alt: 'Stick Rack', category: 'LOCKER ADD-ONS', title: 'Stick Rack', price: 'Starting at $299' },
-	{ href: '/accessories#lock-box', image: 'https://playerstall.b-cdn.net/images/lock-box.png', alt: 'Lock Box with Digital Key Lock', category: 'LOCKER ADD-ONS', title: 'Lock Box', price: '+ $80.00' },
-	{ href: '/shop#accessories', image: 'https://playerstall.b-cdn.net/images/cushion-logo.png', alt: 'Locker cushions', category: 'LOCKER ADD-ONS', title: 'Cushions', price: '+ $75.00' },
-	{ href: '/shop#accessories', image: 'https://playerstall.b-cdn.net/images/name-plate.png', alt: 'Name plate', category: 'LOCKER ADD-ONS', title: 'Name Plate', price: '+ $10.00' },
-];
+import AccessoryModal from '../components/AccessoryModal.astro';
+import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 ---
 
 <BaseLayout
@@ -40,7 +35,7 @@ const lockerAccessoriesItems = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="https://playerstall.b-cdn.net/images/Athletic-Locker-Varsity.jpg"
+							src="https://playerstall.b-cdn.net/images/legendary-locker.png"
 							alt="Varsity wood athletic locker for locker rooms"
 							class="product-main-image"
 						/>
@@ -48,13 +43,13 @@ const lockerAccessoriesItems = [
 					</div>
 					<div class="product-gallery-thumbs">
 						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="https://playerstall.b-cdn.net/images/Athletic-Locker-Varsity.jpg" alt="Varsity locker view 1" />
+							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Varsity locker view 1" />
 						</button>
 						<button type="button" class="thumb" aria-label="View image 2">
-							<img src="https://playerstall.b-cdn.net/images/wood-locer-room-front-2.png" alt="Locker view 2" />
+							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Locker view 2" />
 						</button>
 						<button type="button" class="thumb" aria-label="View image 3">
-							<img src="https://playerstall.b-cdn.net/images/phenolic-locker-no-background.jpg" alt="Locker view 3" />
+							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Locker view 3" />
 						</button>
 					</div>
 				</div>
@@ -184,9 +179,10 @@ const lockerAccessoriesItems = [
 
 			</div>
 
-			<LockerAccessories title="LOCKER ACCESSORIES" items={lockerAccessoriesItems} />
+			<LockerAccessories title="LOCKER ACCESSORIES" items={SHOP_ACCESSORIES_MODAL} useModal={true} />
 		</div>
 	</section>
+	<AccessoryModal />
 </BaseLayout>
 
 <style is:global>
@@ -373,7 +369,8 @@ const lockerAccessoriesItems = [
 	.thumb img {
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
+		object-fit: contain;
+		object-position: center center;
 		display: block;
 	}
 

@@ -98,7 +98,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<!-- Pro -->
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/pro-locker.jpg" alt="Pro Locker" loading="lazy" />
+						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Pro Locker" loading="lazy" />
 					</div>
 					<div class="home-shop-product-content">
 						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -109,7 +109,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<!-- Stadium -->
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/stadium-locker.jpg" alt="Stadium Locker" loading="lazy" />
+						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Stadium Locker" loading="lazy" />
 					</div>
 					<div class="home-shop-product-content">
 						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -121,7 +121,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
 						<span class="home-shop-badge new">New</span>
-						<img src="https://playerstall.b-cdn.net/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png" alt="Elite Locker" loading="lazy" />
+						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Elite Locker" loading="lazy" />
 					</div>
 					<div class="home-shop-product-content">
 						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -154,7 +154,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<!-- Semi Pro -->
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/semi-pro-locker-new.png" alt="Semi Pro Locker" loading="lazy" />
+						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Semi Pro Locker" loading="lazy" />
 					</div>
 					<div class="home-shop-product-content">
 						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -165,7 +165,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<!-- Varsity -->
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/varsity-locker.jpg" alt="Varsity Locker" loading="lazy" />
+						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Varsity Locker" loading="lazy" />
 					</div>
 					<div class="home-shop-product-content">
 						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
@@ -2384,7 +2384,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 .home-shop-product-image img {
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: contain;
+	object-position: center center;
 	display: block;
 }
 

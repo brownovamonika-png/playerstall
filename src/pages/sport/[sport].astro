@@ -222,13 +222,15 @@ const WOOD_COLORS = [
 	{ code: 'HW', name: 'Hampton Walnut', hex: '#4A2F1B' },
 ];
 
+const LEGENDARY_LOCKER_IMAGE = 'https://playerstall.b-cdn.net/images/legendary-locker.png';
+
 const LOCKERS = [
-	{ name: 'Semi Pro', image: 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png', price: '$349.00', info: 'Entry-level wood locker. 3/4" solid wood construction, durable and ideal for schools and rec teams.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"', href: '/product-semi-pro-locker' },
-	{ name: 'Varsity', image: 'https://playerstall.b-cdn.net/images/varsity-locker.jpg', price: '$449.00', info: 'Step-up design with 3/4" solid wood premium finish. Great for varsity and competitive programs.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-varsity-locker' },
-	{ name: 'Pro', image: 'https://playerstall.b-cdn.net/images/pro-locker.jpg', price: '$549.00', info: 'MPW-6C plywood melamine construction. Reliable workhorse for team locker rooms. Quick ship in one month or custom-built in three months.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-pro-locker' },
-	{ name: 'Stadium', image: 'https://playerstall.b-cdn.net/images/stadium-locker.jpg', price: '$599.00', info: 'Premium plywood melamine, stadium-grade. Heavy-duty build for high-traffic facilities. Quick ship in one month or custom-built in three months.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-stadium-locker' },
-	{ name: 'Elite', image: 'https://playerstall.b-cdn.net/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png', price: '$599.00', info: 'Top-tier locker. Curved design, premium materials. Quick ship in one month (24" or 30", one signature color).', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-elite-locker' },
-	{ name: 'Legendary', image: 'https://playerstall.b-cdn.net/images/legendary-locker.png', price: '$599.00', info: 'Top-tier locker. Curved design, maximum durability and customization. Custom-built in three months with full color options.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-legendary-locker' },
+	{ name: 'Semi Pro', image: 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png', price: '$349', info: 'Entry-level wood locker. 3/4" solid wood construction, durable and ideal for schools and rec teams.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"', href: '/product-semi-pro-locker' },
+	{ name: 'Varsity', image: 'https://playerstall.b-cdn.net/images/varsity-locker.jpg', price: '$449', info: 'Step-up design with 3/4" solid wood premium finish. Great for varsity and competitive programs.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-varsity-locker' },
+	{ name: 'Pro', image: 'https://playerstall.b-cdn.net/images/pro-locker.jpg', price: '$599', info: 'MPW-6C plywood melamine construction. Reliable workhorse for team locker rooms. Quick ship in one month or custom-built in three months.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-pro-locker' },
+	{ name: 'Stadium', image: 'https://playerstall.b-cdn.net/images/stadium-locker.jpg', price: '$599', info: 'Premium plywood melamine, stadium-grade. Heavy-duty build for high-traffic facilities. Quick ship in one month or custom-built in three months.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-stadium-locker' },
+	{ name: 'Elite', image: 'https://playerstall.b-cdn.net/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png', price: '$599', info: 'Top-tier locker. Curved design, premium materials. Quick ship in one month (24" or 30", one signature color).', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-elite-locker' },
+	{ name: 'Legendary', image: 'https://playerstall.b-cdn.net/images/legendary-locker.png', price: '$599', info: 'Top-tier locker. Curved design, maximum durability and customization. Custom-built in three months with full color options.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–30"; optional 4" base', href: '/product-legendary-locker' },
 ];
 
 /* ───── Route ───── */
@@ -284,7 +286,7 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 	</section>
 
 	<!-- ═══════ LOCKERS LIST ═══════ -->
-	<section class="sp-lockers">
+	<section class={`sp-lockers ${sport === 'football' ? 'sp-lockers-hero-titles' : ''}`}>
 		<div class="sp-lockers-inner">
 			<div class="home-shop-section-header">
 				<p class="home-shop-section-subtitle">THE LOCKER ROOM</p>
@@ -298,8 +300,8 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 				<p class="ts-spotlight-bio">Choose from 6 premium wood locker models designed specifically for athletic teams. Our collection ranges from the essential Semi Pro and Varsity models perfect for high school teams, to our elite Pro, Stadium, Elite, and Legendary models built for collegiate and professional facilities. Every locker features premium 6-layer melamine-faced plywood construction with superior moisture resistance and fire-rated materials. Quick ship models (Stadium & Elite) deliver in 2-4 weeks, while fully custom lockers ship in 8-12 weeks with your choice of dimensions, finishes, colors, and hardware. All backed by our lifetime warranty on wood construction and 5-year materials guarantee.</p>
 			</div>
 
-			{/* ── Featured: Semi Pro ── */}
-			{LOCKERS.filter((l) => l.name === 'Semi Pro').map((locker) => (
+			{/* All lockers: Legendary image, same layout as Legendary line */}
+			{LOCKERS.map((locker) => (
 				<article class="sp-locker-featured">
 					<div class="sp-locker-featured-nameblock">
 						<h3 class="sp-locker-name">{locker.name}</h3>
@@ -307,64 +309,16 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 					</div>
 					<div class="sp-locker-angles">
 						<div class="sp-locker-angle">
-							<img src={locker.image} alt={`${locker.name} Locker - Right Angle`} loading="lazy" />
+							<img src={LEGENDARY_LOCKER_IMAGE} alt={`${locker.name} Locker - Front View`} loading="lazy" />
 						</div>
 						<div class="sp-locker-angle">
-							<img src={locker.image} alt={`${locker.name} Locker - Straight On`} loading="lazy" />
+							<img src={LEGENDARY_LOCKER_IMAGE} alt={`${locker.name} Locker - Side View`} loading="lazy" />
 						</div>
 						<div class="sp-locker-angle">
-							<img src={locker.image} alt={`${locker.name} Locker - Left Angle`} loading="lazy" />
+							<img src={LEGENDARY_LOCKER_IMAGE} alt={`${locker.name} Locker - Detail View`} loading="lazy" />
 						</div>
 						<div class="sp-locker-angle">
-							<img src={locker.image} alt={`${locker.name} Locker - Back View`} loading="lazy" />
-						</div>
-					</div>
-					<div class="sp-locker-featured-action">
-						<a href={locker.href} class="sp-btn sp-btn-featured">View Details</a>
-					</div>
-				</article>
-			))}
-
-			{/* ── Varsity ── */}
-			{LOCKERS.filter((l) => l.name === 'Varsity').map((locker) => (
-				<article class="sp-locker-featured">
-					<div class="sp-locker-featured-nameblock">
-						<h3 class="sp-locker-name">{locker.name}</h3>
-						<p class="sp-locker-price">{locker.price}</p>
-					</div>
-					<div class="sp-locker-angles">
-						<div class="sp-locker-angle">
-							<img src="https://playerstall.b-cdn.net/images/varsity-locker-front.png" alt={`${locker.name} Locker - Front View`} loading="lazy" />
-						</div>
-						<div class="sp-locker-angle">
-							<img src="https://playerstall.b-cdn.net/images/varsity-locker-open.png" alt={`${locker.name} Locker - Open View`} loading="lazy" />
-						</div>
-					</div>
-					<div class="sp-locker-featured-action">
-						<a href={locker.href} class="sp-btn sp-btn-featured">View Details</a>
-					</div>
-				</article>
-			))}
-
-			{/* ── Remaining lockers ── */}
-			{LOCKERS.filter((l) => l.name !== 'Semi Pro' && l.name !== 'Varsity').map((locker) => (
-				<article class="sp-locker-featured">
-					<div class="sp-locker-featured-nameblock">
-						<h3 class="sp-locker-name">{locker.name}</h3>
-						<p class="sp-locker-price">{locker.price}</p>
-					</div>
-					<div class="sp-locker-angles">
-						<div class="sp-locker-angle">
-							<img src={locker.image} alt={`${locker.name} Locker - Front View`} loading="lazy" />
-						</div>
-						<div class="sp-locker-angle">
-							<img src={locker.image} alt={`${locker.name} Locker - Side View`} loading="lazy" />
-						</div>
-						<div class="sp-locker-angle">
-							<img src={locker.image} alt={`${locker.name} Locker - Detail View`} loading="lazy" />
-						</div>
-						<div class="sp-locker-angle">
-							<img src={locker.image} alt={`${locker.name} Locker - Interior View`} loading="lazy" />
+							<img src={LEGENDARY_LOCKER_IMAGE} alt={`${locker.name} Locker - Interior View`} loading="lazy" />
 						</div>
 					</div>
 					<div class="sp-locker-featured-action">
@@ -740,11 +694,13 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 	.sp-locker-featured {
 		display: grid;
 		grid-template-columns: auto 1fr auto;
-		gap: 20px;
+		gap: 24px;
+		row-gap: 24px;
+		column-gap: 24px;
 		align-items: center;
 		background: transparent;
 		padding: 40px 20px;
-		margin-bottom: 40px;
+		margin-bottom: 24px;
 		border: none;
 	}
 	.sp-locker-featured-nameblock {
@@ -757,28 +713,39 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 	}
 	.sp-locker-featured-nameblock .sp-locker-name {
 		font-family: 'Oswald', sans-serif;
-		font-size: clamp(28px, 3.5vw, 38px);
+		font-size: clamp(21px, 2.625vw, 28.5px);
 		font-weight: 700;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		letter-spacing: -0.02em;
 		color: #0d0d0d;
 		margin: 0;
 		line-height: 1.1;
+	}
+	/* Football page: locker names (75% of hero title size) */
+	.sp-lockers-hero-titles .sp-locker-featured-nameblock .sp-locker-name,
+	.sp-lockers-hero-titles .sp-locker-nameblock .sp-locker-name,
+	.sp-lockers-hero-titles .sp-locker-name {
+		font-size: 39px;
+		font-weight: 600;
 	}
 	.sp-locker-featured-nameblock .sp-locker-price {
 		font-family: 'Oswald', sans-serif;
 		font-size: 22px;
 		font-weight: 600;
-		color: #666666;
+		color: #4d4d4d;
+		letter-spacing: 0.08em;
 		margin: 8px 0 0;
 		text-align: right;
 		display: block;
 	}
 	.sp-locker-angles {
 		display: flex;
-		gap: 0;
+		gap: 24px;
+		row-gap: 24px;
+		column-gap: 24px;
 		justify-content: center;
 		align-items: center;
+		flex-wrap: wrap;
 	}
 	.sp-locker-angle {
 		display: flex;
@@ -792,9 +759,10 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 	}
 	.sp-locker-angle img {
 		max-width: 100%;
-		max-height: 320px;
+		max-height: 260px;
 		height: auto;
 		object-fit: contain;
+		object-position: center center;
 		display: block;
 	}
 	.angle-label {
@@ -823,11 +791,13 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 	.sp-locker-row {
 		display: grid;
 		grid-template-columns: 260px auto 1fr auto;
-		gap: 32px;
+		gap: 24px;
+		row-gap: 24px;
+		column-gap: 24px;
 		align-items: center;
 		background: transparent;
 		padding: 40px 20px;
-		margin-bottom: 20px;
+		margin-bottom: 24px;
 		border: none;
 	}
 	.sp-locker-row:hover {
@@ -859,10 +829,10 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 	.sp-locker-nameblock .sp-locker-name,
 	.sp-locker-name {
 		font-family: 'Oswald', sans-serif;
-		font-size: clamp(24px, 3vw, 32px);
+		font-size: clamp(18px, 2.25vw, 24px);
 		font-weight: 700;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		letter-spacing: -0.02em;
 		color: #0d0d0d;
 		margin: 0;
 		line-height: 1.1;
@@ -872,7 +842,8 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 		font-family: 'Oswald', sans-serif;
 		font-size: 20px;
 		font-weight: 600;
-		color: #666666;
+		color: #4d4d4d;
+		letter-spacing: 0.08em;
 		margin: 8px 0 0;
 		text-align: right;
 		display: block;
@@ -1183,11 +1154,16 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 	@media (max-width: 1024px) {
 		.sp-locker-row {
 			grid-template-columns: 180px auto 1fr auto;
-			gap: 20px;
+			gap: 24px;
+			row-gap: 24px;
+			column-gap: 24px;
 		}
 		.sp-locker-angles {
+			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			gap: 20px;
+			gap: 24px;
+			row-gap: 24px;
+			column-gap: 24px;
 		}
 	}
 
@@ -1206,23 +1182,36 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 	@media (max-width: 768px) {
 		.sp-hero { min-height: 300px; padding-bottom: 50px; }
 		.sp-hero-title { font-size: 42px; }
+		.sp-lockers-hero-titles .sp-locker-featured-nameblock .sp-locker-name,
+		.sp-lockers-hero-titles .sp-locker-nameblock .sp-locker-name,
+		.sp-lockers-hero-titles .sp-locker-name { font-size: 31.5px; }
 
 		.sp-locker-featured {
 			padding: 30px 24px;
 			gap: 24px;
+			row-gap: 24px;
+			column-gap: 24px;
+			margin-bottom: 24px;
 		}
 		.sp-locker-angles {
+			display: grid;
 			grid-template-columns: 1fr;
-			gap: 16px;
+			gap: 24px;
+			row-gap: 24px;
+			column-gap: 24px;
 		}
 		.sp-locker-angle img {
-			max-height: 220px;
+			max-height: 200px;
 		}
 
 		.sp-locker-row {
 			grid-template-columns: 1fr;
 			text-align: center;
 			padding: 24px;
+			margin-bottom: 24px;
+			gap: 24px;
+			row-gap: 24px;
+			column-gap: 24px;
 		}
 		.sp-locker-img {
 			max-width: 200px;
@@ -1245,6 +1234,9 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 	@media (max-width: 640px) {
 		.sp-hero { min-height: 240px; padding-bottom: 40px; }
 		.sp-hero-title { font-size: 32px; }
+		.sp-lockers-hero-titles .sp-locker-featured-nameblock .sp-locker-name,
+		.sp-lockers-hero-titles .sp-locker-nameblock .sp-locker-name,
+		.sp-lockers-hero-titles .sp-locker-name { font-size: 24px; }
 
 		.sp-gallery-grid {
 			grid-template-columns: repeat(2, 1fr);
