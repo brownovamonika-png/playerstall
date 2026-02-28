@@ -2,7 +2,20 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
+import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
+
+const benchSpecs = [
+	{ label: 'Size (36" W example)', value: '36" W × 18" H × 9.5" D' },
+	{ label: 'Widths', value: '36", 48", 60", 72", 84", 96" (1-foot increments)' },
+	{ label: 'Height', value: '18"' },
+	{ label: 'Depth options', value: '9.5" or 14"' },
+	{ label: 'Weight', value: 'Approx. 20 lbs (36" width); varies by size' },
+	{ label: 'Construction', value: 'Solid butcher block wood, 1¼" thick seating' },
+	{ label: 'Base', value: 'Black powder-coated pedestals (2 for 36"–72", 3 for 84"–96")' },
+	{ label: 'Finish', value: 'Light or dark' },
+	{ label: 'Assembly', value: 'Delivered unassembled — minor assembly required' },
+];
 ---
 
 <BaseLayout
@@ -95,7 +108,7 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 								<tr><td>1</td><td>$225.00</td></tr>
 								<tr><td>2 – 5</td><td>$190.00</td></tr>
 								<tr><td>6+</td><td>$180.00</td></tr>
-								<tr><td>Bulk</td><td><a href="/contact#quote-form" class="volume-contact-link">Contact us</a> for pricing</td></tr>
+								<tr><td>Bulk</td><td><a href="/request-a-quote" class="volume-contact-link">Contact us</a> for pricing</td></tr>
 							</tbody>
 						</table>
 					</div>
@@ -111,36 +124,43 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 			<!-- More Information (same structure as Stadium) -->
 			<div class="product-info-section" id="moreinfo">
 				<h2 class="product-info-heading">Bench – Features &amp; Options</h2>
-				<h3 class="product-info-subheading">Features</h3>
-				<ul class="product-features-list">
-					<li>Constructed of solid butcher block wood</li>
-					<li>Ideal for industrial, office, or recreational locker room facilities</li>
-					<li>Classic look with strength and durability</li>
-					<li>Available in light or dark finish</li>
-					<li>Widths from 36&quot; to 96&quot; in 1-foot increments; easy to assemble</li>
-					<li>18&quot; high; 9.5&quot; or 14&quot; deep</li>
-					<li>Wood seating area 1¼&quot; thick</li>
-					<li>Free-standing benches include black powder-coated pedestals (2 for 36&quot;–72&quot; wide, 3 for 84&quot; and 96&quot;)</li>
-					<li>Delivered unassembled – minor assembly required</li>
-				</ul>
-				<h3 class="product-info-subheading">Options</h3>
-				<ul class="product-options-list">
-					<li>Widths: 36&quot;, 48&quot;, 60&quot;, 72&quot;, 84&quot;, 96&quot;</li>
-					<li>Depth: 9.5&quot; or 14&quot;</li>
-					<li>Light or dark finish</li>
-					<li>Pair with our wood lockers for a complete locker room</li>
-				</ul>
-				<h3 class="product-info-subheading">Downloads</h3>
-				<ul class="product-downloads-list">
-					<li><a href="/colors/all-color-options-pdf.html" target="_blank">All Color Options PDF</a></li>
-					<li><a href="/colors/laminate-colors-pdf.html" target="_blank">Laminate Colors PDF</a></li>
-					<li><a href="/colors/woodgrain-colors-pdf.html" target="_blank">Woodgrain Colors PDF</a></li>
-					<li><a href="/colors/phenolic-colors-pdf.html" target="_blank">Phenolic Colors PDF</a></li>
-					<li><a href="/colors/cushion-colors-pdf.html" target="_blank">Cushion Colors PDF</a></li>
-					<li><a href="/contact">Request spec sheet &amp; quote</a></li>
-					<li><a href="/contact">Installation support</a></li>
-					<li><a href="/shop">View all lockers</a></li>
-				</ul>
+
+				<div class="product-info-grid">
+					<div class="product-info-col product-info-col-specs">
+						<ProductSpecSheet productName="Bench" specs={benchSpecs} />
+						<h3 class="product-info-subheading">Downloads</h3>
+						<ul class="product-downloads-list">
+							<li><a href="/colors/all-color-options-pdf.html" target="_blank">All Color Options PDF</a></li>
+							<li><a href="/colors/laminate-colors-pdf.html" target="_blank">Laminate Colors PDF</a></li>
+							<li><a href="/colors/woodgrain-colors-pdf.html" target="_blank">Woodgrain Colors PDF</a></li>
+							<li><a href="/colors/phenolic-colors-pdf.html" target="_blank">Phenolic Colors PDF</a></li>
+							<li><a href="/colors/cushion-colors-pdf.html" target="_blank">Cushion Colors PDF</a></li>
+							<li><a href="#specs">View spec sheet</a></li>
+							<li><a href="#">Installation support</a></li>
+						</ul>
+					</div>
+					<div class="product-info-col product-info-col-features">
+						<h3 class="product-info-subheading">Features</h3>
+						<ul class="product-features-list">
+							<li>Constructed of solid butcher block wood</li>
+							<li>Ideal for industrial, office, or recreational locker room facilities</li>
+							<li>Classic look with strength and durability</li>
+							<li>Available in light or dark finish</li>
+							<li>Widths from 36&quot; to 96&quot; in 1-foot increments; easy to assemble</li>
+							<li>18&quot; high; 9.5&quot; or 14&quot; deep</li>
+							<li>Wood seating area 1¼&quot; thick</li>
+							<li>Free-standing benches include black powder-coated pedestals (2 for 36&quot;–72&quot; wide, 3 for 84&quot; and 96&quot;)</li>
+							<li>Delivered unassembled – minor assembly required</li>
+						</ul>
+						<h3 class="product-info-subheading">Options</h3>
+						<ul class="product-options-list">
+							<li>Widths: 36&quot;, 48&quot;, 60&quot;, 72&quot;, 84&quot;, 96&quot;</li>
+							<li>Depth: 9.5&quot; or 14&quot;</li>
+							<li>Light or dark finish</li>
+							<li>Pair with our wood lockers for a complete locker room</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 
 			<LockerAccessories title="LOCKER ACCESSORIES" items={SHOP_ACCESSORIES_MODAL} useModal={true} />
@@ -517,6 +537,18 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 		margin-top: 40px;
 	}
 
+	.product-info-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5rem 3rem;
+		align-items: start;
+	}
+
+	.product-info-col-specs {
+		position: sticky;
+		top: 100px;
+	}
+
 	.product-info-heading {
 		font-family: 'Oswald', sans-serif;
 		font-size: 32px;
@@ -571,6 +603,16 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 			gap: 40px;
 		}
 		.product-detail {
+			position: static;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.product-info-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.product-info-col-specs {
 			position: static;
 		}
 	}

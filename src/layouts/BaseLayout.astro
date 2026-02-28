@@ -9,7 +9,7 @@ interface Props {
 
 const { 
 	title, 
-	description = "Luxury custom-built wood lockers with full color options. Quick ship in one month (24\" & 30\" widths) or custom-built in three months. 30+ years of craftsmanship.", 
+	description = "Luxury custom-built wood lockers with full color options. Quick ship in one month (24\" width) or custom-built in three months. 30+ years of craftsmanship.", 
 	headerBlack = false,
 	ogImage = "https://playerstall.b-cdn.net/images/logoblack2.png",
 	canonical = Astro.url.pathname === "/" ? "https://playerstall.com" : `https://playerstall.com${Astro.url.pathname}`
@@ -67,9 +67,9 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 			<div class="top-bar-container">
 				<div class="top-bar-left">
 					<div class="quote-of-the-day">
-						<span class="quote-label">news:</span>
+						<span class="quote-label">Quote:</span>
 						<div class="quote-content">
-							<span class="quote-text" id="quoteText">Luxury custom-built wood lockers. 30+ years of craftsmanship.</span>
+							<span class="quote-text" id="quoteText">Your past doesn't define your next play.</span>
 						</div>
 					</div>
 				</div>
@@ -97,6 +97,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 					<ul class="nav-links nav-links-left">
 						<li><a href="/">HOME</a></li>
 						<li><a href="/shop">SHOP</a></li>
+						<li><a href="/shipping-options">SHIPPING</a></li>
 						<li class="nav-dropdown">
 							<span class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" id="by-sport-trigger">BY SPORT</span>
 							<ul class="nav-dropdown-menu" role="menu" aria-labelledby="by-sport-trigger">
@@ -113,7 +114,13 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 					<ul class="nav-links nav-links-right">
 						<li><a href="/our-process">OUR PROCESS</a></li>
 						<li><a href="/blog">BLOG</a></li>
-						<li><a href="/contact">CONTACT</a></li>
+						<li class="nav-dropdown">
+							<span class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" id="contact-trigger">CONTACT</span>
+							<ul class="nav-dropdown-menu" role="menu" aria-labelledby="contact-trigger">
+								<li role="none"><a href="/request-a-quote" role="menuitem">Request a Quote</a></li>
+								<li role="none"><a href="/contact" role="menuitem">Contact Us</a></li>
+							</ul>
+						</li>
 						<li><a href="/cart" class="cart-link">
 							<span class="cart-text">CART</span>
 							<span class="cart-count">0</span>
@@ -123,6 +130,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 						<ul class="nav-menu-list">
 							<li><a href="/">HOME</a></li>
 							<li><a href="/shop">SHOP</a></li>
+							<li><a href="/shipping-options">SHIPPING</a></li>
 							<li class="nav-menu-dropdown">
 								<button type="button" class="nav-menu-dropdown-trigger" aria-expanded="false" aria-controls="nav-menu-by-sport" id="mobile-by-sport-trigger">BY SPORT</button>
 								<ul id="nav-menu-by-sport" class="nav-menu-dropdown-list" role="menu" aria-labelledby="mobile-by-sport-trigger">
@@ -137,7 +145,13 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 							<li><a href="/gallery">GALLERY</a></li>
 							<li><a href="/our-process">OUR PROCESS</a></li>
 							<li><a href="/blog">BLOG</a></li>
-							<li><a href="/contact">CONTACT</a></li>
+							<li class="nav-menu-dropdown">
+								<button type="button" class="nav-menu-dropdown-trigger" aria-expanded="false" aria-controls="nav-menu-contact" id="mobile-contact-trigger">CONTACT</button>
+								<ul id="nav-menu-contact" class="nav-menu-dropdown-list" role="menu" aria-labelledby="mobile-contact-trigger">
+									<li><a href="/request-a-quote">Request a Quote</a></li>
+									<li><a href="/contact">Contact Us</a></li>
+								</ul>
+							</li>
 							<li><a href="/cart" class="cart-link">
 								<span class="cart-text">CART</span>
 								<span class="cart-count">0</span>
@@ -155,7 +169,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				<div class="footer-content">
 					<div class="footer-section">
 						<h4>PlayerStall</h4>
-						<p>Luxury custom-built wood lockers with full color options. Quick ship in one month (24" & 30" widths) or custom-built in three months. 30+ years of craftsmanship.</p>
+						<p>Luxury custom-built wood lockers with full color options. Quick ship in one month (24" width) or custom-built in three months. 30+ years of craftsmanship.</p>
 						<p class="footer-address">2934 200 Street, Langley, BC V2Z 2C1 Canada</p>
 						<p class="footer-email"><a href="mailto:sales@playerstall.com">sales@playerstall.com</a></p>
 						<p class="footer-phone">1 888 584 1444</p>
@@ -1040,17 +1054,23 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		}
 	});
 
-	// Top bar rotating messages - news ticker style
+	// Top bar rotating messages — motivational quotes for sport players (inspired by Peter Crone)
 	const quotes = [
-		"Premium wood lockers at unbeatable prices. Price match guarantee.",
-		"Quick ship in 2–4 weeks. Stadium & Elite in 24\" or 30\". Custom in 8–12 weeks.",
-		"We'll match any USA competitor's price on comparable lockers.",
-		"Wood, phenolic & more — custom built your way.",
-		"High quality. Lower cost. Efficient production.",
-		"Super Bowl halftime. Latest NFL firings. Biggest NFL veterans.",
-		"Focused on core models so we never stop production.",
-		"Excellence is not a destination, it's a journey.",
-		"Champions don't wait for perfect conditions. They create them."
+		"Your past doesn't define your next play.",
+		"The only moment you can perform is now.",
+		"You're not your stats. You're the one who chooses.",
+		"What you think about you bring about.",
+		"Champions are made in the space between thought and action.",
+		"Your mind is the only limit.",
+		"What if the pressure was a privilege?",
+		"You're one thought away from a different game.",
+		"The body achieves what the mind believes.",
+		"Freedom is letting go of who you think you're supposed to be.",
+		"Excellence is not an act but a habit.",
+		"The game meets you at the level of your preparation — and your belief.",
+		"Champions don't wait for perfect conditions. They create them.",
+		"Your identity is not your performance.",
+		"Step into the possibility of this moment."
 	];
 
 	function initQuoteOfTheDay() {
@@ -1069,23 +1089,24 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		}, 6000);
 	}
 
-	function initBySportDropdown() {
-		const trigger = document.getElementById('by-sport-trigger');
-		const dropdown = document.querySelector('.nav-dropdown');
-		if (!trigger || !dropdown) return;
+	function initNavDropdowns() {
+		document.querySelectorAll('.nav-dropdown').forEach((dropdown) => {
+			const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+			if (!trigger) return;
 
-		trigger.addEventListener('click', (e) => {
-			e.preventDefault();
-			dropdown.classList.toggle('open');
-			trigger.setAttribute('aria-expanded', dropdown.classList.contains('open') ? 'true' : 'false');
-		});
+			trigger.addEventListener('click', (e) => {
+				e.preventDefault();
+				dropdown.classList.toggle('open');
+				trigger.setAttribute('aria-expanded', dropdown.classList.contains('open') ? 'true' : 'false');
+			});
 
-		document.addEventListener('click', (e) => {
-			const target = e.target as Node | null;
-			if (target && !dropdown.contains(target)) {
-				dropdown.classList.remove('open');
-				trigger.setAttribute('aria-expanded', 'false');
-			}
+			document.addEventListener('click', (e) => {
+				const target = e.target as Node | null;
+				if (target && !dropdown.contains(target)) {
+					dropdown.classList.remove('open');
+					trigger.setAttribute('aria-expanded', 'false');
+				}
+			});
 		});
 	}
 
@@ -1093,8 +1114,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		const header = document.querySelector('header');
 		const btn = document.querySelector('.nav-menu-btn');
 		const panel = document.getElementById('nav-menu');
-		const mobileBySportTrigger = document.getElementById('mobile-by-sport-trigger');
-		const mobileBySportDropdown = document.querySelector('.nav-menu-dropdown');
+		const mobileDropdowns = document.querySelectorAll('.nav-menu-dropdown');
 
 		if (!header || !btn || !panel) return;
 
@@ -1120,10 +1140,11 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 			btnEl.setAttribute('aria-expanded', 'false');
 			btnEl.setAttribute('aria-label', 'Open menu');
 			panelEl.setAttribute('aria-hidden', 'true');
-			if (mobileBySportDropdown) {
-				mobileBySportDropdown.classList.remove('open');
-				if (mobileBySportTrigger) mobileBySportTrigger.setAttribute('aria-expanded', 'false');
-			}
+			mobileDropdowns.forEach((d) => {
+				d.classList.remove('open');
+				const t = d.querySelector('.nav-menu-dropdown-trigger');
+				if (t) t.setAttribute('aria-expanded', 'false');
+			});
 		}
 
 		function toggleMenu() {
@@ -1164,14 +1185,16 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 			}
 		});
 
-		if (mobileBySportTrigger && mobileBySportDropdown) {
-			mobileBySportTrigger.addEventListener('click', (e) => {
+		mobileDropdowns.forEach((dropdown) => {
+			const trigger = dropdown.querySelector('.nav-menu-dropdown-trigger');
+			if (!trigger) return;
+			trigger.addEventListener('click', (e) => {
 				e.preventDefault();
-				mobileBySportDropdown.classList.toggle('open');
-				const expanded = mobileBySportDropdown.classList.contains('open');
-				mobileBySportTrigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+				dropdown.classList.toggle('open');
+				const expanded = dropdown.classList.contains('open');
+				trigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
 			});
-		}
+		});
 	}
 
 	// Initialize when DOM is ready
@@ -1179,13 +1202,13 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		document.addEventListener('DOMContentLoaded', () => {
 			initHeaderScroll();
 			initQuoteOfTheDay();
-			initBySportDropdown();
+			initNavDropdowns();
 			initMobileMenu();
 		});
 	} else {
 		initHeaderScroll();
 		initQuoteOfTheDay();
-		initBySportDropdown();
+		initNavDropdowns();
 		initMobileMenu();
 	}
 </script>

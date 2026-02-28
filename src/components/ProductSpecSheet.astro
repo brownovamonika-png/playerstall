@@ -1,0 +1,69 @@
+---
+export interface SpecRow {
+	label: string;
+	value: string;
+}
+
+interface Props {
+	productName: string;
+	specs: SpecRow[];
+}
+
+const { productName, specs } = Astro.props;
+---
+
+<div class="product-spec-sheet" id="specs">
+	<h3 class="product-spec-sheet-title">Specifications</h3>
+	<table class="product-spec-table" aria-label={`${productName} specifications`}>
+		<tbody>
+			{specs.map((row) => (
+				<tr>
+					<th scope="row" class="product-spec-label">{row.label}</th>
+					<td class="product-spec-value">{row.value}</td>
+				</tr>
+			))}
+		</tbody>
+	</table>
+</div>
+
+<style>
+	.product-spec-sheet {
+		margin: 0 0 2rem;
+	}
+	.product-spec-sheet-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin: 0 0 1rem;
+	}
+	.product-spec-table {
+		width: 100%;
+		max-width: 560px;
+		border-collapse: collapse;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+	}
+	.product-spec-table th,
+	.product-spec-table td {
+		padding: 0.5rem 0.75rem 0.5rem 0;
+		vertical-align: top;
+		text-align: left;
+		border-bottom: 1px solid #e8e8e8;
+	}
+	.product-spec-table tr:last-child th,
+	.product-spec-table tr:last-child td {
+		border-bottom: none;
+	}
+	.product-spec-label {
+		font-weight: 500;
+		color: #0d0d0d;
+		width: 42%;
+	}
+	.product-spec-value {
+		color: #333;
+		line-height: 1.5;
+	}
+</style>

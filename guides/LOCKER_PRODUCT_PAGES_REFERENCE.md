@@ -21,6 +21,8 @@ One **dedicated product page per locker model** was created, in **PlayerStall st
 **Source files:**  
 `src/pages/product-semi-pro-locker.astro`, `product-varsity-locker.astro`, `product-pro-locker.astro`, `product-stadium-locker.astro`.
 
+**Quick ship:** Quick ship is **24" width only** (2–4 weeks). Stadium, Elite, and Model X are available on quick ship. Custom orders support full width range (18"–32") and ship in 8–12 weeks.
+
 ---
 
 ## Page Structure (Same as Lockers.com Idea, in Your Style)
@@ -33,7 +35,7 @@ Each locker product page includes:
    - **Right:**
      - Product name + “Spec Sheet”
      - Base price (per locker)
-     - **Width** – Row of **square selectable boxes**: 18", 20", 22", 24", 26", 28", 30" (same idea as Lockers.com width in the URL).
+     - **Width** – Row of **square selectable boxes**: 18", 20", 22", 24", 26", 28", 30", 32" (same idea as Lockers.com width in the URL).
      - **Finish** – Row of **square boxes with color swatch + label**: Black, Light Grey, Dark Grey, Maple (same idea as Lockers.com finish options, e.g. silver/teak/black).
      - **Full spec sheet** – Core dimensions, material, finishes, lead time, standard features, accessories/add-ons with prices, volume discount.
      - **Request a quote** button.
@@ -55,7 +57,7 @@ Selected width/finish use the same visual treatment as your Wood Locker Bench: o
 | Lockers.com page                      | Your equivalent (per locker)                |
 |--------------------------------------|---------------------------------------------|
 | One URL per config (width/depth/finish/lock) | One URL per **model** (e.g. Semi Pro); width & finish chosen on page with square boxes |
-| Width in URL (e.g. 24-inch)          | Width selector: 18"–30" in square boxes     |
+| Width in URL (e.g. 24-inch)          | Width selector: 18"–32" in square boxes     |
 | Depth in URL (24 inches)             | Spec sheet states 24" deep (fixed)          |
 | Height in URL (6 feet)               | Spec sheet states 76" H (fixed)             |
 | Finish in URL (silver-teak-black)    | Finish selector: Black, Light Grey, Dark Grey, Maple (square boxes + swatches) |

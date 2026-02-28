@@ -2,12 +2,28 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
+import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
+
+const proSpecs = [
+	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
+	{ label: 'Base', value: 'Optional 4" high base' },
+	{ label: 'Frame', value: '3/4"' },
+	{ label: 'Backing', value: '3/4"' },
+	{ label: 'Weight', value: 'Approx. 175 lbs' },
+	{ label: 'Construction', value: 'MPW-6C plywood core, premium melamine surface' },
+	{ label: 'Edgebanding', value: 'PVC edgebanding' },
+	{ label: 'Width range', value: '18" – 32"' },
+	{ label: 'Depth options', value: '19" or 24"' },
+	{ label: 'Quick ship', value: '2–4 weeks (24" width, select colors)' },
+	{ label: 'Custom build', value: '8–12 weeks — any size, colors, options' },
+	{ label: 'Warranty', value: '5 year warranty' },
+];
 ---
 
 <BaseLayout
-	title="Pro Wood Locker - 24-Inch Wide, 76 Inches High, 19 Inches Deep | PlayerStall"
-	description="Pro wood locker: MPW-6C plywood melamine, 76&quot; H x 19&quot; D, widths 18&quot;–30&quot;. $549 base. Full color options. Quick ship in one month (24&quot; or 30&quot;) or custom-built in three months. 5 year warranty."
+	title="Pro Wood Locker | PlayerStall"
+	description="Pro wood locker: MPW-6C plywood melamine, 76&quot; H x 19&quot; D, widths 18&quot;–32&quot;. $549 base. Full color options. Quick ship in one month (24&quot; width) or custom-built in three months. 5 year warranty."
 >
 	<!-- Hero Section -->
 	<section class="product-hero-section">
@@ -56,14 +72,14 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 
 				<!-- Right: Details -->
 				<div class="product-detail">
-					<h1 class="product-title">Pro Locker – 24&quot; Wide, 76 Inches High, 19 Inches Deep</h1>
+					<h1 class="product-title">Pro Locker</h1>
 
 					<p class="product-model" data-model-prefix="PRO">Model # PRO-24-MP</p>
 
-					<p class="product-lead-time">Lead time: quick ship in one month (24" or 30" widths, one signature color) · Custom-built in three months</p>
+					<p class="product-lead-time">Lead time: quick ship in one month (24" width, one signature color) · Custom-built in three months</p>
 
 					<div class="product-price-block">
-						<span class="product-price" data-base-price="599">$599.00</span>
+						<span class="product-price" data-base-price="649">$649.00</span>
 					</div>
 
 					<div class="product-options">
@@ -79,13 +95,14 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 							<label class="option-label">Width:</label>
 							<span class="option-value">24&quot; (standard)</span>
 							<div class="option-swatches">
-								<button type="button" class="swatch width-swatch" data-base-price="599" title="18 inch width">18&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="599" title="20 inch width">20&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="599" title="22 inch width">22&quot;</button>
-								<button type="button" class="swatch width-swatch active" data-base-price="599" title="24 inch width" aria-pressed="true">24&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="599" title="26 inch width">26&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="599" title="28 inch width">28&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="599" title="30 inch width">30&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="649" title="18 inch width">18&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="649" title="20 inch width">20&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="649" title="22 inch width">22&quot;</button>
+								<button type="button" class="swatch width-swatch active" data-base-price="649" title="24 inch width" aria-pressed="true">24&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="699" title="26 inch width">26&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="699" title="28 inch width">28&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="699" title="30 inch width">30&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="699" title="32 inch width">32&quot;</button>
 							</div>
 						</div>
 						<div class="product-option">
@@ -151,11 +168,6 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 								</button>
 							</div>
 						</div>
-						<div class="product-specs-inline">
-							<p><strong>Standard size shown:</strong> 24&quot; W x 76&quot; H x 19&quot; D</p>
-							<p><strong>Base:</strong> optional 4&quot; high base can be added</p>
-							<p><strong>Weight:</strong> approx. 175 lbs</p>
-						</div>
 					</div>
 
 					<div class="product-volume-discounts">
@@ -188,37 +200,42 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 			<div class="product-info-section" id="moreinfo">
 				<h2 class="product-info-heading">Pro Wood Locker – Features &amp; Options</h2>
 
-				<h3 class="product-info-subheading">Features</h3>
-				<ul class="product-features-list">
-					<li>MPW-6C plywood core with premium melamine surface for a furniture-grade look</li>
-					<li>High scratch resistance and impact durability; moisture-resistant, dimensionally stable</li>
-					<li>Engineered for high-traffic athletic locker rooms</li>
-					<li>14&quot; high foot locker provides comfortable seating and secure equipment storage</li>
-					<li>Available in 18&quot; to 30&quot; widths; standard configuration 24&quot; W x 76&quot; H x 19&quot; D with optional 4&quot; base</li>
-					<li>5 year warranty</li>
-				</ul>
+				<div class="product-info-grid">
+					<div class="product-info-col product-info-col-specs">
+						<ProductSpecSheet productName="Pro Locker" specs={proSpecs} />
+						<h3 class="product-info-subheading">Downloads</h3>
+						<ul class="product-downloads-list">
+							<li><a href="/colors/all-color-options-pdf.html" target="_blank">All Color Options PDF</a></li>
+							<li><a href="/colors/laminate-colors-pdf.html" target="_blank">Laminate Colors PDF</a></li>
+							<li><a href="/colors/woodgrain-colors-pdf.html" target="_blank">Woodgrain Colors PDF</a></li>
+							<li><a href="/colors/phenolic-colors-pdf.html" target="_blank">Phenolic Colors PDF</a></li>
+							<li><a href="/colors/cushion-colors-pdf.html" target="_blank">Cushion Colors PDF</a></li>
+							<li><a href="#specs">View spec sheet</a></li>
+							<li><a href="#">Installation support</a></li>
+						</ul>
+					</div>
+					<div class="product-info-col product-info-col-features">
+						<h3 class="product-info-subheading">Features</h3>
+						<ul class="product-features-list">
+							<li>MPW-6C plywood core with premium melamine surface for a furniture-grade look</li>
+							<li>High scratch resistance and impact durability; moisture-resistant, dimensionally stable</li>
+							<li>Engineered for high-traffic athletic locker rooms</li>
+							<li>14&quot; high foot locker provides comfortable seating and secure equipment storage</li>
+							<li>Available in 18&quot; to 32&quot; widths; standard configuration 24&quot; W x 76&quot; H x 19&quot; D with optional 4&quot; base</li>
+							<li>5 year warranty</li>
+						</ul>
 
-				<h3 class="product-info-subheading">Options</h3>
-				<ul class="product-options-list">
-					<li>Vented front panel for increased airflow</li>
-					<li>Secure lock box integrated into the upper compartment</li>
-					<li>Bottom cushion or both cushions for added seating comfort</li>
-					<li>Skate hooks for hockey or figure skating storage</li>
-					<li>Custom logo option for teams or programs (custom orders only)</li>
-					<li>Name plate and additional gear hooks</li>
-				</ul>
-
-				<h3 class="product-info-subheading">Downloads</h3>
-				<ul class="product-downloads-list">
-					<li><a href="/colors/all-color-options-pdf.html" target="_blank">All Color Options PDF</a></li>
-					<li><a href="/colors/laminate-colors-pdf.html" target="_blank">Laminate Colors PDF</a></li>
-					<li><a href="/colors/woodgrain-colors-pdf.html" target="_blank">Woodgrain Colors PDF</a></li>
-					<li><a href="/colors/phenolic-colors-pdf.html" target="_blank">Phenolic Colors PDF</a></li>
-					<li><a href="/colors/cushion-colors-pdf.html" target="_blank">Cushion Colors PDF</a></li>
-					<li><a href="/contact">Request spec sheet &amp; quote</a></li>
-					<li><a href="/contact">Installation support</a></li>
-					<li><a href="/shop">View all lockers</a></li>
-				</ul>
+						<h3 class="product-info-subheading">Options</h3>
+						<ul class="product-options-list">
+							<li>Vented front panel for increased airflow</li>
+							<li>Secure lock box integrated into the upper compartment</li>
+							<li>Bottom cushion or both cushions for added seating comfort</li>
+							<li>Skate hooks for hockey or figure skating storage</li>
+							<li>Custom logo option for teams or programs (custom orders only)</li>
+							<li>Name plate and additional gear hooks</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 
 			<LockerAccessories title="LOCKER ACCESSORIES" items={SHOP_ACCESSORIES_MODAL} useModal={true} />
@@ -318,7 +335,7 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 
 	.product-page-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 72px;
+		font-size: 52px;
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: uppercase;
@@ -777,6 +794,18 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 		margin-top: 40px;
 	}
 
+	.product-info-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5rem 3rem;
+		align-items: start;
+	}
+
+	.product-info-col-specs {
+		position: sticky;
+		top: 100px;
+	}
+
 	.product-info-heading {
 		font-family: 'Oswald', sans-serif;
 		font-size: 32px;
@@ -836,7 +865,7 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 
 	@media (max-width: 1024px) {
 		.product-page-title {
-			font-size: 56px;
+			font-size: 52px;
 		}
 
 		.product-layout {
@@ -848,6 +877,16 @@ import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 			position: static;
 		}
 
+	}
+
+	@media (max-width: 900px) {
+		.product-info-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.product-info-col-specs {
+			position: static;
+		}
 	}
 
 	@media (max-width: 768px) {

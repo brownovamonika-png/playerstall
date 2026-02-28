@@ -5,12 +5,12 @@
 
 **Core Dimensions**
 - Standard size: **76" high x 24" deep**; width selectable
-- Width options: **18" to 30"** (18", 20", 22", 24", 26", 28", 30")
+- Width options: **18" to 32"** (18", 20", 22", 24", 26", 28", 30", 32")
 - Optional: **4" high base** can be added
 - **Curved design elements** for a distinctive look
 
 **Base Pricing (no add-ons)**
-- **All widths (18"–30"):** $649.00 per locker
+- **All widths (18"–32"):** $649.00 per locker
 
 **Material**
 - Premium wood construction with curved front profile
@@ -44,7 +44,7 @@
 - **4 hooks (+$12)** – set of four additional gear hooks
 
 **Width & Pricing Logic (Front-End Behaviour)**
-- Selectable width: 18", 20", 22", 24", 26", 28", 30" (same base price $649.00 for all).
+- Selectable width: 18", 20", 22", 24", 26", 28", 30", 32" (same base price $649.00 for all).
 - Accessories add their listed amounts on top of the current base price.
 - Orders of **50 or more lockers** qualify for an additional **10% volume discount** on the per-locker price.
 
