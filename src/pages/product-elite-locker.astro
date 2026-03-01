@@ -4,6 +4,7 @@ import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
+import eliteLockerDimensionsSheet from '../assets/elite-locker-dimensions-sheet.png';
 
 const eliteSpecs = [
 	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
@@ -66,6 +67,9 @@ const eliteSpecs = [
 						</button>
 						<button type="button" class="thumb" aria-label="View image 3">
 							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Locker view 3" />
+						</button>
+						<button type="button" class="thumb" aria-label="Elite locker dimensions sheet">
+							<img src={eliteLockerDimensionsSheet.src} alt="Elite locker dimensions sheet – front and side views with measurements in inches" />
 						</button>
 					</div>
 				</div>
@@ -830,6 +834,26 @@ const eliteSpecs = [
 		margin-top: 0;
 	}
 
+	.product-dimensions-sheet-figure {
+		margin: 0 0 2rem;
+		max-width: 560px;
+	}
+
+	.product-dimensions-sheet-image {
+		width: 100%;
+		height: auto;
+		display: block;
+		border: 1px solid #e8e8e8;
+	}
+
+	.product-dimensions-sheet-caption {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin-top: 8px;
+		text-align: center;
+	}
+
 	.product-features-list,
 	.product-options-list,
 	.product-downloads-list {
@@ -1045,6 +1069,45 @@ const eliteSpecs = [
 				box.classList.toggle('selected');
 				updatePrice();
 			});
+		});
+	}
+
+	// Add to cart
+	const addCartBtn = document.querySelector('.product-add-cart');
+	if (addCartBtn) {
+		function getCart() {
+			const cart = localStorage.getItem('playerstall_cart');
+			return cart ? JSON.parse(cart) : [];
+		}
+		function saveCart(cart) {
+			localStorage.setItem('playerstall_cart', JSON.stringify(cart));
+			const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+			window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { count: totalItems } }));
+		}
+		addCartBtn.addEventListener('click', () => {
+			const priceEl = document.querySelector('.product-price');
+			const priceText = priceEl?.textContent?.replace(/[$,]/g, '') ?? '649';
+			const price = parseFloat(priceText) || 649;
+			const qtyEl = document.getElementById('product-qty');
+			const qty = Math.max(1, parseInt(qtyEl?.value ?? '1', 10) || 1);
+			const titleEl = document.querySelector('.product-title');
+			const name = titleEl?.textContent?.trim() ?? 'Elite Locker';
+			const widthSwatch = document.querySelector('.width-swatch.active');
+			const width = (widthSwatch?.getAttribute('title') ?? '24"').replace(/\s*inch width/, '').trim();
+			const deepSwatch = document.querySelector('.deep-swatch.active');
+			const deep = (deepSwatch?.getAttribute('title') ?? '19 inch deep').replace(/\s*inch deep/, '').trim();
+			const colorSelect = document.getElementById('color-select');
+			const colorCode = colorSelect?.value ?? 'DW';
+			const id = 'elite-locker-' + width + '-' + deep + '-' + colorCode;
+			const image = 'https://playerstall.b-cdn.net/images/legendary-locker.png';
+			const cart = getCart();
+			const existing = cart.find((item) => item.id === id);
+			if (existing) existing.quantity += qty;
+			else cart.push({ id, name, price, image, quantity: qty });
+			saveCart(cart);
+			const originalText = addCartBtn.textContent;
+			addCartBtn.textContent = 'Added to cart';
+			setTimeout(() => { addCartBtn.textContent = originalText; }, 1500);
 		});
 	}
 </script>

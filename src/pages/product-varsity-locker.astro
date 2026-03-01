@@ -912,4 +912,41 @@ const varsitySpecs = [
 			});
 		});
 	}
+
+	// Add to cart
+	const addCartBtn = document.querySelector('.product-add-cart');
+	if (addCartBtn) {
+		function getCart() {
+			const cart = localStorage.getItem('playerstall_cart');
+			return cart ? JSON.parse(cart) : [];
+		}
+		function saveCart(cart) {
+			localStorage.setItem('playerstall_cart', JSON.stringify(cart));
+			const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+			window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { count: totalItems } }));
+		}
+		addCartBtn.addEventListener('click', () => {
+			const priceEl = document.querySelector('.product-price');
+			const priceText = priceEl?.textContent?.replace(/[$,]/g, '') ?? '449';
+			const price = parseFloat(priceText) || 449;
+			const qtyEl = document.getElementById('product-qty');
+			const qty = Math.max(1, parseInt(qtyEl?.value ?? '1', 10) || 1);
+			const titleEl = document.querySelector('.product-title');
+			const name = titleEl?.textContent?.trim() ?? 'Varsity Locker';
+			const widthSwatch = document.querySelector('.width-swatch.active');
+			const width = (widthSwatch?.getAttribute('title') ?? '24"').replace(/\s*inch width/, '').trim();
+			const deepSwatch = document.querySelector('.deep-swatch.active');
+			const deep = (deepSwatch?.getAttribute('title') ?? '19 inch deep').replace(/\s*inch deep/, '').trim();
+			const id = 'varsity-locker-' + width + '-' + deep;
+			const image = 'https://playerstall.b-cdn.net/images/legendary-locker.png';
+			const cart = getCart();
+			const existing = cart.find((item) => item.id === id);
+			if (existing) existing.quantity += qty;
+			else cart.push({ id, name, price, image, quantity: qty });
+			saveCart(cart);
+			const originalText = addCartBtn.textContent;
+			addCartBtn.textContent = 'Added to cart';
+			setTimeout(() => { addCartBtn.textContent = originalText; }, 1500);
+		});
+	}
 </script>

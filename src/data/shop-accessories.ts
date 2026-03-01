@@ -92,7 +92,7 @@ export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 		accImage: LOCK_BOX_IMG,
 		accImage2: LOCK_BOX_IMG,
 		accImage3: LOCK_BOX_IMG,
-		accImage4: LOCK_BOX_IMG,
+		accImage4: '/images/lock-box-spec-sheet.png',
 		accTitle: 'Lock Box with Digital Key Lock',
 		accPrice: '$80.00',
 		accDesc: 'Lock box with slow-closing hinge that closes gently and securely. Fitted with an electronic touchable keypad and RFID card lock: password or card entry, programmable master and user codes, battery-powered with emergency external power.',

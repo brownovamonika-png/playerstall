@@ -1,4 +1,4 @@
----
+ ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
@@ -95,18 +95,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="hero-slider-nav">
-		<button class="slider-nav-btn slider-nav-prev" aria-label="Previous slide">
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-				<path d="M15 18l-6-6 6-6"/>
-			</svg>
-		</button>
-		<button class="slider-nav-btn slider-nav-next" aria-label="Next slide">
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-				<path d="M9 18l6-6-6-6"/>
-			</svg>
-		</button>
 	</div>
 	<div class="hero-slider-dots">
 		<button class="slider-dot active" aria-label="Slide 1"></button>
@@ -235,12 +223,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
      ============================================ -->
 <section class="home-quote-strip" aria-label="Quotes">
 	<div class="home-quote-strip-inner">
-		<!-- Dropping images: between quote and numbers; background removed via blend mode -->
-		<div class="home-quote-strip-drop-imgs" aria-hidden="true">
-			<img class="home-quote-strip-drop-img" src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-4-300x420.jpg" alt="" width="300" height="420" loading="lazy" />
+		<!-- Dropping images: synced with quote index via JS (data-active-drop) -->
+		<div class="home-quote-strip-drop-imgs" aria-hidden="true" data-active-drop="0">
 			<img class="home-quote-strip-drop-img" src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-6-300x420.jpg" alt="" width="300" height="420" loading="lazy" />
 			<img class="home-quote-strip-drop-img" src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-8-300x420.jpg" alt="" width="300" height="420" loading="lazy" />
-			<img class="home-quote-strip-drop-img home-quote-strip-drop-img-png" src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/romans-img.png" alt="" width="300" height="420" loading="lazy" />
+			<img class="home-quote-strip-drop-img home-quote-strip-drop-img-png home-quote-strip-drop-img-hockey" src="https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/romans-img.png" alt="" width="300" height="420" loading="lazy" />
+			<img class="home-quote-strip-drop-img" src="https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-4-300x420.jpg" alt="Baseball glove" width="300" height="420" loading="lazy" />
 		</div>
 		<div class="home-quote-strip-right">
 			<div class="home-quote-strip-bg-text" aria-hidden="true">
@@ -296,7 +284,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					</blockquote>
 				</div>
 			</div>
-			<!-- Cute number indicator: 01 02 03 04 -->
+			<!-- Number indicator: 01–04, one per quote -->
 			<nav class="home-quote-strip-numbers" aria-label="Quote navigation">
 				<button type="button" class="home-quote-strip-num active" data-index="0" aria-label="Quote 1" aria-current="true">01</button>
 				<button type="button" class="home-quote-strip-num" data-index="1" aria-label="Quote 2">02</button>
@@ -950,6 +938,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	justify-content: center;
 	flex-wrap: wrap;
 	align-items: center;
+	margin-top: 8.4vh; /* ~12% lower than title (moved up 8% from previous 20%) */
 }
 
 .hero-slide:not(.active) .hero-slide-buttons {
@@ -1030,49 +1019,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	border-color: #fe5900;
 }
 
-.hero-slider-nav {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	padding: 0 24px;
-	z-index: 20;
-	pointer-events: none;
-}
-
-.slider-nav-btn {
-	background: rgba(255, 255, 255, 0.15);
-	border: 2px solid rgba(255, 255, 255, 0.6);
-	color: #ffffff;
-	width: 60px;
-	height: 60px;
-	border-radius: 50%;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: all 0.3s ease;
-	pointer-events: all;
-	backdrop-filter: blur(8px);
-}
-
-.slider-nav-next {
-	margin-right: 40px;
-}
-
-.slider-nav-btn:hover {
-	background: rgba(255, 255, 255, 0.25);
-	border-color: #ffffff;
-	transform: scale(1.05);
-}
-
-.slider-nav-btn svg {
-	width: 20px;
-	height: 20px;
-}
-
 .hero-slider-dots {
 	position: absolute;
 	bottom: 40px;
@@ -1115,9 +1061,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.hero-slide-buttons .btn-slide-secondary {
 		transform: scale(0.6);
 		transform-origin: center;
-	}
-	.hero-slider-nav .slider-nav-btn {
-		transform: scale(0.6);
 	}
 	.hero-slider-dots .slider-dot,
 	.hero-slider-dots .slider-dot.active {
@@ -2004,6 +1947,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 .home-quote-strip {
 	background: #f5f5f5;
 	overflow: visible;
+	transform: translateZ(0);
 }
 
 .home-quote-strip-inner {
@@ -2035,25 +1979,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	object-fit: contain;
 	object-position: bottom;
 	mix-blend-mode: darken;
-	animation: homeQuoteImgDropSequence 32s ease-in-out infinite;
+	transform: scaleX(-1) translateZ(0) translateY(-150%);
+	opacity: 0;
+	backface-visibility: hidden;
+	transition: opacity 0.4s ease-out;
+}
+
+/* Active image: run drop animation (set by JS when quote changes) */
+.home-quote-strip-drop-img.active-drop {
+	animation: dropInOnce 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+	opacity: 1;
+}
+
+.home-quote-strip-drop-img.active-drop.home-quote-strip-drop-img-hockey {
+	animation: dropInOnceHockey 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
 
 .home-quote-strip-drop-img-png {
 	mix-blend-mode: normal;
 }
 
-.home-quote-strip-drop-img:nth-child(1) { animation-delay: 0s; }
-.home-quote-strip-drop-img:nth-child(2) { animation-delay: 8s; }
-.home-quote-strip-drop-img:nth-child(3) { animation-delay: 16s; }
-.home-quote-strip-drop-img:nth-child(4) { animation-delay: 24s; }
+@keyframes dropInOnce {
+	0%   { transform: scaleX(-1) translateZ(0) translateY(-150%); opacity: 0; }
+	100% { transform: scaleX(-1) translateZ(0) translateY(-15%); opacity: 0.92; }
+}
 
-/* Synced with quote slides: 32s total (4 × 8s), each image drops when its quote shows */
-@keyframes homeQuoteImgDropSequence {
-	0%    { transform: translateY(-150%); opacity: 0; }
-	5%    { transform: translateY(0); opacity: 0.9; }
-	20%   { transform: translateY(0); opacity: 0.9; }
-	25%   { transform: translateY(0); opacity: 0; }
-	100%  { transform: translateY(-150%); opacity: 0; }
+@keyframes dropInOnceHockey {
+	0%   { transform: scaleX(-1) translateZ(0) translateY(-150%); opacity: 0; }
+	100% { transform: scaleX(-1) translateZ(0) translateY(-25%); opacity: 0.92; }
 }
 
 /* Full-width: "PLAYERS" background + quote slider; content bottom aligned with bottom of P */
@@ -2091,15 +2044,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	justify-content: flex-start;
 	opacity: 0;
 	visibility: hidden;
-	transform: translateY(28px);
-	transition: transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+	transform: translateY(16px) translateZ(0);
+	transition: transform 0.5s cubic-bezier(0.33, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.33, 0, 0.2, 1), visibility 0.5s ease;
+	backface-visibility: hidden;
 }
 
 .home-quote-strip-slide.active {
 	position: relative;
 	opacity: 1;
 	visibility: visible;
-	transform: translateY(0);
+	transform: translateY(0) translateZ(0);
 }
 
 /* Number indicator: 01 02 03 04 – vertical list, pushed further right */
@@ -2152,7 +2106,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	padding: 0 5%;
 }
 
-/* PLAYERS: tighter letter-spacing, slightly more visible (model style) */
+/* PLAYERS: tighter letter-spacing, slightly more visible (model style), 10% wider */
 .home-quote-strip-bg-word {
 	font-family: 'Oswald', sans-serif;
 	font-size: clamp(140px, 18vw, 320px);
@@ -2163,6 +2117,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	line-height: 0.85;
 	white-space: nowrap;
 	user-select: none;
+	transform: scaleX(1.1);
+	transform-origin: center center;
 }
 
 /* Quote block: large quote mark left, quote + attribution left-aligned (model style) */
@@ -3097,16 +3053,34 @@ document.addEventListener('DOMContentLoaded', () => {
 	initHeroSlider();
 
 	// =====================
-	// QUOTE STRIP SLIDER (4 quotes + number indicator 01–04)
+	// QUOTE STRIP SLIDER (4 quotes + number indicator 01–04); drop images synced to same index
 	// =====================
 	function initQuoteStripSlider() {
 		const strip = document.querySelector('.home-quote-strip');
 		const slides = document.querySelectorAll('.home-quote-strip-slide');
 		const nums = document.querySelectorAll('.home-quote-strip-num');
+		const dropContainer = document.querySelector('.home-quote-strip-drop-imgs');
+		const dropImgs = document.querySelectorAll('.home-quote-strip-drop-img');
 		if (slides.length === 0 || nums.length === 0) return;
 
 		let current = 0;
 		let autoInterval: ReturnType<typeof setInterval>;
+
+		function setActiveDropImage(index: number) {
+			if (!dropContainer || dropImgs.length === 0) return;
+			const i = (index + dropImgs.length) % dropImgs.length;
+			(dropContainer as HTMLElement).dataset.activeDrop = String(i);
+			dropImgs.forEach((img, j) => {
+				const el = img as HTMLElement;
+				if (j === i) {
+					el.classList.remove('active-drop');
+					void el.offsetHeight; // force reflow so animation runs again when cycling back
+					el.classList.add('active-drop');
+				} else {
+					el.classList.remove('active-drop');
+				}
+			});
+		}
 
 		function goTo(index: number) {
 			current = (index + slides.length) % slides.length;
@@ -3115,6 +3089,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				el.classList.toggle('active', i === current);
 				el.setAttribute('aria-current', i === current ? 'true' : 'false');
 			});
+			setActiveDropImage(current);
 		}
 
 		function next() {
