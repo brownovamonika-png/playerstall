@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
 const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4 weeks (24" width). Custom-built lockers in 10–12 weeks. Premium wood, full color options. 30+ years of craftsmanship.';
 ---
 
@@ -8,7 +7,7 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 	title="Shipping | PlayerStall"
 	description={pageDescription}
 >
-	<!-- Hero Section (same as Shop) -->
+	<!-- Hero -->
 	<section class="ship-hero-section">
 		<div class="ship-hero-background">
 			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Shipping options for custom sports lockers" class="ship-hero-bg-image" />
@@ -23,33 +22,46 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 		</div>
 	</section>
 
-	<!-- Quick Ship Lockers Section (same style as Custom Order) -->
-	<section class="ship-quick-section">
-		<div class="ship-quick-container">
-			<div class="ship-quick-section-header">
-				<p class="ship-quick-section-subtitle">DELIVERY TIMEFRAMES</p>
-				<h2 class="ship-quick-section-title">QUICK SHIP LOCKERS</h2>
+	<!-- Two options at top (like By Sport page) -->
+	<section class="ship-options-section">
+		<div class="ship-options-container">
+			<p class="ship-options-intro">Choose your delivery option below.</p>
+			<div class="ship-options-list">
+				<a href="/shipping-options/quick-ship" class="ship-options-list-item">
+					<span class="ship-options-list-label">Quick Ship</span>
+					<span class="ship-options-list-desc">2–4 weeks · Stadium, Elite &amp; Model X · Lock box &amp; vented front included.</span>
+				</a>
+				<a href="/shipping-options/custom" class="ship-options-list-item">
+					<span class="ship-options-list-label">Custom</span>
+					<span class="ship-options-list-desc">10–12 weeks · Any size &amp; configuration · Team colors, logos, name plates.</span>
+				</a>
 			</div>
-			<div class="ship-quick-inner-centered">
-				<div class="ship-quick-content-block">
-					<a href="/services" class="ship-quick-position">Stadium, Elite &amp; Model X</a>
-					<div class="ship-quick-meta">
+		</div>
+	</section>
+
+	<!-- Quick Ship Lockers Section (Materials We Use style) -->
+	<section id="quick-ship" class="home-shop-section">
+		<div class="home-shop-container">
+			<div class="home-shop-section-header">
+				<p class="home-shop-section-subtitle">DELIVERY TIMEFRAMES</p>
+				<h2 class="home-shop-section-title">QUICK SHIP LOCKERS</h2>
+			</div>
+			<div class="ts-spotlight-inner-centered">
+				<div class="ts-spotlight-content">
+					<a href="/services" class="ts-spotlight-position">Stadium, Elite &amp; Model X</a>
+					<div class="ts-spotlight-meta">
 						24&quot; width · 2–4 weeks · Lock box &amp; vented front included
 					</div>
-					<p class="ship-quick-bio">When you need lockers fast, we keep Stadium, Elite, and Model X ready to ship in 2–4 weeks. Each comes in one finish—black, dark grey, or light grey—at 24&quot; width with lock box and vented front standard. Same solid wood construction and 5-year warranty as our custom builds. We run production year-round so these are available when you need them, and we pass the savings on in our pricing.</p>
-					<p class="ship-quick-includes-label">Each quick ship locker includes:</p>
-					<ul class="ship-quick-includes">
-						<li>Lock box</li>
-						<li>Vented front panel</li>
-						<li>Hooks</li>
-						<li>24&quot; wide × 24&quot; deep (Stadium); 24&quot; width (Elite, Model X)</li>
-						<li>5-year warranty</li>
-					</ul>
+					<p class="ts-spotlight-bio">When you need lockers fast, we keep Stadium, Elite, and Model X ready to ship in 2–4 weeks. Each comes in one finish—black, dark grey, or light grey—at 24&quot; width with lock box and vented front standard. Same solid wood construction and 5-year warranty as our custom builds. We run production year-round so these are available when you need them, and we pass the savings on in our pricing.</p>
+					<p class="ship-quick-accessories-hint">Click any locker image below to see what’s included.</p>
+					<div class="ship-quick-line">
+						<h3 class="ship-quick-line-title">Colored melamine</h3>
+						<p class="ship-quick-line-desc">Durable, moisture-resistant finish in black, dark grey, or light grey. Easy to clean and built for heavy use in locker rooms. Melamine holds up to bumps, spills, and daily wear while keeping a consistent, professional look across your space.</p>
 					<div class="ship-quick-products">
 						<article class="ship-quick-product">
-							<div class="ship-quick-product-image">
+							<button type="button" class="ship-quick-product-image ship-quick-product-image-btn" aria-label="View what’s included with Stadium">
 								<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Stadium quick ship wood locker" loading="lazy" />
-							</div>
+							</button>
 							<div class="ship-quick-product-details">
 								<h3 class="ship-quick-product-name"><a href="/product-stadium-locker">Stadium</a></h3>
 								<p class="ship-quick-product-price">$749</p>
@@ -58,9 +70,9 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 							</div>
 						</article>
 						<article class="ship-quick-product">
-							<div class="ship-quick-product-image">
+							<button type="button" class="ship-quick-product-image ship-quick-product-image-btn" aria-label="View what’s included with Elite">
 								<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Elite quick ship wood locker" loading="lazy" />
-							</div>
+							</button>
 							<div class="ship-quick-product-details">
 								<h3 class="ship-quick-product-name"><a href="/product-elite-locker">Elite</a></h3>
 								<p class="ship-quick-product-price">$749</p>
@@ -69,9 +81,9 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 							</div>
 						</article>
 						<article class="ship-quick-product">
-							<div class="ship-quick-product-image">
+							<button type="button" class="ship-quick-product-image ship-quick-product-image-btn" aria-label="View what’s included with Model X">
 								<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model X quick ship wood locker" loading="lazy" />
-							</div>
+							</button>
 							<div class="ship-quick-product-details">
 								<h3 class="ship-quick-product-name"><a href="/product-legendary-locker">Model X</a></h3>
 								<p class="ship-quick-product-price">$749</p>
@@ -80,25 +92,120 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 							</div>
 						</article>
 					</div>
+					</div>
+					<div class="ship-quick-line">
+						<h3 class="ship-quick-line-title">Maple cabinetry grade plywood</h3>
+						<p class="ship-quick-line-desc">Premium hardwood tops for a classic look and long-lasting durability. Maple is used for the top of the locker, where it adds strength and a natural wood finish that pairs well with any team colors or facility style.</p>
+					<div class="ship-quick-products ship-quick-products-row-2">
+						<article class="ship-quick-product">
+							<button type="button" class="ship-quick-product-image ship-quick-product-image-btn" aria-label="View what’s included with Semi Pro">
+								<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Semi Pro wood locker" loading="lazy" />
+							</button>
+							<div class="ship-quick-product-details">
+								<h3 class="ship-quick-product-name"><a href="/product-semi-pro-locker">Semi Pro</a></h3>
+								<p class="ship-quick-product-price">$349</p>
+								<p class="ship-quick-product-color">Custom order</p>
+								<a href="/product-semi-pro-locker" class="ship-view-details">View details</a>
+							</div>
+						</article>
+						<article class="ship-quick-product">
+							<button type="button" class="ship-quick-product-image ship-quick-product-image-btn" aria-label="View what’s included with Varsity">
+								<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Varsity wood locker" loading="lazy" />
+							</button>
+							<div class="ship-quick-product-details">
+								<h3 class="ship-quick-product-name"><a href="/product-varsity-locker">Varsity</a></h3>
+								<p class="ship-quick-product-price">$449</p>
+								<p class="ship-quick-product-color">Custom order</p>
+								<a href="/product-varsity-locker" class="ship-view-details">View details</a>
+							</div>
+						</article>
+						<article class="ship-quick-product">
+							<button type="button" class="ship-quick-product-image ship-quick-product-image-btn" aria-label="View what’s included with Pro">
+								<img src="https://playerstall.b-cdn.net/images/pro-locker.jpg" alt="Pro wood locker" loading="lazy" />
+							</button>
+							<div class="ship-quick-product-details">
+								<h3 class="ship-quick-product-name"><a href="/product-pro-locker">Pro</a></h3>
+								<p class="ship-quick-product-price">$649</p>
+								<p class="ship-quick-product-color">Custom order</p>
+								<a href="/product-pro-locker" class="ship-view-details">View details</a>
+							</div>
+						</article>
+						<article class="ship-quick-product">
+							<button type="button" class="ship-quick-product-image ship-quick-product-image-btn" aria-label="View what’s included with Stadium">
+								<img src="https://playerstall.b-cdn.net/images/stadium-locker.jpg" alt="Stadium wood locker" loading="lazy" />
+							</button>
+							<div class="ship-quick-product-details">
+								<h3 class="ship-quick-product-name"><a href="/product-stadium-locker">Stadium</a></h3>
+								<p class="ship-quick-product-price">$649</p>
+								<p class="ship-quick-product-color">Custom order</p>
+								<a href="/product-stadium-locker" class="ship-view-details">View details</a>
+							</div>
+						</article>
+					</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Custom Order Section (same style as homepage Materials We Use) -->
-	<section id="custom-order" class="ship-custom-section">
-		<div class="ship-custom-container">
-			<div class="ship-custom-section-header ship-custom-section-header-spaced">
-				<p class="ship-custom-section-subtitle">DELIVERY TIMEFRAMES</p>
-				<h2 class="ship-custom-section-title">CUSTOM ORDER</h2>
+	<!-- Accessories modal (opens when clicking a locker image) -->
+	<div id="ship-quick-acc-modal" class="ship-quick-acc-modal" role="dialog" aria-modal="true" aria-labelledby="ship-quick-acc-modal-title" hidden>
+		<div class="ship-quick-acc-modal-backdrop"></div>
+		<div class="ship-quick-acc-modal-box">
+			<button type="button" class="ship-quick-acc-modal-close" aria-label="Close">&times;</button>
+			<div class="ship-quick-accessories">
+				<p id="ship-quick-acc-modal-title" class="ship-quick-accessories-label">Each quick ship locker includes</p>
+				<div class="ship-quick-accessories-window">
+					<div class="ship-quick-accessories-slider">
+						<div class="ship-quick-accessories-track" id="ship-quick-acc-track">
+							<div class="ship-quick-accessories-slide">
+								<div class="ship-quick-accessories-image"><img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Lock box" loading="lazy" /></div>
+							</div>
+							<div class="ship-quick-accessories-slide">
+								<div class="ship-quick-accessories-image"><img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Vented front panel" loading="lazy" /></div>
+							</div>
+							<div class="ship-quick-accessories-slide">
+								<div class="ship-quick-accessories-image"><img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Hooks" loading="lazy" /></div>
+							</div>
+							<div class="ship-quick-accessories-slide">
+								<div class="ship-quick-accessories-image"><img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Dimensions and warranty" loading="lazy" /></div>
+							</div>
+						</div>
+						<button type="button" class="ship-quick-accessories-prev" id="ship-quick-acc-prev" aria-label="Previous">‹</button>
+						<button type="button" class="ship-quick-accessories-next" id="ship-quick-acc-next" aria-label="Next">›</button>
+						<div class="ship-quick-accessories-dots" id="ship-quick-acc-dots">
+							<button type="button" class="ship-quick-acc-dot active" data-index="0" aria-label="Slide 1"></button>
+							<button type="button" class="ship-quick-acc-dot" data-index="1" aria-label="Slide 2"></button>
+							<button type="button" class="ship-quick-acc-dot" data-index="2" aria-label="Slide 3"></button>
+							<button type="button" class="ship-quick-acc-dot" data-index="3" aria-label="Slide 4"></button>
+						</div>
+					</div>
+					<div class="ship-quick-accessories-desc" id="ship-quick-acc-desc">Secure lock box with slow-closing hinge for valuables. Included with every quick ship locker.</div>
+				</div>
+				<div class="ship-quick-accessories-captions" id="ship-quick-acc-captions" hidden>
+					<p data-index="0">Secure lock box with slow-closing hinge for valuables. Included with every quick ship locker.</p>
+					<p data-index="1">Vented front panel for airflow to keep gear dry and reduce odor. Standard on all quick ship models.</p>
+					<p data-index="2">Interior hooks for bags, helmets, and everyday gear. Standard layout included.</p>
+					<p data-index="3">24&quot; width (Stadium 24&quot; deep). Full 5-year warranty on every quick ship locker.</p>
+				</div>
 			</div>
-			<div class="ship-custom-inner-centered">
-				<div class="ship-custom-content">
-					<a href="/services" class="ship-custom-position">Explore custom lockers</a>
-					<div class="ship-custom-meta">
+		</div>
+	</div>
+
+	<!-- Custom Order Section (Materials We Use style) -->
+	<section id="custom-order" class="home-shop-section">
+		<div class="home-shop-container">
+			<div class="home-shop-section-header home-shop-section-header-spaced">
+				<p class="home-shop-section-subtitle">DELIVERY TIMEFRAMES</p>
+				<h2 class="home-shop-section-title">CUSTOM ORDER</h2>
+			</div>
+			<div class="ts-spotlight-inner-centered">
+				<div class="ts-spotlight-content">
+					<a href="/services" class="ts-spotlight-position">Explore custom lockers</a>
+					<div class="ts-spotlight-meta">
 						10–12 weeks | Any size &amp; configuration | Team colors, logos, name plates
 					</div>
-					<p class="ship-custom-bio">Need lockers built to your exact specs? Our custom order option gives you full control: any width and height, custom colors and wood finishes, team logos and graphics, name plates, and interior layouts. Every detail is tailored to your facility and brand. Includes a free design consultation so we can match your timeline and budget. Ideal for new builds, renovations, or programs that want a one-of-a-kind locker room.</p>
+					<p class="ts-spotlight-bio">Need lockers built to your exact specs? Our custom order option gives you full control: any width and height, custom colors and wood finishes, team logos and graphics, name plates, and interior layouts. Every detail is tailored to your facility and brand. Includes a free design consultation so we can match your timeline and budget. Ideal for new builds, renovations, or programs that want a one-of-a-kind locker room.</p>
 					<div class="ship-custom-buttons">
 						<a href="/services" class="ship-custom-btn ship-custom-btn-outline">Explore options</a>
 						<a href="/contact" class="ship-custom-btn ship-custom-btn-filled">Get custom quote</a>
@@ -116,28 +223,72 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 			const name = this.getAttribute('data-product-name') || '';
 			const price = parseFloat(this.getAttribute('data-product-price') || '0') || 0;
 			const image = this.getAttribute('data-product-image') || '';
-
 			const cart = JSON.parse(localStorage.getItem('playerstall_cart') || '[]');
 			const existing = cart.find(function(item) { return item.id === id; });
-			if (existing) {
-				existing.quantity += 1;
-			} else {
-				cart.push({ id, name, price, image, quantity: 1 });
-			}
+			if (existing) existing.quantity += 1;
+			else cart.push({ id, name, price, image, quantity: 1 });
 			localStorage.setItem('playerstall_cart', JSON.stringify(cart));
-
 			const totalItems = cart.reduce(function(sum, item) { return sum + item.quantity; }, 0);
 			window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { count: totalItems } }));
-
 			const label = btn.textContent;
 			btn.textContent = 'Added!';
 			btn.classList.add('ship-add-to-cart-added');
-			setTimeout(function() {
-				btn.textContent = label;
-				btn.classList.remove('ship-add-to-cart-added');
-			}, 1500);
+			setTimeout(function() { btn.textContent = label; btn.classList.remove('ship-add-to-cart-added'); }, 1500);
 		});
 	});
+	(function() {
+		var track = document.getElementById('ship-quick-acc-track');
+		var desc = document.getElementById('ship-quick-acc-desc');
+		var captions = document.getElementById('ship-quick-acc-captions');
+		var prev = document.getElementById('ship-quick-acc-prev');
+		var next = document.getElementById('ship-quick-acc-next');
+		var dots = document.getElementById('ship-quick-acc-dots');
+		if (!track || !desc || !captions) return;
+		var slides = track.querySelectorAll('.ship-quick-accessories-slide');
+		var captionsList = captions.querySelectorAll('p[data-index]');
+		var index = 0;
+		var total = slides.length;
+		function goTo(i) {
+			index = (i + total) % total;
+			track.style.transform = 'translateX(-' + index * 100 + '%)';
+			desc.textContent = captionsList[index] ? captionsList[index].textContent : '';
+			if (dots) {
+				dots.querySelectorAll('.ship-quick-acc-dot').forEach(function(dot, j) {
+					dot.classList.toggle('active', j === index);
+					dot.setAttribute('aria-current', j === index ? 'true' : null);
+				});
+			}
+		}
+		if (prev) prev.addEventListener('click', function() { goTo(index - 1); });
+		if (next) next.addEventListener('click', function() { goTo(index + 1); });
+		if (dots) dots.querySelectorAll('.ship-quick-acc-dot').forEach(function(dot) {
+			dot.addEventListener('click', function() { goTo(parseInt(dot.getAttribute('data-index'), 10)); });
+		});
+	})();
+	(function() {
+		var modal = document.getElementById('ship-quick-acc-modal');
+		var backdrop = modal && modal.querySelector('.ship-quick-acc-modal-backdrop');
+		var closeBtn = modal && modal.querySelector('.ship-quick-acc-modal-close');
+		function openModal() {
+			if (modal) {
+				modal.hidden = false;
+				modal.removeAttribute('hidden');
+				document.body.style.overflow = 'hidden';
+			}
+		}
+		function closeModal() {
+			if (modal) {
+				modal.hidden = true;
+				modal.setAttribute('hidden', '');
+				document.body.style.overflow = '';
+			}
+		}
+		document.querySelectorAll('.ship-quick-product-image-btn').forEach(function(btn) {
+			btn.addEventListener('click', openModal);
+		});
+		if (closeBtn) closeBtn.addEventListener('click', closeModal);
+		if (backdrop) backdrop.addEventListener('click', closeModal);
+	})();
 </script>
 
 <style>
@@ -147,7 +298,7 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 		color: #0d0d0d;
 	}
 
-	/* Hero (mirrors shop) */
+	/* Hero */
 	.ship-hero-section {
 		position: relative;
 		display: flex;
@@ -223,25 +374,77 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 		z-index: 10;
 	}
 
-	/* Quick ship section (same style as Custom Order) */
-	.ship-quick-section {
+	/* Options list at top (like By Sport page) */
+	.ship-options-section {
+		padding: 60px 0;
+		background: #ffffff;
+	}
+	.ship-options-container {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+	.ship-options-intro {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		line-height: 1.7;
+		color: #666666;
+		margin: 0 0 1.5rem 0;
+	}
+	.ship-options-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+	.ship-options-list-item {
+		display: block;
+		padding: 1rem 0;
+		border-bottom: 1px solid #e8e8e8;
+		text-decoration: none;
+		color: inherit;
+		transition: background 0.2s, color 0.2s;
+	}
+	.ship-options-list-item:hover {
+		background: #f7f7f7;
+		color: #fe5900;
+	}
+	.ship-options-list-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		text-transform: uppercase;
+		display: block;
+		margin-bottom: 0.25rem;
+	}
+	.ship-options-list-desc {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		line-height: 1.5;
+	}
+
+	/* Materials We Use style (same as home page) */
+	.home-shop-section {
 		position: relative;
 		padding: 100px 0;
 		background: #ffffff;
 		overflow: hidden;
 	}
-	.ship-quick-container {
+	.home-shop-container {
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
 		position: relative;
 		z-index: 10;
 	}
-	.ship-quick-section-header {
+	.home-shop-section-header {
 		text-align: center;
 		margin-bottom: 60px;
 	}
-	.ship-quick-section-subtitle {
+	.home-shop-section-header-spaced {
+		margin-top: 140px;
+	}
+	.home-shop-section-subtitle {
 		display: block;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
@@ -250,7 +453,7 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 		color: #8c8c8c;
 		margin-bottom: 10px;
 	}
-	.ship-quick-section-title {
+	.home-shop-section-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: clamp(32px, 4vw, 52px);
 		font-weight: 700;
@@ -259,12 +462,12 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 		line-height: 1.1;
 		margin: 0;
 	}
-	.ship-quick-inner-centered {
+	.ts-spotlight-inner-centered {
 		max-width: 900px;
 		margin: 0 auto;
 		text-align: center;
 	}
-	.ship-quick-position {
+	.ts-spotlight-position {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
 		letter-spacing: 4px;
@@ -272,53 +475,221 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 		color: #8c8c8c;
 		text-decoration: none;
 	}
-	.ship-quick-position:hover {
+	.ts-spotlight-position:hover {
 		color: #fe5900;
 	}
-	.ship-quick-meta {
+	.ts-spotlight-meta {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
 		color: #8c8c8c;
 		margin-bottom: 25px;
 	}
-	.ship-quick-bio {
+	.ts-spotlight-meta a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+	.ts-spotlight-meta a:hover {
+		text-decoration: underline;
+	}
+	.ts-spotlight-bio {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 15px;
 		line-height: 1.8;
 		color: #666666;
-		margin-bottom: 24px;
+		margin-bottom: 30px;
 	}
-	.ship-quick-includes-label {
+
+	.ship-quick-accessories-hint {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin: 0 0 32px;
+		text-align: center;
+	}
+	.ship-quick-product-image-btn {
+		display: block;
+		width: 100%;
+		padding: 0;
+		border: none;
+		background: none;
+		cursor: pointer;
+		text-align: left;
+	}
+	.ship-quick-acc-modal {
+		position: fixed;
+		inset: 0;
+		z-index: 9999;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px;
+	}
+	.ship-quick-acc-modal[hidden] {
+		display: none;
+	}
+	.ship-quick-acc-modal-backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.5);
+	}
+	.ship-quick-acc-modal-box {
+		position: relative;
+		z-index: 1;
+		background: #fff;
+		border-radius: 8px;
+		padding: 32px 24px 24px;
+		max-width: 460px;
+		width: 100%;
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+	}
+	.ship-quick-acc-modal-close {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		width: 36px;
+		height: 36px;
+		border: none;
+		background: #eee;
+		color: #0d0d0d;
+		font-size: 24px;
+		line-height: 1;
+		cursor: pointer;
+		border-radius: 4px;
+		transition: background 0.2s;
+	}
+	.ship-quick-acc-modal-close:hover {
+		background: #fe5900;
+		color: #fff;
+	}
+	.ship-quick-acc-modal .ship-quick-accessories {
+		margin-bottom: 0;
+		text-align: center;
+	}
+	.ship-quick-accessories {
+		margin-bottom: 48px;
+		text-align: center;
+	}
+	.ship-quick-accessories-label {
 		font-family: 'Oswald', sans-serif;
 		font-size: 14px;
 		font-weight: 600;
 		letter-spacing: 0.05em;
 		text-transform: uppercase;
 		color: #0d0d0d;
-		margin: 0 0 12px;
+		margin: 0 0 16px;
 	}
-	.ship-quick-includes {
-		list-style: none;
-		margin: 0 auto 40px;
+	.ship-quick-accessories-window {
+		max-width: 420px;
+		margin: 0 auto;
+		background: #f9f9f9;
+		border: 1px solid #eee;
+		padding: 24px;
+		border-radius: 4px;
+	}
+	.ship-quick-accessories-slider {
+		position: relative;
+		overflow: hidden;
+		border-radius: 4px;
+		background: #fff;
+	}
+	.ship-quick-accessories-track {
+		display: flex;
+		width: 400%;
+		transition: transform 0.35s ease;
+	}
+	.ship-quick-accessories-slide {
+		flex: 0 0 25%;
+		width: 25%;
+	}
+	.ship-quick-accessories-image {
+		aspect-ratio: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px;
+		background: #fff;
+	}
+	.ship-quick-accessories-image img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+	}
+	.ship-quick-accessories-prev,
+	.ship-quick-accessories-next {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 40px;
+		height: 40px;
+		border: none;
+		background: rgba(0,0,0,0.5);
+		color: #fff;
+		font-size: 24px;
+		line-height: 1;
+		cursor: pointer;
+		z-index: 2;
+		transition: background 0.2s;
+		border-radius: 4px;
+	}
+	.ship-quick-accessories-prev:hover,
+	.ship-quick-accessories-next:hover {
+		background: #fe5900;
+	}
+	.ship-quick-accessories-prev { left: 8px; }
+	.ship-quick-accessories-next { right: 8px; }
+	.ship-quick-accessories-dots {
+		display: flex;
+		justify-content: center;
+		gap: 8px;
+		padding: 12px 0;
+	}
+	.ship-quick-acc-dot {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		border: 2px solid #8c8c8c;
+		background: transparent;
+		cursor: pointer;
+		transition: background 0.2s, border-color 0.2s;
 		padding: 0;
-		display: inline-block;
-		text-align: left;
+	}
+	.ship-quick-acc-dot.active,
+	.ship-quick-acc-dot:hover {
+		background: #fe5900;
+		border-color: #fe5900;
+	}
+	.ship-quick-accessories-desc {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		line-height: 1.6;
+		color: #666;
+		margin: 0;
+		padding-top: 12px;
+		min-height: 2.5em;
+	}
+
+	.ship-quick-line {
+		margin-bottom: 96px;
+	}
+	.ship-quick-line:last-of-type {
+		margin-bottom: 0;
+	}
+	.ship-quick-line-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(26px, 3.2vw, 42px);
+		font-weight: 700;
+		text-transform: uppercase;
+		color: #0d0d0d;
+		margin: 0 0 32px;
+		line-height: 1.1;
+	}
+	.ship-quick-line-desc {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 15px;
-		color: #666666;
-		line-height: 1.8;
-	}
-	.ship-quick-includes li {
-		position: relative;
-		padding-left: 1.25em;
-		margin-bottom: 6px;
-	}
-	.ship-quick-includes li::before {
-		content: "·";
-		position: absolute;
-		left: 0;
-		color: #fe5900;
-		font-weight: 600;
+		line-height: 2;
+		letter-spacing: 0.02em;
+		color: #666;
+		margin: 0 0 28px;
 	}
 	.ship-quick-products {
 		display: grid;
@@ -326,6 +697,14 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 		gap: 32px;
 		align-items: start;
 		text-align: center;
+	}
+	.ship-quick-products-row-2 {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 32px;
+		align-items: start;
+		text-align: center;
+		margin-top: 32px;
 	}
 	.ship-quick-product {
 		background: #fff;
@@ -404,74 +783,26 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 	.ship-add-to-cart-added {
 		background: #0d0d0d;
 	}
-	/* Custom order section (same style as homepage Materials We Use) */
-	.ship-custom-section {
-		position: relative;
-		padding: 100px 0;
-		background: #ffffff;
-		overflow: hidden;
-	}
-	.ship-custom-container {
-		max-width: 1300px;
-		margin: 0 auto;
-		padding: 0 20px;
-		position: relative;
-		z-index: 10;
-	}
-	.ship-custom-section-header {
-		text-align: center;
-		margin-bottom: 60px;
-	}
-	.ship-custom-section-header-spaced {
-		margin-top: 60px;
-	}
-	.ship-custom-section-subtitle {
-		display: block;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		letter-spacing: 6px;
-		text-transform: uppercase;
-		color: #8c8c8c;
-		margin-bottom: 10px;
-	}
-	.ship-custom-section-title {
+	.ship-view-details {
+		display: inline-block;
 		font-family: 'Oswald', sans-serif;
-		font-size: clamp(32px, 4vw, 52px);
-		font-weight: 700;
-		text-transform: uppercase;
-		color: #0d0d0d;
-		line-height: 1.1;
-		margin: 0;
-	}
-	.ship-custom-inner-centered {
-		max-width: 900px;
-		margin: 0 auto;
-		text-align: center;
-	}
-	.ship-custom-position {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		letter-spacing: 4px;
-		text-transform: uppercase;
-		color: #8c8c8c;
-		text-decoration: none;
-	}
-	.ship-custom-position:hover {
-		color: #fe5900;
-	}
-	.ship-custom-meta {
-		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
-		color: #8c8c8c;
-		margin-bottom: 25px;
+		font-weight: 600;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		background: transparent;
+		color: #0d0d0d;
+		border: 2px solid #0d0d0d;
+		padding: 12px 24px;
+		text-decoration: none;
+		transition: background 0.2s, color 0.2s, border-color 0.2s;
 	}
-	.ship-custom-bio {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 15px;
-		line-height: 1.8;
-		color: #666666;
-		margin-bottom: 30px;
+	.ship-view-details:hover {
+		background: #fe5900;
+		border-color: #fe5900;
+		color: #ffffff;
 	}
+
 	.ship-custom-buttons {
 		text-align: center;
 		margin-top: 30px;
@@ -512,11 +843,23 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 	}
 
 	@media (max-width: 1024px) {
-		.ship-quick-products {
-			grid-template-columns: 1fr;
+		.ship-quick-products,
+		.ship-quick-products-row-2 {
+			grid-template-columns: repeat(2, 1fr);
 			gap: 40px;
+			max-width: 600px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.ship-quick-products-row-2 {
+			margin-top: 40px;
+		}
+	}
+	@media (max-width: 640px) {
+		.ship-quick-products,
+		.ship-quick-products-row-2 {
+			grid-template-columns: 1fr;
 			max-width: 400px;
-			margin: 0 auto;
 		}
 	}
 	@media (max-width: 768px) {
@@ -527,9 +870,11 @@ const pageDescription = 'Quick ship Stadium, Elite, and Model X lockers in 2–4
 		.ship-page-title {
 			font-size: 42px;
 		}
-		.ship-quick-section-title,
-		.ship-custom-section-title {
+		.home-shop-section-title {
 			font-size: 32px;
+		}
+		.ship-quick-line-title {
+			font-size: 26px;
 		}
 		.ship-quick-product-name {
 			font-size: 20px;

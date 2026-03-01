@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const pageDescription = 'Custom-built wood sports lockers in 10–12 weeks. Any size and configuration, team colors, logos, name plates. Free design consultation. Premium materials. 30+ years of craftsmanship.';
+---
+
+<BaseLayout
+	title="Custom | Shipping | PlayerStall"
+	description={pageDescription}
+>
+	<section class="ship-hero-section">
+		<div class="ship-hero-background">
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Custom order lockers" class="ship-hero-bg-image" />
+		</div>
+		<div class="ship-hero-background-overlay"></div>
+		<div class="ship-hero-container">
+			<div class="ship-breadcrumbs">
+				<a href="/">Home</a>
+				<a href="/shipping-options">Shipping</a>
+				<span>Custom</span>
+			</div>
+			<h1 class="ship-page-title">Custom</h1>
+		</div>
+	</section>
+
+	<section class="home-shop-section">
+		<div class="home-shop-container">
+			<div class="home-shop-section-header">
+				<p class="home-shop-section-subtitle">DELIVERY TIMEFRAMES</p>
+				<h2 class="home-shop-section-title">CUSTOM ORDER</h2>
+			</div>
+			<div class="ts-spotlight-inner-centered">
+				<div class="ts-spotlight-content">
+					<a href="/services" class="ts-spotlight-position">Explore custom lockers</a>
+					<div class="ts-spotlight-meta">
+						10–12 weeks | Any size &amp; configuration | Team colors, logos, name plates
+					</div>
+					<p class="ts-spotlight-bio">Need lockers built to your exact specs? Our custom order option gives you full control: any width and height, custom colors and wood finishes, team logos and graphics, name plates, and interior layouts. Every detail is tailored to your facility and brand. Includes a free design consultation so we can match your timeline and budget. Ideal for new builds, renovations, or programs that want a one-of-a-kind locker room.</p>
+					<div class="ship-custom-buttons">
+						<a href="/services" class="ship-custom-btn ship-custom-btn-outline">Explore options</a>
+						<a href="/contact" class="ship-custom-btn ship-custom-btn-filled">Get custom quote</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.ship-hero-section { position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 0 80px; overflow: hidden; min-height: 320px; }
+	.ship-hero-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; }
+	.ship-hero-bg-image { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: grayscale(100%); }
+	.ship-hero-background-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.2); z-index: 1; }
+	.ship-hero-container { position: relative; z-index: 10; max-width: 1300px; margin: 0 auto; padding: 0 20px; text-align: left; width: 100%; }
+	.ship-breadcrumbs { font-family: 'Yantramanav', sans-serif; font-size: 12px; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 30px; }
+	.ship-breadcrumbs a { color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.3s; }
+	.ship-breadcrumbs a:hover { color: #fe5900; }
+	.ship-breadcrumbs span { margin-left: 10px; color: #fff; }
+	.ship-page-title { font-family: 'Oswald', sans-serif; font-size: 52px; font-weight: 600; color: #fff; text-transform: uppercase; margin: 0; line-height: 1.1; }
+	/* Materials We Use style (same as home page) */
+	.home-shop-section { position: relative; padding: 100px 0; background: #fff; overflow: hidden; }
+	.home-shop-container { max-width: 1300px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
+	.home-shop-section-header { text-align: center; margin-bottom: 60px; }
+	.home-shop-section-subtitle { display: block; font-family: 'Yantramanav', sans-serif; font-size: 13px; letter-spacing: 6px; text-transform: uppercase; color: #8c8c8c; margin-bottom: 10px; }
+	.home-shop-section-title { font-family: 'Oswald', sans-serif; font-size: clamp(32px, 4vw, 52px); font-weight: 700; text-transform: uppercase; color: #0d0d0d; line-height: 1.1; margin: 0; }
+	.ts-spotlight-inner-centered { max-width: 900px; margin: 0 auto; text-align: center; }
+	.ts-spotlight-position { font-family: 'Yantramanav', sans-serif; font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: #8c8c8c; text-decoration: none; }
+	.ts-spotlight-position:hover { color: #fe5900; }
+	.ts-spotlight-meta { font-family: 'Yantramanav', sans-serif; font-size: 14px; color: #8c8c8c; margin-bottom: 25px; }
+	.ts-spotlight-bio { font-family: 'Yantramanav', sans-serif; font-size: 15px; line-height: 1.8; color: #666; margin-bottom: 30px; }
+	.ship-custom-buttons { text-align: center; margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+	.ship-custom-btn { display: inline-block; font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; padding: 12px 24px; border: 2px solid transparent; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+	.ship-custom-btn-outline { border-color: #0d0d0d; color: #0d0d0d; }
+	.ship-custom-btn-outline:hover { background: #0d0d0d; color: #fff; }
+	.ship-custom-btn-filled { background: #000; color: #fff; border-color: #000; }
+	.ship-custom-btn-filled:hover { background: #fe5900; border-color: #fe5900; color: #fff; }
+	@media (max-width: 768px) { .ship-hero-section { min-height: 260px; padding-bottom: 50px; } .ship-page-title { font-size: 42px; } .home-shop-section-title { font-size: 32px; } .ship-custom-buttons { flex-direction: column; } }
+	@media (max-width: 640px) { .ship-page-title { font-size: 32px; } }
+</style>

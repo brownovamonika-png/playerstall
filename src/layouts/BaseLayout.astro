@@ -1,7 +1,4 @@
 ---
-import SpeedInsights from "@vercel/speed-insights/astro";
-import Analytics from "@vercel/analytics/astro";
-
 interface Props {
 	title: string;
 	description?: string;
@@ -100,7 +97,13 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 					<ul class="nav-links nav-links-left">
 						<li><a href="/">HOME</a></li>
 						<li><a href="/shop">SHOP</a></li>
-						<li><a href="/shipping-options">SHIPPING</a></li>
+						<li class="nav-dropdown">
+							<span class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" id="shipping-trigger">SHIPPING</span>
+							<ul class="nav-dropdown-menu" role="menu" aria-labelledby="shipping-trigger">
+								<li role="none"><a href="/shipping-options/quick-ship" role="menuitem">Quick Ship</a></li>
+								<li role="none"><a href="/shipping-options/custom" role="menuitem">Custom</a></li>
+							</ul>
+						</li>
 						<li class="nav-dropdown">
 							<span class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" id="by-sport-trigger">BY SPORT</span>
 							<ul class="nav-dropdown-menu" role="menu" aria-labelledby="by-sport-trigger">
@@ -133,7 +136,13 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 						<ul class="nav-menu-list">
 							<li><a href="/">HOME</a></li>
 							<li><a href="/shop">SHOP</a></li>
-							<li><a href="/shipping-options">SHIPPING</a></li>
+							<li class="nav-menu-dropdown">
+								<button type="button" class="nav-menu-dropdown-trigger" aria-expanded="false" aria-controls="nav-menu-shipping" id="mobile-shipping-trigger">SHIPPING</button>
+								<ul id="nav-menu-shipping" class="nav-menu-dropdown-list" role="menu" aria-labelledby="mobile-shipping-trigger">
+									<li><a href="/shipping-options/quick-ship">Quick Ship</a></li>
+									<li><a href="/shipping-options/custom">Custom</a></li>
+								</ul>
+							</li>
 							<li class="nav-menu-dropdown">
 								<button type="button" class="nav-menu-dropdown-trigger" aria-expanded="false" aria-controls="nav-menu-by-sport" id="mobile-by-sport-trigger">BY SPORT</button>
 								<ul id="nav-menu-by-sport" class="nav-menu-dropdown-list" role="menu" aria-labelledby="mobile-by-sport-trigger">
@@ -236,8 +245,6 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				</div>
 			</div>
 		</footer>
-		<SpeedInsights />
-		<Analytics />
 	</body>
 </html>
 
