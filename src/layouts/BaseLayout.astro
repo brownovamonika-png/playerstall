@@ -1,4 +1,6 @@
 ---
+import SpeedInsights from "@vercel/speed-insights/astro";
+
 interface Props {
 	title: string;
 	description?: string;
@@ -233,6 +235,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				</div>
 			</div>
 		</footer>
+		<SpeedInsights />
 	</body>
 </html>
 
