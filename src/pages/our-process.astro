@@ -3,9 +3,62 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout 
-	title="Our Process | Custom Sports Lockers | PlayerStall"
-	description="Learn about our process for creating custom wood sports lockers. Free consultation, custom design, and premium manufacturing with 5 year warranty."
+	title="Our Process - Custom Wood Locker Room Build | PlayerStall"
+	description="Learn how PlayerStall builds custom wood sports lockers. Free consultation, custom design, 5-year warranty, and nationwide delivery. 30+ years experience."
 >
+	<Fragment slot="head">
+		<script type="application/ld+json">
+		{JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "BreadcrumbList",
+			"itemListElement": [
+				{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://playerstall.com"},
+				{"@type": "ListItem", "position": 2, "name": "Our Process", "item": "https://playerstall.com/our-process"}
+			]
+		})}
+		</script>
+		<script type="application/ld+json">
+		{JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "FAQPage",
+			"mainEntity": [
+				{
+					"@type": "Question",
+					"name": "Does PlayerStall offer a free design consultation?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Yes. Every project starts with a free custom design consultation. We discuss your needs, space, budget, and vision to understand exactly what you're looking for. No obligation — just expert advice from 30+ years of experience."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What warranty do PlayerStall lockers come with?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Every locker comes with a 5-year warranty. Our modular design means damaged parts can be replaced individually — no need to replace the entire locker."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "How are PlayerStall lockers manufactured?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "We manufacture to the highest quality standards using premium materials and craftsmanship at our facility in Langley, BC. Every order is personally invested in — your success is our reputation."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Does PlayerStall build sport-specific lockers?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Yes. Every sport has unique equipment needs. We design lockers optimized for football, hockey, basketball, baseball, soccer, and lacrosse — from spacious football lockers to reinforced hockey lockers."
+					}
+				}
+			]
+		})}
+		</script>
+	</Fragment>
+
 	<!-- Hero Section (same as shop: image + overlay + title "Our Process") -->
 	<section class="process-hero-section">
 		<div class="process-hero-background">

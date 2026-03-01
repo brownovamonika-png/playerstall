@@ -3,9 +3,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout 
-	title="Gallery - Custom Sports Lockers | PlayerStall" 
-	description="View our gallery of custom wood sports lockers for football, hockey, basketball, baseball, and soccer. Premium locker room solutions."
+	title="Custom Locker Room Gallery — Collegiate & Pro Installations | PlayerStall" 
+	description="Browse custom wood locker room installations for collegiate and professional sports programs. Football, hockey, basketball, and more. Built by PlayerStall for 30+ years."
 >
+	<Fragment slot="head">
+		<script type="application/ld+json">
+		{JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "BreadcrumbList",
+			"itemListElement": [
+				{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://playerstall.com"},
+				{"@type": "ListItem", "position": 2, "name": "Gallery", "item": "https://playerstall.com/gallery"}
+			]
+		})}
+		</script>
+	</Fragment>
+
 	<!-- Hero Section (same container as shop: image + overlay, text "Gallery") -->
 	<section class="gallery-hero-section">
 		<div class="gallery-hero-background">
@@ -17,7 +30,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<a href="/">Home</a>
 				<span>Gallery</span>
 			</div>
-			<h1 class="gallery-page-title">Gallery</h1>
+			<h1 class="gallery-page-title">Custom Locker Room Installations</h1>
 		</div>
 	</section>
 
@@ -27,6 +40,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<div class="gallery-section-header">
 				<p class="gallery-section-subtitle">Professional Installations</p>
 				<h2 class="gallery-section-title">Collegiate & Professional Locker Rooms</h2>
+				<p class="gallery-section-intro">From Division I football programs to professional hockey clubs, every room we build is designed to match the identity of the team that uses it. Custom wood species, team colors, logo plaques, and hardware — built to last a career. <a href="/contact">Start your project</a>.</p>
 			</div>
 			<div class="gallery-players-grid">
 				<div class="gallery-player-card">
@@ -148,6 +162,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<div class="gallery-section-header">
 				<p class="gallery-section-subtitle">Ice Hockey Facilities</p>
 				<h2 class="gallery-section-title">Custom Hockey Locker Rooms</h2>
+				<p class="gallery-section-intro">Hockey equipment is heavy, wet, and needs proper ventilation. Our hockey locker rooms are built with reinforced wood construction, integrated skate hooks, and airflow panels designed specifically for the demands of an ice rink environment.</p>
 			</div>
 			<div class="gallery-players-grid">
 				<div class="gallery-player-card">
@@ -233,6 +248,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<div class="gallery-section-header">
 				<p class="gallery-section-subtitle">Versatile Solutions</p>
 				<h2 class="gallery-section-title">Football & Multi-Sport Facilities</h2>
+				<p class="gallery-section-intro">Football lockers need space — for helmets, shoulder pads, cleats, and uniforms. Our multi-sport rooms are designed for programs that share facilities across seasons, with modular configurations that adapt to whatever your team brings in.</p>
 			</div>
 			<div class="gallery-players-grid">
 				<div class="gallery-player-card">
@@ -318,6 +334,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<div class="gallery-section-header">
 				<p class="gallery-section-subtitle">Premium Craftsmanship</p>
 				<h2 class="gallery-section-title">Custom Wood Locker Designs</h2>
+				<p class="gallery-section-intro">Every locker is built to order. Choose your wood finish, door style, hardware, and team branding. Our custom design consultation is free — we help you figure out exactly what your room needs before a single piece of wood is cut.</p>
 			</div>
 			<div class="gallery-players-grid">
 				<div class="gallery-player-card">
@@ -439,6 +456,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<div class="gallery-section-header">
 				<p class="gallery-section-subtitle">More Projects</p>
 				<h2 class="gallery-section-title">Additional Installations</h2>
+				<p class="gallery-section-intro">Thirty years of projects means no two rooms look the same. These installations represent the range of programs we serve — high school, collegiate, and professional — across every sport and every budget.</p>
 			</div>
 			<div class="gallery-players-grid">
 				<div class="gallery-player-card">
@@ -550,6 +568,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					</div>
 				</div>
 			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="gallery-cta-section">
+		<div class="gallery-cta-container">
+			<h2 class="gallery-cta-title">Like what you see?</h2>
+			<p class="gallery-cta-text">Every locker room in this gallery started with a free design consultation. Tell us about your program and we'll build yours.</p>
+			<a href="/contact" class="gallery-cta-btn">Start a Free Consultation</a>
 		</div>
 	</section>
 
@@ -696,6 +723,71 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin-bottom: 60px;
 		position: relative;
 		z-index: 10;
+	}
+
+	.gallery-section-intro {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #666666;
+		line-height: 1.7;
+		max-width: 700px;
+		margin: 20px auto 0;
+	}
+
+	.gallery-section-intro a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	.gallery-section-intro a:hover {
+		text-decoration: underline;
+	}
+
+	.gallery-cta-section {
+		padding: 6rem 0;
+		background: #1a1a1a;
+		text-align: center;
+	}
+
+	.gallery-cta-container {
+		max-width: 700px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.gallery-cta-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 40px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin-bottom: 16px;
+	}
+
+	.gallery-cta-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #cccccc;
+		line-height: 1.6;
+		margin-bottom: 40px;
+	}
+
+	.gallery-cta-btn {
+		display: inline-block;
+		padding: 16px 48px;
+		background: #fe5900;
+		color: #ffffff;
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		text-decoration: none;
+		transition: background 0.2s;
+	}
+
+	.gallery-cta-btn:hover {
+		background: #e04d00;
 	}
 
 	.gallery-section-subtitle {

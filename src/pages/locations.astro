@@ -2,101 +2,151 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Locations - PlayerStall" description="Find a PlayerStall location near you across the United States">
+<BaseLayout
+	title="Custom Wood Lockers — Shipping Nationwide | PlayerStall"
+	description="PlayerStall builds and ships custom wood locker rooms to collegiate and professional teams across all 50 states. One facility. Thirty years. Nationwide delivery."
+>
 	<!-- Hero Section -->
 	<section class="hero" id="hero">
-		<div class="playoff-text">LOCATIONS</div>
+		<div class="playoff-text">NATIONWIDE</div>
 		<div class="hero-content">
-			<p class="hero-subtitle">Find Us</p>
-			<h1 class="hero-title">Our Locations</h1>
-			<p class="hero-text">Find a PlayerStall location near you across North America. We're expanding to serve more teams and athletes every day.</p>
+			<p class="hero-subtitle">We Ship Everywhere</p>
+			<h1 class="hero-title">Built Here.<br />Delivered Anywhere.</h1>
+			<p class="hero-text">We manufacture every locker at our facility in Langley, BC and ship direct to teams across all 50 states. No middlemen. No regional markups.</p>
 			<div class="hero-buttons">
-				<a href="/contact" class="btn btn-primary">Contact Us</a>
-				<a href="#locations" class="btn btn-outline">View Locations</a>
+				<a href="/contact" class="btn btn-primary">Start a Consultation</a>
+				<a href="/services" class="btn btn-outline">View the Collection</a>
 			</div>
 		</div>
 		<div class="hero-image">
-			<img src="https://playerstall.b-cdn.net/images/h3-rev-img-2.png" alt="PlayerStall Locations" />
+			<img src="https://playerstall.b-cdn.net/images/h3-rev-img-2.png" alt="PlayerStall custom wood locker rooms" />
 		</div>
 	</section>
 
-	<section class="locations-section" id="locations">
+	<!-- Our Facility -->
+	<section class="facility-section">
 		<div class="container">
-			<div class="locations-grid">
-				<div class="location-card">
-					<h3>📍 New York, NY</h3>
-					<div class="location-info">
-						<p><strong>Address:</strong></p>
-						<p>123 Sports Avenue<br />New York, NY 10001</p>
-						<p><strong>Phone:</strong> (555) 123-4567</p>
-						<p><strong>Hours:</strong></p>
-						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
+			<div class="facility-grid">
+				<div class="facility-text">
+					<p class="section-subtitle">Our Home Base</p>
+					<h2 class="section-title">One Facility.<br />Every Order.</h2>
+					<p class="facility-body">Every PlayerStall locker is built at our manufacturing facility in Langley, British Columbia. We've operated from the same location for 30 years — not because we haven't grown, but because quality doesn't need to franchise.</p>
+					<p class="facility-body">All design consultations, custom orders, and quick-ship fulfillments are handled directly through our team. When you call, you reach us.</p>
+					<div class="facility-address">
+						<strong>PlayerStall Manufacturing</strong><br />
+						2934 200 Street<br />
+						Langley, BC V2Z 2C1 Canada<br />
+						<a href="tel:18885841444">1 888 584 1444</a><br />
+						<a href="mailto:sales@playerstall.com">sales@playerstall.com</a>
 					</div>
 				</div>
-
-				<div class="location-card">
-					<h3>📍 Los Angeles, CA</h3>
-					<div class="location-info">
-						<p><strong>Address:</strong></p>
-						<p>456 Athletic Boulevard<br />Los Angeles, CA 90001</p>
-						<p><strong>Phone:</strong> (555) 234-5678</p>
-						<p><strong>Hours:</strong></p>
-						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
+				<div class="facility-stats">
+					<div class="stat-card">
+						<span class="stat-number">30+</span>
+						<span class="stat-label">Years in business</span>
 					</div>
-				</div>
-
-				<div class="location-card">
-					<h3>📍 Chicago, IL</h3>
-					<div class="location-info">
-						<p><strong>Address:</strong></p>
-						<p>789 Stadium Drive<br />Chicago, IL 60601</p>
-						<p><strong>Phone:</strong> (555) 345-6789</p>
-						<p><strong>Hours:</strong></p>
-						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
+					<div class="stat-card">
+						<span class="stat-number">50</span>
+						<span class="stat-label">States we deliver to</span>
 					</div>
-				</div>
-
-				<div class="location-card">
-					<h3>📍 Houston, TX</h3>
-					<div class="location-info">
-						<p><strong>Address:</strong></p>
-						<p>321 Locker Lane<br />Houston, TX 77001</p>
-						<p><strong>Phone:</strong> (555) 456-7890</p>
-						<p><strong>Hours:</strong></p>
-						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
+					<div class="stat-card">
+						<span class="stat-number">2–4</span>
+						<span class="stat-label">Weeks to quick-ship delivery</span>
 					</div>
-				</div>
-
-				<div class="location-card">
-					<h3>📍 Miami, FL</h3>
-					<div class="location-info">
-						<p><strong>Address:</strong></p>
-						<p>654 Equipment Street<br />Miami, FL 33101</p>
-						<p><strong>Phone:</strong> (555) 567-8901</p>
-						<p><strong>Hours:</strong></p>
-						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
-					</div>
-				</div>
-
-				<div class="location-card">
-					<h3>📍 Seattle, WA</h3>
-					<div class="location-info">
-						<p><strong>Address:</strong></p>
-						<p>987 Sports Plaza<br />Seattle, WA 98101</p>
-						<p><strong>Phone:</strong> (555) 678-9012</p>
-						<p><strong>Hours:</strong></p>
-						<p>Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 4:00 PM<br />Sun: Closed</p>
+					<div class="stat-card">
+						<span class="stat-number">5yr</span>
+						<span class="stat-label">Warranty on every locker</span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
+	<!-- States We Serve -->
+	<section class="states-section">
+		<div class="container">
+			<p class="section-subtitle">Coverage</p>
+			<h2 class="section-title">All 50 States</h2>
+			<p class="states-intro">We ship to collegiate and professional programs across every region of the United States. Below are the states we most frequently serve — though no zip code is out of reach.</p>
+			<div class="regions-grid">
+				<div class="region-card">
+					<h3>Southeast</h3>
+					<ul>
+						<li>Florida</li>
+						<li>Georgia</li>
+						<li>North Carolina</li>
+						<li>South Carolina</li>
+						<li>Tennessee</li>
+						<li>Alabama</li>
+						<li>Mississippi</li>
+					</ul>
+				</div>
+				<div class="region-card">
+					<h3>South &amp; Southwest</h3>
+					<ul>
+						<li>Texas</li>
+						<li>Oklahoma</li>
+						<li>Louisiana</li>
+						<li>Arkansas</li>
+						<li>Arizona</li>
+						<li>New Mexico</li>
+					</ul>
+				</div>
+				<div class="region-card">
+					<h3>Midwest</h3>
+					<ul>
+						<li>Ohio</li>
+						<li>Michigan</li>
+						<li>Illinois</li>
+						<li>Indiana</li>
+						<li>Wisconsin</li>
+						<li>Minnesota</li>
+						<li>Iowa</li>
+					</ul>
+				</div>
+				<div class="region-card">
+					<h3>Northeast</h3>
+					<ul>
+						<li>New York</li>
+						<li>Pennsylvania</li>
+						<li>New Jersey</li>
+						<li>Massachusetts</li>
+						<li>Connecticut</li>
+						<li>Maryland</li>
+					</ul>
+				</div>
+				<div class="region-card">
+					<h3>West</h3>
+					<ul>
+						<li>California</li>
+						<li>Washington</li>
+						<li>Oregon</li>
+						<li>Colorado</li>
+						<li>Utah</li>
+						<li>Nevada</li>
+					</ul>
+				</div>
+				<div class="region-card">
+					<h3>Mountain &amp; Plains</h3>
+					<ul>
+						<li>Kansas</li>
+						<li>Missouri</li>
+						<li>Nebraska</li>
+						<li>Montana</li>
+						<li>Wyoming</li>
+						<li>Idaho</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA -->
 	<section class="map-cta">
 		<div class="container">
-			<h2>Don't See Your City?</h2>
-			<p>We're expanding! Contact us to learn about upcoming locations or inquire about bringing PlayerStall to your area.</p>
-			<a href="/contact" class="btn btn-primary">Contact Us</a>
+			<h2>Ready to Build Your Locker Room?</h2>
+			<p>Tell us about your program and we'll take it from there. Free consultation. No obligation.</p>
+			<a href="/contact" class="btn btn-primary">Start a Consultation</a>
 		</div>
 	</section>
 </BaseLayout>
@@ -130,7 +180,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.playoff-text {
 		position: absolute;
 		font-family: 'Oswald', sans-serif;
-		font-size: 350px;
+		font-size: 280px;
 		font-weight: 700;
 		color: rgba(13, 13, 13, 0.03);
 		text-transform: uppercase;
@@ -159,11 +209,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.hero-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 52px;
+		font-size: 62px;
 		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
-		line-height: 1.1;
+		line-height: 1.05;
 		margin-bottom: 30px;
 	}
 
@@ -187,7 +237,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		text-transform: uppercase;
 		font-weight: 500;
 		letter-spacing: 0.1em;
-		font-size: 20px;
+		font-size: 16px;
 		transition: all 0.3s;
 		font-family: 'Roboto', sans-serif;
 	}
@@ -211,7 +261,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.btn-outline:hover {
 		border-color: #0d0d0d;
-		color: #0d0d0d;
 	}
 
 	.hero-image {
@@ -227,90 +276,178 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		height: auto;
 	}
 
-	.locations-section {
-		padding: 5rem 0;
+	/* Facility Section */
+	.facility-section {
+		padding: 6rem 0;
 		background: #ffffff;
 	}
 
-	.locations-grid {
+	.section-subtitle {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin-bottom: 16px;
+	}
+
+	.section-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 44px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		line-height: 1.1;
+		margin-bottom: 30px;
+	}
+
+	.facility-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 2rem;
+		grid-template-columns: 1fr 1fr;
+		gap: 80px;
+		align-items: start;
 	}
 
-	.location-card {
-		background: #fff;
-		border-radius: 8px;
-		padding: 2rem;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	.facility-body {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #555;
+		line-height: 1.7;
+		margin-bottom: 20px;
 	}
 
-	.location-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+	.facility-address {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #333;
+		line-height: 2;
+		margin-top: 32px;
+		padding-top: 32px;
+		border-top: 1px solid #e5e5e5;
 	}
 
-	.location-card h3 {
-		color: #1a1a1a;
-		font-size: 1.5rem;
-		margin-bottom: 1.5rem;
-		border-bottom: 2px solid #fe5900;
-		padding-bottom: 0.5rem;
+	.facility-address a {
+		color: #fe5900;
+		text-decoration: none;
 	}
 
-	.location-info p {
-		margin: 0.75rem 0;
+	.facility-address a:hover {
+		text-decoration: underline;
+	}
+
+	.facility-stats {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 24px;
+	}
+
+	.stat-card {
+		background: #f7f7f7;
+		padding: 36px 28px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.stat-number {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 700;
+		color: #fe5900;
+		line-height: 1;
+	}
+
+	.stat-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
 		color: #666;
-		line-height: 1.6;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
 	}
 
-	.location-info strong {
-		color: #1a1a1a;
+	/* States Section */
+	.states-section {
+		padding: 6rem 0;
+		background: #f7f7f7;
 	}
 
+	.states-intro {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #555;
+		line-height: 1.7;
+		max-width: 700px;
+		margin-bottom: 48px;
+	}
+
+	.regions-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+
+	.region-card {
+		background: #ffffff;
+		padding: 32px;
+	}
+
+	.region-card h3 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 20px;
+		padding-bottom: 12px;
+		border-bottom: 2px solid #fe5900;
+	}
+
+	.region-card ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.region-card ul li {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #555;
+		padding: 6px 0;
+		border-bottom: 1px solid #f0f0f0;
+	}
+
+	.region-card ul li:last-child {
+		border-bottom: none;
+	}
+
+	/* CTA Section */
 	.map-cta {
-		padding: 5rem 0;
+		padding: 6rem 0;
 		background: #1a1a1a;
 		color: #fff;
 		text-align: center;
 	}
 
 	.map-cta h2 {
-		font-size: 2.5rem;
-		margin-bottom: 1rem;
+		font-family: 'Oswald', sans-serif;
+		font-size: 40px;
+		font-weight: 600;
+		text-transform: uppercase;
+		margin-bottom: 16px;
 	}
 
 	.map-cta p {
-		font-size: 1.25rem;
-		margin-bottom: 2rem;
-		color: #ccc;
-	}
-
-	.btn {
-		padding: 0.875rem 2rem;
-		border-radius: 6px;
-		text-decoration: none;
-		font-weight: 600;
-		transition: all 0.3s ease;
-		display: inline-block;
-	}
-
-	.btn-primary {
-		background: #fe5900;
-		color: #fff;
-	}
-
-	.btn-primary:hover {
-		background: #e04d00;
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		margin-bottom: 40px;
+		color: #cccccc;
 	}
 
 	@media (max-width: 1024px) {
-		.hero-title {
-			font-size: 52px;
-			line-height: 1.1;
+		.facility-grid {
+			grid-template-columns: 1fr;
+			gap: 48px;
 		}
 
 		.hero-image {
@@ -320,17 +457,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		.playoff-text {
 			font-size: 150px;
 		}
+
+		.regions-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	@media (max-width: 768px) {
 		.hero {
-			height: 600px;
-			padding-left: 20px;
+			height: auto;
+			padding: 100px 20px 60px;
 		}
 
 		.hero-title {
 			font-size: 42px;
-			line-height: 1.1;
 		}
 
 		.hero-text {
@@ -345,9 +485,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			font-size: 100px;
 		}
 
-		.locations-grid {
+		.section-title {
+			font-size: 32px;
+		}
+
+		.regions-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.facility-stats {
+			grid-template-columns: 1fr 1fr;
 		}
 	}
 </style>
-

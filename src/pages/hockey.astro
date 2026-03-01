@@ -3,9 +3,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout 
-	title="By Sport - Custom Sports Lockers | PlayerStall" 
-	description="Sport-specific wood lockers for football, hockey, basketball, baseball, and soccer. Custom locker room solutions for collegiate and professional teams."
+	title="Sport-Specific Wood Lockers — Hockey, Football, Basketball & More | PlayerStall" 
+	description="Custom wood locker rooms built for your sport. Football, hockey, basketball, baseball, soccer, and lacrosse. 30+ years serving collegiate and pro teams. Free consultation."
 >
+	<Fragment slot="head">
+		<script type="application/ld+json">
+		{JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "BreadcrumbList",
+			"itemListElement": [
+				{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://playerstall.com"},
+				{"@type": "ListItem", "position": 2, "name": "By Sport", "item": "https://playerstall.com/hockey"}
+			]
+		})}
+		</script>
+	</Fragment>
+
 	<!-- Hero: Match Schedule style – full-width title image + breadcrumb & title overlay -->
 	<section class="by-sport-hero">
 		<div class="by-sport-hero-img-holder">
@@ -19,7 +32,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<a href="/">Home</a>
 				<span>By Sport</span>
 			</div>
-			<h1 class="by-sport-page-title">By Sport</h1>
+			<h1 class="by-sport-page-title">Custom Locker Rooms Built for Every Sport</h1>
 			<div class="by-sport-bg-text">by sport</div>
 		</div>
 	</section>
@@ -69,7 +82,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<div class="by-sport-widget by-sport-widget-cta">
 						<h3 class="by-sport-widget-title">Get a quote</h3>
 						<p class="by-sport-widget-text">Free design consultation for your locker room. 30+ years experience, 5 year warranty.</p>
-						<a href="/request-a-quote" class="by-sport-cta-btn">Request a quote</a>
+						<a href="/contact" class="by-sport-cta-btn">Request a quote</a>
 					</div>
 				</aside>
 			</div>
@@ -90,7 +103,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<li>Dedicated storage for cleats and footwear</li>
 							<li>Uniform hanging space and reinforced construction</li>
 						</ul>
-						<a href="/request-a-quote" class="btn btn-primary">Get Football Locker Quote</a>
+						<a href="/contact" class="btn btn-primary">Get Football Locker Quote</a>
 					</div>
 					<div class="by-sport-detail-image">
 						<img src="https://playerstall.b-cdn.net/images/topscorer/h1-img-2.jpg" alt="Football lockers" />
@@ -108,7 +121,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<li>Ventilated compartments for pads and helmets</li>
 							<li>Equipment drying features</li>
 						</ul>
-						<a href="/request-a-quote" class="btn btn-primary">Get Hockey Locker Quote</a>
+						<a href="/contact" class="btn btn-primary">Get Hockey Locker Quote</a>
 					</div>
 					<div class="by-sport-detail-image">
 						<img src="https://playerstall.b-cdn.net/images/topscorer/h3-img-1.jpg" alt="Hockey lockers" />
@@ -126,7 +139,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<li>Personal item compartments</li>
 							<li>Space-efficient layout</li>
 						</ul>
-						<a href="/request-a-quote" class="btn btn-primary">Get Basketball Locker Quote</a>
+						<a href="/contact" class="btn btn-primary">Get Basketball Locker Quote</a>
 					</div>
 					<div class="by-sport-detail-image">
 						<img src="https://playerstall.b-cdn.net/images/topscorer/basketball-dribble.png" alt="Basketball lockers" />
@@ -143,7 +156,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<li>Uniform and gear organization</li>
 							<li>Easy access and durable construction</li>
 						</ul>
-						<a href="/request-a-quote" class="btn btn-primary">Get Baseball Locker Quote</a>
+						<a href="/contact" class="btn btn-primary">Get Baseball Locker Quote</a>
 					</div>
 					<div class="by-sport-detail-image">
 						<img src="https://playerstall.b-cdn.net/images/topscorer/h2-blog-img-2-1.jpg" alt="Baseball lockers" />
@@ -159,7 +172,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<li>Compartments for cleats and gear</li>
 							<li>Uniform hanging and ventilated storage</li>
 						</ul>
-						<a href="/request-a-quote" class="btn btn-primary">Get Soccer Locker Quote</a>
+						<a href="/contact" class="btn btn-primary">Get Soccer Locker Quote</a>
 					</div>
 					<div class="by-sport-detail-image">
 						<img src="https://playerstall.b-cdn.net/images/topscorer/soccer.jpg" alt="Soccer lockers" />
@@ -175,7 +188,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<div class="by-sport-cta-content">
 				<h2>Need Lockers for Multiple Sports?</h2>
 				<p>We design complete locker room solutions for multi-sport facilities. Get a free custom design consultation.</p>
-				<a href="/request-a-quote" class="btn btn-primary btn-large">Get Free Design Consultation</a>
+				<a href="/contact" class="btn btn-primary btn-large">Get Free Design Consultation</a>
 			</div>
 		</div>
 	</section>
@@ -185,15 +198,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		<div class="by-sport-logos-strip-inner">
 			<div class="by-sport-logos-track">
 				<div class="by-sport-logos-set">
-					<img src="https://playerstall.b-cdn.net/images/topscorer/client-1.png" alt="Client" width="120" height="60" />
-					<img src="https://playerstall.b-cdn.net/images/topscorer/client-2.png" alt="Client" width="120" height="60" />
-					<img src="https://playerstall.b-cdn.net/images/topscorer/client-3.png" alt="Client" width="120" height="60" />
-					<img src="https://playerstall.b-cdn.net/images/topscorer/client-4.png" alt="Client" width="120" height="60" />
-					<img src="https://playerstall.b-cdn.net/images/topscorer/client-5.png" alt="Client" width="120" height="60" />
-					<img src="https://playerstall.b-cdn.net/images/topscorer/client-6.png" alt="Client" width="120" height="60" />
-					<img src="https://playerstall.b-cdn.net/images/topscorer/client-8.png" alt="Client" width="120" height="60" />
-					<img src="https://playerstall.b-cdn.net/images/topscorer/client-9.png" alt="Client" width="120" height="60" />
-					<img src="https://playerstall.b-cdn.net/images/topscorer/client-10.png" alt="Client" width="120" height="60" />
+					<img src="https://playerstall.b-cdn.net/images/topscorer/client-1.png" alt="PlayerStall client — collegiate or professional sports program" width="120" height="60" />
+					<img src="https://playerstall.b-cdn.net/images/topscorer/client-2.png" alt="PlayerStall client — collegiate or professional sports program" width="120" height="60" />
+					<img src="https://playerstall.b-cdn.net/images/topscorer/client-3.png" alt="PlayerStall client — collegiate or professional sports program" width="120" height="60" />
+					<img src="https://playerstall.b-cdn.net/images/topscorer/client-4.png" alt="PlayerStall client — collegiate or professional sports program" width="120" height="60" />
+					<img src="https://playerstall.b-cdn.net/images/topscorer/client-5.png" alt="PlayerStall client — collegiate or professional sports program" width="120" height="60" />
+					<img src="https://playerstall.b-cdn.net/images/topscorer/client-6.png" alt="PlayerStall client — collegiate or professional sports program" width="120" height="60" />
+					<img src="https://playerstall.b-cdn.net/images/topscorer/client-8.png" alt="PlayerStall client — collegiate or professional sports program" width="120" height="60" />
+					<img src="https://playerstall.b-cdn.net/images/topscorer/client-9.png" alt="PlayerStall client — collegiate or professional sports program" width="120" height="60" />
+					<img src="https://playerstall.b-cdn.net/images/topscorer/client-10.png" alt="PlayerStall client — collegiate or professional sports program" width="120" height="60" />
 				</div>
 				<div class="by-sport-logos-set" aria-hidden="true">
 					<img src="https://playerstall.b-cdn.net/images/topscorer/client-1.png" alt="" width="120" height="60" />

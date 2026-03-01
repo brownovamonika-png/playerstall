@@ -5,9 +5,48 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 ---
 
 <BaseLayout
-	title="Contact Us | PlayerStall"
-	description="Get in touch with PlayerStall. We serve teams across the USA and Canada. Email or call—we typically respond within 2–3 business days."
+	title="Get a Free Locker Room Consultation | PlayerStall"
+	description="Start your custom wood locker room project with a free consultation. 30 years serving collegiate and pro teams. Ships nationwide. Match any US competitor's price."
 >
+	<Fragment slot="head">
+		<script type="application/ld+json">
+		{JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "LocalBusiness",
+			"name": "PlayerStall",
+			"image": "https://playerstall.b-cdn.net/images/logoblack2.png",
+			"url": "https://playerstall.com",
+			"telephone": "+18885841444",
+			"email": "sales@playerstall.com",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "2934 200 Street",
+				"addressLocality": "Langley",
+				"addressRegion": "BC",
+				"postalCode": "V2Z 2C1",
+				"addressCountry": "CA"
+			},
+			"serviceArea": {
+				"@type": "Country",
+				"name": "United States"
+			},
+			"areaServed": "US",
+			"priceRange": "$$",
+			"description": "Custom wood sports lockers for collegiate and professional teams. 30+ years experience. Ships nationwide."
+		})}
+		</script>
+		<script type="application/ld+json">
+		{JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "BreadcrumbList",
+			"itemListElement": [
+				{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://playerstall.com"},
+				{"@type": "ListItem", "position": 2, "name": "Contact", "item": "https://playerstall.com/contact"}
+			]
+		})}
+		</script>
+	</Fragment>
+
 	<!-- Hero Section (same image and style as blog) -->
 	<section class="contact-hero-section" id="hero">
 		<div class="contact-hero-background">
@@ -19,7 +58,7 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 				<a href="/">Home</a>
 				<span>Contact</span>
 			</div>
-			<h1 class="contact-hero-page-title">Contact</h1>
+			<h1 class="contact-hero-page-title">Start Your Free Consultation</h1>
 			<div class="contact-hero-background-text">contact</div>
 		</div>
 	</section>
@@ -32,8 +71,8 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 			<div class="contact-two-col">
 				<!-- Left column: intro, office -->
 				<div class="contact-info-block">
-					<p class="contact-intro">We serve teams across the United States and Canada. We're here to help and typically respond within 2–3 business days.</p>
-					<p class="contact-best-way">Email is the quickest way to reach us; we're happy to take your call too.</p>
+					<p class="contact-intro">Tell us about your space. We'll handle the rest. Every locker room we build starts with a conversation — your sport, your dimensions, your timeline. Thirty years of doing this means we ask the right questions.</p>
+					<p class="contact-best-way">Email is the quickest way to reach us. We typically respond within one business day.</p>
 					<h4 class="contact-office-title">OFFICE IN LANGLEY</h4>
 					<div class="contact-info-list">
 						<div class="contact-info-item">

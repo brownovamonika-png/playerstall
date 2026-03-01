@@ -3,62 +3,95 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout 
-	title="Premium Wood Lockers | Custom Sports Lockers | PlayerStall"
-	description="Custom wood sports lockers at unbeatable prices. Quick ship in 2–4 weeks or custom in 8–12 weeks. 30+ years experience. 5-year warranty. Free consultation."
+	title="Premium Wood Lockers. Priced Right. | PlayerStall"
+	description="Premium wood sports lockers, priced right. Quick ship in 2–4 weeks or custom in 8–12 weeks. 30+ years experience. Free consultation. Match any US competitor's price."
 >
 
+<Fragment slot="head">
+	<script type="application/ld+json">
+	{JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "LocalBusiness",
+		"name": "PlayerStall",
+		"image": "https://playerstall.b-cdn.net/images/logoblack2.png",
+		"url": "https://playerstall.com",
+		"telephone": "+18885841444",
+		"email": "sales@playerstall.com",
+		"address": {
+			"@type": "PostalAddress",
+			"streetAddress": "2934 200 Street",
+			"addressLocality": "Langley",
+			"addressRegion": "BC",
+			"postalCode": "V2Z 2C1",
+			"addressCountry": "CA"
+		},
+		"geo": {
+			"@type": "GeoCoordinates",
+			"latitude": 49.1044,
+			"longitude": -122.6607
+		},
+		"serviceArea": {"@type": "Country", "name": "United States"},
+		"areaServed": "US",
+		"priceRange": "$$",
+		"description": "Custom wood sports lockers for collegiate and professional teams. 30+ years experience. Ships nationwide. Free design consultation."
+	})}
+	</script>
+</Fragment>
+
 <!-- Hero Slider Section -->
-<!-- Hero image paths (some may not load if external hosts block hotlinking):
-  Slide 1: https://playerstall.b-cdn.net/images/stadium-goalpost-playerstall-lockers.jpg
-  Slide 2: https://playerstall.b-cdn.net/images/p4-title-img.jpg
-  Slide 3: https://playerstall.b-cdn.net/images/h2-rev-slide-4.jpg
-  Slide 4: https://playerstall.b-cdn.net/images/h3-img-1.jpg -->
 <section class="hero-slider" id="hero">
 	<div class="hero-slider-container">
-		<!-- Slide 1: https://playerstall.b-cdn.net/images/stadium-goalpost-playerstall-lockers.jpg -->
+		<!-- Slide 1 -->
 		<div class="hero-slide active first-slide" style="background-image: url('https://playerstall.b-cdn.net/images/stadium-goalpost-playerstall-lockers.jpg');">
 			<div class="hero-slide-content">
-				<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
-				<p class="hero-slide-text">Quick ship in 2–4 weeks or custom in 8–12 weeks. We'll match any USA competitor's price.</p>
+				<h1 class="hero-slide-title">Premium Wood Lockers. Priced Right.</h1>
 				<div class="hero-slide-buttons">
-					<a href="/shop" class="btn btn-slide-primary">Shop Quick Ship</a>
-					<a href="/request-a-quote" class="btn btn-slide-secondary">Request a Quote</a>
+					<a href="/contact" class="btn btn-slide-primary">Start a Consultation</a>
+					<a href="/services" class="btn btn-slide-secondary">View the Collection</a>
 				</div>
 			</div>
 		</div>
-		<!-- Slide 2: https://playerstall.b-cdn.net/images/p4-title-img.jpg -->
+		<!-- Slide 2 -->
 		<div class="hero-slide" style="background-image: url('https://playerstall.b-cdn.net/images/p4-title-img.jpg');">
 			<div class="hero-slide-overlay"></div>
 			<div class="hero-slide-content">
-				<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
-				<p class="hero-slide-text">Your timeline. Your way. Stadium & Elite quick ship (2–4 weeks) — or custom size, wood & materials.</p>
+				<div class="hero-slide-title">Every game begins here.</div>
 				<div class="hero-slide-buttons">
-					<a href="/shop" class="btn btn-slide-primary">View Shop</a>
-					<a href="/contact" class="btn btn-slide-secondary">Contact Us</a>
+					<a href="/contact" class="btn btn-slide-primary">Start a Consultation</a>
+					<a href="/services" class="btn btn-slide-secondary">View the Collection</a>
 				</div>
 			</div>
 		</div>
-		<!-- Slide 3: https://playerstall.b-cdn.net/images/h2-rev-slide-4.jpg -->
+		<!-- Slide 3 -->
 		<div class="hero-slide" style="background-image: url('https://playerstall.b-cdn.net/images/h2-rev-slide-4.jpg');">
 			<div class="hero-slide-overlay"></div>
 			<div class="hero-slide-content">
-				<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
-				<p class="hero-slide-text">We focus on core models so production never stops. That's how we keep prices low.</p>
+				<div class="hero-slide-title">Every great team has a great locker room.</div>
 				<div class="hero-slide-buttons">
-					<a href="/contact" class="btn btn-slide-primary">Learn Why</a>
-					<a href="/contact" class="btn btn-slide-secondary">Contact Us</a>
+					<a href="/contact" class="btn btn-slide-primary">Start a Consultation</a>
+					<a href="/services" class="btn btn-slide-secondary">View the Collection</a>
 				</div>
 			</div>
 		</div>
-	<!-- Slide 4: https://playerstall.b-cdn.net/images/h3-img-1.jpg -->
-	<div class="hero-slide slide-bottom" style="background-image: url('https://playerstall.b-cdn.net/images/h3-img-1.jpg');">
-		<div class="hero-slide-overlay"></div>
+		<!-- Slide 4 -->
+		<div class="hero-slide" style="background-image: url('https://playerstall.b-cdn.net/images/h3-img-1.jpg');">
+			<div class="hero-slide-overlay"></div>
 			<div class="hero-slide-content">
-				<h1 class="hero-slide-title">Premium Wood Lockers. Unbeatable Prices.</h1>
-				<p class="hero-slide-text">Wood, phenolic, and more — custom in 8–12 weeks. High style. Lower cost.</p>
+				<div class="hero-slide-title">Give athletes a space they're proud of.</div>
 				<div class="hero-slide-buttons">
-					<a href="/hockey" class="btn btn-slide-primary">By Sport</a>
-					<a href="/request-a-quote" class="btn btn-slide-secondary">Get a Quote</a>
+					<a href="/contact" class="btn btn-slide-primary">Start a Consultation</a>
+					<a href="/services" class="btn btn-slide-secondary">View the Collection</a>
+				</div>
+			</div>
+		</div>
+		<!-- Slide 5 -->
+		<div class="hero-slide" style="background-image: url('https://playerstall.b-cdn.net/images/stadium-goalpost-playerstall-lockers.jpg');">
+			<div class="hero-slide-overlay"></div>
+			<div class="hero-slide-content">
+				<div class="hero-slide-title">Built to last. Built to impress.</div>
+				<div class="hero-slide-buttons">
+					<a href="/contact" class="btn btn-slide-primary">Start a Consultation</a>
+					<a href="/services" class="btn btn-slide-secondary">View the Collection</a>
 				</div>
 			</div>
 		</div>
@@ -80,6 +113,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		<button class="slider-dot" aria-label="Slide 2"></button>
 		<button class="slider-dot" aria-label="Slide 3"></button>
 		<button class="slider-dot" aria-label="Slide 4"></button>
+		<button class="slider-dot" aria-label="Slide 5"></button>
 	</div>
 </section>
 
@@ -475,7 +509,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<div class="ts-features-overlay"></div>
 	<div class="ts-features-content">
 		<span class="ts-features-label">Explore the Features</span>
-		<h1 class="ts-features-title">Premium craftsmanship meets unbeatable value</h1>
+		<h2 class="ts-features-title">Premium craftsmanship meets unbeatable value</h2>
 		<div class="ts-features-tags">
 			<span>Quality</span>
 			<span>Craftsmanship</span>
