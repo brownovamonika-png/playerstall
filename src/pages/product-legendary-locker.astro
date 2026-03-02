@@ -52,7 +52,7 @@ const legendarySpecs = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="https://playerstall.b-cdn.net/images/legendary-locker.png"
+							src="/images/model-x-locker.png"
 							alt="Model X wood athletic locker for locker rooms"
 							class="product-main-image"
 						/>
@@ -60,13 +60,13 @@ const legendarySpecs = [
 					</div>
 					<div class="product-gallery-thumbs">
 						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model X locker view 1" />
+							<img src="/images/model-x-locker.png" alt="Model X locker view 1" />
 						</button>
-						<button type="button" class="thumb" aria-label="View image 2">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Locker view 2" />
+						<button type="button" class="thumb" aria-label="Model X side view">
+							<img src="/images/model-x-locker-side.png" alt="Model X side view" />
 						</button>
 						<button type="button" class="thumb" aria-label="View image 3">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Locker view 3" />
+							<img src="/images/model-x-locker.png" alt="Locker view 3" />
 						</button>
 						<button type="button" class="thumb" aria-label="Model X locker dimensions sheet">
 							<img src={modelXLockerDimensionsSheet.src} alt="Model X locker dimensions sheet – front and side views with measurements in inches" />
@@ -1099,7 +1099,7 @@ const legendarySpecs = [
 			const colorSelect = document.getElementById('color-select');
 			const colorCode = colorSelect?.value ?? 'DW';
 			const id = 'model-x-locker-' + width + '-' + deep + '-' + colorCode;
-			const image = 'https://playerstall.b-cdn.net/images/legendary-locker.png';
+			const image = '/images/model-x-locker.png';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) existing.quantity += qty;
