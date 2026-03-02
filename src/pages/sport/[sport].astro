@@ -222,15 +222,14 @@ const WOOD_COLORS = [
 	{ code: 'HW', name: 'Hampton Walnut', hex: '#4A2F1B' },
 ];
 
-const MODEL_X_LOCKER_IMAGE = 'https://playerstall.b-cdn.net/images/legendary-locker.png';
-
+// Images in same order as product spec sheet (1st = main, 2nd = side, 3rd = detail/color, 4th = repeat or dimensions)
 const LOCKERS = [
-	{ name: 'Semi Pro', image: 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png', price: '$349', info: 'Entry-level wood locker. 3/4" solid wood construction, durable and ideal for schools and rec teams.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"', href: '/product-semi-pro-locker' },
-	{ name: 'Varsity', image: 'https://playerstall.b-cdn.net/images/varsity-locker.jpg', price: '$449', info: 'Step-up design with 3/4" solid wood premium finish. Great for varsity and competitive programs.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-varsity-locker' },
-	{ name: 'Pro', image: 'https://playerstall.b-cdn.net/images/pro-locker.jpg', price: '$649', info: 'MPW-6C plywood melamine construction. Reliable workhorse for team locker rooms. Quick ship in one month or custom-built in three months.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-pro-locker' },
-	{ name: 'Stadium', image: 'https://playerstall.b-cdn.net/images/stadium-locker.jpg', price: '$649', info: 'Premium plywood melamine, stadium-grade. Heavy-duty build for high-traffic facilities. Quick ship in one month or custom-built in three months.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-stadium-locker' },
-	{ name: 'Elite', image: 'https://playerstall.b-cdn.net/images/grid_locker_gray_curved-75a91a17-f394-49fb-8c61-0029ab3bc6b7.png', price: '$649', info: 'Top-tier locker. Curved design, premium materials. Quick ship in one month (24" width, one signature color).', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-elite-locker' },
-	{ name: 'Model X', image: 'https://playerstall.b-cdn.net/images/legendary-locker.png', price: '$649', info: 'Top-tier locker. Curved design, maximum durability and customization. Custom-built in three months with full color options.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-legendary-locker' },
+	{ name: 'Semi Pro', image: 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png', images: ['https://playerstall.b-cdn.net/images/semi-pro-locker-new.png', 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png', 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png', 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png'], price: '$349', info: 'Entry-level wood locker. 3/4" solid wood construction, durable and ideal for schools and rec teams.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"', href: '/product-semi-pro-locker' },
+	{ name: 'Varsity', image: '/images/varsity-locker.png', images: ['/images/varsity-locker.png', '/images/varsity-locker.png', '/images/varsity-locker.png', '/images/varsity-locker.png'], price: '$449', info: 'Step-up design with 3/4" solid wood premium finish. Great for varsity and competitive programs.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-varsity-locker' },
+	{ name: 'Pro', image: 'https://playerstall.b-cdn.net/images/pro-locker.jpg', images: ['https://playerstall.b-cdn.net/images/pro-locker.jpg', 'https://playerstall.b-cdn.net/images/pro-locker.jpg', 'https://playerstall.b-cdn.net/images/pro-locker.jpg', 'https://playerstall.b-cdn.net/images/pro-locker.jpg'], price: '$649', info: 'MPW-6C plywood melamine construction. Reliable workhorse for team locker rooms. Quick ship in one month or custom-built in three months.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-pro-locker' },
+	{ name: 'Stadium', image: '/images/stadium-locker.png', images: ['/images/stadium-locker.png', '/images/stadium-locker-side.png', '/images/stadium-locker-third.png', '/images/stadium-locker.png'], price: '$649', info: 'Premium plywood melamine, stadium-grade. Heavy-duty build for high-traffic facilities. Quick ship in one month or custom-built in three months.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-stadium-locker' },
+	{ name: 'Elite', image: '/images/elite-locker.png', images: ['/images/elite-locker.png', '/images/elite-locker-side.png', '/images/elite-locker-graphite.png', '/images/elite-locker.png'], price: '$649', info: 'Top-tier locker. Curved design, premium materials. Quick ship in one month (24" width, one signature color).', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-elite-locker' },
+	{ name: 'Model X', image: '/images/model-x-website-images/model-x-locker.png', images: ['/images/model-x-website-images/model-x-locker.png', '/images/model-x-website-images/model-x-locker-side.png', '/images/model-x-website-images/model-x-locker-black.png', '/images/model-x-website-images/model-x-locker.png'], price: '$649', info: 'Top-tier locker. Curved design, maximum durability and customization. Custom-built in three months with full color options.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-legendary-locker' },
 ];
 
 /* ───── Route ───── */
@@ -300,7 +299,7 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 				<p class="ts-spotlight-bio">Choose from 6 premium wood locker models designed specifically for athletic teams. Our collection ranges from the essential Semi Pro and Varsity models perfect for high school teams, to our elite Pro, Stadium, Elite, and Model X models built for collegiate and professional facilities. Every locker features premium 6-layer melamine-faced plywood construction with superior moisture resistance and fire-rated materials. Quick ship models (Stadium, Elite & Model X in 24" width) deliver in 2-4 weeks, while fully custom lockers ship in 8-12 weeks with your choice of dimensions, finishes, colors, and hardware. All backed by our 5-year warranty.</p>
 			</div>
 
-			{/* All lockers: Model X image, same layout as Model X line */}
+			{/* All lockers: images in same order as spec sheet (1st main, 2nd side, 3rd detail, 4th) */}
 			{LOCKERS.map((locker) => (
 				<article class="sp-locker-featured">
 					<div class="sp-locker-featured-nameblock">
@@ -309,16 +308,16 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 					</div>
 					<div class="sp-locker-angles">
 						<div class="sp-locker-angle">
-							<img src={MODEL_X_LOCKER_IMAGE} alt={`${locker.name} Locker - Front View`} loading="lazy" />
+							<img src={locker.images[0]} alt={`${locker.name} Locker - Front View`} loading="lazy" />
 						</div>
 						<div class="sp-locker-angle">
-							<img src={MODEL_X_LOCKER_IMAGE} alt={`${locker.name} Locker - Side View`} loading="lazy" />
+							<img src={locker.images[1]} alt={`${locker.name} Locker - Side View`} loading="lazy" />
 						</div>
 						<div class="sp-locker-angle">
-							<img src={MODEL_X_LOCKER_IMAGE} alt={`${locker.name} Locker - Detail View`} loading="lazy" />
+							<img src={locker.images[2]} alt={`${locker.name} Locker - Detail View`} loading="lazy" />
 						</div>
 						<div class="sp-locker-angle">
-							<img src={MODEL_X_LOCKER_IMAGE} alt={`${locker.name} Locker - Interior View`} loading="lazy" />
+							<img src={locker.images[3]} alt={`${locker.name} Locker - View`} loading="lazy" />
 						</div>
 					</div>
 					<div class="sp-locker-featured-action">
@@ -750,17 +749,21 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 	.sp-locker-angle {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		background: transparent;
 		padding: 0;
 		transition: opacity 0.3s;
+		width: 180px;
+		height: 260px;
+		flex-shrink: 0;
+		overflow: hidden;
 	}
 	.sp-locker-angle:hover {
 		opacity: 0.85;
 	}
 	.sp-locker-angle img {
-		max-width: 100%;
-		max-height: 260px;
-		height: auto;
+		width: 100%;
+		height: 100%;
 		object-fit: contain;
 		object-position: center center;
 		display: block;
@@ -1200,8 +1203,9 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 			row-gap: 24px;
 			column-gap: 24px;
 		}
-		.sp-locker-angle img {
-			max-height: 200px;
+		.sp-locker-angle {
+			width: 140px;
+			height: 200px;
 		}
 
 		.sp-locker-row {

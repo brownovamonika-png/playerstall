@@ -52,15 +52,14 @@ const varsitySpecs = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="https://playerstall.b-cdn.net/images/legendary-locker.png"
+							src="/images/varsity-locker.png"
 							alt="Varsity wood athletic locker for locker rooms"
 							class="product-main-image"
 						/>
-						<span class="product-enlarge-hint">Enlarge Image</span>
-					</div>
+						</div>
 					<div class="product-gallery-thumbs">
 						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Varsity locker view 1" />
+							<img src="/images/varsity-locker.png" alt="Varsity locker view 1" />
 						</button>
 						<button type="button" class="thumb" aria-label="View image 2">
 							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Locker view 2" />
@@ -349,17 +348,6 @@ const varsitySpecs = [
 		height: 96%;
 		object-fit: contain;
 		display: block;
-	}
-
-	.product-enlarge-hint {
-		position: absolute;
-		bottom: 12px;
-		right: 12px;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		color: #8c8c8c;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
 	}
 
 	.product-gallery-thumbs {
@@ -938,7 +926,7 @@ const varsitySpecs = [
 			const deepSwatch = document.querySelector('.deep-swatch.active');
 			const deep = (deepSwatch?.getAttribute('title') ?? '19 inch deep').replace(/\s*inch deep/, '').trim();
 			const id = 'varsity-locker-' + width + '-' + deep;
-			const image = 'https://playerstall.b-cdn.net/images/legendary-locker.png';
+			const image = '/images/varsity-locker.png';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) existing.quantity += qty;

@@ -53,7 +53,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<!-- Stadium -->
 					<div class="shop-product-item" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Stadium Locker" />
+							<img src="/images/stadium-locker-side.png" alt="Stadium Locker" />
 							<div class="shop-product-overlay">
 								<a href="/product-stadium-locker" class="shop-see-details-btn-overlay">Details</a>
 							</div>
@@ -69,7 +69,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<div class="shop-product-item" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
 							<span class="shop-badge new">New</span>
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Elite Locker" loading="lazy" />
+							<img src="/images/elite-locker-side.png" alt="Elite Locker" loading="lazy" />
 							<div class="shop-product-overlay">
 								<a href="/product-elite-locker" class="shop-see-details-btn-overlay">Details</a>
 							</div>
@@ -85,7 +85,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<div class="shop-product-item" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
 							<span class="shop-badge new">New</span>
-							<img src="/images/model-x-locker.png" alt="Model X Locker" loading="lazy" />
+							<img src="/images/model-x-website-images/model-x-locker-side.png" alt="Model X Locker" loading="lazy" />
 							<div class="shop-product-overlay">
 								<a href="/product-legendary-locker" class="shop-see-details-btn-overlay">Details</a>
 							</div>
@@ -100,7 +100,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<!-- Semi Pro (bottom row, centered) -->
 					<div class="shop-product-item shop-locker-bottom-item" data-price="349" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Semi Pro Locker" />
+							<img src="https://playerstall.b-cdn.net/images/semi-pro-locker-new.png" alt="Semi Pro Locker" />
 							<div class="shop-product-overlay">
 								<a href="/product-semi-pro-locker" class="shop-see-details-btn-overlay">Details</a>
 							</div>
@@ -115,7 +115,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<!-- Varsity (bottom row, centered) -->
 					<div class="shop-product-item shop-locker-bottom-item" data-price="449" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Varsity Locker" />
+							<img src="/images/varsity-locker.png" alt="Varsity Locker" />
 							<div class="shop-product-overlay">
 								<a href="/product-varsity-locker" class="shop-see-details-btn-overlay">Details</a>
 							</div>
@@ -141,6 +141,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<h2 class="shop-section-title">LOCKER ACCESSORIES</h2>
 		</div>
 			<div class="shop-products-grid shop-accessories-grid">
+				<!-- Vented Panel (3 images: Elite, Stadium, Model X) -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/elite-locker-vent-panel.png" data-acc-image-2="/images/stadium-locker-vent-panel.png" data-acc-image-3="/images/model-x-website-images/model-x-locker-vent-panel.png" data-acc-title="Vented Panel" data-acc-price="+ $40.00" data-acc-desc="Vented front panel for increased airflow – keeps gear dry and reduces odor. Available on Elite, Stadium, and Model X lockers.">
+					<div class="shop-product-image">
+						<img src="/images/elite-locker-vent-panel.png" alt="Vented front panel for sports lockers" loading="lazy" />
+					</div>
+					<button type="button" class="shop-accessory-trigger">
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Accessories</div>
+							<h5 class="shop-product-title">Vented Panel</h5>
+						</div>
+					</button>
+				</div>
 				<!-- Cushions (two sliding images in modal) -->
 				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-image-2="https://playerstall.b-cdn.net/images/cushion-logo.png" data-acc-title="Cushions" data-acc-price="$75.00 (top or bottom) / $150.00 (both)" data-acc-desc="High-density foam cushions upholstered for comfort and durability – available on the top, bottom, or both.">
 					<div class="shop-product-image">
@@ -799,6 +811,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin-bottom: 0;
 	}
 
+	/* All accessory cards: white image area (Vented Panel, Cushions, Coat Rod, Hooks, etc.) */
+	.shop-accessories-grid .shop-product-image {
+		background: #fff;
+	}
+
 	.shop-accessory-item {
 		display: flex;
 		flex-direction: column;
@@ -851,7 +868,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: #f7f7f7;
+		background: #fff;
 		position: relative;
 	}
 
@@ -938,7 +955,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	.acc-modal-gallery {
-		background: #f7f7f7;
+		background: #fff;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -952,6 +969,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		height: 100%;
 		min-height: 240px;
 		overflow: hidden;
+		background: #fff;
 	}
 
 	.acc-modal-slides {
@@ -959,6 +977,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		width: 100%;
 		height: 100%;
 		transition: transform 0.35s ease-in-out;
+		background: #fff;
 	}
 
 	.acc-modal-slide {
@@ -967,6 +986,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		background: #fff;
 	}
 
 	.acc-modal-slide img {

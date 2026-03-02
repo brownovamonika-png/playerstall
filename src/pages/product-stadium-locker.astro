@@ -52,24 +52,26 @@ const stadiumSpecs = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="https://playerstall.b-cdn.net/images/legendary-locker.png"
+							src="/images/stadium-locker.png"
 							alt="Stadium wood athletic locker for locker rooms"
 							class="product-main-image"
 						/>
-						<span class="product-enlarge-hint">Enlarge Image</span>
-					</div>
+						</div>
 					<div class="product-gallery-thumbs">
 						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Stadium locker view 1" />
+							<img src="/images/stadium-locker.png" alt="Stadium locker view 1" />
 						</button>
-						<button type="button" class="thumb" aria-label="View image 2">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Locker view 2" />
+						<button type="button" class="thumb" aria-label="Stadium locker side view">
+							<img src="/images/stadium-locker-side.png" alt="Stadium locker side view" />
 						</button>
-						<button type="button" class="thumb" aria-label="View image 3">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Locker view 3" />
+						<button type="button" class="thumb" aria-label="Stadium locker dark view">
+							<img src="/images/stadium-locker-third.png" alt="Stadium locker dark view" />
 						</button>
 						<button type="button" class="thumb" aria-label="Stadium locker dimensions sheet">
 							<img src={stadiumLockerDimensionsSheet.src} alt="Stadium locker dimensions sheet – front and side views with measurements in inches" />
+						</button>
+						<button type="button" class="thumb" aria-label="Stadium locker vented front panel detail">
+							<img src="/images/stadium-locker-vent-panel.png" alt="Stadium locker vented front panel with horizontal slots" />
 						</button>
 					</div>
 				</div>
@@ -394,17 +396,6 @@ const stadiumSpecs = [
 		height: 96%;
 		object-fit: contain;
 		display: block;
-	}
-
-	.product-enlarge-hint {
-		position: absolute;
-		bottom: 12px;
-		right: 12px;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		color: #8c8c8c;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
 	}
 
 	.product-gallery-thumbs {
@@ -1100,7 +1091,7 @@ const stadiumSpecs = [
 			const colorSelect = document.getElementById('color-select');
 			const colorCode = colorSelect?.value ?? 'DW';
 			const id = 'stadium-locker-' + width + '-' + deep + '-' + colorCode;
-			const image = 'https://playerstall.b-cdn.net/images/legendary-locker.png';
+			const image = '/images/stadium-locker.png';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) existing.quantity += qty;

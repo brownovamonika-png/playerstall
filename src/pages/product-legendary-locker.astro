@@ -52,24 +52,27 @@ const legendarySpecs = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="/images/model-x-locker.png"
+							src="/images/model-x-website-images/model-x-locker.png"
 							alt="Model X wood athletic locker for locker rooms"
 							class="product-main-image"
 						/>
-						<span class="product-enlarge-hint">Enlarge Image</span>
-					</div>
+						</div>
+					<p class="product-gallery-caption">Displayed in graphite color</p>
 					<div class="product-gallery-thumbs">
 						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="/images/model-x-locker.png" alt="Model X locker view 1" />
+							<img src="/images/model-x-website-images/model-x-locker.png" alt="Model X locker view 1" />
 						</button>
 						<button type="button" class="thumb" aria-label="Model X side view">
-							<img src="/images/model-x-locker-side.png" alt="Model X side view" />
+							<img src="/images/model-x-website-images/model-x-locker-side.png" alt="Model X side view" />
 						</button>
 						<button type="button" class="thumb" aria-label="Model X black locker">
-							<img src="/images/model-x-locker-black.png" alt="Model X black locker" />
+							<img src="/images/model-x-website-images/model-x-locker-black.png" alt="Model X black locker" />
 						</button>
 						<button type="button" class="thumb" aria-label="Model X locker dimensions sheet">
 							<img src={modelXLockerDimensionsSheet.src} alt="Model X locker dimensions sheet – front and side views with measurements in inches" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model X locker vented front panel detail">
+							<img src="/images/model-x-website-images/model-x-locker-vent-panel.png" alt="Model X locker vented front panel with horizontal slots" />
 						</button>
 					</div>
 				</div>
@@ -395,15 +398,18 @@ const legendarySpecs = [
 		display: block;
 	}
 
-	.product-enlarge-hint {
-		position: absolute;
-		bottom: 12px;
-		right: 12px;
+	.product-gallery-caption {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
+		font-size: 14px;
 		color: #8c8c8c;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		margin: 0 0 16px 0;
+		text-align: center;
+	}
+	.product-gallery-caption.is-hidden {
+		visibility: hidden;
+		height: 0;
+		margin: 0;
+		overflow: hidden;
 	}
 
 	.product-gallery-thumbs {
@@ -959,15 +965,29 @@ const legendarySpecs = [
 </style>
 
 <script>
-	document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((thumb) => {
+	const thumbs = document.querySelectorAll('.product-gallery-thumbs .thumb');
+	const captionEl = document.querySelector('.product-gallery-caption');
+	thumbs.forEach((thumb, index) => {
 		thumb.addEventListener('click', () => {
-			document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((t) => t.classList.remove('active'));
+			thumbs.forEach((t) => t.classList.remove('active'));
 			thumb.classList.add('active');
 			const img = thumb.querySelector('img');
 			if (img && img.src) {
 				const main = document.querySelector('.product-main-image');
 				if (main instanceof HTMLImageElement) {
 					main.src = img.src;
+				}
+			}
+			// Caption by image: 1st & 3rd = graphite, 2nd = black, 4th = none
+			if (captionEl) {
+				if (index === 0 || index === 2) {
+					captionEl.textContent = 'Displayed in graphite color';
+					captionEl.classList.remove('is-hidden');
+				} else if (index === 1) {
+					captionEl.textContent = 'Displayed in black color';
+					captionEl.classList.remove('is-hidden');
+				} else {
+					captionEl.classList.add('is-hidden');
 				}
 			}
 		});
@@ -1099,7 +1119,7 @@ const legendarySpecs = [
 			const colorSelect = document.getElementById('color-select');
 			const colorCode = colorSelect?.value ?? 'DW';
 			const id = 'model-x-locker-' + width + '-' + deep + '-' + colorCode;
-			const image = '/images/model-x-locker.png';
+			const image = '/images/model-x-website-images/model-x-locker.png';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) existing.quantity += qty;

@@ -21,6 +21,17 @@ export interface ShopAccessoryModalItem {
 
 export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 	{
+		accImage: '/images/elite-locker-vent-panel.png',
+		accImage2: '/images/stadium-locker-vent-panel.png',
+		accImage3: '/images/model-x-website-images/model-x-locker-vent-panel.png',
+		accTitle: 'Vented Panel',
+		accPrice: '+ $40.00',
+		accDesc: 'Vented front panel for increased airflow – keeps gear dry and reduces odor. Available on Elite, Stadium, and Model X lockers.',
+		image: '/images/elite-locker-vent-panel.png',
+		alt: 'Vented front panel for sports lockers',
+		title: 'Vented Panel',
+	},
+	{
 		accImage: LOCK_BOX_IMG,
 		accImage2: CUSHION_IMG,
 		accTitle: 'Cushions',
