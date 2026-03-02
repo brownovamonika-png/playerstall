@@ -5,6 +5,7 @@ import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 import modelXLockerDimensionsSheet from '../assets/model-x-locker-dimensions-sheet.png';
+import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
 const legendarySpecs = [
 	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
@@ -73,6 +74,9 @@ const legendarySpecs = [
 						</button>
 						<button type="button" class="thumb" aria-label="Model X locker vented front panel detail">
 							<img src="/images/model-x-website-images/model-x-locker-vent-panel.png" alt="Model X locker vented front panel with horizontal slots" />
+						</button>
+						<button type="button" class="thumb" aria-label="Digital lock box option">
+							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
 						</button>
 					</div>
 				</div>

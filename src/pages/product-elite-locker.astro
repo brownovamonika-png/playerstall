@@ -5,6 +5,7 @@ import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 import eliteLockerDimensionsSheet from '../assets/elite-locker-dimensions-sheet.png';
+import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
 const eliteSpecs = [
 	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
@@ -73,6 +74,9 @@ const eliteSpecs = [
 						</button>
 						<button type="button" class="thumb" aria-label="Elite locker vented front panel detail">
 							<img src="/images/elite-locker-vent-panel.png" alt="Elite locker vented front panel with horizontal slots" />
+						</button>
+						<button type="button" class="thumb" aria-label="Digital lock box option">
+							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
 						</button>
 					</div>
 				</div>

@@ -5,6 +5,7 @@ import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 import stadiumLockerDimensionsSheet from '../assets/stadium-locker-dimensions-sheet.png';
+import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
 const stadiumSpecs = [
 	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
@@ -72,6 +73,9 @@ const stadiumSpecs = [
 						</button>
 						<button type="button" class="thumb" aria-label="Stadium locker vented front panel detail">
 							<img src="/images/stadium-locker-vent-panel.png" alt="Stadium locker vented front panel with horizontal slots" />
+						</button>
+						<button type="button" class="thumb" aria-label="Digital lock box option">
+							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
 						</button>
 					</div>
 				</div>

@@ -5,6 +5,7 @@ import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 import proLockerDimensionsSheet from '../assets/pro-locker-dimensions-sheet.png';
+import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
 const proSpecs = [
 	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
@@ -69,6 +70,9 @@ const proSpecs = [
 						</button>
 						<button type="button" class="thumb" aria-label="Pro locker dimensions sheet">
 							<img src={proLockerDimensionsSheet.src} alt="Pro locker dimensions sheet – front and side views with measurements in inches" />
+						</button>
+						<button type="button" class="thumb" aria-label="Digital lock box option">
+							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
 						</button>
 					</div>
 				</div>
