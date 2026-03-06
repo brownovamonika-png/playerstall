@@ -1,0 +1,2 @@
+# Legacy /index.html → / (cannot be done in Astro: conflicts with root index)
+/index.html    /    301

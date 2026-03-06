@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Model X Locker – Spec Sheet | PlayerStall</title>
+	<link href="https://fonts.googleapis.com/css?family=Yantramanav:400,500|Oswald:600,700|Roboto:400&display=swap" rel="stylesheet">
+	<style>
+		* { box-sizing: border-box; }
+		body { font-family: 'Yantramanav', 'Roboto', Arial, sans-serif; background: #fff; color: #0d0d0d; margin: 0; padding: 0; }
+		.product-container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+		.product-hero-section { position: relative; min-height: 240px; padding: 0 0 40px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+		.product-hero-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+		.product-hero-bg-image { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: grayscale(100%); }
+		.product-hero-background-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.2); z-index: 1; }
+		.hero-image-print-only { display: none; }
+		.product-hero-container { position: relative; z-index: 10; max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+		.product-page-title { font-family: 'Oswald', sans-serif; font-size: 48px; font-weight: 600; color: #fff; margin: 0; text-transform: uppercase; }
+		.product-main-section { padding: 48px 0 64px; }
+		.product-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-bottom: 48px; }
+		@media (max-width: 900px) { .product-layout { grid-template-columns: 1fr; } .product-info-grid { grid-template-columns: 1fr; } }
+		.product-title { font-family: 'Oswald', sans-serif; font-size: 26px; font-weight: 600; color: #0d0d0d; margin: 0 0 10px; }
+		.product-model { font-size: 14px; color: #8c8c8c; margin: 0 0 6px; }
+		.product-lead-time { font-size: 14px; color: #0d0d0d; margin: 0 0 20px; }
+		.product-price-block { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #fe5900; }
+		.product-price { font-family: 'Oswald', sans-serif; font-size: 32px; font-weight: 600; color: #0d0d0d; }
+		.price-width-note { font-size: 13px; color: #555; line-height: 1.5; margin: 10px 0 0; max-width: 420px; }
+		.product-options-static { font-size: 14px; color: #333; line-height: 1.6; margin-bottom: 20px; }
+		.product-options-static p { margin: 0 0 6px; }
+		.product-accessories-static { margin-bottom: 20px; }
+		.product-accessories-static .option-label { font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 600; color: #0d0d0d; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 6px; }
+		.product-accessories-static .option-value { font-size: 14px; color: #8c8c8c; margin: 0 0 10px; }
+		.accessories-list-static { font-size: 14px; color: #0d0d0d; line-height: 1.5; margin: 0; padding-left: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; list-style: disc; }
+		@media (max-width: 600px) { .accessories-list-static { grid-template-columns: 1fr; } }
+		.product-volume-discounts { margin-bottom: 24px; }
+		.volume-title { font-family: 'Oswald', sans-serif; font-size: 16px; font-weight: 600; color: #0d0d0d; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 10px; }
+		.volume-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+		.volume-table thead { background: #0d0d0d; color: #fff; }
+		.volume-table th { padding: 10px 12px; text-align: left; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+		.volume-table th:first-child { background: #fe5900; }
+		.volume-table td { padding: 10px 12px; border-bottom: 1px solid #e0e0e0; }
+		.product-info-section { padding-top: 48px; border-top: 1px solid #e0e0e0; margin-top: 32px; }
+		.product-info-heading { font-family: 'Oswald', sans-serif; font-size: 28px; font-weight: 600; color: #0d0d0d; text-transform: uppercase; margin: 0 0 24px; }
+		.product-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+		.product-info-subheading { font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 600; color: #0d0d0d; text-transform: uppercase; margin: 24px 0 12px; }
+		.product-info-subheading:first-of-type { margin-top: 0; }
+		.product-spec-sheet { margin: 0 0 1.5rem; }
+		.product-spec-sheet-title { font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 600; color: #0d0d0d; text-transform: uppercase; margin: 0 0 0.75rem; }
+		.product-spec-table { width: 100%; max-width: 560px; border-collapse: collapse; font-size: 15px; }
+		.product-spec-table th, .product-spec-table td { padding: 0.4rem 0.6rem 0.4rem 0; vertical-align: top; text-align: left; border-bottom: 1px solid #e8e8e8; }
+		.product-spec-table tr:last-child th, .product-spec-table tr:last-child td { border-bottom: none; }
+		.product-spec-label { font-weight: 500; color: #0d0d0d; width: 42%; }
+		.product-spec-value { color: #333; line-height: 1.5; }
+		.product-dimensions-sheet-figure { margin: 0 0 1.5rem; max-width: 560px; }
+		.product-dimensions-sheet-image { width: 100%; height: auto; display: block; border: 1px solid #e8e8e8; }
+		.product-dimensions-sheet-caption { font-size: 14px; color: #8c8c8c; margin-top: 6px; }
+		.top-locker-block { padding: 12px 0 16px; }
+		.top-locker-image-wrap { background: #f7f7f7; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; max-height: 743px; overflow: hidden; }
+		.top-locker-image { width: 100%; max-width: 1283px; height: auto; max-height: 743px; object-fit: contain; display: block; }
+		.top-locker-block .product-options-images-section { margin: 0; padding-top: 0; border-top: none; }
+		.product-layout-single { grid-template-columns: 1fr; max-width: 720px; }
+		.product-options-images-section { margin: 40px 0 0; padding-top: 28px; border-top: 1px solid #e0e0e0; }
+		.product-options-images-section .option-label { font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 600; color: #0d0d0d; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid #fe5900; }
+		.options-images-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+		.option-image-fig { margin: 0; text-align: center; flex: 0 0 auto; }
+		.option-image-fig img { width: 80px; height: 80px; display: block; border: 2px solid #e0e0e0; object-fit: contain; background: #f0f0f0; box-sizing: border-box; }
+		.option-image-fig figcaption { font-size: 11px; color: #555; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.03em; max-width: 80px; }
+		.volume-title { padding-left: 10px; border-left: 4px solid #fe5900; }
+		.product-info-heading { padding-bottom: 12px; border-bottom: 4px solid #fe5900; }
+		.product-info-subheading { padding-left: 10px; border-left: 4px solid #fe5900; }
+		.product-spec-sheet-title { padding-left: 10px; border-left: 4px solid #fe5900; }
+		.product-features-list, .product-options-list { font-size: 15px; line-height: 1.7; color: #0d0d0d; margin: 0 0 20px; padding-left: 22px; }
+		.product-features-list li, .product-options-list li { margin-bottom: 8px; }
+		.pdf-cta { text-align: center; margin-top: 40px; padding-top: 28px; border-top: 1px solid #e0e0e0; }
+		.pdf-hint { font-size: 14px; color: #666; display: block; margin-bottom: 12px; }
+		@media print {
+			.pdf-cta, .product-gallery-thumbs { display: none !important; }
+			body { background: #fff; }
+			.product-hero-section { display: flex !important; flex-direction: column; min-height: auto; height: auto; padding-bottom: 6px; overflow: visible; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+			.product-hero-background, .product-hero-background-overlay { display: none !important; }
+			.hero-image-print-only { display: block !important; width: 100%; height: auto; max-height: 130px; object-fit: cover; object-position: center; margin-bottom: 4px; order: -1; filter: grayscale(100%); }
+			.product-hero-container { position: static; order: 0; }
+			.product-page-title { color: #0d0d0d; font-size: 26px; }
+			.top-locker-block { padding: 6px 0 8px; }
+			.top-locker-image-wrap { max-height: 507px; margin-bottom: 6px; }
+			.top-locker-image { max-height: 507px; }
+			.product-main-section { page-break-before: always; padding: 16px 0; }
+		}
+		@page { size: letter; margin: 0.75in; }
+	</style>
+</head>
+<body>
+	<main class="product-container">
+		<section class="product-hero-section">
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model X Locker" class="hero-image-print-only">
+			<div class="product-hero-background">
+				<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model X Locker" class="product-hero-bg-image">
+			</div>
+			<div class="product-hero-background-overlay"></div>
+			<div class="product-hero-container">
+				<h1 class="product-page-title">Model X</h1>
+			</div>
+		</section>
+
+		<div class="product-container top-locker-block">
+			<div class="top-locker-image-wrap">
+				<img src="/images/model-x-website-images/model-x-locker-side.png" alt="Model X wood athletic locker for locker rooms" class="top-locker-image">
+			</div>
+			<div class="product-options-images-section">
+				<h3 class="option-label">Other views &amp; options</h3>
+				<div class="options-images-grid">
+					<figure class="option-image-fig">
+						<img src="/images/model-x-website-images/model-x-locker.png" alt="Model X locker front view">
+						<figcaption>Front view</figcaption>
+					</figure>
+					<figure class="option-image-fig">
+						<img src="/images/model-x-website-images/model-x-locker-side.png" alt="Model X locker side view">
+						<figcaption>Side view</figcaption>
+					</figure>
+					<figure class="option-image-fig">
+						<img src="/images/model-x-website-images/model-x-locker-black.png" alt="Model X locker black">
+						<figcaption>Black finish</figcaption>
+					</figure>
+					<figure class="option-image-fig">
+						<img src="/images/model-x-locker-dimensions-sheet.png" alt="Model X locker dimensions">
+						<figcaption>Dimensions</figcaption>
+					</figure>
+					<figure class="option-image-fig">
+						<img src="/images/model-x-website-images/model-x-locker-vent-panel.png" alt="Model X vented front panel">
+						<figcaption>Vented front option</figcaption>
+					</figure>
+					<figure class="option-image-fig">
+						<img src="/images/lock-box-spec-sheet.png" alt="Lock box option with digital key lock">
+						<figcaption>Lock box option</figcaption>
+					</figure>
+				</div>
+			</div>
+		</div>
+
+		<section class="product-main-section">
+			<div class="product-container">
+				<div class="product-layout product-layout-single">
+					<div class="product-detail">
+						<h2 class="product-title">Model X Locker</h2>
+						<p class="product-model">Model # LEG-24-MP</p>
+						<p class="product-lead-time">Lead time: quick ship in one month (24" width, one signature color) · Custom-built in three months</p>
+						<div class="product-price-block">
+							<span class="product-price">From $649.00</span>
+							<p class="price-width-note">Base model widths (with optional 4" base): up to 24" — $649. After 24" width base price $699; after 30" width base price $749.</p>
+						</div>
+						<div class="product-options-static">
+							<p><strong>Depth:</strong> 19" (standard) or 24"</p>
+							<p><strong>Width:</strong> 18", 20", 22", 24", 26", 28", 30", 32"</p>
+							<p><strong>Color:</strong> Designer White, White Sand, Fashion Grey, North Sea, Graphite, Black, Hollyberry, Lapis Blue; woodgrains: Fusion Maple, Pasadena Oak, Walnut Heights, Hampton Walnut</p>
+						</div>
+						<div class="product-accessories-static">
+							<h3 class="option-label">Accessories</h3>
+							<p class="option-value">Add-ons available — select on full product page to update price</p>
+							<ul class="accessories-list-static">
+								<li>Vented front (+$40)</li>
+								<li>Lock box (+$80)</li>
+								<li>Bottom cushion (+$75)</li>
+								<li>Top &amp; bottom cushions (+$150)</li>
+								<li>Name plate (+$10)</li>
+								<li>Skate hooks (+$25)</li>
+								<li>Custom logo (+$75) · custom orders only</li>
+								<li>4 hooks (+$12)</li>
+							</ul>
+						</div>
+						<div class="product-volume-discounts">
+							<h3 class="volume-title">Volume Discounts</h3>
+							<table class="volume-table">
+								<thead>
+									<tr><th>Quantity</th><th>Price</th></tr>
+								</thead>
+								<tbody>
+									<tr><td>50 + lockers</td><td>3–5% discount – Contact us for pricing</td></tr>
+								</tbody>
+							</table>
+						</div>
+				</div>
+			</div>
+
+				<div class="product-info-section">
+					<h2 class="product-info-heading">Model X Wood Locker – Features &amp; Options</h2>
+					<div class="product-info-grid">
+						<div class="product-info-col-specs">
+							<div class="product-spec-sheet" id="specs">
+								<h3 class="product-spec-sheet-title">Specifications</h3>
+								<table class="product-spec-table" aria-label="Model X Locker specifications">
+									<tbody>
+										<tr><th scope="row" class="product-spec-label">Standard dimensions</th><td class="product-spec-value">24" W × 76" H × 19" D</td></tr>
+										<tr><th scope="row" class="product-spec-label">Base</th><td class="product-spec-value">Optional 4" high base</td></tr>
+										<tr><th scope="row" class="product-spec-label">Frame</th><td class="product-spec-value">3/4"</td></tr>
+										<tr><th scope="row" class="product-spec-label">Backing</th><td class="product-spec-value">3/4"</td></tr>
+										<tr><th scope="row" class="product-spec-label">Weight</th><td class="product-spec-value">Approx. 175 lbs</td></tr>
+										<tr><th scope="row" class="product-spec-label">Construction</th><td class="product-spec-value">MPW-6C plywood core, premium melamine surface</td></tr>
+										<tr><th scope="row" class="product-spec-label">Edgebanding</th><td class="product-spec-value">PVC edgebanding</td></tr>
+										<tr><th scope="row" class="product-spec-label">Width range</th><td class="product-spec-value">18" – 32"</td></tr>
+										<tr><th scope="row" class="product-spec-label">Depth options</th><td class="product-spec-value">19" or 24"</td></tr>
+										<tr><th scope="row" class="product-spec-label">Quick ship</th><td class="product-spec-value">2–4 weeks (24" width, Black, Light Gray, Dark Gray, Maple)</td></tr>
+										<tr><th scope="row" class="product-spec-label">Custom build</th><td class="product-spec-value">8–12 weeks — any size, wood, or materials</td></tr>
+										<tr><th scope="row" class="product-spec-label">Warranty</th><td class="product-spec-value">5 year warranty</td></tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="product-dimensions-sheet-figure">
+								<img src="/images/model-x-locker-dimensions-sheet.png" alt="Model X locker dimensions – front and side views" class="product-dimensions-sheet-image">
+								<p class="product-dimensions-sheet-caption">Model X Locker dimensions (front and side)</p>
+							</div>
+						</div>
+						<div class="product-info-col-features">
+							<h3 class="product-info-subheading">Features</h3>
+							<ul class="product-features-list">
+								<li>MPW-6C plywood core with premium melamine surface for a furniture-grade look</li>
+								<li>High scratch resistance and impact durability; moisture-resistant, dimensionally stable</li>
+								<li>Engineered for high-traffic athletic locker rooms</li>
+								<li>14" high foot locker provides comfortable seating and secure equipment storage</li>
+								<li>Available in 18" to 32" widths; standard configuration 24" W x 76" H x 19" D with optional 4" base</li>
+								<li>5 year warranty</li>
+							</ul>
+							<h3 class="product-info-subheading">Options</h3>
+							<ul class="product-options-list">
+								<li>Vented front panel for increased airflow</li>
+								<li>Secure lock box integrated into the upper compartment</li>
+								<li>Bottom cushion or both cushions for added seating comfort</li>
+								<li>Skate hooks for hockey or figure skating storage</li>
+								<li>Custom logo option for teams or programs (custom orders only)</li>
+								<li>Name plate and additional gear hooks</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="pdf-cta">
+					<span class="pdf-hint">Use your browser’s <strong>Print</strong> → <strong>Save as PDF</strong> to download this spec sheet.</span>
+				</div>
+			</div>
+		</section>
+	</main>
+</body>
+</html>

@@ -223,19 +223,19 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 					<p>Custom wood lockers, priced right. Quick ship in 2–4 weeks or custom in 8–12 weeks. Match any US competitor's price. Free consultation.</p>
 					<div class="footer-contact-details">
 						<p class="footer-contact-item">
-							<span class="footer-icon">b</span>
+							<span class="footer-icon" aria-hidden="true">h</span>
 							<span>Monday-Friday: 9am to 5pm;<br>Saturday: 10am to 2pm</span>
 						</p>
 						<p class="footer-contact-item">
-							<span class="footer-icon">z</span>
+							<span class="footer-icon" aria-hidden="true">a</span>
 							<span>2934 200 Street, Langley, BC V2Z 2C1 Canada</span>
 						</p>
 						<p class="footer-contact-item">
-							<span class="footer-icon">m</span>
+							<span class="footer-icon" aria-hidden="true">p</span>
 							<span>1 888 584 1444</span>
 						</p>
 					<p class="footer-contact-item">
-						<span class="footer-icon">d</span>
+						<span class="footer-icon" aria-hidden="true">e</span>
 						<span><a href="mailto:sales@playerstall.com">sales@playerstall.com</a></span>
 					</p>
 					</div>
@@ -259,6 +259,22 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		padding: 0;
 		color: #0d0d0d;
 		line-height: 1.6;
+	}
+
+	/* Global link styles – brand colors instead of browser default blue */
+	:global(a) {
+		color: #0d0d0d;
+		text-decoration: none;
+		transition: color 0.3s ease;
+	}
+	:global(a:hover) {
+		color: #fe5900;
+	}
+	:global(a:visited) {
+		color: #0d0d0d;
+	}
+	:global(a:visited:hover) {
+		color: #fe5900;
 	}
 
 	/* Top Bar */
@@ -795,7 +811,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 
 	.footer-contact-item {
 		display: flex;
-		align-items: flex-start;
+		align-items: center;
 		gap: 1rem;
 		color: #cccccc;
 		font-family: 'Yantramanav', sans-serif;
