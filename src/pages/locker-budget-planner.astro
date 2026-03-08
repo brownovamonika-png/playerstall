@@ -1,0 +1,430 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/locker-budget-planner.css';
+---
+
+<BaseLayout
+	title="Locker Room Budget Planner | Free Cost Estimate | PlayerStall"
+	description="Free locker room budget planner. Get an instant cost estimate for your facility. 30+ years experience, lifetime guarantee. Request a formal quote—no obligation."
+>
+
+<section class="planner-page">
+  <div class="planner-container">
+    <div class="hero">
+      <div class="hero-eyebrow">North American Institutional Markets</div>
+      <h1>Locker Room<br /><em>Budget Planner</em></h1>
+      <p>Get an instant cost estimate tailored to your facility — ready to take to your board or budget committee. Built for coaches, athletic directors, and facilities managers.</p>
+    </div>
+
+    <div class="planner">
+      <div class="planner-grid" id="formGrid">
+        <div class="section-header">
+          <div class="section-num">01</div>
+          <div class="section-title">Your Program</div>
+        </div>
+
+        <div class="fields-col">
+          <div class="field-group">
+            <div class="field-label">Institution Type <span>*</span></div>
+            <select id="instType">
+              <option value="">Select institution...</option>
+              <option value="high_school">High School / Secondary</option>
+              <option value="college">College / University</option>
+              <option value="pro_club">Pro / Semi-Pro Club</option>
+              <option value="rec_center">Recreation Center / YMCA</option>
+              <option value="police">Police Department</option>
+              <option value="fire">Fire Department</option>
+              <option value="military">Military / Government</option>
+              <option value="corporate">Corporate Facility</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <div class="field-label">Primary Sport / Use <span>*</span></div>
+            <select id="sport">
+              <option value="">Select sport/use...</option>
+              <option value="football">Football</option>
+              <option value="basketball">Basketball</option>
+              <option value="hockey">Hockey</option>
+              <option value="baseball">Baseball / Softball</option>
+              <option value="soccer">Soccer / Lacrosse</option>
+              <option value="multi_sport">Multi-Sport / General Athletics</option>
+              <option value="aquatics">Aquatics / Pool</option>
+              <option value="first_responder">First Responder / Tactical Gear</option>
+              <option value="general">General / Fitness Facility</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="fields-col">
+          <div class="field-group">
+            <div class="range-header">
+              <div class="field-label">Number of Athletes / Users <span>*</span></div>
+              <div class="range-value" id="usersVal">48</div>
+            </div>
+            <input type="range" id="userCount" min="12" max="300" value="48" step="4" oninput="updateRange(this, 'usersVal', '', '', 0)" />
+            <div class="range-labels"><span>12</span><span>300+</span></div>
+          </div>
+          <div class="field-group">
+            <div class="field-label">Project Timeline</div>
+            <select id="timeline">
+              <option value="urgent">ASAP (under 3 months)</option>
+              <option value="standard" selected>Standard (3–6 months)</option>
+              <option value="planning">Planning Phase (6–12 months)</option>
+              <option value="future">Future Budget (1–2 years)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <div class="section-num">02</div>
+          <div class="section-title">Space & Configuration</div>
+        </div>
+
+        <div class="fields-col">
+          <div class="field-group">
+            <div class="field-label">Room Width (feet)</div>
+            <input type="number" id="roomW" placeholder="e.g. 40" min="10" max="200" value="40" />
+          </div>
+          <div class="field-group">
+            <div class="field-label">Room Length (feet)</div>
+            <input type="number" id="roomL" placeholder="e.g. 60" min="10" max="500" value="60" />
+          </div>
+        </div>
+
+        <div class="fields-col">
+          <div class="field-group">
+            <div class="field-label">Locker Configuration</div>
+            <div class="chip-group">
+              <div class="chip"><input type="radio" name="config" id="cWall" value="wall" checked /><label for="cWall">Wall-Mounted</label></div>
+              <div class="chip"><input type="radio" name="config" id="cIsland" value="island" /><label for="cIsland">Island/Back-to-Back</label></div>
+              <div class="chip"><input type="radio" name="config" id="cPerimeter" value="perimeter" /><label for="cPerimeter">Full Perimeter</label></div>
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-label">Locker Size Preference</div>
+            <div class="chip-group">
+              <div class="chip"><input type="radio" name="size" id="sCompact" value="compact" /><label for="sCompact">Compact (12")</label></div>
+              <div class="chip"><input type="radio" name="size" id="sStandard" value="standard" checked /><label for="sStandard">Standard (15")</label></div>
+              <div class="chip"><input type="radio" name="size" id="sWide" value="wide" /><label for="sWide">Wide (18")</label></div>
+              <div class="chip"><input type="radio" name="size" id="sXL" value="xl" /><label for="sXL">Extra-Wide (24")</label></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <div class="section-num">03</div>
+          <div class="section-title">Features & Finish</div>
+        </div>
+
+        <div class="full-row">
+          <div class="full-row-inner">
+            <div class="field-group">
+              <div class="field-label">Finish Level</div>
+              <div class="chip-group chip-group-col">
+                <div class="chip"><input type="radio" name="finish" id="fEssential" value="essential" /><label for="fEssential">Essential — Durable powder coat</label></div>
+                <div class="chip"><input type="radio" name="finish" id="fPremium" value="premium" checked /><label for="fPremium">Premium — Solid wood accents</label></div>
+                <div class="chip"><input type="radio" name="finish" id="fElite" value="elite" /><label for="fElite">Elite — Custom color + branding</label></div>
+              </div>
+            </div>
+            <div class="field-group">
+              <div class="field-label">Add-Ons Required</div>
+              <div class="chip-group chip-group-col">
+                <div class="chip"><input type="checkbox" id="aoBench" value="bench" /><label for="aoBench">Integrated Bench Seating</label></div>
+                <div class="chip"><input type="checkbox" id="aoNameplate" value="nameplate" /><label for="aoNameplate">Nameplates / Jersey Holders</label></div>
+                <div class="chip"><input type="checkbox" id="aoCharging" value="charging" /><label for="aoCharging">USB Charging Ports</label></div>
+                <div class="chip"><input type="checkbox" id="aoVent" value="ventilation" /><label for="aoVent">Enhanced Ventilation</label></div>
+                <div class="chip"><input type="checkbox" id="aoInstall" value="install" checked /><label for="aoInstall">Installation & Project Mgmt</label></div>
+              </div>
+            </div>
+            <div class="field-group">
+              <div class="field-label">Delivery State/Province</div>
+              <select id="region">
+                <option value="northeast">Northeast US</option>
+                <option value="southeast">Southeast US</option>
+                <option value="midwest">Midwest US</option>
+                <option value="southwest">Southwest US</option>
+                <option value="west">West Coast US</option>
+                <option value="canada_east">Eastern Canada</option>
+                <option value="canada_west">Western Canada</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-wrap">
+          <div class="calc-note">
+            <strong>Estimates based on 30+ years of institutional installations.</strong> Final pricing requires a formal quote — this tool gives you estimate ranges to plan and present to your committee.
+          </div>
+          <button type="button" class="btn-calculate" onclick="calculate()">CALCULATE BUDGET →</button>
+        </div>
+      </div>
+
+      <div id="results">
+        <div class="planner-grid">
+          <div class="results-header">
+            <div class="section-num">04</div>
+            <div class="section-title">Budget Estimate</div>
+            <div class="results-header-content">
+              <div class="results-eyebrow">Your Budget Estimate — <span id="res-date"></span></div>
+              <div class="results-title" id="res-title">Locker Room Budget Summary</div>
+            </div>
+          </div>
+
+          <div class="budget-range-box">
+            <div class="budget-tier">
+              <div class="tier-label">Essential Budget</div>
+              <div class="tier-price" id="res-low">$0</div>
+              <div class="tier-subtitle">Basic configuration, functional finish</div>
+            </div>
+            <div class="budget-tier featured">
+              <div class="tier-label">Recommended Range</div>
+              <div class="tier-price" id="res-mid">$0</div>
+              <div class="tier-subtitle">Premium materials, full add-ons selected</div>
+            </div>
+            <div class="budget-tier">
+              <div class="tier-label">Premium / Elite</div>
+              <div class="tier-price" id="res-high">$0</div>
+              <div class="tier-subtitle">Custom branding, elite finish, all features</div>
+            </div>
+          </div>
+
+          <div class="utilization-row">
+            <div class="stat-box">
+              <div class="stat-label">Lockers Required</div>
+              <div class="stat-value" id="res-lockers">—</div>
+              <div class="stat-sub" id="res-locker-sub">based on squad size</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Space Utilization</div>
+              <div class="stat-value" id="res-util">—</div>
+              <div class="stat-sub" id="res-util-sub">of available floor area</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Per-Athlete Cost</div>
+              <div class="stat-value" id="res-per">—</div>
+              <div class="stat-sub">recommended tier</div>
+            </div>
+          </div>
+
+          <div class="recs-section">
+            <div class="recs-label">Recommended Models for Your Program</div>
+            <div class="rec-cards" id="rec-cards"></div>
+          </div>
+
+          <div class="print-bar">
+            <button type="button" class="btn-print" onclick="window.print()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              Print / Save PDF
+            </button>
+          </div>
+
+          <div class="cta-section">
+            <div class="cta-text">
+              <h3>Ready for a Formal Quote?</h3>
+              <p>Our team will review your requirements and send a detailed proposal within 2 business days. No obligation.</p>
+            </div>
+            <div class="cta-buttons">
+              <a href="/contact" class="btn-primary">Request a Quote</a>
+              <a href="/shop" class="btn-secondary">View Catalog</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-bar">
+      <div class="trust-item">
+        <div class="trust-num">30+</div>
+        <div class="trust-label">Years Manufacturing</div>
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <div class="trust-num">4,200+</div>
+        <div class="trust-label">Rooms Installed</div>
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <div class="trust-num">NCAA</div>
+        <div class="trust-label">Division I Trusted</div>
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <div class="trust-num">500+</div>
+        <div class="trust-label">Schools & Colleges</div>
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <div class="trust-num">Lifetime</div>
+        <div class="trust-label">Guarantee</div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      Estimates are for budgeting purposes only and reflect typical institutional project costs based on PlayerStall historical data.<br />
+      Final pricing varies by project specifications, site conditions, and current material costs.<br />
+      <a href="/contact">Contact us</a> for a detailed, no-obligation proposal.
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  const BASE_LOCKER = {
+    compact:  { essential: 340, premium: 520, elite: 780 },
+    standard: { essential: 420, premium: 640, elite: 960 },
+    wide:     { essential: 520, premium: 790, elite: 1180 },
+    xl:       { essential: 680, premium: 1040, elite: 1560 }
+  };
+
+  const SPORT_MULTIPLIER = {
+    hockey: 1.22, football: 1.15, first_responder: 1.18,
+    aquatics: 1.12, baseball: 1.05, multi_sport: 1.08,
+    basketball: 1.0, soccer: 1.0, general: 0.95
+  };
+
+  const INST_MULTIPLIER = {
+    pro_club: 1.30, college: 1.15, military: 1.12,
+    high_school: 1.0, rec_center: 0.92, police: 1.10,
+    fire: 1.08, corporate: 1.20
+  };
+
+  const ADDON_COSTS = {
+    bench:       { essential: 85, premium: 120, elite: 160 },
+    nameplate:   { essential: 28, premium: 45, elite: 70 },
+    charging:    { essential: 65, premium: 65, elite: 65 },
+    ventilation: { essential: 45, premium: 45, elite: 45 },
+    install:     0.12
+  };
+
+  const REGION_SHIP = {
+    northeast: 0.04, southeast: 0.05, midwest: 0.04,
+    southwest: 0.06, west: 0.08, canada_east: 0.09, canada_west: 0.11
+  };
+
+  const MODELS = {
+    football:  [
+      { tag: 'TOP PICK — FOOTBALL', model: 'ProShield™ XL', desc: 'Wide-body steel with full-length ventilation & equipment hooks. NCAA standard.', price: '$640–$960' },
+      { tag: 'TEAM FAVE', model: 'GameDay™ 18', desc: 'Heavy-duty 18" with integrated bench base. Handles full pads with ease.', price: '$520–$790' },
+      { tag: 'ELITE OPTION', model: 'Varsity Elite™', desc: 'Custom team colors, engraved nameplates, USB charging. Recruit-room ready.', price: '$960–$1,560' }
+    ],
+    hockey: [
+      { tag: 'TOP PICK — HOCKEY', model: 'IcePro™ XL', desc: 'Extra-deep ventilation for skates & pads. Moisture-resistant lining.', price: '$790–$1,180' },
+      { tag: 'DURABLE', model: 'RinkSide™ 24', desc: '24" extra-wide with stick rack and helmet shelf. Purpose-built for ice sports.', price: '$680–$1,040' },
+      { tag: 'VALUE', model: 'BladeReady™', desc: 'Steel construction, perforated doors, integrated boot dryer port.', price: '$520–$780' }
+    ],
+    basketball: [
+      { tag: 'TOP PICK — BASKETBALL', model: 'CourtPro™ 15', desc: 'Clean, pro-style aesthetic with full-length mirror option. Standard 15" width.', price: '$640–$960' },
+      { tag: 'VERSATILE', model: 'AllCourt™', desc: 'Adaptable shelf configuration, ideal for dual sport programs.', price: '$520–$780' },
+      { tag: 'ELITE', model: 'Arena Elite™', desc: 'Backlit nameplate, custom team graphics, USB & wireless charging.', price: '$960–$1,400' }
+    ],
+    first_responder: [
+      { tag: 'TOP PICK — TACTICAL', model: 'Response™ XL', desc: 'Full-length weapon lockbox integration, SCBA bottle rack, turnout gear drying.', price: '$790–$1,180' },
+      { tag: 'STANDARD ISSUE', model: 'Duty™ Series', desc: 'Double-tier option for larger departments. PIN or key-lock standard.', price: '$420–$640' },
+      { tag: 'PREMIUM', model: 'Command™ Elite', desc: 'Electronic lock, charging, full turnout storage. For modern facility upgrades.', price: '$1,040–$1,560' }
+    ],
+    default: [
+      { tag: 'BEST VALUE', model: 'Institutional™ 15', desc: 'Our most popular model — reliable, clean, and built for decades of daily use.', price: '$420–$640' },
+      { tag: 'PREMIUM', model: 'Signature™ Series', desc: 'Solid wood accents, premium handle, fully configurable interior.', price: '$640–$960' },
+      { tag: 'ELITE', model: 'Custom™ Pro', desc: 'Full custom program — colors, graphics, digital integration.', price: '$960–$1,560' }
+    ]
+  };
+
+  function updateRange(el, valId, prefix, suffix, decimals) {
+    document.getElementById(valId).textContent = (prefix || '') + Number(el.value).toLocaleString() + (suffix || '');
+    const pct = ((el.value - el.min) / (el.max - el.min) * 100).toFixed(1);
+    el.style.setProperty('--pct', pct + '%');
+  }
+
+  function fmt(n) {
+    if (n >= 1000000) return '$' + (n/1000000).toFixed(2) + 'M';
+    if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
+    return '$' + Math.round(n).toLocaleString();
+  }
+
+  function calculate() {
+    const users    = parseInt(document.getElementById('userCount').value) || 48;
+    const sizeKey  = document.querySelector('input[name="size"]:checked')?.value || 'standard';
+    const finKey   = document.querySelector('input[name="finish"]:checked')?.value || 'premium';
+    const sport    = document.getElementById('sport').value || 'general';
+    const inst     = document.getElementById('instType').value || 'high_school';
+    const roomW    = parseFloat(document.getElementById('roomW').value) || 40;
+    const roomL    = parseFloat(document.getElementById('roomL').value) || 60;
+    const region   = document.getElementById('region').value || 'midwest';
+    const config   = document.querySelector('input[name="config"]:checked')?.value || 'wall';
+
+    const addons = ['bench','nameplate','charging','ventilation','install']
+      .filter(id => document.getElementById('ao'+id.charAt(0).toUpperCase()+id.slice(1))?.checked);
+
+    const lockerCount = Math.ceil(users * 1.10);
+    const base = BASE_LOCKER[sizeKey];
+    const sm   = SPORT_MULTIPLIER[sport] || 1.0;
+    const im   = INST_MULTIPLIER[inst] || 1.0;
+
+    function tierCost(tier) {
+      let perLocker = base[tier] * sm * im;
+      addons.forEach(a => {
+        if (a === 'install') return;
+        const c = ADDON_COSTS[a];
+        if (c && typeof c === 'object') perLocker += c[tier];
+        else if (c && typeof c === 'number') perLocker += c;
+      });
+      let sub = perLocker * lockerCount;
+      if (addons.includes('install')) sub *= (1 + ADDON_COSTS.install);
+      sub *= (1 + (REGION_SHIP[region] || 0.05));
+      if (config === 'perimeter') sub *= 1.08;
+      if (config === 'island') sub *= 1.05;
+      return sub;
+    }
+
+    const low  = tierCost('essential');
+    const mid  = tierCost(finKey);
+    const high = tierCost('elite') * 1.05;
+
+    const lockerWidth = { compact: 12, standard: 15, wide: 18, xl: 24 }[sizeKey] / 12;
+    const lockerDepth = 1.5;
+    const lockerFootprint = lockerCount * lockerWidth * lockerDepth;
+    const roomArea = roomW * roomL;
+    const circulation = roomArea * 0.5;
+    const utilPct = Math.min(99, Math.round((lockerFootprint / circulation) * 100));
+    const fitsOk = lockerFootprint < circulation;
+    const perAthlete = mid / users;
+
+    document.getElementById('res-date').textContent = new Date().toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
+    const instLabels = { high_school:'High School', college:'College/University', pro_club:'Pro/Semi-Pro Club', rec_center:'Recreation Center', police:'Police Dept.', fire:'Fire Dept.', military:'Military', corporate:'Corporate Facility' };
+    const sportLabels = { football:'Football', basketball:'Basketball', hockey:'Hockey', baseball:'Baseball/Softball', soccer:'Soccer/Lacrosse', multi_sport:'Multi-Sport', aquatics:'Aquatics', first_responder:'First Responder', general:'General Athletics' };
+    document.getElementById('res-title').textContent = `${(instLabels[inst]||'Institutional')} Locker Room — ${(sportLabels[sport]||'Athletics')}`;
+
+    document.getElementById('res-low').textContent = fmt(low);
+    document.getElementById('res-mid').textContent = fmt(mid);
+    document.getElementById('res-high').textContent = fmt(high);
+    document.getElementById('res-lockers').textContent = lockerCount;
+    document.getElementById('res-locker-sub').textContent = `+10% bench reserve for ${users} users`;
+    document.getElementById('res-util').textContent = utilPct + '%';
+    document.getElementById('res-util-sub').textContent = fitsOk ? `of ${roomW}×${roomL} ft space — good fit` : `⚠ May be tight — consider compact or additional space`;
+    document.getElementById('res-per').textContent = fmt(perAthlete);
+
+    const sportKey = ['football','hockey','basketball','first_responder'].includes(sport) ? sport : 'default';
+    const models = MODELS[sportKey];
+    const cardHtml = models.map((m, i) => `
+      <div class="rec-card ${i===0?'top-pick':''}">
+        <span class="rec-tag">${m.tag}</span>
+        <div class="rec-model">${m.model}</div>
+        <div class="rec-desc">${m.desc}</div>
+        <div class="rec-price">${m.price} / unit</div>
+      </div>
+    `).join('');
+    document.getElementById('rec-cards').innerHTML = cardHtml;
+
+    const r = document.getElementById('results');
+    r.style.display = 'block';
+    setTimeout(() => r.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const r = document.getElementById('userCount');
+    if (r) {
+      const pct = ((r.value - r.min) / (r.max - r.min) * 100).toFixed(1);
+      r.style.setProperty('--pct', pct + '%');
+    }
+  });
+</script>
+</BaseLayout>
