@@ -189,6 +189,12 @@
   appearance: none;
 }
 
+/* Space & Configuration: keep room dimension inputs shorter so they don't intrude into centre */
+.planner-page .fields-col:has(#roomW) input[type="number"] {
+  max-width: 120px;
+  box-sizing: border-box;
+}
+
 .planner-page select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23fe5900' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -315,14 +321,197 @@
 
 .planner-page .calc-wrap {
   grid-column: 1 / -1;
-  padding: 24px 28px;
-  background: rgba(254, 89, 0, 0.04);
-  border-top: 1px solid rgba(254, 89, 0, 0.15);
+  padding: 20px 28px 28px;
+}
+
+/* Quote modal */
+.planner-page .quote-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.65);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.planner-page .quote-modal-overlay.quote-modal--open {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+.planner-page .quote-modal {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  padding: 28px 32px;
+  background: var(--ps-dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid var(--ps-orange);
+  border-radius: 4px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.planner-page .quote-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--ps-gray);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.planner-page .quote-modal-close:hover {
+  color: var(--ps-white);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.planner-page .quote-modal-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--ps-white);
+  margin: 0 0 10px 0;
+  padding-right: 36px;
+}
+
+.planner-page .quote-modal-desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ps-gray);
+  margin: 0 0 22px 0;
+}
+
+.planner-page .quote-modal-form .field-group {
+  margin-bottom: 20px;
+}
+
+.planner-page .quote-modal-form .field-label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.planner-page .quote-modal-form input[type="email"] {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  color: var(--ps-white);
+  font-family: 'Yantramanav', sans-serif;
+  font-size: 15px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.planner-page .quote-modal-form input[type="email"]:focus {
+  border-color: var(--ps-orange);
+  background: rgba(254, 89, 0, 0.06);
+}
+
+.planner-page .quote-modal-form input[type="email"]::placeholder {
+  color: var(--ps-gray-mid);
+}
+
+.planner-page .quote-modal-form input[type="email"][aria-invalid="true"] {
+  border-color: var(--ps-orange);
+  box-shadow: 0 0 0 2px rgba(254, 89, 0, 0.2);
+}
+
+.planner-page .btn-modal-submit {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.planner-page .lead-capture {
+  margin-bottom: 20px;
+}
+
+.planner-page .lead-copy {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ps-gray);
+  margin-bottom: 18px;
+}
+
+.planner-page .lead-copy strong {
+  color: var(--ps-white);
+  font-weight: 500;
+}
+
+.planner-page .lead-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
-  flex-wrap: wrap;
+  margin-bottom: 20px;
+  max-width: 360px;
+}
+
+.planner-page .lead-fields .field-group {
+  margin: 0;
+  min-width: 0;
+}
+
+.planner-page .lead-fields input[type="email"],
+.planner-page .lead-fields input[type="text"] {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 500px) {
+  .planner-page .lead-fields {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+  }
+}
+
+.planner-page input[type="email"],
+.planner-page input[type="text"] {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  color: var(--ps-white);
+  font-family: 'Yantramanav', sans-serif;
+  font-size: 15px;
+  padding: 11px 14px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.planner-page input[type="email"]:focus,
+.planner-page input[type="text"]:focus {
+  border-color: var(--ps-orange);
+  background: rgba(254, 89, 0, 0.06);
+}
+
+.planner-page input[type="email"]::placeholder,
+.planner-page input[type="text"]::placeholder {
+  color: var(--ps-gray-mid);
+}
+
+.planner-page input[aria-invalid="true"] {
+  border-color: var(--ps-orange);
+  box-shadow: 0 0 0 2px rgba(254, 89, 0, 0.2);
+  background: rgba(254, 89, 0, 0.04);
 }
 
 .planner-page .calc-note {
@@ -400,6 +589,16 @@
   flex-direction: column;
   gap: 0;
   width: 100%;
+}
+
+.planner-page .results-sent {
+  font-size: 14px;
+  color: var(--ps-gray);
+  margin: 0 0 12px 0;
+  padding: 10px 14px;
+  background: rgba(254, 89, 0, 0.08);
+  border-radius: 3px;
+  border-left: 3px solid var(--ps-orange);
 }
 
 .planner-page .results-eyebrow {
@@ -681,8 +880,23 @@
 .planner-page .print-bar {
   display: flex;
   justify-content: flex-end;
-  padding: 16px 32px 0;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px 28px 32px;
   grid-column: 1 / -1;
+}
+
+.planner-page .btn-download-quote {
+  background: var(--ps-orange);
+  border-color: var(--ps-orange);
+  color: var(--ps-white);
+  font-weight: 500;
+}
+
+.planner-page .btn-download-quote:hover {
+  background: var(--ps-orange-hover);
+  border-color: var(--ps-orange-hover);
+  color: var(--ps-white);
 }
 
 .planner-page .btn-print {

@@ -152,10 +152,23 @@ import '../styles/locker-budget-planner.css';
         </div>
 
         <div class="calc-wrap">
-          <div class="calc-note">
-            <strong>Estimates based on 30+ years of institutional installations.</strong> Final pricing requires a formal quote — this tool gives you estimate ranges to plan and present to your committee.
-          </div>
-          <button type="button" class="btn-calculate" onclick="calculate()">CALCULATE BUDGET →</button>
+          <button type="button" class="btn-calculate" id="btnGetQuote" onclick="openQuoteModal()">GET MY QUOTE →</button>
+        </div>
+      </div>
+
+      <!-- Quote modal: email only, then submit to show quote -->
+      <div class="quote-modal-overlay" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="quoteModalTitle" aria-hidden="true">
+        <div class="quote-modal">
+          <button type="button" class="quote-modal-close" id="quoteModalClose" onclick="closeQuoteModal()" aria-label="Close">×</button>
+          <h2 class="quote-modal-title" id="quoteModalTitle">Get your quote</h2>
+          <p class="quote-modal-desc">Enter your email and we'll generate your budget estimate and send a copy to your inbox.</p>
+          <form class="quote-modal-form" id="quoteModalForm" onsubmit="return submitQuoteModal(event)">
+            <div class="field-group">
+              <label class="field-label" for="modalQuoteEmail">Email <span>*</span></label>
+              <input type="email" id="modalQuoteEmail" name="email" placeholder="you@school.edu" required autocomplete="email" />
+            </div>
+            <button type="submit" class="btn-calculate btn-modal-submit">Submit &amp; view quote</button>
+          </form>
         </div>
       </div>
 
@@ -165,6 +178,7 @@ import '../styles/locker-budget-planner.css';
             <div class="section-num">04</div>
             <div class="section-title">Budget Estimate</div>
             <div class="results-header-content">
+              <p class="results-sent" id="results-sent" style="display: none;">We've saved your request. Download your quote below or we'll follow up with a formal proposal.</p>
               <div class="results-eyebrow">Your Budget Estimate — <span id="res-date"></span></div>
               <div class="results-title" id="res-title">Locker Room Budget Summary</div>
             </div>
@@ -212,9 +226,13 @@ import '../styles/locker-budget-planner.css';
           </div>
 
           <div class="print-bar">
+            <button type="button" class="btn-print btn-download-quote" id="btnDownloadQuote" onclick="openQuotePage()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download quote (PDF)
+            </button>
             <button type="button" class="btn-print" onclick="window.print()">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-              Print / Save PDF
+              Print this page
             </button>
           </div>
 
@@ -340,6 +358,145 @@ import '../styles/locker-budget-planner.css';
     return '$' + Math.round(n).toLocaleString();
   }
 
+  let lastQuoteData = null;
+
+  function openQuoteModal() {
+    const modal = document.getElementById('quoteModal');
+    const input = document.getElementById('modalQuoteEmail');
+    if (modal && input) {
+      modal.classList.add('quote-modal--open');
+      modal.setAttribute('aria-hidden', 'false');
+      input.value = '';
+      input.removeAttribute('aria-invalid');
+      input.focus();
+    }
+  }
+
+  function closeQuoteModal() {
+    const modal = document.getElementById('quoteModal');
+    if (modal) {
+      modal.classList.remove('quote-modal--open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  function submitQuoteModal(e) {
+    e.preventDefault();
+    const emailEl = document.getElementById('modalQuoteEmail');
+    const email = (emailEl && emailEl.value) ? emailEl.value.trim() : '';
+    if (!email) {
+      emailEl?.focus();
+      emailEl?.setAttribute('aria-invalid', 'true');
+      return false;
+    }
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(email)) {
+      emailEl?.focus();
+      emailEl?.setAttribute('aria-invalid', 'true');
+      alert('Please enter a valid email address.');
+      return false;
+    }
+    emailEl?.removeAttribute('aria-invalid');
+    calculate();
+    if (lastQuoteData) {
+      submitLead(email, '', lastQuoteData);
+      closeQuoteModal();
+      const sentEl = document.getElementById('results-sent');
+      if (sentEl) sentEl.style.display = 'block';
+    }
+    return false;
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeQuoteModal();
+  });
+  document.getElementById('quoteModal')?.addEventListener('click', function(e) {
+    if (e.target === this) closeQuoteModal();
+  });
+
+  function submitLead(email, name, data) {
+    const body = [
+      'Source: Locker Budget Planner',
+      '',
+      '--- Quote summary ---',
+      `Institution: ${data.instLabel}`,
+      `Sport/Use: ${data.sportLabel}`,
+      `Lockers: ${data.lockerCount} (${data.users} users)`,
+      `Essential: ${data.lowFmt}`,
+      `Recommended: ${data.midFmt}`,
+      `Premium/Elite: ${data.highFmt}`,
+      `Per athlete (recommended): ${data.perAthleteFmt}`,
+      `Room: ${data.roomW}×${data.roomL} ft`,
+      `Date: ${data.dateStr}`
+    ].join('\n');
+    const form = new FormData();
+    form.append('email', email);
+    form.append('name', name || '(not provided)');
+    form.append('message', body);
+    form.append('_subject', 'Budget Planner Quote — ' + (name || email));
+    fetch('https://formspree.io/f/xqedgojb', {
+      method: 'POST',
+      body: form
+    }).catch(() => {});
+  }
+
+  function openQuotePage() {
+    if (!lastQuoteData) return;
+    const d = lastQuoteData;
+    const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Locker Room Budget Quote — PlayerStall</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Georgia', serif; max-width: 700px; margin: 40px auto; padding: 24px; color: #1a1a1a; font-size: 14px; line-height: 1.5; }
+    h1 { font-size: 22px; margin-bottom: 8px; }
+    .meta { color: #666; font-size: 12px; margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th, td { border: 1px solid #ddd; padding: 10px 12px; text-align: left; }
+    th { background: #f5f5f5; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .tier-mid { background: #fff8f0; }
+    .total { font-weight: bold; }
+    .recs { margin-top: 28px; }
+    .recs h2 { font-size: 16px; margin-bottom: 12px; }
+    .rec { border: 1px solid #eee; padding: 12px; margin-bottom: 10px; }
+    .rec-model { font-weight: bold; }
+    .rec-price { color: #fe5900; }
+    .footer { margin-top: 32px; font-size: 12px; color: #666; }
+    @media print { body { margin: 16px; } }
+  </style>
+</head>
+<body>
+  <h1>Locker Room Budget Quote</h1>
+  <p class="meta">${d.dateStr} · PlayerStall — Budget Planner Estimate</p>
+  <p><strong>${d.instLabel}</strong> — ${d.sportLabel}</p>
+  <table>
+    <tr><th>Summary</th><th>Value</th></tr>
+    <tr><td>Lockers (est.)</td><td>${d.lockerCount}</td></tr>
+    <tr><td>Room size</td><td>${d.roomW}×${d.roomL} ft</td></tr>
+    <tr><td>Essential budget</td><td>${d.lowFmt}</td></tr>
+    <tr class="tier-mid"><td>Recommended range</td><td>${d.midFmt}</td></tr>
+    <tr><td>Premium / Elite</td><td>${d.highFmt}</td></tr>
+    <tr class="total"><td>Per athlete (recommended)</td><td>${d.perAthleteFmt}</td></tr>
+  </table>
+  <div class="recs">
+    <h2>Recommended models for your program</h2>
+    ${d.recsHtml}
+  </div>
+  <p class="footer">This is an estimate for budgeting only. Final pricing requires a formal quote. Contact sales@playerstall.com or visit playerstall.com for a detailed proposal.</p>
+</body>
+</html>`;
+    const w = window.open('', '_blank');
+    if (w) {
+      w.document.write(html);
+      w.document.close();
+      w.focus();
+      setTimeout(() => w.print(), 400);
+    }
+  }
+
   function calculate() {
     const users    = parseInt(document.getElementById('userCount').value) || 48;
     const sizeKey  = document.querySelector('input[name="size"]:checked')?.value || 'standard';
@@ -413,6 +570,23 @@ import '../styles/locker-budget-planner.css';
       </div>
     `).join('');
     document.getElementById('rec-cards').innerHTML = cardHtml;
+
+    const dateStr = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const recsHtml = models.map(m => `<div class="rec"><span class="rec-model">${m.model}</span> — ${m.desc}<br><span class="rec-price">${m.price} / unit</span></div>`).join('');
+    lastQuoteData = {
+      instLabel: instLabels[inst] || 'Institutional',
+      sportLabel: sportLabels[sport] || 'Athletics',
+      lockerCount,
+      users,
+      lowFmt: fmt(low),
+      midFmt: fmt(mid),
+      highFmt: fmt(high),
+      perAthleteFmt: fmt(perAthlete),
+      roomW,
+      roomL,
+      dateStr,
+      recsHtml
+    };
 
     const r = document.getElementById('results');
     r.style.display = 'block';
