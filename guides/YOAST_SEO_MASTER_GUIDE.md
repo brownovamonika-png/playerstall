@@ -187,8 +187,8 @@ good ones. [Keyphrase appears naturally in first paragraph]
 - ✅ Link to high-value pages (contact, services, products)
 
 **Examples:**
-- ✅ "Learn more about our [custom football lockers](/services)"
-- ✅ "See our [college sports locker solutions](/services)"
+- ✅ "Learn more about our [custom football lockers](/products)"
+- ✅ "See our [college sports locker solutions](/products)"
 - ❌ "Click here for more info" (not descriptive)
 
 ---
@@ -576,7 +576,7 @@ Use this template structure for every blog post:
 <p><strong>[CTA with internal link]</strong></p>
 
 <!-- INTERNAL LINKS -->
-<p>Learn more about our <a href="/services">[related service]</a></p>
+<p>Learn more about our <a href="/products">[related service]</a></p>
 
 <!-- EXTERNAL LINKS -->
 <p>According to <a href="[authoritative source]" target="_blank" rel="noopener">[Source Name]</a>, [relevant information]</p>

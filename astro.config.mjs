@@ -5,15 +5,17 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   integrations: [mdx()],
   redirects: {
+    // Services page renamed to products; preserve old URL
+    '/services': '/products',
     // Legacy .html routes → current Astro routes
     // Note: /index.html → / is omitted; it conflicts with the built root index.
     // Most hosts already serve /index.html as /. Configure /index.html→/ in your host (e.g. _redirects, vercel.json) if needed.
-    '/sports_locker.html': '/services',
+    '/sports_locker.html': '/products',
     '/staff.html': '/contact',
-    '/other.html': '/services',
-    '/custom.html': '/services',
+    '/other.html': '/products',
+    '/custom.html': '/products',
     '/contact.html': '/contact',
-    '/wall_locker.html': '/services',
+    '/wall_locker.html': '/products',
     '/semi_pro.html': '/product-semi-pro-locker',
     '/pro.html': '/product-pro-locker',
     '/stadium.html': '/product-stadium-locker',

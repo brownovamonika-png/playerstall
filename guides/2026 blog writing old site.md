@@ -168,7 +168,7 @@ Every blog post must include:
 ### Links
 
 **Internal Links** (5-10 per post):
-- Link to relevant product pages (`/services`)
+- Link to relevant product pages (`/products`)
 - Link to related blog posts
 - Link to process page (`/our-process`)
 - Link to contact page (`/contact`)
@@ -270,7 +270,7 @@ const publishDate = "YYYY-MM-DD";
       <p>[Content paragraph]</p>
       
       <!-- Internal Link -->
-      <p>Learn more about our <a href="/services">custom sports locker solutions</a>.</p>
+      <p>Learn more about our <a href="/products">custom sports locker solutions</a>.</p>
     </section>
 
     <!-- Main Content Section 2 (400-500 words) -->

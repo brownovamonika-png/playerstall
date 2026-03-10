@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 // Static pages with priorities
 const staticPages = [
 	{ url: '', priority: '1.0', changefreq: 'weekly' }, // Homepage
-	{ url: '/services', priority: '0.9', changefreq: 'weekly' },
+	{ url: '/products', priority: '0.9', changefreq: 'weekly' },
 	{ url: '/shop', priority: '0.9', changefreq: 'weekly' },
 	{ url: '/contact', priority: '0.8', changefreq: 'monthly' },
 	{ url: '/about', priority: '0.7', changefreq: 'monthly' },

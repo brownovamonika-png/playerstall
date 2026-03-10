@@ -43,7 +43,7 @@ This document serves as a reference guide for AI agents working on the PlayerSta
 │   ├── pages/          # Page components (file-based routing)
 │   │   ├── index.astro        # Homepage
 │   │   ├── about.astro        # About page
-│   │   ├── services.astro     # Products/Services page
+│   │   ├── products.astro    # Products page
 │   │   ├── locations.astro    # Locations page
 │   │   ├── contact.astro      # Contact page
 │   │   ├── shop.astro         # Shop page
@@ -154,7 +154,7 @@ This document serves as a reference guide for AI agents working on the PlayerSta
 ### Navigation Structure
 ```
 HOME → / (index.astro)
-PRODUCTS → /services (services.astro)
+PRODUCTS → /products (products.astro)
 BY SPORT → /hockey (hockey.astro)
 GALLERY → /gallery (gallery.astro)
 ABOUT → /about (about.astro)

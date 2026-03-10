@@ -47,7 +47,7 @@ Selected width/finish use the same visual treatment as your Wood Locker Bench: o
 
 ## How Users Get There
 
-- **Products (Services) page** (`/services`): The four locker cards (Semi Pro, Varsity, Pro, Stadium) are **links**. Clicking a card goes to that locker’s **product page** (its own page with the spec sheet), not an inline expand.
+- **Products page** (`/products`): The four locker cards (Semi Pro, Varsity, Pro, Stadium) are **links**. Clicking a card goes to that locker’s **product page** (its own page with the spec sheet), not an inline expand.
 - **Shop** and any other links you add can point to the same routes (e.g. `/product-semi-pro-locker`).
 
 ---
