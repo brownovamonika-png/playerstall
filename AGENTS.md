@@ -334,14 +334,47 @@ Based on existing code:
 
 ### Working with Images
 
+**Image Directory:** All image links used in the project are registered in [guides/IMAGE_DIRECTORY.md](guides/IMAGE_DIRECTORY.md), categorized by location (CDN, local, playerstall.com, topscorer, customsportslockers). Goal: move all images to the CDN over time.
+
+**Process:** When you add a new image link (in Astro, MDX, HTML, or data files), add a corresponding entry to `guides/IMAGE_DIRECTORY.md` under the correct location with:
+- URL or path
+- Short description
+- Optional: where it's used (page/component)
+
+Prefer CDN (`https://playerstall.b-cdn.net/images/`) for new assets. When replacing legacy URLs with CDN URLs, add the new CDN entry and mark the old one as migrated in the directory. To regenerate a full listing from the codebase, run: `node scripts/audit-image-links.js`.
+
 **Image Locations**:
 - Static assets: `public/images/`
 - Logos: `public/logos/`
 - Page-specific: `public/` root
+- CDN (preferred): `https://playerstall.b-cdn.net/images/`
 
 **Usage in Astro**:
 - Reference from `/` root: `/images/filename.jpg`
 - Or use relative paths from public folder
+- For CDN: use full URL `https://playerstall.b-cdn.net/images/...`
+
+### Working with Links
+
+**External links** (any URL outside playerstall.com):
+- Open in a new window: use `target="_blank"`
+- Always add `rel="noopener noreferrer"` for security and performance
+- Example: `<a href="https://example.com" target="_blank" rel="noopener noreferrer">Example</a>`
+- In MDX/Markdown, external links should be rendered with these attributes (e.g. via a component or build-time handling)
+
+**Internal links** (pages or blog posts on playerstall.com):
+- Use **relative or root-relative paths**, not full URLs
+- Do not use `https://playerstall.com/...` in links to site pages or blog posts
+- Good: `/gallery/`, `/blog/`, `/contact/`, `/blog/post-slug/`
+- Bad: `https://playerstall.com/gallery/`, `https://playerstall.com/blog/post-slug/`
+- Benefits: works in dev/preview, avoids mixed content, cleaner and portable
+
+**Summary**:
+| Link type | Use | Example |
+|-----------|-----|---------|
+| Internal (site page) | Root-relative path, same tab | `/gallery/`, `/blog/locker-room-goals-creating-a-winning-atmosphere-off-the-field/` |
+| Internal (blog post) | `/blog/[slug]/` from MDX/slug | `/blog/college-sports-lockers-buyer-guide/` |
+| External (other sites) | Full URL + `target="_blank"` + `rel="noopener noreferrer"` | Social, maps, references |
 
 ### Building and Deployment
 
@@ -787,6 +820,8 @@ npm run preview
 4. **Check cart functionality** - Ensure cart count updates correctly
 5. **Verify header scroll** - Test sticky header behavior
 6. **Test quote rotation** - Ensure quote of the day works on new pages
+7. **Image Directory** - When adding or changing image links, add or update the entry in `guides/IMAGE_DIRECTORY.md` with location, URL/path, and short description
+8. **Links** - Use internal paths (e.g. `/gallery/`, `/blog/slug/`) for playerstall.com pages; use `target="_blank"` and `rel="noopener noreferrer"` for external links
 
 ### SEO Checklist (Critical for All Changes)
 

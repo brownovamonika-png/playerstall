@@ -5,6 +5,9 @@ interface Props {
 	headerBlack?: boolean;
 	ogImage?: string;
 	canonical?: string;
+	/** When true, sets og:type to "article" and outputs article:published_time if provided */
+	isArticle?: boolean;
+	articlePublishedTime?: string;
 }
 
 const { 
@@ -12,7 +15,9 @@ const {
 	description = "Custom wood sports lockers for collegiate and professional teams. Priced right. Quick ship in 2–4 weeks or custom in 8–12 weeks. 30+ years of craftsmanship.", 
 	headerBlack = false,
 	ogImage = "https://playerstall.b-cdn.net/images/logoblack2.png",
-	canonical = Astro.url.pathname === "/" ? "https://playerstall.com" : `https://playerstall.com${Astro.url.pathname}`
+	canonical = Astro.url.pathname === "/" ? "https://playerstall.com" : `https://playerstall.com${Astro.url.pathname}`,
+	isArticle = false,
+	articlePublishedTime,
 } = Astro.props;
 
 // Ensure canonical URL doesn't have trailing slash (except for homepage)
@@ -34,8 +39,11 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		<link rel="canonical" href={canonicalUrl} />
 		
 		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={isArticle ? "article" : "website"} />
 		<meta property="og:url" content={canonicalUrl} />
+		{isArticle && articlePublishedTime && (
+			<meta property="article:published_time" content={articlePublishedTime} />
+		)}
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImage} />
@@ -275,6 +283,50 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	}
 	:global(a:visited:hover) {
 		color: #fe5900;
+	}
+
+	/* Pull quote – use class="pull-quote" on blockquote for standout quotes site-wide (screenshot style) */
+	:global(.pull-quote) {
+		position: relative;
+		margin: 2rem auto;
+		padding: 3.5rem 2rem 2rem;
+		max-width: 36em;
+		text-align: center;
+		border: none;
+		border-bottom: 1px solid #e3dfd7;
+		background: transparent;
+	}
+	:global(.pull-quote::before) {
+		content: '\201C';
+		position: absolute;
+		top: 0;
+		left: 0;
+		font-family: 'Oswald', sans-serif;
+		font-size: 7.5rem;
+		font-weight: 600;
+		line-height: 1;
+		color: #e3dfd7;
+		pointer-events: none;
+	}
+	:global(.pull-quote p) {
+		margin: 0 0 0.75rem;
+		font-family: 'Oswald', sans-serif;
+		font-size: 1.7rem;
+		font-weight: 600;
+		line-height: 1.5;
+		color: #0d0d0d;
+	}
+	:global(.pull-quote p:last-of-type) {
+		margin-bottom: 0.5rem;
+	}
+	:global(.pull-quote cite) {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 1.3rem;
+		font-weight: 500;
+		font-style: normal;
+		color: #4a4a4a;
+		letter-spacing: 0.02em;
 	}
 
 	/* Top Bar */

@@ -12,6 +12,8 @@ const blog = defineCollection({
     author: z.string().default('PlayerStall'),
     wordCount: z.number().optional(),
     heroImage: z.string().optional(),
+    /** Optional alt text for the hero image (for accessibility/SEO). Falls back to post title if unset. */
+    heroImageAlt: z.string().optional(),
   }),
 });
 

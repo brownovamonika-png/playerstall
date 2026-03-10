@@ -1,0 +1,25 @@
+---
+description: When adding or changing image links, update the Image Directory.
+globs: "**/*.astro,**/*.mdx,**/*.html,src/**/*.ts,src/**/*.tsx"
+alwaysApply: false
+---
+
+# Image Directory
+
+When you add or change an image URL or path in the project (e.g. in `src/`, or in content):
+
+1. Add or update the corresponding entry in **guides/IMAGE_DIRECTORY.md** under the correct location:
+   - **CDN** – `https://playerstall.b-cdn.net/images/` (preferred)
+   - **Local** – `/images/` (files in `public/images/`)
+   - **playerstall.com** – legacy wp-content URLs
+   - **topscorer.qodeinteractive.com** – external theme assets
+   - **customsportslockers.com** – legacy
+
+2. For each entry include:
+   - URL or path
+   - Short description (replace "Description TBD" if present)
+   - Optional: where it's used (page/component)
+
+3. Prefer the CDN for new assets. When replacing a legacy URL with a CDN URL, add the new CDN entry and mark the old one as migrated in the directory.
+
+To regenerate a full listing from the codebase: `node scripts/audit-image-links.js`.

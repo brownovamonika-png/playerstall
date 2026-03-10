@@ -83,18 +83,45 @@ const formattedDate = post.datePublished
   ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
   : '';
 const categorySlug = slugify(post.category);
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  description: post.description || '',
+  datePublished: post.datePublished,
+  author: {
+    '@type': 'Organization',
+    name: post.author,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'PlayerStall',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://playerstall.b-cdn.net/images/logoblack2.png',
+    },
+  },
+  image: heroUrl,
+};
+const heroAlt = post.heroImageAlt ?? post.title;
 ---
 
 <BaseLayout
   title={`${post.title} | PlayerStall`}
   description={post.description || ''}
   ogImage={heroUrl}
+  isArticle={true}
+  articlePublishedTime={post.datePublished}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  </Fragment>
   <article class="blog-post">
     <!-- Hero -->
     <header class="post-hero">
       <div class="post-hero-bg">
-        <img src={heroUrl} alt="" class="post-hero-image" />
+        <img src={heroUrl} alt={heroAlt} class="post-hero-image" />
       </div>
       <div class="post-hero-overlay"></div>
       <div class="container post-hero-content">
@@ -333,6 +360,18 @@ const categorySlug = slugify(post.category);
   .blog-content :global(h3), .blog-content :global(h4) { margin-top: 1.75rem; margin-bottom: 0.6rem; font-size: 1.25rem; color: var(--blog-text); }
   .blog-content :global(p), .blog-content :global(ul) { color: var(--blog-text-muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
   .blog-content :global(ul) { padding-left: 1.5rem; margin: 1.5rem 0; }
+  .blog-content :global(.pull-quote) { margin: 2rem 0; }
+  /* Override generic .blog-content p so quote text keeps Oswald, large size, bold (generic p would force 1.05rem body style) */
+  .blog-content :global(.pull-quote p) {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--blog-text);
+    margin: 0 0 0.75rem;
+  }
+  .blog-content :global(.pull-quote p:last-of-type) { margin-bottom: 0.5rem; }
+  .blog-content :global(.pull-quote cite) { color: var(--blog-text-muted); }
   .blog-content :global(a) { color: var(--accent); text-decoration: none; }
   .blog-content :global(a:hover) { text-decoration: underline; }
   .blog-content :global(img) { max-width: 100%; height: auto; border-radius: 0; }

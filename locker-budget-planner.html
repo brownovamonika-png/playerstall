@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locker Room Budget Planner — PlayerStall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #122040;
+    --navy-light: #1a3060;
+    --gold: #c9952a;
+    --gold-light: #e8b84b;
+    --gold-pale: #f5e9c8;
+    --white: #f9f7f2;
+    --gray: #8a96a8;
+    --border: rgba(201,149,42,0.2);
+    --card-bg: rgba(255,255,255,0.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,149,42,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 90% 80%, rgba(201,149,42,0.06) 0%, transparent 50%),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 80px,
+        rgba(255,255,255,0.012) 80px,
+        rgba(255,255,255,0.012) 81px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 40px 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 56px;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--gold-light);
+  }
+
+  .logo span {
+    color: var(--white);
+    opacity: 0.6;
+  }
+
+  .badge {
+    background: rgba(201,149,42,0.15);
+    border: 1px solid rgba(201,149,42,0.35);
+    color: var(--gold-light);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+  }
+
+  /* ── HERO TEXT ── */
+  .hero {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 8vw, 80px);
+    letter-spacing: 3px;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 em {
+    color: var(--gold-light);
+    font-style: normal;
+  }
+
+  .hero p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(249,247,242,0.65);
+    max-width: 560px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+
+  /* ── PLANNER CARD ── */
+  .planner {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-top: 2px solid var(--gold);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+
+  .planner-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  @media (max-width: 640px) {
+    .planner-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 20px 28px;
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 1;
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1.5px;
+    color: var(--white);
+  }
+
+  /* ── FIELD GROUPS ── */
+  .fields-col {
+    padding: 28px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .fields-col:last-child { border-right: none; }
+
+  @media (max-width: 640px) {
+    .fields-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .field-label span {
+    color: var(--gold);
+    margin-left: 4px;
+  }
+
+  select, input[type="number"], input[type="range"] {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    padding: 11px 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9952a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  select option { background: var(--navy-mid); color: var(--white); }
+
+  select:focus, input[type="number"]:focus {
+    border-color: var(--gold);
+    background: rgba(201,149,42,0.06);
+  }
+
+  input[type="range"] {
+    padding: 0;
+    height: 6px;
+    background: rgba(255,255,255,0.08);
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--gold);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 0 3px rgba(201,149,42,0.2);
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, var(--gold) 0%, var(--gold) var(--pct, 50%), rgba(255,255,255,0.08) var(--pct, 50%));
+    height: 6px;
+    border-radius: 10px;
+  }
+
+  .range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+
+  .range-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--gold-light);
+  }
+
+  .range-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  /* ── RADIO CHIPS ── */
+  .chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip input { display: none; }
+
+  .chip label {
+    display: block;
+    padding: 8px 14px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 2px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(249,247,242,0.6);
+    cursor: pointer;
+    transition: all 0.18s;
+    letter-spacing: 0.3px;
+  }
+
+  .chip input:checked + label {
+    background: rgba(201,149,42,0.15);
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+
+  .chip label:hover {
+    border-color: rgba(201,149,42,0.4);
+    color: var(--white);
+  }
+
+  /* ── DIVIDER FULL ROW ── */
+  .full-row {
+    grid-column: 1 / -1;
+    padding: 0 28px 28px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .full-row-inner {
+    padding-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .full-row-inner { grid-template-columns: 1fr; }
+  }
+
+  /* ── CALCULATE BUTTON ── */
+  .calc-wrap {
+    grid-column: 1 / -1;
+    padding: 24px 28px;
+    background: rgba(201,149,42,0.04);
+    border-top: 1px solid rgba(201,149,42,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .calc-note {
+    font-size: 13px;
+    color: var(--gray);
+    font-weight: 300;
+    max-width: 400px;
+  }
+
+  .calc-note strong { color: var(--gold-light); font-weight: 500; }
+
+  .btn-calculate {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    padding: 14px 40px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+
+  .btn-calculate:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-calculate:active { transform: translateY(0); }
+
+  /* ── RESULTS ── */
+  #results {
+    display: none;
+    animation: slideUp 0.4s ease;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .results-header {
+    padding: 32px 28px 24px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    background: rgba(201,149,42,0.03);
+    grid-column: 1 / -1;
+  }
+
+  .results-eyebrow {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .results-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 1px;
+    color: var(--white);
+  }
+
+  /* Budget Range */
+  .budget-range-box {
+    grid-column: 1 / -1;
+    padding: 32px 28px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  @media (max-width: 640px) {
+    .budget-range-box { grid-template-columns: 1fr; }
+  }
+
+  .budget-tier {
+    background: var(--navy);
+    padding: 24px 20px;
+    position: relative;
+  }
+
+  .budget-tier.featured {
+    background: rgba(201,149,42,0.08);
+  }
+
+  .budget-tier.featured::before {
+    content: 'RECOMMENDED';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 0 0 3px 3px;
+  }
+
+  .tier-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 8px;
+  }
+
+  .tier-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    letter-spacing: 1px;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .budget-tier.featured .tier-price { color: var(--gold-light); }
+
+  .tier-subtitle {
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 300;
+  }
+
+  /* Recommendations */
+  .recs-section {
+    grid-column: 1 / -1;
+    padding: 28px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .recs-label {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .rec-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  @media (max-width: 640px) {
+    .rec-cards { grid-template-columns: 1fr; }
+  }
+
+  .rec-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 3px;
+    padding: 18px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .rec-card.top-pick {
+    border-color: rgba(201,149,42,0.35);
+  }
+
+  .rec-card:hover { border-color: rgba(201,149,42,0.3); }
+
+  .rec-tag {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .rec-model {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .rec-desc {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .rec-price {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gold-light);
+    margin-top: 10px;
+  }
+
+  /* Space utilization */
+  .utilization-row {
+    grid-column: 1 / -1;
+    padding: 24px 28px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .utilization-row { grid-template-columns: 1fr; }
+  }
+
+  .stat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .stat-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 1px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .stat-sub {
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 300;
+  }
+
+  /* CTA section */
+  .cta-section {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(201,149,42,0.12) 0%, rgba(201,149,42,0.04) 100%);
+    border-top: 1px solid rgba(201,149,42,0.2);
+    padding: 32px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .cta-text h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .cta-text p {
+    font-size: 14px;
+    color: rgba(249,247,242,0.55);
+    font-weight: 300;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    padding: 12px 28px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--gold-light);
+    border: 1px solid rgba(201,149,42,0.4);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    padding: 12px 28px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    background: rgba(201,149,42,0.06);
+  }
+
+  /* Trust bar */
+  .trust-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    text-align: center;
+  }
+
+  .trust-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 1px;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .trust-label {
+    font-size: 11px;
+    color: var(--gray);
+    font-weight: 300;
+    margin-top: 4px;
+  }
+
+  .trust-sep {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    padding: 24px 0 48px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(138,150,168,0.7);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .disclaimer a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  /* Print button */
+  .print-bar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 28px 0;
+    grid-column: 1 / -1;
+  }
+
+  .btn-print {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--gray);
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.5px;
+    padding: 8px 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+
+  .btn-print:hover { border-color: var(--gray); color: var(--white); }
+
+  @media print {
+    body { background: white; color: black; }
+    body::before { display: none; }
+    .btn-calculate, .btn-print, .cta-buttons { display: none; }
+    #results { display: grid !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="logo">Player<span>Stall</span></div>
+    <div class="badge">Free Planning Tool</div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-eyebrow">North American Institutional Markets</div>
+    <h1>Locker Room<br><em>Budget Planner</em></h1>
+    <p>Get an instant cost estimate tailored to your facility — ready to take to your board or budget committee. Built for coaches, athletic directors, and facilities managers.</p>
+  </div>
+
+  <!-- ════════ PLANNER CARD ════════ -->
+  <div class="planner">
+    <div class="planner-grid" id="formGrid">
+
+      <!-- SECTION 1 -->
+      <div class="section-header">
+        <div class="section-num">01</div>
+        <div class="section-title">Your Program</div>
+      </div>
+
+      <div class="fields-col">
+        <div class="field-group">
+          <div class="field-label">Institution Type <span>*</span></div>
+          <select id="instType">
+            <option value="">Select institution...</option>
+            <option value="high_school">High School / Secondary</option>
+            <option value="college">College / University</option>
+            <option value="pro_club">Pro / Semi-Pro Club</option>
+            <option value="rec_center">Recreation Center / YMCA</option>
+            <option value="police">Police Department</option>
+            <option value="fire">Fire Department</option>
+            <option value="military">Military / Government</option>
+            <option value="corporate">Corporate Facility</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <div class="field-label">Primary Sport / Use <span>*</span></div>
+          <select id="sport">
+            <option value="">Select sport/use...</option>
+            <option value="football">Football</option>
+            <option value="basketball">Basketball</option>
+            <option value="hockey">Hockey</option>
+            <option value="baseball">Baseball / Softball</option>
+            <option value="soccer">Soccer / Lacrosse</option>
+            <option value="multi_sport">Multi-Sport / General Athletics</option>
+            <option value="aquatics">Aquatics / Pool</option>
+            <option value="first_responder">First Responder / Tactical Gear</option>
+            <option value="general">General / Fitness Facility</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fields-col">
+        <div class="field-group">
+          <div class="range-header">
+            <div class="field-label">Number of Athletes / Users <span>*</span></div>
+            <div class="range-value" id="usersVal">48</div>
+          </div>
+          <input type="range" id="userCount" min="12" max="300" value="48" step="4"
+            oninput="updateRange(this, 'usersVal', '', '', 0)">
+          <div class="range-labels"><span>12</span><span>300+</span></div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-label">Project Timeline</div>
+          <select id="timeline">
+            <option value="urgent">ASAP (under 3 months)</option>
+            <option value="standard" selected>Standard (3–6 months)</option>
+            <option value="planning">Planning Phase (6–12 months)</option>
+            <option value="future">Future Budget (1–2 years)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <div class="section-title">Space & Configuration</div>
+      </div>
+
+      <div class="fields-col">
+        <div class="field-group">
+          <div class="field-label">Room Width (feet)</div>
+          <input type="number" id="roomW" placeholder="e.g. 40" min="10" max="200" value="40">
+        </div>
+        <div class="field-group">
+          <div class="field-label">Room Length (feet)</div>
+          <input type="number" id="roomL" placeholder="e.g. 60" min="10" max="500" value="60">
+        </div>
+      </div>
+
+      <div class="fields-col">
+        <div class="field-group">
+          <div class="field-label">Locker Configuration</div>
+          <div class="chip-group">
+            <div class="chip"><input type="radio" name="config" id="cWall" value="wall" checked><label for="cWall">Wall-Mounted</label></div>
+            <div class="chip"><input type="radio" name="config" id="cIsland" value="island"><label for="cIsland">Island/Back-to-Back</label></div>
+            <div class="chip"><input type="radio" name="config" id="cPerimeter" value="perimeter"><label for="cPerimeter">Full Perimeter</label></div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-label">Locker Size Preference</div>
+          <div class="chip-group">
+            <div class="chip"><input type="radio" name="size" id="sCompact" value="compact"><label for="sCompact">Compact (12")</label></div>
+            <div class="chip"><input type="radio" name="size" id="sStandard" value="standard" checked><label for="sStandard">Standard (15")</label></div>
+            <div class="chip"><input type="radio" name="size" id="sWide" value="wide"><label for="sWide">Wide (18")</label></div>
+            <div class="chip"><input type="radio" name="size" id="sXL" value="xl"><label for="sXL">Extra-Wide (24")</label></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3 -->
+      <div class="section-header">
+        <div class="section-num">03</div>
+        <div class="section-title">Features & Finish</div>
+      </div>
+
+      <div class="full-row">
+        <div class="full-row-inner">
+          <div class="field-group">
+            <div class="field-label">Finish Level</div>
+            <div class="chip-group" style="flex-direction:column; gap:6px;">
+              <div class="chip"><input type="radio" name="finish" id="fEssential" value="essential"><label for="fEssential">Essential — Durable powder coat</label></div>
+              <div class="chip"><input type="radio" name="finish" id="fPremium" value="premium" checked><label for="fPremium">Premium — Solid wood accents</label></div>
+              <div class="chip"><input type="radio" name="finish" id="fElite" value="elite"><label for="fElite">Elite — Custom color + branding</label></div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">Add-Ons Required</div>
+            <div class="chip-group" style="flex-direction:column; gap:6px;">
+              <div class="chip"><input type="checkbox" id="aoBench" value="bench"><label for="aoBench">Integrated Bench Seating</label></div>
+              <div class="chip"><input type="checkbox" id="aoNameplate" value="nameplate"><label for="aoNameplate">Nameplates / Jersey Holders</label></div>
+              <div class="chip"><input type="checkbox" id="aoCharging" value="charging"><label for="aoCharging">USB Charging Ports</label></div>
+              <div class="chip"><input type="checkbox" id="aoVent" value="ventilation"><label for="aoVent">Enhanced Ventilation</label></div>
+              <div class="chip"><input type="checkbox" id="aoInstall" value="install" checked><label for="aoInstall">Installation & Project Mgmt</label></div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">Delivery State/Province</div>
+            <select id="region">
+              <option value="northeast">Northeast US</option>
+              <option value="southeast">Southeast US</option>
+              <option value="midwest">Midwest US</option>
+              <option value="southwest">Southwest US</option>
+              <option value="west">West Coast US</option>
+              <option value="canada_east">Eastern Canada</option>
+              <option value="canada_west">Western Canada</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- CALCULATE -->
+      <div class="calc-wrap">
+        <div class="calc-note">
+          <strong>Estimates based on 35 years of institutional installations.</strong> Final pricing requires a formal quote — this tool gives you accurate ranges to plan and present to your committee.
+        </div>
+        <button class="btn-calculate" onclick="calculate()">CALCULATE BUDGET →</button>
+      </div>
+
+    </div><!-- /planner-grid -->
+
+    <!-- ════════ RESULTS ════════ -->
+    <div id="results">
+      <div class="planner-grid">
+
+        <div class="results-header">
+          <div class="results-eyebrow">Your Budget Estimate — <span id="res-date"></span></div>
+          <div class="results-title" id="res-title">Locker Room Budget Summary</div>
+        </div>
+
+        <div class="budget-range-box">
+          <div class="budget-tier">
+            <div class="tier-label">Essential Budget</div>
+            <div class="tier-price" id="res-low">$0</div>
+            <div class="tier-subtitle">Basic configuration, functional finish</div>
+          </div>
+          <div class="budget-tier featured">
+            <div class="tier-label">Recommended Range</div>
+            <div class="tier-price" id="res-mid">$0</div>
+            <div class="tier-subtitle">Premium materials, full add-ons selected</div>
+          </div>
+          <div class="budget-tier">
+            <div class="tier-label">Premium / Elite</div>
+            <div class="tier-price" id="res-high">$0</div>
+            <div class="tier-subtitle">Custom branding, elite finish, all features</div>
+          </div>
+        </div>
+
+        <div class="utilization-row">
+          <div class="stat-box">
+            <div class="stat-label">Lockers Required</div>
+            <div class="stat-value" id="res-lockers">—</div>
+            <div class="stat-sub" id="res-locker-sub">based on squad size</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Space Utilization</div>
+            <div class="stat-value" id="res-util">—</div>
+            <div class="stat-sub" id="res-util-sub">of available floor area</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Per-Athlete Cost</div>
+            <div class="stat-value" id="res-per">—</div>
+            <div class="stat-sub">recommended tier</div>
+          </div>
+        </div>
+
+        <div class="recs-section">
+          <div class="recs-label">Recommended Models for Your Program</div>
+          <div class="rec-cards" id="rec-cards">
+          </div>
+        </div>
+
+        <div class="print-bar">
+          <button class="btn-print" onclick="window.print()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Print / Save PDF
+          </button>
+        </div>
+
+        <div class="cta-section">
+          <div class="cta-text">
+            <h3>Ready for a Formal Quote?</h3>
+            <p>Our team will review your requirements and send a detailed proposal within 2 business days. No obligation.</p>
+          </div>
+          <div class="cta-buttons">
+            <a href="https://playerstall.com/contact" class="btn-primary">Request a Quote</a>
+            <a href="https://playerstall.com/catalog" class="btn-secondary">View Catalog</a>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /results -->
+
+  </div><!-- /planner -->
+
+  <!-- Trust bar -->
+  <div class="trust-bar">
+    <div class="trust-item">
+      <div class="trust-num">35+</div>
+      <div class="trust-label">Years Manufacturing</div>
+    </div>
+    <div class="trust-sep"></div>
+    <div class="trust-item">
+      <div class="trust-num">4,200+</div>
+      <div class="trust-label">Rooms Installed</div>
+    </div>
+    <div class="trust-sep"></div>
+    <div class="trust-item">
+      <div class="trust-num">NCAA</div>
+      <div class="trust-label">Division I Trusted</div>
+    </div>
+    <div class="trust-sep"></div>
+    <div class="trust-item">
+      <div class="trust-num">500+</div>
+      <div class="trust-label">Schools & Colleges</div>
+    </div>
+    <div class="trust-sep"></div>
+    <div class="trust-item">
+      <div class="trust-num">2-YR</div>
+      <div class="trust-label">Standard Warranty</div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Estimates are for budgeting purposes only and reflect typical institutional project costs based on PlayerStall historical data.<br>
+    Final pricing varies by project specifications, site conditions, and current material costs.<br>
+    <a href="https://playerstall.com/contact">Contact us</a> for a detailed, no-obligation proposal.
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ─── Price data (USD) ───────────────────────────────────
+const BASE_LOCKER = {
+  compact:  { essential: 340, premium: 520, elite: 780 },
+  standard: { essential: 420, premium: 640, elite: 960 },
+  wide:     { essential: 520, premium: 790, elite: 1180 },
+  xl:       { essential: 680, premium: 1040, elite: 1560 }
+};
+
+const SPORT_MULTIPLIER = {
+  hockey: 1.22, football: 1.15, first_responder: 1.18,
+  aquatics: 1.12, baseball: 1.05, multi_sport: 1.08,
+  basketball: 1.0, soccer: 1.0, general: 0.95
+};
+
+const INST_MULTIPLIER = {
+  pro_club: 1.30, college: 1.15, military: 1.12,
+  high_school: 1.0, rec_center: 0.92, police: 1.10,
+  fire: 1.08, corporate: 1.20
+};
+
+const ADDON_COSTS = {
+  bench:       { essential: 85, premium: 120, elite: 160 },
+  nameplate:   { essential: 28, premium: 45, elite: 70 },
+  charging:    { essential: 65, premium: 65, elite: 65 },
+  ventilation: { essential: 45, premium: 45, elite: 45 },
+  install:     0.12 // 12% of subtotal
+};
+
+const REGION_SHIP = {
+  northeast: 0.04, southeast: 0.05, midwest: 0.04,
+  southwest: 0.06, west: 0.08, canada_east: 0.09, canada_west: 0.11
+};
+
+const MODELS = {
+  football:  [
+    { tag: 'TOP PICK — FOOTBALL', model: 'ProShield™ XL', desc: 'Wide-body steel with full-length ventilation & equipment hooks. NCAA standard.', price: '$640–$960' },
+    { tag: 'TEAM FAVE', model: 'GameDay™ 18', desc: 'Heavy-duty 18" with integrated bench base. Handles full pads with ease.', price: '$520–$790' },
+    { tag: 'ELITE OPTION', model: 'Varsity Elite™', desc: 'Custom team colors, engraved nameplates, USB charging. Recruit-room ready.', price: '$960–$1,560' }
+  ],
+  hockey: [
+    { tag: 'TOP PICK — HOCKEY', model: 'IcePro™ XL', desc: 'Extra-deep ventilation for skates & pads. Moisture-resistant lining.', price: '$790–$1,180' },
+    { tag: 'DURABLE', model: 'RinkSide™ 24', desc: '24" extra-wide with stick rack and helmet shelf. Purpose-built for ice sports.', price: '$680–$1,040' },
+    { tag: 'VALUE', model: 'BladeReady™', desc: 'Steel construction, perforated doors, integrated boot dryer port.', price: '$520–$780' }
+  ],
+  basketball: [
+    { tag: 'TOP PICK — BASKETBALL', model: 'CourtPro™ 15', desc: 'Clean, pro-style aesthetic with full-length mirror option. Standard 15" width.', price: '$640–$960' },
+    { tag: 'VERSATILE', model: 'AllCourt™', desc: 'Adaptable shelf configuration, ideal for dual sport programs.', price: '$520–$780' },
+    { tag: 'ELITE', model: 'Arena Elite™', desc: 'Backlit nameplate, custom team graphics, USB & wireless charging.', price: '$960–$1,400' }
+  ],
+  first_responder: [
+    { tag: 'TOP PICK — TACTICAL', model: 'Response™ XL', desc: 'Full-length weapon lockbox integration, SCBA bottle rack, turnout gear drying.', price: '$790–$1,180' },
+    { tag: 'STANDARD ISSUE', model: 'Duty™ Series', desc: 'Double-tier option for larger departments. PIN or key-lock standard.', price: '$420–$640' },
+    { tag: 'PREMIUM', model: 'Command™ Elite', desc: 'Electronic lock, charging, full turnout storage. For modern facility upgrades.', price: '$1,040–$1,560' }
+  ],
+  default: [
+    { tag: 'BEST VALUE', model: 'Institutional™ 15', desc: 'Our most popular model — reliable, clean, and built for decades of daily use.', price: '$420–$640' },
+    { tag: 'PREMIUM', model: 'Signature™ Series', desc: 'Solid wood accents, premium handle, fully configurable interior.', price: '$640–$960' },
+    { tag: 'ELITE', model: 'Custom™ Pro', desc: 'Full custom program — colors, graphics, digital integration.', price: '$960–$1,560' }
+  ]
+};
+
+// ─── Range update ─────────────────────────────────────
+function updateRange(el, valId, prefix, suffix, decimals) {
+  document.getElementById(valId).textContent =
+    (prefix || '') + Number(el.value).toLocaleString() + (suffix || '');
+  const pct = ((el.value - el.min) / (el.max - el.min) * 100).toFixed(1);
+  el.style.setProperty('--pct', pct + '%');
+}
+
+// ─── Format USD ──────────────────────────────────────
+function fmt(n) {
+  if (n >= 1000000) return '$' + (n/1000000).toFixed(2) + 'M';
+  if (n >= 1000)    return '$' + Math.round(n/1000) + 'K';
+  return '$' + Math.round(n).toLocaleString();
+}
+
+// ─── Main calculation ─────────────────────────────────
+function calculate() {
+  const users    = parseInt(document.getElementById('userCount').value) || 48;
+  const sizeKey  = document.querySelector('input[name="size"]:checked')?.value || 'standard';
+  const finKey   = document.querySelector('input[name="finish"]:checked')?.value || 'premium';
+  const sport    = document.getElementById('sport').value || 'general';
+  const inst     = document.getElementById('instType').value || 'high_school';
+  const roomW    = parseFloat(document.getElementById('roomW').value) || 40;
+  const roomL    = parseFloat(document.getElementById('roomL').value) || 60;
+  const region   = document.getElementById('region').value || 'midwest';
+  const config   = document.querySelector('input[name="config"]:checked')?.value || 'wall';
+
+  // Add-ons selected
+  const addons = ['bench','nameplate','charging','ventilation','install']
+    .filter(id => document.getElementById('ao'+id.charAt(0).toUpperCase()+id.slice(1))?.checked);
+
+  // Locker count — 10% buffer
+  const lockerCount = Math.ceil(users * 1.10);
+
+  // Base cost per locker
+  const base = BASE_LOCKER[sizeKey];
+  const sm   = SPORT_MULTIPLIER[sport] || 1.0;
+  const im   = INST_MULTIPLIER[inst] || 1.0;
+
+  // Calculate for each tier
+  function tierCost(tier) {
+    let perLocker = base[tier] * sm * im;
+
+    // Add-ons per locker
+    addons.forEach(a => {
+      if (a === 'install') return;
+      const c = ADDON_COSTS[a];
+      if (c && typeof c === 'object') perLocker += c[tier];
+      else if (c && typeof c === 'number') perLocker += c;
+    });
+
+    let sub = perLocker * lockerCount;
+
+    // Install
+    if (addons.includes('install')) sub *= (1 + ADDON_COSTS.install);
+
+    // Shipping
+    sub *= (1 + (REGION_SHIP[region] || 0.05));
+
+    // Config premium
+    if (config === 'perimeter') sub *= 1.08;
+    if (config === 'island') sub *= 1.05;
+
+    return sub;
+  }
+
+  // Build low as always essential, mid as selected tier, high as elite
+  const low  = tierCost('essential');
+  const mid  = tierCost(finKey);
+  const high = tierCost('elite') * 1.05; // Elite tier + contingency
+
+  // Space utilization
+  const lockerWidth = { compact: 12, standard: 15, wide: 18, xl: 24 }[sizeKey] / 12; // feet
+  const lockerDepth = 1.5; // feet standard
+  const lockerFootprint = lockerCount * lockerWidth * lockerDepth;
+  const roomArea    = roomW * roomL;
+  const circulation = roomArea * 0.5; // 50% for aisles/benches etc.
+  const utilPct     = Math.min(99, Math.round((lockerFootprint / circulation) * 100));
+
+  // Fit warning
+  const fitsOk = lockerFootprint < circulation;
+
+  // Per-athlete
+  const perAthlete = mid / users;
+
+  // Populate results
+  document.getElementById('res-date').textContent = new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+  const instLabels = {
+    high_school:'High School', college:'College/University', pro_club:'Pro/Semi-Pro Club',
+    rec_center:'Recreation Center', police:'Police Dept.', fire:'Fire Dept.',
+    military:'Military', corporate:'Corporate Facility'
+  };
+  const sportLabels = {
+    football:'Football', basketball:'Basketball', hockey:'Hockey', baseball:'Baseball/Softball',
+    soccer:'Soccer/Lacrosse', multi_sport:'Multi-Sport', aquatics:'Aquatics',
+    first_responder:'First Responder', general:'General Athletics'
+  };
+  document.getElementById('res-title').textContent =
+    `${(instLabels[inst]||'Institutional')} Locker Room — ${(sportLabels[sport]||'Athletics')}`;
+
+  document.getElementById('res-low').textContent   = fmt(low);
+  document.getElementById('res-mid').textContent   = fmt(mid);
+  document.getElementById('res-high').textContent  = fmt(high);
+  document.getElementById('res-lockers').textContent = lockerCount;
+  document.getElementById('res-locker-sub').textContent = `+10% bench reserve for ${users} users`;
+  document.getElementById('res-util').textContent  = utilPct + '%';
+  document.getElementById('res-util-sub').textContent = fitsOk
+    ? `of ${roomW}×${roomL} ft space — good fit`
+    : `⚠ May be tight — consider compact or additional space`;
+  document.getElementById('res-per').textContent   = fmt(perAthlete);
+
+  // Model recommendations
+  const sportKey = ['football','hockey','basketball','first_responder'].includes(sport) ? sport : 'default';
+  const models   = MODELS[sportKey];
+  const cardHtml = models.map((m, i) => `
+    <div class="rec-card ${i===0?'top-pick':''}">
+      <span class="rec-tag">${m.tag}</span>
+      <div class="rec-model">${m.model}</div>
+      <div class="rec-desc">${m.desc}</div>
+      <div class="rec-price">${m.price} / unit</div>
+    </div>
+  `).join('');
+  document.getElementById('rec-cards').innerHTML = cardHtml;
+
+  // Show results
+  const r = document.getElementById('results');
+  r.style.display = 'block';
+  setTimeout(() => r.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
+
+// Init range track
+document.addEventListener('DOMContentLoaded', () => {
+  const r = document.getElementById('userCount');
+  const pct = ((r.value - r.min) / (r.max - r.min) * 100).toFixed(1);
+  r.style.setProperty('--pct', pct + '%');
+});
+</script>
+</body>
+</html>
