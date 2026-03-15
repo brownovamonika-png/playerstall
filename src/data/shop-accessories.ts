@@ -2,7 +2,8 @@
  * Shared accessory list for shop grid and product-page slider (modal mode).
  * Each item has modal data (data-acc-*) so opening a card shows the same PDP-style modal with sliding images.
  */
-const LOCK_BOX_IMG = '/images/lock-box.png';
+const LOCK_BOX_IMG = 'https://playerstall.b-cdn.net/images/lock-box.png';
+const LOCK_BOX_DIGITAL_IMG = '/images/lock-box.png'; // Lock Box with Digital Key Lock only
 const CUSHION_IMG = 'https://playerstall.b-cdn.net/images/cushion-logo.png';
 
 export interface ShopAccessoryModalItem {
@@ -100,14 +101,14 @@ export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 		title: 'Stick Rack',
 	},
 	{
-		accImage: LOCK_BOX_IMG,
-		accImage2: LOCK_BOX_IMG,
-		accImage3: LOCK_BOX_IMG,
+		accImage: LOCK_BOX_DIGITAL_IMG,
+		accImage2: LOCK_BOX_DIGITAL_IMG,
+		accImage3: LOCK_BOX_DIGITAL_IMG,
 		accImage4: '/images/lock-box-spec-sheet.png',
 		accTitle: 'Lock Box with Digital Key Lock',
 		accPrice: '$80.00',
 		accDesc: 'Lock box with slow-closing hinge that closes gently and securely. Fitted with an electronic touchable keypad and RFID card lock: password or card entry, programmable master and user codes, battery-powered with emergency external power.',
-		image: LOCK_BOX_IMG,
+		image: LOCK_BOX_DIGITAL_IMG,
 		alt: 'Lock box with digital keypad and RFID lock',
 		title: 'Lock Box with Digital Key Lock',
 	},
