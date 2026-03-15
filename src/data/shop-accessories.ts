@@ -2,7 +2,7 @@
  * Shared accessory list for shop grid and product-page slider (modal mode).
  * Each item has modal data (data-acc-*) so opening a card shows the same PDP-style modal with sliding images.
  */
-const LOCK_BOX_IMG = 'https://playerstall.b-cdn.net/images/lock-box.png';
+const LOCK_BOX_IMG = '/images/lock-box.png';
 const CUSHION_IMG = 'https://playerstall.b-cdn.net/images/cushion-logo.png';
 
 export interface ShopAccessoryModalItem {
