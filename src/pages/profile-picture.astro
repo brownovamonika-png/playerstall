@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="Model S Locker Profile Picture | PlayerStall"
+	description="Download the Model S locker image resized for use as a profile picture (400×400)."
+>
+	<section class="profile-picture-page">
+		<div class="profile-picture-card">
+			<h1>Model S Locker — Profile Picture</h1>
+			<p class="subtitle">400×400 px, ready for X, Instagram, or any profile.</p>
+
+			<div class="preview-wrap">
+				<img
+					src="/images/model-s-locker-profile.png"
+					alt="Model S locker profile picture"
+					width="400"
+					height="400"
+					class="preview-img"
+				/>
+			</div>
+
+			<a
+				href="/images/model-s-locker-profile.png"
+				download="playerstall-model-s-locker-profile.png"
+				class="download-btn"
+			>
+				Download profile picture
+			</a>
+
+			<p class="hint">Right-click the image and choose “Save image as…” if the button doesn’t start a download.</p>
+		</div>
+	</section>
+
+	<style>
+		.profile-picture-page {
+			padding: 2rem 1rem 4rem;
+			max-width: 520px;
+			margin: 0 auto;
+		}
+
+		.profile-picture-card {
+			background: #fff;
+			border-radius: 12px;
+			padding: 2rem;
+			box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+			border: 1px solid #e5e5e5;
+		}
+
+		.profile-picture-card h1 {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.5rem;
+			font-weight: 700;
+			color: #0d0d0d;
+			margin: 0 0 0.25rem;
+		}
+
+		.subtitle {
+			color: #666;
+			font-size: 0.9375rem;
+			margin: 0 0 1.5rem;
+		}
+
+		.preview-wrap {
+			background: #f5f5f5;
+			border-radius: 8px;
+			padding: 1rem;
+			margin-bottom: 1.5rem;
+			display: inline-block;
+		}
+
+		.preview-img {
+			display: block;
+			border-radius: 4px;
+			max-width: 100%;
+			height: auto;
+		}
+
+		.download-btn {
+			display: inline-block;
+			background: #fe5900;
+			color: #fff;
+			font-family: 'Yantramanav', sans-serif;
+			font-weight: 500;
+			font-size: 1rem;
+			padding: 0.75rem 1.5rem;
+			border-radius: 6px;
+			text-decoration: none;
+			transition: background 0.2s, opacity 0.2s;
+		}
+
+		.download-btn:hover {
+			background: #e54f00;
+			opacity: 0.95;
+		}
+
+		.hint {
+			margin: 1rem 0 0;
+			font-size: 0.8125rem;
+			color: #8c8c8c;
+		}
+	</style>
+</BaseLayout>

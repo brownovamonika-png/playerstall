@@ -165,22 +165,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 					</button>
 				</div>
-				<!-- Coat Rod (two picture options in modal) -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-image-2="https://playerstall.b-cdn.net/images/cushion-logo.png" data-acc-title="Coat Rod" data-acc-price="$20.00" data-acc-desc="Heavy-duty coat rod for jerseys, jackets, and gear – sized to match each locker style.">
+				<!-- Hooks (Silver on card front; modal: Black = slide 0, Silver = slide 1, spec sheet = slide 2) -->
+				<div class="shop-product-item shop-accessory-item shop-accessory-hooks" data-acc-image="/images/hook-black.png" data-acc-image-2="/images/hook-silver.png" data-acc-image-3="/images/hook-spec-sheet.png" data-acc-title="Hooks" data-acc-price="$15.00" data-acc-desc="Additional interior hooks for bags, helmets, and everyday gear, matched to your locker layout. Available in black or silver.">
 					<div class="shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Coat rod for lockers" loading="lazy" />
-					</div>
-					<button type="button" class="shop-accessory-trigger">
-						<div class="shop-product-content">
-							<div class="shop-product-categories">Accessories</div>
-							<h5 class="shop-product-title">Coat Rod</h5>
-						</div>
-					</button>
-				</div>
-				<!-- Hooks (two picture options: Black main, Silver second – like Vented Panel) -->
-				<div class="shop-product-item shop-accessory-item shop-accessory-hooks" data-acc-image="/images/hook-black.png" data-acc-image-2="/images/hook-silver.png" data-acc-title="Hooks" data-acc-price="$15.00" data-acc-desc="Additional interior hooks for bags, helmets, and everyday gear, matched to your locker layout. Available in black or silver.">
-					<div class="shop-product-image">
-						<img src="/images/hook-black.png" alt="Black hook for lockers" loading="lazy" />
+						<img class="hook-card-thumb" src="/images/hook-silver.png" alt="Silver hook for lockers" loading="lazy" />
 					</div>
 					<button type="button" class="shop-accessory-trigger">
 						<div class="shop-product-content">
@@ -201,10 +189,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 					</button>
 				</div>
-				<!-- Skate Hooks (same style as Hooks: two images, Black/Silver, $25) -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/lock-box.png" data-acc-image-2="https://playerstall.b-cdn.net/images/cushion-logo.png" data-acc-title="Skate Hooks" data-acc-price="$25.00" data-acc-desc="Additional wall-mounted hooks positioned for skates or gear, perfect for hockey or figure skating locker rooms.">
+				<!-- Skate Hooks (Silver on card front; modal: Black = slide 0, Silver = slide 1) -->
+				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/skate-hook-black.png" data-acc-image-2="/images/skate-hook-silver.png" data-acc-title="Skate Hooks" data-acc-price="$25.00" data-acc-desc="Additional wall-mounted hooks positioned for skates or gear, perfect for hockey or figure skating locker rooms.">
 					<div class="shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Skate hook for hockey lockers" loading="lazy" />
+						<img src="/images/skate-hook-silver.png" alt="Silver skate hook for hockey lockers" loading="lazy" />
 					</div>
 					<button type="button" class="shop-accessory-trigger">
 						<div class="shop-product-content">
@@ -238,7 +226,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					</button>
 				</div>
 				<!-- Lock Box (4 image options) -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/lock-box.png" data-acc-image-2="/images/lock-box.png" data-acc-image-3="/images/lock-box.png" data-acc-image-4="/images/lock-box-spec-sheet.png" data-acc-title="Lock Box with Digital Key Lock" data-acc-price="$80.00" data-acc-desc="Lock box with slow-closing hinge that closes gently and securely. Fitted with an electronic touchable keypad and RFID card lock: password or card entry, programmable master and user codes, battery-powered with emergency external power." data-acc-view-href="/accessories#lock-box">
+				<div class="shop-product-item shop-accessory-item shop-accessory-item--lock-box" data-acc-image="/images/lock-box.png" data-acc-image-2="/images/lock-box.png" data-acc-image-3="/images/lock-box.png" data-acc-image-4="/images/lock-box-spec-sheet.png" data-acc-title="Lock Box with Digital Key Lock" data-acc-price="$80.00" data-acc-desc="Lock box with slow-closing hinge that closes gently and securely. Fitted with an electronic touchable keypad and RFID card lock: password or card entry, programmable master and user codes, battery-powered with emergency external power." data-acc-view-href="/accessories#lock-box">
 					<div class="shop-product-image">
 						<img src="/images/lock-box.png" alt="Lock box with digital keypad and RFID lock" loading="lazy" />
 					</div>
@@ -327,23 +315,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 						<div class="acc-modal-cushion-add">
 							<button type="button" id="acc-cushion-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
-						</div>
-					</div>
-					<!-- Coat Rod: color (Black / Silver), Add to cart -->
-					<div id="acc-modal-coat-rod" class="acc-modal-color-sheet" hidden>
-						<div class="acc-modal-cushion-options">
-							<label for="acc-coat-rod-color-select" class="acc-modal-cushion-label">Color</label>
-							<select id="acc-coat-rod-color-select" class="acc-modal-cushion-select" aria-label="Select coat rod color">
-								<option value="black">Black</option>
-								<option value="silver">Silver</option>
-							</select>
-						</div>
-						<div class="acc-modal-cushion-options acc-modal-cushion-qty">
-							<label for="acc-coat-rod-qty" class="acc-modal-cushion-label">Quantity</label>
-							<input type="number" id="acc-coat-rod-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
-						</div>
-						<div class="acc-modal-cushion-add">
-							<button type="button" id="acc-coat-rod-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
 						</div>
 					</div>
 					<!-- Hooks: color (Black / Silver), Quantity, Add to cart -->
@@ -811,7 +782,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin-bottom: 0;
 	}
 
-	/* All accessory cards: white image area (Vented Panel, Cushions, Coat Rod, Hooks, etc.) */
+	/* All accessory cards: white image area (Vented Panel, Cushions, Hooks, etc.) */
 	.shop-accessories-grid .shop-product-image {
 		background: #fff;
 	}
@@ -880,7 +851,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		display: block;
 	}
 
-	/* Hooks card: front image 20% lower in the thumbnail (not the modal) */
+	/* Hooks card: front image 20% lower and 20% smaller in the thumbnail (not the modal) */
 	.shop-accessory-hooks .shop-product-image {
 		padding-top: 20%;
 		box-sizing: border-box;
@@ -888,11 +859,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		justify-content: center;
 	}
 	.shop-accessory-hooks .shop-product-image img {
-		width: 100%;
-		height: 100%;
+		width: auto !important;
+		height: auto !important;
+		max-width: 97px !important;
+		max-height: 97px !important;
 		object-fit: contain;
 		object-position: center center;
-		transform: scale(0.8);
+	}
+	/* Force hook card thumbnail 10% smaller (108px → 97px) */
+	:global(img.hook-card-thumb) {
+		width: auto !important;
+		height: auto !important;
+		max-width: 97px !important;
+		max-height: 97px !important;
+		object-fit: contain !important;
 	}
 
 	/* Name Plate card: same as Hooks – front image 20% lower, 15% bigger */
@@ -938,6 +918,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		object-fit: contain;
 		object-position: center center;
 		transform: scale(0.8);
+	}
+
+	.shop-accessory-item--lock-box .shop-product-image img {
+		max-width: 115px;
+		max-height: 115px;
+		width: auto;
+		height: auto;
+		object-fit: contain;
 	}
 
 	.shop-accessory-item .shop-product-content {
@@ -1056,9 +1044,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		display: block;
 	}
 
-	/* Hooks popup: black/silver images 20% bigger */
-	.acc-modal.acc-modal-is-hooks .acc-modal-slide img {
-		transform: scale(1.2);
+	/* Hooks popup: black/silver images 25% smaller; third image (spec sheet) stays larger */
+	:global(.acc-modal.acc-modal-is-hooks .acc-modal-slide img) {
+		max-width: 37.67% !important;
+		max-height: 121px !important;
+		transform: none !important;
+	}
+	:global(.acc-modal.acc-modal-is-hooks #acc-modal-slide-3 img),
+	:global(.acc-modal.acc-modal-is-hooks #acc-modal-image-3) {
+		max-width: 50.4% !important;
+		max-height: 161px !important;
+		transform: scale(1.38) !important;
 	}
 
 	/* Name Plate popup: black/silver images 20% bigger */
@@ -1504,29 +1500,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			const desc = item.getAttribute('data-acc-desc');
 			if (!img || !title) return;
 			accModalImage.src = img;
-			accModalImage.alt = title === 'Hooks' ? 'Black hook' : (title === 'Name Plate' ? 'Black name plate' : title);
+			accModalImage.alt = title === 'Hooks' ? 'Black hook' : (title === 'Skate Hooks' ? 'Black skate hook' : (title === 'Name Plate' ? 'Black name plate' : title));
 			const slideCount = img4 ? 4 : (img3 ? 3 : (img2 ? 2 : 1));
 			if (accModalSlide2) accModalSlide2.style.display = slideCount >= 2 ? '' : 'none';
 			if (accModalSlide3) accModalSlide3.style.display = slideCount >= 3 ? '' : 'none';
 			if (accModalSlide4) accModalSlide4.style.display = slideCount >= 4 ? '' : 'none';
 			if (accModalImage2 && img2) {
 				accModalImage2.src = img2;
-				accModalImage2.alt = title === 'Hooks' ? 'Silver hook' : (title === 'Name Plate' ? 'Silver name plate' : title + ' (2)');
+				accModalImage2.alt = title === 'Hooks' ? 'Silver hook' : (title === 'Skate Hooks' ? 'Silver skate hook' : (title === 'Name Plate' ? 'Silver name plate' : title + ' (2)'));
 			}
 			if (accModalImage3 && img3) {
 				accModalImage3.src = img3;
-				accModalImage3.alt = title + ' (3)';
+				accModalImage3.alt = title === 'Hooks' ? 'Hook dimensions and specifications' : title + ' (3)';
 			}
 			if (accModalImage4 && img4) {
 				accModalImage4.src = img4;
 				accModalImage4.alt = title + ' (4)';
+			}
+			// Hooks: force black/silver images smaller via inline style (slides 1 & 2); slide 3 stays larger
+			if (title === 'Hooks') {
+				if (accModalImage) {
+					accModalImage.style.maxWidth = '37.67%';
+					accModalImage.style.maxHeight = '121px';
+				}
+				if (accModalImage2) {
+					accModalImage2.style.maxWidth = '37.67%';
+					accModalImage2.style.maxHeight = '121px';
+				}
+				if (accModalImage3) {
+					accModalImage3.style.maxWidth = '';
+					accModalImage3.style.maxHeight = '';
+				}
+			} else {
+				if (accModalImage) accModalImage.style.maxWidth = accModalImage.style.maxHeight = '';
+				if (accModalImage2) accModalImage2.style.maxWidth = accModalImage2.style.maxHeight = '';
+				if (accModalImage3) accModalImage3.style.maxWidth = accModalImage3.style.maxHeight = '';
 			}
 			if (accModalSliderNav && accModalSliderDots.length) {
 				accModalSliderNav.hidden = slideCount <= 1;
 				accModalSliderDots.forEach(function(dot, i) {
 					dot.style.display = i < slideCount ? '' : 'none';
 				});
-				// Hooks / Name Plate: initial slide matches Black (0) / Silver (1) dropdown
+				// Hooks / Name Plate / Skate Hooks: initial slide matches Black (0) / Silver (1) dropdown
 				let initialSlide = 0;
 				if (title === 'Hooks' && slideCount >= 2) {
 					const hooksColorSelect = document.getElementById('acc-hooks-color-select');
@@ -1534,6 +1549,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				} else if (title === 'Name Plate' && slideCount >= 2) {
 					const namePlateColorSelect = document.getElementById('acc-name-plate-color-select');
 					initialSlide = (namePlateColorSelect && namePlateColorSelect.value === 'silver') ? 1 : 0;
+				} else if (title === 'Skate Hooks' && slideCount >= 2) {
+					const skateHooksColorSelect = document.getElementById('acc-skate-hooks-color-select');
+					initialSlide = (skateHooksColorSelect && skateHooksColorSelect.value === 'silver') ? 1 : 0;
 				}
 				setAccModalSlide(initialSlide);
 			}
@@ -1552,14 +1570,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			accModalCtas.innerHTML = '';
 			// Cushion: show Colors available PDF (above line) and color dropdown / Add to cart (below line)
 			const accModalColorsPdfAbove = document.getElementById('acc-modal-colors-pdf-above');
-			const accModalCoatRod = document.getElementById('acc-modal-coat-rod');
 			const accModalHooks = document.getElementById('acc-modal-hooks');
 			const accModalSkateHooks = document.getElementById('acc-modal-skate-hooks');
 			const accModalNamePlate = document.getElementById('acc-modal-name-plate');
 			const accModalLockBox = document.getElementById('acc-modal-lock-box');
 			if (accModalColorSheet) accModalColorSheet.hidden = title !== 'Cushions';
 			if (accModalColorsPdfAbove) accModalColorsPdfAbove.hidden = title !== 'Cushions';
-			if (accModalCoatRod) accModalCoatRod.hidden = title !== 'Coat Rod';
 			if (accModalHooks) accModalHooks.hidden = title !== 'Hooks';
 			if (accModalSkateHooks) accModalSkateHooks.hidden = title !== 'Skate Hooks';
 			if (accModalNamePlate) accModalNamePlate.hidden = title !== 'Name Plate';
@@ -1594,13 +1610,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				const slide = parseInt(this.getAttribute('data-slide'), 10);
 				if (!isNaN(slide)) {
 					setAccModalSlide(slide);
-					// Hooks / Name Plate: keep dropdown in sync with slide (0 = Black, 1 = Silver)
+					// Hooks / Name Plate / Skate Hooks: keep dropdown in sync with slide (0 = Black, 1 = Silver)
 					if (currentAccModalTitle === 'Hooks') {
 						const hooksColorSelect = document.getElementById('acc-hooks-color-select');
 						if (hooksColorSelect) hooksColorSelect.value = slide === 1 ? 'silver' : 'black';
 					} else if (currentAccModalTitle === 'Name Plate') {
 						const namePlateColorSelect = document.getElementById('acc-name-plate-color-select');
 						if (namePlateColorSelect) namePlateColorSelect.value = slide === 1 ? 'silver' : 'black';
+					} else if (currentAccModalTitle === 'Skate Hooks') {
+						const skateHooksColorSelect = document.getElementById('acc-skate-hooks-color-select');
+						if (skateHooksColorSelect) skateHooksColorSelect.value = slide === 1 ? 'silver' : 'black';
 					}
 				}
 			});
@@ -1633,34 +1652,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				setTimeout(function() {
 					accCushionAddToCartBtn.textContent = originalText;
 					accCushionAddToCartBtn.classList.remove('added');
-				}, 1500);
-			});
-		}
-
-		// Coat Rod Add to cart: color Black or Silver, $20
-		const accCoatRodColorSelect = document.getElementById('acc-coat-rod-color-select');
-		const accCoatRodAddToCartBtn = document.getElementById('acc-coat-rod-add-to-cart-btn');
-		const COAT_ROD_PRICE = 20;
-		const COAT_ROD_IMAGE = 'https://playerstall.b-cdn.net/images/lock-box.png';
-		const accCoatRodQty = document.getElementById('acc-coat-rod-qty');
-		if (accCoatRodAddToCartBtn && accCoatRodColorSelect) {
-			accCoatRodAddToCartBtn.addEventListener('click', function() {
-				const colorValue = accCoatRodColorSelect.value;
-				const colorLabel = accCoatRodColorSelect.options[accCoatRodColorSelect.selectedIndex].text;
-				const product = {
-					id: 'coat-rod-' + colorValue,
-					name: 'Coat Rod (' + colorLabel + ')',
-					price: COAT_ROD_PRICE,
-					image: COAT_ROD_IMAGE
-				};
-				const qty = accCoatRodQty ? parseInt(accCoatRodQty.value, 10) || 1 : 1;
-				addToCart(product, qty);
-				const originalText = accCoatRodAddToCartBtn.textContent;
-				accCoatRodAddToCartBtn.textContent = 'Added!';
-				accCoatRodAddToCartBtn.classList.add('added');
-				setTimeout(function() {
-					accCoatRodAddToCartBtn.textContent = originalText;
-					accCoatRodAddToCartBtn.classList.remove('added');
 				}, 1500);
 			});
 		}
@@ -1706,17 +1697,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		const accSkateHooksColorSelect = document.getElementById('acc-skate-hooks-color-select');
 		const accSkateHooksAddToCartBtn = document.getElementById('acc-skate-hooks-add-to-cart-btn');
 		const SKATE_HOOKS_PRICE = 25;
-		const SKATE_HOOKS_IMAGE = 'https://playerstall.b-cdn.net/images/lock-box.png';
 		const accSkateHooksQty = document.getElementById('acc-skate-hooks-qty');
 		if (accSkateHooksAddToCartBtn && accSkateHooksColorSelect) {
 			accSkateHooksAddToCartBtn.addEventListener('click', function() {
 				const colorValue = accSkateHooksColorSelect.value;
 				const colorLabel = accSkateHooksColorSelect.options[accSkateHooksColorSelect.selectedIndex].text;
+				const skateHooksImage = colorValue === 'silver' ? '/images/skate-hook-silver.png' : '/images/skate-hook-black.png';
 				const product = {
 					id: 'skate-hooks-' + colorValue,
 					name: 'Skate Hooks (' + colorLabel + ')',
 					price: SKATE_HOOKS_PRICE,
-					image: SKATE_HOOKS_IMAGE
+					image: skateHooksImage
 				};
 				const qty = accSkateHooksQty ? parseInt(accSkateHooksQty.value, 10) || 1 : 1;
 				addToCart(product, qty);
@@ -1727,6 +1718,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					accSkateHooksAddToCartBtn.textContent = originalText;
 					accSkateHooksAddToCartBtn.classList.remove('added');
 				}, 1500);
+			});
+		}
+		// Skate Hooks: when Black/Silver dropdown changes, slide to the matching image
+		if (accSkateHooksColorSelect) {
+			accSkateHooksColorSelect.addEventListener('change', function() {
+				if (currentAccModalTitle === 'Skate Hooks' && accModal && !accModal.hidden) {
+					const idx = this.value === 'silver' ? 1 : 0;
+					setAccModalSlide(idx);
+				}
 			});
 		}
 

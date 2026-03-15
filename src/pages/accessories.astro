@@ -27,7 +27,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<div class="accessories-grid">
 				<!-- Lock Box -->
 				<article class="accessory-block" id="lock-box">
-					<div class="accessory-block-image">
+					<div class="accessory-block-image accessory-block-image--lock-box">
 						<img src="/images/lock-box.png" alt="Lock box with digital key lock for sports lockers" loading="lazy" />
 					</div>
 					<div class="accessory-block-content">
@@ -57,7 +57,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<!-- More accessories CTA -->
 	<section class="accessories-more">
 		<div class="container">
-			<p class="accessories-more-text">Cushions, coat rods, hooks, name plates, skate hooks, and custom logos are available as add-ons to our lockers.</p>
+			<p class="accessories-more-text">Cushions, hooks, name plates, skate hooks, and custom logos are available as add-ons to our lockers.</p>
 			<a href="/products#accessories" class="accessory-cta accessory-cta-secondary">View all locker options</a>
 		</div>
 	</section>
@@ -182,6 +182,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		max-height: 200px;
 		object-fit: contain;
 		display: block;
+	}
+
+	.accessory-block-image--lock-box img {
+		max-width: 115px;
+		max-height: 115px;
 	}
 
 	.accessory-block-title {

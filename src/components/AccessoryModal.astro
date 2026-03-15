@@ -78,22 +78,6 @@
 						<button type="button" id="acc-cushion-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
 					</div>
 				</div>
-				<div id="acc-modal-coat-rod" class="acc-modal-color-sheet" hidden>
-					<div class="acc-modal-cushion-options">
-						<label for="acc-coat-rod-color-select" class="acc-modal-cushion-label">Color</label>
-						<select id="acc-coat-rod-color-select" class="acc-modal-cushion-select" aria-label="Select coat rod color">
-							<option value="black">Black</option>
-							<option value="silver">Silver</option>
-						</select>
-					</div>
-					<div class="acc-modal-cushion-options acc-modal-cushion-qty">
-						<label for="acc-coat-rod-qty" class="acc-modal-cushion-label">Quantity</label>
-						<input type="number" id="acc-coat-rod-qty" class="acc-modal-qty-input" min="1" value="1" aria-label="Quantity" />
-					</div>
-					<div class="acc-modal-cushion-add">
-						<button type="button" id="acc-coat-rod-add-to-cart-btn" class="acc-modal-add-to-cart-btn">Add to cart</button>
-					</div>
-				</div>
 				<div id="acc-modal-hooks" class="acc-modal-color-sheet" hidden>
 					<div class="acc-modal-cushion-options">
 						<label for="acc-hooks-color-select" class="acc-modal-cushion-label">Color</label>
@@ -169,6 +153,7 @@
 	.acc-modal-slides { display: flex; width: 100%; height: 100%; transition: transform 0.35s ease-in-out; background: #fff; }
 	.acc-modal-slide { flex: 0 0 100%; min-width: 0; display: flex; align-items: center; justify-content: center; background: #fff; }
 	.acc-modal-slide img { max-width: 83%; max-height: 265px; object-fit: contain; display: block; }
+	.acc-modal.acc-modal-is-lock-box .acc-modal-slide img { max-width: 115px; max-height: 115px; }
 	.acc-modal-slider-dots { position: absolute; bottom: 12px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; pointer-events: none; }
 	.acc-modal-slider-dots .acc-modal-slider-dot { pointer-events: auto; width: 8px; height: 8px; padding: 0; border: none; border-radius: 50%; background: rgba(0,0,0,0.25); cursor: pointer; transition: background 0.2s, transform 0.2s; }
 	.acc-modal-slider-dots .acc-modal-slider-dot:hover { background: rgba(0,0,0,0.45); }
@@ -313,12 +298,10 @@
 			const accModalColorsPdfAbove = document.getElementById('acc-modal-colors-pdf-above');
 			if (accModalColorSheet) accModalColorSheet.hidden = title !== 'Cushions';
 			if (accModalColorsPdfAbove) accModalColorsPdfAbove.hidden = title !== 'Cushions';
-			const coatRod = document.getElementById('acc-modal-coat-rod');
 			const hooks = document.getElementById('acc-modal-hooks');
 			const skateHooks = document.getElementById('acc-modal-skate-hooks');
 			const namePlate = document.getElementById('acc-modal-name-plate');
 			const lockBox = document.getElementById('acc-modal-lock-box');
-			if (coatRod) coatRod.hidden = title !== 'Coat Rod';
 			if (hooks) hooks.hidden = title !== 'Hooks';
 			if (skateHooks) skateHooks.hidden = title !== 'Skate Hooks';
 			if (namePlate) namePlate.hidden = title !== 'Name Plate';
@@ -361,10 +344,6 @@
 			const colorLabel = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : 'White';
 			const placementLabel = placement === 'both' ? 'Top & bottom' : 'Bottom';
 			return { id: 'cushions-' + (sel ? sel.value : 'white') + '-' + placement, name: 'Cushions (' + colorLabel + ') – ' + placementLabel, price: price, image: CUSHION_IMAGE };
-		});
-		setupAddToCart('acc-coat-rod-add-to-cart-btn', 'acc-coat-rod-color-select', 'acc-coat-rod-qty', function(sel) {
-			const colorLabel = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : 'Black';
-			return { id: 'coat-rod-' + (sel ? sel.value : 'black'), name: 'Coat Rod (' + colorLabel + ')', price: 20, image: COAT_ROD_IMAGE };
 		});
 		setupAddToCart('acc-hooks-add-to-cart-btn', 'acc-hooks-color-select', 'acc-hooks-qty', function(sel) {
 			const colorLabel = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : 'Black';

@@ -441,54 +441,45 @@ const breadcrumbSchema = {
 			</div>
 
 			<div class="accessories-grid">
-				<div class="accessory-card">
+				<div class="accessory-card accessory-card--cushions">
 					<div class="accessory-image">
-						<img src="https://playerstall.b-cdn.net/images/cushion-logo.png" alt="Locker cushion with team logo" loading="lazy" />
+						<img src="https://playerstall.b-cdn.net/images/lock-box.png" alt="Locker cushion with team logo" loading="lazy" />
 					</div>
 					<h3 class="accessory-title">Cushions</h3>
 					<p class="accessory-price">+ $75.00 (top or bottom) / $150.00 (both)</p>
 					<p class="accessory-copy">High-density foam cushions upholstered for comfort and durability – available on the top, bottom, or both.</p>
 				</div>
 
-				<div class="accessory-card">
+				<div class="accessory-card accessory-card--hooks">
 					<div class="accessory-image">
-						<img src="https://playerstall.b-cdn.net/images/coat-rod.png" alt="Coat rod for lockers" loading="lazy" />
-					</div>
-					<h3 class="accessory-title">Coat Rod</h3>
-					<p class="accessory-price">Call for pricing</p>
-					<p class="accessory-copy">Heavy-duty coat rod for jerseys, jackets, and gear – sized to match each locker style.</p>
-				</div>
-
-				<div class="accessory-card">
-					<div class="accessory-image">
-						<img src="https://playerstall.b-cdn.net/images/wall-hook.png" alt="Interior locker hook" loading="lazy" />
+						<img src="/images/hook-silver.png" alt="Silver hook for lockers" loading="lazy" />
 					</div>
 					<h3 class="accessory-title">Hooks</h3>
-					<p class="accessory-price">Call for pricing</p>
-					<p class="accessory-copy">Additional interior hooks for bags, helmets, and everyday gear, matched to your locker layout.</p>
+					<p class="accessory-price">$15.00</p>
+					<p class="accessory-copy">Additional interior hooks for bags, helmets, and everyday gear, matched to your locker layout. Available in black or silver.</p>
 				</div>
 
-				<div class="accessory-card">
+				<div class="accessory-card accessory-card--name-plate">
 					<div class="accessory-image">
-						<img src="https://playerstall.b-cdn.net/images/name-plate.png" alt="Locker name plate" loading="lazy" />
+						<img src="/images/name-plate-black.png" alt="Black name plate for lockers" loading="lazy" />
 					</div>
 					<h3 class="accessory-title">Name Plate</h3>
 					<p class="accessory-price">+ $10.00</p>
-					<p class="accessory-copy">Clean, simple name plate for player identification – ideal for teams that want a classic, organized look.</p>
+					<p class="accessory-copy">Clean, simple name plate for player identification – ideal for teams that want a classic, organized look. Available in black or silver.</p>
 				</div>
 
-				<div class="accessory-card">
+				<div class="accessory-card accessory-card--skate-hooks">
 					<div class="accessory-image">
-						<img src="https://playerstall.b-cdn.net/images/skate-hook.png" alt="Skate hook for hockey lockers" loading="lazy" />
+						<img src="/images/skate-hook-silver.png" alt="Silver skate hook for hockey lockers" loading="lazy" />
 					</div>
 					<h3 class="accessory-title">Skate Hooks</h3>
 					<p class="accessory-price">+ $25.00</p>
 					<p class="accessory-copy">Additional wall-mounted hooks positioned for skates or gear, perfect for hockey or figure skating locker rooms.</p>
 				</div>
 
-				<div class="accessory-card">
+				<div class="accessory-card accessory-card--custom-logo">
 					<div class="accessory-image">
-						<img src="https://playerstall.b-cdn.net/images/custom-logo-example.png" alt="Example of custom team logo on wood background" loading="lazy" />
+						<img src="/images/custom-logo-example.png" alt="Example of custom team logo on wood background" loading="lazy" />
 					</div>
 					<h3 class="accessory-title">Custom Logo</h3>
 					<p class="accessory-price">+ $75.00</p>
@@ -1042,22 +1033,58 @@ const breadcrumbSchema = {
 		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
 	}
 
+	/* Match shop: 200x200 image box, white background */
 	.accessory-image {
-		width: 100%;
-		height: 120px;
-		margin-bottom: 14px;
+		width: 200px;
+		height: 200px;
+		margin: 0 auto 16px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: #f7f7f7;
+		background: #fff;
 		overflow: hidden;
+		box-sizing: border-box;
 	}
 
 	.accessory-image img {
-		max-width: 100%;
-		max-height: 100%;
+		width: 100%;
+		height: 100%;
 		object-fit: contain;
+		object-position: center center;
 		display: block;
+	}
+
+	/* Hooks: 97px max (match shop) */
+	.accessory-card--hooks .accessory-image {
+		padding-top: 20%;
+	}
+	.accessory-card--hooks .accessory-image img {
+		width: auto;
+		height: auto;
+		max-width: 97px;
+		max-height: 97px;
+	}
+
+	/* Name plate: scale 0.8 so it shows (match shop) */
+	.accessory-card--name-plate .accessory-image {
+		padding-top: 20%;
+	}
+	.accessory-card--name-plate .accessory-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		transform: scale(0.8);
+	}
+
+	/* Custom logo: scale 0.8 (match shop) */
+	.accessory-card--custom-logo .accessory-image {
+		padding-top: 20%;
+	}
+	.accessory-card--custom-logo .accessory-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		transform: scale(0.8);
 	}
 
 	.accessory-title {

@@ -75,7 +75,7 @@ const legendarySpecs = [
 						<button type="button" class="thumb" aria-label="Model X locker vented front panel detail">
 							<img src="/images/model-x-website-images/model-x-locker-vent-panel.png" alt="Model X locker vented front panel with horizontal slots" />
 						</button>
-						<button type="button" class="thumb" aria-label="Digital lock box option">
+						<button type="button" class="thumb thumb--lock-box" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
 						</button>
 					</div>
@@ -445,6 +445,19 @@ const legendarySpecs = [
 		object-fit: contain;
 		object-position: center center;
 		display: block;
+	}
+
+	.thumb--lock-box img {
+		max-width: 36px;
+		max-height: 36px;
+		margin: auto;
+	}
+
+	.product-gallery-main--lock-box .product-main-image {
+		max-width: 115px;
+		max-height: 115px;
+		width: auto;
+		height: auto;
 	}
 
 	.product-detail {
@@ -980,6 +993,10 @@ const legendarySpecs = [
 				const main = document.querySelector('.product-main-image');
 				if (main instanceof HTMLImageElement) {
 					main.src = img.src;
+				}
+				const galleryMain = document.querySelector('.product-gallery-main');
+				if (galleryMain) {
+					galleryMain.classList.toggle('product-gallery-main--lock-box', thumb.classList.contains('thumb--lock-box'));
 				}
 			}
 			// Caption by image: 1st & 3rd = graphite, 2nd = black, 4th = none

@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="PlayerStall on X | @PlayerStallGear"
+	description="Follow PlayerStall on X for custom wood sports lockers, locker room inspiration, and team storage solutions."
+>
+	<section class="x-profile-proto">
+		<div class="x-profile-card">
+			<!-- Banner / Cover -->
+			<div class="x-banner">
+				<div class="x-banner-placeholder"></div>
+			</div>
+
+			<!-- Profile content -->
+			<div class="x-profile-body">
+				<div class="x-avatar-wrap">
+					<div class="x-avatar" aria-hidden="true">
+						<span class="x-avatar-initials">PS</span>
+					</div>
+				</div>
+
+				<div class="x-actions">
+					<a
+						href="https://x.com/PlayerStallGear"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="x-follow-btn"
+					>
+						Follow
+					</a>
+				</div>
+
+				<h1 class="x-display-name">PlayerStall</h1>
+				<p class="x-handle">@PlayerStallGear</p>
+
+				<p class="x-bio">
+					Custom wood sports lockers for collegiate & pro teams. 30+ years. Lifetime guarantee. Quick ship or full custom. 🏈🏒🏀
+				</p>
+
+				<div class="x-meta">
+					<span class="x-meta-item x-location">Langley, BC</span>
+					<a
+						href="https://playerstall.com"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="x-meta-item x-link"
+					>
+						playerstall.com
+					</a>
+					<span class="x-meta-item x-joined">Joined March 2024</span>
+				</div>
+
+				<div class="x-stats">
+					<span class="x-stat"><strong>127</strong> Following</span>
+					<span class="x-stat"><strong>1.2K</strong> Followers</span>
+				</div>
+			</div>
+		</div>
+
+		<p class="x-proto-note">Profile prototype — <a href="https://x.com/PlayerStallGear" target="_blank" rel="noopener noreferrer">Follow @PlayerStallGear on X</a></p>
+	</section>
+
+	<style>
+		.x-profile-proto {
+			padding: 2rem 1rem 4rem;
+			max-width: 600px;
+			margin: 0 auto;
+		}
+
+		.x-profile-card {
+			background: #000;
+			border-radius: 16px;
+			overflow: hidden;
+			border: 1px solid #2f3336;
+			box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+		}
+
+		.x-banner {
+			height: 200px;
+			background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #fe5900 100%);
+		}
+
+		.x-banner-placeholder {
+			width: 100%;
+			height: 100%;
+			opacity: 0.9;
+		}
+
+		.x-profile-body {
+			padding: 0 1rem 1.5rem;
+			position: relative;
+		}
+
+		.x-avatar-wrap {
+			margin-top: -67px;
+			margin-bottom: 0.5rem;
+		}
+
+		.x-avatar {
+			width: 134px;
+			height: 134px;
+			border-radius: 50%;
+			background: #1a1a1a;
+			border: 4px solid #000;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.x-avatar-initials {
+			font-family: 'Oswald', sans-serif;
+			font-size: 2.5rem;
+			font-weight: 700;
+			color: #fe5900;
+			letter-spacing: 0.02em;
+		}
+
+		.x-actions {
+			display: flex;
+			justify-content: flex-end;
+			margin-bottom: 1rem;
+		}
+
+		.x-follow-btn {
+			display: inline-block;
+			background: #fff;
+			color: #000;
+			font-family: 'Yantramanav', sans-serif;
+			font-weight: 500;
+			font-size: 15px;
+			padding: 0.5rem 1.5rem;
+			border-radius: 9999px;
+			text-decoration: none;
+			transition: background 0.2s, opacity 0.2s;
+		}
+
+		.x-follow-btn:hover {
+			background: #e7e9ea;
+			opacity: 0.95;
+		}
+
+		.x-display-name {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.25rem;
+			font-weight: 700;
+			color: #e7e9ea;
+			margin: 0 0 0.125rem;
+			line-height: 1.2;
+		}
+
+		.x-handle {
+			color: #71767b;
+			font-size: 0.9375rem;
+			margin: 0 0 0.75rem;
+		}
+
+		.x-bio {
+			color: #e7e9ea;
+			font-size: 0.9375rem;
+			line-height: 1.4;
+			margin: 0 0 0.75rem;
+			white-space: pre-wrap;
+		}
+
+		.x-meta {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.75rem 1rem;
+			margin-bottom: 1rem;
+			color: #71767b;
+			font-size: 0.875rem;
+		}
+
+		.x-meta-item {
+			color: #71767b;
+			text-decoration: none;
+			display: inline-flex;
+			align-items: center;
+			gap: 0.25rem;
+		}
+
+		.x-meta-item.x-link:hover {
+			text-decoration: underline;
+			color: #fe5900;
+		}
+
+		.x-stats {
+			display: flex;
+			gap: 1.25rem;
+			font-size: 0.875rem;
+			color: #71767b;
+		}
+
+		.x-stat strong {
+			color: #e7e9ea;
+			font-weight: 700;
+		}
+
+		.x-proto-note {
+			text-align: center;
+			margin-top: 1.5rem;
+			font-size: 0.875rem;
+			color: #71767b;
+		}
+
+		.x-proto-note a {
+			color: #fe5900;
+			text-decoration: none;
+		}
+
+		.x-proto-note a:hover {
+			text-decoration: underline;
+		}
+
+		@media (max-width: 640px) {
+			.x-profile-proto {
+				padding: 1rem 0.75rem 3rem;
+			}
+
+			.x-avatar {
+				width: 100px;
+				height: 100px;
+			}
+
+			.x-avatar-wrap {
+				margin-top: -50px;
+			}
+
+			.x-avatar-initials {
+				font-size: 1.75rem;
+			}
+		}
+	</style>
+</BaseLayout>

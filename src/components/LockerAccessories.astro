@@ -224,20 +224,63 @@ function isModalItem(item: LockerAccessoryItem | LockerAccessoryModalItem): item
 		font: inherit;
 		text-align: left;
 	}
+	/* Match shop: 200x200 image box */
 	.locker-accessories--modal .shop-product-image {
-		width: 100%;
-		aspect-ratio: 1;
+		width: 200px;
+		height: 200px;
+		flex-shrink: 0;
 		overflow: hidden;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background: #fff;
+		box-sizing: border-box;
 	}
 	.locker-accessories--modal .shop-product-image img {
 		width: 100%;
 		height: 100%;
 		object-fit: contain;
+		object-position: center center;
 		display: block;
+	}
+	/* Hooks: 97px max (match shop) */
+	.locker-accessories--modal [data-acc-title="Hooks"] .shop-product-image {
+		padding-top: 20%;
+	}
+	.locker-accessories--modal [data-acc-title="Hooks"] .shop-product-image img {
+		width: auto;
+		height: auto;
+		max-width: 97px;
+		max-height: 97px;
+	}
+	/* Name plate: scale 0.8 (match shop) */
+	.locker-accessories--modal [data-acc-title="Name Plate"] .shop-product-image {
+		padding-top: 20%;
+	}
+	.locker-accessories--modal [data-acc-title="Name Plate"] .shop-product-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		transform: scale(0.8);
+	}
+	/* Custom logo, Stick Rack: scale 0.8 (match shop) */
+	.locker-accessories--modal [data-acc-title="Custom Logo"] .shop-product-image,
+	.locker-accessories--modal [data-acc-title="Stick Rack"] .shop-product-image {
+		padding-top: 20%;
+	}
+	.locker-accessories--modal [data-acc-title="Custom Logo"] .shop-product-image img,
+	.locker-accessories--modal [data-acc-title="Stick Rack"] .shop-product-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		transform: scale(0.8);
+	}
+	/* Lock Box: 115px max (match shop) */
+	.locker-accessories--modal [data-acc-title="Lock Box with Digital Key Lock"] .shop-product-image img {
+		width: auto;
+		height: auto;
+		max-width: 115px;
+		max-height: 115px;
 	}
 	.locker-accessories--modal .shop-product-content {
 		padding: 16px;
