@@ -55,7 +55,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={ogImage} />
-		<meta name="twitter:site" content="@PSLockers" />
+		<meta name="twitter:site" content="@PlayerStallGear" />
 		
 		<!-- Favicon -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -83,11 +83,10 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				</div>
 				<div class="top-bar-right">
 					<span>FOLLOW US:</span>
-					<a href="https://www.facebook.com/PlayerStall-1715059388770006/" target="_blank" class="social-icon">f</a>
-					<a href="https://vimeo.com/playerstall" target="_blank" class="social-icon">v</a>
-					<a href="https://twitter.com/PSLockers" target="_blank" class="social-icon twitter-icon">t</a>
-					<a href="https://www.pinterest.com/playerstallspor/" target="_blank" class="social-icon">P</a>
-					<a href="https://www.linkedin.com/company/playerstall" target="_blank" class="social-icon">in</a>
+					<div class="social-links">
+						<a href="https://instagram.com/playerstalllockers" target="_blank" rel="noopener noreferrer" class="social-icon" title="Instagram">IG</a>
+						<a href="https://x.com/PlayerStallGear" target="_blank" rel="noopener noreferrer" class="social-icon" title="X">X</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -220,9 +219,10 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 						</ul>
 					</div>
 					<div class="footer-section">
-						<h4>Follow us on Instagram</h4>
-						<div class="footer-instagram">
-							<a href="https://www.instagram.com/playerstall" target="_blank" class="instagram-link">@playerstall</a>
+						<h4>Follow us</h4>
+						<div class="social-links">
+							<a href="https://instagram.com/playerstalllockers" target="_blank" rel="noopener noreferrer" class="footer-social-link">Instagram</a>
+							<a href="https://x.com/PlayerStallGear" target="_blank" rel="noopener noreferrer" class="footer-social-link">X</a>
 						</div>
 					</div>
 				</div>
@@ -417,6 +417,12 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		display: inline-block;
 	}
 
+	.top-bar-right .social-links {
+		display: inline-flex;
+		align-items: center;
+		gap: 18px;
+	}
+
 	.top-bar-right .social-icon {
 		color: #b6b6b6;
 		text-decoration: none;
@@ -430,16 +436,6 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		white-space: nowrap;
 		display: inline-block;
 		width: auto;
-		margin-right: 18px;
-	}
-
-	.top-bar-right .social-icon:last-child {
-		margin-right: 0;
-	}
-
-	.top-bar-right .social-icon.twitter-icon {
-		font-size: 12px;
-		font-weight: 400;
 	}
 
 	.top-bar-right .social-icon:hover {
@@ -821,13 +817,22 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		margin-top: 0.25rem;
 	}
 
-	.footer-instagram {
+	.footer-section .social-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
 		margin-top: 1rem;
 	}
 
-	.instagram-link {
+	.footer-social-link {
 		color: #cccccc;
 		font-size: 14px;
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.footer-social-link:hover {
+		color: #fe5900;
 	}
 
 	.footer-quick-contact {
