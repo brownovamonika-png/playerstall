@@ -65,13 +65,13 @@ const productsSchema = {
 		{
 			"@type": "Product",
 			"position": 3,
-			"name": "Pro Locker",
+			"name": "Model L Locker",
 			"description": "Premium tier wood sports locker with maximum storage capacity and elite finishing quality. Ideal for collegiate programs.",
 			"brand": {
 				"@type": "Brand",
 				"name": "PlayerStall"
 			},
-			"image": "http://playerstall.com/wp-content/uploads/2016/03/Athletic-Locker-Pro.jpg",
+			"image": "https://playerstall.b-cdn.net/images/legendary-locker.png",
 			"offers": {
 				"@type": "Offer",
 				"url": "https://playerstall.com/product-pro-locker",
@@ -93,7 +93,7 @@ const productsSchema = {
 		{
 			"@type": "Product",
 			"position": 4,
-			"name": "Stadium Locker",
+			"name": "Model S Locker",
 			"description": "Quick ship premium wood sports locker. Ships in 2-4 weeks in 24 inch width, Light Gray or Dark Gray. Championship quality finishing.",
 			"brand": {
 				"@type": "Brand",
@@ -138,7 +138,7 @@ const productsSchema = {
 		{
 			"@type": "Product",
 			"position": 5,
-			"name": "Elite Locker",
+			"name": "Model Z Locker",
 			"description": "Quick ship curved-design premium wood sports locker. Ships in 2-4 weeks. Modern aesthetic with maximum functionality for collegiate and professional teams.",
 			"brand": {
 				"@type": "Brand",
@@ -234,7 +234,7 @@ const breadcrumbSchema = {
 
 <BaseLayout 
 	title="Wood Sports Locker Models & Pricing | PlayerStall" 
-	description="Quick ship in 2–4 weeks: Stadium, Elite and Model X in 24 inch width, Light or Dark Gray. Custom wood and more in 8–12 weeks. Price match guarantee. Five tiers from $349. 5 year warranty."
+	description="Quick ship in 2–4 weeks: Model S, Model Z and Model X in 24 inch width, Light or Dark Gray. Custom wood and more in 8–12 weeks. Price match guarantee. Five tiers from $349. 5 year warranty."
 	canonical="https://playerstall.com/products"
 >
 	<!-- Schema.org Structured Data -->
@@ -269,7 +269,7 @@ const breadcrumbSchema = {
 			<div class="section-header">
 				<p class="section-subtitle">our products</p>
 				<h2 class="section-title">Quick Ship &amp; Custom</h2>
-				<p style="max-width: 700px; margin: 1rem auto 0; font-size: 1rem; color: #666;">Quick ship ships in 2 to 4 weeks: Stadium, Elite &amp; Model X in 24&quot; width, Light Gray or Dark Gray. Custom orders are 8–12 weeks: any size, any wood, or materials. Price match guarantee on USA competitors.</p>
+				<p style="max-width: 700px; margin: 1rem auto 0; font-size: 1rem; color: #666;">Quick ship ships in 2 to 4 weeks: Model S, Model Z &amp; Model X in 24&quot; width, Light Gray or Dark Gray. Custom orders are 8–12 weeks: any size, any wood, or materials. Price match guarantee on USA competitors.</p>
 			</div>
 			
 			<div class="products-grid">
@@ -305,11 +305,11 @@ const breadcrumbSchema = {
 				<div class="product-card" id="pro">
 					<a href="/product-pro-locker" class="product-link product-card-trigger-link">
 						<div class="product-image">
-							<img src="http://playerstall.com/wp-content/uploads/2016/03/Athletic-Locker-Pro.jpg" alt="Pro Locker" loading="lazy" />
+							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model L Locker" loading="lazy" />
 						</div>
 						<div class="product-details">
-							<div class="product-position">Pro</div>
-							<h4 class="product-name">Pro <span class="product-price-inline">$549</span></h4>
+							<div class="product-position">Model L</div>
+							<h4 class="product-name">Model L <span class="product-price-inline">$549</span></h4>
 							<span class="spec-toggle-label">View spec sheet &rarr;</span>
 						</div>
 					</a>
@@ -319,25 +319,25 @@ const breadcrumbSchema = {
 				<div class="product-card" id="stadium">
 					<a href="/product-stadium-locker" class="product-link product-card-trigger-link">
 						<div class="product-image">
-							<img src="/images/stadium-locker.png" alt="Stadium Locker" loading="lazy" />
+							<img src="/images/stadium-locker.png" alt="Model S Locker" loading="lazy" />
 						</div>
 						<div class="product-details">
-							<div class="product-position">Stadium &middot; Quick Ship (2–4 weeks)</div>
-							<h4 class="product-name">Stadium <span class="product-price-inline">From $649</span></h4>
+							<div class="product-position">Model S &middot; Quick Ship (2–4 weeks)</div>
+							<h4 class="product-name">Model S <span class="product-price-inline">From $649</span></h4>
 							<span class="spec-toggle-label">View spec sheet &rarr;</span>
 						</div>
 					</a>
 				</div>
 
-				<!-- Elite Locker -->
+				<!-- Model Z Locker (formerly Elite) -->
 				<div class="product-card product-card-with-spec" id="elite">
 					<button type="button" class="product-card-trigger" aria-expanded="false" aria-controls="spec-elite" data-spec-target="spec-elite">
 						<div class="product-image">
-							<img src="/images/elite-locker.png" alt="Elite Locker" loading="lazy" />
+							<img src="/images/elite-locker.png" alt="Model Z Locker" loading="lazy" />
 						</div>
 						<div class="product-details">
-							<div class="product-position">Elite • Quick Ship (2–4 weeks)</div>
-							<h4 class="product-name">Elite Locker <span class="product-price-inline">From $649</span></h4>
+							<div class="product-position">Model Z • Quick Ship (2–4 weeks)</div>
+							<h4 class="product-name">Model Z Locker <span class="product-price-inline">From $649</span></h4>
 							<span class="spec-toggle-label">View specs &darr;</span>
 						</div>
 					</button>
@@ -517,9 +517,9 @@ const breadcrumbSchema = {
 							<th>Feature</th>
 							<th>Semi Pro</th>
 							<th>Varsity</th>
-							<th>Pro</th>
-							<th>Elite</th>
-							<th>Stadium</th>
+							<th>Model L</th>
+							<th>Model Z</th>
+							<th>Model S</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -569,13 +569,13 @@ const breadcrumbSchema = {
 							<td>Enhanced</td>
 							<td>Maximum</td>
 							<td>Enhanced</td>
-							<td>Elite</td>
+							<td>Model Z</td>
 						</tr>
 						<tr>
 							<td>Finishing Quality</td>
 							<td>Professional</td>
 							<td>Premium</td>
-							<td>Elite</td>
+							<td>Model Z</td>
 							<td>Premium</td>
 							<td>Championship</td>
 						</tr>
@@ -959,7 +959,7 @@ const breadcrumbSchema = {
 		line-height: 1.2;
 	}
 
-	/* Ensure Elite and Semi Pro use same title/position size and style as products above (Pro, Stadium, Varsity) */
+	/* Ensure Model Z and Semi Pro use same title/position size and style as products above (Model L, Model S, Varsity) */
 	#elite .product-name,
 	#semi-pro .product-name,
 	#model-x .product-name {
@@ -972,7 +972,7 @@ const breadcrumbSchema = {
 		line-height: 1.2;
 	}
 
-	/* Elite card: same font as product above (Stadium), not affected by button default font */
+	/* Model Z card: same font as product above (Model S), not affected by button default font */
 	#elite .product-card-trigger .product-name,
 	#elite .product-card-trigger .product-price-inline {
 		font-family: 'Oswald', sans-serif;
@@ -981,7 +981,7 @@ const breadcrumbSchema = {
 		color: #000000;
 	}
 
-	/* 30% bigger gap before and under Elite (grid gap 30px → 39px effective) */
+	/* 30% bigger gap before and under Model Z (grid gap 30px → 39px effective) */
 	#elite {
 		margin-top: 9px;
 		margin-bottom: 9px;

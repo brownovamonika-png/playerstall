@@ -24,13 +24,13 @@ const stadiumSpecs = [
 ---
 
 <BaseLayout
-	title="Stadium Wood Locker | PlayerStall"
-	description="Stadium wood locker: premium plywood melamine, 76&quot; H x 19&quot; D, widths 18&quot;–32&quot;. From $649. Quick ship in one month (24&quot; width, one signature color). Full color options on custom orders — built in three months. 5 year warranty."
+	title="Model S Wood Locker | PlayerStall"
+	description="Model S wood locker: premium plywood melamine, 76&quot; H x 19&quot; D, widths 18&quot;–32&quot;. From $649. Quick ship in one month (24&quot; width, one signature color). Full color options on custom orders — built in three months. 5 year warranty."
 >
 	<!-- Hero Section -->
 	<section class="product-hero-section">
 		<div class="product-hero-background">
-			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Stadium Locker" class="product-hero-bg-image" />
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model S Locker" class="product-hero-bg-image" />
 		</div>
 		<div class="product-hero-background-overlay"></div>
 		<div class="product-hero-container">
@@ -39,9 +39,9 @@ const stadiumSpecs = [
 				<span class="breadcrumbs-sep">/</span>
 				<a href="/shop">Shop</a>
 				<span class="breadcrumbs-sep">/</span>
-				<span class="breadcrumbs-current">Stadium Locker</span>
+				<span class="breadcrumbs-current">Model S Locker</span>
 			</div>
-			<h1 class="product-page-title">Stadium</h1>
+			<h1 class="product-page-title">Model S</h1>
 		</div>
 	</section>
 
@@ -54,25 +54,25 @@ const stadiumSpecs = [
 					<div class="product-gallery-main">
 						<img
 							src="/images/stadium-locker.png"
-							alt="Stadium wood athletic locker for locker rooms"
+							alt="Model S wood athletic locker for locker rooms"
 							class="product-main-image"
 						/>
 						</div>
 					<div class="product-gallery-thumbs">
 						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="/images/stadium-locker.png" alt="Stadium locker view 1" />
+							<img src="/images/stadium-locker.png" alt="Model S locker view 1" />
 						</button>
-						<button type="button" class="thumb" aria-label="Stadium locker side view">
-							<img src="/images/stadium-locker-side.png" alt="Stadium locker side view" />
+						<button type="button" class="thumb" aria-label="Model S locker side view">
+							<img src="/images/stadium-locker-side.png" alt="Model S locker side view" />
 						</button>
-						<button type="button" class="thumb" aria-label="Stadium locker dark view">
-							<img src="/images/stadium-locker-third.png" alt="Stadium locker dark view" />
+						<button type="button" class="thumb" aria-label="Model S locker dark view">
+							<img src="/images/stadium-locker-third.png" alt="Model S locker dark view" />
 						</button>
-						<button type="button" class="thumb" aria-label="Stadium locker dimensions sheet">
-							<img src={stadiumLockerDimensionsSheet.src} alt="Stadium locker dimensions sheet – front and side views with measurements in inches" />
+						<button type="button" class="thumb" aria-label="Model S locker dimensions sheet">
+							<img src={stadiumLockerDimensionsSheet.src} alt="Model S locker dimensions sheet – front and side views with measurements in inches" />
 						</button>
-						<button type="button" class="thumb" aria-label="Stadium locker vented front panel detail">
-							<img src="/images/stadium-locker-vent-panel.png" alt="Stadium locker vented front panel with horizontal slots" />
+						<button type="button" class="thumb" aria-label="Model S locker vented front panel detail">
+							<img src="/images/stadium-locker-vent-panel.png" alt="Model S locker vented front panel with horizontal slots" />
 						</button>
 						<button type="button" class="thumb" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
@@ -82,7 +82,7 @@ const stadiumSpecs = [
 
 				<!-- Right: Details -->
 				<div class="product-detail">
-					<h1 class="product-title">Stadium Locker</h1>
+					<h1 class="product-title">Model S Locker</h1>
 
 					<p class="product-model" data-model-prefix="STAD">Model # STAD-24-MP</p>
 
@@ -208,11 +208,11 @@ const stadiumSpecs = [
 
 			<!-- More Information -->
 			<div class="product-info-section" id="moreinfo">
-				<h2 class="product-info-heading">Stadium Wood Locker – Features &amp; Options</h2>
+				<h2 class="product-info-heading">Model S Wood Locker – Features &amp; Options</h2>
 
 				<div class="product-info-grid">
 					<div class="product-info-col product-info-col-specs">
-						<ProductSpecSheet productName="Stadium Locker" specs={stadiumSpecs} />
+						<ProductSpecSheet productName="Model S Locker" specs={stadiumSpecs} />
 						<h3 class="product-info-subheading">Downloads</h3>
 						<ul class="product-downloads-list">
 							<li><a href="/stadium-locker-spec-pdf.html" target="_blank" rel="noopener">Spec sheet (PDF)</a></li>
@@ -1087,7 +1087,7 @@ const stadiumSpecs = [
 			const qtyEl = document.getElementById('product-qty');
 			const qty = Math.max(1, parseInt(qtyEl?.value ?? '1', 10) || 1);
 			const titleEl = document.querySelector('.product-title');
-			const name = titleEl?.textContent?.trim() ?? 'Stadium Locker';
+			const name = titleEl?.textContent?.trim() ?? 'Model S Locker';
 			const widthSwatch = document.querySelector('.width-swatch.active');
 			const width = (widthSwatch?.getAttribute('title') ?? '24"').replace(/\s*inch width/, '').trim();
 			const deepSwatch = document.querySelector('.deep-swatch.active');

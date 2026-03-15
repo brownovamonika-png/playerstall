@@ -24,13 +24,13 @@ const eliteSpecs = [
 ---
 
 <BaseLayout
-	title="Elite Wood Locker | PlayerStall"
-	description="Elite wood locker: curved design, quick ship in one month (24&quot; width, one signature color). 76&quot; H x 19&quot; D, widths 18&quot;–32&quot;. From $649. Full color options on custom orders — built in three months. 5 year warranty."
+	title="Model Z Wood Locker | PlayerStall"
+	description="Model Z wood locker: curved design, quick ship in one month (24&quot; width, one signature color). 76&quot; H x 19&quot; D, widths 18&quot;–32&quot;. From $649. Full color options on custom orders — built in three months. 5 year warranty."
 >
 	<!-- Hero Section -->
 	<section class="product-hero-section">
 		<div class="product-hero-background">
-			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Elite Locker" class="product-hero-bg-image" />
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model Z Locker" class="product-hero-bg-image" />
 		</div>
 		<div class="product-hero-background-overlay"></div>
 		<div class="product-hero-container">
@@ -39,9 +39,9 @@ const eliteSpecs = [
 				<span class="breadcrumbs-sep">/</span>
 				<a href="/shop">Shop</a>
 				<span class="breadcrumbs-sep">/</span>
-				<span class="breadcrumbs-current">Elite Locker</span>
+				<span class="breadcrumbs-current">Model Z Locker</span>
 			</div>
-			<h1 class="product-page-title">Elite</h1>
+			<h1 class="product-page-title">Model Z</h1>
 		</div>
 	</section>
 
@@ -54,26 +54,26 @@ const eliteSpecs = [
 					<div class="product-gallery-main">
 						<img
 							src="/images/elite-locker.png"
-							alt="Elite wood athletic locker with curved design for locker rooms"
+							alt="Model Z wood athletic locker with curved design for locker rooms"
 							class="product-main-image"
 						/>
 						</div>
 					<p class="product-gallery-caption">Displayed in north sea color</p>
 					<div class="product-gallery-thumbs">
 						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="/images/elite-locker.png" alt="Elite locker view 1" />
+							<img src="/images/elite-locker.png" alt="Model Z locker view 1" />
 						</button>
-						<button type="button" class="thumb" aria-label="Elite locker side view">
-							<img src="/images/elite-locker-side.png" alt="Elite locker side view" />
+						<button type="button" class="thumb" aria-label="Model Z locker side view">
+							<img src="/images/elite-locker-side.png" alt="Model Z locker side view" />
 						</button>
-						<button type="button" class="thumb" aria-label="Elite locker graphite view">
-							<img src="/images/elite-locker-graphite.png" alt="Elite locker in graphite" />
+						<button type="button" class="thumb" aria-label="Model Z locker graphite view">
+							<img src="/images/elite-locker-graphite.png" alt="Model Z locker in graphite" />
 						</button>
-						<button type="button" class="thumb" aria-label="Elite locker dimensions sheet">
-							<img src={eliteLockerDimensionsSheet.src} alt="Elite locker dimensions sheet – front and side views with measurements in inches" />
+						<button type="button" class="thumb" aria-label="Model Z locker dimensions sheet">
+							<img src={eliteLockerDimensionsSheet.src} alt="Model Z locker dimensions sheet – front and side views with measurements in inches" />
 						</button>
-						<button type="button" class="thumb" aria-label="Elite locker vented front panel detail">
-							<img src="/images/elite-locker-vent-panel.png" alt="Elite locker vented front panel with horizontal slots" />
+						<button type="button" class="thumb" aria-label="Model Z locker vented front panel detail">
+							<img src="/images/elite-locker-vent-panel.png" alt="Model Z locker vented front panel with horizontal slots" />
 						</button>
 						<button type="button" class="thumb" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
@@ -83,7 +83,7 @@ const eliteSpecs = [
 
 				<!-- Right: Details -->
 				<div class="product-detail">
-					<h1 class="product-title">Elite Locker</h1>
+					<h1 class="product-title">Model Z Locker</h1>
 
 					<p class="product-model" data-model-prefix="ELIT">Model # ELIT-24-MP</p>
 
@@ -209,11 +209,11 @@ const eliteSpecs = [
 
 			<!-- More Information -->
 			<div class="product-info-section" id="moreinfo">
-				<h2 class="product-info-heading">Elite Wood Locker – Features &amp; Options</h2>
+				<h2 class="product-info-heading">Model Z Wood Locker – Features &amp; Options</h2>
 
 				<div class="product-info-grid">
 					<div class="product-info-col product-info-col-specs">
-						<ProductSpecSheet productName="Elite Locker" specs={eliteSpecs} />
+						<ProductSpecSheet productName="Model Z Locker" specs={eliteSpecs} />
 						<h3 class="product-info-subheading">Downloads</h3>
 						<ul class="product-downloads-list">
 							<li><a href="/elite-locker-spec-pdf.html" target="_blank" rel="noopener">Spec sheet (PDF)</a></li>
@@ -1112,7 +1112,7 @@ const eliteSpecs = [
 			const qtyEl = document.getElementById('product-qty');
 			const qty = Math.max(1, parseInt(qtyEl?.value ?? '1', 10) || 1);
 			const titleEl = document.querySelector('.product-title');
-			const name = titleEl?.textContent?.trim() ?? 'Elite Locker';
+			const name = titleEl?.textContent?.trim() ?? 'Model Z Locker';
 			const widthSwatch = document.querySelector('.width-swatch.active');
 			const width = (widthSwatch?.getAttribute('title') ?? '24"').replace(/\s*inch width/, '').trim();
 			const deepSwatch = document.querySelector('.deep-swatch.active');

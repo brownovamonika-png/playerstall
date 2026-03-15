@@ -110,53 +110,53 @@ import BaseLayout from '../layouts/BaseLayout.astro';
      ============================================ -->
 <section class="home-shop-section">
 	<div class="home-shop-container">
-		<!-- Premium Lockers: Pro, Stadium, Elite, Model X -->
+		<!-- Premium Lockers: Model L, Model S, Model Z, Model X -->
 		<div class="home-shop-section-header">
 			<p class="home-shop-section-subtitle">THE LOCKER ROOM</p>
 			<h2 class="home-shop-section-title">PREMIUM LOCKERS</h2>
 		</div>
 		<div class="home-shop-main">
 			<div class="home-shop-products-grid">
-				<!-- Pro -->
+				<!-- Model L (formerly Pro) -->
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Pro Locker" loading="lazy" />
+						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model L Locker" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-pro-locker" class="home-shop-details-btn-overlay">Details</a>
 						</div>
 					</div>
 					<div class="home-shop-product-content">
 						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
-						<h5 class="home-shop-product-title"><a href="/product-pro-locker">Pro</a></h5>
+						<h5 class="home-shop-product-title"><a href="/product-pro-locker">Model L</a></h5>
 						<span class="home-shop-product-price">$649.00</span>
 					</div>
 				</div>
-				<!-- Stadium -->
+				<!-- Model S (formerly Stadium) -->
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
-						<img src="/images/stadium-locker-side.png" alt="Stadium Locker" loading="lazy" />
+						<img src="/images/stadium-locker-side.png" alt="Model S Locker" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-stadium-locker" class="home-shop-details-btn-overlay">Details</a>
 						</div>
 					</div>
 					<div class="home-shop-product-content">
 						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
-						<h5 class="home-shop-product-title"><a href="/product-stadium-locker">Stadium</a></h5>
+						<h5 class="home-shop-product-title"><a href="/product-stadium-locker">Model S</a></h5>
 						<span class="home-shop-product-price">$649.00</span>
 					</div>
 				</div>
-				<!-- Elite -->
+				<!-- Model Z (formerly Elite) -->
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
 						<span class="home-shop-badge new">New</span>
-						<img src="/images/elite-locker-side.png" alt="Elite Locker" loading="lazy" />
+						<img src="/images/elite-locker-side.png" alt="Model Z Locker" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-elite-locker" class="home-shop-details-btn-overlay">Details</a>
 						</div>
 					</div>
 					<div class="home-shop-product-content">
 						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
-						<h5 class="home-shop-product-title"><a href="/product-elite-locker">Elite</a></h5>
+						<h5 class="home-shop-product-title"><a href="/product-elite-locker">Model Z</a></h5>
 						<span class="home-shop-product-price">$649.00</span>
 					</div>
 				</div>
@@ -178,14 +178,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</div>
 		</div>
 
-		<!-- Essential Lockers: Semi Pro, Varsity -->
+		<!-- Essential Lockers: by price (Semi Pro → Varsity → Pro Locker → Stadium), one row -->
 		<div class="home-shop-section-header home-shop-section-header-spaced">
 			<p class="home-shop-section-subtitle">THE LOCKER ROOM</p>
 			<h2 class="home-shop-section-title">ESSENTIAL LOCKERS</h2>
 		</div>
 		<div class="home-shop-main">
-			<div class="home-shop-products-grid home-shop-products-grid-centered">
-				<!-- Semi Pro -->
+			<div class="home-shop-products-grid home-shop-products-grid-four">
+				<!-- Semi Pro $349 -->
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
 						<img src="https://playerstall.b-cdn.net/images/semi-pro-locker-new.png" alt="Semi Pro Locker" loading="lazy" />
@@ -199,7 +199,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<span class="home-shop-product-price">$349.00</span>
 					</div>
 				</div>
-				<!-- Varsity -->
+				<!-- Varsity $449 -->
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
 						<img src="/images/varsity-locker.png" alt="Varsity Locker" loading="lazy" />
@@ -211,6 +211,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
 						<h5 class="home-shop-product-title"><a href="/product-varsity-locker">Varsity</a></h5>
 						<span class="home-shop-product-price">$449.00</span>
+					</div>
+				</div>
+				<!-- Pro Locker $599 -->
+				<div class="home-shop-product-item home-shop-product-item-pro-locker">
+					<div class="home-shop-product-image">
+						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Pro Locker" loading="lazy" />
+						<div class="home-shop-product-overlay">
+							<a href="/product-pro-locker" class="home-shop-details-btn-overlay">Details</a>
+						</div>
+					</div>
+					<div class="home-shop-product-content">
+						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
+						<h5 class="home-shop-product-title"><a href="/product-pro-locker">Pro Locker</a></h5>
+						<span class="home-shop-product-price">$599.00</span>
+					</div>
+				</div>
+				<!-- Stadium $599 (last) – same image and size as Pro Locker for now -->
+				<div class="home-shop-product-item home-shop-product-item-stadium">
+					<div class="home-shop-product-image">
+						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Stadium Locker" loading="lazy" />
+						<div class="home-shop-product-overlay">
+							<a href="/product-stadium-locker" class="home-shop-details-btn-overlay">Details</a>
+						</div>
+					</div>
+					<div class="home-shop-product-content">
+						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
+						<h5 class="home-shop-product-title"><a href="/product-stadium-locker">Stadium</a></h5>
+						<span class="home-shop-product-price">$599.00</span>
 					</div>
 				</div>
 			</div>
@@ -2748,6 +2776,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	grid-template-columns: repeat(4, 1fr);
 }
 
+/* Essential Lockers: 4 items in one row, equal columns */
+.home-shop-products-grid-four {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.home-shop-products-grid-four .home-shop-product-image {
+	height: 400px;
+	min-height: 400px;
+	aspect-ratio: auto;
+}
+
+/* Pro Locker and Stadium cards: image 20% smaller (same size) */
+.home-shop-products-grid-four .home-shop-product-item-pro-locker .home-shop-product-image img,
+.home-shop-products-grid-four .home-shop-product-item-stadium .home-shop-product-image img {
+	transform: scale(0.8);
+}
+
 .home-shop-products-grid-centered .home-shop-product-item:nth-child(1),
 .home-shop-products-grid-centered .home-shop-product-item:nth-child(2) {
 	max-width: 320px;
@@ -2898,11 +2943,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.home-shop-products-grid {
 		grid-template-columns: repeat(3, 1fr);
 	}
+	.home-shop-products-grid-four {
+		grid-template-columns: repeat(4, 1fr);
+	}
 }
 
 @media (max-width: 1024px) {
 	.home-shop-products-grid {
 		grid-template-columns: repeat(2, 1fr);
+	}
+	.home-shop-products-grid-four {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.home-shop-products-grid-four .home-shop-product-image {
+		height: 360px;
+		min-height: 360px;
 	}
 	.home-shop-products-grid-centered .home-shop-product-item:nth-child(1),
 	.home-shop-products-grid-centered .home-shop-product-item:nth-child(2) {
@@ -2919,10 +2974,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		height: 320px;
 		min-height: 320px;
 	}
+	.home-shop-products-grid-four .home-shop-product-image {
+		height: 320px;
+		min-height: 320px;
+	}
 }
 
 @media (max-width: 768px) {
 	.home-shop-products-grid {
+		grid-template-columns: 1fr;
+	}
+	.home-shop-products-grid-four {
 		grid-template-columns: 1fr;
 	}
 }

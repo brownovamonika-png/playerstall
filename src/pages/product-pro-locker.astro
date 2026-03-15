@@ -24,13 +24,13 @@ const proSpecs = [
 ---
 
 <BaseLayout
-	title="Pro Wood Locker | PlayerStall"
-	description="Pro wood locker: MPW-6C plywood melamine, 76&quot; H x 19&quot; D, widths 18&quot;–32&quot;. $549 base. Full color options. Quick ship in one month (24&quot; width) or custom-built in three months. 5 year warranty."
+	title="Model L Wood Locker | PlayerStall"
+	description="Model L wood locker: MPW-6C plywood melamine, 76&quot; H x 19&quot; D, widths 18&quot;–32&quot;. $549 base. Full color options. Quick ship in one month (24&quot; width) or custom-built in three months. 5 year warranty."
 >
 	<!-- Hero Section -->
 	<section class="product-hero-section">
 		<div class="product-hero-background">
-			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Pro Locker" class="product-hero-bg-image" />
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model L Locker" class="product-hero-bg-image" />
 		</div>
 		<div class="product-hero-background-overlay"></div>
 		<div class="product-hero-container">
@@ -39,9 +39,9 @@ const proSpecs = [
 				<span class="breadcrumbs-sep">/</span>
 				<a href="/shop">Shop</a>
 				<span class="breadcrumbs-sep">/</span>
-				<span class="breadcrumbs-current">Pro Locker</span>
+				<span class="breadcrumbs-current">Model L Locker</span>
 			</div>
-			<h1 class="product-page-title">Pro</h1>
+			<h1 class="product-page-title">Model L</h1>
 		</div>
 	</section>
 
@@ -54,13 +54,13 @@ const proSpecs = [
 					<div class="product-gallery-main">
 						<img
 							src="https://playerstall.b-cdn.net/images/legendary-locker.png"
-							alt="Pro wood athletic locker for locker rooms"
+							alt="Model L wood athletic locker for locker rooms"
 							class="product-main-image"
 						/>
 						</div>
 					<div class="product-gallery-thumbs">
 						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Pro locker view 1" />
+							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model L locker view 1" />
 						</button>
 						<button type="button" class="thumb" aria-label="View image 2">
 							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Locker view 2" />
@@ -68,8 +68,8 @@ const proSpecs = [
 						<button type="button" class="thumb" aria-label="View image 3">
 							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Locker view 3" />
 						</button>
-						<button type="button" class="thumb" aria-label="Pro locker dimensions sheet">
-							<img src={proLockerDimensionsSheet.src} alt="Pro locker dimensions sheet – front and side views with measurements in inches" />
+						<button type="button" class="thumb" aria-label="Model L locker dimensions sheet">
+							<img src={proLockerDimensionsSheet.src} alt="Model L locker dimensions sheet – front and side views with measurements in inches" />
 						</button>
 						<button type="button" class="thumb" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
@@ -79,7 +79,7 @@ const proSpecs = [
 
 				<!-- Right: Details -->
 				<div class="product-detail">
-					<h1 class="product-title">Pro Locker</h1>
+					<h1 class="product-title">Model L Locker</h1>
 
 					<p class="product-model" data-model-prefix="PRO">Model # PRO-24-MP</p>
 
@@ -205,11 +205,11 @@ const proSpecs = [
 
 			<!-- More Information -->
 			<div class="product-info-section" id="moreinfo">
-				<h2 class="product-info-heading">Pro Wood Locker – Features &amp; Options</h2>
+				<h2 class="product-info-heading">Model L Wood Locker – Features &amp; Options</h2>
 
 				<div class="product-info-grid">
 					<div class="product-info-col product-info-col-specs">
-						<ProductSpecSheet productName="Pro Locker" specs={proSpecs} />
+						<ProductSpecSheet productName="Model L Locker" specs={proSpecs} />
 						<h3 class="product-info-subheading">Downloads</h3>
 						<ul class="product-downloads-list">
 							<li><a href="/colors/all-color-options-pdf.html" target="_blank">All Color Options PDF</a></li>
@@ -1085,7 +1085,7 @@ const proSpecs = [
 			const qtyEl = document.getElementById('product-qty');
 			const qty = Math.max(1, parseInt(qtyEl?.value ?? '1', 10) || 1);
 			const titleEl = document.querySelector('.product-title');
-			const name = (titleEl?.textContent?.trim()) ?? 'Pro Locker';
+			const name = (titleEl?.textContent?.trim()) ?? 'Model L Locker';
 			const widthSwatch = document.querySelector('.width-swatch.active');
 			const width = (widthSwatch?.getAttribute('title') ?? '24"').replace(/\s*inch width/, '').trim();
 			const deepSwatch = document.querySelector('.deep-swatch.active');
