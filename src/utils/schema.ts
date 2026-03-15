@@ -186,11 +186,9 @@ export function generateLocalBusinessSchema() {
 		},
 		"areaServed": "US",
 		"sameAs": [
-			"https://www.facebook.com/PlayerStall-1715059388770006/",
-			"https://vimeo.com/playerstall",
-			"https://twitter.com/PSLockers",
-			"https://www.pinterest.com/playerstallspor/",
-			"https://www.linkedin.com/company/playerstall"
+			"https://instagram.com/playerstalllockers",
+			"https://www.pinterest.com/playerstall/",
+			"https://x.com/PlayerStallGear"
 		]
 	};
 }

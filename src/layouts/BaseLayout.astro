@@ -4,6 +4,8 @@ interface Props {
 	description?: string;
 	headerBlack?: boolean;
 	ogImage?: string;
+	/** Alt text for og:image and twitter:image (accessibility + X/SEO). Recommended: short, keyword-rich description. */
+	ogImageAlt?: string;
 	canonical?: string;
 	/** When true, sets og:type to "article" and outputs article:published_time if provided */
 	isArticle?: boolean;
@@ -15,6 +17,7 @@ const {
 	description = "Custom wood sports lockers for collegiate and professional teams. Priced right. Quick ship in 2–4 weeks or custom in 8–12 weeks. 30+ years of craftsmanship.", 
 	headerBlack = false,
 	ogImage = "https://playerstall.b-cdn.net/images/logoblack2.png",
+	ogImageAlt = "PlayerStall – Custom wood sports lockers for college and pro teams. 30+ years, 5 year warranty.",
 	canonical = Astro.url.pathname === "/" ? "https://playerstall.com" : `https://playerstall.com${Astro.url.pathname}`,
 	isArticle = false,
 	articlePublishedTime,
@@ -47,15 +50,18 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImage} />
-		<meta property="og:site_name" content="PlayerStall" />
+		<meta property="og:image:alt" content={ogImageAlt} />
+		<meta property="og:site_name" content="PlayerStall | Custom Sports Lockers" />
+		<meta property="og:locale" content="en_US" />
 		
-		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={canonicalUrl} />
-		<meta property="twitter:title" content={title} />
-		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content={ogImage} />
+		<!-- X (Twitter) Cards - summary_large_image for best link previews -->
+		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:site" content="@PlayerStallGear" />
+		<meta name="twitter:creator" content="@PlayerStallGear" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:image:alt" content={ogImageAlt} />
 		
 		<!-- Favicon -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -84,8 +90,9 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				<div class="top-bar-right">
 					<span>FOLLOW US:</span>
 					<div class="social-links">
-						<a href="https://instagram.com/playerstalllockers" target="_blank" rel="noopener noreferrer" class="social-icon" title="Instagram">IG</a>
-						<a href="https://x.com/PlayerStallGear" target="_blank" rel="noopener noreferrer" class="social-icon" title="X">X</a>
+						<a href="https://instagram.com/playerstalllockers" target="_blank" rel="noopener noreferrer" class="social-icon">Instagram</a>
+						<a href="https://www.pinterest.com/playerstall/" target="_blank" rel="noopener noreferrer" class="social-icon">Pinterest</a>
+						<a href="https://x.com/PlayerStallGear" target="_blank" rel="noopener noreferrer" class="social-icon">X</a>
 					</div>
 				</div>
 			</div>
@@ -222,6 +229,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 						<h4>Follow us</h4>
 						<div class="social-links">
 							<a href="https://instagram.com/playerstalllockers" target="_blank" rel="noopener noreferrer" class="footer-social-link">Instagram</a>
+							<a href="https://www.pinterest.com/playerstall/" target="_blank" rel="noopener noreferrer" class="footer-social-link">Pinterest</a>
 							<a href="https://x.com/PlayerStallGear" target="_blank" rel="noopener noreferrer" class="footer-social-link">X</a>
 						</div>
 					</div>
