@@ -1,0 +1,268 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="Shipping and Assembly Instruction PDF | PlayerStall"
+	description="PlayerStall locker shipping and assembly instructions: flat-pack packaging, IKEA-style assembly, 25–30 min per locker. Print or save as PDF."
+>
+	<main class="pdf-installation-page">
+		<div class="pdf-installation-page-inner">
+			<div class="spotlight-inner-centered">
+				<a href="/shop" class="spotlight-position">Shop</a>
+				<h1 class="spotlight-name">Shipping and Assembly Instructions</h1>
+				<div class="spotlight-meta">
+					Flat-pack packaging · IKEA-style assembly · 25–30 min per locker
+				</div>
+
+				<p class="spotlight-bio">
+					Our lockers are shipped <strong>individually packed</strong> in most cases—each unit arrives in its own sturdy, flat-pack box, similar to premium flat-pack furniture. This keeps every locker protected in transit and makes handling and assembly straightforward.
+				</p>
+				<p class="spotlight-bio">
+					Each box contains all panels, hardware, and a <strong>full set of step-by-step instructions</strong> in an easy-to-follow, IKEA-style format. Plan for <strong>approximately 25–30 minutes</strong> to assemble each locker once the box is opened. No special tools are required beyond what we include or you typically have on hand.
+				</p>
+
+				<h2 class="section-title">Typical box dimensions</h2>
+				<p class="spotlight-bio">
+					Exact package size depends on the locker model and configuration. Below are two representative examples of how our lockers ship flat-packed.
+				</p>
+
+				<div class="installation-boxes">
+					<div class="installation-box-card">
+						<figure class="installation-figure">
+							<img src="/images/locker-packaging-flatpack-1.png" alt="Flat-packed locker packaging – stacked panels, dimensions 75.59&quot; × 23.62&quot; × 4.25&quot;" loading="lazy" />
+						</figure>
+						<p class="installation-box-caption">Representative flat-pack (smaller footprint)</p>
+						<ul class="installation-dims">
+							<li><strong>Length:</strong> 75.59&quot;</li>
+							<li><strong>Width:</strong> 23.62&quot;</li>
+							<li><strong>Height:</strong> 4.25&quot;</li>
+						</ul>
+					</div>
+					<div class="installation-box-card">
+						<figure class="installation-figure">
+							<img src="/images/locker-packaging-flatpack-2.png" alt="Flat-packed locker in shipping box – dimensions 81.87&quot; × 27.62&quot; × 6.98&quot;" loading="lazy" />
+						</figure>
+						<p class="installation-box-caption">Representative flat-pack (larger footprint)</p>
+						<ul class="installation-dims">
+							<li><strong>Length:</strong> 81.87&quot;</li>
+							<li><strong>Width:</strong> 27.62&quot;</li>
+							<li><strong>Height:</strong> 6.98&quot;</li>
+						</ul>
+					</div>
+				</div>
+
+				<h5 class="spotlight-bio-title">Included with each locker</h5>
+				<p class="spotlight-bio">
+					Flat-packed components in one box, full IKEA-style assembly instructions, and hardware. Assembly time: about 25–30 minutes per locker.
+				</p>
+			</div>
+
+			<div class="pdf-installation-footer">
+				<strong>PLAYERSTALL</strong> · sales@playerstall.com · 1 888 584 1444<br>
+				© 2026 PlayerStall. All rights reserved.
+			</div>
+		</div>
+
+		<section class="product-main-section pdf-cta-section">
+			<div class="product-container">
+				<p class="pdf-cta">
+					<span class="pdf-hint">Use your browser's <strong>Print</strong> → <strong>Save as PDF</strong> to download this as Shipping and Assembly Instruction PDF.</span>
+				</p>
+			</div>
+		</section>
+	</main>
+</BaseLayout>
+
+<style is:global>
+	@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Yantramanav:wght@400;500;600&display=swap');
+
+	.pdf-installation-page {
+		font-family: 'Yantramanav', sans-serif;
+		background: #ffffff;
+		color: #0d0d0d;
+	}
+
+	.pdf-installation-page-inner {
+		width: 100%;
+		max-width: 8.5in;
+		min-height: 11in;
+		padding: 100px 60px;
+		margin: 0 auto;
+		background: #ffffff;
+	}
+
+	.spotlight-inner-centered {
+		max-width: 900px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.spotlight-position {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		letter-spacing: 4px;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		text-decoration: none;
+		display: inline-block;
+		margin-bottom: 10px;
+	}
+
+	.spotlight-position:hover {
+		color: #fe5900;
+	}
+
+	.spotlight-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: 42px;
+		font-weight: 700;
+		color: #0d0d0d;
+		margin: 10px 0 15px;
+	}
+
+	.spotlight-meta {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin-bottom: 25px;
+	}
+
+	.spotlight-bio-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		text-transform: uppercase;
+		margin-bottom: 10px;
+		margin-top: 40px;
+	}
+
+	.spotlight-bio {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		line-height: 1.8;
+		color: #666666;
+		margin-bottom: 30px;
+	}
+
+	.section-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		text-transform: uppercase;
+		margin-top: 50px;
+		margin-bottom: 25px;
+		color: #0d0d0d;
+		letter-spacing: 2px;
+	}
+
+	.installation-boxes {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+		margin: 30px 0;
+	}
+
+	.installation-box-card {
+		background: #f7f7f7;
+		border: 1px solid #e8e8e8;
+		border-radius: 4px;
+		padding: 20px;
+		text-align: center;
+	}
+
+	.installation-figure {
+		margin: 0 0 15px;
+		overflow: hidden;
+		border-radius: 4px;
+		background: #ffffff;
+	}
+
+	.installation-figure img {
+		width: 100%;
+		height: auto;
+		display: block;
+		vertical-align: top;
+	}
+
+	.installation-box-caption {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin: 0 0 15px;
+	}
+
+	.installation-dims {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		line-height: 1.8;
+		color: #666666;
+		margin: 0 auto;
+		padding-left: 0;
+		list-style: none;
+		display: inline-block;
+		text-align: left;
+	}
+
+	.installation-dims li {
+		margin-bottom: 0.25rem;
+	}
+
+	.pdf-installation-footer {
+		margin-top: 60px;
+		padding-top: 30px;
+		border-top: 1px solid #e0e0e0;
+		text-align: center;
+		font-size: 12px;
+		color: #8c8c8c;
+		max-width: 900px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.pdf-installation-footer strong {
+		color: #0d0d0d;
+	}
+
+	.pdf-cta-section .product-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.pdf-cta {
+		text-align: center;
+		margin-top: 24px;
+		padding: 24px;
+		border-top: 1px solid #e0e0e0;
+	}
+
+	.pdf-hint {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #666;
+	}
+
+	@media (max-width: 768px) {
+		.pdf-installation-page-inner {
+			padding: 60px 20px;
+		}
+		.spotlight-name {
+			font-size: 32px;
+		}
+		.installation-boxes {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media print {
+		.top-bar, header.header, nav, footer, .pdf-cta-section { display: none !important; }
+		.pdf-installation-page-inner {
+			padding: 0.5in;
+			max-width: none;
+		}
+		body { background: #fff; }
+	}
+
+	@page { size: letter; margin: 0.75in; }
+</style>

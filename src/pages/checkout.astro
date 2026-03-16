@@ -626,6 +626,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		width: 50% !important;
 	}
 
+	.shop_table .cart-item-description {
+		display: block;
+		font-family: 'Yantramanav', sans-serif !important;
+		font-size: 12px !important;
+		font-weight: 400 !important;
+		text-transform: none !important;
+		letter-spacing: 0.02em;
+		color: #555 !important;
+		margin-top: 4px;
+	}
+
 	.shop_table tbody td.product-quantity {
 		font-family: 'Oswald', sans-serif !important;
 		font-size: 13px !important;
@@ -997,13 +1008,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				if (subtotalEl) subtotalEl.textContent = '0.00';
 				if (totalAmount) totalAmount.textContent = '0.00';
 			} else {
-				cart.forEach((item: { name: string; price: number; quantity: number }) => {
+				cart.forEach((item: { name: string; price: number; quantity: number; model?: string }) => {
 					const itemTotal = item.price * item.quantity;
 					subtotal += itemTotal;
+					// Show product name and description (model/spec) like essential lockers
 					html += `
 						<tr class="cart_item">
 							<td class="product-name">
-								${item.name}
+								<span class="cart-item-name">${item.name}</span>${item.model ? `<br /><span class="cart-item-description">${item.model}</span>` : ''}
 							</td>
 							<td class="product-quantity">
 								${item.quantity}

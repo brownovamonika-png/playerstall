@@ -28,6 +28,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<div class="shop-section-header">
 				<p class="shop-section-subtitle">the locker room</p>
 				<h2 class="shop-section-title">PREMIUM LOCKERS</h2>
+				<p class="shop-premium-pdf">
+					<a href="/colors/all-color-options-pdf.html" target="_blank" rel="noopener noreferrer">Color Option PDF</a>
+				</p>
 			</div>
 
 			<!-- Main Content -->
@@ -40,12 +43,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<div class="shop-product-image shop-locker-image">
 							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model L Locker" />
 							<div class="shop-product-overlay">
-								<a href="/product-pro-locker" class="shop-see-details-btn-overlay">Details</a>
+								<a href="/product-model-l" class="shop-see-details-btn-overlay">Details</a>
 							</div>
 						</div>
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Lockers - Sports Equipment</div>
-							<h5 class="shop-product-title"><a href="/product-pro-locker">Model L</a></h5>
+							<h5 class="shop-product-title"><a href="/product-model-l">Model L</a></h5>
 							<span class="shop-product-price">$649</span>
 						</div>
 					</div>
@@ -55,12 +58,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<div class="shop-product-image shop-locker-image">
 							<img src="/images/stadium-locker-side.png" alt="Model S Locker" />
 							<div class="shop-product-overlay">
-								<a href="/product-stadium-locker" class="shop-see-details-btn-overlay">Details</a>
+								<a href="/product-model-s" class="shop-see-details-btn-overlay">Details</a>
 							</div>
 						</div>
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Lockers - Sports Equipment</div>
-							<h5 class="shop-product-title"><a href="/product-stadium-locker">Model S</a></h5>
+							<h5 class="shop-product-title"><a href="/product-model-s">Model S</a></h5>
 							<span class="shop-product-price">$649</span>
 						</div>
 					</div>
@@ -97,36 +100,78 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 					</div>
 
-					<!-- Semi Pro (bottom row, centered) -->
-					<div class="shop-product-item shop-locker-bottom-item" data-price="349" data-category="lockers">
-						<div class="shop-product-image shop-locker-image">
-							<img src="https://playerstall.b-cdn.net/images/semi-pro-locker-new.png" alt="Semi Pro Locker" />
-							<div class="shop-product-overlay">
-								<a href="/product-semi-pro-locker" class="shop-see-details-btn-overlay">Details</a>
-							</div>
-						</div>
-						<div class="shop-product-content">
-							<div class="shop-product-categories">Lockers - Sports Equipment</div>
-							<h5 class="shop-product-title"><a href="/product-semi-pro-locker">Semi Pro</a></h5>
-							<span class="shop-product-price">$349</span>
-						</div>
 					</div>
 
-					<!-- Varsity (bottom row, centered) -->
-					<div class="shop-product-item shop-locker-bottom-item" data-price="449" data-category="lockers">
-						<div class="shop-product-image shop-locker-image">
-							<img src="/images/varsity-locker.png" alt="Varsity Locker" />
-							<div class="shop-product-overlay">
-								<a href="/product-varsity-locker" class="shop-see-details-btn-overlay">Details</a>
+					<!-- Essential Lockers: Semi Pro, Varsity, Pro Locker, Stadium (same as home page) -->
+					<div class="shop-section-header shop-section-header-essential">
+						<p class="shop-section-subtitle">the locker room</p>
+						<h2 class="shop-section-title">ESSENTIAL LOCKERS</h2>
+						<p class="shop-essential-pdf">
+							<a href="/colors/essential-wood-pdf.html" target="_blank" rel="noopener noreferrer">Essential Wood PDF</a>
+						</p>
+					</div>
+					<div class="shop-products-grid shop-lockers-grid shop-lockers-grid-essential">
+						<!-- Semi Pro $349 -->
+						<div class="shop-product-item shop-locker-bottom-item" data-price="349" data-category="lockers">
+							<div class="shop-product-image shop-locker-image">
+								<img src="https://playerstall.b-cdn.net/images/semi-pro-locker-new.png" alt="Semi Pro Locker" />
+								<div class="shop-product-overlay">
+									<a href="/product-semi-pro-locker" class="shop-see-details-btn-overlay">Details</a>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Lockers - Sports Equipment</div>
+								<h5 class="shop-product-title"><a href="/product-semi-pro-locker">Semi Pro</a></h5>
+								<p class="shop-product-finish">Pre-Finished Birch Plywood</p>
+								<span class="shop-product-price">$349</span>
 							</div>
 						</div>
-						<div class="shop-product-content">
-							<div class="shop-product-categories">Lockers - Sports Equipment</div>
-							<h5 class="shop-product-title"><a href="/product-varsity-locker">Varsity</a></h5>
-							<span class="shop-product-price">$449</span>
-						</div>
-					</div>
 
+						<!-- Varsity $449 -->
+						<div class="shop-product-item shop-locker-bottom-item" data-price="449" data-category="lockers">
+							<div class="shop-product-image shop-locker-image">
+								<img src="/images/varsity-locker.png" alt="Varsity Locker" />
+								<div class="shop-product-overlay">
+									<a href="/product-varsity-locker" class="shop-see-details-btn-overlay">Details</a>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Lockers - Sports Equipment</div>
+								<h5 class="shop-product-title"><a href="/product-varsity-locker">Varsity</a></h5>
+								<p class="shop-product-finish">Pre-Finished Birch Plywood</p>
+								<span class="shop-product-price">$449</span>
+							</div>
+						</div>
+
+						<!-- Pro Locker $599 -->
+						<div class="shop-product-item shop-locker-bottom-item shop-product-item-pro-locker" data-price="599" data-category="lockers">
+							<div class="shop-product-image shop-locker-image">
+								<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Pro Locker" />
+								<div class="shop-product-overlay">
+									<a href="/product-pro-locker" class="shop-see-details-btn-overlay">Details</a>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Lockers - Sports Equipment</div>
+								<h5 class="shop-product-title"><a href="/product-pro-locker">Pro Locker</a></h5>
+								<span class="shop-product-price">$599</span>
+							</div>
+						</div>
+
+						<!-- Stadium Locker $599 -->
+						<div class="shop-product-item shop-locker-bottom-item shop-product-item-stadium" data-price="599" data-category="lockers">
+							<div class="shop-product-image shop-locker-image">
+								<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Stadium Locker" />
+								<div class="shop-product-overlay">
+									<a href="/product-stadium-locker" class="shop-see-details-btn-overlay">Details</a>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Lockers - Sports Equipment</div>
+								<h5 class="shop-product-title"><a href="/product-stadium-locker">Stadium Locker</a></h5>
+								<span class="shop-product-price">$599</span>
+							</div>
+						</div>
 					</div>
 
 			</div>
@@ -189,8 +234,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 					</button>
 				</div>
-				<!-- Skate Hooks (Silver on card front; modal: Black = slide 0, Silver = slide 1) -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="/images/skate-hook-black.png" data-acc-image-2="/images/skate-hook-silver.png" data-acc-title="Skate Hooks" data-acc-price="$25.00" data-acc-desc="Additional wall-mounted hooks positioned for skates or gear, perfect for hockey or figure skating locker rooms.">
+				<!-- Skate Hooks (Black / Silver in modal) -->
+				<div class="shop-product-item shop-accessory-item shop-accessory-skate-hooks" data-acc-image="/images/skate-hook-black.png" data-acc-image-2="/images/skate-hook-silver.png" data-acc-title="Skate Hooks" data-acc-price="+ $25.00" data-acc-desc="Additional wall-mounted hooks positioned for skates or gear, perfect for hockey or figure skating locker rooms. Available in black or silver.">
 					<div class="shop-product-image">
 						<img src="/images/skate-hook-silver.png" alt="Silver skate hook for hockey lockers" loading="lazy" />
 					</div>
@@ -201,10 +246,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 					</button>
 				</div>
-				<!-- Custom Logo (same front/popup treatment as Hooks) -->
-				<div class="shop-product-item shop-accessory-item shop-accessory-custom-logo" data-acc-image="/images/custom-logo-example.png" data-acc-title="Custom Logo" data-acc-desc="Team or program branding applied to the locker face – reinforce your identity every time players walk in.">
+				<!-- Custom Logo -->
+				<div class="shop-product-item shop-accessory-item shop-accessory-custom-logo" data-acc-image="/images/custom-logo-example.png" data-acc-title="Custom Logo" data-acc-price="+ $75.00" data-acc-desc="Team or program branding applied to the locker face – reinforce your identity every time players walk in. Custom orders only.">
 					<div class="shop-product-image">
-						<img src="/images/custom-logo-example.png" alt="Custom team logo example – Langley Rivermen" loading="lazy" />
+						<img src="/images/custom-logo-example.png" alt="Custom team logo example" loading="lazy" />
 					</div>
 					<button type="button" class="shop-accessory-trigger">
 						<div class="shop-product-content">
@@ -498,6 +543,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		z-index: 10;
 	}
 
+	.shop-section-header-essential {
+		margin-top: 80px;
+	}
+
+	.shop-lockers-grid-essential {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
 	.shop-section-subtitle {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
@@ -525,6 +578,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	/* Main Content */
 	.shop-main {
 		width: 100%;
+	}
+
+	.shop-essential-pdf {
+		text-align: center;
+		margin-top: 24px;
+		margin-bottom: 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+	}
+	.shop-essential-pdf a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+	.shop-essential-pdf a:hover {
+		text-decoration: underline;
+	}
+
+	.shop-premium-pdf {
+		text-align: center;
+		margin-top: 8px;
+		margin-bottom: 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+	}
+	.shop-premium-pdf a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+	.shop-premium-pdf a:hover {
+		text-decoration: underline;
 	}
 
 	.shop-header {
@@ -604,14 +687,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.shop-locker-image img {
 		object-fit: contain;
 		object-position: center center;
-	}
-
-	/* Lockers grid: bottom row (Semi Pro, Varsity) centered in 4-column layout */
-	.shop-lockers-grid .shop-product-item:nth-child(5) {
-		grid-column: 2;
-	}
-	.shop-lockers-grid .shop-product-item:nth-child(6) {
-		grid-column: 3;
 	}
 
 	.shop-product-item:hover .shop-product-image img {
@@ -739,6 +814,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.shop-product-title a:hover {
 		color: #fe5900;
+	}
+
+	.shop-product-finish {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		margin: 0 0 8px 0;
+		line-height: 1.3;
 	}
 
 	.shop-add-to-cart-btn-overlay {
@@ -1333,10 +1416,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	@media (max-width: 1200px) {
 		.shop-products-grid {
 			grid-template-columns: repeat(3, 1fr);
-		}
-		.shop-lockers-grid .shop-product-item:nth-child(5),
-		.shop-lockers-grid .shop-product-item:nth-child(6) {
-			grid-column: auto;
 		}
 	}
 

@@ -1,4 +1,5 @@
 ---
+// PREMIUM — Model X (Legendary) only. Spec PDF: /pdf/model-x-locker-spec/
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
@@ -85,7 +86,7 @@ const legendarySpecs = [
 				<div class="product-detail">
 					<h1 class="product-title">Model X Locker</h1>
 
-					<p class="product-model" data-model-prefix="LEG">Model # LEG-24-MP</p>
+					<p class="product-model" data-model-letter="X">Model # X-Designer White-18</p>
 
 					<p class="product-lead-time">Lead time: quick ship in one month (24" width, one signature color) · Custom-built in three months</p>
 
@@ -139,7 +140,7 @@ const legendarySpecs = [
 									</optgroup>
 								</select>
 							</div>
-							<p class="option-note"><a href="/colors/all-color-options-pdf.html" target="_blank" class="color-pdf-link">View All Color Options PDF</a></p>
+							<p class="option-note"><a href="/colors/all-color-options-pdf.html" target="_blank" class="color-pdf-link">View Color Option PDF</a></p>
 						</div>
 						<div class="product-option">
 							<label class="option-label">Accessories:</label>
@@ -165,17 +166,17 @@ const legendarySpecs = [
 									<span class="accessory-square"></span>
 									<span class="accessory-label">Name plate (+$10)</span>
 								</button>
+								<button type="button" class="accessory-box" data-price="12" title="4 hooks">
+									<span class="accessory-square"></span>
+									<span class="accessory-label">4 hooks (+$12)</span>
+								</button>
 								<button type="button" class="accessory-box" data-price="25" title="Skate hooks">
 									<span class="accessory-square"></span>
 									<span class="accessory-label">Skate hooks (+$25)</span>
 								</button>
-							<button type="button" class="accessory-box" data-price="75" title="Custom logo — custom orders only">
-								<span class="accessory-square"></span>
-								<span class="accessory-label">Custom logo (+$75) · custom orders only</span>
-							</button>
-								<button type="button" class="accessory-box" data-price="12" title="4 hooks">
+								<button type="button" class="accessory-box" data-price="75" title="Custom logo">
 									<span class="accessory-square"></span>
-									<span class="accessory-label">4 hooks (+$12)</span>
+									<span class="accessory-label">Custom logo (+$75)</span>
 								</button>
 							</div>
 						</div>
@@ -216,13 +217,13 @@ const legendarySpecs = [
 						<ProductSpecSheet productName="Model X Locker" specs={legendarySpecs} />
 						<h3 class="product-info-subheading">Downloads</h3>
 						<ul class="product-downloads-list">
-							<li><a href="/model-x-locker-spec-pdf.html" target="_blank" rel="noopener">Spec sheet (PDF)</a></li>
-							<li><a href="/colors/all-color-options-pdf.html" target="_blank">All Color Options PDF</a></li>
+							<li><a href="/pdf/installation-instructions/" target="_blank" rel="noopener noreferrer">Shipping and Assembly Instruction PDF</a></li>
+							<li><a href="/pdf/model-x-locker-spec/" target="_blank" rel="noopener noreferrer">Spec sheet (PDF)</a></li>
+							<li><a href="/colors/all-color-options-pdf.html" target="_blank">Color Option PDF</a></li>
 							<li><a href="/colors/laminate-colors-pdf.html" target="_blank">Laminate Colors PDF</a></li>
 							<li><a href="/colors/woodgrain-colors-pdf.html" target="_blank">Woodgrain Colors PDF</a></li>
 							<li><a href="/colors/phenolic-colors-pdf.html" target="_blank">Phenolic Colors PDF</a></li>
 							<li><a href="/colors/cushion-colors-pdf.html" target="_blank">Cushion Colors PDF</a></li>
-							<li><a href="#">Installation support</a></li>
 						</ul>
 					</div>
 					<div class="product-info-col product-info-col-features">
@@ -241,8 +242,6 @@ const legendarySpecs = [
 							<li>Vented front panel for increased airflow</li>
 							<li>Secure lock box integrated into the upper compartment</li>
 							<li>Bottom cushion or both cushions for added seating comfort</li>
-							<li>Skate hooks for hockey or figure skating storage</li>
-							<li>Custom logo option for teams or programs (custom orders only)</li>
 							<li>Name plate and additional gear hooks</li>
 						</ul>
 					</div>
@@ -1047,6 +1046,18 @@ const legendarySpecs = [
 		const widthOption = document.querySelector('.product-option');
 		const widthValueEl = widthOption ? widthOption.querySelector('.option-value') : null;
 
+		const modelEl = document.querySelector('.product-model[data-model-letter]');
+		const colorDropdown = document.getElementById('color-select');
+		const colorPreview = document.getElementById('color-preview');
+		const modelLetter = 'X';
+
+		function updateModelNumber() {
+			const activeWidth = document.querySelector('.width-swatch.active');
+			const widthLabel = (activeWidth?.textContent ?? '18"').trim().replace(/"/g, '');
+			const colorName = colorDropdown?.options[colorDropdown.selectedIndex]?.textContent?.trim() ?? 'Designer White';
+			if (modelEl) modelEl.textContent = 'Model # ' + modelLetter + '-' + colorName + '-' + widthLabel;
+		}
+
 		document.querySelectorAll('.width-swatch').forEach((btn) => {
 			btn.addEventListener('click', () => {
 				document.querySelectorAll('.width-swatch').forEach((b) => {
@@ -1059,6 +1070,7 @@ const legendarySpecs = [
 					const label = (btn.textContent || '').trim();
 					widthValueEl.textContent = label === '24"' ? '24" (standard)' : label;
 				}
+				updateModelNumber();
 				updatePrice();
 			});
 		});
@@ -1082,23 +1094,12 @@ const legendarySpecs = [
 			});
 		});
 
-		const modelEl = document.querySelector('.product-model[data-model-prefix]');
-		const getModelPrefix = () => modelEl ? (modelEl.getAttribute('data-model-prefix') || '') : '';
-
-		const colorDropdown = document.getElementById('color-select');
-		const colorPreview = document.getElementById('color-preview');
-		if (colorDropdown && modelEl) {
+		if (colorDropdown && colorPreview) {
 			colorDropdown.addEventListener('change', () => {
-				const code = colorDropdown.value;
-				if (code) {
-					modelEl.textContent = 'Model # ' + getModelPrefix() + '-24-' + code;
-				}
-				// Update color preview
 				const selectedOption = colorDropdown.options[colorDropdown.selectedIndex];
-				const color = selectedOption ? selectedOption.getAttribute('data-color') : null;
-				if (colorPreview && color) {
-					colorPreview.style.backgroundColor = color;
-				}
+				const color = selectedOption?.getAttribute('data-color');
+				if (color) colorPreview.style.backgroundColor = color;
+				updateModelNumber();
 			});
 		}
 
@@ -1140,11 +1141,15 @@ const legendarySpecs = [
 			const colorSelect = document.getElementById('color-select');
 			const colorCode = colorSelect?.value ?? 'DW';
 			const id = 'model-x-locker-' + width + '-' + deep + '-' + colorCode;
+			const modelEl = document.querySelector('.product-model[data-model-letter]');
+			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;
 			const image = '/images/model-x-website-images/model-x-locker.png';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
-			if (existing) existing.quantity += qty;
-			else cart.push({ id, name, price, image, quantity: qty });
+			if (existing) {
+				existing.quantity += qty;
+				if (model) existing.model = model;
+			} else cart.push({ id, name, price, image, quantity: qty, model: model || undefined });
 			saveCart(cart);
 			const originalText = addCartBtn.textContent;
 			addCartBtn.textContent = 'Added to cart';

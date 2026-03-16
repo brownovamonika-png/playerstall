@@ -1,4 +1,5 @@
 ---
+// ESSENTIAL — Varsity only. 19" depth only, Pre-Finished Birch Plywood. No dedicated spec PDF; uses Essential Wood PDF.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
@@ -9,13 +10,13 @@ const varsitySpecs = [
 	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
 	{ label: 'Base', value: 'Optional 4" high base' },
 	{ label: 'Frame', value: '3/4"' },
-	{ label: 'Backing', value: '3/4"' },
+	{ label: 'Backing', value: '5mm' },
 	{ label: 'Weight', value: 'Approx. 75 lbs' },
-	{ label: 'Construction', value: '3/4" cabinetry grade maple plywood, premium finish' },
+	{ label: 'Construction', value: '3/4" cabinetry grade birch plywood' },
 	{ label: 'Edgebanding', value: 'PVC edgebanding' },
 	{ label: 'Width range', value: '18" – 32"' },
-	{ label: 'Depth', value: '19" (standard)' },
-	{ label: 'Finish', value: 'Fusion Maple' },
+	{ label: 'Depth', value: '19"' },
+	{ label: 'Finish', value: 'Cabinet-Grade Pre-Finished Birch Plywood for Wood Lockers' },
 	{ label: 'Quick ship', value: '2–4 weeks (24" or 32" width)' },
 	{ label: 'Custom build', value: '8–12 weeks — any size, options' },
 	{ label: 'Warranty', value: '5 year warranty' },
@@ -74,9 +75,7 @@ const varsitySpecs = [
 				<div class="product-detail">
 					<h1 class="product-title">Varsity Locker</h1>
 
-					<p class="product-model" data-model-prefix="VAR">Model # VAR-24-FM</p>
-
-					<p class="product-lead-time">Lead time: quick ship in one month (24" width, one signature color) · Custom-built in three months</p>
+					<p class="product-model" data-model-prefix="VL-PF">Model # VL-PF-24</p>
 
 					<div class="product-price-block">
 						<span class="product-price" data-base-price="449">$449.00</span>
@@ -85,7 +84,7 @@ const varsitySpecs = [
 					<div class="product-options">
 						<div class="product-option">
 							<label class="option-label">Deep:</label>
-							<span class="option-value">19&quot; (standard)</span>
+							<span class="option-value">19&quot;</span>
 							<div class="option-swatches">
 								<button type="button" class="swatch deep-swatch active" title="19 inch deep" aria-pressed="true">19&quot;</button>
 							</div>
@@ -98,15 +97,15 @@ const varsitySpecs = [
 								<button type="button" class="swatch width-swatch" data-base-price="449" title="20 inch width">20&quot;</button>
 								<button type="button" class="swatch width-swatch" data-base-price="449" title="22 inch width">22&quot;</button>
 								<button type="button" class="swatch width-swatch active" data-base-price="449" title="24 inch width" aria-pressed="true">24&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="449" title="26 inch width">26&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="449" title="28 inch width">28&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="449" title="30 inch width">30&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="449" title="32 inch width">32&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="499" title="26 inch width">26&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="499" title="28 inch width">28&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="529" title="30 inch width">30&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="529" title="32 inch width">32&quot;</button>
 							</div>
 						</div>
 						<div class="product-option">
 							<label class="option-label">Color:</label>
-							<span class="option-value">Fusion Maple</span>
+							<span class="option-value">Pre-Finished Birch Plywood</span>
 						</div>
 						<div class="product-option">
 							<label class="option-label">Accessories:</label>
@@ -124,14 +123,6 @@ const varsitySpecs = [
 									<span class="accessory-square"></span>
 									<span class="accessory-label">Name plate (+$10)</span>
 								</button>
-								<button type="button" class="accessory-box" data-price="25" title="Skate hooks">
-									<span class="accessory-square"></span>
-									<span class="accessory-label">Skate hooks (+$25)</span>
-								</button>
-							<button type="button" class="accessory-box" data-price="75" title="Custom logo — custom orders only">
-								<span class="accessory-square"></span>
-								<span class="accessory-label">Custom logo (+$75) · custom orders only</span>
-							</button>
 								<button type="button" class="accessory-box" data-price="12" title="4 hooks">
 									<span class="accessory-square"></span>
 									<span class="accessory-label">4 hooks (+$12)</span>
@@ -173,11 +164,17 @@ const varsitySpecs = [
 				<div class="product-info-grid">
 					<div class="product-info-col product-info-col-specs">
 						<ProductSpecSheet productName="Varsity Locker" specs={varsitySpecs} />
+						<h3 class="product-info-subheading">Downloads</h3>
+						<ul class="product-downloads-list">
+							<li><a href="/pdf/installation-instructions/" target="_blank" rel="noopener noreferrer">Shipping and Assembly Instruction PDF</a></li>
+							<li><a href="/colors/essential-wood-pdf.html" target="_blank" rel="noopener noreferrer">Essential Wood PDF</a></li>
+							<li><a href="/colors/cushion-colors-pdf.html" target="_blank" rel="noopener noreferrer">Cushion Colors PDF</a></li>
+						</ul>
 					</div>
 					<div class="product-info-col product-info-col-features">
 						<h3 class="product-info-subheading">Features</h3>
 						<ul class="product-features-list">
-							<li>Made from 3/4&quot; cabinetry grade maple plywood</li>
+							<li>Pre-Finished Birch Plywood with a premium finish — clean, consistent grain and a durable surface that resists moisture and wear</li>
 							<li>Modular design for easy repair or replacement of components</li>
 							<li>14&quot; high foot locker provides comfortable seating and secure equipment storage</li>
 							<li>Available in 18&quot; to 32&quot; widths; standard configuration 24&quot; W x 76&quot; H x 19&quot; D with optional 4&quot; base</li>
@@ -186,11 +183,9 @@ const varsitySpecs = [
 
 						<h3 class="product-info-subheading">Options</h3>
 						<ul class="product-options-list">
-							<li>Available in Fusion Maple finish</li>
+							<li>Cabinet-Grade Pre-Finished Birch Plywood for Wood Lockers</li>
 							<li>Secure lock box integrated into the upper compartment</li>
 							<li>Bottom cushion for added seating comfort</li>
-							<li>Skate hooks for hockey or figure skating storage</li>
-							<li>Custom logo option for teams or programs (custom orders only)</li>
 							<li>Name plate and additional gear hooks</li>
 						</ul>
 					</div>
@@ -857,6 +852,13 @@ const varsitySpecs = [
 		
 		const widthOption = Array.from(productOptions).find(opt => opt.querySelector('.width-swatch'));
 		const widthValueEl = widthOption ? widthOption.querySelector('.option-value') : null;
+		const modelEl = document.querySelector('.product-model[data-model-prefix]');
+
+		function updateModelNumber() {
+			const activeWidth = document.querySelector('.width-swatch.active');
+			const widthLabel = (activeWidth?.textContent ?? '24"').trim().replace(/"/g, '');
+			if (modelEl) modelEl.textContent = 'Model # VL-PF-' + widthLabel;
+		}
 
 		document.querySelectorAll('.deep-swatch').forEach((btn) => {
 			btn.addEventListener('click', () => {
@@ -868,7 +870,7 @@ const varsitySpecs = [
 				btn.setAttribute('aria-pressed', 'true');
 				if (deepValueEl) {
 					const label = (btn.textContent || '').trim();
-					deepValueEl.textContent = label === '19"' ? '19" (standard)' : label;
+					deepValueEl.textContent = label;
 				}
 			});
 		});
@@ -885,6 +887,7 @@ const varsitySpecs = [
 					const label = (btn.textContent || '').trim();
 					widthValueEl.textContent = label === '24"' ? '24" (standard)' : label;
 				}
+				updateModelNumber();
 				updatePrice();
 			});
 		});
@@ -926,11 +929,15 @@ const varsitySpecs = [
 			const deepSwatch = document.querySelector('.deep-swatch.active');
 			const deep = (deepSwatch?.getAttribute('title') ?? '19 inch deep').replace(/\s*inch deep/, '').trim();
 			const id = 'varsity-locker-' + width + '-' + deep;
+			const modelEl = document.querySelector('.product-model[data-model-prefix]');
+			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;
 			const image = '/images/varsity-locker.png';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
-			if (existing) existing.quantity += qty;
-			else cart.push({ id, name, price, image, quantity: qty });
+			if (existing) {
+				existing.quantity += qty;
+				if (model) existing.model = model;
+			} else cart.push({ id, name, price, image, quantity: qty, model: model || undefined });
 			saveCart(cart);
 			const originalText = addCartBtn.textContent;
 			addCartBtn.textContent = 'Added to cart';

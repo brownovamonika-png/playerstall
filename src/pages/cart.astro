@@ -469,6 +469,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		text-decoration: none;
 	}
 
+	:global(.cart-section .cart-item-description) {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 400;
+		text-transform: none;
+		letter-spacing: 0.02em;
+		color: #555;
+		margin-top: 4px;
+	}
+
 	:global(.cart-section .product-price),
 	:global(.cart-section .product-subtotal) {
 		font-family: 'Yantramanav', sans-serif;
@@ -997,10 +1008,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			let subtotal = 0;
 			let html = '';
 
-			cart.forEach((item: { name: string; image: string; price: number; quantity: number }, index: number) => {
+			cart.forEach((item: { name: string; image: string; price: number; quantity: number; model?: string }, index: number) => {
 				const itemTotal = item.price * item.quantity;
 				subtotal += itemTotal;
-
+				// Show product name and description (model/spec) like essential lockers
 				html += `
 					<tr class="cart_item">
 						<td class="product-remove">
@@ -1010,7 +1021,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<img src="${item.image}" alt="${item.name}" width="32" height="32" style="width: 32px !important; height: 32px !important; max-width: 32px !important; max-height: 32px !important; min-width: 32px !important; min-height: 32px !important; object-fit: cover; display: block; margin: 0; padding: 0; background: #ffffff;" />
 						</td>
 						<td class="product-name" data-title="Product">
-							${item.name}
+							<span class="cart-item-name">${item.name}</span>${item.model ? `<br /><span class="cart-item-description">${item.model}</span>` : ''}
 						</td>
 						<td class="product-price" data-title="Price">
 							<span class="woocommerce-Price-amount amount">

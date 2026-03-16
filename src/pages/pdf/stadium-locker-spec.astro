@@ -1,36 +1,38 @@
 ---
+// ESSENTIAL — Stadium Locker only. 19" only, Pre-Finished Birch Plywood, 3/4" backing. Linked from product-stadium-locker. Do not use for Model S.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductSpecSheet from '../../components/ProductSpecSheet.astro';
 // Use public path so the page works when opened directly or from static build
 const dimensionsSheetSrc = '/images/stadium-locker-dimensions-sheet.png';
 
 const stadiumSpecs = [
-	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
+	{ label: 'Standard dimensions', value: '18" W × 76" H × 19" D' },
 	{ label: 'Base', value: 'Optional 4" high base' },
 	{ label: 'Frame', value: '3/4"' },
 	{ label: 'Backing', value: '3/4"' },
 	{ label: 'Weight', value: 'Approx. 175 lbs' },
-	{ label: 'Construction', value: 'MPW-6C plywood core, premium melamine surface' },
+	{ label: 'Construction', value: '3/4" cabinetry grade birch plywood' },
 	{ label: 'Edgebanding', value: 'PVC edgebanding' },
 	{ label: 'Width range', value: '18" – 32"' },
-	{ label: 'Depth options', value: '19" or 24"' },
-	{ label: 'Quick ship', value: '2–4 weeks (24" width, Black only)' },
-	{ label: 'Custom build', value: '8–12 weeks — any size, colors, options' },
+	{ label: 'Depth', value: '19"' },
+	{ label: 'Finish', value: 'Cabinet-Grade Pre-Finished Birch Plywood for Wood Lockers' },
+	{ label: 'Quick ship', value: '2–4 weeks (24" or 32" width)' },
+	{ label: 'Custom build', value: '8–12 weeks — any size, options' },
 	{ label: 'Warranty', value: '5 year warranty' },
 ];
 ---
 
 <BaseLayout
-	title="Model S Locker – Spec Sheet (PDF) | PlayerStall"
-	description="Model S wood locker spec sheet: premium plywood melamine, 76&quot; H x 19&quot; D, widths 18&quot;–32&quot;. From $649. Quick ship 2–4 weeks. 5 year warranty."
+	title="Stadium Locker – Spec Sheet (PDF) | PlayerStall"
+	description="Stadium Locker wood locker spec sheet: 19&quot; D only, Pre-Finished Birch Plywood. Essential line. 76&quot; H, widths 18&quot;–32&quot;. From $599. Quick ship 2–4 weeks or custom in 8–12 weeks. 5 year warranty."
 >
 	<main class="pdf-spec-page no-downloads no-accessories">
 		<!-- Hero (top image + title); print-only copy of image ensures it appears in PDF -->
 		<section class="product-hero-section pdf-hero">
 			<!-- Shown only when printing so the top image is included in the PDF -->
-			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model S Locker" class="hero-image-print-only" />
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Stadium Locker" class="hero-image-print-only" />
 			<div class="product-hero-background">
-				<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model S Locker" class="product-hero-bg-image" />
+				<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Stadium Locker" class="product-hero-bg-image" />
 			</div>
 			<div class="product-hero-background-overlay"></div>
 			<div class="product-hero-container">
@@ -39,9 +41,9 @@ const stadiumSpecs = [
 					<span class="breadcrumbs-sep">/</span>
 					<a href="/shop">Shop</a>
 					<span class="breadcrumbs-sep">/</span>
-					<span class="breadcrumbs-current">Model S Locker – Spec Sheet</span>
+					<span class="breadcrumbs-current">Stadium Locker – Spec Sheet</span>
 				</div>
-				<h1 class="product-page-title">Model S</h1>
+				<h1 class="product-page-title">Stadium Locker</h1>
 			</div>
 		</section>
 
@@ -50,7 +52,7 @@ const stadiumSpecs = [
 			<div class="top-locker-image-wrap">
 				<img
 					src="/images/stadium-locker-side.png"
-					alt="Model S wood athletic locker for locker rooms"
+					alt="Stadium Locker wood athletic locker for locker rooms"
 					class="top-locker-image"
 				/>
 			</div>
@@ -59,23 +61,23 @@ const stadiumSpecs = [
 				<h3 class="option-label">Other views &amp; options</h3>
 				<div class="options-images-grid">
 					<figure class="option-image-fig">
-						<img src="/images/stadium-locker.png" alt="Model S locker front view" />
+						<img src="/images/stadium-locker.png" alt="Stadium Locker locker front view" />
 						<figcaption>Front view</figcaption>
 					</figure>
 					<figure class="option-image-fig">
-						<img src="/images/stadium-locker-side.png" alt="Model S locker side view" />
+						<img src="/images/stadium-locker-side.png" alt="Stadium Locker locker side view" />
 						<figcaption>Side view</figcaption>
 					</figure>
 					<figure class="option-image-fig">
-						<img src="/images/stadium-locker-third.png" alt="Model S locker alternate view" />
+						<img src="/images/stadium-locker-third.png" alt="Stadium Locker locker alternate view" />
 						<figcaption>Alternate view</figcaption>
 					</figure>
 					<figure class="option-image-fig">
-						<img src={dimensionsSheetSrc} alt="Model S locker dimensions" />
+						<img src={dimensionsSheetSrc} alt="Stadium Locker locker dimensions" />
 						<figcaption>Dimensions</figcaption>
 					</figure>
 					<figure class="option-image-fig">
-						<img src="/images/stadium-locker-vent-panel.png" alt="Model S locker vented front panel" />
+						<img src="/images/stadium-locker-vent-panel.png" alt="Stadium Locker locker vented front panel" />
 						<figcaption>Vented front option</figcaption>
 					</figure>
 					<figure class="option-image-fig option-image-fig--lock-box">
@@ -91,18 +93,18 @@ const stadiumSpecs = [
 			<div class="product-container">
 				<div class="product-layout product-layout-single">
 					<div class="product-detail">
-						<h2 class="product-title">Model S Locker</h2>
-						<p class="product-model">Model # STAD-24-MP</p>
+						<h2 class="product-title">Stadium Locker</h2>
+						<p class="product-model">Model # ST-PF-18</p>
 						<p class="product-lead-time">Lead time: quick ship in one month (24" width, one signature color) · Custom-built in three months</p>
 						<div class="product-price-block">
-							<span class="product-price">From $649.00</span>
-							<p class="price-width-note">Base model widths (with optional 4" base): up to 24" — $649. After 24" width base price $699; after 30" width base price $749.</p>
+							<span class="product-price">From $599.00</span>
+							<p class="price-width-note">Base model widths (with optional 4" base): up to 24" — $599. After 24" width base price $629; after 30" width base price $649.</p>
 						</div>
 
 						<div class="product-options-static">
-							<p><strong>Depth:</strong> 19" (standard) or 24"</p>
+							<p><strong>Depth:</strong> 19"</p>
 							<p><strong>Width:</strong> 18", 20", 22", 24", 26", 28", 30", 32"</p>
-							<p><strong>Color:</strong> Designer White, White Sand, Fashion Grey, North Sea, Graphite, Black, Hollyberry, Lapis Blue; woodgrains: Fusion Maple, Pasadena Oak, Walnut Heights, Hampton Walnut</p>
+							<p><strong>Finish:</strong> Pre-Finished Birch Plywood (Essential line)</p>
 						</div>
 
 						<div class="product-accessories-static">
@@ -142,13 +144,13 @@ const stadiumSpecs = [
 
 				<!-- Features & Options (spec sheet + text only; no Downloads, no Accessories) -->
 				<div class="product-info-section" id="moreinfo">
-					<h2 class="product-info-heading">Model S Wood Locker – Features &amp; Options</h2>
+					<h2 class="product-info-heading">Stadium Locker – Features &amp; Options</h2>
 					<div class="product-info-grid">
 						<div class="product-info-col product-info-col-specs">
-							<ProductSpecSheet productName="Model S Locker" specs={stadiumSpecs} />
+							<ProductSpecSheet productName="Stadium Locker" specs={stadiumSpecs} />
 							<div class="product-dimensions-sheet-figure">
-								<img src={dimensionsSheetSrc} alt="Model S locker dimensions – front and side views with measurements in inches" class="product-dimensions-sheet-image" />
-								<p class="product-dimensions-sheet-caption">Model S Locker dimensions (front and side)</p>
+								<img src={dimensionsSheetSrc} alt="Stadium Locker locker dimensions – front and side views with measurements in inches" class="product-dimensions-sheet-image" />
+								<p class="product-dimensions-sheet-caption">Stadium Locker dimensions (front and side)</p>
 							</div>
 						</div>
 						<div class="product-info-col product-info-col-features">

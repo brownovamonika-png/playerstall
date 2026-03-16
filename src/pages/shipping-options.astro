@@ -35,6 +35,10 @@ const pageDescription = 'Quick ship Model S, Model Z, and Model X lockers in 2�
 					<span class="ship-options-list-label">Custom</span>
 					<span class="ship-options-list-desc">10–12 weeks · Any size &amp; configuration · Team colors, logos, name plates.</span>
 				</a>
+				<a href="#packaging-assembly" class="ship-options-list-item">
+					<span class="ship-options-list-label">Packaging &amp; assembly</span>
+					<span class="ship-options-list-desc">Individual flat-pack boxes · IKEA-style instructions · ~25–30 min assembly per locker.</span>
+				</a>
 			</div>
 		</div>
 	</section>
@@ -209,6 +213,54 @@ const pageDescription = 'Quick ship Model S, Model Z, and Model X lockers in 2�
 					<div class="ship-custom-buttons">
 						<a href="/products" class="ship-custom-btn ship-custom-btn-outline">Explore options</a>
 						<a href="/contact" class="ship-custom-btn ship-custom-btn-filled">Get custom quote</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Packaging & assembly instructions -->
+	<section id="packaging-assembly" class="home-shop-section ship-instructions-section">
+		<div class="home-shop-container">
+			<div class="home-shop-section-header">
+				<p class="home-shop-section-subtitle">PACKAGING &amp; ASSEMBLY</p>
+				<h2 class="home-shop-section-title">SHIPPING INSTRUCTIONS</h2>
+			</div>
+			<div class="ts-spotlight-inner-centered">
+				<div class="ts-spotlight-content ship-instructions-content">
+					<p class="ship-instructions-lead">Our lockers are shipped <strong>individually packed</strong> in most cases—each unit arrives in its own sturdy, flat-pack box, similar to premium flat-pack furniture. This keeps every locker protected in transit and makes handling and assembly straightforward.</p>
+					<p class="ship-instructions-body">Each box contains all panels, hardware, and a <strong>full set of step-by-step instructions</strong> in an easy-to-follow, IKEA-style format. Plan for <strong>approximately 25–30 minutes</strong> to assemble each locker once the box is opened. No special tools are required beyond what we include or you typically have on hand.</p>
+
+					<h3 class="ship-instructions-subtitle">Typical box dimensions</h3>
+					<p class="ship-instructions-body">Exact package size depends on the locker model and configuration. Below are two representative examples of how our lockers ship flat-packed.</p>
+
+					<div class="ship-instructions-boxes">
+						<div class="ship-instructions-box-card">
+							<figure class="ship-instructions-figure">
+								<img src="/images/locker-packaging-flatpack-1.png" alt="Flat-packed locker packaging – stacked panels, dimensions 75.59&quot; length × 23.62&quot; width × 4.25&quot; height" loading="lazy" />
+								<figcaption class="ship-instructions-caption">Representative flat-pack (smaller footprint)</figcaption>
+							</figure>
+							<ul class="ship-instructions-dims">
+								<li><strong>Length:</strong> 75.59&quot;</li>
+								<li><strong>Width:</strong> 23.62&quot;</li>
+								<li><strong>Height:</strong> 4.25&quot;</li>
+							</ul>
+						</div>
+						<div class="ship-instructions-box-card">
+							<figure class="ship-instructions-figure">
+								<img src="/images/locker-packaging-flatpack-2.png" alt="Flat-packed locker in shipping box – dimensions 81.87&quot; length × 27.62&quot; width × 6.98&quot; height" loading="lazy" />
+								<figcaption class="ship-instructions-caption">Representative flat-pack (larger footprint)</figcaption>
+							</figure>
+							<ul class="ship-instructions-dims">
+								<li><strong>Length:</strong> 81.87&quot;</li>
+								<li><strong>Width:</strong> 27.62&quot;</li>
+								<li><strong>Height:</strong> 6.98&quot;</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="ship-instructions-summary">
+						<p><strong>Included with each locker:</strong> flat-packed components in one box, full IKEA-style assembly instructions, and hardware. Assembly time: about 25–30 minutes per locker.</p>
 					</div>
 				</div>
 			</div>
@@ -844,6 +896,102 @@ const pageDescription = 'Quick ship Model S, Model Z, and Model X lockers in 2�
 		background: #fe5900;
 		border-color: #fe5900;
 		color: #ffffff;
+	}
+
+	/* Packaging & assembly instructions */
+	.ship-instructions-section {
+		background: #f7f7f7;
+	}
+	.ship-instructions-content {
+		max-width: 820px;
+		margin: 0 auto;
+		text-align: left;
+	}
+	.ship-instructions-lead {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 17px;
+		line-height: 1.7;
+		color: #0d0d0d;
+		margin: 0 0 1rem;
+	}
+	.ship-instructions-body {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		line-height: 1.75;
+		color: #555;
+		margin: 0 0 1.5rem;
+	}
+	.ship-instructions-subtitle {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+		margin: 2rem 0 0.75rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 2px solid #fe5900;
+	}
+	.ship-instructions-boxes {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		margin: 2rem 0;
+	}
+	.ship-instructions-box-card {
+		background: #fff;
+		border: 1px solid #e8e8e8;
+		border-radius: 8px;
+		padding: 1.25rem;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	}
+	.ship-instructions-figure {
+		margin: 0 0 1rem;
+	}
+	.ship-instructions-figure img {
+		width: 100%;
+		height: auto;
+		display: block;
+		border-radius: 4px;
+		background: #f0f0f0;
+	}
+	.ship-instructions-caption {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		margin: 0.5rem 0 0;
+		text-align: center;
+	}
+	.ship-instructions-dims {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		line-height: 1.6;
+		color: #0d0d0d;
+		margin: 0;
+		padding-left: 1.25rem;
+		list-style: disc;
+	}
+	.ship-instructions-dims li {
+		margin-bottom: 0.25rem;
+	}
+	.ship-instructions-summary {
+		margin-top: 2rem;
+		padding: 1.25rem 1.5rem;
+		background: #fff;
+		border-left: 4px solid #fe5900;
+		border-radius: 0 6px 6px 0;
+	}
+	.ship-instructions-summary p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		line-height: 1.65;
+		color: #0d0d0d;
+		margin: 0;
+	}
+	@media (max-width: 768px) {
+		.ship-instructions-boxes {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	@media (max-width: 1024px) {
