@@ -234,7 +234,7 @@ const breadcrumbSchema = {
 
 <BaseLayout 
 	title="Wood Sports Locker Models & Pricing | PlayerStall" 
-	description="Quick ship in 2–4 weeks: Model S, Model Z and Model X in 24 inch width, Light or Dark Gray. Custom wood and more in 8–12 weeks. Price match guarantee. Five tiers from $349. 5 year warranty."
+	description="Quick ship in 2–4 weeks: Model S, Model Z and Model X in 24 inch width, Light or Dark Gray. Custom wood and more in 8–12 weeks. Price match guarantee. Eight locker tiers from $349. 5 year warranty."
 	canonical="https://playerstall.com/products"
 >
 	<!-- Schema.org Structured Data -->
@@ -501,37 +501,65 @@ const breadcrumbSchema = {
 	<section class="comparison-table-section" id="comparison">
 		<div class="container">
 			<h2>Compare All Tiers</h2>
+			<p class="comparison-table-hint">All 8 locker types. Scroll horizontally on small screens to see every column.</p>
 			<div class="comparison-table-wrapper">
-				<table class="comparison-table">
+				<table class="comparison-table" role="grid" aria-label="Compare all 8 locker tiers">
+					<colgroup>
+						<col class="col-feature" />
+						<col /><col /><col /><col /><col /><col /><col /><col />
+					</colgroup>
 					<thead>
 						<tr>
-							<th>Feature</th>
-							<th>Semi Pro</th>
-							<th>Varsity</th>
-							<th>Model L</th>
-							<th>Model Z</th>
-							<th>Model S</th>
+							<th scope="col">Feature</th>
+							<th scope="col">Semi Pro</th>
+							<th scope="col">Varsity</th>
+							<th scope="col">Pro</th>
+							<th scope="col">Stadium</th>
+							<th scope="col">Model L</th>
+							<th scope="col">Model S</th>
+							<th scope="col">Model Z</th>
+							<th scope="col">Model X</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>Price (Sale)</td>
+							<td>Starting price</td>
 							<td>$349</td>
 							<td>$449</td>
+							<td>$599</td>
+							<td>$599</td>
+							<td>$549</td>
 							<td>$649</td>
 							<td>$649</td>
 							<td>$649</td>
 						</tr>
 						<tr>
-							<td>3/4" Solid Wood</td>
+							<td>3/4" Melamine wood</td>
+							<td>—</td>
+							<td>—</td>
+							<td>—</td>
+							<td>—</td>
 							<td><span class="checkmark">Yes</span></td>
 							<td><span class="checkmark">Yes</span></td>
 							<td><span class="checkmark">Yes</span></td>
 							<td><span class="checkmark">Yes</span></td>
+						</tr>
+						<tr>
+							<td>3/4" Birch plywood</td>
 							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td>—</td>
+							<td>—</td>
+							<td>—</td>
+							<td>—</td>
 						</tr>
 						<tr>
 							<td>5 Year Warranty</td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
 							<td><span class="checkmark">Yes</span></td>
 							<td><span class="checkmark">Yes</span></td>
 							<td><span class="checkmark">Yes</span></td>
@@ -545,38 +573,86 @@ const breadcrumbSchema = {
 							<td><span class="checkmark">Yes</span></td>
 							<td><span class="checkmark">Yes</span></td>
 							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
 						</tr>
 						<tr>
-							<td>Custom Branding</td>
-							<td>Basic</td>
-							<td>Premium</td>
-							<td>Maximum</td>
-							<td>Premium</td>
-							<td>Ultimate</td>
+							<td>Lock box with digital lock</td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+						</tr>
+						<tr>
+							<td>Vented front</td>
+							<td>No</td>
+							<td>No</td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+						</tr>
+						<tr>
+							<td>Quick Ship (24")</td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td><span class="checkmark">Yes</span></td>
+							<td>No</td>
+							<td>No</td>
+							<td>No</td>
+							<td><span class="checkmark">Yes</span></td>
 						</tr>
 						<tr>
 							<td>Storage Capacity</td>
 							<td>Standard</td>
-							<td>Enhanced</td>
 							<td>Maximum</td>
-							<td>Enhanced</td>
-							<td>Model Z</td>
+							<td>Maximum</td>
+							<td>Maximum</td>
+							<td>Maximum</td>
+							<td>Maximum</td>
+							<td>Maximum</td>
+							<td>Maximum</td>
 						</tr>
 						<tr>
 							<td>Finishing Quality</td>
 							<td>Professional</td>
+							<td>Professional</td>
+							<td>Professional</td>
+							<td>Professional</td>
 							<td>Premium</td>
-							<td>Model Z</td>
 							<td>Premium</td>
-							<td>Championship</td>
+							<td>Premium</td>
+							<td>Premium</td>
 						</tr>
 						<tr>
-							<td>Design Style</td>
-							<td>Standard</td>
-							<td>Standard</td>
-							<td>Standard</td>
-							<td>Curved</td>
-							<td>Standard</td>
+							<td>Depth</td>
+							<td>19"</td>
+							<td>19"</td>
+							<td>19"</td>
+							<td>19"</td>
+							<td>19" & 24"</td>
+							<td>19" & 24"</td>
+							<td>19" & 24"</td>
+							<td>19" & 24"</td>
+						</tr>
+						<tr>
+							<td>Backing</td>
+							<td>5mm thick</td>
+							<td>5mm thick</td>
+							<td>3/4" thick</td>
+							<td>3/4" thick</td>
+							<td>3/4" thick</td>
+							<td>3/4" thick</td>
+							<td>3/4" thick</td>
+							<td>3/4" thick</td>
 						</tr>
 					</tbody>
 				</table>
@@ -1144,6 +1220,12 @@ const breadcrumbSchema = {
 		background: #f7f7f7;
 	}
 
+	.comparison-table-hint {
+		margin: -0.5rem 0 1rem;
+		font-size: 0.95rem;
+		color: #666;
+	}
+
 	.comparison-table-section h2 {
 		font-family: 'Oswald', sans-serif;
 		font-size: 48px;
@@ -1160,6 +1242,7 @@ const breadcrumbSchema = {
 
 	.comparison-table {
 		width: 100%;
+		min-width: 1100px; /* keeps all 8 locker columns visible; wrapper scrolls on small screens */
 		border-collapse: collapse;
 		background: #fff;
 		font-family: 'Yantramanav', sans-serif;
