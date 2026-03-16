@@ -71,6 +71,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 											<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="cart-subtotal">0.00</span></bdi></span>
 										</td>
 									</tr>
+									<tr class="handling">
+										<th>HANDLING</th>
+										<td data-title="Handling">
+											<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span><span id="handling-cost">0.00</span></bdi></span>
+										</td>
+									</tr>
 									<tr class="shipping">
 										<th>SHIPPING</th>
 										<td data-title="Shipping">
@@ -1049,10 +1055,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			if (cartBody) cartBody.innerHTML = html;
 			if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
 			
-			// Calculate total with shipping (default $0.00)
+			// Calculate total with handling and shipping (default $0.00 each)
+			const handlingCostEl = document.getElementById('handling-cost');
+			const handlingCost = handlingCostEl ? parseFloat(handlingCostEl.textContent || '0') : 0.00;
 			const shippingCostEl = document.getElementById('shipping-cost');
-			const shippingCost = shippingCostEl ? parseFloat(shippingCostEl.textContent) : 0.00;
-			const total = subtotal + shippingCost;
+			const shippingCost = shippingCostEl ? parseFloat(shippingCostEl.textContent || '0') : 0.00;
+			const total = subtotal + handlingCost + shippingCost;
 			if (totalEl) totalEl.textContent = total.toFixed(2);
 
 			// Attach event listeners
@@ -1142,6 +1150,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		// Update total when shipping method changes
 		const shippingMethods = document.querySelectorAll('.woocommerce-shipping-methods input[type="radio"]');
 		const shippingCostEl = document.getElementById('shipping-cost');
+		const handlingCostEl = document.getElementById('handling-cost');
 		const totalEl = document.getElementById('cart-total');
 		
 		if (shippingMethods.length && shippingCostEl && totalEl) {
@@ -1149,13 +1158,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				method.addEventListener('change', () => {
 					const cart = getCart();
 					const subtotal = cart.reduce((sum: number, item: { price: number; quantity: number }) => sum + (item.price * item.quantity), 0);
+					const handlingCost = handlingCostEl ? parseFloat(handlingCostEl.textContent || '0') : 0.00;
 					const inputEl = method as HTMLInputElement;
 					if (inputEl.value === 'flat_rate') {
 						shippingCostEl.textContent = '0.00';
 					} else if (inputEl.value === 'local_pickup') {
 						shippingCostEl.textContent = '0.00';
 					}
-					const total = subtotal + 0.00;
+					const shippingCost = parseFloat(shippingCostEl.textContent || '0');
+					const total = subtotal + handlingCost + shippingCost;
 					totalEl.textContent = total.toFixed(2);
 				});
 			});
