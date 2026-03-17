@@ -32,6 +32,14 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-5J3PPW7D');</script>
+		<!-- End Google Tag Manager -->
+
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		
@@ -72,22 +80,15 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		<!-- Fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Yantramanav:500,400|Oswald:600,700|Roboto:400&display=swap" rel="stylesheet" />
 
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-SESQY1JBMG"></script>
-		<script>
-			(window as Window & { dataLayer?: unknown[][] }).dataLayer = (window as Window & { dataLayer?: unknown[][] }).dataLayer || [];
-			const gtag = (...args: unknown[]) => {
-				((window as Window & { dataLayer?: unknown[][] }).dataLayer as unknown[][]).push(args);
-			};
-			gtag('js', new Date());
-
-			gtag('config', 'G-SESQY1JBMG');
-		</script>
-		
 		<!-- Schema Slot for Page-Specific Structured Data -->
 		<slot name="head" />
 	</head>
 	<body class={headerBlack ? 'header-black' : ''}>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5J3PPW7D"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
 		<!-- Top Bar -->
 		<div class="top-bar">
 			<div class="top-bar-container">
