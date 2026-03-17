@@ -56,22 +56,16 @@ export async function getStaticPaths() {
         tags: e.data.tags,
       }));
 
-    // For the empty prev/next slot: show newest post when on oldest, second-newest when on newest
-    const featuredPost =
-      i === 0 && sorted[1]
-        ? toRelated(sorted[1])
-        : i === sorted.length - 1 && sorted[0].slug !== entry.slug
-          ? toRelated(sorted[0])
-          : null;
+    const allTags = [...new Set(sorted.flatMap((e) => e.data.tags || []).filter(Boolean))].sort().slice(0, 20);
 
     return {
       params: { slug: entry.slug },
-      props: { entry, prevEntry, nextEntry, relatedEntries, sidebarCategories, sidebarLatestPosts, featuredPost },
+      props: { entry, prevEntry, nextEntry, relatedEntries, sidebarCategories, sidebarLatestPosts, allTags },
     };
   });
 }
 
-const { entry, prevEntry, nextEntry, relatedEntries, sidebarCategories, sidebarLatestPosts, featuredPost } = Astro.props;
+const { entry, prevEntry, nextEntry, relatedEntries, sidebarCategories, sidebarLatestPosts, allTags } = Astro.props;
 const { Content } = await entry.render();
 const post = entry.data;
 const heroUrl = getBlogHeroUrl({
@@ -152,176 +146,187 @@ const heroAlt = post.heroImageAlt ?? post.title;
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     {faqSchema ? <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} /> : null}
   </Fragment>
+
   <article class="blog-post">
-    <!-- Hero -->
-    <header class="post-hero">
-      <div class="post-hero-bg">
-        <img src={heroUrl} alt={heroAlt} class="post-hero-image" width="1920" height="1080" loading="eager" fetchpriority="high" />
-      </div>
-      <div class="post-hero-overlay"></div>
-      <div class="container post-hero-content">
-        <div class="article-meta">
-          <a class="blog-category" href={`/categories/${categorySlug}`}>{post.category}</a>
-          <time class="blog-date" datetime={post.datePublished}>{formattedDate}</time>
+    <div class="qodef-page-title">
+      <div class="qodef-page-title-inner">
+        <div class="qodef-breadcrumbs">
+          <a href="/">Home</a>
+          <span class="qodef-breadcrumbs-sep"></span>
+          <a href={`/categories/${categorySlug}`}>{post.category}</a>
+          <span class="qodef-breadcrumbs-sep"></span>
+          <span class="qodef-breadcrumbs-current">{post.title}</span>
         </div>
-        <h1 class="post-title">{post.title}</h1>
-        {post.description && <p class="lede">{post.description}</p>}
       </div>
-    </header>
+    </div>
 
-    <!-- Breadcrumb (below hero) -->
-    <nav class="breadcrumb-wrap" aria-label="Breadcrumb">
-      <div class="container">
-        <ol class="breadcrumb">
-          <li><a href="/">Home</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href={`/categories/${categorySlug}`}>{post.category}</a></li>
-          <li aria-current="page">{post.title}</li>
-        </ol>
-      </div>
-    </nav>
+    <div class="qodef-page-inner">
+      <div class="qodef-grid-inner">
+        <div class="qodef-page-content">
+          <div class="qodef-single-post">
+            <div class="qodef-e-media">
+              <img src={heroUrl} alt={heroAlt} width="1300" height="806" loading="eager" fetchpriority="high" />
+            </div>
+            <div class="qodef-e-info qodef-info-top">
+              <a href={`/categories/${categorySlug}`} class="qodef-e-info-category">{post.category}</a>
+              <time class="qodef-e-info-date" datetime={post.datePublished}>{formattedDate}</time>
+            </div>
+            <h1 class="qodef-e-title">{post.title}</h1>
 
-    <!-- Main content: 2/3 post + 1/3 About us sidebar -->
-    <section class="blog-section">
-      <div class="blog-layout container">
-        <div class="blog-main-col">
-          <div class="blog-content">
-            <Content components={{ img: BlogImage }} />
-          </div>
+            <div class="qodef-e-text">
+              <Content components={{ img: BlogImage }} />
+            </div>
 
-          <!-- Tags & author -->
-          <footer class="post-footer">
-            {post.tags?.length ? (
-              <div class="blog-tags">
-                {post.tags.map((tag) => (
-                  <a class="blog-tag" href={`/tags/${slugify(tag)}`}>{tag.replace(/-/g, ' ')}</a>
-                ))}
+            <div class="qodef-e-info qodef-info-bottom">
+              <div class="qodef-info-bottom-left">
+                {post.tags?.length ? (
+                  <div class="qodef-e-tags">
+                    {post.tags.map((tag) => (
+                      <a href={`/tags/${slugify(tag)}`} class="qodef-tag">{tag.replace(/-/g, ' ')}</a>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+              <div class="qodef-info-bottom-right">
+                <span class="qodef-share-label">Share</span>
+                <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`} target="_blank" rel="noopener noreferrer" class="qodef-share-icon" aria-label="Share on Facebook">
+                  <svg width="10" height="18" viewBox="0 0 10 18"><path d="M6.5 10.2H9l.4-2.6H6.5V5.8c0-1.1.3-2 2-2h1.3V1.2C9.4 1.1 8.3 1 7.1 1 4.8 1 3.2 2.5 3.2 5.3v2.3H.5v2.6h2.7V18h3.3v-7.8z"/></svg>
+                </a>
+                <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" class="qodef-share-icon" aria-label="Share on Twitter">
+                  <svg width="18" height="15" viewBox="0 0 18 15"><path d="M18 1.8c-.7.3-1.4.5-2.1.6.8-.5 1.3-1.2 1.6-2-.7.4-1.5.7-2.3.9C14.5.5 13.5 0 12.3 0c-2.2 0-3.9 1.8-3.9 4 0 .3 0 .6.1.9C5.6 4.7 3 3.1 1.2.7c-.3.6-.5 1.2-.5 1.9 0 1.4.7 2.6 1.7 3.3-.6 0-1.2-.2-1.7-.5v.1c0 1.9 1.4 3.5 3.2 3.9-.3.1-.7.1-1.1.1-.3 0-.5 0-.8-.1.5 1.6 2 2.8 3.8 2.8-1.4 1.1-3.2 1.8-5.1 1.8H0c1.8 1.2 4 1.8 6.3 1.8 7.5 0 11.7-6.3 11.7-11.7V3.5c.8-.6 1.5-1.3 2-2.1z"/></svg>
+                </a>
+                <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(postUrl)}&title=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" class="qodef-share-icon" aria-label="Share on LinkedIn">
+                  <svg width="16" height="16" viewBox="0 0 16 16"><path d="M3.6 16H.3V5.3h3.3V16zM1.9 3.9C.9 3.9 0 3 0 1.9S.9 0 1.9 0s1.9.9 1.9 1.9S3 3.9 1.9 3.9zM16 16h-3.3v-5.2c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V16H5.7V5.3h3.2v1.5c.4-.8 1.5-1.7 3.1-1.7 3.3 0 3.9 2.2 3.9 5V16z"/></svg>
+                </a>
+                <a href={`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(postUrl)}&media=${encodeURIComponent(heroUrl)}&description=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" class="qodef-share-icon" aria-label="Share on Pinterest">
+                  <svg width="14" height="18" viewBox="0 0 14 18"><path d="M7 0C3.1 0 0 3.1 0 7c0 2.8 1.6 5.2 4 6.3 0-.6 0-1.2.2-1.8l1-4.3s-.3-.5-.3-1.2c0-1.2.7-2 1.5-2 .7 0 1.1.5 1.1 1.2 0 .7-.5 1.8-.7 2.8-.2.8.4 1.5 1.3 1.5 1.5 0 2.5-1.9 2.5-4.2 0-1.7-1.2-3-3.3-3-2.4 0-3.9 1.8-3.9 3.8 0 .7.2 1.2.5 1.5.1.2.2.2.1.4l-.2.6c0 .2-.2.3-.4.2-1.1-.4-1.6-1.6-1.6-2.9 0-2.2 1.8-4.7 5.5-4.7 2.9 0 4.8 2.1 4.8 4.4 0 3-1.7 5.3-4.1 5.3-.8 0-1.6-.4-1.8-.9l-.5 2c-.2.7-.6 1.3-1 1.9C5.6 18 6.3 18 7 18c3.9 0 7-3.1 7-7S10.9 0 7 0z"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="qodef-author-info">
+              <div class="qodef-author-content">
+                <h4 class="qodef-author-heading">
+                  <span class="qodef-author-label">The author</span>
+                  <span class="qodef-author-name">{post.author}</span>
+                </h4>
+                <p class="qodef-author-desc">PlayerStall has been building custom wood sports lockers for collegiate and professional teams for over 30 years. Canadian-owned and operated since 1996, we offer a lifetime guarantee on all of our products.</p>
+              </div>
+            </div>
+
+            <nav class="qodef-post-nav" aria-label="Post navigation">
+              {prevEntry ? (
+                <a class="qodef-nav-link qodef-nav-prev" href={`/blog/${prevEntry.slug}`}>
+                  <svg width="26" height="51" viewBox="0 0 26 51"><polygon points="25,0 26,0 1,25.5 26,51 25,51 0,25.5"></polygon></svg>
+                  <span class="qodef-nav-label">Previous</span>
+                </a>
+              ) : <span class="qodef-nav-link qodef-nav-prev qodef-nav-empty"></span>}
+              {nextEntry ? (
+                <a class="qodef-nav-link qodef-nav-next" href={`/blog/${nextEntry.slug}`}>
+                  <span class="qodef-nav-label">Next</span>
+                  <svg width="26" height="51" viewBox="0 0 26 51"><polygon points="1,0 0,0 25,25.5 0,51 1,51 26,25.5"></polygon></svg>
+                </a>
+              ) : <span class="qodef-nav-link qodef-nav-next qodef-nav-empty"></span>}
+            </nav>
+
+            {relatedEntries.length > 0 ? (
+              <div class="qodef-related-posts">
+                <h3 class="qodef-related-title">Related posts</h3>
+                <div class="qodef-related-grid">
+                  {relatedEntries.map((rel) => {
+                    const relDate = rel.datePublished
+                      ? new Date(rel.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                      : '';
+                    const relHeroUrl = getBlogHeroUrl({ slug: rel.slug, heroImage: rel.heroImage, category: rel.category, tags: rel.tags });
+                    return (
+                      <a class="qodef-related-card" href={`/blog/${rel.slug}`}>
+                        <div class="qodef-related-card-img">
+                          <img src={relHeroUrl} alt={rel.title} loading="lazy" width="300" height="300" />
+                        </div>
+                        <div class="qodef-related-card-body">
+                          <span class="qodef-related-card-date">{relDate}</span>
+                          <h4 class="qodef-related-card-title">{rel.title}</h4>
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
             ) : null}
-            <p class="author-line">By {post.author}</p>
-          </footer>
-
-          <!-- Prev / Next (or Featured in empty slot) -->
-          <nav class="post-nav" aria-label="Post navigation">
-            {prevEntry ? (
-              <a class="post-nav-link prev" href={`/blog/${prevEntry.slug}`}>
-                <span class="post-nav-label">Previous</span>
-                <span class="post-nav-title">{prevEntry.title}</span>
-              </a>
-            ) : featuredPost ? (
-              <a class="post-nav-link post-nav-featured prev" href={`/blog/${featuredPost.slug}`}>
-                <span class="post-nav-label">Featured</span>
-                <div class="post-nav-featured-inner">
-                  <div class="post-nav-featured-image">
-                    <img src={getBlogHeroUrl({ slug: featuredPost.slug, heroImage: featuredPost.heroImage, category: featuredPost.category, tags: featuredPost.tags })} alt="" loading="lazy" />
-                  </div>
-                  <span class="post-nav-title">{featuredPost.title}</span>
-                </div>
-              </a>
-            ) : <span class="post-nav-link prev empty" />}
-            {nextEntry ? (
-              <a class="post-nav-link next" href={`/blog/${nextEntry.slug}`}>
-                <span class="post-nav-label">Next</span>
-                <span class="post-nav-title">{nextEntry.title}</span>
-              </a>
-            ) : featuredPost ? (
-              <a class="post-nav-link post-nav-featured next" href={`/blog/${featuredPost.slug}`}>
-                <span class="post-nav-label">Featured</span>
-                <div class="post-nav-featured-inner">
-                  <div class="post-nav-featured-image">
-                    <img src={getBlogHeroUrl({ slug: featuredPost.slug, heroImage: featuredPost.heroImage, category: featuredPost.category, tags: featuredPost.tags })} alt="" loading="lazy" />
-                  </div>
-                  <span class="post-nav-title">{featuredPost.title}</span>
-                </div>
-              </a>
-            ) : <span class="post-nav-link next empty" />}
-          </nav>
+          </div>
         </div>
 
-        <aside class="blog-sidebar" aria-label="About PlayerStall">
-          <div class="sidebar-about">
-            <h3 class="sidebar-title">About us</h3>
-            <p class="sidebar-text">PlayerStall has been building custom wood sports lockers for collegiate and professional teams for over 30 years. Canadian-owned and operated since 1996, we offer a lifetime guarantee and free design consultation.</p>
-            <a class="btn-primary sidebar-cta" href="/about">Learn more</a>
-            <a class="sidebar-link" href="/contact">Get free consultation</a>
+        <aside class="qodef-page-sidebar">
+          <div class="qodef-widget qodef-widget-about">
+            <h4 class="qodef-widget-title">about us</h4>
+            <p>PlayerStall has been building custom wood sports lockers for collegiate and professional teams for over 30 years. Canadian-owned and operated since 1996, we offer a lifetime guarantee and free design consultation.</p>
           </div>
+
+          <div class="qodef-widget qodef-widget-search">
+            <form class="qodef-search-form" action="/blog" method="get">
+              <input type="search" class="qodef-search-field" placeholder="Search" name="q" />
+              <button type="submit" class="qodef-search-btn" aria-label="Search">
+                <svg width="15" height="15" viewBox="0 0 15 15"><path d="M11.5,10.63c0.96-1.17,1.49-2.63,1.49-4.14C12.99,2.91,10.08,0,6.49,0S0,2.91,0,6.49c0,3.58,2.91,6.49,6.49,6.49c1.51,0,2.97-0.53,4.14-1.49l3.42,3.42L14.13,15L15,14.13L11.5,10.63z M6.49,11.76c-2.91,0-5.27-2.36-5.27-5.27s2.36-5.27,5.27-5.27s5.27,2.36,5.27,5.27S9.4,11.76,6.49,11.76z"></path></svg>
+              </button>
+            </form>
+          </div>
+
           {sidebarCategories.length > 0 ? (
-            <div class="sidebar-categories">
-              <h3 class="sidebar-title">Categories</h3>
-              <ul class="sidebar-category-list">
+            <div class="qodef-widget qodef-widget-categories">
+              <h4 class="qodef-widget-title">Categories</h4>
+              <ul>
                 {sidebarCategories.map((cat) => (
-                  <li><a href={`/categories/${cat.slug}`} class="sidebar-category-link">{cat.name}</a></li>
+                  <li><a href={`/categories/${cat.slug}`}>{cat.name}</a></li>
                 ))}
               </ul>
             </div>
           ) : null}
+
           {sidebarLatestPosts.length > 0 ? (
-            <div class="sidebar-latest">
-              <h3 class="sidebar-title">Latest posts</h3>
-              <ul class="sidebar-latest-list">
-                {sidebarLatestPosts.map((post) => {
-                  const postDate = post.datePublished
-                    ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+            <div class="qodef-widget qodef-widget-latest">
+              <h4 class="qodef-widget-title">latest posts</h4>
+              <div class="qodef-latest-list">
+                {sidebarLatestPosts.map((lp) => {
+                  const lpDate = lp.datePublished
+                    ? new Date(lp.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
                     : '';
-                  const postDateUpper = postDate.toUpperCase();
-                  const postHeroUrl = getBlogHeroUrl({ slug: post.slug, heroImage: post.heroImage, category: post.category, tags: post.tags });
+                  const lpHeroUrl = getBlogHeroUrl({ slug: lp.slug, heroImage: lp.heroImage, category: lp.category, tags: lp.tags });
                   return (
-                    <li class="sidebar-latest-item">
-                      <a href={`/blog/${post.slug}`} class="sidebar-latest-link">
-                        <div class="sidebar-latest-thumb">
-                          <img src={postHeroUrl} alt={post.title} loading="lazy" />
-                        </div>
-                        <div class="sidebar-latest-text">
-                          <span class="sidebar-latest-date">{postDateUpper}</span>
-                          <span class="sidebar-latest-title">{post.title}</span>
-                        </div>
-                      </a>
-                    </li>
+                    <a href={`/blog/${lp.slug}`} class="qodef-latest-item">
+                      <div class="qodef-latest-thumb">
+                        <img src={lpHeroUrl} alt={lp.title} loading="lazy" width="150" height="150" />
+                      </div>
+                      <div class="qodef-latest-text">
+                        <span class="qodef-latest-date">{lpDate}</span>
+                        <span class="qodef-latest-title">{lp.title}</span>
+                      </div>
+                    </a>
                   );
                 })}
-              </ul>
+              </div>
+            </div>
+          ) : null}
+
+          {allTags.length > 0 ? (
+            <div class="qodef-widget qodef-widget-tags">
+              <h4 class="qodef-widget-title">Tags</h4>
+              <div class="qodef-tag-cloud">
+                {allTags.map(tag => (
+                  <a href={`/tags/${slugify(tag)}`} class="qodef-tag-link">{tag.replace(/-/g, ' ')}</a>
+                ))}
+              </div>
             </div>
           ) : null}
         </aside>
       </div>
-    </section>
+    </div>
 
-    <!-- Related posts -->
-    {relatedEntries.length > 0 ? (
-      <section class="related-section">
-        <div class="container">
-          <h2 class="related-title">Related posts</h2>
-          <ul class="related-list">
-            {relatedEntries.map((rel) => {
-              const relDate = rel.datePublished
-                ? new Date(rel.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-                : '';
-              const relHeroUrl = getBlogHeroUrl({ slug: rel.slug, heroImage: rel.heroImage, category: rel.category, tags: rel.tags });
-              return (
-              <li>
-                <a class="related-card" href={`/blog/${rel.slug}`}>
-                  <div class="related-card-image">
-                    <img src={relHeroUrl} alt={rel.title} loading="lazy" />
-                  </div>
-                  <div class="related-card-body">
-                    <span class="related-card-date">{relDate}</span>
-                    <h3 class="related-card-title">{rel.title}</h3>
-                  </div>
-                </a>
-              </li>
-            )})}
-          </ul>
-        </div>
-      </section>
-    ) : null}
-
-    <!-- CTA -->
     <section class="cta-section">
-      <div class="container">
+      <div class="cta-container">
         <div class="cta-content">
           <h2>Ready for Custom Sports Lockers?</h2>
           <p>Get a free design consultation. 30+ years experience. Lifetime guarantee.</p>
-          <a class="btn-primary" href="/contact">Get Free Consultation</a>
+          <a class="cta-btn" href="/contact">Get Free Consultation</a>
         </div>
       </div>
     </section>
@@ -329,161 +334,768 @@ const heroAlt = post.heroImageAlt ?? post.title;
 </BaseLayout>
 
 <style>
-  :global(:root) {
-    --blog-bg: #f9f7f2;
-    --blog-border: #e3dfd7;
-    --blog-text: #0d0d0d;
-    --blog-text-muted: #4a4a4a;
-    --accent: #fe5900;
-    --white: #ffffff;
-    --blog-img-max-height: min(70vh, 600px);
-    --blog-img-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    --blog-img-border: 1px solid var(--blog-border);
-    --blog-img-radius: 0;
+  /* ── Page title / breadcrumb bar ── */
+  .qodef-page-title {
+    background: #1a1a1a;
+    padding: 120px 0 25px;
   }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-  .blog-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; align-items: start; }
-  .blog-main-col { min-width: 0; }
-  .blog-sidebar { padding-bottom: 3rem; }
-  .sidebar-about { padding: 1.5rem; border: 1px solid var(--blog-border); border-radius: 0; background: var(--white); }
-  .sidebar-title { font-family: 'Oswald', sans-serif; font-size: 1.25rem; font-weight: 600; margin: 0 0 1rem; color: var(--blog-text); text-transform: uppercase; letter-spacing: 0.04em; }
-  .sidebar-text { font-size: 0.95rem; color: var(--blog-text-muted); line-height: 1.65; margin: 0 0 1.25rem; }
-  .sidebar-cta { display: block; width: 100%; max-width: 100%; box-sizing: border-box; margin-bottom: 0.75rem; border-radius: 0; text-align: center; background: #000; color: #fff; border: 1px solid #000; }
-  .sidebar-cta:hover { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
-  .sidebar-link { display: block; text-align: center; font-size: 0.9rem; font-weight: 600; color: var(--accent); text-decoration: none; }
-  .sidebar-link:hover { text-decoration: underline; }
 
-  .sidebar-categories { margin-top: 1.5rem; margin-bottom: 0.5rem; padding: 1.5rem; border: 1px solid var(--blog-border); border-radius: 0; background: var(--white); }
-  .sidebar-categories .sidebar-title { margin-bottom: 0.75rem; }
-  .sidebar-category-list { list-style: none; margin: 0; padding: 0; }
-  .sidebar-category-list li { margin-bottom: 0.5rem; }
-  .sidebar-category-list li:last-child { margin-bottom: 0; }
-  .sidebar-category-link { display: block; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--blog-text); text-decoration: none; }
-  .sidebar-category-link:hover { color: var(--accent); text-decoration: underline; }
+  .qodef-page-title-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 
-  .sidebar-latest { margin-top: 1.5rem; margin-bottom: 2rem; padding: 1.5rem; border: 1px solid var(--blog-border); border-radius: 0; background: var(--white); }
-  .sidebar-latest .sidebar-title { margin-bottom: 0.75rem; }
-  .sidebar-latest-list { list-style: none; margin: 0; padding: 0; }
-  .sidebar-latest-item { margin-bottom: 1rem; }
-  .sidebar-latest-item:last-child { margin-bottom: 0; }
-  .sidebar-latest-link { display: flex; gap: 0.75rem; align-items: flex-start; text-decoration: none; color: inherit; }
-  .sidebar-latest-link:hover .sidebar-latest-title { color: var(--accent); }
-  .sidebar-latest-thumb { flex-shrink: 0; width: 70px; height: 70px; overflow: hidden; background: #f0f0f0; }
-  .sidebar-latest-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
-  .sidebar-latest-text { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
-  .sidebar-latest-date { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--blog-text-muted); }
-  .sidebar-latest-title { font-family: 'Oswald', sans-serif; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--blog-text); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .qodef-breadcrumbs {
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
 
-  .post-hero { position: relative; min-height: 380px; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 0 4rem; overflow: hidden; }
-  .post-hero-bg { position: absolute; inset: 0; z-index: 0; }
-  .post-hero-image { width: 100%; height: 100%; object-fit: cover; object-position: center center; }
-  .post-hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.35) 50%, transparent 100%); }
-  .post-hero-content { position: relative; z-index: 2; text-align: center; }
-  .breadcrumb-wrap { padding: 1rem 0; background: var(--white); border-bottom: 1px solid var(--blog-border); }
-  .breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; margin: 0; padding: 0; list-style: none; font-size: 0.9rem; color: var(--blog-text-muted); }
-  .breadcrumb li:not(:last-child)::after { content: '/'; margin-left: 0.35rem; color: #999; }
-  .breadcrumb a { color: var(--accent); text-decoration: none; }
-  .breadcrumb a:hover { text-decoration: underline; }
-  .breadcrumb li[aria-current="page"] { color: var(--blog-text); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .article-meta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.75rem; }
-  .blog-category { color: var(--accent); text-decoration: none; }
-  .blog-category:hover { text-decoration: underline; }
-  .blog-date { color: rgba(255,255,255,0.9); text-decoration: none; }
-  .post-title { font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 700; margin: 0 0 1rem; line-height: 1.2; color: var(--white); }
-  .lede { max-width: 720px; margin: 0 auto; font-size: 1.15rem; color: rgba(255,255,255,0.9); line-height: 1.7; }
+  .qodef-breadcrumbs a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
 
-  .blog-section { padding: 3rem 0 4rem; background: var(--white); }
-  .blog-content { background: var(--white); border: 1px solid var(--blog-border); border-radius: 0; padding: 2.5rem 3rem; }
-  .blog-content :global(h2) { font-family: 'Oswald', sans-serif; margin-top: 2.25rem; margin-bottom: 1rem; font-size: 1.75rem; color: var(--blog-text); }
-  .blog-content :global(h2:first-of-type) { margin-top: 0; }
-  .blog-content :global(h3), .blog-content :global(h4) { margin-top: 1.75rem; margin-bottom: 0.6rem; font-size: 1.25rem; color: var(--blog-text); }
-  .blog-content :global(p), .blog-content :global(ul) { color: var(--blog-text-muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
-  .blog-content :global(ul) { padding-left: 1.5rem; margin: 1.5rem 0; }
-  .blog-content :global(.pull-quote) { margin: 2rem 0; }
-  /* Override generic .blog-content p so quote text keeps Oswald, large size, bold (generic p would force 1.05rem body style) */
-  .blog-content :global(.pull-quote p) {
+  .qodef-breadcrumbs a:hover {
+    color: #fe5900;
+  }
+
+  .qodef-breadcrumbs-sep {
+    display: inline-block;
+    width: 8px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.35);
+    margin: 0 10px;
+    vertical-align: middle;
+  }
+
+  .qodef-breadcrumbs-current {
+    color: #ffffff;
+    max-width: 280px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+
+  /* ── Main grid ── */
+  .qodef-page-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 60px 20px 80px;
+  }
+
+  .qodef-grid-inner {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .qodef-page-content {
+    min-width: 0;
+  }
+
+  /* ── Single post ── */
+  .qodef-single-post {
+    /* No extra wrapper needed */
+  }
+
+  .qodef-e-media {
+    margin-bottom: 24px;
+  }
+
+  .qodef-e-media img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+  }
+
+  .qodef-e-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .qodef-info-top {
+    margin-bottom: 14px;
+  }
+
+  .qodef-e-info-category {
+    color: #fe5900;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .qodef-e-info-category:hover {
+    color: #e04d00;
+  }
+
+  .qodef-e-info-date {
+    color: #8c8c8c;
+  }
+
+  .qodef-e-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 28px;
+    color: #0d0d0d;
+  }
+
+  /* ── Article body ── */
+  .qodef-e-text {
+    margin-bottom: 30px;
+  }
+
+  .qodef-e-text :global(h2) {
+    font-family: 'Oswald', sans-serif;
+    margin-top: 2.25rem;
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    color: #0d0d0d;
+  }
+
+  .qodef-e-text :global(h2:first-of-type) {
+    margin-top: 0;
+  }
+
+  .qodef-e-text :global(h3),
+  .qodef-e-text :global(h4) {
+    margin-top: 1.75rem;
+    margin-bottom: 0.6rem;
+    font-size: 1.25rem;
+    color: #0d0d0d;
+  }
+
+  .qodef-e-text :global(p),
+  .qodef-e-text :global(ul) {
+    color: #4a4a4a;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .qodef-e-text :global(ul) {
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .qodef-e-text :global(blockquote) {
+    border-left: 3px solid #fe5900;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    background: #fafafa;
+  }
+
+  .qodef-e-text :global(blockquote h4) {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #0d0d0d;
+    margin: 0 0 0.25rem;
+    line-height: 1.4;
+  }
+
+  .qodef-e-text :global(.pull-quote) {
+    margin: 2rem 0;
+  }
+
+  .qodef-e-text :global(.pull-quote p) {
     font-family: 'Oswald', sans-serif;
     font-size: 1.7rem;
     font-weight: 600;
     line-height: 1.5;
-    color: var(--blog-text);
+    color: #0d0d0d;
     margin: 0 0 0.75rem;
   }
-  .blog-content :global(.pull-quote p:last-of-type) { margin-bottom: 0.5rem; }
-  .blog-content :global(.pull-quote cite) { color: var(--blog-text-muted); }
-  .blog-content :global(a) { color: var(--accent); text-decoration: none; }
-  .blog-content :global(a:hover) { text-decoration: underline; }
-  .blog-content :global(img) {
+
+  .qodef-e-text :global(.pull-quote p:last-of-type) {
+    margin-bottom: 0.5rem;
+  }
+
+  .qodef-e-text :global(.pull-quote cite) {
+    color: #4a4a4a;
+  }
+
+  .qodef-e-text :global(a) {
+    color: #fe5900;
+    text-decoration: none;
+  }
+
+  .qodef-e-text :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  .qodef-e-text :global(img) {
     max-width: 100%;
-    max-height: var(--blog-img-max-height);
+    max-height: min(70vh, 600px);
     width: auto;
     height: auto;
     object-fit: contain;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: var(--blog-img-shadow);
-    border: var(--blog-img-border);
-    border-radius: var(--blog-img-radius);
   }
-  .blog-content :global(figure) {
+
+  .qodef-e-text :global(figure) {
     margin: 1.5rem 0;
     text-align: center;
   }
-  .blog-content :global(figcaption) {
+
+  .qodef-e-text :global(figcaption) {
     margin-top: 0.5rem;
     font-size: 0.9rem;
-    color: var(--blog-text-muted);
+    color: #4a4a4a;
     text-align: center;
   }
 
-  .post-footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--blog-border); }
-  .blog-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
-  .blog-tag { display: inline-block; padding: 0.25rem 0.6rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); background: rgba(254, 89, 0, 0.12); border-radius: 6px; text-decoration: none; transition: background 0.2s, color 0.2s; }
-  .blog-tag:hover { background: rgba(254, 89, 0, 0.22); color: var(--accent); }
-  .author-line { margin: 0; font-size: 0.95rem; color: var(--blog-text-muted); }
+  /* ── Bottom info (tags + share) ── */
+  .qodef-info-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 20px 0;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 0;
+  }
 
-  .post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--blog-border); }
-  .post-nav-link { display: block; padding: 1rem; background: var(--white); border: 1px solid var(--blog-border); border-radius: 0; text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s; }
-  .post-nav-link:hover { border-color: var(--accent); box-shadow: 0 4px 12px rgba(254, 89, 0, 0.12); }
-  .post-nav-link.empty { background: transparent; border-color: transparent; pointer-events: none; }
-  .post-nav-link.next { text-align: right; }
-  .post-nav-link.next.post-nav-featured .post-nav-featured-inner { flex-direction: row-reverse; }
-  .post-nav-label { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.25rem; }
-  .post-nav-title { font-weight: 600; color: var(--blog-text); line-height: 1.3; }
-  .post-nav-link .post-nav-title { font-size: 1rem; }
-  .post-nav-featured { display: block; text-align: left; overflow: hidden; }
-  .post-nav-featured .post-nav-featured-inner { display: flex; align-items: center; gap: 1rem; }
-  .post-nav-featured .post-nav-featured-image { flex-shrink: 0; width: 80px; height: 56px; overflow: hidden; background: #f0f0f0; }
-  .post-nav-featured .post-nav-featured-image img { width: 100%; height: 100%; object-fit: cover; }
-  .post-nav-featured .post-nav-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .qodef-info-bottom-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-  .related-section { padding: 3rem 0; background: var(--white); border-top: 1px solid var(--blog-border); }
-  .related-title { font-family: 'Oswald', sans-serif; font-size: 1.75rem; margin: 0 0 1.5rem; color: var(--blog-text); }
-  .related-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .related-card { display: block; background: var(--blog-bg); border: 1px solid var(--blog-border); border-radius: 0; text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s; overflow: hidden; }
-  .related-card:hover { border-color: var(--accent); box-shadow: 0 6px 16px rgba(254, 89, 0, 0.1); }
-  .related-card:hover .related-card-image img { transform: scale(1.04); }
-  .related-card-image { aspect-ratio: 16 / 10; overflow: hidden; background: #f0f0f0; }
-  .related-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s; }
-  .related-card-body { padding: 1.25rem; }
-  .related-card-date { font-size: 0.8rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; display: block; }
-  .related-card-title { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 600; margin: 0.5rem 0 0; color: var(--blog-text); line-height: 1.35; }
+  .qodef-e-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
 
-  .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2rem; border-radius: 0; font-weight: 600; text-decoration: none; background: var(--accent); color: var(--white); letter-spacing: 0.04em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-  .sidebar-about .sidebar-cta { background: #000 !important; color: #fff; border: 1px solid #000; }
-  .sidebar-about .sidebar-cta:hover { background: #1a1a1a !important; border-color: #1a1a1a; color: #fff; }
-  .cta-section { background: #121212; color: #fff; padding: 4rem 0; }
-  .cta-content { text-align: center; background: #1f1f1f; padding: 3rem; border-radius: 0; }
-  .cta-content h2 { margin-top: 0; font-size: 2.25rem; color: #fff; }
-  .cta-content p { color: #d8d8d8; margin-bottom: 2rem; font-size: 1.1rem; }
+  .qodef-tag {
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #666;
+    text-decoration: none;
+    padding: 5px 12px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s;
+    text-transform: capitalize;
+  }
+
+  .qodef-tag:hover {
+    color: #fe5900;
+    border-color: #fe5900;
+  }
+
+  .qodef-info-bottom-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .qodef-share-label {
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #0d0d0d;
+  }
+
+  .qodef-share-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0d0d0d;
+    transition: color 0.2s;
+  }
+
+  .qodef-share-icon svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  .qodef-share-icon:hover {
+    color: #fe5900;
+  }
+
+  /* ── Author info ── */
+  .qodef-author-info {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 30px 0;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .qodef-author-content {
+    flex: 1;
+  }
+
+  .qodef-author-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0 0 10px;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  .qodef-author-label {
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #8c8c8c;
+  }
+
+  .qodef-author-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0d0d0d;
+  }
+
+  .qodef-author-desc {
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  /* ── Post navigation ── */
+  .qodef-post-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .qodef-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .qodef-nav-link svg {
+    width: 12px;
+    height: 24px;
+    fill: #0d0d0d;
+    transition: fill 0.3s;
+    flex-shrink: 0;
+  }
+
+  .qodef-nav-link:hover svg {
+    fill: #fe5900;
+  }
+
+  .qodef-nav-label {
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0d0d0d;
+    transition: color 0.3s;
+  }
+
+  .qodef-nav-link:hover .qodef-nav-label {
+    color: #fe5900;
+  }
+
+  .qodef-nav-empty {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* ── Related posts ── */
+  .qodef-related-posts {
+    padding: 40px 0 0;
+  }
+
+  .qodef-related-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #0d0d0d;
+    margin: 0 0 24px;
+  }
+
+  .qodef-related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .qodef-related-card {
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+  }
+
+  .qodef-related-card:hover .qodef-related-card-img img {
+    transform: scale(1.04);
+  }
+
+  .qodef-related-card-img {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f0f0f0;
+  }
+
+  .qodef-related-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s;
+  }
+
+  .qodef-related-card-body {
+    padding: 14px 0;
+  }
+
+  .qodef-related-card-date {
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 11px;
+    color: #8c8c8c;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .qodef-related-card-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #0d0d0d;
+    margin: 0;
+    line-height: 1.35;
+    transition: color 0.3s;
+  }
+
+  .qodef-related-card:hover .qodef-related-card-title {
+    color: #fe5900;
+  }
+
+  /* ── Sidebar ── */
+	.qodef-page-sidebar {
+		position: static;
+	}
+
+  .qodef-widget {
+    margin-bottom: 35px;
+  }
+
+  .qodef-widget:last-child {
+    margin-bottom: 0;
+  }
+
+  .qodef-widget-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    text-transform: lowercase;
+    letter-spacing: 0.04em;
+    color: #0d0d0d;
+    margin: 0 0 20px;
+  }
+
+  .qodef-widget-about p {
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .qodef-search-form {
+    display: flex;
+    border: 1px solid #e0e0e0;
+  }
+
+  .qodef-search-field {
+    flex: 1;
+    border: none;
+    padding: 10px 14px;
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 14px;
+    color: #0d0d0d;
+    outline: none;
+    background: transparent;
+  }
+
+  .qodef-search-field::placeholder {
+    color: #999;
+  }
+
+  .qodef-search-btn {
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0d0d0d;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .qodef-search-btn:hover {
+    background: #fe5900;
+  }
+
+  .qodef-search-btn svg {
+    fill: #ffffff;
+    width: 13px;
+    height: 13px;
+  }
+
+  .qodef-widget-categories ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .qodef-widget-categories li {
+    margin-bottom: 8px;
+  }
+
+  .qodef-widget-categories li:last-child {
+    margin-bottom: 0;
+  }
+
+  .qodef-widget-categories a {
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 14px;
+    color: #0d0d0d;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .qodef-widget-categories a:hover {
+    color: #fe5900;
+  }
+
+  .qodef-latest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .qodef-latest-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .qodef-latest-item:hover .qodef-latest-title {
+    color: #fe5900;
+  }
+
+  .qodef-latest-thumb {
+    flex-shrink: 0;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    background: #f0f0f0;
+  }
+
+  .qodef-latest-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .qodef-latest-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .qodef-latest-date {
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 11px;
+    color: #8c8c8c;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .qodef-latest-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0d0d0d;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .qodef-tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .qodef-tag-link {
+    display: inline-block;
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #666;
+    text-decoration: none;
+    padding: 5px 12px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s;
+    text-transform: capitalize;
+  }
+
+  .qodef-tag-link:hover {
+    color: #fe5900;
+    border-color: #fe5900;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 5rem 0;
+    background: #0d0d0d;
+    color: #fff;
+    text-align: center;
+  }
+
+  .cta-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .cta-content h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-content p {
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 20px;
+    color: #ccc;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 18px 50px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    background: #fe5900;
+    color: #ffffff;
+    border: 2px solid #fe5900;
+    transition: all 0.3s;
+  }
+
+  .cta-btn:hover {
+    background: #e04d00;
+    border-color: #e04d00;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .qodef-grid-inner {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+
+    .qodef-page-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .qodef-widget {
+      margin-bottom: 0;
+    }
+  }
 
   @media (max-width: 768px) {
-    .blog-layout { grid-template-columns: 1fr; }
-    .blog-sidebar { position: static; }
-    .blog-content { padding: 1.75rem 1.5rem; }
-    .related-list { grid-template-columns: 1fr; }
-    .post-nav { grid-template-columns: 1fr; }
+    .qodef-page-title {
+      padding-top: 100px;
+    }
+
+    .qodef-page-inner {
+      padding: 40px 20px 60px;
+    }
+
+    .qodef-e-title {
+      font-size: 28px;
+    }
+
+    .qodef-page-sidebar {
+      grid-template-columns: 1fr;
+    }
+
+    .qodef-related-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .qodef-post-nav {
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .cta-content h2 {
+      font-size: 36px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .qodef-e-title {
+      font-size: 24px;
+    }
+
+    .qodef-info-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 </style>

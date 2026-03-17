@@ -12,509 +12,610 @@ const posts = mdxPosts
 		return {
 			title: entry.data.title,
 			date: dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-			dateShort: dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'short' }),
-			monthKey: dateObj.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit' }),
 			category: entry.data.category || 'Blog',
 			summary: (entry.data.description || entry.data.title).slice(0, 200) + '…',
 			heroImage: getBlogHeroUrl({ slug: entry.slug, heroImage: entry.data.heroImage, category: entry.data.category, tags: entry.data.tags }),
 			url: `/blog/${entry.slug}`,
-			dateSort: dateObj.getTime()
+			dateSort: dateObj.getTime(),
+			tags: entry.data.tags || [],
 		};
 	})
 	.sort((a, b) => b.dateSort - a.dateSort);
 
-const recentPosts = posts.slice(0, 12);
+const categories = [...new Set(posts.map(p => p.category).filter(Boolean))].sort();
+const latestPosts = posts.slice(0, 4);
+const allTags = [...new Set(posts.flatMap(p => p.tags).filter(Boolean))].sort().slice(0, 20);
 
-const archivesByMonth = posts.reduce<{ monthKey: string; monthLabel: string; archiveSlug: string; posts: typeof posts }[]>((acc, post) => {
-	const key = post.monthKey;
-	const label = post.dateShort;
-	const [mm, yyyy] = key.split('/');
-	const archiveSlug = `${yyyy}-${mm}`;
-	const existing = acc.find((g) => g.monthKey === key);
-	if (existing) {
-		existing.posts.push(post);
-	} else {
-		acc.push({ monthKey: key, monthLabel: label, archiveSlug, posts: [post] });
-	}
-	return acc;
-}, []).sort((a, b) => b.archiveSlug.localeCompare(a.archiveSlug));
-
-const mosaicPosts = posts.slice(0, 9);
+const POSTS_PER_PAGE = 5;
+const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 ---
 
 <BaseLayout title="Blog - Sports Locker Insights & Tips | PlayerStall" description="Expert insights on sports lockers, locker room design, and athletic facility management. Tips from 30+ years of experience.">
-	<section class="blog-hero-section">
-		<div class="blog-hero-background">
-			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Blog" class="blog-hero-bg-image" width="1920" height="1080" loading="eager" fetchpriority="high" />
-		</div>
-		<div class="blog-hero-background-overlay"></div>
-		<div class="blog-hero-container">
-			<div class="blog-breadcrumbs">
+	<div class="qodef-page-title">
+		<div class="qodef-page-title-inner">
+			<div class="qodef-breadcrumbs">
 				<a href="/">Home</a>
-				<span>Blog</span>
+				<span class="qodef-breadcrumbs-sep"></span>
+				<span class="qodef-breadcrumbs-current">Blog</span>
 			</div>
-			<h1 class="blog-page-title">Blog</h1>
-			<div class="blog-background-text">blog</div>
 		</div>
-	</section>
+	</div>
 
-	<section class="blog-content-section" id="blog-posts">
-		<div class="blog-container">
-			<main class="blog-main">
-				<div class="blog-mosaic">
-					{mosaicPosts.map((post, index) => (
-						<article class={index === 0 ? 'blog-card featured' : 'blog-card'}>
-							<div class="blog-card-meta">
-								<a href={`/categories/${slugify(post.category)}`} class="blog-card-category">{post.category}</a>
-								<span class="blog-card-date">{post.date}</span>
+	<div class="qodef-page-inner" id="blog-posts">
+		<div class="qodef-grid-inner">
+			<main class="qodef-page-content">
+				<div class="qodef-blog-list">
+					{posts.map((post, index) => (
+						<article class="qodef-blog-item" data-index={index}>
+							<div class="qodef-e-media">
+								<a href={post.url} class="qodef-e-media-link">
+									<img src={post.heroImage} alt={post.title} loading={index < 5 ? 'eager' : 'lazy'} width="900" height="558" />
+								</a>
 							</div>
-							<a href={post.url ?? '#'} class="blog-card-link">
-								<div class="blog-card-image">
-									<img src={post.heroImage} alt={post.title} loading="lazy" />
+							<div class="qodef-e-content">
+								<div class="qodef-e-info qodef-info-top">
+									<a href={`/categories/${slugify(post.category)}`} class="qodef-e-info-category">{post.category}</a>
+									<time class="qodef-e-info-date">{post.date}</time>
 								</div>
-								<div class="blog-card-body">
-									<h2 class="blog-card-title">{post.title}</h2>
-									<p class="blog-card-excerpt">{post.summary}</p>
-									<span class="blog-card-cta">Read More</span>
+								<h3 class="qodef-e-title">
+									<a href={post.url}>{post.title}</a>
+								</h3>
+								<p class="qodef-e-excerpt">{post.summary}</p>
+								<div class="qodef-e-info qodef-info-bottom">
+									<a href={post.url} class="qodef-e-read-more">Read More</a>
 								</div>
-							</a>
+							</div>
 						</article>
 					))}
 				</div>
+
+				<nav class="qodef-pagination" id="pagination" aria-label="Blog pagination">
+					<button class="qodef-pagination-arrow qodef-prev" data-dir="prev" aria-label="Previous page" style="display:none;">
+						<svg width="26" height="51" viewBox="0 0 26 51"><polygon points="25,0 26,0 1,25.5 26,51 25,51 0,25.5"></polygon></svg>
+					</button>
+					{Array.from({ length: totalPages }, (_, i) => (
+						<button
+							class={`qodef-page-num ${i === 0 ? 'qodef-active' : ''}`}
+							data-page={i}
+							aria-label={`Page ${i + 1}`}
+						>
+							{String(i + 1).padStart(2, '0')}
+						</button>
+					))}
+					<button class="qodef-pagination-arrow qodef-next" data-dir="next" aria-label="Next page">
+						<svg width="26" height="51" viewBox="0 0 26 51"><polygon points="1,0 0,0 25,25.5 0,51 1,51 26,25.5"></polygon></svg>
+					</button>
+				</nav>
 			</main>
 
-			<aside class="blog-sidebar">
-				<nav class="sidebar-block sidebar-recent" aria-label="Recent posts">
-					<h3 class="sidebar-title">Recent Posts</h3>
-					<ol class="recent-list">
-						{recentPosts.map((post) => (
-							<li>
-								<a href={post.url ?? '#'}>{post.title}</a>
-							</li>
-						))}
-					</ol>
-				</nav>
+			<aside class="qodef-page-sidebar">
+				<div class="qodef-widget qodef-widget-about">
+					<h4 class="qodef-widget-title">about us</h4>
+					<p>PlayerStall has been building custom wood sports lockers for collegiate and professional teams for over 30 years. Canadian-owned and operated since 1996, we offer a lifetime guarantee and free design consultation.</p>
+				</div>
 
-				<nav class="sidebar-block sidebar-archives" aria-label="Archives by date">
-					<h3 class="sidebar-title">Archives</h3>
-					<ul class="archives-list">
-						{archivesByMonth.map((group) => (
-							<li>
-								<a href={`/blog/archives/${group.archiveSlug}`} class="archive-link">
-									{group.monthLabel} ({group.posts.length})
-								</a>
-							</li>
+				<div class="qodef-widget qodef-widget-search">
+					<form class="qodef-search-form" action="/blog" method="get">
+						<input type="search" class="qodef-search-field" placeholder="Search" name="q" />
+						<button type="submit" class="qodef-search-btn" aria-label="Search">
+							<svg width="15" height="15" viewBox="0 0 15 15"><path d="M11.5,10.63c0.96-1.17,1.49-2.63,1.49-4.14C12.99,2.91,10.08,0,6.49,0S0,2.91,0,6.49c0,3.58,2.91,6.49,6.49,6.49c1.51,0,2.97-0.53,4.14-1.49l3.42,3.42L14.13,15L15,14.13L11.5,10.63z M6.49,11.76c-2.91,0-5.27-2.36-5.27-5.27s2.36-5.27,5.27-5.27s5.27,2.36,5.27,5.27S9.4,11.76,6.49,11.76z"></path></svg>
+						</button>
+					</form>
+				</div>
+
+				<div class="qodef-widget qodef-widget-categories">
+					<h4 class="qodef-widget-title">Categories</h4>
+					<ul>
+						{categories.map(cat => (
+							<li><a href={`/categories/${slugify(cat)}`}>{cat}</a></li>
 						))}
 					</ul>
-				</nav>
+				</div>
+
+				<div class="qodef-widget qodef-widget-latest">
+					<h4 class="qodef-widget-title">latest posts</h4>
+					<div class="qodef-latest-list">
+						{latestPosts.map(post => (
+							<a href={post.url} class="qodef-latest-item">
+								<div class="qodef-latest-thumb">
+									<img src={post.heroImage} alt={post.title} loading="lazy" width="150" height="150" />
+								</div>
+								<div class="qodef-latest-text">
+									<span class="qodef-latest-date">{post.date}</span>
+									<span class="qodef-latest-title">{post.title}</span>
+								</div>
+							</a>
+						))}
+					</div>
+				</div>
+
+				<div class="qodef-widget qodef-widget-tags">
+					<h4 class="qodef-widget-title">Tags</h4>
+					<div class="qodef-tag-cloud">
+						{allTags.map(tag => (
+							<a href={`/tags/${slugify(tag)}`} class="qodef-tag-link">{tag.replace(/-/g, ' ')}</a>
+						))}
+					</div>
+				</div>
 			</aside>
 		</div>
-	</section>
+	</div>
 
 	<section class="cta-section">
-		<div class="container">
+		<div class="cta-container">
 			<div class="cta-content">
 				<h2>Have Questions About Your Locker Room Project?</h2>
 				<p>Get expert advice from 30+ years of experience. Free custom design consultation.</p>
-				<a href="/contact" class="btn btn-primary btn-large">Get Free Consultation</a>
+				<a href="/contact" class="cta-btn">Get Free Consultation</a>
 			</div>
 		</div>
 	</section>
 </BaseLayout>
 
 <style>
-	/* Hero (match shop.astro) */
-	:global(body) {
-		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
-		background: #ffffff;
-		color: #0d0d0d;
-		margin: 0;
-		padding: 0;
-		line-height: 1.6;
+	/* ── Page title / breadcrumb bar ── */
+	.qodef-page-title {
+		background: #1a1a1a;
+		padding: 120px 0 25px;
 	}
 
-	.blog-container,
-	.cta-section .container {
+	.qodef-page-title-inner {
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
 	}
 
-	.blog-hero-section {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-		padding: 0 0 80px;
-		overflow: hidden;
-		min-height: 320px;
-		width: 100%;
-		max-width: none;
-		margin: 0;
-	}
-
-	.blog-hero-background {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 0;
-		overflow: hidden;
-	}
-
-	.blog-hero-bg-image {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: center center;
-		filter: grayscale(100%);
-	}
-
-	.blog-hero-background-overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: rgba(0, 0, 0, 0.2);
-		z-index: 1;
-	}
-
-	.blog-hero-container {
-		position: relative;
-		z-index: 10;
-		max-width: 1300px;
-		margin: 0 auto;
-		padding: 0 20px;
-		text-align: left;
-		width: 100%;
-	}
-
-	.blog-breadcrumbs {
+	.qodef-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		color: rgba(255, 255, 255, 0.85);
+		font-size: 13px;
+		color: rgba(255, 255, 255, 0.7);
 		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		margin-bottom: 30px;
+		letter-spacing: 0.12em;
 	}
 
-	.blog-breadcrumbs a {
-		color: rgba(255, 255, 255, 0.85);
+	.qodef-breadcrumbs a {
+		color: rgba(255, 255, 255, 0.7);
 		text-decoration: none;
 		transition: color 0.3s;
 	}
 
-	.blog-breadcrumbs a:hover {
+	.qodef-breadcrumbs a:hover {
 		color: #fe5900;
 	}
 
-	.blog-breadcrumbs span {
-		margin-left: 10px;
+	.qodef-breadcrumbs-sep {
+		display: inline-block;
+		width: 8px;
+		height: 1px;
+		background: rgba(255, 255, 255, 0.35);
+		margin: 0 10px;
+		vertical-align: middle;
+	}
+
+	.qodef-breadcrumbs-current {
 		color: #ffffff;
 	}
 
-	.blog-page-title {
-		font-family: 'Oswald', sans-serif;
-		font-size: 52px;
-		font-weight: 600;
-		color: #ffffff;
-		text-transform: uppercase;
-		margin: 0;
-		line-height: 1.1;
-		position: relative;
-		z-index: 10;
+	/* ── Main grid ── */
+	.qodef-page-inner {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 60px 20px 80px;
 	}
 
-	.blog-background-text {
-		display: none;
-	}
-
-	/* Two-column layout: main (2/3) + sidebar (1/3) */
-	.blog-content-section {
-		background: #ffffff;
-		padding: 48px 0 64px;
-	}
-
-	.blog-container {
+	.qodef-grid-inner {
 		display: grid;
-		grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
-		gap: 48px;
+		grid-template-columns: 1fr 300px;
+		gap: 60px;
 		align-items: start;
 	}
 
-	.blog-main {
+	.qodef-page-content {
 		min-width: 0;
 	}
 
-	/* Mosaic: featured card spans 2x2, rest in grid */
-	.blog-mosaic {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 28px;
-		grid-auto-rows: minmax(220px, auto);
-	}
-
-	.blog-card.featured {
-		grid-column: span 2;
-		grid-row: span 2;
-	}
-
-	.blog-card.featured .blog-card-image {
-		aspect-ratio: 16 / 9;
-	}
-
-	.blog-card.featured .blog-card-body {
-		padding: 24px;
-	}
-
-	.blog-card.featured .blog-card-title {
-		font-size: 24px;
-	}
-
-	.blog-card {
-		background: #fff;
-		border: 1px solid #e8e8e8;
-		border-radius: 6px;
-		overflow: hidden;
-		transition: box-shadow 0.25s, border-color 0.25s;
-	}
-
-	.blog-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-	}
-
-	.blog-card-link {
-		display: block;
-		text-decoration: none;
-		color: inherit;
-		height: 100%;
+	/* ── Blog list ── */
+	.qodef-blog-list {
 		display: flex;
 		flex-direction: column;
 	}
 
-	.blog-card-image {
-		aspect-ratio: 16 / 10;
+	.qodef-blog-item {
+		padding-bottom: 45px;
+		margin-bottom: 45px;
+		border-bottom: 1px solid #e8e8e8;
+	}
+
+	.qodef-blog-item:last-child {
+		border-bottom: none;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+
+	.qodef-e-media {
+		margin-bottom: 22px;
 		overflow: hidden;
-		background: #f0f0f0;
 	}
 
-	.blog-card-image img {
+	.qodef-e-media-link {
+		display: block;
+	}
+
+	.qodef-e-media img {
 		width: 100%;
-		height: 100%;
+		height: auto;
+		aspect-ratio: 16 / 10;
 		object-fit: cover;
-		transition: transform 0.35s;
+		display: block;
+		transition: transform 0.45s ease;
 	}
 
-	.blog-card:hover .blog-card-image img {
+	.qodef-e-media-link:hover img {
 		transform: scale(1.04);
 	}
 
-	.blog-card-body {
-		padding: 20px;
+	.qodef-e-content {
+		padding: 0;
+	}
+
+	.qodef-e-info {
 		display: flex;
-		flex-direction: column;
-		flex: 1;
-	}
-
-	.blog-card > .blog-card-meta {
-		padding: 12px 20px 0;
-	}
-
-	.blog-card.featured > .blog-card-meta {
-		padding: 12px 24px 0;
-	}
-
-	.blog-card-meta {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 12px;
-		margin-bottom: 10px;
+		align-items: center;
+		gap: 14px;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
 		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		color: #8c8c8c;
+		letter-spacing: 0.1em;
 	}
 
-	.blog-card-category {
+	.qodef-info-top {
+		margin-bottom: 14px;
+	}
+
+	.qodef-e-info-category {
 		color: #fe5900;
-		font-weight: 500;
+		font-weight: 600;
 		text-decoration: none;
 		transition: color 0.2s;
 	}
 
-	.blog-card-category:hover {
+	.qodef-e-info-category:hover {
 		color: #e04d00;
-		text-decoration: underline;
 	}
 
-	.blog-card-date {
+	.qodef-e-info-date {
 		color: #8c8c8c;
 	}
 
-	.blog-card-title {
+	.qodef-e-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 20px;
+		font-size: 30px;
 		font-weight: 600;
-		line-height: 1.35;
-		color: #0d0d0d;
-		margin: 0 0 10px;
-		transition: color 0.25s;
+		line-height: 1.3;
+		margin: 0 0 14px;
 	}
 
-	.blog-card:hover .blog-card-title {
+	.qodef-e-title a {
+		color: #0d0d0d;
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.qodef-e-title a:hover {
 		color: #fe5900;
 	}
 
-	.blog-card-excerpt {
+	.qodef-e-excerpt {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
+		font-size: 15px;
 		color: #666;
-		line-height: 1.55;
-		margin: 0 0 12px;
-		flex: 1;
+		line-height: 1.8;
+		margin: 0 0 20px;
 	}
 
-	.blog-card-cta {
+	.qodef-info-bottom {
+		margin-top: 0;
+	}
+
+	.qodef-e-read-more {
+		display: inline-block;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
 		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		font-weight: 500;
+		letter-spacing: 0.12em;
+		font-weight: 600;
 		color: #0d0d0d;
-		transition: color 0.25s;
+		text-decoration: none;
+		position: relative;
+		padding-bottom: 3px;
+		transition: color 0.3s;
 	}
 
-	.blog-card:hover .blog-card-cta {
+	.qodef-e-read-more::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		background: #0d0d0d;
+		transition: background 0.3s;
+	}
+
+	.qodef-e-read-more:hover {
 		color: #fe5900;
 	}
 
-	/* Sidebar */
-	.blog-sidebar {
-		position: sticky;
-		top: 100px;
+	.qodef-e-read-more:hover::after {
+		background: #fe5900;
+	}
+
+	/* ── Pagination ── */
+	.qodef-pagination {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		margin-top: 50px;
+		justify-content: flex-start;
+	}
+
+	.qodef-page-num {
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		width: 44px;
+		height: 44px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
+		color: #0d0d0d;
+		border: none;
+		cursor: pointer;
+		transition: color 0.3s;
+		letter-spacing: 0.03em;
+	}
+
+	.qodef-page-num:hover {
+		color: #fe5900;
+	}
+
+	.qodef-page-num.qodef-active {
+		color: #fe5900;
+	}
+
+	.qodef-pagination-arrow {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 44px;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0;
+	}
+
+	.qodef-pagination-arrow svg {
+		width: 10px;
+		height: 20px;
+		fill: #0d0d0d;
+		transition: fill 0.3s;
+	}
+
+	.qodef-pagination-arrow:hover svg {
+		fill: #fe5900;
+	}
+
+	.qodef-prev {
+		margin-right: 4px;
+	}
+
+	.qodef-next {
+		margin-left: 4px;
+	}
+
+	/* ── Sidebar ── */
+	.qodef-page-sidebar {
+		position: static;
+	}
+
+	.qodef-widget {
+		margin-bottom: 35px;
+	}
+
+	.qodef-widget:last-child {
+		margin-bottom: 0;
+	}
+
+	.qodef-widget-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 17px;
+		font-weight: 600;
+		text-transform: lowercase;
+		letter-spacing: 0.04em;
+		color: #0d0d0d;
+		margin: 0 0 20px;
+	}
+
+	/* About widget */
+	.qodef-widget-about p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #666;
+		line-height: 1.75;
+		margin: 0;
+	}
+
+	/* Search widget */
+	.qodef-search-form {
+		display: flex;
+		border: 1px solid #e0e0e0;
+	}
+
+	.qodef-search-field {
+		flex: 1;
+		border: none;
+		padding: 10px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		outline: none;
+		background: transparent;
+	}
+
+	.qodef-search-field::placeholder {
+		color: #999;
+	}
+
+	.qodef-search-btn {
+		width: 44px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #0d0d0d;
+		border: none;
+		cursor: pointer;
+		transition: background 0.3s;
+	}
+
+	.qodef-search-btn:hover {
+		background: #fe5900;
+	}
+
+	.qodef-search-btn svg {
+		fill: #ffffff;
+		width: 13px;
+		height: 13px;
+	}
+
+	/* Categories widget */
+	.qodef-widget-categories ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.qodef-widget-categories li {
+		margin-bottom: 8px;
+	}
+
+	.qodef-widget-categories li:last-child {
+		margin-bottom: 0;
+	}
+
+	.qodef-widget-categories a {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+
+	.qodef-widget-categories a:hover {
+		color: #fe5900;
+	}
+
+	/* Latest posts widget */
+	.qodef-latest-list {
 		display: flex;
 		flex-direction: column;
-		gap: 32px;
+		gap: 16px;
 	}
 
-	.sidebar-block {
-		background: #f8f8f8;
-		border: 1px solid #e8e8e8;
-		border-radius: 6px;
-		padding: 20px;
-	}
-
-	.sidebar-title {
-		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: #0d0d0d;
-		margin: 0 0 16px;
-		padding-bottom: 12px;
-		border-bottom: 2px solid #fe5900;
-	}
-
-	.recent-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		counter-reset: recent;
-	}
-
-	.recent-list li {
-		position: relative;
-		padding-left: 0;
-		margin-bottom: 10px;
-		font-size: 14px;
-		line-height: 1.4;
-	}
-
-	.recent-list li:last-child {
-		margin-bottom: 0;
-	}
-
-	.recent-list a {
-		color: #0d0d0d;
+	.qodef-latest-item {
+		display: flex;
+		gap: 12px;
+		align-items: flex-start;
 		text-decoration: none;
-		display: block;
-		padding: 6px 0;
-		border-bottom: 1px solid transparent;
-		transition: color 0.2s, border-color 0.2s;
+		color: inherit;
 	}
 
-	.recent-list a:hover {
+	.qodef-latest-item:hover .qodef-latest-title {
 		color: #fe5900;
-		border-bottom-color: #fe5900;
 	}
 
-	.archives-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
+	.qodef-latest-thumb {
+		flex-shrink: 0;
+		width: 70px;
+		height: 70px;
+		overflow: hidden;
+		background: #f0f0f0;
 	}
 
-	.archives-list li {
-		margin-bottom: 10px;
-		font-size: 14px;
-		line-height: 1.4;
+	.qodef-latest-thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
-	.archives-list li:last-child {
-		margin-bottom: 0;
+	.qodef-latest-text {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		min-width: 0;
 	}
 
-	.archive-link {
-		color: #0d0d0d;
-		text-decoration: none;
-		display: block;
-		padding: 6px 0;
-		border-bottom: 1px solid transparent;
-		transition: color 0.2s, border-color 0.2s;
+	.qodef-latest-date {
 		font-family: 'Yantramanav', sans-serif;
-	}
-
-	.archive-link:hover {
-		color: #fe5900;
-		border-bottom-color: #fe5900;
-	}
-
-	/* Responsive */
-
-	/* CTA */
-	.btn {
-		display: inline-block;
-		padding: 15px 40px;
-		text-decoration: none;
+		font-size: 11px;
+		color: #8c8c8c;
 		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.qodef-latest-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		color: #0d0d0d;
+		line-height: 1.3;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		transition: color 0.2s;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	/* Tags widget */
+	.qodef-tag-cloud {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.qodef-tag-link {
+		display: inline-block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
 		font-weight: 500;
-		letter-spacing: 0.1em;
-		font-size: 20px;
+		color: #666;
+		text-decoration: none;
+		padding: 5px 12px;
+		border: 1px solid #e0e0e0;
 		transition: all 0.3s;
-		font-family: 'Roboto', sans-serif;
+		text-transform: capitalize;
 	}
 
-	.btn-primary {
-		background: #fe5900;
-		color: #ffffff;
-		border: 2px solid #fe5900;
+	.qodef-tag-link:hover {
+		color: #fe5900;
+		border-color: #fe5900;
 	}
 
-	.btn-primary:hover {
-		background: #e04d00;
-		border-color: #e04d00;
-	}
-
+	/* ── CTA ── */
 	.cta-section {
 		padding: 5rem 0;
 		background: #0d0d0d;
 		color: #fff;
 		text-align: center;
+	}
+
+	.cta-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
 	}
 
 	.cta-content h2 {
@@ -537,47 +638,59 @@ const mosaicPosts = posts.slice(0, 9);
 		line-height: 1.8;
 	}
 
-	.btn-large {
+	.cta-btn {
+		display: inline-block;
 		padding: 18px 50px;
+		font-family: 'Roboto', sans-serif;
 		font-size: 18px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-decoration: none;
+		background: #fe5900;
+		color: #ffffff;
+		border: 2px solid #fe5900;
+		transition: all 0.3s;
 	}
 
+	.cta-btn:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+	}
+
+	/* ── Responsive ── */
 	@media (max-width: 1024px) {
-		.blog-container {
+		.qodef-grid-inner {
 			grid-template-columns: 1fr;
+			gap: 50px;
 		}
 
-		.blog-mosaic {
-			grid-template-columns: 1fr;
-		}
-
-		.blog-card.featured {
-			grid-column: span 1;
-			grid-row: span 1;
-		}
-
-		.blog-sidebar {
+		.qodef-page-sidebar {
 			position: static;
 			display: grid;
 			grid-template-columns: 1fr 1fr;
+			gap: 30px;
+		}
+
+		.qodef-widget {
+			margin-bottom: 0;
 		}
 	}
 
 	@media (max-width: 768px) {
-		.blog-hero-section {
-			min-height: 300px;
+		.qodef-page-title {
+			padding-top: 100px;
 		}
 
-		.blog-page-title {
-			font-size: 42px;
+		.qodef-page-inner {
+			padding: 40px 20px 60px;
 		}
 
-		.blog-mosaic {
-			grid-template-columns: 1fr;
-			gap: 24px;
+		.qodef-e-title {
+			font-size: 24px;
 		}
 
-		.blog-sidebar {
+		.qodef-page-sidebar {
 			grid-template-columns: 1fr;
 		}
 
@@ -587,8 +700,62 @@ const mosaicPosts = posts.slice(0, 9);
 	}
 
 	@media (max-width: 480px) {
-		.blog-page-title {
-			font-size: 32px;
+		.qodef-e-title {
+			font-size: 20px;
+		}
+
+		.qodef-pagination {
+			flex-wrap: wrap;
 		}
 	}
 </style>
+
+<script define:vars={{ POSTS_PER_PAGE }}>
+	document.addEventListener('DOMContentLoaded', () => {
+		const items = document.querySelectorAll('.qodef-blog-item');
+		const numBtns = document.querySelectorAll('.qodef-page-num');
+		const prevBtn = document.querySelector('.qodef-prev');
+		const nextBtn = document.querySelector('.qodef-next');
+		const totalPages = Math.ceil(items.length / POSTS_PER_PAGE);
+		let currentPage = 0;
+
+		function showPage(page) {
+			currentPage = page;
+			const start = page * POSTS_PER_PAGE;
+			const end = start + POSTS_PER_PAGE;
+
+			items.forEach((item, i) => {
+				item.style.display = i >= start && i < end ? '' : 'none';
+			});
+
+			numBtns.forEach(btn => {
+				btn.classList.toggle('qodef-active', Number(btn.dataset.page) === page);
+			});
+
+			if (prevBtn) prevBtn.style.display = page === 0 ? 'none' : '';
+			if (nextBtn) nextBtn.style.display = page >= totalPages - 1 ? 'none' : '';
+
+			const section = document.getElementById('blog-posts');
+			if (section && page > 0) {
+				section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+		}
+
+		showPage(0);
+
+		numBtns.forEach(btn => {
+			btn.addEventListener('click', () => showPage(Number(btn.dataset.page)));
+		});
+
+		if (prevBtn) {
+			prevBtn.addEventListener('click', () => {
+				if (currentPage > 0) showPage(currentPage - 1);
+			});
+		}
+		if (nextBtn) {
+			nextBtn.addEventListener('click', () => {
+				if (currentPage < totalPages - 1) showPage(currentPage + 1);
+			});
+		}
+	});
+</script>
