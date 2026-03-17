@@ -71,6 +71,18 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		
 		<!-- Fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Yantramanav:500,400|Oswald:600,700|Roboto:400&display=swap" rel="stylesheet" />
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-SESQY1JBMG"></script>
+		<script>
+			(window as Window & { dataLayer?: unknown[][] }).dataLayer = (window as Window & { dataLayer?: unknown[][] }).dataLayer || [];
+			const gtag = (...args: unknown[]) => {
+				((window as Window & { dataLayer?: unknown[][] }).dataLayer as unknown[][]).push(args);
+			};
+			gtag('js', new Date());
+
+			gtag('config', 'G-SESQY1JBMG');
+		</script>
 		
 		<!-- Schema Slot for Page-Specific Structured Data -->
 		<slot name="head" />
@@ -137,7 +149,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 						<li class="nav-dropdown">
 							<span class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" id="contact-trigger">CONTACT</span>
 							<ul class="nav-dropdown-menu" role="menu" aria-labelledby="contact-trigger">
-								<li role="none"><a href="/contact" role="menuitem">Request a Quote</a></li>
+								<li role="none"><a href="/request-a-quote" role="menuitem">Request a Quote</a></li>
 								<li role="none"><a href="/contact" role="menuitem">Contact Us</a></li>
 							</ul>
 						</li>
@@ -174,7 +186,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 							<li class="nav-menu-dropdown">
 								<button type="button" class="nav-menu-dropdown-trigger" aria-expanded="false" aria-controls="nav-menu-contact" id="mobile-contact-trigger">CONTACT</button>
 								<ul id="nav-menu-contact" class="nav-menu-dropdown-list" role="menu" aria-labelledby="mobile-contact-trigger">
-									<li><a href="/contact">Request a Quote</a></li>
+									<li><a href="/request-a-quote">Request a Quote</a></li>
 									<li><a href="/contact">Contact Us</a></li>
 								</ul>
 							</li>
