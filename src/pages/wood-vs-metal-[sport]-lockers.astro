@@ -1,0 +1,249 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { woodVsMetalSports } from '../lib/programmatic-pages';
+
+export async function getStaticPaths() {
+  return woodVsMetalSports.map((sport) => ({
+    params: { sport: sport.slug },
+    props: { sport },
+  }));
+}
+
+const { sport } = Astro.props;
+const sportName = sport.name;
+const sportLower = sportName.toLowerCase();
+const pagePath = `/wood-vs-metal-${sport.slug}-lockers`;
+const pageUrl = `https://playerstall.com${pagePath}`;
+const title = `Wood vs Metal ${sportName} Lockers | Which is Better? | PlayerStall`;
+const description = `Compare wood vs metal lockers for ${sportLower}. Durability, customization, cost, and best fit for ${sportLower} programs. 30+ years building custom wood athletic lockers. Free design consultation.`;
+
+const faqs = [
+  {
+    question: `What makes wood lockers better for ${sportLower} than metal?`,
+    answer: `Wood lockers offer better aesthetics, warmer feel, and easier customization for team branding. They resist dents and scratches that metal shows, and the natural material helps with ventilation and moisture management—important for ${sportLower} equipment that can get wet or sweaty.`,
+  },
+  {
+    question: `When might metal lockers make sense for a ${sportLower} program?`,
+    answer: `Metal can be a fit when upfront budget is very tight and the facility prioritizes lowest initial cost over long-term appearance and customization. For programs that care about recruiting, branding, and durability over decades, wood is usually the better investment.`,
+  },
+  {
+    question: `Can wood ${sportLower} lockers handle heavy equipment?`,
+    answer: `Yes. Our wood lockers are built with reinforced construction and load-bearing design for helmets, pads, bags, and gear. We engineer for the demands of collegiate and professional ${sportLower} programs, with options for extra reinforcement where needed.`,
+  },
+  {
+    question: `How do wood and metal lockers compare on cost over time?`,
+    answer: `Metal often has a lower upfront price but can show wear, rust, and damage sooner. Wood lockers typically last longer with proper care, maintain appearance better, and can be refinished or repaired in place. Many programs find total cost of ownership favors wood over 10–20 years.`,
+  },
+];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://playerstall.com' },
+    { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://playerstall.com/products' },
+    { '@type': 'ListItem', position: 3, name: `Wood vs Metal ${sportName} Lockers`, item: pageUrl },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <section class="programmatic-hero">
+    <div class="programmatic-hero-bg">
+      <img
+        src="https://playerstall.b-cdn.net/images/h1-img-8.jpg"
+        alt={`Wood vs metal ${sportLower} lockers comparison`}
+        width="1920"
+        height="1080"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="programmatic-hero-overlay"></div>
+    <div class="programmatic-container programmatic-hero-content">
+      <div class="programmatic-breadcrumbs">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <span>Wood vs Metal {sportName} Lockers</span>
+      </div>
+      <h1>Wood vs Metal {sportName} Lockers: Which is Better?</h1>
+      <p>A practical comparison for {sportLower} programs choosing between wood and metal locker systems—durability, cost, customization, and long-term value.</p>
+    </div>
+  </section>
+
+  <section class="programmatic-section">
+    <div class="programmatic-container programmatic-grid">
+      <article class="programmatic-main">
+        <h2>Why the wood vs. metal choice matters for {sportLower} facilities</h2>
+        <p>
+          Choosing locker material affects daily operations, recruiting perception, and lifecycle cost. {sportName} programs need storage that handles heavy, often wet or sweaty equipment, supports team branding, and holds up through years of use. This page breaks down how wood and metal compare so you can decide what fits your program.
+        </p>
+
+        <h2>Wood lockers for {sportName}: pros and cons</h2>
+        <p>
+          Wood athletic lockers are the standard for many collegiate and professional {sportLower} programs. They offer a premium look, strong customization (finishes, logos, hardware), and a warmer environment than metal. Wood is less prone to dents and visible damage, and components can often be repaired or refinished without replacing entire units.
+        </p>
+        <ul>
+          <li><strong>Pros:</strong> Superior aesthetics, better customization for team branding, durable surface that resists dents, natural ventilation and moisture handling, long service life with repairability, professional appearance that supports recruiting.</li>
+          <li><strong>Cons:</strong> Higher upfront cost than basic metal; quality wood lockers require a capable manufacturer and proper specification.</li>
+        </ul>
+        <p>
+          For {sportLower} specifically, wood lockers are well suited to the equipment load and the need for a space that impresses recruits and supports team identity. PlayerStall has built custom wood {sportLower} lockers for 30+ years, with options from Semi Pro through Stadium tiers to match budget and performance goals.
+        </p>
+
+        <h2>Metal lockers for {sportName}: pros and cons</h2>
+        <p>
+          Metal lockers are common in budget-focused or high-volume installations. They can be less expensive initially and are widely available. Metal is strong structurally but can show dents, scratches, and rust over time, and customization (colors, logos, layout) is usually more limited than with wood.
+        </p>
+        <ul>
+          <li><strong>Pros:</strong> Lower initial cost in many cases, wide availability, familiar product for many buyers.</li>
+          <li><strong>Cons:</strong> Cold, industrial look; less customization; visible damage and rust over time; noisier; often not repairable in place—whole units get replaced.</li>
+        </ul>
+        <p>
+          For {sportLower} programs that prioritize lowest upfront cost and do not need heavy branding or a premium look, metal can be a fit. For programs investing in facility quality and recruiting, wood usually delivers better long-term value and appearance.
+        </p>
+
+        <h2>Side-by-side comparison</h2>
+        <div class="comparison-table-wrap">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Factor</th>
+                <th>Wood lockers</th>
+                <th>Metal lockers</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Upfront cost</td>
+                <td>Higher</td>
+                <td>Often lower</td>
+              </tr>
+              <tr>
+                <td>Customization (finishes, logos)</td>
+                <td>High</td>
+                <td>Limited</td>
+              </tr>
+              <tr>
+                <td>Durability / resistance to dents</td>
+                <td>High</td>
+                <td>Shows wear and rust over time</td>
+              </tr>
+              <tr>
+                <td>Appearance and recruiting impact</td>
+                <td>Premium</td>
+                <td>Functional, industrial</td>
+              </tr>
+              <tr>
+                <td>Repair / refinish in place</td>
+                <td>Yes, typically</td>
+                <td>Usually replace unit</td>
+              </tr>
+              <tr>
+                <td>Best for {sportLower} programs that…</td>
+                <td>Care about branding, recruiting, long-term value</td>
+                <td>Need lowest initial cost, minimal branding</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Recommendation for {sportName} programs</h2>
+        <p>
+          For most collegiate and serious high school {sportLower} programs, wood lockers are the better choice. They align with recruiting goals, support team identity, and hold up over many years with the option to repair or refresh without full replacement. Metal can make sense when budget is extremely tight and the priority is purely functional storage.
+        </p>
+        <p>
+          PlayerStall specializes in custom wood athletic lockers for {sportLower} and other sports. We offer a free design consultation so you can compare tiers, dimensions, and finishes without obligation. For the full comparison across all sports, see our guide: <a href="/blog/wood-vs-metal-sports-lockers-complete-2025-comparison-guide">Wood vs metal sports lockers (complete guide)</a>.
+        </p>
+
+        <h2>FAQs</h2>
+        {faqs.map((faq) => (
+          <div class="faq-item">
+            <h3>{faq.question}</h3>
+            <p>{faq.answer}</p>
+          </div>
+        ))}
+      </article>
+
+      <aside class="programmatic-sidebar">
+        <div class="sidebar-card">
+          <h3>Free design consultation</h3>
+          <p>Not sure whether wood or metal is right for your {sportLower} program? We'll walk you through options, tiers, and pricing with no obligation.</p>
+          <a class="sidebar-btn" href="/contact">Request a Quote</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Useful links</h3>
+          <ul>
+            <li><a href="/products">Product lineup</a></li>
+            <li><a href="/blog/wood-vs-metal-sports-lockers-complete-2025-comparison-guide">Wood vs metal guide</a></li>
+            <li><a href={`/sport/${sport.slug}`}>{sportName} lockers</a></li>
+            <li><a href="/our-process">Our process</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .programmatic-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  .programmatic-hero { position: relative; min-height: 360px; display: flex; align-items: flex-end; padding: 0 0 60px; overflow: hidden; }
+  .programmatic-hero-bg { position: absolute; inset: 0; }
+  .programmatic-hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .programmatic-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.25) 60%, transparent 100%); }
+  .programmatic-hero-content { position: relative; z-index: 1; color: #fff; }
+  .programmatic-breadcrumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .programmatic-breadcrumbs a { color: #f1f1f1; text-decoration: none; }
+  .programmatic-breadcrumbs span { color: #ffffff; }
+  .programmatic-hero h1 { margin: 0 0 10px; font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); text-transform: uppercase; }
+  .programmatic-hero p { margin: 0; max-width: 760px; font-size: 1.05rem; line-height: 1.7; color: #f3f3f3; }
+
+  .programmatic-section { padding: 52px 0 72px; background: #fff; }
+  .programmatic-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start; }
+  .programmatic-main h2 { margin-top: 0; font-family: 'Oswald', sans-serif; font-size: 1.8rem; text-transform: uppercase; }
+  .programmatic-main h3 { font-family: 'Oswald', sans-serif; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 8px; }
+  .programmatic-main p, .programmatic-main li { font-size: 1.02rem; line-height: 1.8; color: #2d2d2d; }
+  .programmatic-main ul, .programmatic-main ol { padding-left: 20px; margin: 10px 0 24px; }
+  .programmatic-main a { color: #fe5900; text-decoration: none; }
+  .programmatic-main a:hover { text-decoration: underline; }
+  .faq-item { border-top: 1px solid #e6e6e6; padding-top: 14px; margin-top: 14px; }
+
+  .comparison-table-wrap { overflow-x: auto; margin: 20px 0 28px; }
+  .comparison-table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+  .comparison-table th, .comparison-table td { border: 1px solid #e0e0e0; padding: 12px 14px; text-align: left; }
+  .comparison-table th { background: #1a1a1a; color: #fff; font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+  .comparison-table tbody tr:nth-child(even) { background: #f9f9f9; }
+
+  .programmatic-sidebar { display: flex; flex-direction: column; gap: 18px; }
+  .sidebar-card { border: 1px solid #e6e6e6; padding: 18px; background: #fafafa; }
+  .sidebar-card h3 { margin: 0 0 10px; font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 1.05rem; }
+  .sidebar-card p { margin: 0 0 10px; color: #3c3c3c; line-height: 1.6; }
+  .sidebar-card ul { margin: 0; padding-left: 18px; }
+  .sidebar-card li { margin-bottom: 8px; }
+  .sidebar-card a { color: #fe5900; text-decoration: none; }
+  .sidebar-card a:hover { text-decoration: underline; }
+  .sidebar-btn { display: inline-block; margin-top: 6px; padding: 11px 16px; background: #fe5900; color: #fff !important; text-transform: uppercase; font-weight: 600; letter-spacing: 0.06em; }
+  .sidebar-btn:hover { background: #e04d00; text-decoration: none !important; }
+
+  @media (max-width: 960px) {
+    .programmatic-grid { grid-template-columns: 1fr; }
+  }
+</style>

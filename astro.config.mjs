@@ -3,6 +3,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://playerstall.com',
   integrations: [mdx()],
   redirects: {
     // Services page renamed to products; preserve old URL

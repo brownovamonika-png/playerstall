@@ -20,6 +20,9 @@ export const programmaticStates: ProgrammaticState[] = [
   { slug: 'pennsylvania', name: 'Pennsylvania', region: 'Northeast' },
   { slug: 'georgia', name: 'Georgia', region: 'Southeast' },
   { slug: 'north-carolina', name: 'North Carolina', region: 'Southeast' },
+  { slug: 'new-york', name: 'New York', region: 'Northeast' },
+  { slug: 'illinois', name: 'Illinois', region: 'Midwest' },
+  { slug: 'michigan', name: 'Michigan', region: 'Midwest' },
 ];
 
 export const programmaticSports: ProgrammaticSport[] = [
@@ -58,4 +61,22 @@ export const programmaticSports: ProgrammaticSport[] = [
     gearFocus: 'sticks, pads, helmets, footwear, and shared team gear',
     blogUrl: '/blog/sport-specific-locker-design',
   },
+];
+
+/** Sports used for Wood vs Metal comparison pages (includes Soccer). */
+export const woodVsMetalSports: { slug: string; name: string }[] = [
+  { slug: 'football', name: 'Football' },
+  { slug: 'hockey', name: 'Hockey' },
+  { slug: 'basketball', name: 'Basketball' },
+  { slug: 'baseball', name: 'Baseball' },
+  { slug: 'soccer', name: 'Soccer' },
+  { slug: 'lacrosse', name: 'Lacrosse' },
+];
+
+/** Level/market pages: collegiate, high school, professional, college × sport. */
+export const levelMarketPages: { levelSlug: string; levelName: string; sportSlug: string; sportName: string }[] = [
+  { levelSlug: 'collegiate', levelName: 'Collegiate', sportSlug: 'football', sportName: 'Football' },
+  { levelSlug: 'high-school', levelName: 'High School', sportSlug: 'football', sportName: 'Football' },
+  { levelSlug: 'professional', levelName: 'Professional', sportSlug: 'hockey', sportName: 'Hockey' },
+  { levelSlug: 'college', levelName: 'College', sportSlug: 'basketball', sportName: 'Basketball' },
 ];

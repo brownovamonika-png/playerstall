@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import { programmaticStates, programmaticSports, woodVsMetalSports, levelMarketPages } from '../lib/programmatic-pages';
 
 // Static pages with priorities
 const staticPages = [
@@ -16,6 +17,10 @@ const staticPages = [
 	{ url: '/cart', priority: '0.6', changefreq: 'weekly' },
 	{ url: '/checkout', priority: '0.6', changefreq: 'monthly' },
 	{ url: '/locations', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/request-a-quote', priority: '0.8', changefreq: 'monthly' },
+	{ url: '/contact-us', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/accessories', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/locker-budget-planner', priority: '0.6', changefreq: 'monthly' },
 	// Product pages
 	{ url: '/product-pro-locker', priority: '0.8', changefreq: 'monthly' },
 	{ url: '/product-stadium-locker', priority: '0.8', changefreq: 'monthly' },
@@ -23,6 +28,9 @@ const staticPages = [
 	{ url: '/product-legendary-locker', priority: '0.8', changefreq: 'monthly' },
 	{ url: '/product-semi-pro-locker', priority: '0.8', changefreq: 'monthly' },
 	{ url: '/product-varsity-locker', priority: '0.8', changefreq: 'monthly' },
+	{ url: '/product-model-s', priority: '0.8', changefreq: 'monthly' },
+	{ url: '/product-model-l', priority: '0.8', changefreq: 'monthly' },
+	{ url: '/product-wood-locker-bench', priority: '0.7', changefreq: 'monthly' },
 	// Sport-specific pages (future)
 	{ url: '/sport/football', priority: '0.7', changefreq: 'monthly' },
 	{ url: '/sport/hockey', priority: '0.7', changefreq: 'monthly' },
@@ -50,6 +58,33 @@ export const GET: APIRoute = async ({ site }) => {
 		'college-athletic-locker-guide',
 		'hockey-wood-lockers-complete-guide'
 	];
+
+	// Programmatic state + sport pages
+	const programmaticStateSportUrls = programmaticStates.flatMap((state) =>
+		programmaticSports.map((sport) => `/${state.slug}-${sport.slug}-wood-lockers`)
+	);
+	const programmaticStateSportEntries = programmaticStateSportUrls.map((url) => `  <url>
+    <loc>${baseUrl}${url}</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`).join('\n');
+
+	// Wood vs metal [sport] lockers pages
+	const woodVsMetalEntries = woodVsMetalSports.map((s) => `  <url>
+    <loc>${baseUrl}/wood-vs-metal-${s.slug}-lockers</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`).join('\n');
+
+	// Level/market pages (collegiate, high school, professional, college × sport)
+	const levelMarketEntries = levelMarketPages.map((p) => `  <url>
+    <loc>${baseUrl}/${p.levelSlug}-${p.sportSlug}-wood-lockers</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`).join('\n');
 	
 	// Generate sitemap XML
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -61,6 +96,9 @@ ${staticPages.map(page => `  <url>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>`).join('\n')}
+${programmaticStateSportEntries}
+${woodVsMetalEntries}
+${levelMarketEntries}
 ${blogPosts.map(post => `  <url>
     <loc>${baseUrl}/blog/${post.slug}</loc>
     <lastmod>${post.data.datePublished || new Date().toISOString().split('T')[0]}</lastmod>

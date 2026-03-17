@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { levelMarketPages } from '../lib/programmatic-pages';
+
+export async function getStaticPaths() {
+  return levelMarketPages.map((page) => ({
+    params: { level: page.levelSlug, sport: page.sportSlug },
+    props: { levelName: page.levelName, levelSlug: page.levelSlug, sportName: page.sportName, sportSlug: page.sportSlug },
+  }));
+}
+
+const { levelName, levelSlug, sportName, sportSlug } = Astro.props;
+const sportLower = sportName.toLowerCase();
+const pagePath = `/${levelSlug}-${sportSlug}-wood-lockers`;
+const pageUrl = `https://playerstall.com${pagePath}`;
+const title = `${levelName} ${sportName} Wood Lockers | Custom Athletic Storage | PlayerStall`;
+const description = `Custom ${sportLower} wood lockers for ${levelName.toLowerCase()} programs. Built for serious teams with 30+ years experience, lifetime craftsmanship, and free design consultation. Request a quote.`;
+
+const faqs = [
+  {
+    question: `What do ${levelName.toLowerCase()} ${sportLower} programs need from lockers?`,
+    answer: `${levelName} ${sportLower} programs need durable, presentable storage that supports daily operations and recruiting. Our wood lockers are designed for roster-sized equipment loads, team branding, and long-term serviceability so facilities stay professional year after year.`,
+  },
+  {
+    question: `Do you offer custom design for ${levelName.toLowerCase()} facilities?`,
+    answer: `Yes. We provide a free design consultation to match locker layout, dimensions, finishes, and accessories to your roster size, room constraints, and budget. Many ${levelName.toLowerCase()} programs use our process to plan new builds or renovations.`,
+  },
+  {
+    question: `What tiers do you offer for ${sportName} lockers?`,
+    answer: `We offer Semi Pro, Varsity, Pro, and Stadium tiers so you can choose the right level of durability and finish for your program. We’ll recommend a tier based on your usage, timeline, and facility goals.`,
+  },
+];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://playerstall.com' },
+    { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://playerstall.com/products' },
+    { '@type': 'ListItem', position: 3, name: `${levelName} ${sportName} Wood Lockers`, item: pageUrl },
+  ],
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `${levelName} ${sportName} Wood Lockers`,
+  serviceType: 'Custom sports locker design and manufacturing',
+  provider: { '@type': 'Organization', name: 'PlayerStall', url: 'https://playerstall.com' },
+  description,
+  url: pageUrl,
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <section class="programmatic-hero">
+    <div class="programmatic-hero-bg">
+      <img
+        src="https://playerstall.b-cdn.net/images/h1-img-8.jpg"
+        alt={`${levelName} ${sportName} custom wood lockers`}
+        width="1920"
+        height="1080"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="programmatic-hero-overlay"></div>
+    <div class="programmatic-container programmatic-hero-content">
+      <div class="programmatic-breadcrumbs">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <span>{levelName} {sportName} Wood Lockers</span>
+      </div>
+      <h1>{levelName} {sportName} Wood Lockers</h1>
+      <p>Custom wood lockers built for {levelName.toLowerCase()} {sportLower} programs—durable storage, premium presentation, and design that supports recruiting and daily operations.</p>
+    </div>
+  </section>
+
+  <section class="programmatic-section">
+    <div class="programmatic-container programmatic-grid">
+      <article class="programmatic-main">
+        <h2>Why {levelName.toLowerCase()} {sportLower} programs choose wood lockers</h2>
+        <p>
+          {levelName} {sportName} facilities need lockers that handle heavy use, support team identity, and hold up over many seasons. PlayerStall designs and manufactures custom wood lockers for {sportLower} programs at the collegiate, high school, and professional levels. We focus on operational durability, clean presentation, and long-term value so your locker room supports your program for years.
+        </p>
+
+        <h2>What {levelName.toLowerCase()} {sportLower} programs typically need</h2>
+        <p>
+          Programs at this level usually need roster-sized storage, clear traffic flow, branding options, and construction that can be maintained or refreshed without replacing entire rooms. Our process starts with a free consultation to align on roster count, room layout, equipment load, and budget. From there we recommend locker dimensions, tiers (Semi Pro through Stadium), and finish options that fit your facility and timeline.
+        </p>
+        <ul>
+          <li>Layouts that reduce congestion during peak change times</li>
+          <li>Durable, serviceable components for long facility life</li>
+          <li>Finish and branding options that support recruiting</li>
+          <li>Modular planning for future roster or facility changes</li>
+        </ul>
+
+        <h2>Product tiers and budgeting</h2>
+        <p>
+          We offer multiple tiers so you can match cost to your needs. Semi Pro, Varsity, Pro, and Stadium options provide different levels of finish and reinforcement. Many {levelName.toLowerCase()} programs choose Varsity or Pro for the right balance of durability and appearance. We’ll walk you through tier differences and lead times (including quick-ship where applicable) so you can plan confidently.
+        </p>
+
+        <h2>From consultation to installation</h2>
+        <ol>
+          <li><strong>Consultation:</strong> We align on roster size, room constraints, timeline, and goals.</li>
+          <li><strong>Design:</strong> We configure dimensions, accessories, and finish packages.</li>
+          <li><strong>Approval:</strong> You review specs and pricing before production.</li>
+          <li><strong>Delivery:</strong> We coordinate shipment and install readiness.</li>
+        </ol>
+
+        <h2>FAQs</h2>
+        {faqs.map((faq) => (
+          <div class="faq-item">
+            <h3>{faq.question}</h3>
+            <p>{faq.answer}</p>
+          </div>
+        ))}
+      </article>
+
+      <aside class="programmatic-sidebar">
+        <div class="sidebar-card">
+          <h3>Free design consultation</h3>
+          <p>Tell us about your {levelName.toLowerCase()} {sportLower} facility and we’ll recommend a locker strategy that fits your roster, room, and budget.</p>
+          <a class="sidebar-btn" href="/contact">Request a Quote</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Useful links</h3>
+          <ul>
+            <li><a href="/products">Product lineup</a></li>
+            <li><a href="/gallery">Installation gallery</a></li>
+            <li><a href={`/sport/${sportSlug}`}>{sportName} lockers</a></li>
+            <li><a href="/our-process">Our process</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .programmatic-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  .programmatic-hero { position: relative; min-height: 360px; display: flex; align-items: flex-end; padding: 0 0 60px; overflow: hidden; }
+  .programmatic-hero-bg { position: absolute; inset: 0; }
+  .programmatic-hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .programmatic-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.25) 60%, transparent 100%); }
+  .programmatic-hero-content { position: relative; z-index: 1; color: #fff; }
+  .programmatic-breadcrumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .programmatic-breadcrumbs a { color: #f1f1f1; text-decoration: none; }
+  .programmatic-breadcrumbs span { color: #ffffff; }
+  .programmatic-hero h1 { margin: 0 0 10px; font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); text-transform: uppercase; }
+  .programmatic-hero p { margin: 0; max-width: 760px; font-size: 1.05rem; line-height: 1.7; color: #f3f3f3; }
+
+  .programmatic-section { padding: 52px 0 72px; background: #fff; }
+  .programmatic-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start; }
+  .programmatic-main h2 { margin-top: 0; font-family: 'Oswald', sans-serif; font-size: 1.8rem; text-transform: uppercase; }
+  .programmatic-main h3 { font-family: 'Oswald', sans-serif; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 8px; }
+  .programmatic-main p, .programmatic-main li { font-size: 1.02rem; line-height: 1.8; color: #2d2d2d; }
+  .programmatic-main ul, .programmatic-main ol { padding-left: 20px; margin: 10px 0 24px; }
+  .programmatic-main a { color: #fe5900; text-decoration: none; }
+  .programmatic-main a:hover { text-decoration: underline; }
+  .faq-item { border-top: 1px solid #e6e6e6; padding-top: 14px; margin-top: 14px; }
+
+  .programmatic-sidebar { display: flex; flex-direction: column; gap: 18px; }
+  .sidebar-card { border: 1px solid #e6e6e6; padding: 18px; background: #fafafa; }
+  .sidebar-card h3 { margin: 0 0 10px; font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 1.05rem; }
+  .sidebar-card p { margin: 0 0 10px; color: #3c3c3c; line-height: 1.6; }
+  .sidebar-card ul { margin: 0; padding-left: 18px; }
+  .sidebar-card li { margin-bottom: 8px; }
+  .sidebar-card a { color: #fe5900; text-decoration: none; }
+  .sidebar-card a:hover { text-decoration: underline; }
+  .sidebar-btn { display: inline-block; margin-top: 6px; padding: 11px 16px; background: #fe5900; color: #fff !important; text-transform: uppercase; font-weight: 600; letter-spacing: 0.06em; }
+  .sidebar-btn:hover { background: #e04d00; text-decoration: none !important; }
+
+  @media (max-width: 960px) {
+    .programmatic-grid { grid-template-columns: 1fr; }
+  }
+</style>
