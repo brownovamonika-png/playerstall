@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogImage from '../../components/BlogImage.astro';
 import { getBlogHeroUrl } from '../../lib/blog-hero';
 import { slugify } from '../../lib/slug';
 
@@ -83,6 +84,8 @@ const formattedDate = post.datePublished
   ? new Date(post.datePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
   : '';
 const categorySlug = slugify(post.category);
+const postUrl = `https://playerstall.com/blog/${entry.slug}`;
+const dateModified = post.dateModified ?? post.datePublished;
 
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -90,6 +93,11 @@ const articleSchema = {
   headline: post.title,
   description: post.description || '',
   datePublished: post.datePublished,
+  dateModified,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': postUrl,
+  },
   author: {
     '@type': 'Organization',
     name: post.author,
@@ -103,7 +111,32 @@ const articleSchema = {
     },
   },
   image: heroUrl,
+  wordCount: post.wordCount,
 };
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://playerstall.com' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://playerstall.com/blog' },
+    { '@type': 'ListItem', position: 3, name: post.category, item: `https://playerstall.com/categories/${categorySlug}` },
+    { '@type': 'ListItem', position: 4, name: post.title, item: postUrl },
+  ],
+};
+const faqSchema = post.faqs?.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: post.faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
+      })),
+    }
+  : null;
 const heroAlt = post.heroImageAlt ?? post.title;
 ---
 
@@ -116,12 +149,14 @@ const heroAlt = post.heroImageAlt ?? post.title;
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    {faqSchema ? <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} /> : null}
   </Fragment>
   <article class="blog-post">
     <!-- Hero -->
     <header class="post-hero">
       <div class="post-hero-bg">
-        <img src={heroUrl} alt={heroAlt} class="post-hero-image" />
+        <img src={heroUrl} alt={heroAlt} class="post-hero-image" width="1920" height="1080" loading="eager" fetchpriority="high" />
       </div>
       <div class="post-hero-overlay"></div>
       <div class="container post-hero-content">
@@ -151,7 +186,7 @@ const heroAlt = post.heroImageAlt ?? post.title;
       <div class="blog-layout container">
         <div class="blog-main-col">
           <div class="blog-content">
-            <Content />
+            <Content components={{ img: BlogImage }} />
           </div>
 
           <!-- Tags & author -->
@@ -301,6 +336,10 @@ const heroAlt = post.heroImageAlt ?? post.title;
     --blog-text-muted: #4a4a4a;
     --accent: #fe5900;
     --white: #ffffff;
+    --blog-img-max-height: min(70vh, 600px);
+    --blog-img-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --blog-img-border: 1px solid var(--blog-border);
+    --blog-img-radius: 0;
   }
   .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
   .blog-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; align-items: start; }
@@ -374,7 +413,29 @@ const heroAlt = post.heroImageAlt ?? post.title;
   .blog-content :global(.pull-quote cite) { color: var(--blog-text-muted); }
   .blog-content :global(a) { color: var(--accent); text-decoration: none; }
   .blog-content :global(a:hover) { text-decoration: underline; }
-  .blog-content :global(img) { max-width: 100%; height: auto; border-radius: 0; }
+  .blog-content :global(img) {
+    max-width: 100%;
+    max-height: var(--blog-img-max-height);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--blog-img-shadow);
+    border: var(--blog-img-border);
+    border-radius: var(--blog-img-radius);
+  }
+  .blog-content :global(figure) {
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+  .blog-content :global(figcaption) {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--blog-text-muted);
+    text-align: center;
+  }
 
   .post-footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--blog-border); }
   .blog-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }

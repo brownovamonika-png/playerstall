@@ -1,0 +1,442 @@
+/* =====================================================
+   blog.css — Blog-only styles for PlayerStall
+   =====================================================
+   Everything here is scoped inside .blog-page so it
+   cannot affect the home page, product pages, or any
+   other part of the site.
+
+   The .blog-page div is added by BlogLayout.astro and
+   wraps only the blog listing and single post pages.
+   ===================================================== */
+
+/* ── 1. Blog-scoped CSS variables ──────────────────────
+   Defined on .blog-page so they cascade to all child
+   components (BlogCard, Sidebar, etc.) without touching
+   the rest of the site.
+
+   Brand values come from AGENTS.md / PlayerStall design
+   system. If your global CSS already defines any of these
+   with the same name, they'll simply be overridden here
+   to the same value — no conflict.
+──────────────────────────────────────────────────────── */
+.blog-page {
+  /* Brand */
+  --color-accent:    #fe5900;
+  --color-accent-dk: #d94e00;
+  --color-primary:   #0d0d0d;
+  --color-white:     #ffffff;
+  --color-text:      #0d0d0d;
+
+  /* Blog-specific warm neutrals */
+  --color-bg:        #ffffff;
+  --color-bg-alt:    #f9f7f2;
+  --color-border:    #e3dfd7;
+  --color-muted:     #8c8c8c;
+
+  /* Typography — matches PlayerStall BaseLayout.astro */
+  --font-heading: 'Oswald', sans-serif;
+  --font-body:    'Yantramanav', 'Roboto', Arial, sans-serif;
+}
+
+/* ── 2. Page structure ─────────────────────────────── */
+
+/* Two-column layout (main content + right sidebar) */
+.blog-page .blog-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 40px;
+  align-items: start;
+  padding: 56px 0;
+}
+
+@media (max-width: 900px) {
+  .blog-page .blog-layout { grid-template-columns: 1fr; }
+}
+
+/* ── 3. Page banner (dark header strip above content) ─ */
+.blog-page .page-banner {
+  background: var(--color-primary);
+  padding: 48px 0;
+  text-align: center;
+}
+.blog-page .page-banner h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--color-white);
+  margin: 0;
+}
+
+/* ── 4. Breadcrumb bar ─────────────────────────────── */
+.blog-page .breadcrumb-bar {
+  background: var(--color-bg-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+.blog-page .breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 13px 0;
+  font-size: 12px;
+  color: var(--color-muted);
+  letter-spacing: 0.4px;
+}
+.blog-page .breadcrumb a          { color: var(--color-muted); transition: color 0.2s; }
+.blog-page .breadcrumb a:hover    { color: var(--color-accent); }
+.blog-page .breadcrumb .sep       { color: var(--color-border); }
+
+/* ── 5. Shared utility classes ─────────────────────── */
+
+/* Category label (orange underline tag) */
+.blog-page .category-label {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 2px;
+  line-height: 1;
+}
+
+/* Section heading (e.g. "Related Posts", "3 Comments") */
+.blog-page .section-title {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-primary);
+  padding-bottom: 11px;
+  border-bottom: 3px solid var(--color-accent);
+  margin-bottom: 26px;
+  display: inline-block;
+}
+
+/* Tag pills */
+.blog-page .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+}
+.blog-page .tag {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 11px;
+  border: 1px solid var(--color-border);
+  color: var(--color-muted);
+  transition: border-color 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.blog-page .tag:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Buttons (outline + solid) */
+.blog-page .btn {
+  display: inline-block;
+  padding: 9px 26px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.blog-page .btn:hover {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+.blog-page .btn-solid {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+.blog-page .btn-solid:hover {
+  background: var(--color-accent-dk);
+  border-color: var(--color-accent-dk);
+}
+
+/* ── 6. Blog listing page ─────────────────────────── */
+
+.blog-page .posts-column { min-width: 0; }
+
+/* Filter tabs */
+.blog-page .filter-bar {
+  margin-bottom: 32px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+.blog-page .filter-bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.blog-page .filter-label {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.blog-page .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.blog-page .filter-tab {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border: 2px solid var(--color-border);
+  color: var(--color-muted);
+  transition: all 0.2s;
+}
+.blog-page .filter-tab:hover,
+.blog-page .filter-tab.active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(254,89,0,0.05);
+}
+
+/* Posts stacked list */
+.blog-page .posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Pagination */
+.blog-page .pagination {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 44px;
+}
+.blog-page .pagination a,
+.blog-page .pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid var(--color-border);
+  color: var(--color-muted);
+  transition: all 0.2s;
+}
+.blog-page .pagination a:hover,
+.blog-page .pagination .current {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+/* ── 7. Single post page ───────────────────────────── */
+
+.blog-page .post-column { min-width: 0; padding: 56px 0; }
+
+/* Featured image */
+.blog-page .post-featured-image {
+  overflow: hidden;
+  margin-bottom: 32px;
+  border: 1px solid var(--color-border);
+}
+.blog-page .post-featured-image img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Post header */
+.blog-page .post-header { margin-bottom: 28px; }
+
+.blog-page .post-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  font-size: 12px;
+  color: var(--color-muted);
+  letter-spacing: 0.3px;
+}
+.blog-page .post-meta-row .sep { color: var(--color-border); }
+.blog-page .post-meta-author {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.blog-page .post-title {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.15;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+/* Post body prose */
+.blog-page .post-body {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #4a4a4a;
+  border-top: 1px solid var(--color-border);
+  padding-top: 28px;
+  margin-bottom: 32px;
+}
+.blog-page .post-body p              { margin-bottom: 1.4rem; }
+.blog-page .post-body p:last-child   { margin-bottom: 0; }
+.blog-page .post-body h2,
+.blog-page .post-body h3             { margin: 2rem 0 0.75rem; font-family: var(--font-heading); text-transform: uppercase; }
+.blog-page .post-body ul,
+.blog-page .post-body ol             { padding-left: 1.5rem; margin-bottom: 1.2rem; }
+.blog-page .post-body li             { margin-bottom: 0.4rem; }
+.blog-page .post-body blockquote {
+  border-left: 4px solid var(--color-accent);
+  padding: 18px 26px;
+  margin: 28px 0;
+  background: var(--color-bg-alt);
+}
+.blog-page .post-body blockquote p {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: 0.3px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Post footer: tags + share */
+.blog-page .post-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 18px 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.blog-page .post-tags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.blog-page .tags-label {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.blog-page .post-share {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.blog-page .share-label {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.blog-page .share-buttons { display: flex; gap: 7px; }
+.blog-page .share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--color-white);
+  transition: opacity 0.2s, transform 0.15s;
+}
+.blog-page .share-btn:hover     { opacity: 0.85; transform: translateY(-1px); }
+.blog-page .share-btn--twitter  { background: #000; }
+.blog-page .share-btn--facebook { background: #1877f2; }
+.blog-page .share-btn--linkedin { background: #0a66c2; }
+
+/* Prev / Next post navigation */
+.blog-page .post-nav            { margin-top: 44px; }
+.blog-page .post-nav-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  border-top: 1px solid var(--color-border);
+  padding-top: 24px;
+}
+.blog-page .post-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  color: var(--color-primary);
+  transition: border-color 0.2s, background 0.2s;
+}
+.blog-page .post-nav-link:hover {
+  border-color: var(--color-accent);
+  background: rgba(254,89,0,0.03);
+}
+.blog-page .post-nav-link--next  { justify-content: flex-end; text-align: right; }
+.blog-page .nav-arrow {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+  line-height: 1;
+}
+.blog-page .nav-info             { display: flex; flex-direction: column; gap: 3px; }
+.blog-page .nav-info--right      { align-items: flex-end; }
+.blog-page .nav-label {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.blog-page .nav-title {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+}
+
+@media (max-width: 600px) {
+  .blog-page .post-nav-inner  { grid-template-columns: 1fr; }
+  .blog-page .post-footer     { flex-direction: column; align-items: flex-start; }
+}

@@ -1,0 +1,167 @@
+---
+interface Props {
+  title:      string;
+  slug:       string;
+  excerpt:    string;
+  image:      string;
+  category:   string;
+  date:       string;
+  author?:    string;
+  readTime?:  number;
+}
+const {
+  title,
+  slug,
+  excerpt,
+  image,
+  category,
+  date,
+  author   = 'PlayerStall Editorial Team',
+  readTime = 5,
+} = Astro.props;
+---
+
+<article class="blog-card">
+  <!-- Thumbnail -->
+  <a href={`/blog/${slug}`} class="card-thumb" aria-hidden="true" tabindex="-1">
+    <img src={image} alt={title} width="720" height="440" loading="lazy" />
+    <span class="card-thumb-overlay">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="32" height="32">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+    </span>
+  </a>
+
+  <!-- Content -->
+  <div class="card-body">
+    <div class="card-meta">
+      <a href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`} class="category-label">{category}</a>
+      <span class="meta-dot">·</span>
+      <time class="card-date">{date}</time>
+    </div>
+
+    <h2 class="card-title">
+      <a href={`/blog/${slug}`}>{title}</a>
+    </h2>
+
+    <p class="card-excerpt">{excerpt}</p>
+
+    <div class="card-footer">
+      <div class="card-author">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        {author}
+      </div>
+      <div class="card-read-time">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        {readTime} min read
+      </div>
+      <a href={`/blog/${slug}`} class="btn card-read-more">Read More</a>
+    </div>
+  </div>
+</article>
+
+<style>
+.blog-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.blog-card:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  transform: translateY(-3px);
+}
+
+/* Thumbnail */
+.card-thumb {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16/9;
+}
+.card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+.blog-card:hover .card-thumb img { transform: scale(1.05); }
+
+.card-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(254, 89, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.blog-card:hover .card-thumb-overlay { opacity: 1; }
+
+/* Body */
+.card-body { padding: 28px 28px 24px; }
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+.meta-dot { color: var(--color-border); }
+
+.card-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.card-title a { color: var(--color-primary); transition: color 0.2s; }
+.card-title a:hover { color: var(--color-accent); }
+
+.card-excerpt {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--color-muted);
+  margin-bottom: 20px;
+}
+
+/* Footer */
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+.card-author,
+.card-read-time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--color-muted);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+}
+.card-read-more {
+  margin-left: auto;
+  font-size: 11px;
+  padding: 7px 20px;
+}
+</style>

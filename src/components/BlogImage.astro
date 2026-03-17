@@ -1,0 +1,24 @@
+---
+interface Props {
+  src: string;
+  alt?: string | null;
+  title?: string | null;
+  [key: string]: unknown;
+}
+
+const { src, alt = '', title, ...rest } = Astro.props;
+const explicitAlt = typeof alt === 'string' ? alt.trim() : '';
+const titleAlt = typeof title === 'string' ? title.trim() : '';
+const imageAlt = explicitAlt || titleAlt || 'PlayerStall custom sports locker room installation';
+---
+
+<figure class="blog-figure">
+  <img
+    src={src}
+    alt={imageAlt}
+    title={title ?? undefined}
+    loading="lazy"
+    {...rest}
+  />
+  {explicitAlt ? <figcaption>{explicitAlt}</figcaption> : null}
+</figure>

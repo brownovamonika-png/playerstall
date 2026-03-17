@@ -1,0 +1,300 @@
+---
+/**
+ * BlogSidebar.astro — Right sidebar for blog pages.
+ *
+ * Accepts optional dynamic data so it can be used with real Content
+ * Collections (pass recentPosts from [slug].astro), or falls back
+ * to PlayerStall-relevant defaults for static Astro pages.
+ */
+interface RecentPost {
+  title: string;
+  slug:  string;
+  date:  string;
+  image: string;
+}
+interface Props {
+  recentPosts?: RecentPost[];
+}
+
+const defaultRecentPosts: RecentPost[] = [
+  { title: "Wood vs Metal Sports Lockers: What We've Learned After 30 Years",  slug: "wood-vs-metal-sports-lockers-what-weve-learned-after-30-years",  date: "2025", image: "https://playerstall.b-cdn.net/images/blog-1-masonry-img-1.jpg" },
+  { title: "Football Locker Room Design Guide",                                 slug: "football-locker-room-design-guide",                                date: "2025", image: "https://playerstall.b-cdn.net/images/blog-1-masonry-img-2.jpg" },
+  { title: "Hockey Wood Lockers: Complete 2025 Guide",                          slug: "hockey-wood-lockers-complete-2025-guide-for-ice-hockey-teams",    date: "2025", image: "https://playerstall.b-cdn.net/images/blog-1-masonry-img-3.jpg" },
+  { title: "How a Quality Locker Room Can Improve Team Performance",            slug: "how-a-quality-locker-room-can-improve-team-performance-and-recruiting-power", date: "2025", image: "https://playerstall.b-cdn.net/images/blog-1-masonry-img-4.jpg" },
+];
+
+const categories = [
+  { name: "Football Lockers",     slug: "football" },
+  { name: "Hockey Lockers",       slug: "hockey" },
+  { name: "Basketball Lockers",   slug: "basketball" },
+  { name: "College Athletics",    slug: "college-athletics" },
+  { name: "Baseball Lockers",     slug: "baseball" },
+  { name: "Wood vs Metal",        slug: "wood-vs-metal" },
+  { name: "Locker Room Design",   slug: "locker-room-design" },
+  { name: "Mudroom Lockers",      slug: "mudroom" },
+];
+
+const tags = [
+  "Wood Lockers", "Custom Lockers", "Sports Lockers", "Football", "Hockey",
+  "Basketball", "College Athletics", "Locker Room Design", "Recruiting",
+  "Equipment Storage", "Athletic Lockers",
+];
+
+const { recentPosts = defaultRecentPosts } = Astro.props;
+---
+
+<aside class="blog-sidebar" aria-label="Blog sidebar">
+
+  <!-- Search widget -->
+  <div class="widget">
+    <form class="search-form" role="search" action="/blog" method="get">
+      <input
+        type="search"
+        name="q"
+        placeholder="Search posts…"
+        aria-label="Search blog"
+      />
+      <button type="submit" aria-label="Submit search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+  <!-- Recent Posts widget -->
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <ul class="recent-posts-list">
+      {recentPosts.map(post => (
+        <li class="recent-post-item">
+          <a href={`/blog/${post.slug}`} class="recent-post-thumb">
+            <img src={post.image} alt={post.title} width="60" height="60" loading="lazy" />
+          </a>
+          <div class="recent-post-info">
+            <a href={`/blog/${post.slug}`} class="recent-post-title">{post.title}</a>
+            <span class="recent-post-date">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8"  y1="2" x2="8"  y2="6"/>
+                <line x1="3"  y1="10" x2="21" y2="10"/>
+              </svg>
+              {post.date}
+            </span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- Categories widget -->
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <ul class="categories-list">
+      {categories.map(cat => (
+        <li class="category-item">
+          <a href={`/categories/${cat.slug}`}>{cat.name}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- Promo banner -->
+  <div class="widget widget--promo">
+    <div class="promo-banner">
+      <span class="promo-eyebrow">Free Consultation</span>
+      <h4 class="promo-title">Custom Wood<br/>Sports Lockers</h4>
+      <p class="promo-text">30+ years of craftsmanship. Lifetime guarantee.</p>
+      <a href="/contact" class="btn btn-solid">Get a Quote</a>
+    </div>
+  </div>
+
+  <!-- Tags widget -->
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="tag-list">
+      {tags.map(tag => (
+        <a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag">{tag}</a>
+      ))}
+    </div>
+  </div>
+
+</aside>
+
+<style>
+.blog-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.widget-title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-primary);
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--color-accent);
+  margin: 0 0 20px;
+}
+
+/* Search */
+.search-form {
+  display: flex;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+.search-form input {
+  flex: 1;
+  padding: 11px 14px;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  min-width: 0;
+}
+.search-form input::placeholder { color: var(--color-muted); }
+.search-form button {
+  padding: 0 16px;
+  background: var(--color-accent);
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.search-form button:hover { background: var(--color-accent-dk); }
+
+/* Recent Posts */
+.recent-posts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.recent-post-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.recent-post-item:last-child { border-bottom: none; }
+
+.recent-post-thumb {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  display: block;
+}
+.recent-post-thumb img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.recent-post-item:hover .recent-post-thumb img { transform: scale(1.08); }
+
+.recent-post-info { flex: 1; min-width: 0; }
+.recent-post-title {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: 6px;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.recent-post-title:hover { color: var(--color-accent); }
+.recent-post-date {
+  font-size: 11px;
+  color: var(--color-muted);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Categories */
+.categories-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.category-item {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.category-item:last-child { border-bottom: none; }
+.category-item a {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.category-item a:hover { color: var(--color-accent); }
+
+/* Promo Banner */
+.widget--promo { padding: 0; }
+.promo-banner {
+  background: var(--color-primary);
+  padding: 36px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.promo-banner::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0.15;
+}
+.promo-eyebrow {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+.promo-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+.promo-text {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+</style>
