@@ -1,0 +1,265 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { programmaticSports, programmaticStates } from '../lib/programmatic-pages';
+
+export async function getStaticPaths() {
+  return programmaticStates.flatMap((state) =>
+    programmaticSports.map((sport) => ({
+      params: { state: state.slug, sport: sport.slug },
+      props: { state, sport },
+    }))
+  );
+}
+
+const { state, sport } = Astro.props;
+const pagePath = `/${state.slug}-${sport.slug}-wood-lockers`;
+const pageUrl = `https://playerstall.com${pagePath}`;
+const title = `${state.name} ${sport.name} Wood Lockers | Custom Athletic Storage | PlayerStall`;
+const description = `Custom ${sport.name.toLowerCase()} wood lockers in ${state.name}. Built for collegiate and professional programs with 30+ years of experience, lifetime craftsmanship standards, and free design consultation.`;
+
+const faqs = [
+  {
+    question: `How are ${state.name} ${sport.name.toLowerCase()} locker projects scoped?`,
+    answer: `We start with a free consultation to review your roster size, circulation paths, equipment profile, and installation timeline. Then we build a room plan and quote that matches your ${sport.name.toLowerCase()} program's operational needs.`,
+  },
+  {
+    question: `Can PlayerStall customize finishes and branding for ${state.name} programs?`,
+    answer: `Yes. We customize locker dimensions, finish palettes, hardware, logo treatments, and accessory packages so your facility reflects your team's identity and daily workflow.`,
+  },
+  {
+    question: `Do you support both quick-ship and fully custom timelines?`,
+    answer: `Yes. We offer quick-ship options for faster installs and full custom builds for programs that need exact dimensions, premium finish packages, and sport-specific storage details.`,
+  },
+  {
+    question: `What makes wood lockers a strong long-term option for ${sport.name.toLowerCase()} facilities?`,
+    answer: `Wood lockers deliver durable structure, cleaner presentation for recruiting, and modular serviceability over time. Programs can maintain quality standards without replacing full rooms when one component gets damaged.`,
+  },
+];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://playerstall.com' },
+    { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://playerstall.com/products' },
+    { '@type': 'ListItem', position: 3, name: `${state.name} ${sport.name} Wood Lockers`, item: pageUrl },
+  ],
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `${state.name} ${sport.name} Wood Lockers`,
+  serviceType: 'Custom sports locker design and manufacturing',
+  provider: {
+    '@type': 'Organization',
+    name: 'PlayerStall',
+    url: 'https://playerstall.com',
+  },
+  areaServed: {
+    '@type': 'State',
+    name: state.name,
+  },
+  description,
+  url: pageUrl,
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <section class="programmatic-hero">
+    <div class="programmatic-hero-bg">
+      <img
+        src="https://playerstall.b-cdn.net/images/h1-img-8.jpg"
+        alt={`${state.name} ${sport.name} custom wood lockers`}
+        width="1920"
+        height="1080"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="programmatic-hero-overlay"></div>
+    <div class="programmatic-container programmatic-hero-content">
+      <div class="programmatic-breadcrumbs">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <span>{state.name} {sport.name} Wood Lockers</span>
+      </div>
+      <h1>{state.name} {sport.name} Wood Lockers</h1>
+      <p>Built for serious programs that need premium presentation, operational durability, and sport-specific storage performance.</p>
+    </div>
+  </section>
+
+  <section class="programmatic-section">
+    <div class="programmatic-container programmatic-grid">
+      <article class="programmatic-main">
+        <h2>Custom {sport.name} locker solutions for programs in {state.name}</h2>
+        <p>
+          PlayerStall designs and manufactures custom wood lockers for {sport.name.toLowerCase()} programs across {state.name}.
+          Whether you are planning a new build, renovating an existing room, or standardizing multiple facilities, we focus on
+          one objective: a locker environment that improves daily operations and reinforces team standards.
+        </p>
+        <p>
+          Most {sport.name.toLowerCase()} projects fail because the room looks good on day one but does not support real program
+          traffic through season one. Equipment loading, airflow, circulation around benches, and maintenance access all matter.
+          Our process starts with these functional details so your room remains efficient, clean, and durable over the long term.
+        </p>
+
+        <h2>What {state.name} {sport.name.toLowerCase()} programs usually need</h2>
+        <p>
+          Programs typically prioritize {sport.primaryNeed}. We design around {sport.gearFocus}, while keeping pathways clean for
+          coaching staff, trainers, and athletes during high-traffic periods like game-day prep and post-practice turnover.
+        </p>
+        <ul>
+          <li>Player-first layouts that reduce congestion during peak change windows</li>
+          <li>Durable, serviceable components that support long facility lifecycles</li>
+          <li>Material and finish options aligned with your branding and recruiting goals</li>
+          <li>Modular planning that scales with roster growth and future facility updates</li>
+        </ul>
+
+        <h2>Why programs choose wood lockers over commodity alternatives</h2>
+        <p>
+          For competitive facilities, locker selection affects more than storage. Room quality shapes athlete experience, alumni
+          confidence, and recruiting perception. Wood locker systems are frequently chosen because they support premium finishes,
+          better visual consistency, and long-horizon maintenance planning compared with basic commodity options.
+        </p>
+        <p>
+          If you are evaluating materials, use this comparison guide:
+          <a href="/blog/wood-vs-metal-sports-lockers-complete-2025-comparison-guide"> Wood vs metal sports lockers</a>.
+          For sport-specific considerations, see:
+          <a href={sport.blogUrl}> {sport.name} locker planning guide</a>.
+        </p>
+
+        <h2>Project workflow for {state.name} facilities</h2>
+        <ol>
+          <li><strong>Consultation:</strong> We align on roster size, room constraints, timeline, and performance goals.</li>
+          <li><strong>Design:</strong> We configure locker dimensions, accessories, circulation, and finish packages.</li>
+          <li><strong>Approval:</strong> You review final specs, pricing, and build sequence before production.</li>
+          <li><strong>Delivery:</strong> We coordinate shipment and install readiness with your project team.</li>
+        </ol>
+
+        <h2>Budget and lifecycle planning for {state.name} athletic facilities</h2>
+        <p>
+          Programs that evaluate locker rooms only on purchase price usually end up paying more over time. The better lens is lifecycle
+          value: serviceability, finish durability, and how quickly individual components can be repaired or refreshed without replacing
+          complete rows. For many {sport.name.toLowerCase()} facilities, this is what preserves quality standards through multiple classes
+          of athletes and coaching transitions.
+        </p>
+        <p>
+          We help teams compare quick-ship and custom paths based on budget windows, opening deadlines, and long-range facility plans.
+          If your objective is to balance upfront cost with long-term performance, we can model a package that avoids overbuilding while
+          still protecting the athlete experience and recruiting presentation your program depends on.
+        </p>
+
+        <h2>Locker room planning checklist for {sport.name.toLowerCase()} operations</h2>
+        <ul>
+          <li>Confirm roster counts and swing capacity for depth-chart changes</li>
+          <li>Map traffic flow from locker entry to taping, training, and team meeting zones</li>
+          <li>Define equipment density requirements by position group and season phase</li>
+          <li>Select storage accessories that reduce daily setup and cleanup friction</li>
+          <li>Align finish durability to expected cleaning cadence and maintenance staffing</li>
+          <li>Plan for phased updates so future expansions remain visually consistent</li>
+        </ul>
+
+        <h2>Recruiting impact and athlete experience</h2>
+        <p>
+          Recruits and families interpret a locker room as a signal of program discipline. The space does not need to be flashy, but it
+          does need to feel intentional, clean, and built for the realities of {sport.name.toLowerCase()} training. Durable materials,
+          consistent branding, and organized player zones communicate that your staff plans for performance at every level.
+        </p>
+        <p>
+          For many {state.name} programs, a locker upgrade is one of the clearest improvements they can show prospects, alumni, and
+          donors in a short timeframe. That is why we tie every design decision back to function and presentation: the room must work
+          every day, and it must look like it belongs to a serious program.
+        </p>
+
+        <h2>FAQs</h2>
+        {faqs.map((faq) => (
+          <div class="faq-item">
+            <h3>{faq.question}</h3>
+            <p>{faq.answer}</p>
+          </div>
+        ))}
+      </article>
+
+      <aside class="programmatic-sidebar">
+        <div class="sidebar-card">
+          <h3>Start with a free consultation</h3>
+          <p>Tell us your facility goals and we'll provide a practical locker strategy for your {state.name} {sport.name.toLowerCase()} program.</p>
+          <a class="sidebar-btn" href="/contact">Request a Quote</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Useful links</h3>
+          <ul>
+            <li><a href="/products">Product lineup</a></li>
+            <li><a href="/gallery">Installation gallery</a></li>
+            <li><a href={sport.blogUrl}>{sport.name} planning guide</a></li>
+            <li><a href="/our-process">Our process</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-card">
+          <h3>Need sport-specific help?</h3>
+          <p>We design for football, basketball, hockey, baseball, soccer, and lacrosse facilities.</p>
+          <a href="/hockey">Explore by sport</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .programmatic-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  .programmatic-hero { position: relative; min-height: 360px; display: flex; align-items: flex-end; padding: 0 0 60px; overflow: hidden; }
+  .programmatic-hero-bg { position: absolute; inset: 0; }
+  .programmatic-hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .programmatic-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.25) 60%, transparent 100%); }
+  .programmatic-hero-content { position: relative; z-index: 1; color: #fff; }
+  .programmatic-breadcrumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .programmatic-breadcrumbs a { color: #f1f1f1; text-decoration: none; }
+  .programmatic-breadcrumbs span { color: #ffffff; }
+  .programmatic-hero h1 { margin: 0 0 10px; font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); text-transform: uppercase; }
+  .programmatic-hero p { margin: 0; max-width: 760px; font-size: 1.05rem; line-height: 1.7; color: #f3f3f3; }
+
+  .programmatic-section { padding: 52px 0 72px; background: #fff; }
+  .programmatic-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start; }
+  .programmatic-main h2 { margin-top: 0; font-family: 'Oswald', sans-serif; font-size: 1.8rem; text-transform: uppercase; }
+  .programmatic-main h3 { font-family: 'Oswald', sans-serif; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 8px; }
+  .programmatic-main p, .programmatic-main li { font-size: 1.02rem; line-height: 1.8; color: #2d2d2d; }
+  .programmatic-main ul, .programmatic-main ol { padding-left: 20px; margin: 10px 0 24px; }
+  .programmatic-main a { color: #fe5900; text-decoration: none; }
+  .programmatic-main a:hover { text-decoration: underline; }
+  .faq-item { border-top: 1px solid #e6e6e6; padding-top: 14px; margin-top: 14px; }
+
+  .programmatic-sidebar { display: flex; flex-direction: column; gap: 18px; }
+  .sidebar-card { border: 1px solid #e6e6e6; padding: 18px; background: #fafafa; }
+  .sidebar-card h3 { margin: 0 0 10px; font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 1.05rem; }
+  .sidebar-card p { margin: 0 0 10px; color: #3c3c3c; line-height: 1.6; }
+  .sidebar-card ul { margin: 0; padding-left: 18px; }
+  .sidebar-card li { margin-bottom: 8px; }
+  .sidebar-card a { color: #fe5900; text-decoration: none; }
+  .sidebar-card a:hover { text-decoration: underline; }
+  .sidebar-btn { display: inline-block; margin-top: 6px; padding: 11px 16px; background: #fe5900; color: #fff !important; text-transform: uppercase; font-weight: 600; letter-spacing: 0.06em; }
+  .sidebar-btn:hover { background: #e04d00; text-decoration: none !important; }
+
+  @media (max-width: 960px) {
+    .programmatic-grid { grid-template-columns: 1fr; }
+  }
+</style>

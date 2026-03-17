@@ -1,0 +1,252 @@
+---
+interface Comment {
+  id:       number;
+  author:   string;
+  avatar:   string;
+  date:     string;
+  text:     string;
+  replies?: Comment[];
+}
+interface Props {
+  comments: Comment[];
+  postSlug: string;
+}
+const { comments, postSlug } = Astro.props;
+
+function countAll(list: Comment[]): number {
+  return list.reduce((n, c) => n + 1 + countAll(c.replies ?? []), 0);
+}
+const total = countAll(comments);
+---
+
+<section class="comments-section" id="comments">
+
+  <!-- Comment list -->
+  {total > 0 && (
+    <div class="comments-list-wrap">
+      <h3 class="section-title">{total} Comment{total !== 1 ? 's' : ''}</h3>
+      <ol class="comments-list">
+        {comments.map(comment => (
+          <li class="comment" id={`comment-${comment.id}`}>
+            <div class="comment-inner">
+              <div class="comment-avatar">
+                <img src={comment.avatar} alt={comment.author} width="52" height="52" loading="lazy" />
+              </div>
+              <div class="comment-content">
+                <div class="comment-header">
+                  <strong class="comment-author">{comment.author}</strong>
+                  <time class="comment-date">{comment.date}</time>
+                  <a href="#respond" class="comment-reply-link" data-parent={comment.id}>Reply</a>
+                </div>
+                <p class="comment-text">{comment.text}</p>
+              </div>
+            </div>
+
+            {comment.replies && comment.replies.length > 0 && (
+              <ol class="children">
+                {comment.replies.map(reply => (
+                  <li class="comment comment--reply" id={`comment-${reply.id}`}>
+                    <div class="comment-inner">
+                      <div class="comment-avatar">
+                        <img src={reply.avatar} alt={reply.author} width="44" height="44" loading="lazy" />
+                      </div>
+                      <div class="comment-content">
+                        <div class="comment-header">
+                          <strong class="comment-author">{reply.author}</strong>
+                          <time class="comment-date">{reply.date}</time>
+                          <a href="#respond" class="comment-reply-link">Reply</a>
+                        </div>
+                        <p class="comment-text">{reply.text}</p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  )}
+
+  <!-- Reply form -->
+  <div class="comment-form-wrap" id="respond">
+    <h3 class="section-title">Leave a Reply</h3>
+    <p class="form-notice">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+
+    <form class="comment-form" novalidate>
+      <div class="form-row form-row--full">
+        <label for={`comment-text-${postSlug}`}>Comment <span class="required">*</span></label>
+        <textarea id={`comment-text-${postSlug}`} name="comment" rows={7} required placeholder="Share your thoughts…"></textarea>
+      </div>
+      <div class="form-row">
+        <label for={`comment-name-${postSlug}`}>Name <span class="required">*</span></label>
+        <input id={`comment-name-${postSlug}`} type="text" name="author" required placeholder="Your name" />
+      </div>
+      <div class="form-row">
+        <label for={`comment-email-${postSlug}`}>Email <span class="required">*</span></label>
+        <input id={`comment-email-${postSlug}`} type="email" name="email" required placeholder="your@email.com" />
+      </div>
+      <div class="form-row">
+        <label for={`comment-website-${postSlug}`}>Website</label>
+        <input id={`comment-website-${postSlug}`} type="url" name="url" placeholder="https://yoursite.com" />
+      </div>
+      <div class="form-row form-row--full form-row--checkbox">
+        <label class="checkbox-label">
+          <input type="checkbox" name="save-info" />
+          Save my name, email, and website in this browser for the next time I comment.
+        </label>
+      </div>
+      <div class="form-row form-row--full">
+        <button type="submit" class="btn btn-solid">Post Comment</button>
+      </div>
+    </form>
+  </div>
+
+</section>
+
+<style>
+.comments-section { margin-top: 60px; }
+.comments-list-wrap { margin-bottom: 56px; }
+
+/* Comment list */
+.comments-list, .children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.children { margin-left: 60px; }
+
+.comment { border-top: 1px solid var(--color-border); padding: 28px 0 0; }
+.comment:first-child { border-top: none; padding-top: 0; }
+
+.comment-inner { display: flex; gap: 20px; align-items: flex-start; }
+
+.comment-avatar {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--color-border);
+}
+.comment--reply .comment-avatar { width: 44px; height: 44px; }
+.comment-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.comment-content { flex: 1; min-width: 0; }
+.comment-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.comment-author {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-primary);
+}
+.comment-date {
+  font-size: 11px;
+  color: var(--color-muted);
+  letter-spacing: 0.3px;
+}
+.comment-reply-link {
+  margin-left: auto;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 3px 10px;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.comment-reply-link:hover {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+.comment-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+/* Children */
+.children .comment { padding: 20px 0 0; }
+
+/* Form */
+.form-notice {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin-bottom: 28px;
+}
+.required { color: var(--color-accent); }
+
+.comment-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.form-row { display: flex; flex-direction: column; gap: 8px; }
+.form-row--full { grid-column: 1 / -1; }
+.form-row--checkbox { flex-direction: row; align-items: flex-start; }
+
+.comment-form label {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  outline: none;
+  transition: border-color 0.2s;
+  resize: vertical;
+  box-sizing: border-box;
+}
+.comment-form input:focus,
+.comment-form textarea:focus { border-color: var(--color-accent); }
+.comment-form input::placeholder,
+.comment-form textarea::placeholder { color: var(--color-muted); }
+
+.checkbox-label {
+  font-family: var(--font-body) !important;
+  font-size: 13px !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--color-muted) !important;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  line-height: 1.5;
+}
+.checkbox-label input[type="checkbox"] {
+  margin-top: 3px;
+  accent-color: var(--color-accent);
+}
+
+@media (max-width: 600px) {
+  .comment-form { grid-template-columns: 1fr; }
+  .children { margin-left: 32px; }
+}
+</style>

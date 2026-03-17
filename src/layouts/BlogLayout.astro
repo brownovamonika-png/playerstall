@@ -1,0 +1,33 @@
+---
+/**
+ * BlogLayout.astro
+ *
+ * Drop-in blog wrapper. Does two things:
+ *  1. Wraps the site BaseLayout (header/nav/footer come for free)
+ *  2. Adds a .blog-page div that scopes all blog CSS — nothing leaks out
+ *
+ * CSS variables defined in blog.css (.blog-page) cascade to every child
+ * component, so BlogPostLayout, blog listing pages, etc. all share
+ * the same design tokens automatically.
+ */
+import BaseLayout from './BaseLayout.astro';
+import '../styles/blog.css';
+
+interface Props {
+  title:        string;
+  description?: string;
+  /** Used as the OG share image (og:image). */
+  image?:       string;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} ogImage={image}>
+  <Fragment slot="head">
+    <slot name="head" />
+  </Fragment>
+  <div class="blog-page">
+    <slot />
+  </div>
+</BaseLayout>
