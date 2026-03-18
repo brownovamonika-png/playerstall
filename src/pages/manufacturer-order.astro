@@ -1,0 +1,746 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const sideProfiles = [
+	{ value: 'model-1', label: 'Model 1', image: '/images/manufacturer/side-profile-model-1.png', alt: 'Side profile Model 1 – straight full-height panel' },
+	{ value: 'model-2', label: 'Model 2', image: '/images/manufacturer/side-profile-model-2.png', alt: 'Side profile Model 2 – hourglass contoured cutout' },
+	{ value: 'model-3', label: 'Model 3', image: '/images/manufacturer/side-profile-model-3.png', alt: 'Side profile Model 3 – C-shape angular diagonal' },
+	{ value: 'model-4', label: 'Model 4', image: '/images/manufacturer/side-profile-model-4.png', alt: 'Side profile Model 4 – tapered front long diagonal' },
+];
+
+const topTypes = [
+	{ value: 'lockbox-no-digital', label: 'Lock box, no digital lock' },
+	{ value: 'lockbox-digital', label: 'Lock box with digital lock' },
+	{ value: 'top-covered', label: 'Whole top covered (enclosed)' },
+	{ value: 'all-open', label: 'All open, nothing inside' },
+];
+
+const bottomTypes = [
+	{ value: 'three-vents', label: 'Three vents' },
+	{ value: 'one-rectangular-vent', label: 'One big rectangular vent' },
+	{ value: 'no-vents', label: 'No vents' },
+];
+
+const widthOptions = [18, 20, 22, 24, 26, 28, 30, 32].map((inches) => ({
+	value: String(inches),
+	label: `${inches} inches`,
+}));
+
+const heightOptions = [
+	{ value: '76', label: '76 inches' },
+	{ value: 'other', label: 'Other' },
+];
+
+const depthOptions = [
+	{ value: '19', label: '19 inches' },
+	{ value: '23.5', label: '23.5 inches' },
+];
+
+const colorOptions = [
+	{ value: '1', label: 'Type 1', hex: '#1a1a1a' },
+	{ value: '2', label: 'Type 2', hex: '#333333' },
+	{ value: '3', label: 'Type 3', hex: '#5c5c5c' },
+	{ value: '4', label: 'Type 4', hex: '#8c8c8c' },
+	{ value: '5', label: 'Type 5', hex: '#c4c4c4' },
+	{ value: '6', label: 'Type 6', hex: '#e8e4df' },
+	{ value: '7', label: 'Type 7', hex: '#f5f5f0' },
+	{ value: '8', label: 'Type 8', hex: '#4a6b5a' },
+	{ value: '9', label: 'Type 9', hex: '#3d5a6c' },
+	{ value: '10', label: 'Type 10', hex: '#8b6914' },
+];
+
+const cushionColorOptions = [
+	{ value: '1', label: 'Type 1', hex: '#1a1a1a' },
+	{ value: '2', label: 'Type 2', hex: '#8c8c8c' },
+	{ value: '3', label: 'Type 3', hex: '#e8e4df' },
+	{ value: '4', label: 'Type 4', hex: '#f5f5f0' },
+	{ value: '5', label: 'Type 5', hex: '#4a6b5a' },
+];
+
+const cushionSizeOptions = [
+	{ value: '19', label: 'For 19" deep locker' },
+	{ value: '23.5', label: 'For 23.5" deep locker' },
+];
+---
+
+<BaseLayout
+	title="Manufacturer Order Form | PlayerStall"
+	description="Order form for Vietnamese manufacturers: side profile, top type, bottom vents, and order details. Print or save as PDF to send to factory."
+>
+	<!-- Hero -->
+	<section class="manufacturer-hero">
+		<div class="manufacturer-hero-bg">
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="" class="manufacturer-hero-img" />
+		</div>
+		<div class="manufacturer-hero-overlay"></div>
+		<div class="manufacturer-hero-inner">
+			<nav class="manufacturer-breadcrumbs">
+				<a href="/">Home</a>
+				<span>Manufacturer Order Form</span>
+			</nav>
+			<h1 class="manufacturer-hero-title">Manufacturer Order Form</h1>
+			<p class="manufacturer-hero-subtitle">Select side profile, width, height, depth, top type, bottom vents, and enter order details. Print or Save as PDF to send to factory.</p>
+		</div>
+	</section>
+
+	<section class="manufacturer-section">
+		<div class="manufacturer-container">
+			<form class="manufacturer-form" id="manufacturer-order-form">
+				<!-- Side profile -->
+				<div class="form-block">
+					<h2 class="form-block-title">Side profile</h2>
+					<div class="profile-grid" role="group" aria-label="Side profile">
+						{sideProfiles.map((p) => (
+							<label class="profile-card">
+								<input type="checkbox" name="side_profile" value={p.value} class="profile-checkbox option-checkbox" data-group="side_profile" />
+								<span class="profile-card-inner">
+									<img src={p.image} alt={p.alt} class="profile-img" width="120" height="200" loading="lazy" />
+									<span class="profile-label">{p.label}</span>
+								</span>
+							</label>
+						))}
+					</div>
+				</div>
+
+				<!-- Color -->
+				<div class="form-block">
+					<h2 class="form-block-title">Color</h2>
+					<div class="chip-group color-swatch-group" role="group" aria-label="Color">
+						{colorOptions.map((c) => (
+							<label class="chip chip-color">
+								<input type="checkbox" name="color" value={c.value} class="chip-input option-checkbox" data-group="color" />
+								<span class="color-swatch" style={`background-color: ${c.hex}`} aria-hidden="true"></span>
+								<span class="chip-label">{c.label}</span>
+							</label>
+						))}
+					</div>
+				</div>
+
+				<!-- Width (quantity per width) -->
+				<div class="form-block">
+					<h2 class="form-block-title">Width &amp; quantity</h2>
+					<p class="form-block-hint">Enter quantity for each width. Use 0 if that width is not needed.</p>
+					<div class="width-qty-grid">
+						{widthOptions.map((w) => (
+							<div class="width-qty-row">
+								<label for={`qty_width_${w.value}`} class="width-qty-label">{w.label}</label>
+								<input type="number" id={`qty_width_${w.value}`} name={`qty_width_${w.value}`} min="0" value="0" class="width-qty-input" aria-label={`Quantity for ${w.label}`} />
+							</div>
+						))}
+					</div>
+				</div>
+
+				<!-- Cushion -->
+				<div class="form-block">
+					<h2 class="form-block-title">Cushion</h2>
+					<div class="cushion-sub-options">
+						<div class="cushion-sub-row">
+							<span class="cushion-sub-label">Cushion color</span>
+							<div class="chip-group color-swatch-group" role="group" aria-label="Cushion color">
+								{cushionColorOptions.map((c) => (
+									<label class="chip chip-color">
+										<input type="checkbox" name="cushion_color" value={c.value} class="chip-input option-checkbox" data-group="cushion_color" />
+										<span class="color-swatch" style={`background-color: ${c.hex}`} aria-hidden="true"></span>
+										<span class="chip-label">{c.label}</span>
+									</label>
+								))}
+							</div>
+						</div>
+						<div class="cushion-sub-row">
+							<span class="cushion-sub-label">Cushion size</span>
+							<div class="chip-group" role="group" aria-label="Cushion size">
+								{cushionSizeOptions.map((s) => (
+									<label class="chip">
+										<input type="checkbox" name="cushion_size" value={s.value} class="chip-input option-checkbox" data-group="cushion_size" />
+										<span class="chip-label">{s.label}</span>
+									</label>
+								))}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Height -->
+				<div class="form-block">
+					<h2 class="form-block-title">Height</h2>
+					<div class="chip-group chip-group-height" role="group" aria-label="Height">
+						{heightOptions.map((h) => (
+							<label class="chip">
+								<input type="checkbox" name="height" value={h.value} class="chip-input option-checkbox height-checkbox" data-group="height" />
+								<span class="chip-label">{h.label}</span>
+							</label>
+						))}
+						<div class="height-other-wrap" id="height-other-wrap" hidden>
+							<input type="text" id="height_other" name="height_other" placeholder="Enter height (e.g. 72 inches)" class="height-other-input" aria-label="Height other" />
+						</div>
+					</div>
+				</div>
+
+				<!-- Depth -->
+				<div class="form-block">
+					<h2 class="form-block-title">Depth</h2>
+					<div class="chip-group" role="group" aria-label="Depth">
+						{depthOptions.map((d) => (
+							<label class="chip">
+								<input type="checkbox" name="depth" value={d.value} class="chip-input option-checkbox" data-group="depth" />
+								<span class="chip-label">{d.label}</span>
+							</label>
+						))}
+					</div>
+				</div>
+
+				<!-- Top type -->
+				<div class="form-block">
+					<h2 class="form-block-title">Top type</h2>
+					<div class="chip-group chip-group-one-line" role="group" aria-label="Top type">
+						{topTypes.map((t) => (
+							<label class="chip">
+								<input type="checkbox" name="top_type" value={t.value} class="chip-input option-checkbox" data-group="top_type" />
+								<span class="chip-label">{t.label}</span>
+							</label>
+						))}
+					</div>
+				</div>
+
+				<!-- Bottom type -->
+				<div class="form-block">
+					<h2 class="form-block-title">Bottom / vents</h2>
+					<div class="chip-group" role="group" aria-label="Bottom vents">
+						{bottomTypes.map((b) => (
+							<label class="chip">
+								<input type="checkbox" name="bottom_type" value={b.value} class="chip-input option-checkbox" data-group="bottom_type" />
+								<span class="chip-label">{b.label}</span>
+							</label>
+						))}
+					</div>
+				</div>
+
+				<!-- Order details -->
+				<div class="form-block">
+					<h2 class="form-block-title">Order details</h2>
+					<div class="form-row">
+						<div class="form-group">
+							<label for="po">Order / PO number</label>
+							<input type="text" id="po" name="po" placeholder="e.g. PO-2026-001" />
+						</div>
+						<div class="form-group">
+							<label for="quantity">Quantity</label>
+							<input type="number" id="quantity" name="quantity" min="1" placeholder="Number of units" />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label for="dimensions">Dimensions / size</label>
+							<input type="text" id="dimensions" name="dimensions" placeholder="e.g. 24\" W × 76\" H × 19\" D" />
+						</div>
+						<div class="form-group">
+							<label for="finish">Finish / color</label>
+							<input type="text" id="finish" name="finish" placeholder="e.g. Black, Maple" />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label for="delivery">Requested delivery date</label>
+							<input type="text" id="delivery" name="delivery" placeholder="e.g. 2026-04-15 or Q2 2026" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="notes">Notes / special instructions</label>
+						<textarea id="notes" name="notes" rows="4" placeholder="Any special requirements for the factory"></textarea>
+					</div>
+				</div>
+
+				<div class="form-actions">
+					<p class="pdf-hint">Use your browser's <strong>Print</strong> → <strong>Save as PDF</strong> to download this order form and send to the factory.</p>
+					<button type="button" class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+				</div>
+			</form>
+		</div>
+	</section>
+</BaseLayout>
+
+<script>
+	function updateHeightOtherVisibility() {
+		const wrap = document.getElementById('height-other-wrap');
+		const otherInput = document.getElementById('height_other');
+		const otherCb = document.querySelector('input[name="height"][value="other"]');
+		if (!wrap || !otherCb) return;
+		const show = otherCb.checked;
+		wrap.hidden = !show;
+		if (otherInput) {
+			otherInput.disabled = !show;
+			if (!show) otherInput.value = '';
+		}
+	}
+
+	// One checkbox per group: uncheck others in same group when one is checked
+	document.querySelectorAll('.option-checkbox').forEach((cb) => {
+		cb.addEventListener('change', function () {
+			if (!this.checked) return;
+			const group = this.getAttribute('data-group');
+			document.querySelectorAll(`.option-checkbox[data-group="${group}"]`).forEach((other) => {
+				if (other !== this) other.checked = false;
+			});
+			if (group === 'height') updateHeightOtherVisibility();
+		});
+	});
+
+	document.querySelectorAll('input[name="height"]').forEach((el) => {
+		el.addEventListener('change', updateHeightOtherVisibility);
+	});
+	updateHeightOtherVisibility();
+</script>
+
+<style>
+	:global(body) {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #f7f7f7;
+		color: #0d0d0d;
+	}
+
+	.manufacturer-hero {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
+		min-height: 320px;
+		overflow: hidden;
+	}
+
+	.manufacturer-hero-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+
+	.manufacturer-hero-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		filter: grayscale(100%);
+	}
+
+	.manufacturer-hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	.manufacturer-hero-inner {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		width: 100%;
+	}
+
+	.manufacturer-breadcrumbs {
+		font-size: 12px;
+		color: rgba(255, 255, 255, 0.85);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
+	}
+
+	.manufacturer-breadcrumbs a {
+		color: rgba(255, 255, 255, 0.85);
+		text-decoration: none;
+	}
+
+	.manufacturer-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.manufacturer-breadcrumbs span {
+		margin-left: 10px;
+		color: #fff;
+	}
+
+	.manufacturer-hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 52px;
+		font-weight: 600;
+		color: #fff;
+		text-transform: uppercase;
+		margin: 0 0 0.5rem;
+		line-height: 1.1;
+	}
+
+	.manufacturer-hero-subtitle {
+		font-size: 18px;
+		color: rgba(255, 255, 255, 0.9);
+		margin: 0;
+		max-width: 640px;
+	}
+
+	.manufacturer-section {
+		padding: 3rem 0 5rem;
+		background: #fff;
+	}
+
+	.manufacturer-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.manufacturer-form {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	.form-block {
+		margin-bottom: 2.5rem;
+	}
+
+	.form-block-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		margin: 0 0 1rem;
+	}
+
+	.form-block-hint {
+		font-size: 14px;
+		color: #666;
+		margin: -0.5rem 0 1rem;
+	}
+
+	.width-qty-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+		gap: 0.75rem 1.5rem;
+	}
+
+	.width-qty-row {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.width-qty-label {
+		font-size: 14px;
+		font-weight: 500;
+		color: #0d0d0d;
+		min-width: 5rem;
+	}
+
+	.width-qty-input {
+		width: 4rem;
+		padding: 0.5rem;
+		border: 1px solid #bfbfbf;
+		font-size: 15px;
+		font-family: 'Yantramanav', sans-serif;
+		text-align: center;
+	}
+
+	.width-qty-input:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 2px rgba(254, 89, 0, 0.15);
+	}
+
+	.profile-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1rem;
+	}
+
+	.profile-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		cursor: pointer;
+	}
+
+	.profile-checkbox {
+		width: 22px;
+		height: 22px;
+		flex-shrink: 0;
+		margin-bottom: 0.5rem;
+		accent-color: #fe5900;
+		cursor: pointer;
+	}
+
+	.profile-card-inner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 1rem;
+		border: 2px solid #ddd;
+		background: #fafafa;
+		transition: border-color 0.2s, background 0.2s;
+		min-height: 260px;
+		width: 100%;
+	}
+
+	.profile-card:hover .profile-card-inner {
+		border-color: #ccc;
+		background: #f5f5f5;
+	}
+
+	.profile-checkbox:checked + .profile-card-inner {
+		border-color: #fe5900;
+		background: #fff8f5;
+	}
+
+	.profile-img {
+		width: 100%;
+		max-width: 140px;
+		height: auto;
+		object-fit: contain;
+		margin-bottom: 0.75rem;
+	}
+
+	.profile-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+	}
+
+	.chip-group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.chip-group-one-line {
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		padding-bottom: 0.25rem;
+	}
+
+	.chip-group-one-line .chip-label {
+		white-space: nowrap;
+		padding: 0.5rem 0.85rem;
+		font-size: 13px;
+	}
+
+	.chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		cursor: pointer;
+	}
+
+	.chip .chip-input.option-checkbox {
+		width: 20px;
+		height: 20px;
+		flex-shrink: 0;
+		accent-color: #fe5900;
+		cursor: pointer;
+		position: static;
+		opacity: 1;
+	}
+
+	.chip-label {
+		display: inline-block;
+		padding: 0.6rem 1.2rem;
+		border: 2px solid #ddd;
+		background: #fafafa;
+		font-size: 14px;
+		font-family: 'Yantramanav', sans-serif;
+		color: #0d0d0d;
+		transition: border-color 0.2s, background 0.2s;
+	}
+
+	.chip:hover .chip-label {
+		border-color: #ccc;
+		background: #f5f5f5;
+	}
+
+	.chip-input:checked + .chip-label {
+		border-color: #fe5900;
+		background: #fff8f5;
+		color: #0d0d0d;
+	}
+
+	.chip-color .color-swatch {
+		width: 24px;
+		height: 24px;
+		border-radius: 4px;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+		flex-shrink: 0;
+	}
+
+	.chip-color .chip-input:checked + .color-swatch {
+		outline: 2px solid #fe5900;
+		outline-offset: 2px;
+	}
+
+	.chip-color .chip-input:checked + .color-swatch + .chip-label {
+		border-color: #fe5900;
+		background: #fff8f5;
+	}
+
+	.cushion-sub-options {
+		margin-top: 1.25rem;
+		padding-left: 0.5rem;
+		border-left: 3px solid #eee;
+	}
+
+	.cushion-sub-row {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-bottom: 1rem;
+	}
+
+	.cushion-sub-row:last-child {
+		margin-bottom: 0;
+	}
+
+	.cushion-sub-label {
+		font-size: 13px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+		min-width: 110px;
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 1rem;
+	}
+
+	.form-row .form-group {
+		margin-bottom: 0;
+	}
+
+	.form-group label {
+		margin-bottom: 0.4rem;
+		font-size: 13px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #0d0d0d;
+	}
+
+	.form-group input,
+	.form-group textarea {
+		padding: 0.75rem;
+		border: 1px solid #bfbfbf;
+		font-size: 15px;
+		font-family: 'Yantramanav', sans-serif;
+		background: #fff;
+		color: #0d0d0d;
+		transition: border-color 0.2s, box-shadow 0.2s;
+	}
+
+	.form-group input:focus,
+	.form-group textarea:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 2px rgba(254, 89, 0, 0.15);
+	}
+
+	.form-group textarea {
+		resize: vertical;
+		min-height: 100px;
+	}
+
+	.height-other-wrap {
+		margin-top: 1rem;
+		max-width: 320px;
+	}
+
+	.form-actions {
+		margin-top: 2rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid #eee;
+	}
+
+	.pdf-hint {
+		font-size: 14px;
+		color: #666;
+		margin: 0 0 1rem;
+	}
+
+	.btn-print {
+		display: inline-block;
+		padding: 0.75rem 1.5rem;
+		background: #fe5900;
+		color: #fff;
+		border: none;
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		cursor: pointer;
+		transition: background 0.2s, transform 0.1s;
+	}
+
+	.btn-print:hover {
+		background: #e54f00;
+	}
+
+	@media (max-width: 768px) {
+		.profile-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.form-row {
+			grid-template-columns: 1fr;
+		}
+
+		.manufacturer-hero-title {
+			font-size: 36px;
+		}
+	}
+
+	@media print {
+		.manufacturer-hero-bg,
+		.manufacturer-hero-overlay,
+		.btn-print,
+		:global(.top-bar),
+		:global(header),
+		:global(footer) {
+			display: none !important;
+		}
+
+		.manufacturer-hero {
+			min-height: auto;
+			padding: 0 0 1rem;
+			background: #fff;
+		}
+
+		.manufacturer-hero-title {
+			color: #0d0d0d;
+		}
+
+		.manufacturer-hero-subtitle,
+		.manufacturer-breadcrumbs,
+		.manufacturer-breadcrumbs a,
+		.manufacturer-breadcrumbs span {
+			color: #333;
+		}
+
+		.manufacturer-section {
+			padding: 0;
+		}
+
+		.form-actions .pdf-hint {
+			display: none;
+		}
+	}
+</style>
