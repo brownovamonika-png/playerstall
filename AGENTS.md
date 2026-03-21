@@ -4,7 +4,7 @@ This document serves as a reference guide for AI agents working on the PlayerSta
 
 ## Project Overview
 
-**PlayerStall** is a modern, professional website for a sports locker business that serves customers across the United States. The company specializes in custom wood sports lockers for collegiate and professional teams, with 30+ years of experience and a lifetime guarantee.
+**PlayerStall** is a modern, professional website for a sports locker business that serves customers across the United States. The company specializes in custom wood sports lockers for collegiate and professional teams, with 30+ years of experience and a five year guarantee.
 
 ### Key Business Information
 - **Business Type**: Custom sports locker manufacturer
@@ -354,6 +354,11 @@ Prefer CDN (`https://playerstall.b-cdn.net/images/`) for new assets. When replac
 - Or use relative paths from public folder
 - For CDN: use full URL `https://playerstall.b-cdn.net/images/...`
 
+**Image rules for blog posts**:
+- Use a **minimum of 3 images** per post: the `heroImage` frontmatter field counts as one; include at least 2 additional inline body images.
+- All images must be **unique** — no URL should appear more than once across `heroImage` and body images. A heroImage accidentally reused as an inline body image is a common mistake.
+- **Final check (mandatory):** Before finishing any blog post, scan every image URL in the file (frontmatter + body) and confirm no duplicates exist.
+
 ### Working with Links
 
 **External links** (any URL outside playerstall.com):
@@ -444,7 +449,7 @@ npm run preview
 **Key Competitive Advantages**:
 - 30+ years experience (unique selling point)
 - Canadian-owned and operated since 1996 (differentiation)
-- Lifetime guarantee (strong value prop)
+- Five year guarantee (strong value prop)
 - Custom design consultation (free service)
 - Focus on collegiate/professional teams (niche expertise)
 
@@ -457,7 +462,7 @@ npm run preview
   - Format: `[Primary Keyword] | [Secondary Keyword] | PlayerStall`
   - Example: `Custom Sports Lockers | Wood Athletic Lockers | Canadian-owned and operated since 1996  | PlayerStall`
 - [ ] **Meta Description**: 150-160 characters, includes CTA, key benefits
-  - Must include: "30+ years experience", "Lifetime guarantee", "Free consultation"
+  - Must include: "30+ years experience", "Five year guarantee", "Free consultation"
 - [ ] **H1 Tag**: One per page, includes primary keyword, matches user intent
 - [ ] **H2-H6 Tags**: Proper hierarchy, include secondary keywords naturally
 
@@ -615,7 +620,7 @@ npm run preview
 - **Readability**: Flesch-Kincaid 60+ (8th-9th grade level)
 - **Internal Links**: 5-10 relevant internal links
 - **External Links**: 2-3 authoritative sources
-- **Images**: 3-5 images with optimized alt tags
+- **Images**: Minimum 3 images with optimized alt tags; all must be unique URLs (no duplicates between heroImage and body images)
 - **Schema**: Article + FAQPage schema
 
 **Content Topics** (High SEO Value):

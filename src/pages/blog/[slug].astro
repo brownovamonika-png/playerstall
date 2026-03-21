@@ -210,7 +210,7 @@ const heroAlt = post.heroImageAlt ?? post.title;
                   <span class="qodef-author-label">The author</span>
                   <span class="qodef-author-name">{post.author}</span>
                 </h4>
-                <p class="qodef-author-desc">PlayerStall has been building custom wood sports lockers for collegiate and professional teams for over 30 years. Canadian-owned and operated since 1996, we offer a lifetime guarantee on all of our products.</p>
+                <p class="qodef-author-desc">PlayerStall has been building custom wood sports lockers for collegiate and professional teams for over 30 years. Canadian-owned and operated since 1996, we offer a five year guarantee on all of our products.</p>
               </div>
             </div>
 
@@ -259,7 +259,7 @@ const heroAlt = post.heroImageAlt ?? post.title;
         <aside class="qodef-page-sidebar">
           <div class="qodef-widget qodef-widget-about">
             <h4 class="qodef-widget-title">about us</h4>
-            <p>PlayerStall has been building custom wood sports lockers for collegiate and professional teams for over 30 years. Canadian-owned and operated since 1996, we offer a lifetime guarantee and free design consultation.</p>
+            <p>PlayerStall has been building custom wood sports lockers for collegiate and professional teams for over 30 years. Canadian-owned and operated since 1996, we offer a five year guarantee and free design consultation.</p>
           </div>
 
           <div class="qodef-widget qodef-widget-search">
@@ -325,7 +325,7 @@ const heroAlt = post.heroImageAlt ?? post.title;
       <div class="cta-container">
         <div class="cta-content">
           <h2>Ready for Custom Sports Lockers?</h2>
-          <p>Get a free design consultation. 30+ years experience. Lifetime guarantee.</p>
+          <p>Get a free design consultation. 30+ years experience. Five year guarantee.</p>
           <a class="cta-btn" href="/contact">Get Free Consultation</a>
         </div>
       </div>
@@ -1037,6 +1037,62 @@ const heroAlt = post.heroImageAlt ?? post.title;
     border-color: #e04d00;
   }
 
+  /* ── Tables ── */
+  .qodef-e-text :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 1rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  .qodef-e-text :global(thead) {
+    background: #0d0d0d;
+  }
+
+  .qodef-e-text :global(thead th) {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    padding: 14px 18px;
+    text-align: left;
+    border: none;
+  }
+
+  .qodef-e-text :global(tbody tr) {
+    border-bottom: 1px solid #e8e8e8;
+    transition: background 0.15s;
+  }
+
+  .qodef-e-text :global(tbody tr:last-child) {
+    border-bottom: none;
+  }
+
+  .qodef-e-text :global(tbody tr:nth-child(even)) {
+    background: #f9f7f2;
+  }
+
+  .qodef-e-text :global(tbody tr:hover) {
+    background: #fff5f0;
+  }
+
+  .qodef-e-text :global(tbody td) {
+    padding: 13px 18px;
+    color: #4a4a4a;
+    font-size: 1rem;
+    line-height: 1.6;
+    vertical-align: top;
+  }
+
+  .qodef-e-text :global(tbody td:first-child) {
+    color: #0d0d0d;
+    font-weight: 600;
+  }
+
   /* ── Responsive ── */
   @media (max-width: 1024px) {
     .qodef-grid-inner {
@@ -1096,6 +1152,14 @@ const heroAlt = post.heroImageAlt ?? post.title;
     .qodef-info-bottom {
       flex-direction: column;
       align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .qodef-e-text :global(table) {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
   }
 </style>

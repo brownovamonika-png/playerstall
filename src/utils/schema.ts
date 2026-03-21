@@ -146,7 +146,7 @@ export function generateLocalBusinessSchema() {
 		"@type": "LocalBusiness",
 		"name": "PlayerStall",
 		"alternateName": "playerstall.com",
-		"description": "Premium wood sports lockers manufacturer specializing in custom athletic lockers for collegiate and professional teams. 30+ years experience with lifetime guarantee.",
+		"description": "Premium wood sports lockers manufacturer specializing in custom athletic lockers for collegiate and professional teams. 30+ years experience with five year guarantee.",
 		"image": "https://playerstall.b-cdn.net/images/logoblack2.png",
 		"logo": "https://playerstall.b-cdn.net/images/logoblack2.png",
 		"url": "https://playerstall.com",

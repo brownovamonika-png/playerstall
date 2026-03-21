@@ -8,3 +8,7 @@ grid-estimate.txt# Jason Vietnam Production Request - colored lockers
 *colored*locker*
 *Production*Request*# Guides directory
 guides/
+
+# Cursor agent skills (local only)
+.cursor/skills/
+.DS_Store

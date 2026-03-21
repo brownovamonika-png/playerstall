@@ -104,7 +104,7 @@ custom baseball lockers
 - ✅ 3 image placeholders
 - ✅ Internal links to `/contact`, `/services`, `/gallery`
 - ✅ Proper heading hierarchy (H1 → H2 → H3)
-- ✅ Brand messaging included (30+ years, lifetime guarantee, free consultation)
+- ✅ Brand messaging included (30+ years, five year guarantee, free consultation)
 
 ---
 
