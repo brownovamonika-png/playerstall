@@ -11,7 +11,7 @@ export async function getStaticPaths() {
       .map((path) => path.replace(/^\.\/(.*)\.astro$/, '$1'))
       .filter((s) => s !== '[slug]')
   );
-  const allEntries = await getCollection('blog');
+  const allEntries = await getCollection('blog', ({ data }) => !data.draft);
   const blogEntries = allEntries.filter((e) => !staticBlogSlugs.has(e.slug));
   const sorted = [...blogEntries].sort((a, b) =>
     new Date(b.data.datePublished).getTime() - new Date(a.data.datePublished).getTime()
