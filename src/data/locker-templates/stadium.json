@@ -1,0 +1,52 @@
+{
+  "templateId": "stadium",
+  "displayName": "Stadium Locker",
+  "pdpUrl": "/product-stadium-locker",
+  "geometry": {
+    "heightIn": 76,
+    "widthOptionsIn": [18, 20, 22, 24, 26, 28, 30, 32],
+    "depthOptionsIn": [19],
+    "defaultWidthIn": 18,
+    "defaultDepthIn": 19
+  },
+  "pricing": {
+    "currency": "USD",
+    "basePriceByWidthIn": {
+      "18": 599,
+      "20": 599,
+      "22": 599,
+      "24": 599,
+      "26": 629,
+      "28": 629,
+      "30": 649,
+      "32": 649
+    },
+    "depthSurcharge": {
+      "19": 0
+    }
+  },
+  "colors": [
+    { "code": "DW", "label": "Designer White", "hex": "#F5F5F5", "group": "solid" },
+    { "code": "WS", "label": "White Sand", "hex": "#EDE8DA", "group": "solid" },
+    { "code": "FG", "label": "Fashion Grey", "hex": "#A8A8A8", "group": "solid" },
+    { "code": "NS", "label": "North Sea", "hex": "#6E8090", "group": "solid" },
+    { "code": "GR", "label": "Graphite", "hex": "#4D4D4D", "group": "solid" },
+    { "code": "BL", "label": "Black", "hex": "#1A1A1A", "group": "solid" },
+    { "code": "HB", "label": "Hollyberry", "hex": "#C41E3A", "group": "solid" },
+    { "code": "LB", "label": "Lapis Blue", "hex": "#1F4E8C", "group": "solid" },
+    { "code": "FM", "label": "Fusion Maple", "hex": "#DEC7A0", "group": "woodgrain" },
+    { "code": "PO", "label": "Pasadena Oak", "hex": "#A67C52", "group": "woodgrain" },
+    { "code": "WH", "label": "Walnut Heights", "hex": "#6B4226", "group": "woodgrain" },
+    { "code": "HW", "label": "Hampton Walnut", "hex": "#4A2F1B", "group": "woodgrain" }
+  ],
+  "accessories": [
+    { "id": "vented_front", "label": "Vented front", "price": 40 },
+    { "id": "lock_box", "label": "Lock box", "price": 80 },
+    { "id": "bottom_cushion", "label": "Bottom cushion", "price": 75 },
+    { "id": "top_bottom_cushions", "label": "Top & bottom cushions", "price": 150 },
+    { "id": "name_plate", "label": "Name plate", "price": 10 },
+    { "id": "hooks_4", "label": "4 hooks", "price": 12 },
+    { "id": "skate_hooks", "label": "Skate hooks", "price": 25 },
+    { "id": "custom_logo", "label": "Custom logo", "price": 75 }
+  ]
+}
