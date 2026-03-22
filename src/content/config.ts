@@ -19,6 +19,7 @@ const blog = defineCollection({
       question: z.string(),
       answer: z.string(),
     })).optional().default([]),
+    draft: z.boolean().optional().default(false),
   }),
 });
 
