@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css?family=Yantramanav:400,500|Oswald:600,700&display=swap" rel="stylesheet" />
+<title>Email Signature – Monika Brownova</title>
+<style>
+	body { margin: 0; padding: 40px; background: #f5f5f5; font-family: Arial, Helvetica, sans-serif; }
+	.sig-preview-wrapper { max-width: 620px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+	.sig-instructions { font-family: Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px dashed #ddd; }
+	.sig-instructions strong { color: #333; }
+
+	.controls { background: #fafafa; border: 1px solid #e8e8e8; border-radius: 6px; padding: 16px 20px; margin-bottom: 24px; }
+	.controls h3 { margin: 0 0 12px 0; font-size: 13px; font-weight: 600; color: #333; text-transform: uppercase; letter-spacing: 1px; }
+	.control-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+	.control-row:last-child { margin-bottom: 0; }
+	.control-row label { font-size: 12px; color: #666; min-width: 80px; }
+	.control-row input[type="range"] { flex: 1; accent-color: #1a1a1a; }
+	.control-row .val { font-size: 11px; color: #999; min-width: 36px; text-align: right; font-family: monospace; }
+</style>
+</head>
+<body>
+
+<div class="sig-preview-wrapper">
+	<div class="sig-instructions">
+		<strong>How to use:</strong> Adjust the photo below, then select everything inside the signature box, copy it (Ctrl+C / Cmd+C), and paste into your email client's signature settings.
+	</div>
+
+	<!-- Photo position controls -->
+	<div class="controls">
+		<h3>Adjust Photo</h3>
+		<div class="control-row">
+			<label>Horizontal</label>
+			<input type="range" id="posX" min="0" max="100" value="50" />
+			<span class="val" id="posXVal">50%</span>
+		</div>
+		<div class="control-row">
+			<label>Vertical</label>
+			<input type="range" id="posY" min="0" max="100" value="30" />
+			<span class="val" id="posYVal">30%</span>
+		</div>
+		<div class="control-row">
+			<label>Zoom</label>
+			<input type="range" id="zoom" min="100" max="250" value="140" />
+			<span class="val" id="zoomVal">140%</span>
+		</div>
+	</div>
+
+	<!-- ===================== EMAIL SIGNATURE START ===================== -->
+	<div id="signatureBlock" style="border: 1px dashed #e0e0e0; padding: 16px; border-radius: 4px;">
+	<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Yantramanav', Arial, Helvetica, sans-serif; max-width: 520px; width: 100%;">
+		<tr>
+			<td style="vertical-align: top; padding-right: 18px; width: 104px;">
+				<div id="photoFrame" style="width: 104px; height: 130px; overflow: hidden; border: 0;">
+					<img id="sigPhoto" src="/images/monika-brownova.png" alt="Monika Brownova" style="display: block; width: 146px; height: auto; margin-left: -21px; margin-top: -31px; border: 0;" />
+				</div>
+			</td>
+			<td style="vertical-align: top; padding-left: 0; text-align: center;">
+				<p style="margin: 0 0 2px 0; font-family: 'Oswald', Arial, Helvetica, sans-serif; font-size: 18px; font-weight: 600; color: #0d0d0d; text-transform: uppercase; letter-spacing: 3px; line-height: 1.2; text-align: center;">Monika Brownova</p>
+				<p style="margin: 0 0 12px 0; font-family: 'Yantramanav', Arial, Helvetica, sans-serif; font-size: 11px; font-weight: 400; color: #8c8c8c; text-transform: lowercase; letter-spacing: 2px; line-height: 1.4; text-align: center;">business development</p>
+				<p style="margin: 0 0 12px 0; font-family: 'Yantramanav', Arial, Helvetica, sans-serif; font-size: 12px; color: #666666; line-height: 1.9; text-align: center;">
+					<a href="tel:+18885841444" style="color: #444444; text-decoration: none;">+1 888 584 1444</a><br />
+					<a href="mailto:sales@playerstall.com" style="color: #444444; text-decoration: none;">sales@playerstall.com</a><br />
+					<a href="https://playerstall.com" target="_blank" rel="noopener noreferrer" style="color: #444444; text-decoration: none;">www.playerstall.com</a>
+				</p>
+				<table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
+					<tr>
+						<td style="padding: 0 5px;">
+							<a href="https://instagram.com/playerstalllockers" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+								<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" width="13" height="13" style="display: block; width: 13px; height: 13px; border: 0; opacity: 0.45;" />
+							</a>
+						</td>
+						<td style="padding: 0 5px;">
+							<a href="https://www.linkedin.com/company/playerstall" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+								<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="13" height="13" style="display: block; width: 13px; height: 13px; border: 0; opacity: 0.45;" />
+							</a>
+						</td>
+						<td style="padding: 0 5px;">
+							<a href="https://x.com/PlayerStallGear" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+								<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" alt="X" width="13" height="13" style="display: block; width: 13px; height: 13px; border: 0; opacity: 0.45;" />
+							</a>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	</div>
+	<!-- ===================== EMAIL SIGNATURE END ===================== -->
+
+</div>
+
+<script>
+const photo = document.getElementById('sigPhoto');
+const frame = document.getElementById('photoFrame');
+const posX = document.getElementById('posX');
+const posY = document.getElementById('posY');
+const zoom = document.getElementById('zoom');
+const posXVal = document.getElementById('posXVal');
+const posYVal = document.getElementById('posYVal');
+const zoomVal = document.getElementById('zoomVal');
+
+const FRAME_W = 104;
+const FRAME_H = 130;
+
+function updatePhoto() {
+	const z = parseInt(zoom.value) / 100;
+	const imgW = FRAME_W * z;
+	const imgH = photo.naturalHeight * (imgW / photo.naturalWidth);
+
+	const maxOffsetX = imgW - FRAME_W;
+	const maxOffsetY = imgH - FRAME_H;
+
+	const ox = -(parseInt(posX.value) / 100) * maxOffsetX;
+	const oy = -(parseInt(posY.value) / 100) * maxOffsetY;
+
+	photo.style.width = imgW + 'px';
+	photo.style.height = 'auto';
+	photo.style.marginLeft = ox + 'px';
+	photo.style.marginTop = oy + 'px';
+
+	posXVal.textContent = posX.value + '%';
+	posYVal.textContent = posY.value + '%';
+	zoomVal.textContent = zoom.value + '%';
+}
+
+posX.addEventListener('input', updatePhoto);
+posY.addEventListener('input', updatePhoto);
+zoom.addEventListener('input', updatePhoto);
+
+photo.addEventListener('load', updatePhoto);
+updatePhoto();
+</script>
+
+</body>
+</html>

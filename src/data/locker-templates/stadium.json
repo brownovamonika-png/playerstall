@@ -2,6 +2,7 @@
   "templateId": "stadium",
   "displayName": "Stadium Locker",
   "pdpUrl": "/product-stadium-locker",
+  "heroImage": "/images/stadium-locker.png",
   "geometry": {
     "heightIn": 76,
     "widthOptionsIn": [18, 20, 22, 24, 26, 28, 30, 32],

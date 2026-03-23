@@ -1,4 +1,9 @@
 node_modules
+
+# Environment variables (API tokens, secrets)
+.env
+.env.local
+.env.production
 .venv-bg# Estimates from various companies
 estimate from varies companies/
 *estimate*.txt

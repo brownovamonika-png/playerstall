@@ -2,6 +2,7 @@
   "templateId": "varsity",
   "displayName": "Varsity Locker",
   "pdpUrl": "/product-varsity-locker",
+  "heroImage": "/images/varsity-locker.png",
   "geometry": {
     "heightIn": 72,
     "widthOptionsIn": [18, 20, 22, 24, 26, 28, 30, 32],

@@ -1,6 +1,9 @@
 import type { LockerInstance, LockerConfig, Wall, Opening } from './types';
 import { getTemplate } from './catalog';
 
+/** No lockers within this many inches of each room corner. */
+export const CORNER_CLEARANCE_IN = 30;
+
 /** Axis-aligned bounding box in world inches. */
 export interface AABB {
   minX: number;
@@ -28,7 +31,45 @@ export function aabbOverlap(a: AABB, b: AABB): boolean {
   return a.minX < b.maxX && a.maxX > b.minX && a.minY < b.maxY && a.maxY > b.minY;
 }
 
-/** Return true if placing `candidate` causes an overlap with any existing locker or opening zone. */
+/**
+ * Compute exclusion AABBs for every corner where two consecutive walls meet.
+ * Each zone is a square extending CORNER_CLEARANCE_IN along each wall from
+ * the corner point, covering the inner room area at that corner.
+ */
+export function cornerExclusionAABBs(walls: Wall[]): AABB[] {
+  if (walls.length < 2) return [];
+  const zones: AABB[] = [];
+  for (let i = 0; i < walls.length; i++) {
+    const curr = walls[i];
+    const next = walls[(i + 1) % walls.length];
+    const cx = curr.end.x;
+    const cy = curr.end.y;
+    const currLen = wallLength(curr);
+    const nextLen = wallLength(next);
+    if (currLen === 0 || nextLen === 0) continue;
+
+    const currDx = (curr.end.x - curr.start.x) / currLen;
+    const currDy = (curr.end.y - curr.start.y) / currLen;
+    const nextDx = (next.end.x - next.start.x) / nextLen;
+    const nextDy = (next.end.y - next.start.y) / nextLen;
+
+    const c = CORNER_CLEARANCE_IN;
+    const pts = [
+      { x: cx - currDx * c, y: cy - currDy * c },
+      { x: cx, y: cy },
+      { x: cx + nextDx * c, y: cy + nextDy * c },
+    ];
+    zones.push({
+      minX: Math.min(pts[0].x, pts[1].x, pts[2].x),
+      minY: Math.min(pts[0].y, pts[1].y, pts[2].y),
+      maxX: Math.max(pts[0].x, pts[1].x, pts[2].x),
+      maxY: Math.max(pts[0].y, pts[1].y, pts[2].y),
+    });
+  }
+  return zones;
+}
+
+/** Return true if placing `candidate` causes an overlap with any existing locker, opening zone, or corner zone. */
 export function wouldOverlap(
   candidate: LockerInstance,
   others: LockerInstance[],
@@ -42,12 +83,15 @@ export function wouldOverlap(
   });
   if (hitsLocker) return true;
 
-  return openings.some((op) => {
+  const hitsOpening = openings.some((op) => {
     const wall = walls.find((w) => w.id === op.wallId);
     if (!wall) return false;
     const zone = openingExclusionAABB(op, wall);
     return aabbOverlap(box, zone);
   });
+  if (hitsOpening) return true;
+
+  return cornerExclusionAABBs(walls).some((zone) => aabbOverlap(box, zone));
 }
 
 /**
@@ -96,11 +140,16 @@ export function wallLength(wall: Wall): number {
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-/** Intervals along a wall that are free of openings. */
+/** Intervals along a wall that are free of openings and corner clearances. */
 function freeSpans(wallLen: number, openings: Opening[]): Array<{ start: number; end: number }> {
-  const blocked = openings
-    .map((o) => ({ start: o.offsetAlongWall, end: o.offsetAlongWall + o.widthIn }))
-    .sort((a, b) => a.start - b.start);
+  const blocked: Array<{ start: number; end: number }> = [
+    { start: 0, end: Math.min(CORNER_CLEARANCE_IN, wallLen) },
+    { start: Math.max(wallLen - CORNER_CLEARANCE_IN, 0), end: wallLen },
+  ];
+  for (const o of openings) {
+    blocked.push({ start: o.offsetAlongWall, end: o.offsetAlongWall + o.widthIn });
+  }
+  blocked.sort((a, b) => a.start - b.start);
 
   const spans: Array<{ start: number; end: number }> = [];
   let cursor = 0;

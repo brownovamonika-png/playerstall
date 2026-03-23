@@ -3,6 +3,7 @@ export interface LockerTemplate {
   templateId: string;
   displayName: string;
   pdpUrl: string;
+  heroImage: string;
   geometry: {
     heightIn: number;
     widthOptionsIn: number[];

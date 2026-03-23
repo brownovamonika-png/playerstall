@@ -14,10 +14,10 @@ interface Props {
 
 const { 
 	title, 
-	description = "Custom wood sports lockers for collegiate and professional teams. Priced right. Quick ship in 2–4 weeks or custom in 8–12 weeks. 30+ years of craftsmanship.", 
+	description = "Custom wood sports lockers for collegiate and professional teams. Priced right. Quick ship in 2 to 4 weeks or custom in 8 to 12 weeks. 30+ years of craftsmanship.", 
 	headerBlack = false,
 	ogImage = "https://playerstall.b-cdn.net/images/logoblack2.png",
-	ogImageAlt = "PlayerStall – Custom wood sports lockers for college and pro teams. 30+ years, 5 year warranty.",
+	ogImageAlt = "PlayerStall. Custom wood sports lockers for college and pro teams. 30+ years, 5 year warranty.",
 	canonical = Astro.url.pathname === "/" ? "https://playerstall.com" : `https://playerstall.com${Astro.url.pathname}`,
 	isArticle = false,
 	articlePublishedTime,
@@ -145,7 +145,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 						<li><a href="/gallery">GALLERY</a></li>
 					</ul>
 					<ul class="nav-links nav-links-right">
-						<li><a href="/our-process">OUR PROCESS</a></li>
+						<li><a href="/how-it-works">HOW IT WORKS</a></li>
 						<li><a href="/blog">BLOG</a></li>
 						<li class="nav-dropdown">
 							<span class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" id="contact-trigger">CONTACT</span>
@@ -182,9 +182,9 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 									<li><a href="/sport/lacrosse">Lacrosse</a></li>
 								</ul>
 							</li>
-							<li><a href="/gallery">GALLERY</a></li>
-							<li><a href="/our-process">OUR PROCESS</a></li>
-							<li><a href="/blog">BLOG</a></li>
+						<li><a href="/gallery">GALLERY</a></li>
+						<li><a href="/how-it-works">HOW IT WORKS</a></li>
+						<li><a href="/blog">BLOG</a></li>
 							<li class="nav-menu-dropdown">
 								<button type="button" class="nav-menu-dropdown-trigger" aria-expanded="false" aria-controls="nav-menu-contact" id="mobile-contact-trigger">CONTACT</button>
 								<ul id="nav-menu-contact" class="nav-menu-dropdown-list" role="menu" aria-labelledby="mobile-contact-trigger">
@@ -220,7 +220,10 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 						<ul>
 							<li><a href="/shop">Full locker room solutions</a></li>
 							<li><a href="/shop">Quick ship lockers</a></li>
+							<li><a href="/how-it-works">How it works</a></li>
 							<li><a href="/gallery">View our gallery</a></li>
+							<li><a href="/installation-guide">Installation guide</a></li>
+							<li><a href="/warranty">Warranty &amp; care</a></li>
 						</ul>
 					</div>
 					<div class="footer-section">
@@ -251,11 +254,11 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				</div>
 				<div class="footer-quick-contact">
 					<h4>QUICK CONTACT INFO</h4>
-					<p>Custom wood lockers, priced right. Quick ship in 2–4 weeks or custom in 8–12 weeks. Match any US competitor's price. Free consultation.</p>
+					<p>Custom wood lockers, priced right. Quick ship in 2 to 4 weeks or custom in 8 to 12 weeks. Match any US competitor's price. Free consultation.</p>
 					<div class="footer-contact-details">
 						<p class="footer-contact-item">
 							<span class="footer-icon" aria-hidden="true">h</span>
-							<span>Monday-Friday: 9am to 5pm;<br>Saturday: 10am to 2pm</span>
+							<span>Monday to Friday: 9am to 5pm;<br>Saturday: 10am to 2pm</span>
 						</p>
 						<p class="footer-contact-item">
 							<span class="footer-icon" aria-hidden="true">a</span>
@@ -1177,7 +1180,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		"The body achieves what the mind believes.",
 		"Freedom is letting go of who you think you're supposed to be.",
 		"Excellence is not an act but a habit.",
-		"The game meets you at the level of your preparation — and your belief.",
+		"The game meets you at the level of your preparation, and your belief.",
 		"Champions don't wait for perfect conditions. They create them.",
 		"Your identity is not your performance.",
 		"Step into the possibility of this moment."

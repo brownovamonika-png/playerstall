@@ -1,0 +1,586 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+	title="Project Status | Track Your Locker Room Order | PlayerStall"
+	description="Check the status of your PlayerStall locker room project. Track your order from design approval through production, shipping, and installation."
+>
+	<Fragment slot="head">
+		<script type="application/ld+json">
+		{JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "BreadcrumbList",
+			"itemListElement": [
+				{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://playerstall.com"},
+				{"@type": "ListItem", "position": 2, "name": "Project Status", "item": "https://playerstall.com/project-status"}
+			]
+		})}
+		</script>
+	</Fragment>
+
+	<!-- Hero -->
+	<section class="ps-hero">
+		<div class="ps-hero-bg">
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Track your PlayerStall project" class="ps-hero-image" />
+		</div>
+		<div class="ps-hero-overlay"></div>
+		<div class="ps-hero-container">
+			<div class="ps-breadcrumbs">
+				<a href="/">Home</a>
+				<span>Project Status</span>
+			</div>
+			<h1 class="ps-hero-title">Project Status</h1>
+		</div>
+	</section>
+
+	<!-- Status Lookup -->
+	<section class="ps-lookup">
+		<div class="container">
+			<div class="ps-lookup-content">
+				<p class="ps-label">track your project</p>
+				<h2 class="ps-heading">Check Your Order Status</h2>
+				<p class="ps-intro">Enter your email address or project number to see the current status of your locker room project.</p>
+
+				<div class="ps-form-card">
+					<form class="ps-form" id="status-form">
+						<div class="ps-form-group">
+							<label for="ps-email">Email address or project number</label>
+							<input type="text" id="ps-email" name="lookup" placeholder="Enter your email or project number" required />
+						</div>
+						<button type="submit" class="btn btn-primary">Check Status</button>
+					</form>
+
+					<!-- Status Results (shown after lookup) -->
+					<div class="ps-result" id="ps-result" style="display: none;">
+						<div class="ps-result-message" id="ps-result-message"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Journey Visual -->
+	<section class="ps-journey-section">
+		<div class="container">
+			<h3 class="ps-journey-title">Your Project Journey</h3>
+			<p class="ps-journey-text">Every PlayerStall project moves through these stages. Your contact keeps you informed at every step.</p>
+			<div class="ps-stages">
+				<div class="ps-stage">
+					<div class="ps-stage-num">1</div>
+					<h4>Consultation</h4>
+					<p>We discuss your needs and vision</p>
+				</div>
+				<div class="ps-stage">
+					<div class="ps-stage-num">2</div>
+					<h4>Design &amp; Quote</h4>
+					<p>Custom layout and itemized pricing</p>
+				</div>
+				<div class="ps-stage">
+					<div class="ps-stage-num">3</div>
+					<h4>Approval</h4>
+					<p>Revisions until you're satisfied, then deposit</p>
+				</div>
+				<div class="ps-stage">
+					<div class="ps-stage-num">4</div>
+					<h4>Production</h4>
+					<p>Built at our facility (2 to 12 weeks)</p>
+				</div>
+				<div class="ps-stage">
+					<div class="ps-stage-num">5</div>
+					<h4>Shipping</h4>
+					<p>Carefully packed and shipped to you</p>
+				</div>
+				<div class="ps-stage">
+					<div class="ps-stage-num">6</div>
+					<h4>Installation</h4>
+					<p>Setup with our guide and phone support</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Contact Your Team -->
+	<section class="ps-contact">
+		<div class="container">
+			<div class="ps-contact-content">
+				<h3>Need a Direct Update?</h3>
+				<p>Your contact person is always available for updates, changes, or questions. You can also reach our main team anytime.</p>
+				<div class="ps-contact-methods">
+					<div class="ps-contact-method">
+						<strong>Phone</strong>
+						<a href="tel:+18885841444">1 888 584 1444</a>
+					</div>
+					<div class="ps-contact-method">
+						<strong>Email</strong>
+						<a href="mailto:sales@playerstall.com">sales@playerstall.com</a>
+					</div>
+					<div class="ps-contact-method">
+						<strong>Hours</strong>
+						<span>Mon to Fri 9am to 5pm, Sat 10am to 2pm</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Helpful Links -->
+	<section class="ps-links">
+		<div class="container">
+			<div class="ps-links-grid">
+				<a href="/how-it-works" class="ps-link-card">
+					<h4>How It Works</h4>
+					<p>See the full process from start to finish</p>
+				</a>
+				<a href="/installation-guide" class="ps-link-card">
+					<h4>Installation Guide</h4>
+					<p>Prepare your space and install your lockers</p>
+				</a>
+				<a href="/warranty" class="ps-link-card">
+					<h4>Warranty &amp; Care</h4>
+					<p>5 year warranty details and maintenance tips</p>
+				</a>
+			</div>
+		</div>
+	</section>
+
+</BaseLayout>
+
+<style>
+	.container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Hero */
+	.ps-hero {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
+		overflow: hidden;
+		min-height: 320px;
+	}
+
+	.ps-hero-bg {
+		position: absolute;
+		top: 0; left: 0; width: 100%; height: 100%;
+		z-index: 0; overflow: hidden;
+	}
+
+	.ps-hero-image {
+		width: 100%; height: 100%;
+		object-fit: cover;
+		filter: grayscale(100%);
+	}
+
+	.ps-hero-overlay {
+		position: absolute;
+		top: 0; left: 0; right: 0; bottom: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	.ps-hero-container {
+		position: relative; z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px; width: 100%;
+	}
+
+	.ps-breadcrumbs {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: rgba(255, 255, 255, 0.85);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
+	}
+
+	.ps-breadcrumbs a {
+		color: rgba(255, 255, 255, 0.85);
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.ps-breadcrumbs a:hover { color: #fe5900; }
+
+	.ps-breadcrumbs span {
+		margin-left: 10px;
+		color: #ffffff;
+	}
+
+	.ps-hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 52px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0; line-height: 1.1;
+	}
+
+	/* Common */
+	.ps-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin-bottom: -3px;
+		display: block;
+	}
+
+	.ps-heading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 48px;
+		font-weight: 600;
+		color: #000000;
+		text-transform: uppercase;
+		margin: 15px 0;
+		letter-spacing: 1px;
+	}
+
+	/* Lookup Section */
+	.ps-lookup {
+		padding: 80px 0;
+		background: #ffffff;
+	}
+
+	.ps-lookup-content {
+		text-align: center;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.ps-intro {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 18px;
+		color: #666666;
+		line-height: 1.7;
+		margin: 0 0 40px;
+	}
+
+	.ps-form-card {
+		background: #f7f7f7;
+		border: 1px solid #e8e8e8;
+		padding: 40px;
+		text-align: left;
+	}
+
+	.ps-form {
+		display: flex;
+		gap: 16px;
+		align-items: flex-end;
+	}
+
+	.ps-form-group {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.ps-form-group label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #0d0d0d;
+		margin-bottom: 6px;
+	}
+
+	.ps-form-group input {
+		padding: 12px 16px;
+		border: 1px solid #bfbfbf;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #0d0d0d;
+		background: #fff;
+		transition: border-color 0.25s, box-shadow 0.25s;
+	}
+
+	.ps-form-group input:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 2px rgba(254, 89, 0, 0.1);
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 12px 28px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		font-size: 0.85rem;
+		transition: all 0.3s;
+		font-family: 'Roboto', sans-serif;
+		border: 2px solid transparent;
+		cursor: pointer;
+		white-space: nowrap;
+	}
+
+	.btn-primary { background: #fe5900; color: #fff; border-color: #fe5900; }
+	.btn-primary:hover { background: #e04d00; border-color: #e04d00; }
+
+	.ps-result {
+		margin-top: 24px;
+		padding: 24px;
+		background: #ffffff;
+		border: 1px solid #e8e8e8;
+		border-left: 3px solid #fe5900;
+	}
+
+	.ps-result-message {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #0d0d0d;
+		line-height: 1.7;
+	}
+
+	.ps-result-message a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	.ps-result-message a:hover { text-decoration: underline; }
+
+	/* Journey Stages */
+	.ps-journey-section {
+		padding: 80px 0;
+		background: #f7f7f7;
+	}
+
+	.ps-journey-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		text-align: center;
+		margin: 0 0 8px;
+	}
+
+	.ps-journey-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #666666;
+		text-align: center;
+		margin: 0 0 48px;
+	}
+
+	.ps-stages {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 20px;
+		max-width: 1000px;
+		margin: 0 auto;
+	}
+
+	.ps-stage {
+		text-align: center;
+		padding: 24px 12px;
+		background: #ffffff;
+		border: 1px solid #e8e8e8;
+		border-top: 3px solid #e0e0e0;
+		transition: border-top-color 0.3s;
+	}
+
+	.ps-stage:hover {
+		border-top-color: #fe5900;
+	}
+
+	.ps-stage-num {
+		width: 40px; height: 40px;
+		border-radius: 50%;
+		background: #fe5900;
+		color: #fff;
+		display: flex; align-items: center; justify-content: center;
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px; font-weight: 700;
+		margin: 0 auto 12px;
+	}
+
+	.ps-stage h4 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 6px;
+	}
+
+	.ps-stage p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #666666;
+		line-height: 1.5;
+		margin: 0;
+	}
+
+	/* Contact */
+	.ps-contact {
+		padding: 80px 0;
+		background: #ffffff;
+	}
+
+	.ps-contact-content {
+		text-align: center;
+		max-width: 700px;
+		margin: 0 auto;
+	}
+
+	.ps-contact-content h3 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 12px;
+	}
+
+	.ps-contact-content > p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #666666;
+		line-height: 1.7;
+		margin: 0 0 32px;
+	}
+
+	.ps-contact-methods {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+
+	.ps-contact-method {
+		padding: 24px;
+		background: #f7f7f7;
+		border: 1px solid #e8e8e8;
+		text-align: center;
+	}
+
+	.ps-contact-method strong {
+		display: block;
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin-bottom: 8px;
+	}
+
+	.ps-contact-method a,
+	.ps-contact-method span {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #666666;
+	}
+
+	.ps-contact-method a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	.ps-contact-method a:hover { text-decoration: underline; }
+
+	/* Links */
+	.ps-links {
+		padding: 60px 0;
+		background: #f7f7f7;
+	}
+
+	.ps-links-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	.ps-link-card {
+		display: block;
+		padding: 28px;
+		background: #ffffff;
+		border: 1px solid #e8e8e8;
+		text-decoration: none;
+		text-align: center;
+		transition: all 0.3s;
+	}
+
+	.ps-link-card:hover {
+		border-color: #fe5900;
+		transform: translateY(-3px);
+		box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+	}
+
+	.ps-link-card h4 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 8px;
+	}
+
+	.ps-link-card p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #666666;
+		margin: 0;
+	}
+
+	.ps-link-card:hover h4 { color: #fe5900; }
+
+	/* Responsive */
+	@media (max-width: 768px) {
+		.ps-hero { min-height: 260px; padding-bottom: 50px; }
+		.ps-hero-title { font-size: 42px; }
+		.ps-heading { font-size: 32px; }
+		.ps-lookup, .ps-journey-section, .ps-contact, .ps-links { padding: 60px 0; }
+		.ps-form { flex-direction: column; }
+		.ps-form-card { padding: 24px; }
+		.ps-stages { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+		.ps-contact-methods { grid-template-columns: 1fr; gap: 16px; }
+		.ps-links-grid { grid-template-columns: 1fr; }
+	}
+
+	@media (max-width: 480px) {
+		.ps-hero-title { font-size: 32px; }
+		.ps-heading { font-size: 24px; }
+		.ps-stages { grid-template-columns: repeat(2, 1fr); }
+	}
+</style>
+
+<script>
+	function initStatusLookup() {
+		const form = document.getElementById('status-form');
+		const result = document.getElementById('ps-result');
+		const message = document.getElementById('ps-result-message');
+		if (!form || !result || !message) return;
+
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const input = (form.querySelector('input') as HTMLInputElement)?.value?.trim();
+			if (!input) return;
+
+			result.style.display = 'block';
+			message.innerHTML = `
+				<strong>Thank you for checking in!</strong><br><br>
+				Our project tracking system is being set up. In the meantime, your dedicated project contact has the latest information on your order.<br><br>
+				Please call <a href="tel:+18885841444">1 888 584 1444</a> or email <a href="mailto:sales@playerstall.com">sales@playerstall.com</a> with your project details, and we'll provide an immediate update.<br><br>
+				<em>We're working on bringing real-time project tracking online soon.</em>
+			`;
+
+			result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+		});
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initStatusLookup);
+	} else {
+		initStatusLookup();
+	}
+</script>

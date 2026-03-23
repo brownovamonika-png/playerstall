@@ -4,38 +4,153 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
 	title="Thank You | Quote Request Received | PlayerStall"
-	description="Thanks for contacting PlayerStall. We've received your quote request and will respond within 2–3 business days. Custom sports lockers, 30+ years experience."
+	description="Thanks for contacting PlayerStall. We've received your quote request and will respond within 24 hours. Custom sports lockers, 30+ years experience."
 >
-	<section class="thank-you-hero">
-		<div class="thank-you-hero-bg">
-			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Thank you from PlayerStall" class="thank-you-hero-image" />
+	<section class="ty-hero">
+		<div class="ty-hero-bg">
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Thank you from PlayerStall" class="ty-hero-image" />
 		</div>
-		<div class="thank-you-hero-overlay"></div>
-		<div class="thank-you-hero-container">
-			<div class="thank-you-breadcrumbs">
+		<div class="ty-hero-overlay"></div>
+		<div class="ty-hero-container">
+			<div class="ty-breadcrumbs">
 				<a href="/">Home</a>
-				<span>Thank you</span>
+				<span>Thank You</span>
 			</div>
-			<h1 class="thank-you-title">Thank you</h1>
+			<h1 class="ty-title">Thank You</h1>
 		</div>
 	</section>
 
-	<section class="thank-you-section">
+	<!-- Confirmation Card -->
+	<section class="ty-section">
 		<div class="container">
-			<div class="thank-you-card">
-				<div class="thank-you-icon" aria-hidden="true">✓</div>
-				<h2>We've received your request</h2>
-				<p class="thank-you-lead">
-					Thanks for getting in touch. A member of our team will review your project details and send you a detailed quote within <strong>2–3 business days</strong>.
+			<div class="ty-card">
+				<div class="ty-icon" aria-hidden="true">&#10003;</div>
+				<h2>We've Received Your Request</h2>
+				<p class="ty-lead">
+					Thank you for reaching out. Your project is already with our team. Here's what happens next:
 				</p>
-				<p class="thank-you-note">
-					In the meantime, feel free to call us at <a href="tel:+18885841444">1 888 584 1444</a> or email <a href="mailto:sales@playerstall.com">sales@playerstall.com</a> if you have any immediate questions.
-				</p>
-				<div class="thank-you-actions">
-					<a href="/" class="btn btn-primary">Back to home</a>
-					<a href="/products" class="btn btn-secondary">View our lockers</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- What Happens Next -->
+	<section class="ty-next-steps">
+		<div class="container">
+			<h2 class="ty-next-heading">What Happens Next</h2>
+			<div class="ty-steps-grid">
+				<div class="ty-next-step">
+					<div class="ty-next-number">1</div>
+					<h4>We Review Your Project</h4>
+					<p>A team member reviews your details within <strong>24 hours</strong> and becomes your go to contact for the whole project.</p>
+					<span class="ty-next-timeline">Within 24 hours</span>
+				</div>
+				<div class="ty-next-step">
+					<div class="ty-next-number">2</div>
+					<h4>We Reach Out to You</h4>
+					<p>Your contact calls or emails to talk through your vision, answer questions, and nail down the details for your custom design.</p>
+					<span class="ty-next-timeline">1 to 2 business days</span>
+				</div>
+				<div class="ty-next-step">
+					<div class="ty-next-number">3</div>
+					<h4>You Receive Your Custom Quote</h4>
+					<p>We send a custom layout and itemized quote based on your space, sport, and budget, ready for you to look over.</p>
+					<span class="ty-next-timeline">2 to 3 business days</span>
 				</div>
 			</div>
+		</div>
+	</section>
+
+	<!-- Journey Progress -->
+	<section class="ty-journey">
+		<div class="container">
+			<p class="ty-journey-label">your journey with us</p>
+			<h3 class="ty-journey-heading">You Are Here</h3>
+			<div class="ty-journey-track">
+				<div class="ty-journey-step ty-journey-done">
+					<div class="ty-journey-dot"></div>
+					<span>Explore</span>
+				</div>
+				<div class="ty-journey-connector ty-journey-connector-done"></div>
+				<div class="ty-journey-step ty-journey-active">
+					<div class="ty-journey-dot"></div>
+					<span>Consultation</span>
+				</div>
+				<div class="ty-journey-connector"></div>
+				<div class="ty-journey-step">
+					<div class="ty-journey-dot"></div>
+					<span>Design &amp; Quote</span>
+				</div>
+				<div class="ty-journey-connector"></div>
+				<div class="ty-journey-step">
+					<div class="ty-journey-dot"></div>
+					<span>Approval</span>
+				</div>
+				<div class="ty-journey-connector"></div>
+				<div class="ty-journey-step">
+					<div class="ty-journey-dot"></div>
+					<span>Production</span>
+				</div>
+				<div class="ty-journey-connector"></div>
+				<div class="ty-journey-step">
+					<div class="ty-journey-dot"></div>
+					<span>Shipping</span>
+				</div>
+				<div class="ty-journey-connector"></div>
+				<div class="ty-journey-step">
+					<div class="ty-journey-dot"></div>
+					<span>Installation</span>
+				</div>
+			</div>
+			<p class="ty-journey-note">Want to see the full process? <a href="/how-it-works">See how it works</a></p>
+		</div>
+	</section>
+
+	<!-- Social Proof -->
+	<section class="ty-social-proof">
+		<div class="container">
+			<div class="ty-testimonials">
+				<div class="ty-testimonial">
+					<p class="ty-quote">"The free custom design service made all the difference. They understood our space and created the perfect solution."</p>
+					<span class="ty-author">Facilities Manager, Collegiate Program</span>
+				</div>
+				<div class="ty-testimonial">
+					<p class="ty-quote">"These lockers aren't just furniture. They're an investment in our culture. Our recruits notice the difference immediately."</p>
+					<span class="ty-author">Head Coach, Football Program</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Helpful Links -->
+	<section class="ty-explore">
+		<div class="container">
+			<h3 class="ty-explore-heading">While You Wait</h3>
+			<p class="ty-explore-text">Take a look around while our team puts your quote together.</p>
+			<div class="ty-explore-grid">
+				<a href="/how-it-works" class="ty-explore-card">
+					<h4>How It Works</h4>
+					<p>See the full journey from consultation to installation</p>
+				</a>
+				<a href="/gallery" class="ty-explore-card">
+					<h4>Gallery</h4>
+					<p>Browse completed locker rooms across all sports</p>
+				</a>
+				<a href="/blog" class="ty-explore-card">
+					<h4>Blog</h4>
+					<p>Read guides on locker room design, materials, and more</p>
+				</a>
+				<a href="/room-planner" class="ty-explore-card">
+					<h4>Room Planner</h4>
+					<p>Try our interactive tool to layout your locker room</p>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Contact Fallback -->
+	<section class="ty-contact">
+		<div class="container">
+			<p>Need to reach us sooner? Call <a href="tel:+18885841444">1 888 584 1444</a> or email <a href="mailto:sales@playerstall.com">sales@playerstall.com</a></p>
 		</div>
 	</section>
 </BaseLayout>
@@ -53,7 +168,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 0 20px;
 	}
 
-	.thank-you-hero {
+	/* Hero */
+	.ty-hero {
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -63,45 +179,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		min-height: 320px;
 	}
 
-	.thank-you-hero-bg {
+	.ty-hero-bg {
 		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 0;
-		overflow: hidden;
+		top: 0; left: 0; width: 100%; height: 100%;
+		z-index: 0; overflow: hidden;
 	}
 
-	.thank-you-hero-image {
-		width: 100%;
-		height: 100%;
+	.ty-hero-image {
+		width: 100%; height: 100%;
 		object-fit: cover;
 		object-position: center center;
 		filter: grayscale(100%);
 	}
 
-	.thank-you-hero-overlay {
+	.ty-hero-overlay {
 		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
+		top: 0; left: 0; right: 0; bottom: 0;
 		background: rgba(0, 0, 0, 0.2);
 		z-index: 1;
 	}
 
-	.thank-you-hero-container {
-		position: relative;
-		z-index: 10;
+	.ty-hero-container {
+		position: relative; z-index: 10;
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
-		text-align: left;
-		width: 100%;
+		text-align: left; width: 100%;
 	}
 
-	.thank-you-breadcrumbs {
+	.ty-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
 		color: rgba(255, 255, 255, 0.85);
@@ -110,154 +216,390 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin-bottom: 30px;
 	}
 
-	.thank-you-breadcrumbs a {
+	.ty-breadcrumbs a {
 		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
 		transition: color 0.3s;
 	}
 
-	.thank-you-breadcrumbs a:hover {
-		color: #fe5900;
-	}
+	.ty-breadcrumbs a:hover { color: #fe5900; }
 
-	.thank-you-breadcrumbs span {
+	.ty-breadcrumbs span {
 		margin-left: 10px;
 		color: #ffffff;
 	}
 
-	.thank-you-title {
+	.ty-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: 72px;
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: uppercase;
-		margin: 0;
-		line-height: 1.1;
+		margin: 0; line-height: 1.1;
 	}
 
-	.thank-you-section {
-		padding: 5rem 0;
+	/* Confirmation Card */
+	.ty-section {
+		padding: 5rem 0 3rem;
 		background: #ffffff;
 	}
 
-	.thank-you-card {
+	.ty-card {
 		max-width: 640px;
 		margin: 0 auto;
 		text-align: center;
-		background: #fff;
-		border: 1px solid #e8e8e8;
-		padding: 3rem 2.5rem;
-		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 	}
 
-	.thank-you-icon {
-		width: 64px;
-		height: 64px;
+	.ty-icon {
+		width: 64px; height: 64px;
 		margin: 0 auto 1.5rem;
 		background: #fe5900;
 		color: #fff;
-		font-size: 32px;
-		font-weight: 700;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		font-size: 32px; font-weight: 700;
+		display: flex; align-items: center; justify-content: center;
 		border-radius: 50%;
 	}
 
-	.thank-you-card h2 {
+	.ty-card h2 {
 		font-family: 'Oswald', sans-serif;
-		font-size: 28px;
-		font-weight: 600;
+		font-size: 28px; font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
 		margin: 0 0 1rem;
 	}
 
-	.thank-you-lead {
+	.ty-lead {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 18px;
 		color: #0d0d0d;
 		line-height: 1.7;
-		margin: 0 0 1rem;
+		margin: 0;
 	}
 
-	.thank-you-note {
+	/* What Happens Next */
+	.ty-next-steps {
+		padding: 2rem 0 5rem;
+		background: #ffffff;
+	}
+
+	.ty-next-heading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 36px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		text-align: center;
+		margin: 0 0 48px;
+	}
+
+	.ty-steps-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 40px;
+		max-width: 960px;
+		margin: 0 auto;
+	}
+
+	.ty-next-step {
+		text-align: center;
+		padding: 32px 24px;
+		background: #f7f7f7;
+		border-top: 3px solid #fe5900;
+	}
+
+	.ty-next-number {
+		width: 48px; height: 48px;
+		border-radius: 50%;
+		background: #fe5900;
+		color: #fff;
+		display: flex; align-items: center; justify-content: center;
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px; font-weight: 700;
+		margin: 0 auto 16px;
+	}
+
+	.ty-next-step h4 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 12px;
+	}
+
+	.ty-next-step p {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 15px;
 		color: #666666;
-		line-height: 1.6;
-		margin: 0 0 2rem;
+		line-height: 1.7;
+		margin: 0 0 16px;
 	}
 
-	.thank-you-note a {
+	.ty-next-timeline {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: #fe5900;
+	}
+
+	/* Journey Progress */
+	.ty-journey {
+		padding: 5rem 0;
+		background: #f7f7f7;
+		text-align: center;
+	}
+
+	.ty-journey-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		margin: 0 0 8px;
+	}
+
+	.ty-journey-heading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 40px;
+	}
+
+	.ty-journey-track {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0;
+		max-width: 900px;
+		margin: 0 auto 24px;
+		flex-wrap: wrap;
+	}
+
+	.ty-journey-step {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 8px;
+		flex-shrink: 0;
+	}
+
+	.ty-journey-dot {
+		width: 20px; height: 20px;
+		border-radius: 50%;
+		background: #e0e0e0;
+		border: 3px solid #e0e0e0;
+		transition: all 0.3s;
+	}
+
+	.ty-journey-done .ty-journey-dot {
+		background: #fe5900;
+		border-color: #fe5900;
+	}
+
+	.ty-journey-active .ty-journey-dot {
+		background: #ffffff;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 4px rgba(254, 89, 0, 0.2);
+	}
+
+	.ty-journey-step span {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		white-space: nowrap;
+	}
+
+	.ty-journey-done span,
+	.ty-journey-active span {
+		color: #0d0d0d;
+		font-weight: 600;
+	}
+
+	.ty-journey-connector {
+		width: 40px;
+		height: 3px;
+		background: #e0e0e0;
+		margin: 0 4px;
+		margin-bottom: 24px;
+	}
+
+	.ty-journey-connector-done {
+		background: #fe5900;
+	}
+
+	.ty-journey-note {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin: 0;
+	}
+
+	.ty-journey-note a {
 		color: #fe5900;
 		text-decoration: none;
+		font-weight: 500;
 	}
 
-	.thank-you-note a:hover {
+	.ty-journey-note a:hover {
 		text-decoration: underline;
 	}
 
-	.thank-you-actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem;
-		justify-content: center;
+	/* Social Proof */
+	.ty-social-proof {
+		padding: 5rem 0;
+		background: #ffffff;
 	}
 
-	.btn {
-		padding: 0.875rem 2rem;
-		border-radius: 6px;
-		text-decoration: none;
+	.ty-testimonials {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 40px;
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	.ty-testimonial {
+		padding: 32px;
+		background: #f7f7f7;
+		border-left: 3px solid #fe5900;
+	}
+
+	.ty-quote {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
 		font-weight: 600;
-		transition: all 0.3s ease;
-		display: inline-block;
-		font-size: 1rem;
-		font-family: 'Yantramanav', sans-serif;
-	}
-
-	.btn-primary {
-		background: #fe5900;
-		color: #fff;
-		border: 2px solid #fe5900;
-	}
-
-	.btn-primary:hover {
-		background: #e04d00;
-		border-color: #e04d00;
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(254, 89, 0, 0.3);
-	}
-
-	.btn-secondary {
-		background: transparent;
 		color: #0d0d0d;
-		border: 2px solid #0d0d0d;
+		line-height: 1.5;
+		font-style: italic;
+		margin: 0 0 16px;
 	}
 
-	.btn-secondary:hover {
-		background: #0d0d0d;
-		color: #fff;
-		transform: translateY(-2px);
+	.ty-author {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
 	}
 
+	/* Explore Links */
+	.ty-explore {
+		padding: 5rem 0;
+		background: #f7f7f7;
+	}
+
+	.ty-explore-heading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		text-align: center;
+		margin: 0 0 8px;
+	}
+
+	.ty-explore-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		color: #666666;
+		text-align: center;
+		margin: 0 0 40px;
+	}
+
+	.ty-explore-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 24px;
+		max-width: 960px;
+		margin: 0 auto;
+	}
+
+	.ty-explore-card {
+		display: block;
+		padding: 28px 20px;
+		background: #ffffff;
+		border: 1px solid #e8e8e8;
+		text-decoration: none;
+		transition: all 0.3s;
+		text-align: center;
+	}
+
+	.ty-explore-card:hover {
+		border-color: #fe5900;
+		transform: translateY(-3px);
+		box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+	}
+
+	.ty-explore-card h4 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 8px;
+	}
+
+	.ty-explore-card p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #666666;
+		line-height: 1.5;
+		margin: 0;
+	}
+
+	.ty-explore-card:hover h4 {
+		color: #fe5900;
+	}
+
+	/* Contact Fallback */
+	.ty-contact {
+		padding: 3rem 0;
+		background: #ffffff;
+		text-align: center;
+		border-top: 1px solid #e8e8e8;
+	}
+
+	.ty-contact p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #666666;
+		margin: 0;
+	}
+
+	.ty-contact a {
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 500;
+	}
+
+	.ty-contact a:hover {
+		text-decoration: underline;
+	}
+
+	/* Responsive */
 	@media (max-width: 768px) {
-		.thank-you-hero {
-			min-height: 240px;
-			padding-bottom: 50px;
-		}
-		.thank-you-title {
-			font-size: 42px;
-		}
-		.thank-you-card {
-			padding: 2rem 1.5rem;
-		}
-		.thank-you-actions {
-			flex-direction: column;
-		}
-		.btn {
-			width: 100%;
-			text-align: center;
-		}
+		.ty-hero { min-height: 240px; padding-bottom: 50px; }
+		.ty-title { font-size: 42px; }
+		.ty-next-heading { font-size: 28px; }
+		.ty-steps-grid { grid-template-columns: 1fr; gap: 24px; }
+		.ty-testimonials { grid-template-columns: 1fr; gap: 24px; }
+		.ty-explore-grid { grid-template-columns: repeat(2, 1fr); }
+		.ty-journey-track { gap: 0; }
+		.ty-journey-connector { width: 20px; }
+		.ty-journey-step span { font-size: 9px; }
+	}
+
+	@media (max-width: 480px) {
+		.ty-title { font-size: 32px; }
+		.ty-explore-grid { grid-template-columns: 1fr; }
+		.ty-journey-track { flex-wrap: wrap; justify-content: center; gap: 8px; }
+		.ty-journey-connector { width: 16px; }
 	}
 </style>

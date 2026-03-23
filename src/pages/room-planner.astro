@@ -216,6 +216,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<button type="button" class="tb-btn tb-sm" id="btn-zoom-fit" title="Fit room">⊞</button>
 				<span class="tb-divider"></span>
 				<button type="button" class="tb-btn tb-sm" id="btn-rotate-visible" title="Rotate selected locker 90°">↻</button>
+				<span class="tb-divider"></span>
+				<button type="button" class="tb-btn tb-3d" id="btn-view-3d" title="Preview your room in 3D">3D View</button>
 			</div>
 			<div class="toolbar-right">
 				<select id="unit-select" class="tb-select" title="Display unit">
@@ -347,6 +349,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<button type="button" class="mob-tab" data-panel="layers">Layers</button>
 		</nav>
 	</section>
+
+	<!-- 3D Preview Modal -->
+	<div class="view3d-overlay" id="view3d-overlay">
+		<div class="view3d-header">
+			<span class="view3d-title">3D Preview</span>
+			<div class="view3d-controls">
+				<button type="button" class="view3d-btn view3d-rotate-btn" id="btn-3d-rotate" title="Rotate selected locker 90°">↻ Rotate</button>
+				<button type="button" class="view3d-btn" id="btn-3d-reset">Reset View</button>
+				<button type="button" class="view3d-close" id="btn-3d-close">&times;</button>
+			</div>
+		</div>
+		<canvas id="view3d-canvas"></canvas>
+		<div class="view3d-hint">Drag background to orbit &middot; Click locker to select &middot; Drag locker to move &middot; Double-click or press R to rotate</div>
+	</div>
 
 	<!-- Order summary (below designer) -->
 	<section class="order-section" id="order-section">
@@ -1522,6 +1538,99 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		.room-setup { padding: 30px 20px; }
 		.order-section { padding: 30px 20px; }
 	}
+
+	/* ── 3D View button ─────────────────────────────────── */
+	.tb-3d {
+		background: #fe5900;
+		color: #fff !important;
+		border-color: #fe5900;
+		font-weight: 600;
+		padding: 4px 14px;
+		border-radius: 4px;
+		font-size: 13px;
+		letter-spacing: 0.5px;
+		transition: background 0.2s;
+	}
+	.tb-3d:hover { background: #e04f00; }
+
+	/* ── 3D Preview overlay ─────────────────────────────── */
+	.view3d-overlay {
+		display: none;
+		position: fixed;
+		inset: 0;
+		z-index: 9999;
+		flex-direction: column;
+		background: #1a1a1a;
+	}
+	.view3d-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 10px 20px;
+		background: #000;
+		color: #fff;
+		flex-shrink: 0;
+	}
+	.view3d-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+	}
+	.view3d-controls {
+		display: flex;
+		gap: 12px;
+		align-items: center;
+	}
+	.view3d-btn {
+		background: transparent;
+		border: 1px solid #555;
+		color: #fff;
+		padding: 6px 16px;
+		font-size: 13px;
+		cursor: pointer;
+		border-radius: 4px;
+		font-family: 'Yantramanav', sans-serif;
+		transition: border-color 0.2s, color 0.2s;
+	}
+	.view3d-btn:hover { border-color: #fe5900; color: #fe5900; }
+	.view3d-rotate-btn {
+		background: #fe5900;
+		border-color: #fe5900;
+		color: #fff;
+		font-weight: 600;
+	}
+	.view3d-rotate-btn:hover { background: #e04f00; border-color: #e04f00; color: #fff; }
+	.view3d-rotate-btn:disabled {
+		background: transparent;
+		border-color: #444;
+		color: #555;
+		cursor: default;
+	}
+	.view3d-close {
+		background: transparent;
+		border: none;
+		color: #fff;
+		font-size: 28px;
+		cursor: pointer;
+		padding: 0 4px;
+		line-height: 1;
+		transition: color 0.2s;
+	}
+	.view3d-close:hover { color: #fe5900; }
+	#view3d-canvas {
+		flex: 1;
+		width: 100%;
+		display: block;
+	}
+	.view3d-hint {
+		text-align: center;
+		padding: 8px;
+		color: #888;
+		font-size: 12px;
+		background: #000;
+		flex-shrink: 0;
+	}
 </style>
 
 <script>
@@ -1534,6 +1643,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	import { formatDimension, unitLabel } from '../room-planner/units';
 	import type { PlannerState, LockerInstance, Opening, Selection, DisplayUnit } from '../room-planner/types';
 	import { jsPDF } from 'jspdf';
+	import { launch3DPreview, dispose3DPreview, resetCamera, rotateSelected3D, hasSelection3D } from '../room-planner/render3d';
 
 	const canvas = document.getElementById('planner-canvas') as HTMLCanvasElement;
 	const ctx = canvas.getContext('2d')!;
@@ -2006,6 +2116,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 	document.getElementById('btn-rotate-locker')!.onclick = rotateSelectedLocker;
 	document.getElementById('btn-rotate-visible')!.onclick = rotateSelectedLocker;
+
+	// ─── 3D Preview ───
+	const overlay3d = document.getElementById('view3d-overlay')!;
+	const canvas3d = document.getElementById('view3d-canvas') as HTMLCanvasElement;
+
+	document.getElementById('btn-view-3d')!.onclick = () => {
+		if (state.walls.length === 0) return;
+		overlay3d.style.display = 'flex';
+		launch3DPreview(state, canvas3d, () => {
+			redraw();
+			updateLayers();
+			btn3dRotate.disabled = !hasSelection3D();
+		});
+	};
+	document.getElementById('btn-3d-close')!.onclick = () => {
+		overlay3d.style.display = 'none';
+		dispose3DPreview();
+	};
+	document.getElementById('btn-3d-reset')!.onclick = () => resetCamera();
+
+	const btn3dRotate = document.getElementById('btn-3d-rotate') as HTMLButtonElement;
+	btn3dRotate.disabled = true;
+	btn3dRotate.onclick = () => rotateSelected3D();
 
 	// ─── Reset lockers ───
 	document.getElementById('btn-reset-lockers')!.onclick = () => {
@@ -3100,23 +3233,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 		btn.textContent = 'Sending...';
 
-		const formData = new FormData();
-		formData.append('email', customerEmail);
-		formData.append('_replyto', customerEmail);
-		formData.append('_subject', 'Room Planner Layout Request from ' + customerEmail);
-		formData.append('name', 'Room Planner Customer');
-		formData.append('message', `New Room Planner submission from ${customerEmail}\n${orderSummary}`);
+		let pdfBase64: string | undefined;
 		if (pdfBlob) {
-			formData.append('attachment', pdfBlob, 'room-planner-layout.pdf');
+			pdfBase64 = await new Promise<string>((resolve) => {
+				const reader = new FileReader();
+				reader.onloadend = () => {
+					const dataUrl = reader.result as string;
+					resolve(dataUrl.split(',')[1]);
+				};
+				reader.readAsDataURL(pdfBlob);
+			});
 		}
 
-		fetch('https://formspree.io/f/xqedgojb', {
+		fetch('/api/send-room-plan', {
 			method: 'POST',
-			body: formData,
-			headers: { 'Accept': 'application/json' },
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				email: customerEmail,
+				orderSummary,
+				grandTotal: grandTotal.toFixed(2),
+				pdfBase64,
+			}),
 		}).then(async (res) => {
 			if (res.ok) {
-				statusMsg.textContent = 'Thank you so much for your request! We sent your layout to our team and they will be in touch with you at ' + customerEmail + ' shortly.';
+				statusMsg.textContent = 'Thank you! We just emailed your room plan to ' + customerEmail + '. Our team received a copy too and will be in touch shortly.';
 				statusMsg.style.color = '#0d0d0d';
 				btn.textContent = 'Sent!';
 				if (pdfBlob) {
@@ -3131,13 +3271,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				}
 			} else {
 				let detail = '';
-				try { const j = await res.json(); detail = j.errors?.map((e: any) => e.message).join(', ') || j.error || ''; } catch {}
+				try { const j = await res.json(); detail = j.error || ''; } catch {}
 				statusMsg.textContent = 'Something went wrong' + (detail ? ': ' + detail : '') + '. Please try again or email us directly at sales@playerstall.com.';
 				statusMsg.style.color = '#fe5900';
 				btn.disabled = false;
 				btn.textContent = 'Get In Touch With Us';
 			}
-		}).catch((err) => {
+		}).catch(() => {
 			statusMsg.textContent = 'Could not connect. Please check your internet and try again, or email us directly at sales@playerstall.com.';
 			statusMsg.style.color = '#fe5900';
 			btn.disabled = false;

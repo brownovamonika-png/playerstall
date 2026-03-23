@@ -2,6 +2,7 @@
   "templateId": "semi-pro",
   "displayName": "Semi Pro Locker",
   "pdpUrl": "/product-semi-pro-locker",
+  "heroImage": "https://playerstall.b-cdn.net/images/legendary-locker.png",
   "geometry": {
     "heightIn": 72,
     "widthOptionsIn": [18, 20, 22, 24, 26, 28, 30, 32],

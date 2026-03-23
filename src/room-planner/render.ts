@@ -1,7 +1,27 @@
 import type { PlannerState, Camera } from './types';
-import { getTemplate } from './catalog';
-import { lockerAABB, openingExclusionAABB, wallLength } from './geometry';
+import { getTemplate, getAllTemplates } from './catalog';
+import { lockerAABB, openingExclusionAABB, wallLength, cornerExclusionAABBs } from './geometry';
 import { formatDimension } from './units';
+
+const _imgCache = new Map<string, HTMLImageElement>();
+let _imagesPreloaded = false;
+
+function preloadLockerImages(): void {
+  if (_imagesPreloaded) return;
+  _imagesPreloaded = true;
+  for (const tmpl of getAllTemplates()) {
+    if (!tmpl.heroImage || _imgCache.has(tmpl.templateId)) continue;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = tmpl.heroImage;
+    _imgCache.set(tmpl.templateId, img);
+  }
+}
+
+function getLockerImage(templateId: string): HTMLImageElement | null {
+  const img = _imgCache.get(templateId);
+  return img && img.complete && img.naturalWidth > 0 ? img : null;
+}
 
 const BRAND_ORANGE = '#fe5900';
 const WALL_COLOR = '#333';
@@ -25,6 +45,8 @@ function wy(val: number, cam: Camera, canvasH: number): number {
 
 /** Full render pass. */
 export function render(ctx: CanvasRenderingContext2D, state: PlannerState): void {
+  preloadLockerImages();
+
   const canvas = ctx.canvas;
   const dpr = window.devicePixelRatio || 1;
   const cssW = canvas.clientWidth;
@@ -42,6 +64,7 @@ export function render(ctx: CanvasRenderingContext2D, state: PlannerState): void
   drawFloor(ctx, state, cssW, cssH);
   drawWalls(ctx, state, cssW, cssH);
   drawOpenings(ctx, state, cssW, cssH);
+  drawCornerZones(ctx, state, cssW, cssH);
   drawLockers(ctx, state, cssW, cssH);
 }
 
@@ -277,6 +300,55 @@ function drawOpenings(ctx: CanvasRenderingContext2D, state: PlannerState, cw: nu
   }
 }
 
+const CORNER_ZONE_COLOR = '#999';
+
+function drawCornerZones(ctx: CanvasRenderingContext2D, state: PlannerState, cw: number, ch: number): void {
+  const { walls, camera: cam } = state;
+  const ppi = cam.pixelsPerInch;
+  const zones = cornerExclusionAABBs(walls);
+
+  for (const zone of zones) {
+    const zx = wx(zone.minX, cam, cw);
+    const zy = wy(zone.minY, cam, ch);
+    const zw = (zone.maxX - zone.minX) * ppi;
+    const zh = (zone.maxY - zone.minY) * ppi;
+
+    ctx.fillStyle = 'rgba(255, 89, 0, 0.06)';
+    ctx.fillRect(zx, zy, zw, zh);
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(zx, zy, zw, zh);
+    ctx.clip();
+    ctx.strokeStyle = 'rgba(255, 89, 0, 0.15)';
+    ctx.lineWidth = 1;
+    const hatchStep = 10;
+    const diag = zw + zh;
+    for (let d = -zh; d < diag; d += hatchStep) {
+      ctx.beginPath();
+      ctx.moveTo(zx + d, zy);
+      ctx.lineTo(zx + d + zh, zy + zh);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    ctx.strokeStyle = 'rgba(255, 89, 0, 0.35)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([5, 3]);
+    ctx.strokeRect(zx, zy, zw, zh);
+    ctx.setLineDash([]);
+
+    if (ppi > 0.6 && zw > 40 && zh > 16) {
+      ctx.fillStyle = 'rgba(255, 89, 0, 0.45)';
+      const fontSize = Math.min(11, Math.max(7, ppi * 5));
+      ctx.font = `bold ${fontSize}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('NO LOCKERS', zx + zw / 2, zy + zh / 2);
+    }
+  }
+}
+
 function drawLockers(ctx: CanvasRenderingContext2D, state: PlannerState, cw: number, ch: number): void {
   const { lockers, camera: cam, selection } = state;
   const ppi = cam.pixelsPerInch;
@@ -294,8 +366,49 @@ function drawLockers(ctx: CanvasRenderingContext2D, state: PlannerState, cw: num
 
     const isSelected = selection?.type === 'locker' && selection.id === locker.instanceId;
 
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x1, y1, w, h);
+    ctx.clip();
+
     ctx.fillStyle = fillColor;
     ctx.fillRect(x1, y1, w, h);
+
+    const img = getLockerImage(locker.templateId);
+    if (img) {
+      const cx = x1 + w / 2;
+      const cy = y1 + h / 2;
+      ctx.translate(cx, cy);
+      if (locker.rotationDeg !== 0) ctx.rotate((locker.rotationDeg * Math.PI) / 180);
+
+      const isRot = locker.rotationDeg === 90 || locker.rotationDeg === 270;
+      const drawW = isRot ? h : w;
+      const drawH = isRot ? w : h;
+
+      const imgAspect = img.naturalWidth / img.naturalHeight;
+      const boxAspect = drawW / drawH;
+      let sw: number, sh: number;
+      if (imgAspect > boxAspect) {
+        sh = drawH;
+        sw = drawH * imgAspect;
+      } else {
+        sw = drawW;
+        sh = drawW / imgAspect;
+      }
+      ctx.drawImage(img, -sw / 2, -sh / 2, sw, sh);
+
+      ctx.globalAlpha = 0.25;
+      ctx.fillStyle = fillColor;
+      ctx.fillRect(-drawW / 2, -drawH / 2, drawW, drawH);
+      ctx.globalAlpha = 1;
+
+      ctx.setTransform(ctx.getTransform());
+      ctx.resetTransform();
+      const dpr = window.devicePixelRatio || 1;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    ctx.restore();
 
     ctx.strokeStyle = isSelected ? SELECTED_STROKE : LOCKER_STROKE;
     ctx.lineWidth = isSelected ? 2.5 : 1;
@@ -304,9 +417,6 @@ function drawLockers(ctx: CanvasRenderingContext2D, state: PlannerState, cw: num
     if (ppi > 0.8) {
       const typeLabel = locker.templateId.toUpperCase();
       const dimStr = `${locker.config.widthIn}″W × ${locker.config.depthIn}″D`;
-      const accLabels = (locker.config.accessoryIds ?? [])
-        .map((id) => template?.accessories.find((a) => a.id === id)?.label)
-        .filter(Boolean) as string[];
 
       const isRot = locker.rotationDeg === 90 || locker.rotationDeg === 270;
       const innerW = isRot ? h : w;
@@ -316,14 +426,8 @@ function drawLockers(ctx: CanvasRenderingContext2D, state: PlannerState, cw: num
       const availH = innerH - pad * 2;
       if (availW < 8 || availH < 8) { continue; }
 
-      const totalLines = 2 + accLabels.length;
-      const maxLineH = Math.min(12, availH / totalLines);
-      const titleSize = Math.min(11, maxLineH * 0.95, ppi * 6);
-      const dimSize = Math.min(10, maxLineH * 0.85, ppi * 5);
-      const accSize = Math.min(8, maxLineH * 0.75, ppi * 4);
-      const lineH = maxLineH;
-      const blockH = totalLines * lineH;
-      const startY = -blockH / 2 + lineH / 2;
+      const titleSize = Math.min(10, ppi * 5);
+      const dimSize = Math.min(9, ppi * 4);
 
       const cx = x1 + w / 2;
       const cy = y1 + h / 2;
@@ -332,31 +436,20 @@ function drawLockers(ctx: CanvasRenderingContext2D, state: PlannerState, cw: num
       ctx.beginPath();
       ctx.rect(x1, y1, w, h);
       ctx.clip();
-
       ctx.translate(cx, cy);
       if (locker.rotationDeg !== 0) ctx.rotate((locker.rotationDeg * Math.PI) / 180);
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
-      let line = 0;
-      ctx.fillStyle = '#222';
+      const labelY = availH / 2 - 8;
+      ctx.fillStyle = 'rgba(0,0,0,0.5)';
+      ctx.fillRect(-availW / 2, labelY - titleSize, availW, titleSize + dimSize + 6);
+      ctx.fillStyle = '#fff';
       ctx.font = `bold ${titleSize}px sans-serif`;
-      ctx.fillText(typeLabel, 0, startY + line * lineH, availW);
-      line++;
-
+      ctx.fillText(typeLabel, 0, labelY - dimSize / 2, availW);
       ctx.font = `${dimSize}px sans-serif`;
-      ctx.fillStyle = '#555';
-      ctx.fillText(dimStr, 0, startY + line * lineH, availW);
-      line++;
-
-      if (accLabels.length > 0) {
-        ctx.font = `${accSize}px sans-serif`;
-        ctx.fillStyle = '#888';
-        for (const label of accLabels) {
-          ctx.fillText(label, 0, startY + line * lineH, availW);
-          line++;
-        }
-      }
+      ctx.fillStyle = 'rgba(255,255,255,0.8)';
+      ctx.fillText(dimStr, 0, labelY + titleSize / 2 + 1, availW);
 
       ctx.restore();
     }
