@@ -31,17 +31,66 @@ export function aabbOverlap(a: AABB, b: AABB): boolean {
   return a.minX < b.maxX && a.maxX > b.minX && a.minY < b.maxY && a.maxY > b.minY;
 }
 
+const WALL_PROXIMITY_IN = 2;
+
 /**
- * Compute exclusion AABBs for every corner where two consecutive walls meet.
- * Each zone is a square extending CORNER_CLEARANCE_IN along each wall from
- * the corner point, covering the inner room area at that corner.
+ * Determine which walls have at least one locker placed against their inner face.
+ * A locker is "against" a wall if the locker edge facing the wall is within
+ * WALL_PROXIMITY_IN inches of the wall's inner surface.
  */
-export function cornerExclusionAABBs(walls: Wall[]): AABB[] {
+export function getWallsWithLockers(walls: Wall[], lockers: LockerInstance[]): Set<string> {
+  const result = new Set<string>();
+  for (const wall of walls) {
+    const len = wallLength(wall);
+    if (len === 0) continue;
+    const halfT = wall.thicknessIn / 2;
+    const aX = (wall.end.x - wall.start.x) / len;
+    const aY = (wall.end.y - wall.start.y) / len;
+    const inX = -aY;
+    const inY = aX;
+    const isHoriz = Math.abs(aY) < 0.01;
+
+    for (const locker of lockers) {
+      if (result.has(wall.id)) break;
+      const box = lockerAABB(locker);
+
+      if (isHoriz) {
+        const wallMinX = Math.min(wall.start.x, wall.end.x);
+        const wallMaxX = Math.max(wall.start.x, wall.end.x);
+        if (box.maxX <= wallMinX || box.minX >= wallMaxX) continue;
+        const innerY = wall.start.y + inY * halfT;
+        const edge = inY > 0 ? box.minY : box.maxY;
+        if (Math.abs(edge - innerY) <= WALL_PROXIMITY_IN) result.add(wall.id);
+      } else {
+        const wallMinY = Math.min(wall.start.y, wall.end.y);
+        const wallMaxY = Math.max(wall.start.y, wall.end.y);
+        if (box.maxY <= wallMinY || box.minY >= wallMaxY) continue;
+        const innerX = wall.start.x + inX * halfT;
+        const edge = inX > 0 ? box.minX : box.maxX;
+        if (Math.abs(edge - innerX) <= WALL_PROXIMITY_IN) result.add(wall.id);
+      }
+    }
+  }
+  return result;
+}
+
+/**
+ * Compute exclusion AABBs for corners where two consecutive walls meet.
+ * When wallsWithLockers is provided, only corners where BOTH adjacent walls
+ * have lockers get an exclusion zone. This prevents blocking corners
+ * unnecessarily when the customer only uses one wall.
+ */
+export function cornerExclusionAABBs(walls: Wall[], wallsWithLockers?: Set<string>): AABB[] {
   if (walls.length < 2) return [];
   const zones: AABB[] = [];
   for (let i = 0; i < walls.length; i++) {
     const curr = walls[i];
     const next = walls[(i + 1) % walls.length];
+
+    if (wallsWithLockers && (!wallsWithLockers.has(curr.id) || !wallsWithLockers.has(next.id))) {
+      continue;
+    }
+
     const cx = curr.end.x;
     const cy = curr.end.y;
     const currLen = wallLength(curr);
@@ -91,7 +140,9 @@ export function wouldOverlap(
   });
   if (hitsOpening) return true;
 
-  return cornerExclusionAABBs(walls).some((zone) => aabbOverlap(box, zone));
+  const allLockers = [candidate, ...others.filter((o) => o.instanceId !== candidate.instanceId)];
+  const occupied = getWallsWithLockers(walls, allLockers);
+  return cornerExclusionAABBs(walls, occupied).some((zone) => aabbOverlap(box, zone));
 }
 
 /**
@@ -133,6 +184,39 @@ export function openingExclusionAABB(opening: Opening, wall: Wall): AABB {
   };
 }
 
+/** Hit-test a world point against all openings; returns the opening if the point is close enough. */
+export function hitTestOpening(worldX: number, worldY: number, openings: Opening[], walls: Wall[]): Opening | null {
+  const HIT_THRESHOLD = 15;
+  for (const op of openings) {
+    const wall = walls.find((w) => w.id === op.wallId);
+    if (!wall) continue;
+    const len = wallLength(wall);
+    if (len === 0) continue;
+    const dx = wall.end.x - wall.start.x;
+    const dy = wall.end.y - wall.start.y;
+    const t = ((worldX - wall.start.x) * dx + (worldY - wall.start.y) * dy) / (len * len);
+    const projX = wall.start.x + t * dx;
+    const projY = wall.start.y + t * dy;
+    const distToWall = Math.sqrt((worldX - projX) ** 2 + (worldY - projY) ** 2);
+    if (distToWall > HIT_THRESHOLD) continue;
+    const posAlongWall = t * len;
+    if (posAlongWall >= op.offsetAlongWall && posAlongWall <= op.offsetAlongWall + op.widthIn) {
+      return op;
+    }
+  }
+  return null;
+}
+
+/** Project a world point onto a wall, returning the offset in inches from the wall's start. */
+export function projectOntoWall(worldX: number, worldY: number, wall: Wall): number {
+  const dx = wall.end.x - wall.start.x;
+  const dy = wall.end.y - wall.start.y;
+  const len = wallLength(wall);
+  if (len === 0) return 0;
+  const t = ((worldX - wall.start.x) * dx + (worldY - wall.start.y) * dy) / (len * len);
+  return Math.max(0, Math.min(len, t * len));
+}
+
 /** Wall length in inches. */
 export function wallLength(wall: Wall): number {
   const dx = wall.end.x - wall.start.x;
@@ -140,12 +224,20 @@ export function wallLength(wall: Wall): number {
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-/** Intervals along a wall that are free of openings and corner clearances. */
-function freeSpans(wallLen: number, openings: Opening[]): Array<{ start: number; end: number }> {
-  const blocked: Array<{ start: number; end: number }> = [
-    { start: 0, end: Math.min(CORNER_CLEARANCE_IN, wallLen) },
-    { start: Math.max(wallLen - CORNER_CLEARANCE_IN, 0), end: wallLen },
-  ];
+/**
+ * Intervals along a wall that are free of openings and corner clearances.
+ * clearStart/clearEnd control whether corner clearance is applied at each
+ * end of the wall (only needed when the adjacent wall also has lockers).
+ */
+function freeSpans(
+  wallLen: number,
+  openings: Opening[],
+  clearStart = true,
+  clearEnd = true,
+): Array<{ start: number; end: number }> {
+  const blocked: Array<{ start: number; end: number }> = [];
+  if (clearStart) blocked.push({ start: 0, end: Math.min(CORNER_CLEARANCE_IN, wallLen) });
+  if (clearEnd) blocked.push({ start: Math.max(wallLen - CORNER_CLEARANCE_IN, 0), end: wallLen });
   for (const o of openings) {
     blocked.push({ start: o.offsetAlongWall, end: o.offsetAlongWall + o.widthIn });
   }
@@ -164,6 +256,9 @@ function freeSpans(wallLen: number, openings: Opening[]): Array<{ start: number;
 /**
  * Pack lockers along a wall's inner face, skipping openings.
  * "Inside" = left of the wall direction in screen-coords (matches CW winding).
+ *
+ * When existingLockers and allWalls are provided, corner clearance is only
+ * applied at a wall end if the adjacent wall also has lockers.
  */
 export function packWall(
   wall: Wall,
@@ -171,6 +266,8 @@ export function packWall(
   defaultConfig: LockerConfig,
   startId: number,
   wallOpenings: Opening[] = [],
+  existingLockers: LockerInstance[] = [],
+  allWalls: Wall[] = [],
 ): LockerInstance[] {
   const template = getTemplate(templateId);
   if (!template) return [];
@@ -193,7 +290,21 @@ export function packWall(
   const results: LockerInstance[] = [];
   let idx = 0;
 
-  const spans = freeSpans(len, wallOpenings);
+  let clearStart = true;
+  let clearEnd = true;
+  if (allWalls.length >= 2) {
+    const occupied = getWallsWithLockers(allWalls, existingLockers);
+    occupied.add(wall.id);
+    const wi = allWalls.findIndex((w) => w.id === wall.id);
+    if (wi >= 0) {
+      const prev = allWalls[(wi - 1 + allWalls.length) % allWalls.length];
+      const next = allWalls[(wi + 1) % allWalls.length];
+      clearStart = occupied.has(prev.id);
+      clearEnd = occupied.has(next.id);
+    }
+  }
+
+  const spans = freeSpans(len, wallOpenings, clearStart, clearEnd);
 
   for (const span of spans) {
     const spanLen = span.end - span.start;

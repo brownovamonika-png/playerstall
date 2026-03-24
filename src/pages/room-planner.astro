@@ -229,6 +229,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</div>
 		</div>
 
+		<!-- Corner clearance guide -->
+		<div class="corner-guide" id="corner-guide">
+			<div class="corner-guide-header">
+				<span class="corner-guide-title">Corner Clearance Guide</span>
+			</div>
+			<div class="corner-guide-rules">
+				<div class="corner-rule corner-rule-warn">
+					<span class="corner-rule-icon">&#9888;</span>
+					<div>
+						<strong>Lockers on two connecting walls?</strong><br />
+						(e.g. Wall&nbsp;A + Wall&nbsp;B) &mdash; A 30&Prime; corner clearance is automatically reserved where the walls meet so the lockers don&rsquo;t overlap at the corner.
+					</div>
+				</div>
+				<div class="corner-rule corner-rule-ok">
+					<span class="corner-rule-icon">&#10003;</span>
+					<div>
+						<strong>Lockers on only one wall?</strong><br />
+						No corner clearance is needed &mdash; you can use the full wall length for lockers.
+					</div>
+				</div>
+			</div>
+			<div class="corner-status" id="corner-status"></div>
+		</div>
+
 		<!-- Main 3-column layout -->
 		<div class="planner-columns">
 			<!-- LEFT: Layers + Selection Config -->
@@ -333,6 +357,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 			<!-- CENTER: Canvas -->
 			<div class="planner-canvas-wrap" id="planner-canvas-wrap">
+				<div class="placement-tooltip" id="placement-tooltip" style="display:none">
+					<span class="placement-tooltip-icon">&#9678;</span>
+					<span class="placement-tooltip-text" id="placement-tooltip-text">Click on the wall to place</span>
+					<button type="button" class="placement-tooltip-cancel" id="placement-cancel">&times; Cancel</button>
+				</div>
 				<canvas id="planner-canvas"></canvas>
 				<div class="canvas-empty-hint" id="canvas-empty-hint">
 					<div class="canvas-hint-icon">⊞</div>
@@ -736,6 +765,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 	.op-field-row input:focus { border-color: #fe5900; outline: none; }
 	.op-unit { color: #8c8c8c; font-size: 11px; flex-shrink: 0; }
+	.op-ftin-row { display: flex; align-items: center; gap: 3px; }
+	.op-ftin-row input { width: 44px; background: #f7f7f7; color: #0d0d0d; border: 1px solid #e0e0e0; border-radius: 0; padding: 5px 6px; font-size: 12px; text-align: center; transition: border-color 0.3s; }
+	.op-ftin-row input:focus { border-color: #fe5900; outline: none; }
+	.op-ftin-unit { color: #8c8c8c; font-size: 10px; flex-shrink: 0; }
+	.wall-bar-wrap { margin-bottom: 8px; }
+	.wall-bar { position: relative; height: 18px; background: #e0e0e0; border-radius: 2px; overflow: hidden; }
+	.wall-bar-opening { position: absolute; top: 0; height: 100%; border-radius: 1px; opacity: 0.85; cursor: pointer; transition: opacity 0.15s; }
+	.wall-bar-opening:hover { opacity: 1; }
+	.wall-bar-opening.door { background: #5a9fd4; }
+	.wall-bar-opening.window { background: #6dc46d; }
+	.wall-bar-opening.obstacle { background: #d4a05a; }
+	.wall-bar-labels { display: flex; justify-content: space-between; font-size: 9px; color: #8c8c8c; margin-top: 2px; }
+	.wall-bar-opening-label { position: absolute; top: 2px; left: 50%; transform: translateX(-50%); font-size: 8px; color: #fff; font-weight: 600; white-space: nowrap; pointer-events: none; }
 	.wall-card-actions {
 		display: flex;
 		gap: 8px;
@@ -973,9 +1015,70 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.planner-app {
 		display: flex;
 		flex-direction: column;
-		height: calc(100vh - 200px);
-		min-height: 500px;
+		height: calc(100vh - 90px);
+		min-height: 620px;
 		background: #f0f0f0;
+	}
+
+	/* Corner clearance guide */
+	.corner-guide {
+		background: #fafafa;
+		border: 1px solid #e0e0e0;
+		border-radius: 6px;
+		margin: 0 12px 8px;
+		overflow: hidden;
+	}
+	.corner-guide-header {
+		background: #1a1a1a;
+		color: #fff;
+		padding: 8px 14px;
+		font-size: 13px;
+		font-weight: 600;
+		letter-spacing: 0.5px;
+		text-transform: uppercase;
+		font-family: 'Oswald', sans-serif;
+	}
+	.corner-guide-rules {
+		display: flex;
+		gap: 0;
+	}
+	.corner-rule {
+		flex: 1;
+		display: flex;
+		gap: 10px;
+		padding: 12px 14px;
+		font-size: 12.5px;
+		line-height: 1.5;
+		border-right: 1px solid #e0e0e0;
+	}
+	.corner-rule:last-child { border-right: none; }
+	.corner-rule strong { font-weight: 600; display: block; margin-bottom: 2px; }
+	.corner-rule-icon { flex-shrink: 0; font-size: 18px; margin-top: 1px; }
+	.corner-rule-warn { background: rgba(255, 89, 0, 0.05); }
+	.corner-rule-warn .corner-rule-icon { color: #d35400; }
+	.corner-rule-ok { background: rgba(0, 128, 80, 0.04); }
+	.corner-rule-ok .corner-rule-icon { color: #1a8a52; }
+	.corner-status {
+		padding: 8px 14px;
+		font-size: 12.5px;
+		font-weight: 500;
+		border-top: 1px solid #e0e0e0;
+		display: none;
+	}
+	.corner-status.active {
+		display: block;
+		background: rgba(255, 89, 0, 0.07);
+		color: #b84400;
+	}
+	.corner-status.clear {
+		display: block;
+		background: rgba(0, 128, 80, 0.05);
+		color: #1a6b45;
+	}
+	@media (max-width: 640px) {
+		.corner-guide-rules { flex-direction: column; }
+		.corner-rule { border-right: none; border-bottom: 1px solid #e0e0e0; }
+		.corner-rule:last-child { border-bottom: none; }
 	}
 
 	/* Toolbar */
@@ -1064,8 +1167,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	/* Layers + Config (left) */
 	.planner-layers {
-		width: 240px;
-		min-width: 200px;
+		width: 210px;
+		min-width: 180px;
 		background: #f7f7f7;
 		color: #0d0d0d;
 		overflow-y: auto;
@@ -1240,6 +1343,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		color: #fe5900;
 	}
 	.delete-opening-btn:hover { background: #fe5900; color: #fff; }
+
+	/* Placement tooltip */
+	.placement-tooltip {
+		position: absolute;
+		top: 8px; left: 50%; transform: translateX(-50%);
+		z-index: 20;
+		background: #1a1a1a;
+		color: #fff;
+		padding: 8px 16px;
+		border-radius: 6px;
+		font-size: 13px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+		white-space: nowrap;
+	}
+	.placement-tooltip-icon { color: #fe5900; font-size: 16px; }
+	.placement-tooltip-cancel {
+		background: transparent; border: 1px solid rgba(255,255,255,0.3);
+		color: #ccc; padding: 2px 10px; border-radius: 3px; font-size: 11px;
+		cursor: pointer; margin-left: 8px;
+	}
+	.placement-tooltip-cancel:hover { background: rgba(255,255,255,0.1); color: #fff; }
 
 	/* Canvas (center) */
 	.planner-canvas-wrap {
@@ -1639,7 +1766,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	import { render, screenToWorld } from '../room-planner/render';
 	import { getAllTemplates, getTemplate } from '../room-planner/catalog';
 	import { priceLocker } from '../room-planner/pricing';
-	import { lockerAABB, wouldOverlap, packWall, wallLength, openingExclusionAABB } from '../room-planner/geometry';
+	import { lockerAABB, wouldOverlap, packWall, wallLength, openingExclusionAABB, getWallsWithLockers, projectOntoWall, hitTestOpening } from '../room-planner/geometry';
+	import { drawWallHighlight } from '../room-planner/render';
 	import { formatDimension, unitLabel } from '../room-planner/units';
 	import type { PlannerState, LockerInstance, Opening, Selection, DisplayUnit } from '../room-planner/types';
 	import { jsPDF } from 'jspdf';
@@ -2040,12 +2168,47 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		}
 	}
 
+	function updateCornerNotice() {
+		const status = document.getElementById('corner-status')!;
+		if (state.lockers.length === 0) {
+			status.className = 'corner-status';
+			return;
+		}
+		const occupied = getWallsWithLockers(state.walls, state.lockers);
+		if (occupied.size === 0) {
+			status.className = 'corner-status';
+			return;
+		}
+
+		const corners: string[] = [];
+		for (let i = 0; i < state.walls.length; i++) {
+			const curr = state.walls[i];
+			const next = state.walls[(i + 1) % state.walls.length];
+			if (occupied.has(curr.id) && occupied.has(next.id)) {
+				corners.push(curr.id + ' & ' + next.id);
+			}
+		}
+
+		if (corners.length > 0) {
+			status.className = 'corner-status active';
+			status.innerHTML = '\u26A0 <strong>Right now:</strong> Corner clearance is active at ' + corners.join(', ') + ' because lockers are on both connecting walls.';
+		} else {
+			status.className = 'corner-status clear';
+			const wallList = Array.from(occupied).join(', ');
+			status.innerHTML = '\u2713 <strong>Right now:</strong> No corner clearance needed \u2014 your lockers are on ' + wallList + ' only.';
+		}
+	}
+
+	let placementMode: { wallId: string; type: 'door' | 'window' | 'obstacle' } | null = null;
+
 	function redraw() {
 		render(ctx, state);
+		if (placementMode) drawWallHighlight(ctx, state, placementMode.wallId);
 		updateLayers();
 		updateProperties();
 		updateOrderSummary();
 		updateToolbar();
+		updateCornerNotice();
 		const hasRoom = state.walls.some((w) => wallLength(w) > 0);
 		if (canvasHint) canvasHint.style.display = hasRoom ? 'none' : '';
 	}
@@ -2071,7 +2234,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		if (!isFinite(minX)) return;
 		const worldW = maxX - minX || 100;
 		const worldH = maxY - minY || 100;
-		const pad = 40;
+		const pad = 24;
 		state.camera.pixelsPerInch = Math.min((cw - pad) / worldW, (ch - pad) / worldH);
 		state.camera.centerX = (minX + maxX) / 2;
 		state.camera.centerY = (minY + maxY) / 2;
@@ -2217,7 +2380,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	// ─── Add door / window (works from form buttons AND toolbar) ───
 	let _openingCounter = 0;
 
-	function addOpeningToWall(wallId: string, type: 'door' | 'window' | 'obstacle') {
+	function addOpeningToWall(wallId: string, type: 'door' | 'window' | 'obstacle', atOffset?: number) {
 		const wall = state.walls.find((w) => w.id === wallId);
 		if (!wall) return;
 		const len = wallLength(wall);
@@ -2225,13 +2388,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		const defaultClearance = type === 'door' ? 36 : type === 'window' ? 24 : 12;
 		if (len < defaultWidth) return;
 
-		const existingOnWall = state.openings.filter((o) => o.wallId === wallId);
-		let offset = 0;
-		for (const ex of existingOnWall) {
-			const end = ex.offsetAlongWall + ex.widthIn;
-			if (end > offset) offset = end;
+		let offset: number;
+		if (atOffset !== undefined) {
+			offset = Math.max(0, Math.min(atOffset - defaultWidth / 2, len - defaultWidth));
+		} else {
+			const existingOnWall = state.openings.filter((o) => o.wallId === wallId);
+			offset = 0;
+			for (const ex of existingOnWall) {
+				const end = ex.offsetAlongWall + ex.widthIn;
+				if (end > offset) offset = end;
+			}
+			if (offset + defaultWidth > len) return;
 		}
-		if (offset + defaultWidth > len) return;
 
 		const op: Opening = {
 			id: `op_${++_openingCounter}`,
@@ -2248,21 +2416,117 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	// Toolbar buttons (require wall selection)
+	/* ── Placement mode ─────────────────────────────────────── */
+	const _placementTooltip = document.getElementById('placement-tooltip')!;
+	const _placementTooltipText = document.getElementById('placement-tooltip-text')!;
+
+	function enterPlacementMode(wallId: string, type: 'door' | 'window' | 'obstacle') {
+		placementMode = { wallId, type };
+		state.selection = { type: 'wall', id: wallId };
+		const label = type === 'door' ? 'door' : type === 'window' ? 'window' : 'obstacle';
+		_placementTooltipText.textContent = `Click on ${wallId} where you want to place this ${label}`;
+		_placementTooltip.style.display = 'flex';
+		canvas.style.cursor = 'crosshair';
+		redraw();
+	}
+
+	function exitPlacementMode() {
+		placementMode = null;
+		_placementTooltip.style.display = 'none';
+		canvas.style.cursor = '';
+		redraw();
+	}
+
+	document.getElementById('placement-cancel')!.onclick = exitPlacementMode;
+	document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && placementMode) exitPlacementMode(); });
+
 	document.getElementById('btn-add-door')!.onclick = () => {
-		if (state.selection?.type === 'wall') addOpeningToWall(state.selection.id, 'door');
+		if (state.selection?.type === 'wall') enterPlacementMode(state.selection.id, 'door');
 	};
 	document.getElementById('btn-add-window')!.onclick = () => {
-		if (state.selection?.type === 'wall') addOpeningToWall(state.selection.id, 'window');
+		if (state.selection?.type === 'wall') enterPlacementMode(state.selection.id, 'window');
 	};
 
-	// Form buttons under each wall card
 	document.querySelectorAll('.wall-add-btn').forEach((btn) => {
 		btn.addEventListener('click', () => {
 			const wallId = (btn as HTMLElement).dataset.wallId!;
 			const type = (btn as HTMLElement).dataset.type as 'door' | 'window' | 'obstacle';
-			addOpeningToWall(wallId, type);
+			enterPlacementMode(wallId, type);
 		});
 	});
+
+	const _wallPositionLabels: Record<string, string> = {
+		'Wall A': 'from left end',
+		'Wall B': 'from top end',
+		'Wall C': 'from right end',
+		'Wall D': 'from bottom end',
+	};
+
+	function _inToFt(inches: number) { return { ft: Math.floor(inches / 12), inch: Math.round(inches % 12) }; }
+	function _ftToIn(ft: number, inch: number) { return ft * 12 + inch; }
+
+	function _makeFtInInput(valueInches: number, onChange: (newInches: number) => void) {
+		const wrap = document.createElement('div');
+		wrap.className = 'op-ftin-row';
+		const { ft, inch } = _inToFt(valueInches);
+
+		const ftInput = document.createElement('input');
+		ftInput.type = 'number'; ftInput.value = String(ft); ftInput.min = '0'; ftInput.step = '1';
+		wrap.appendChild(ftInput);
+		const ftU = document.createElement('span'); ftU.className = 'op-ftin-unit'; ftU.textContent = 'ft';
+		wrap.appendChild(ftU);
+
+		const inInput = document.createElement('input');
+		inInput.type = 'number'; inInput.value = String(inch); inInput.min = '0'; inInput.max = '11'; inInput.step = '1';
+		wrap.appendChild(inInput);
+		const inU = document.createElement('span'); inU.className = 'op-ftin-unit'; inU.textContent = 'in';
+		wrap.appendChild(inU);
+
+		const update = () => {
+			const f = Math.max(0, parseInt(ftInput.value, 10) || 0);
+			const i = Math.max(0, Math.min(11, parseInt(inInput.value, 10) || 0));
+			onChange(_ftToIn(f, i));
+		};
+		ftInput.onchange = update;
+		inInput.onchange = update;
+		return wrap;
+	}
+
+	function _buildWallBar(wallId: string) {
+		const wall = state.walls.find((w) => w.id === wallId);
+		if (!wall) return null;
+		const len = wallLength(wall);
+		if (len <= 0) return null;
+		const ops = state.openings.filter((o) => o.wallId === wallId);
+		if (ops.length === 0) return null;
+
+		const wrap = document.createElement('div');
+		wrap.className = 'wall-bar-wrap';
+		const bar = document.createElement('div');
+		bar.className = 'wall-bar';
+
+		for (const op of ops) {
+			const pct = (op.offsetAlongWall / len) * 100;
+			const wPct = (op.widthIn / len) * 100;
+			const block = document.createElement('div');
+			block.className = 'wall-bar-opening ' + op.type;
+			block.style.left = pct + '%';
+			block.style.width = Math.max(wPct, 2) + '%';
+			const lbl = document.createElement('span');
+			lbl.className = 'wall-bar-opening-label';
+			lbl.textContent = op.type === 'door' ? 'D' : op.type === 'window' ? 'W' : 'O';
+			block.appendChild(lbl);
+			bar.appendChild(block);
+		}
+		wrap.appendChild(bar);
+
+		const labels = document.createElement('div');
+		labels.className = 'wall-bar-labels';
+		const { ft: tFt, inch: tIn } = _inToFt(len);
+		labels.innerHTML = '<span>0\u2032</span><span>' + tFt + '\u2032 ' + tIn + '\u2033</span>';
+		wrap.appendChild(labels);
+		return wrap;
+	}
 
 	/** Render the per-wall opening rows inside the Room Dimensions form. */
 	function renderWallOpeningsForms() {
@@ -2278,11 +2542,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			const wallOpenings = state.openings.filter((o) => o.wallId === wallId);
 			container.innerHTML = '';
 
+			const wallBar = _buildWallBar(wallId);
+			if (wallBar) container.appendChild(wallBar);
+
 			for (const op of wallOpenings) {
 				const card = document.createElement('div');
 				card.className = 'wall-opening-row';
 
-				// Header row: badge + remove
 				const header = document.createElement('div');
 				header.className = 'op-header';
 				const badge = document.createElement('span');
@@ -2291,7 +2557,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				header.appendChild(badge);
 				const removeBtn = document.createElement('button');
 				removeBtn.className = 'op-remove';
-				removeBtn.textContent = '✕';
+				removeBtn.textContent = '\u2715';
 				removeBtn.title = 'Remove this opening';
 				removeBtn.onclick = () => {
 					state.openings = state.openings.filter((o) => o.id !== op.id);
@@ -2304,38 +2570,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				header.appendChild(removeBtn);
 				card.appendChild(header);
 
-				// Fields grid
 				const grid = document.createElement('div');
 				grid.className = 'op-fields';
 
-				// Position from start of wall
+				// Position — ft + in with clear label
 				const posGroup = document.createElement('div');
 				posGroup.className = 'op-field';
 				const posLabel = document.createElement('label');
-				posLabel.textContent = 'Position from start';
+				posLabel.textContent = 'Position ' + (_wallPositionLabels[wallId] || '');
 				posGroup.appendChild(posLabel);
-				const posRow = document.createElement('div');
-				posRow.className = 'op-field-row';
-				const posInput = document.createElement('input');
-				posInput.type = 'number';
-				posInput.value = String(op.offsetAlongWall);
-				posInput.min = '0';
-				posInput.step = '1';
-				posInput.placeholder = '0';
-				posInput.title = 'How far along the wall this opening starts (measured from the wall\'s left/top edge)';
-				posInput.onchange = () => {
-					op.offsetAlongWall = Math.max(0, parseFloat(posInput.value) || 0);
+				posGroup.appendChild(_makeFtInInput(op.offsetAlongWall, (v) => {
+					op.offsetAlongWall = Math.max(0, v);
+					renderWallOpeningsForms();
 					redraw();
-				};
-				posRow.appendChild(posInput);
-				const posUnit = document.createElement('span');
-				posUnit.className = 'op-unit';
-				posUnit.textContent = '″';
-				posRow.appendChild(posUnit);
-				posGroup.appendChild(posRow);
+				}));
 				grid.appendChild(posGroup);
 
-				// Width of opening
+				// Width
 				const wGroup = document.createElement('div');
 				wGroup.className = 'op-field';
 				const wLabel = document.createElement('label');
@@ -2344,25 +2595,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				const wRow = document.createElement('div');
 				wRow.className = 'op-field-row';
 				const wInput = document.createElement('input');
-				wInput.type = 'number';
-				wInput.value = String(op.widthIn);
-				wInput.min = '12';
-				wInput.step = '1';
-				wInput.placeholder = '36';
-				wInput.title = 'Width of the door or window opening';
-				wInput.onchange = () => {
-					op.widthIn = Math.max(12, parseFloat(wInput.value) || 36);
-					redraw();
-				};
+				wInput.type = 'number'; wInput.value = String(op.widthIn); wInput.min = '12'; wInput.step = '1';
+				wInput.title = 'Width of the opening in inches';
+				wInput.onchange = () => { op.widthIn = Math.max(12, parseFloat(wInput.value) || 36); renderWallOpeningsForms(); redraw(); };
 				wRow.appendChild(wInput);
-				const wUnit = document.createElement('span');
-				wUnit.className = 'op-unit';
-				wUnit.textContent = '″';
+				const wUnit = document.createElement('span'); wUnit.className = 'op-unit'; wUnit.textContent = '\u2033';
 				wRow.appendChild(wUnit);
 				wGroup.appendChild(wRow);
 				grid.appendChild(wGroup);
 
-				// Clearance into room
+				// Clearance
 				const cGroup = document.createElement('div');
 				cGroup.className = 'op-field';
 				const cLabel = document.createElement('label');
@@ -2371,20 +2613,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				const cRow = document.createElement('div');
 				cRow.className = 'op-field-row';
 				const cInput = document.createElement('input');
-				cInput.type = 'number';
-				cInput.value = String(op.clearanceIn);
-				cInput.min = '0';
-				cInput.step = '1';
-				cInput.placeholder = '36';
-				cInput.title = 'How far into the room no lockers can be placed (swing clearance for doors, depth for windows)';
-				cInput.onchange = () => {
-					op.clearanceIn = Math.max(0, parseFloat(cInput.value) || 0);
-					redraw();
-				};
+				cInput.type = 'number'; cInput.value = String(op.clearanceIn); cInput.min = '0'; cInput.step = '1';
+				cInput.title = 'How far into the room no lockers can be placed';
+				cInput.onchange = () => { op.clearanceIn = Math.max(0, parseFloat(cInput.value) || 0); redraw(); };
 				cRow.appendChild(cInput);
-				const cUnit = document.createElement('span');
-				cUnit.className = 'op-unit';
-				cUnit.textContent = '″';
+				const cUnit = document.createElement('span'); cUnit.className = 'op-unit'; cUnit.textContent = '\u2033';
 				cRow.appendChild(cUnit);
 				cGroup.appendChild(cRow);
 				grid.appendChild(cGroup);
@@ -2402,6 +2635,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	let dragging: LockerInstance | null = null;
 	let dragOffsetX = 0;
 	let dragOffsetY = 0;
+	let draggingOpening: Opening | null = null;
 	let isPanning = false;
 	let panStartX = 0;
 	let panStartY = 0;
@@ -2413,6 +2647,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		const sx = e.clientX - rect.left;
 		const sy = e.clientY - rect.top;
 		const world = screenToWorld(sx, sy, state.camera, canvas.clientWidth, canvas.clientHeight);
+
+		if (placementMode) {
+			const wall = state.walls.find((w) => w.id === placementMode!.wallId);
+			if (wall) {
+				const offset = projectOntoWall(world.x, world.y, wall);
+				addOpeningToWall(placementMode.wallId, placementMode.type, offset);
+			}
+			exitPlacementMode();
+			return;
+		}
 
 		// Try to hit a locker (reverse order = top first)
 		let hitLocker: LockerInstance | null = null;
@@ -2437,16 +2681,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			return;
 		}
 
-		// Try to hit an opening
-		for (const op of state.openings) {
-			const wall = state.walls.find((w) => w.id === op.wallId);
-			if (!wall) continue;
-			const zone = openingExclusionAABB(op, wall);
-			if (world.x >= zone.minX && world.x <= zone.maxX && world.y >= zone.minY && world.y <= zone.maxY) {
-				state.selection = { type: 'opening', id: op.id };
-				redraw();
-				return;
-			}
+		// Try to hit an opening (select + start drag)
+		const hitOp = hitTestOpening(world.x, world.y, state.openings, state.walls);
+		if (hitOp) {
+			state.selection = { type: 'opening', id: hitOp.id };
+			draggingOpening = hitOp;
+			canvas.setPointerCapture(e.pointerId);
+			canvas.style.cursor = 'grabbing';
+			redraw();
+			return;
 		}
 
 		// Try to hit a wall
@@ -2552,7 +2795,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	canvas.addEventListener('pointermove', (e) => {
-		if (dragging) {
+		if (draggingOpening) {
+			const wall = state.walls.find((w) => w.id === draggingOpening!.wallId);
+			if (wall) {
+				const rect = canvas.getBoundingClientRect();
+				const sx = e.clientX - rect.left;
+				const sy = e.clientY - rect.top;
+				const world = screenToWorld(sx, sy, state.camera, canvas.clientWidth, canvas.clientHeight);
+				const along = projectOntoWall(world.x, world.y, wall);
+				const len = wallLength(wall);
+				draggingOpening.offsetAlongWall = Math.max(0, Math.min(along - draggingOpening.widthIn / 2, len - draggingOpening.widthIn));
+				redraw();
+				renderWallOpeningsForms();
+			}
+		} else if (dragging) {
 			const rect = canvas.getBoundingClientRect();
 			const sx = e.clientX - rect.left;
 			const sy = e.clientY - rect.top;
@@ -2577,7 +2833,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	});
 
 	canvas.addEventListener('pointerup', () => {
+		if (draggingOpening) { canvas.style.cursor = ''; }
 		dragging = null;
+		draggingOpening = null;
 		isPanning = false;
 	});
 
@@ -2903,7 +3161,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		};
 
 		const wallOpenings = state.openings.filter((o) => o.wallId === wall.id);
-		const newLockers = packWall(wall, t.templateId, defaultConfig, Date.now() % 100000, wallOpenings);
+		const newLockers = packWall(wall, t.templateId, defaultConfig, Date.now() % 100000, wallOpenings, state.lockers, state.walls);
 		const valid = newLockers.filter((l) => !wouldOverlap(l, [...state.lockers, ...newLockers.filter((n) => n !== l)], state.openings, state.walls));
 		state.lockers.push(...valid);
 		if (valid.length > 0) {

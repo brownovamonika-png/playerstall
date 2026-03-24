@@ -1,6 +1,6 @@
 import type { PlannerState, Camera } from './types';
 import { getTemplate, getAllTemplates } from './catalog';
-import { lockerAABB, openingExclusionAABB, wallLength, cornerExclusionAABBs } from './geometry';
+import { lockerAABB, openingExclusionAABB, wallLength, cornerExclusionAABBs, getWallsWithLockers } from './geometry';
 import { formatDimension } from './units';
 
 const _imgCache = new Map<string, HTMLImageElement>();
@@ -41,6 +41,26 @@ function wx(val: number, cam: Camera, canvasW: number): number {
 /** World inches → canvas pixel y. */
 function wy(val: number, cam: Camera, canvasH: number): number {
   return (val - cam.centerY) * cam.pixelsPerInch + canvasH / 2;
+}
+
+/** Draw a glowing highlight on a specific wall (used during placement mode). */
+export function drawWallHighlight(ctx: CanvasRenderingContext2D, state: PlannerState, wallId: string): void {
+  const wall = state.walls.find((w) => w.id === wallId);
+  if (!wall) return;
+  const cssW = ctx.canvas.clientWidth;
+  const cssH = ctx.canvas.clientHeight;
+  const { camera: cam } = state;
+  const ppi = cam.pixelsPerInch;
+  ctx.save();
+  ctx.strokeStyle = '#fe5900';
+  ctx.lineWidth = Math.max(wall.thicknessIn * ppi, 6) + 10;
+  ctx.lineCap = 'round';
+  ctx.globalAlpha = 0.3;
+  ctx.beginPath();
+  ctx.moveTo(wx(wall.start.x, cam, cssW), wy(wall.start.y, cam, cssH));
+  ctx.lineTo(wx(wall.end.x, cam, cssW), wy(wall.end.y, cam, cssH));
+  ctx.stroke();
+  ctx.restore();
 }
 
 /** Full render pass. */
@@ -285,7 +305,7 @@ function drawOpenings(ctx: CanvasRenderingContext2D, state: PlannerState, cw: nu
       ctx.fillText('NO LOCKERS', zx + zw / 2, zy + zh / 2);
     }
 
-    // Opening type label + width dimension above/beside the wall
+    // Opening type label + width dimension + position above/beside the wall
     if (ppi > 0.8) {
       const midX = wx((s1x + s2x) / 2 + inX * (halfT + 10), cam, cw);
       const midY = wy((s1y + s2y) / 2 + inY * (halfT + 10), cam, ch);
@@ -296,6 +316,15 @@ function drawOpenings(ctx: CanvasRenderingContext2D, state: PlannerState, cw: nu
       const typeLabel = op.type === 'door' ? 'DOOR' : op.type === 'window' ? 'WINDOW' : 'OBSTACLE';
       const dimLabel = formatDimension(op.widthIn, state.displayUnit, 0);
       ctx.fillText(`${typeLabel}  ${dimLabel}`, midX, midY);
+
+      const posFromStart = op.offsetAlongWall;
+      const posFromEnd = len - op.offsetAlongWall - op.widthIn;
+      const nearest = Math.min(posFromStart, posFromEnd);
+      const posLabel = formatDimension(nearest, state.displayUnit, 0) + (posFromStart <= posFromEnd ? ' from start' : ' from end');
+      ctx.font = '9px sans-serif';
+      ctx.globalAlpha = 0.7;
+      ctx.fillText(posLabel, midX, midY + 12);
+      ctx.globalAlpha = 1;
     }
   }
 }
@@ -303,9 +332,10 @@ function drawOpenings(ctx: CanvasRenderingContext2D, state: PlannerState, cw: nu
 const CORNER_ZONE_COLOR = '#999';
 
 function drawCornerZones(ctx: CanvasRenderingContext2D, state: PlannerState, cw: number, ch: number): void {
-  const { walls, camera: cam } = state;
+  const { walls, lockers, camera: cam } = state;
   const ppi = cam.pixelsPerInch;
-  const zones = cornerExclusionAABBs(walls);
+  const occupied = getWallsWithLockers(walls, lockers);
+  const zones = cornerExclusionAABBs(walls, occupied);
 
   for (const zone of zones) {
     const zx = wx(zone.minX, cam, cw);
@@ -347,6 +377,57 @@ function drawCornerZones(ctx: CanvasRenderingContext2D, state: PlannerState, cw:
       ctx.fillText('NO LOCKERS', zx + zw / 2, zy + zh / 2);
     }
   }
+}
+
+const FRONT_EDGE_COLOR = '#fe5900';
+
+function drawFrontIndicator(
+  ctx: CanvasRenderingContext2D,
+  rotationDeg: number,
+  x1: number, y1: number, w: number, h: number,
+  ppi: number,
+): void {
+  let fx1: number, fy1: number, fx2: number, fy2: number;
+  let adx: number, ady: number;
+
+  const rot = ((rotationDeg % 360) + 360) % 360;
+  if (rot === 0) {
+    fx1 = x1; fy1 = y1 + h; fx2 = x1 + w; fy2 = y1 + h;
+    adx = 0; ady = 1;
+  } else if (rot === 90) {
+    fx1 = x1 + w; fy1 = y1; fx2 = x1 + w; fy2 = y1 + h;
+    adx = 1; ady = 0;
+  } else if (rot === 180) {
+    fx1 = x1; fy1 = y1; fx2 = x1 + w; fy2 = y1;
+    adx = 0; ady = -1;
+  } else {
+    fx1 = x1; fy1 = y1; fx2 = x1; fy2 = y1 + h;
+    adx = -1; ady = 0;
+  }
+
+  ctx.save();
+  ctx.strokeStyle = FRONT_EDGE_COLOR;
+  ctx.lineWidth = Math.max(2.5, ppi * 1.2);
+  ctx.beginPath();
+  ctx.moveTo(fx1, fy1);
+  ctx.lineTo(fx2, fy2);
+  ctx.stroke();
+
+  const edgeLen = Math.sqrt((fx2 - fx1) ** 2 + (fy2 - fy1) ** 2);
+  if (edgeLen > 12) {
+    const ax = (fx1 + fx2) / 2;
+    const ay = (fy1 + fy2) / 2;
+    const arrowSize = Math.min(7, edgeLen / 4);
+
+    ctx.fillStyle = FRONT_EDGE_COLOR;
+    ctx.beginPath();
+    ctx.moveTo(ax + adx * arrowSize * 1.6, ay + ady * arrowSize * 1.6);
+    ctx.lineTo(ax - ady * arrowSize * 0.6, ay + adx * arrowSize * 0.6);
+    ctx.lineTo(ax + ady * arrowSize * 0.6, ay - adx * arrowSize * 0.6);
+    ctx.closePath();
+    ctx.fill();
+  }
+  ctx.restore();
 }
 
 function drawLockers(ctx: CanvasRenderingContext2D, state: PlannerState, cw: number, ch: number): void {
@@ -413,6 +494,8 @@ function drawLockers(ctx: CanvasRenderingContext2D, state: PlannerState, cw: num
     ctx.strokeStyle = isSelected ? SELECTED_STROKE : LOCKER_STROKE;
     ctx.lineWidth = isSelected ? 2.5 : 1;
     ctx.strokeRect(x1, y1, w, h);
+
+    drawFrontIndicator(ctx, locker.rotationDeg, x1, y1, w, h, ppi);
 
     if (ppi > 0.8) {
       const typeLabel = locker.templateId.toUpperCase();

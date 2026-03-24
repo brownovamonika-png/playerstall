@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import type { PlannerState, Wall, Opening } from './types';
 import { getTemplate, getAllTemplates } from './catalog';
-import { lockerAABB, wallLength, cornerExclusionAABBs, wouldOverlap } from './geometry';
+import { lockerAABB, wallLength, cornerExclusionAABBs, getWallsWithLockers, wouldOverlap } from './geometry';
 
 const WALL_HEIGHT = 108;
 const DOOR_HEIGHT = 84;
@@ -352,7 +352,8 @@ function placeWallBlock(
 /* ── Corner Zones ───────────────────────────────────────── */
 
 function addCornerZones(scene: THREE.Scene, state: PlannerState): void {
-  const zones = cornerExclusionAABBs(state.walls);
+  const occupied = getWallsWithLockers(state.walls, state.lockers);
+  const zones = cornerExclusionAABBs(state.walls, occupied);
   const mat = new THREE.MeshStandardMaterial({
     color: 0xff5900,
     transparent: true,
@@ -413,10 +414,14 @@ function buildLockerGroup(
   const bodyGeo = new THREE.BoxGeometry(w, h, d);
   const tex = _texCache.get(locker.templateId) ?? null;
 
-  let bodyMat: THREE.MeshStandardMaterial;
+  const rot = ((locker.rotationDeg % 360) + 360) % 360;
+  // BoxGeometry face order: +x(0), -x(1), +y(2), -y(3), +z(4), -z(5)
+  // Map rotation to the face index that should show the front/door
+  const frontFaceIdx = rot === 90 ? 0 : rot === 270 ? 1 : rot === 180 ? 5 : 4;
+
+  const sideMat = new THREE.MeshStandardMaterial({ color: hex, roughness: 0.6, metalness: 0.05 });
+
   if (tex) {
-    const faceMats: THREE.MeshStandardMaterial[] = [];
-    const sideMat = new THREE.MeshStandardMaterial({ color: hex, roughness: 0.6, metalness: 0.05 });
     const frontMat = new THREE.MeshStandardMaterial({
       map: tex.clone(),
       color: new THREE.Color(hex).lerp(new THREE.Color(0xffffff), 0.6),
@@ -424,16 +429,26 @@ function buildLockerGroup(
       metalness: 0.03,
     });
     frontMat.map!.needsUpdate = true;
-    // BoxGeometry face order: +x, -x, +y, -y, +z (front), -z (back)
-    faceMats.push(sideMat, sideMat, sideMat, sideMat, frontMat, sideMat);
+    const faceMats: THREE.MeshStandardMaterial[] = [
+      sideMat, sideMat, sideMat, sideMat, sideMat, sideMat,
+    ];
+    faceMats[frontFaceIdx] = frontMat;
     const body = new THREE.Mesh(bodyGeo, faceMats);
     body.position.set(cx, h / 2, cz);
     body.castShadow = true;
     body.receiveShadow = true;
     group.add(body);
   } else {
-    bodyMat = new THREE.MeshStandardMaterial({ color: hex, roughness: 0.6, metalness: 0.05 });
-    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    const frontMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(hex).lerp(new THREE.Color(0xffffff), 0.35),
+      roughness: 0.5,
+      metalness: 0.08,
+    });
+    const faceMats: THREE.MeshStandardMaterial[] = [
+      sideMat, sideMat, sideMat, sideMat, sideMat, sideMat,
+    ];
+    faceMats[frontFaceIdx] = frontMat;
+    const body = new THREE.Mesh(bodyGeo, faceMats);
     body.position.set(cx, h / 2, cz);
     body.castShadow = true;
     body.receiveShadow = true;
