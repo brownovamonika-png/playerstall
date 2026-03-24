@@ -94,7 +94,7 @@ const productsSchema = {
 			"@type": "Product",
 			"position": 4,
 			"name": "Model S Locker",
-			"description": "Quick ship premium wood sports locker. Ships in 2-4 weeks in 24 inch width, Light Gray or Dark Gray. Championship quality finishing.",
+			"description": "Premium wood sports locker for high-traffic facilities. Stadium-grade melamine construction with championship-quality finishing. Custom-built to your dimensions and finish choices.",
 			"brand": {
 				"@type": "Brand",
 				"name": "PlayerStall"
@@ -118,8 +118,8 @@ const productsSchema = {
 						"@type": "ShippingDeliveryTime",
 						"handlingTime": {
 							"@type": "QuantitativeValue",
-							"minValue": 2,
-							"maxValue": 4,
+							"minValue": 8,
+							"maxValue": 12,
 							"unitCode": "WK"
 						}
 					}
@@ -139,7 +139,7 @@ const productsSchema = {
 			"@type": "Product",
 			"position": 5,
 			"name": "Model Z Locker",
-			"description": "Quick ship curved-design premium wood sports locker. Ships in 2-4 weeks. Modern aesthetic with maximum functionality for collegiate and professional teams.",
+			"description": "Curved-design premium wood sports locker. Modern aesthetic with maximum functionality for collegiate and professional teams. Custom-built to your specifications.",
 			"brand": {
 				"@type": "Brand",
 				"name": "PlayerStall"
@@ -163,8 +163,8 @@ const productsSchema = {
 						"@type": "ShippingDeliveryTime",
 						"handlingTime": {
 							"@type": "QuantitativeValue",
-							"minValue": 2,
-							"maxValue": 4,
+							"minValue": 8,
+							"maxValue": 12,
 							"unitCode": "WK"
 						}
 					}
@@ -234,7 +234,7 @@ const breadcrumbSchema = {
 
 <BaseLayout 
 	title="Wood Sports Locker Models & Pricing | PlayerStall" 
-	description="Quick ship in 2–4 weeks: Model S, Model Z and Model X in 24 inch width, Light or Dark Gray. Custom wood and more in 8–12 weeks. Price match guarantee. Eight locker tiers from $349. 5 year warranty."
+	description="Custom wood sports lockers built in 8–12 weeks. Price match guarantee. Eight locker tiers from $349. 5 year warranty. Free design consultation."
 	canonical="https://playerstall.com/products"
 >
 	<!-- Schema.org Structured Data -->
@@ -268,8 +268,8 @@ const breadcrumbSchema = {
 		<div class="products-container qodef-content-grid">
 			<div class="section-header">
 				<p class="section-subtitle">our products</p>
-				<h2 class="section-title">Quick Ship &amp; Custom</h2>
-				<p style="max-width: 700px; margin: 1rem auto 0; font-size: 1rem; color: #666;">Quick ship ships in 2 to 4 weeks: Model S, Model Z &amp; Model X in 24&quot; width, Light Gray or Dark Gray. Custom orders are 8–12 weeks: any size, any wood, or materials. Price match guarantee on USA competitors.</p>
+				<h2 class="section-title">CUSTOM BUILT</h2>
+				<p style="max-width: 700px; margin: 1rem auto 0; font-size: 1rem; color: #666;">Custom orders are built in 8–12 weeks with your choice of dimensions, finishes, and materials. We walk you through options during a free consultation. Price match guarantee on USA competitors.</p>
 			</div>
 			
 			<div class="products-grid">
@@ -322,7 +322,7 @@ const breadcrumbSchema = {
 							<img src="/images/stadium-locker.png" alt="Model S Locker" loading="lazy" />
 						</div>
 						<div class="product-details">
-							<div class="product-position">Model S &middot; Quick Ship (2–4 weeks)</div>
+							<div class="product-position">Model S</div>
 							<h4 class="product-name">Model S <span class="product-price-inline">From $649</span></h4>
 							<span class="spec-toggle-label">View spec sheet &rarr;</span>
 						</div>
@@ -336,7 +336,7 @@ const breadcrumbSchema = {
 							<img src="/images/elite-locker.png" alt="Model Z Locker" loading="lazy" />
 						</div>
 						<div class="product-details">
-							<div class="product-position">Model Z • Quick Ship (2–4 weeks)</div>
+							<div class="product-position">Model Z</div>
 							<h4 class="product-name">Model Z Locker <span class="product-price-inline">From $649</span></h4>
 							<span class="spec-toggle-label">View specs &darr;</span>
 						</div>
@@ -348,9 +348,8 @@ const breadcrumbSchema = {
 								<li><strong>Standard size shown:</strong> 24&quot; W x 76&quot; H x 19&quot; D</li>
 								<li><strong>Base:</strong> optional 4&quot; high base can be added</li>
 								<li><strong>Weight:</strong> approx. 175 lbs</li>
-								<li><strong>Quick Ship (2–4 weeks):</strong> 24&quot; width, Light Gray or Dark Gray</li>
-								<li><strong>Base price:</strong> $649 · <strong>Quick ship (24&quot;):</strong> $749 (includes accessories) · <strong>Colors:</strong> Black, Light Grey, Dark Grey, Maple</li>
-								<li><strong>Custom:</strong> 8–12 weeks — any size, any wood, or materials</li>
+								<li><strong>Base price:</strong> $649 · <strong>Colors:</strong> Black, Light Grey, Dark Grey, Maple</li>
+								<li><strong>Lead time:</strong> 8–12 weeks — custom dimensions, finishes, and materials</li>
 							</ul>
 							<a href="/product-elite-locker" class="spec-cta">View product</a>
 							<a href="/contact" class="spec-cta">Request a quote</a>
@@ -377,7 +376,7 @@ const breadcrumbSchema = {
 								<li><strong>Standard size shown:</strong> 24&quot; W x 76&quot; H x 19&quot; D</li>
 								<li><strong>Base:</strong> optional 4&quot; high base can be added</li>
 								<li><strong>Weight:</strong> approx. 175 lbs</li>
-								<li><strong>Premium tier</strong> with maximum customization · <strong>Base price:</strong> $649 · <strong>Quick ship (24&quot;):</strong> $749 (includes accessories)</li>
+								<li><strong>Premium tier</strong> with maximum customization · <strong>Base price:</strong> $649</li>
 								<li><strong>Colors:</strong> Black, Light Grey, Dark Grey, Maple</li>
 								<li><strong>Custom:</strong> 8–12 weeks — any size, wood, or materials</li>
 							</ul>
@@ -597,17 +596,6 @@ const breadcrumbSchema = {
 							<td><span class="checkmark">Yes</span></td>
 							<td><span class="checkmark">Yes</span></td>
 							<td><span class="checkmark">Yes</span></td>
-							<td><span class="checkmark">Yes</span></td>
-						</tr>
-						<tr>
-							<td>Quick Ship (24")</td>
-							<td><span class="checkmark">Yes</span></td>
-							<td><span class="checkmark">Yes</span></td>
-							<td><span class="checkmark">Yes</span></td>
-							<td><span class="checkmark">Yes</span></td>
-							<td>No</td>
-							<td>No</td>
-							<td>No</td>
 							<td><span class="checkmark">Yes</span></td>
 						</tr>
 						<tr>

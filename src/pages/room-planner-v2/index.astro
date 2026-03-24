@@ -1,0 +1,1170 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="Room Planner | Design Your Locker Room | PlayerStall"
+	description="Interactive locker room planner. Draw walls, place lockers, configure options and pricing in real time. Free tool to design your space today."
+>
+	<section class="planner-hero">
+		<div class="planner-hero-inner">
+			<span class="planner-hero-subtitle">Free Online Tool</span>
+			<h1>Locker Room Planner</h1>
+			<p>Plan your perfect locker room in three simple steps. No account required. Just enter your room dimensions, add lockers, and request a quote when you're done.</p>
+			<div class="hero-steps">
+				<div class="hero-step active-step">
+					<span class="hero-step-num">1</span>
+					<span class="hero-step-text">Enter your room size</span>
+				</div>
+				<div class="hero-step-arrow">&rarr;</div>
+				<div class="hero-step">
+					<span class="hero-step-num">2</span>
+					<span class="hero-step-text">Add & arrange lockers</span>
+				</div>
+				<div class="hero-step-arrow">&rarr;</div>
+				<div class="hero-step">
+					<span class="hero-step-num">3</span>
+					<span class="hero-step-text">Review & send to us</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="room-setup" id="room-setup">
+		<div class="room-setup-columns">
+			<div class="room-setup-left">
+				<div class="room-tabs-row" id="room-tabs-bar">
+					<div class="room-tabs-list" id="room-tabs-list">
+						<button type="button" class="room-tab active" data-room-idx="0">Room 1</button>
+					</div>
+					<button type="button" class="room-tab-add" id="btn-add-room">+ Add Room</button>
+				</div>
+				<span class="step-badge">Step 1</span>
+				<h2 class="room-setup-title">Room Dimensions</h2>
+				<p class="room-setup-desc">Measure your locker room and enter the length of each wall below. If a wall has a door or window, click the button under that wall to mark it so lockers won't be placed in those areas.</p>
+
+				<div class="room-name-row">
+					<label for="room-name" class="room-name-label">Name this room</label>
+					<input type="text" id="room-name" class="room-name-input" placeholder="e.g. Home Locker Room, Visitors, Training Room…" maxlength="80" />
+				</div>
+				<p class="room-setup-hint">Tip: Give each room a name so you can tell them apart in your quote.</p>
+
+				<div class="wall-cards">
+				<!-- Wall A -->
+				<div class="wall-card" data-wall="a">
+					<div class="wall-card-header">
+						<span class="wall-card-label">Wall A <span class="wall-card-side">(top)</span></span>
+						<div class="wall-dim-pair">
+							<input type="number" id="dim-wall-a-ft" class="room-dim-input dim-ft" placeholder="ft" min="0" step="1" />
+							<span class="room-dim-unit">ft</span>
+							<input type="number" id="dim-wall-a-in" class="room-dim-input dim-in" placeholder="in" min="0" max="11" step="1" />
+							<span class="room-dim-unit">in</span>
+						</div>
+					</div>
+					<div class="wall-openings-list" id="openings-wall-a"></div>
+					<div class="wall-card-actions">
+						<button type="button" class="wall-add-btn" data-wall-id="Wall A" data-type="door">+ Door</button>
+						<button type="button" class="wall-add-btn" data-wall-id="Wall A" data-type="window">+ Window</button>
+						<button type="button" class="wall-add-btn" data-wall-id="Wall A" data-type="obstacle">+ Obstacle</button>
+					</div>
+				</div>
+
+				<!-- Wall B -->
+				<div class="wall-card" data-wall="b">
+					<div class="wall-card-header">
+						<span class="wall-card-label">Wall B <span class="wall-card-side">(right)</span></span>
+						<div class="wall-dim-pair">
+							<input type="number" id="dim-wall-b-ft" class="room-dim-input dim-ft" placeholder="ft" min="0" step="1" />
+							<span class="room-dim-unit">ft</span>
+							<input type="number" id="dim-wall-b-in" class="room-dim-input dim-in" placeholder="in" min="0" max="11" step="1" />
+							<span class="room-dim-unit">in</span>
+						</div>
+					</div>
+					<div class="wall-openings-list" id="openings-wall-b"></div>
+					<div class="wall-card-actions">
+						<button type="button" class="wall-add-btn" data-wall-id="Wall B" data-type="door">+ Door</button>
+						<button type="button" class="wall-add-btn" data-wall-id="Wall B" data-type="window">+ Window</button>
+						<button type="button" class="wall-add-btn" data-wall-id="Wall B" data-type="obstacle">+ Obstacle</button>
+					</div>
+				</div>
+
+				<!-- Wall C -->
+				<div class="wall-card" data-wall="c">
+					<div class="wall-card-header">
+						<span class="wall-card-label">Wall C <span class="wall-card-side">(bottom)</span></span>
+						<div class="wall-dim-pair">
+							<input type="number" id="dim-wall-c-ft" class="room-dim-input dim-ft" placeholder="ft" min="0" step="1" />
+							<span class="room-dim-unit">ft</span>
+							<input type="number" id="dim-wall-c-in" class="room-dim-input dim-in" placeholder="in" min="0" max="11" step="1" />
+							<span class="room-dim-unit">in</span>
+						</div>
+					</div>
+					<div class="wall-openings-list" id="openings-wall-c"></div>
+					<div class="wall-card-actions">
+						<button type="button" class="wall-add-btn" data-wall-id="Wall C" data-type="door">+ Door</button>
+						<button type="button" class="wall-add-btn" data-wall-id="Wall C" data-type="window">+ Window</button>
+						<button type="button" class="wall-add-btn" data-wall-id="Wall C" data-type="obstacle">+ Obstacle</button>
+					</div>
+				</div>
+
+				<!-- Wall D -->
+				<div class="wall-card" data-wall="d">
+					<div class="wall-card-header">
+						<span class="wall-card-label">Wall D <span class="wall-card-side">(left)</span></span>
+						<div class="wall-dim-pair">
+							<input type="number" id="dim-wall-d-ft" class="room-dim-input dim-ft" placeholder="ft" min="0" step="1" />
+							<span class="room-dim-unit">ft</span>
+							<input type="number" id="dim-wall-d-in" class="room-dim-input dim-in" placeholder="in" min="0" max="11" step="1" />
+							<span class="room-dim-unit">in</span>
+						</div>
+					</div>
+					<div class="wall-openings-list" id="openings-wall-d"></div>
+					<div class="wall-card-actions">
+						<button type="button" class="wall-add-btn" data-wall-id="Wall D" data-type="door">+ Door</button>
+						<button type="button" class="wall-add-btn" data-wall-id="Wall D" data-type="window">+ Window</button>
+						<button type="button" class="wall-add-btn" data-wall-id="Wall D" data-type="obstacle">+ Obstacle</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="room-btn-row">
+				<button type="button" class="room-apply-btn" id="btn-apply-room">Draw My Room</button>
+				<button type="button" class="room-reset-btn" id="btn-reset-room">Clear &amp; Start Over</button>
+			</div>
+
+			<!-- Mini canvas preview -->
+			<div class="room-preview-wrap" id="room-preview-wrap" style="display:none;">
+				<canvas id="room-preview-canvas"></canvas>
+			</div>
+
+			<div class="room-btn-row next-row">
+				<button type="button" class="room-next-btn" id="btn-next">Next &rarr;</button>
+			</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Email modal -->
+	<div class="email-modal-overlay" id="email-modal-overlay">
+		<div class="email-modal">
+			<button type="button" class="email-modal-close" id="email-modal-close">&times;</button>
+			<h2 class="email-modal-title">Almost There</h2>
+			<p class="email-modal-desc">Enter your email so we can save your layout and send you a copy when it's ready.</p>
+			<div class="email-modal-field">
+				<label for="setup-email">Email address</label>
+				<input type="email" id="setup-email" class="email-modal-input" placeholder="you@example.com" required />
+			</div>
+			<p class="email-modal-error" id="email-error" style="display:none;">Please enter a valid email address.</p>
+			<button type="button" class="email-modal-submit" id="btn-email-submit">Continue to Design &rarr;</button>
+			<p class="email-modal-privacy">We'll only use your email to send your locker room plan. No spam, ever.</p>
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	.planner-hero {
+		background: #ffffff;
+		color: #0d0d0d;
+		padding: 80px 20px 40px;
+		text-align: center;
+	}
+	.planner-hero-subtitle {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		letter-spacing: 6px;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		margin-bottom: 12px;
+	}
+	.planner-hero h1 {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(32px, 4vw, 52px);
+		font-weight: 700;
+		margin: 0;
+		text-transform: uppercase;
+		color: #0d0d0d;
+		line-height: 1.1;
+		letter-spacing: 2px;
+	}
+	.planner-hero p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		margin: 14px auto 0;
+		color: #8c8c8c;
+		max-width: 600px;
+		line-height: 1.6;
+	}
+
+	.hero-steps {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 16px;
+		margin-top: 32px;
+	}
+	.hero-step {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+	.hero-step-num {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		background: #0d0d0d;
+		color: #fff;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		flex-shrink: 0;
+	}
+	.hero-step-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+	}
+	.hero-step-arrow {
+		color: #ccc;
+		font-size: 18px;
+	}
+	.active-step .hero-step-num {
+		background: #fe5900;
+	}
+	@media (max-width: 640px) {
+		.hero-steps { flex-direction: column; gap: 10px; }
+		.hero-step-arrow { transform: rotate(90deg); }
+	}
+
+	/* Room tabs */
+	:global(.room-tabs-row) {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		margin-bottom: 32px;
+	}
+	:global(.room-tabs-list) {
+		display: flex;
+		gap: 8px;
+		align-items: center;
+	}
+	:global(.room-tab) {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 400;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		padding: 8px 18px;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		background: #fff;
+		color: #8c8c8c;
+		cursor: pointer;
+		white-space: nowrap;
+		transition: all 0.2s;
+	}
+	:global(.room-tab:hover) {
+		border-color: #0d0d0d;
+		color: #0d0d0d;
+	}
+	:global(.room-tab.active) {
+		background: #0d0d0d;
+		border-color: #0d0d0d;
+		color: #fff;
+	}
+	:global(.room-tab-sep) { display: none; }
+	:global(.room-tab-x) {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		border: none;
+		background: none;
+		color: #ccc;
+		font-size: 10px;
+		line-height: 1;
+		cursor: pointer;
+		padding: 0;
+		margin-left: 2px;
+		transition: all 0.2s;
+	}
+	:global(.room-tab.active .room-tab-x) { color: rgba(255,255,255,0.5); }
+	:global(.room-tab.active .room-tab-x:hover) { color: #fe5900; }
+	:global(.room-tab-x:hover) { color: #fe5900; }
+	:global(.room-tab-add) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 500;
+		letter-spacing: 0.5px;
+		padding: 8px 18px;
+		border: 1px dashed #ccc;
+		border-radius: 0;
+		background: #fff;
+		color: #8c8c8c;
+		cursor: pointer;
+		white-space: nowrap;
+		margin-left: 4px;
+		transition: color 0.2s;
+	}
+	:global(.room-tab-add:hover) { border-color: #0d0d0d; color: #0d0d0d; }
+
+	/* Room setup form */
+	.room-setup {
+		background: #ffffff;
+		color: #0d0d0d;
+		padding: 0 20px 60px;
+	}
+	.room-setup-columns {
+		max-width: 1300px;
+		margin: 0 auto;
+	}
+	.room-setup-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(24px, 3vw, 36px);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		margin: 0 0 10px;
+		color: #0d0d0d;
+		line-height: 1.1;
+		text-align: center;
+	}
+	.room-setup-desc {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin: 0 0 32px;
+		letter-spacing: 0.3px;
+		text-align: center;
+	}
+	.room-name-row {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 12px;
+		margin-bottom: 20px;
+	}
+	.room-name-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		font-weight: 500;
+		color: #0d0d0d;
+		white-space: nowrap;
+		letter-spacing: 0.5px;
+	}
+	.room-name-input {
+		width: 240px;
+		background: #f7f7f7;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		color: #0d0d0d;
+		padding: 10px 14px;
+		font-size: 14px;
+		font-family: 'Yantramanav', sans-serif;
+		transition: border-color 0.3s;
+	}
+	.room-name-input::placeholder { color: #b6b6b6; }
+	.room-name-input:focus { border-color: #fe5900; outline: none; }
+	.room-setup-hint {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #b6b6b6;
+		margin: 6px 0 16px;
+		font-style: italic;
+		text-align: center;
+	}
+	.wall-cards {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 16px;
+	}
+	@media (max-width: 640px) {
+		.wall-cards { grid-template-columns: 1fr; }
+	}
+	.wall-card {
+		background: #f7f7f7;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		padding: 16px;
+		transition: border-color 0.2s;
+	}
+	.wall-card:hover { border-color: #ccc; }
+	.wall-card-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		margin-bottom: 10px;
+	}
+	.wall-card-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		color: #0d0d0d;
+		white-space: nowrap;
+	}
+	.wall-card-side { color: #8c8c8c; font-size: 11px; }
+	.wall-dim-pair {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		flex-shrink: 0;
+	}
+	.wall-dim-pair .dim-ft { width: 48px; }
+	.wall-dim-pair .dim-in { width: 48px; }
+	.wall-openings-list { display: flex; flex-direction: column; gap: 8px; }
+	.wall-opening-row {
+		background: #ffffff;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		padding: 10px 12px;
+		font-size: 12px;
+		color: #0d0d0d;
+	}
+	.op-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 8px;
+	}
+	.op-badge {
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		padding: 3px 10px;
+		border-radius: 0;
+		color: #fff;
+	}
+	.op-badge.door { background: #0d0d0d; }
+	.op-badge.window { background: #555; }
+	.op-badge.obstacle { background: #8c8c8c; }
+	.op-remove {
+		background: none;
+		border: none;
+		color: #b6b6b6;
+		font-size: 14px;
+		cursor: pointer;
+		padding: 0 4px;
+		line-height: 1;
+	}
+	.op-remove:hover { color: #fe5900; }
+	.op-fields {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 8px;
+	}
+	.op-field label {
+		display: block;
+		font-size: 10px;
+		color: #8c8c8c;
+		margin-bottom: 3px;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+	.op-field-row {
+		display: flex;
+		align-items: center;
+		gap: 3px;
+	}
+	.op-field-row input {
+		width: 100%;
+		background: #f7f7f7;
+		color: #0d0d0d;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		padding: 5px 8px;
+		font-size: 12px;
+		transition: border-color 0.3s;
+	}
+	.op-field-row input:focus { border-color: #fe5900; outline: none; }
+	.op-unit { color: #8c8c8c; font-size: 11px; flex-shrink: 0; }
+	.wall-card-actions {
+		display: flex;
+		gap: 8px;
+		margin-top: 10px;
+	}
+	.wall-add-btn {
+		background: transparent;
+		color: #8c8c8c;
+		border: 1px dashed #ccc;
+		border-radius: 0;
+		padding: 5px 12px;
+		font-size: 11px;
+		cursor: pointer;
+		font-family: 'Yantramanav', sans-serif;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		transition: all 0.2s;
+	}
+	.wall-add-btn:hover { border-color: #fe5900; color: #fe5900; }
+	.room-dim-input {
+		width: 100%;
+		background: #ffffff;
+		color: #0d0d0d;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		padding: 8px 10px;
+		font-size: 14px;
+		transition: border-color 0.3s;
+	}
+	.room-dim-input:focus { border-color: #fe5900; outline: none; }
+	.room-dim-unit {
+		font-size: 13px;
+		color: #8c8c8c;
+		flex-shrink: 0;
+	}
+	.room-btn-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 36px;
+		margin-bottom: 16px;
+	}
+	.room-apply-btn {
+		background: #fe5900;
+		color: #fff;
+		border: none;
+		border-radius: 0;
+		padding: 14px 36px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		cursor: pointer;
+		transition: background 0.3s;
+	}
+	.room-apply-btn:hover { background: #e04d00; }
+	.room-reset-btn {
+		background: transparent;
+		color: #8c8c8c;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		padding: 14px 28px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		cursor: pointer;
+		transition: all 0.3s;
+	}
+	.room-reset-btn:hover { border-color: #0d0d0d; color: #0d0d0d; }
+	.step-badge {
+		display: block;
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		color: #fe5900;
+		margin-bottom: 6px;
+	}
+
+	/* Mini canvas preview */
+	.room-preview-wrap {
+		margin: 20px auto;
+		max-width: 700px;
+		background: #e9e9e9;
+		border: 1px solid #e0e0e0;
+		position: relative;
+		overflow: hidden;
+		height: 320px;
+	}
+	#room-preview-canvas {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	/* Next button row */
+	.next-row {
+		justify-content: center;
+		margin-top: 24px;
+	}
+	.room-next-btn {
+		background: #0d0d0d;
+		color: #fff;
+		border: none;
+		border-radius: 0;
+		padding: 16px 64px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 3px;
+		cursor: pointer;
+		transition: background 0.3s;
+	}
+	.room-next-btn:hover { background: #fe5900; }
+
+	/* Email modal */
+	.email-modal-overlay {
+		display: none;
+		position: fixed;
+		inset: 0;
+		z-index: 9999;
+		background: rgba(0, 0, 0, 0.65);
+		align-items: center;
+		justify-content: center;
+	}
+	.email-modal {
+		background: #fff;
+		max-width: 440px;
+		width: 90%;
+		padding: 48px 40px 40px;
+		position: relative;
+		text-align: center;
+	}
+	.email-modal-close {
+		position: absolute;
+		top: 14px;
+		right: 18px;
+		background: none;
+		border: none;
+		color: #b6b6b6;
+		font-size: 26px;
+		cursor: pointer;
+		line-height: 1;
+		transition: color 0.2s;
+	}
+	.email-modal-close:hover { color: #fe5900; }
+	.email-modal-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		color: #0d0d0d;
+		margin: 0 0 10px;
+	}
+	.email-modal-desc {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin: 0 0 28px;
+		line-height: 1.5;
+	}
+	.email-modal-field {
+		text-align: left;
+		margin-bottom: 16px;
+	}
+	.email-modal-field label {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		margin-bottom: 6px;
+	}
+	.email-modal-input {
+		width: 100%;
+		padding: 12px 14px;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #0d0d0d;
+		background: #f7f7f7;
+		box-sizing: border-box;
+		transition: border-color 0.3s;
+	}
+	.email-modal-input:focus { border-color: #fe5900; outline: none; }
+	.email-modal-input::placeholder { color: #b6b6b6; }
+	.email-modal-error {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #fe5900;
+		margin: 0 0 12px;
+	}
+	.email-modal-submit {
+		width: 100%;
+		background: #fe5900;
+		color: #fff;
+		border: none;
+		border-radius: 0;
+		padding: 16px 24px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		cursor: pointer;
+		transition: background 0.3s;
+	}
+	.email-modal-submit:hover { background: #e04d00; }
+	.email-modal-privacy {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		color: #b6b6b6;
+		margin: 16px 0 0;
+		line-height: 1.4;
+	}
+
+	@media (max-width: 768px) {
+		.planner-hero { padding: 50px 20px 30px; }
+		.room-setup { padding: 30px 20px; }
+		.email-modal { padding: 36px 24px 28px; }
+	}
+</style>
+
+<script>
+	import { createInitialState, buildWalls, defaultDimensions } from '../../room-planner/state';
+	import type { RoomDimensions } from '../../room-planner/state';
+	import { render } from '../../room-planner/render';
+	import { wallLength } from '../../room-planner/geometry';
+	import type { PlannerState, Opening } from '../../room-planner/types';
+
+	let roomDims: RoomDimensions = defaultDimensions();
+	const state: PlannerState = createInitialState(roomDims);
+
+	interface SavedRoom {
+		roomName: string;
+		roomDims: RoomDimensions;
+		openings: Opening[];
+	}
+	const savedRooms: SavedRoom[] = [];
+	let activeRoomIndex = 0;
+
+	function snapshotCurrentRoom(): SavedRoom {
+		return {
+			roomName: state.roomName,
+			roomDims: { ...roomDims },
+			openings: JSON.parse(JSON.stringify(state.openings)),
+		};
+	}
+
+	function saveCurrentRoom() {
+		savedRooms[activeRoomIndex] = snapshotCurrentRoom();
+	}
+
+	function loadRoom(index: number) {
+		const room = savedRooms[index];
+		if (!room) return;
+		roomDims = { ...room.roomDims };
+		state.roomName = room.roomName;
+		state.walls = buildWalls(roomDims);
+		state.openings = JSON.parse(JSON.stringify(room.openings));
+		state.lockers = [];
+		state.selection = null;
+		roomNameInput.value = state.roomName;
+		writeAllDimInputs();
+		renderWallOpeningsForms();
+	}
+
+	function removeRoom(index: number) {
+		if (savedRooms.length <= 1) return;
+		savedRooms.splice(index, 1);
+		if (activeRoomIndex >= savedRooms.length) {
+			activeRoomIndex = savedRooms.length - 1;
+		} else if (index < activeRoomIndex) {
+			activeRoomIndex--;
+		} else if (index === activeRoomIndex) {
+			activeRoomIndex = Math.min(index, savedRooms.length - 1);
+		}
+		loadRoom(activeRoomIndex);
+		renderRoomTabs();
+	}
+
+	function renderRoomTabs() {
+		const list = document.getElementById('room-tabs-list')!;
+		list.innerHTML = '';
+		const canRemove = savedRooms.length > 1;
+		for (let i = 0; i < savedRooms.length; i++) {
+			if (i > 0) {
+				const sep = document.createElement('span');
+				sep.className = 'room-tab-sep';
+				sep.textContent = '/';
+				list.appendChild(sep);
+			}
+			const isActive = i === activeRoomIndex;
+			const label = (i === activeRoomIndex ? state.roomName : savedRooms[i].roomName) || `Room ${i + 1}`;
+			const btn = document.createElement('button');
+			btn.type = 'button';
+			btn.className = `room-tab${isActive ? ' active' : ''}`;
+			btn.dataset.roomIdx = String(i);
+
+			const nameSpan = document.createElement('span');
+			nameSpan.textContent = label;
+			btn.appendChild(nameSpan);
+			nameSpan.onclick = (e) => { e.stopPropagation(); switchToRoom(i); };
+
+			if (canRemove) {
+				const xBtn = document.createElement('span');
+				xBtn.className = 'room-tab-x';
+				xBtn.textContent = '\u00d7';
+				xBtn.title = 'Remove room';
+				xBtn.onclick = (e) => { e.stopPropagation(); removeRoom(i); };
+				btn.appendChild(xBtn);
+			}
+
+			list.appendChild(btn);
+		}
+	}
+
+	function switchToRoom(index: number) {
+		if (index === activeRoomIndex) return;
+		saveCurrentRoom();
+		activeRoomIndex = index;
+		loadRoom(index);
+		renderRoomTabs();
+	}
+
+	document.getElementById('btn-add-room')!.onclick = () => {
+		saveCurrentRoom();
+		const newIndex = savedRooms.length;
+		savedRooms.push({
+			roomName: '',
+			roomDims: defaultDimensions(),
+			openings: [],
+		});
+		activeRoomIndex = newIndex;
+		loadRoom(newIndex);
+		renderRoomTabs();
+	};
+
+	// Room name
+	const roomNameInput = document.getElementById('room-name') as HTMLInputElement;
+	roomNameInput.oninput = () => {
+		state.roomName = roomNameInput.value.trim();
+		renderRoomTabs();
+	};
+
+	// Room dimension inputs
+	const dimFtA = document.getElementById('dim-wall-a-ft') as HTMLInputElement;
+	const dimInA = document.getElementById('dim-wall-a-in') as HTMLInputElement;
+	const dimFtB = document.getElementById('dim-wall-b-ft') as HTMLInputElement;
+	const dimInB = document.getElementById('dim-wall-b-in') as HTMLInputElement;
+	const dimFtC = document.getElementById('dim-wall-c-ft') as HTMLInputElement;
+	const dimInC = document.getElementById('dim-wall-c-in') as HTMLInputElement;
+	const dimFtD = document.getElementById('dim-wall-d-ft') as HTMLInputElement;
+	const dimInD = document.getElementById('dim-wall-d-in') as HTMLInputElement;
+
+	function readFtIn(ft: HTMLInputElement, inches: HTMLInputElement): number {
+		return (parseFloat(ft.value) || 0) * 12 + (parseFloat(inches.value) || 0);
+	}
+
+	function writeFtIn(totalInches: number, ft: HTMLInputElement, inches: HTMLInputElement) {
+		const f = Math.floor(totalInches / 12);
+		const i = Math.round(totalInches % 12);
+		ft.value = f > 0 ? String(f) : '';
+		inches.value = i > 0 ? String(i) : '';
+	}
+
+	function readRoomDims(): RoomDimensions {
+		return {
+			wallA: readFtIn(dimFtA, dimInA),
+			wallB: readFtIn(dimFtB, dimInB),
+			wallC: readFtIn(dimFtC, dimInC),
+			wallD: readFtIn(dimFtD, dimInD),
+			thicknessA: roomDims.thicknessA,
+			thicknessB: roomDims.thicknessB,
+			thicknessC: roomDims.thicknessC,
+			thicknessD: roomDims.thicknessD,
+		};
+	}
+
+	function writeAllDimInputs() {
+		writeFtIn(roomDims.wallA, dimFtA, dimInA);
+		writeFtIn(roomDims.wallB, dimFtB, dimInB);
+		writeFtIn(roomDims.wallC, dimFtC, dimInC);
+		writeFtIn(roomDims.wallD, dimFtD, dimInD);
+	}
+
+	// Preview canvas
+	const previewWrap = document.getElementById('room-preview-wrap')!;
+	const previewCanvas = document.getElementById('room-preview-canvas') as HTMLCanvasElement;
+	const previewCtx = previewCanvas.getContext('2d')!;
+
+	function renderPreview() {
+		const hasRoom = state.walls.some((w) => wallLength(w) > 0);
+		previewWrap.style.display = hasRoom ? '' : 'none';
+		if (!hasRoom) return;
+
+		let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+		for (const w of state.walls) {
+			minX = Math.min(minX, w.start.x, w.end.x);
+			minY = Math.min(minY, w.start.y, w.end.y);
+			maxX = Math.max(maxX, w.start.x, w.end.x);
+			maxY = Math.max(maxY, w.start.y, w.end.y);
+		}
+		if (!isFinite(minX)) return;
+		const worldW = maxX - minX || 100;
+		const worldH = maxY - minY || 100;
+		const pad = 40;
+		state.camera.pixelsPerInch = Math.min(
+			(previewCanvas.clientWidth - pad) / worldW,
+			(previewCanvas.clientHeight - pad) / worldH,
+		);
+		state.camera.centerX = (minX + maxX) / 2;
+		state.camera.centerY = (minY + maxY) / 2;
+		render(previewCtx, state);
+	}
+
+	function applyRoom() {
+		roomDims = readRoomDims();
+		state.walls = buildWalls(roomDims);
+		state.lockers = [];
+		state.openings = state.openings.filter((op) => {
+			const wall = state.walls.find((w) => w.id === op.wallId);
+			return wall && (op.offsetAlongWall + op.widthIn) <= wallLength(wall);
+		});
+		state.selection = null;
+		renderWallOpeningsForms();
+		renderPreview();
+	}
+
+	document.getElementById('btn-apply-room')!.onclick = applyRoom;
+
+	document.getElementById('btn-reset-room')!.onclick = () => {
+		roomDims = defaultDimensions();
+		writeAllDimInputs();
+		state.roomName = '';
+		roomNameInput.value = '';
+		state.walls = buildWalls(roomDims);
+		state.lockers = [];
+		state.openings = [];
+		state.selection = null;
+		saveCurrentRoom();
+		renderRoomTabs();
+		renderWallOpeningsForms();
+		renderPreview();
+	};
+
+	// Wall openings
+	let _openingCounter = 0;
+
+	function addOpeningToWall(wallId: string, type: 'door' | 'window' | 'obstacle') {
+		const wall = state.walls.find((w) => w.id === wallId);
+		if (!wall) return;
+		const len = wallLength(wall);
+		const defaultWidth = type === 'obstacle' ? 24 : 36;
+		const defaultClearance = type === 'door' ? 36 : type === 'window' ? 24 : 12;
+		if (len < defaultWidth) return;
+
+		const existingOnWall = state.openings.filter((o) => o.wallId === wallId);
+		let offset = 0;
+		for (const ex of existingOnWall) {
+			const end = ex.offsetAlongWall + ex.widthIn;
+			if (end > offset) offset = end;
+		}
+		if (offset + defaultWidth > len) return;
+
+		const op: Opening = {
+			id: `op_${++_openingCounter}`,
+			type,
+			wallId,
+			offsetAlongWall: offset,
+			widthIn: defaultWidth,
+			clearanceIn: defaultClearance,
+		};
+		state.openings.push(op);
+		renderWallOpeningsForms();
+		renderPreview();
+	}
+
+	document.querySelectorAll('.wall-add-btn').forEach((btn) => {
+		btn.addEventListener('click', () => {
+			const wallId = (btn as HTMLElement).dataset.wallId!;
+			const type = (btn as HTMLElement).dataset.type as 'door' | 'window' | 'obstacle';
+			addOpeningToWall(wallId, type);
+		});
+	});
+
+	function renderWallOpeningsForms() {
+		const wallKeys = [
+			{ wallId: 'Wall A', containerId: 'openings-wall-a' },
+			{ wallId: 'Wall B', containerId: 'openings-wall-b' },
+			{ wallId: 'Wall C', containerId: 'openings-wall-c' },
+			{ wallId: 'Wall D', containerId: 'openings-wall-d' },
+		];
+
+		for (const { wallId, containerId } of wallKeys) {
+			const container = document.getElementById(containerId)!;
+			const wallOpenings = state.openings.filter((o) => o.wallId === wallId);
+			container.innerHTML = '';
+
+			for (const op of wallOpenings) {
+				const card = document.createElement('div');
+				card.className = 'wall-opening-row';
+
+				const header = document.createElement('div');
+				header.className = 'op-header';
+				const badge = document.createElement('span');
+				badge.className = `op-badge ${op.type}`;
+				badge.textContent = op.type === 'door' ? 'Door' : op.type === 'window' ? 'Window' : 'Obstacle';
+				header.appendChild(badge);
+				const removeBtn = document.createElement('button');
+				removeBtn.className = 'op-remove';
+				removeBtn.textContent = '\u2715';
+				removeBtn.title = 'Remove this opening';
+				removeBtn.onclick = () => {
+					state.openings = state.openings.filter((o) => o.id !== op.id);
+					renderWallOpeningsForms();
+					renderPreview();
+				};
+				header.appendChild(removeBtn);
+				card.appendChild(header);
+
+				const grid = document.createElement('div');
+				grid.className = 'op-fields';
+
+				const posGroup = document.createElement('div');
+				posGroup.className = 'op-field';
+				const posLabel = document.createElement('label');
+				posLabel.textContent = 'Position from start';
+				posGroup.appendChild(posLabel);
+				const posRow = document.createElement('div');
+				posRow.className = 'op-field-row';
+				const posInput = document.createElement('input');
+				posInput.type = 'number';
+				posInput.value = String(op.offsetAlongWall);
+				posInput.min = '0';
+				posInput.step = '1';
+				posInput.placeholder = '0';
+				posInput.onchange = () => {
+					op.offsetAlongWall = Math.max(0, parseFloat(posInput.value) || 0);
+					renderPreview();
+				};
+				posRow.appendChild(posInput);
+				const posUnit = document.createElement('span');
+				posUnit.className = 'op-unit';
+				posUnit.textContent = '\u2033';
+				posRow.appendChild(posUnit);
+				posGroup.appendChild(posRow);
+				grid.appendChild(posGroup);
+
+				const wGroup = document.createElement('div');
+				wGroup.className = 'op-field';
+				const wLabel = document.createElement('label');
+				wLabel.textContent = 'Width';
+				wGroup.appendChild(wLabel);
+				const wRow = document.createElement('div');
+				wRow.className = 'op-field-row';
+				const wInput = document.createElement('input');
+				wInput.type = 'number';
+				wInput.value = String(op.widthIn);
+				wInput.min = '12';
+				wInput.step = '1';
+				wInput.placeholder = '36';
+				wInput.onchange = () => {
+					op.widthIn = Math.max(12, parseFloat(wInput.value) || 36);
+					renderPreview();
+				};
+				wRow.appendChild(wInput);
+				const wUnit = document.createElement('span');
+				wUnit.className = 'op-unit';
+				wUnit.textContent = '\u2033';
+				wRow.appendChild(wUnit);
+				wGroup.appendChild(wRow);
+				grid.appendChild(wGroup);
+
+				const cGroup = document.createElement('div');
+				cGroup.className = 'op-field';
+				const cLabel = document.createElement('label');
+				cLabel.textContent = 'Clearance';
+				cGroup.appendChild(cLabel);
+				const cRow = document.createElement('div');
+				cRow.className = 'op-field-row';
+				const cInput = document.createElement('input');
+				cInput.type = 'number';
+				cInput.value = String(op.clearanceIn);
+				cInput.min = '0';
+				cInput.step = '1';
+				cInput.placeholder = '36';
+				cInput.onchange = () => {
+					op.clearanceIn = Math.max(0, parseFloat(cInput.value) || 0);
+					renderPreview();
+				};
+				cRow.appendChild(cInput);
+				const cUnit = document.createElement('span');
+				cUnit.className = 'op-unit';
+				cUnit.textContent = '\u2033';
+				cRow.appendChild(cUnit);
+				cGroup.appendChild(cRow);
+				grid.appendChild(cGroup);
+
+				card.appendChild(grid);
+				container.appendChild(card);
+			}
+		}
+	}
+
+	renderWallOpeningsForms();
+
+	// Email modal
+	const overlay = document.getElementById('email-modal-overlay')!;
+	const emailInput = document.getElementById('setup-email') as HTMLInputElement;
+	const emailError = document.getElementById('email-error')!;
+
+	document.getElementById('email-modal-close')!.onclick = () => {
+		overlay.style.display = 'none';
+	};
+	overlay.addEventListener('click', (e) => {
+		if (e.target === overlay) overlay.style.display = 'none';
+	});
+
+	// Next button: validate rooms, then show email modal
+	document.getElementById('btn-next')!.onclick = () => {
+		saveCurrentRoom();
+
+		const hasAnyRoom = savedRooms.some((r) => {
+			return r.roomDims.wallA > 0 && r.roomDims.wallB > 0;
+		});
+		if (!hasAnyRoom) {
+			alert('Please enter wall dimensions for at least one room (Walls A and B are required).');
+			return;
+		}
+
+		overlay.style.display = 'flex';
+		emailInput.focus();
+	};
+
+	// Email submit: save to localStorage and navigate
+	function submitEmail() {
+		const email = emailInput.value.trim();
+		if (!email || !email.includes('@') || !email.includes('.')) {
+			emailError.style.display = '';
+			emailInput.focus();
+			return;
+		}
+		emailError.style.display = 'none';
+
+		saveCurrentRoom();
+
+		const payload = {
+			email,
+			rooms: savedRooms.map((r) => ({
+				roomName: r.roomName,
+				roomDims: r.roomDims,
+				openings: r.openings,
+			})),
+		};
+
+		localStorage.setItem('ps_planner_setup', JSON.stringify(payload));
+		window.location.href = '/room-planner-v2/design';
+	}
+
+	document.getElementById('btn-email-submit')!.onclick = submitEmail;
+	emailInput.addEventListener('keydown', (e) => {
+		if (e.key === 'Enter') submitEmail();
+	});
+
+	// Init
+	savedRooms.push(snapshotCurrentRoom());
+	renderRoomTabs();
+	window.addEventListener('resize', () => renderPreview());
+</script>

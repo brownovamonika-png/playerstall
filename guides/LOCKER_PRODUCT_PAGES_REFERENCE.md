@@ -21,7 +21,7 @@ One **dedicated product page per locker model** was created, in **PlayerStall st
 **Source files:**  
 `src/pages/product-semi-pro-locker.astro`, `product-varsity-locker.astro`, `product-pro-locker.astro`, `product-stadium-locker.astro`.
 
-**Quick ship:** Quick ship is **24" width only** (2–4 weeks). Stadium, Elite, and Model X are available on quick ship. Custom orders support full width range (18"–32") and ship in 8–12 weeks.
+**Quick ship (archived):** Quick-ship SKUs and timelines are **currently paused**; the site emphasizes **custom** orders (full width range 18"–32", typical lead time 8–12 weeks). Historical note: quick ship was previously documented as 24" width only (2–4 weeks) for select models.
 
 ---
 

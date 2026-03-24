@@ -17,3 +17,4 @@ guides/
 # Cursor agent skills (local only)
 .cursor/skills/
 .DS_Store
+.vercel
