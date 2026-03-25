@@ -2,14 +2,14 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import type { PlannerState, Wall, Opening } from './types';
 import { getTemplate, getAllTemplates } from './catalog';
-import { lockerAABB, wallLength, cornerExclusionAABBs, getWallsWithLockers, wouldOverlap } from './geometry';
+import { lockerAABB, wallLength, cornerExclusionAABBs, getWallsWithLockers, wouldOverlap, clampLockerToRoom } from './geometry';
 
 const WALL_HEIGHT = 108;
 const DOOR_HEIGHT = 84;
 const WINDOW_SILL = 36;
 const WINDOW_HEAD = 72;
 
-const WALL_HEX = 0xe8e4df;
+const WALL_HEX = 0xffffff;
 const FLOOR_HEX = 0xf0eeeb;
 const ROOM_FLOOR_HEX = 0xf5f3f0;
 const EDGE_HEX = 0x333333;
@@ -63,6 +63,10 @@ let _lockerMeshes: LockerMeshData[] = [];
 let _selectedMeshId: string | null = null;
 let _isDragging3D = false;
 let _dragOffset = new THREE.Vector3();
+let _roomFloorMesh: THREE.Mesh | null = null;
+let _wallMaterial: THREE.MeshStandardMaterial | null = null;
+let _logoMesh: THREE.Mesh | null = null;
+let _logoTexture: THREE.Texture | null = null;
 
 export function launch3DPreview(
   state: PlannerState,
@@ -81,14 +85,13 @@ export function launch3DPreview(
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(SKY_HEX);
-  scene.fog = new THREE.Fog(SKY_HEX, 800, 3000);
   _scene = scene;
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMapping = THREE.LinearToneMapping;
   renderer.toneMappingExposure = 1.0;
   _renderer = renderer;
 
@@ -111,7 +114,10 @@ export function launch3DPreview(
   const controls = new OrbitControls(camera, canvas);
   controls.target.copy(target);
   controls.enableDamping = true;
-  controls.dampingFactor = 0.08;
+  controls.dampingFactor = 0.15;
+  controls.rotateSpeed = 0.8;
+  controls.zoomSpeed = 1.2;
+  controls.panSpeed = 0.8;
   controls.maxPolarAngle = Math.PI * 0.48;
   controls.minDistance = 24;
   controls.maxDistance = span * 4;
@@ -122,7 +128,7 @@ export function launch3DPreview(
   _initTarget.copy(target);
 
   setupLights(scene, bounds);
-  addFloor(scene, bounds);
+  addFloor(scene, bounds, state);
   addWalls(scene, state);
   addCornerZones(scene, state);
   addLockers(scene, state);
@@ -174,10 +180,11 @@ export function dispose3DPreview(): void {
       (o.material as THREE.Material).dispose();
     }
   });
+  removeFloorLogo();
   _renderer?.dispose(); _renderer = null;
   _scene = null; _camera = null;
   _state = null; _onStateChange = null; _canvas = null;
-  _lockerMeshes = []; _selectedMeshId = null;
+  _lockerMeshes = []; _selectedMeshId = null; _roomFloorMesh = null; _wallMaterial = null;
 }
 
 export function resetCamera(): void {
@@ -210,14 +217,14 @@ function setupLights(scene: THREE.Scene, b: Bounds): void {
   const cz = (b.minZ + b.maxZ) / 2;
   const span = Math.max(b.maxX - b.minX, b.maxZ - b.minZ, 120);
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.45));
-  scene.add(new THREE.HemisphereLight(0xddeeff, 0xf5efe6, 0.5));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xf5efe6, 0.45));
 
   const sun = new THREE.DirectionalLight(0xffffff, 1.0);
   sun.position.set(cx + span * 0.4, WALL_HEIGHT * 2.5, cz - span * 0.3);
   sun.target.position.set(cx, 0, cz);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.mapSize.set(1024, 1024);
   const se = span * 0.8;
   Object.assign(sun.shadow.camera, { left: -se, right: se, top: se, bottom: -se, near: 1, far: span * 4 });
   sun.shadow.bias = -0.001;
@@ -231,7 +238,7 @@ function setupLights(scene: THREE.Scene, b: Bounds): void {
 
 /* ── Floor ──────────────────────────────────────────────── */
 
-function addFloor(scene: THREE.Scene, b: Bounds): void {
+function addFloor(scene: THREE.Scene, b: Bounds, state: PlannerState): void {
   const w = b.maxX - b.minX;
   const d = b.maxZ - b.minZ;
   const cx = (b.minX + b.maxX) / 2;
@@ -247,15 +254,21 @@ function addFloor(scene: THREE.Scene, b: Bounds): void {
   ground.receiveShadow = true;
   scene.add(ground);
 
+  const floorHex = state.floorColor
+    ? parseInt(state.floorColor.replace('#', ''), 16)
+    : ROOM_FLOOR_HEX;
   const roomFloor = new THREE.Mesh(
     new THREE.PlaneGeometry(w, d),
-    new THREE.MeshStandardMaterial({ color: ROOM_FLOOR_HEX, roughness: 0.7 }),
+    new THREE.MeshStandardMaterial({ color: floorHex, roughness: 0.7 }),
   );
   roomFloor.rotation.x = -Math.PI / 2;
   roomFloor.position.set(cx, 0, cz);
   roomFloor.receiveShadow = true;
   scene.add(roomFloor);
+  _roomFloorMesh = roomFloor;
 }
+
+/* ── Room Name Label ───────────────────────────────────── */
 
 /* ── Walls ──────────────────────────────────────────────── */
 
@@ -304,7 +317,14 @@ function wallSegments(wLen: number, openings: Opening[]): Segment[] {
 }
 
 function addWalls(scene: THREE.Scene, state: PlannerState): void {
-  const wallMat = new THREE.MeshStandardMaterial({ color: WALL_HEX, roughness: 0.9 });
+  const wallHex = state.wallColor
+    ? parseInt(state.wallColor.replace('#', ''), 16)
+    : WALL_HEX;
+  const wallMat = new THREE.MeshStandardMaterial({
+    color: wallHex, roughness: 0.3, metalness: 0.0,
+    emissive: wallHex, emissiveIntensity: 0.15,
+  });
+  _wallMaterial = wallMat;
 
   for (const wall of state.walls) {
     const len = wallLength(wall);
@@ -345,7 +365,7 @@ function placeWallBlock(
   mesh.position.set(px, py, pz);
   mesh.rotation.y = -Math.atan2(ay, ax);
   mesh.castShadow = true;
-  mesh.receiveShadow = true;
+  mesh.receiveShadow = false;
   scene.add(mesh);
 }
 
@@ -391,84 +411,242 @@ function addLockers(scene: THREE.Scene, state: PlannerState): void {
   }
 }
 
+/* ── Open-Front Locker Geometry ─────────────────────────── */
+
+const PANEL_T = 0.75;
+const VARSITY_IDS = new Set(['varsity']);
+
+const FRAC_BOTTOM = 0.211;
+const FRAC_BENCH = 0.033;
+const FRAC_MIDDLE = 0.546;
+const FRAC_SHELF = 0.033;
+const FRAC_CUBBY = 0.177;
+
+function addPanel(
+  parent: THREE.Group,
+  x: number, y: number, z: number,
+  sx: number, sy: number, sz: number,
+  mat: THREE.Material,
+): void {
+  if (sx <= 0 || sy <= 0 || sz <= 0) return;
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), mat);
+  mesh.position.set(x, y, z);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  parent.add(mesh);
+}
+
+function addVentedPanel(
+  group: THREE.Group,
+  widthIn: number, bottomH: number, t: number, hd: number,
+  mat: THREE.Material,
+): void {
+  const panelW = widthIn - t * 2;
+  const totalH = bottomH - t;
+  if (totalH <= 0 || panelW <= 0) return;
+
+  addPanel(group, 0, t + totalH / 2, hd - t / 2, panelW, totalH, t, mat);
+
+  const slotCount = 3;
+  const slotW = panelW * 0.82;
+  const slotH = 0.3;
+  const spacing = totalH / (slotCount + 1);
+  const darkMat = new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: 1.0, metalness: 0 });
+  for (let i = 1; i <= slotCount; i++) {
+    const sy = t + spacing * i;
+    addPanel(group, 0, sy, hd - t / 2 + 0.05, slotW, slotH, t + 0.1, darkMat);
+  }
+}
+
+function addAccessories(
+  group: THREE.Group,
+  locker: import('./types').LockerInstance,
+  h: number, widthIn: number, depthIn: number,
+  hw: number, hd: number, t: number,
+  bottomH: number, benchTop: number, cubbyBot: number,
+  cubbyShelfTop: number, cubbyH: number, middleH: number,
+  divX: number, bodyHex: number,
+): void {
+  const accs = locker.config.accessoryIds;
+  if (accs.length === 0) return;
+
+  const metalMat = new THREE.MeshStandardMaterial({ color: 0xbbbbbb, roughness: 0.25, metalness: 0.7 });
+  const blackMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.4, metalness: 0.1 });
+  const cushionHex = locker.config.cushionColorHex
+    ? parseInt(locker.config.cushionColorHex.replace('#', ''), 16)
+    : 0x1a1a1a;
+  const cushionMat = new THREE.MeshStandardMaterial({ color: cushionHex, roughness: 0.85, metalness: 0.0 });
+
+  if (accs.includes('lock_box')) {
+    const doorCx = (-hw + t + divX) / 2;
+    const cubbyDoorW = divX - (-hw + t);
+    const lbX = doorCx + cubbyDoorW * 0.35;
+    const lbY = cubbyShelfTop + cubbyH * 0.5;
+    addPanel(group, lbX, lbY, hd + 0.2, 3, 4, 0.6, blackMat);
+  }
+
+  if (accs.includes('name_plate')) {
+    const npW = 8;
+    const npH = 2;
+    const st = cubbyShelfTop - cubbyBot;
+    addPanel(group, 0, cubbyBot + st / 2, hd + 0.15, npW, npH, 0.25, blackMat);
+  }
+
+  const hasSeatCushion = accs.includes('bottom_cushion') || accs.includes('top_bottom_cushions');
+  if (hasSeatCushion) {
+    const cw = widthIn - t * 4;
+    const cd = depthIn - t * 2 - 1;
+    addPanel(group, 0, benchTop + 1, 0, cw, 2, cd, cushionMat);
+  }
+
+  if (accs.includes('top_bottom_cushions')) {
+    const bcW = widthIn - t * 4;
+    const bcH = middleH * 0.5;
+    addPanel(group, 0, benchTop + middleH * 0.35, -hd + t + 1, bcW, bcH, 2, cushionMat);
+  }
+
+  if (accs.includes('hooks_4')) {
+    const hookY = cubbyBot - middleH * 0.2;
+    const spacing = (widthIn - 6) / 3;
+    for (let i = 0; i < 4; i++) {
+      const hx = -hw + 3 + i * spacing;
+      addPanel(group, hx, hookY, -hd + t + 0.2, 0.8, 3, 0.4, metalMat);
+      addPanel(group, hx, hookY - 2, -hd + t + 0.9, 0.5, 1.5, 1, metalMat);
+    }
+  }
+
+  if (accs.includes('skate_hooks')) {
+    const skY = benchTop + middleH * 0.4;
+    const armLen = 6;
+    addPanel(group, -hw + t + 0.5, skY, -hd + depthIn * 0.3, 1, 0.5, armLen, metalMat);
+    addPanel(group, -hw + t + 0.5, skY - 2.5, -hd + depthIn * 0.3 + armLen / 2, 1, 5, 0.5, metalMat);
+    addPanel(group, hw - t - 0.5, skY, -hd + depthIn * 0.3, 1, 0.5, armLen, metalMat);
+    addPanel(group, hw - t - 0.5, skY - 2.5, -hd + depthIn * 0.3 + armLen / 2, 1, 5, 0.5, metalMat);
+  }
+
+  if (accs.includes('custom_logo')) {
+    const logoMat = new THREE.MeshStandardMaterial({ color: 0xfe5900, roughness: 0.5, metalness: 0.1 });
+    const lw = Math.min(widthIn * 0.5, 12);
+    const lh = Math.min(middleH * 0.2, 8);
+    addPanel(group, 0, cubbyBot - middleH * 0.35, -hd + t + 0.15, lw, lh, 0.2, logoMat);
+  }
+}
+
+/**
+ * Build an accurate open-front wood sport locker matching the real product.
+ * Geometry is built in local space (centered on width/depth, Y starts at 0)
+ * then positioned/rotated by the wrapping group.
+ */
 function buildLockerGroup(
   locker: import('./types').LockerInstance,
-  edgeMat: THREE.LineBasicMaterial,
+  _edgeMat: THREE.LineBasicMaterial,
 ): THREE.Group | null {
   const tmpl = getTemplate(locker.templateId);
   if (!tmpl) return null;
 
   const colorOpt = tmpl.colors.find((c) => c.code === locker.config.colorCode);
   const hex = colorOpt ? parseInt(colorOpt.hex.replace('#', ''), 16) : 0xcccccc;
-  const h = tmpl.geometry.heightIn;
+  const h = 76;
+  const widthIn = locker.config.widthIn;
+  const depthIn = locker.config.depthIn;
 
   const aabb = lockerAABB(locker);
-  const w = aabb.maxX - aabb.minX;
-  const d = aabb.maxY - aabb.minY;
   const cx = (aabb.minX + aabb.maxX) / 2;
   const cz = (aabb.minY + aabb.maxY) / 2;
+  const rot = ((locker.rotationDeg % 360) + 360) % 360;
 
   const group = new THREE.Group();
   group.userData = { lockerId: locker.instanceId };
+  group.position.set(cx, 0, cz);
+  if (rot === 90) group.rotation.y = Math.PI / 2;
+  else if (rot === 180) group.rotation.y = Math.PI;
+  else if (rot === 270) group.rotation.y = -Math.PI / 2;
 
-  const bodyGeo = new THREE.BoxGeometry(w, h, d);
-  const tex = _texCache.get(locker.templateId) ?? null;
+  const isVarsity = VARSITY_IDS.has(locker.templateId);
+  const hw = widthIn / 2;
+  const hd = depthIn / 2;
+  const t = PANEL_T;
 
-  const rot = ((locker.rotationDeg % 360) + 360) % 360;
-  // BoxGeometry face order: +x(0), -x(1), +y(2), -y(3), +z(4), -z(5)
-  // Map rotation to the face index that should show the front/door
-  const frontFaceIdx = rot === 90 ? 0 : rot === 270 ? 1 : rot === 180 ? 5 : 4;
+  const bottomH = h * FRAC_BOTTOM;
+  const benchThick = h * FRAC_BENCH;
+  const middleH = h * FRAC_MIDDLE;
+  const shelfThick = h * FRAC_SHELF;
+  const cubbyH = h * FRAC_CUBBY;
+  const benchTop = bottomH + benchThick;
+  const cubbyBot = benchTop + middleH;
+  const cubbyShelfTop = cubbyBot + shelfThick;
 
-  const sideMat = new THREE.MeshStandardMaterial({ color: hex, roughness: 0.6, metalness: 0.05 });
+  const sideMidDepth = isVarsity ? depthIn : depthIn * 0.30;
 
-  if (tex) {
-    const frontMat = new THREE.MeshStandardMaterial({
-      map: tex.clone(),
-      color: new THREE.Color(hex).lerp(new THREE.Color(0xffffff), 0.6),
-      roughness: 0.55,
-      metalness: 0.03,
-    });
-    frontMat.map!.needsUpdate = true;
-    const faceMats: THREE.MeshStandardMaterial[] = [
-      sideMat, sideMat, sideMat, sideMat, sideMat, sideMat,
-    ];
-    faceMats[frontFaceIdx] = frontMat;
-    const body = new THREE.Mesh(bodyGeo, faceMats);
-    body.position.set(cx, h / 2, cz);
-    body.castShadow = true;
-    body.receiveShadow = true;
-    group.add(body);
-  } else {
-    const frontMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(hex).lerp(new THREE.Color(0xffffff), 0.35),
-      roughness: 0.5,
-      metalness: 0.08,
-    });
-    const faceMats: THREE.MeshStandardMaterial[] = [
-      sideMat, sideMat, sideMat, sideMat, sideMat, sideMat,
-    ];
-    faceMats[frontFaceIdx] = frontMat;
-    const body = new THREE.Mesh(bodyGeo, faceMats);
-    body.position.set(cx, h / 2, cz);
-    body.castShadow = true;
-    body.receiveShadow = true;
-    group.add(body);
+  const woodMat = new THREE.MeshStandardMaterial({ color: hex, roughness: 0.6, metalness: 0.05 });
+  const innerMat = new THREE.MeshStandardMaterial({
+    color: new THREE.Color(hex).multiplyScalar(0.8), roughness: 0.7, metalness: 0.03,
+  });
+  const handleMat = new THREE.MeshStandardMaterial({ color: 0xaaaaaa, roughness: 0.3, metalness: 0.65 });
+
+  /* ── Back panel ──────────────────────────────────────── */
+  addPanel(group, 0, h / 2, -hd + t / 2, widthIn, h, t, innerMat);
+
+  /* ── Top + bottom surfaces ───────────────────────────── */
+  addPanel(group, 0, h - t / 2, 0, widthIn, t, depthIn, woodMat);
+  addPanel(group, 0, t / 2, 0, widthIn, t, depthIn, woodMat);
+
+  /* ── Bench / seat ledge ──────────────────────────────── */
+  addPanel(group, 0, bottomH + benchThick / 2, 0, widthIn, benchThick, depthIn, woodMat);
+
+  /* ── Cubby shelf ─────────────────────────────────────── */
+  addPanel(group, 0, cubbyBot + shelfThick / 2, 0, widthIn, shelfThick, depthIn, woodMat);
+
+  /* ── Left side panel (3 sections) ────────────────────── */
+  const sideBottomH = bottomH - t;
+  const sideMidH = cubbyBot - benchTop;
+  const sideTopH = h - cubbyBot;
+  addPanel(group, -hw + t / 2, t + sideBottomH / 2, 0, t, sideBottomH, depthIn, woodMat);
+  addPanel(group, -hw + t / 2, benchTop + sideMidH / 2, -hd + sideMidDepth / 2, t, sideMidH, sideMidDepth, woodMat);
+  addPanel(group, -hw + t / 2, cubbyBot + sideTopH / 2, 0, t, sideTopH, depthIn, woodMat);
+
+  /* ── Right side panel (3 sections) ───────────────────── */
+  addPanel(group, hw - t / 2, t + sideBottomH / 2, 0, t, sideBottomH, depthIn, woodMat);
+  addPanel(group, hw - t / 2, benchTop + sideMidH / 2, -hd + sideMidDepth / 2, t, sideMidH, sideMidDepth, woodMat);
+  addPanel(group, hw - t / 2, cubbyBot + sideTopH / 2, 0, t, sideTopH, depthIn, woodMat);
+
+  /* ── Cubby internal divider ──────────────────────────── */
+  const divX = -hw + widthIn * 0.45;
+  addPanel(group, divX, cubbyShelfTop + cubbyH / 2, 0, t, cubbyH, depthIn - t, innerMat);
+
+  /* ── Cubby door (left enclosed compartment) ──────────── */
+  const cubbyDoorW = divX - (-hw + t);
+  const hasLockBox = locker.config.accessoryIds.includes('lock_box');
+  if (cubbyDoorW > 1) {
+    const doorCx = (-hw + t + divX) / 2;
+    addPanel(group, doorCx, cubbyShelfTop + cubbyH / 2, hd - t / 2, cubbyDoorW, cubbyH, t, woodMat);
+    if (!hasLockBox) {
+      addPanel(group, doorCx + cubbyDoorW * 0.35, cubbyShelfTop + cubbyH * 0.5, hd + 0.2, 1, 1.5, 0.5, handleMat);
+    }
   }
 
-  const edges = new THREE.LineSegments(new THREE.EdgesGeometry(bodyGeo), edgeMat);
-  edges.position.set(cx, h / 2, cz);
-  group.add(edges);
+  /* ── Bottom compartment front panel ──────────────────── */
+  const hasVent = locker.config.accessoryIds.includes('vented_front');
+  if (hasVent) {
+    addVentedPanel(group, widthIn, bottomH, t, hd, woodMat);
+  } else {
+    const bpW = widthIn - t * 2;
+    const bpH = bottomH - t;
+    if (bpW > 0 && bpH > 0) {
+      addPanel(group, 0, t + bpH / 2, hd - t / 2, bpW, bpH, t, woodMat);
+    }
+  }
 
-  const shelfY = h * 0.55;
-  const inset = 0.5;
-  const shelfGeo = new THREE.BoxGeometry(w - inset * 2, 0.75, d - inset * 2);
-  const shelfMat = new THREE.MeshStandardMaterial({
-    color: new THREE.Color(hex).multiplyScalar(0.9),
-    roughness: 0.7,
+  /* ── Accessories ─────────────────────────────────────── */
+  addAccessories(group, locker, h, widthIn, depthIn, hw, hd, t,
+    bottomH, benchTop, cubbyBot, cubbyShelfTop, cubbyH, middleH, divX, hex);
+
+  /* ── Front direction indicator (orange strip at base of open face) ── */
+  const frontMat = new THREE.MeshStandardMaterial({
+    color: 0xfe5900, roughness: 0.4, metalness: 0.1,
   });
-  const shelf = new THREE.Mesh(shelfGeo, shelfMat);
-  shelf.position.set(cx, shelfY, cz);
-  group.add(shelf);
+  addPanel(group, 0, 0.4, hd + 0.2, widthIn * 0.5, 0.8, 0.4, frontMat);
+  addPanel(group, 0, 0.4, hd + 0.8, widthIn * 0.15, 0.8, 0.8, frontMat);
 
   return group;
 }
@@ -663,7 +841,9 @@ function on3DPointerMove(e: PointerEvent): void {
   locker.x = newCx - hw;
   locker.y = newCz - hd;
 
+  clampLockerToRoom(locker, _state.walls);
   snapLocker3D(locker, _state);
+  clampLockerToRoom(locker, _state.walls);
 
   if (wouldOverlap(locker, _state.lockers, _state.openings, _state.walls)) {
     locker.x = oldX;
@@ -702,9 +882,14 @@ function rotateLocker3D(instanceId: string): void {
   const locker = _state.lockers.find((l) => l.instanceId === instanceId);
   if (!locker) return;
   const oldRot = locker.rotationDeg;
+  const oldX = locker.x;
+  const oldY = locker.y;
   locker.rotationDeg = (locker.rotationDeg + 90) % 360;
+  clampLockerToRoom(locker, _state.walls);
   if (wouldOverlap(locker, _state.lockers, _state.openings, _state.walls)) {
     locker.rotationDeg = oldRot;
+    locker.x = oldX;
+    locker.y = oldY;
     return;
   }
   rebuildLockerMesh(instanceId);
@@ -717,4 +902,76 @@ export function rotateSelected3D(): void {
 
 export function hasSelection3D(): boolean {
   return _selectedMeshId !== null;
+}
+
+export function rebuildLockerMesh3D(instanceId: string): void {
+  rebuildLockerMesh(instanceId);
+}
+
+export function updateFloorColor3D(hex: string): void {
+  if (!_roomFloorMesh) return;
+  const mat = _roomFloorMesh.material as THREE.MeshStandardMaterial;
+  mat.color.set(parseInt(hex.replace('#', ''), 16));
+}
+
+export function updateWallColor3D(hex: string): void {
+  if (!_wallMaterial) return;
+  const c = parseInt(hex.replace('#', ''), 16);
+  _wallMaterial.color.set(c);
+  _wallMaterial.emissive.set(c);
+}
+
+/* ── Floor logo ────────────────────────────────────────── */
+
+export function setFloorLogo(dataUrl: string): void {
+  if (!_scene || !_state) return;
+  removeFloorLogo();
+
+  _texLoader.load(dataUrl, (tex: THREE.Texture) => {
+    if (!_scene || !_state) return;
+    tex.colorSpace = THREE.SRGBColorSpace;
+    _logoTexture = tex;
+
+    const b = roomBounds(_state);
+    const roomW = b.maxX - b.minX;
+    const roomD = b.maxZ - b.minZ;
+    const cx = (b.minX + b.maxX) / 2;
+    const cz = (b.minZ + b.maxZ) / 2;
+
+    const imgAspect = tex.image.width / tex.image.height;
+    const maxDim = Math.min(roomW, roomD) * 0.5;
+    const logoW = imgAspect >= 1 ? maxDim : maxDim * imgAspect;
+    const logoD = imgAspect >= 1 ? maxDim / imgAspect : maxDim;
+
+    const geo = new THREE.PlaneGeometry(logoW, logoD);
+    const mat = new THREE.MeshStandardMaterial({
+      map: tex,
+      transparent: true,
+      roughness: 0.7,
+      metalness: 0,
+      polygonOffset: true,
+      polygonOffsetFactor: -1,
+    });
+
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.position.set(cx, 0.05, cz);
+    mesh.receiveShadow = true;
+    _scene.add(mesh);
+    _logoMesh = mesh;
+  });
+}
+
+export function removeFloorLogo(): void {
+  if (_logoMesh && _scene) {
+    _scene.remove(_logoMesh);
+    _logoMesh.geometry.dispose();
+    const mats = Array.isArray(_logoMesh.material) ? _logoMesh.material : [_logoMesh.material];
+    mats.forEach((m) => (m as THREE.Material).dispose());
+    _logoMesh = null;
+  }
+  if (_logoTexture) {
+    _logoTexture.dispose();
+    _logoTexture = null;
+  }
 }

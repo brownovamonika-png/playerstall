@@ -32,14 +32,46 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	<!-- Room tabs (for multi-room switching) -->
 	<section class="room-setup" id="room-setup">
 		<div class="room-setup-columns">
-			<div class="room-tabs-row" id="room-tabs-bar">
-				<div class="room-tabs-list" id="room-tabs-list"></div>
+			<div class="room-carousel" id="room-carousel">
+				<button type="button" class="room-arrow room-arrow-left" id="btn-room-prev" title="Previous room" disabled>&lsaquo;</button>
+				<div class="room-indicator">
+					<span class="room-indicator-count" id="room-indicator-count">ROOM 1 OF 1</span>
+					<span class="room-indicator-sep">—</span>
+					<span class="room-indicator-name" id="room-indicator-name"></span>
+					<span class="room-indicator-x" id="btn-remove-room" title="Remove this room" style="display:none">&times;</span>
+				</div>
+				<button type="button" class="room-arrow room-arrow-right" id="btn-room-next" title="Next room" disabled>&rsaquo;</button>
+			</div>
+			<div class="room-dots-row">
+				<div class="room-dots" id="room-dots"></div>
+				<button type="button" class="room-dot-add" id="btn-add-room" title="Add another room">+</button>
+				<button type="button" class="room-save-btn" id="btn-save-room" title="Save all rooms">
+					<svg class="room-save-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+					Save
+					<span class="room-save-check" id="room-save-check"></span>
+				</button>
 			</div>
 
-			<!-- Locker type selector -->
-			<div class="locker-type-section" id="locker-type-section">
-				<span class="step-badge">Step 2</span>
-				<h2 class="room-setup-title">Add Lockers</h2>
+	<div class="room-fields-group">
+		<div class="room-field">
+			<label for="sport-type" class="room-field-label">Sport</label>
+			<select id="sport-type" class="room-field-input sport-select">
+				<option value="">Select a sport…</option>
+				<option value="football">Football</option>
+				<option value="hockey">Hockey</option>
+				<option value="basketball">Basketball</option>
+				<option value="baseball">Baseball</option>
+				<option value="soccer">Soccer</option>
+				<option value="lacrosse">Lacrosse</option>
+				<option value="other">Other / Multi-Sport</option>
+			</select>
+		</div>
+	</div>
+
+		<!-- Locker type selector -->
+		<div class="locker-type-section" id="locker-type-section">
+			<span class="step-badge">Step 2</span>
+			<h2 class="room-setup-title">Add Lockers</h2>
 				<p class="room-setup-desc">Pick a locker model, choose your size, color, and any accessories. Set the quantity and click Add. They'll appear on the layout below where you can drag them into position.</p>
 				<div class="lt-with-preview">
 					<div class="lt-preview" id="lt-preview">
@@ -103,8 +135,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 				<button type="button" class="tb-btn" id="btn-add-window" title="Add a window">
 					+ Window
 				</button>
-				<button type="button" class="tb-btn" id="btn-rotate-locker" title="Rotate selected locker 90°">
-					Rotate
+				<button type="button" class="tb-btn tb-rotate" id="btn-rotate-locker" title="Rotate selected locker 90°">
+					↻ Rotate
 				</button>
 				<button type="button" class="tb-btn tb-reset" id="btn-reset-lockers" title="Remove all lockers">
 					Reset Lockers
@@ -116,9 +148,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 				<button type="button" class="tb-btn tb-sm" id="btn-zoom-in" title="Zoom in">+</button>
 				<button type="button" class="tb-btn tb-sm" id="btn-zoom-fit" title="Fit room">&boxplus;</button>
 				<span class="tb-divider"></span>
-				<button type="button" class="tb-btn tb-sm" id="btn-rotate-visible" title="Rotate selected locker 90°">&circlearrowright;</button>
+				<button type="button" class="tb-btn tb-rotate" id="btn-rotate-visible" title="Rotate selected locker 90°">↻ Rotate</button>
 				<span class="tb-divider"></span>
 				<button type="button" class="tb-btn tb-3d" id="btn-view-3d" title="Preview your room in 3D">3D View</button>
+				<span class="tb-divider"></span>
+				<button type="button" class="tb-btn tb-save" id="btn-toolbar-save" title="Save all rooms">
+					<svg class="tb-save-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+					Save
+				</button>
 			</div>
 			<div class="toolbar-right">
 				<select id="unit-select" class="tb-select" title="Display unit">
@@ -133,21 +170,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		<!-- Corner clearance guide -->
 		<div class="corner-guide" id="corner-guide">
 			<div class="corner-guide-header">
-				<span class="corner-guide-title">Corner Clearance Guide</span>
+				<svg class="corner-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V3h18"/><path d="M7 21V7h14" opacity=".35"/></svg>
+				<span class="corner-guide-title">Corner Clearance</span>
 			</div>
-			<div class="corner-guide-rules">
+			<div class="corner-guide-body">
 				<div class="corner-rule corner-rule-warn">
-					<span class="corner-rule-icon">&#9888;</span>
+					<span class="corner-rule-badge">30&Prime;</span>
 					<div>
-						<strong>Lockers on two connecting walls?</strong><br />
-						(e.g. Wall&nbsp;A + Wall&nbsp;B) &mdash; A 30&Prime; corner clearance is automatically reserved where the walls meet so the lockers don&rsquo;t overlap at the corner.
+						<strong>Adjacent walls</strong>
+						<span class="corner-rule-detail">When lockers sit on two connecting walls (e.g. A&nbsp;+&nbsp;B), a 30&Prime; clearance is auto-reserved at the corner.</span>
 					</div>
 				</div>
 				<div class="corner-rule corner-rule-ok">
-					<span class="corner-rule-icon">&#10003;</span>
+					<span class="corner-rule-badge">&check;</span>
 					<div>
-						<strong>Lockers on only one wall?</strong><br />
-						No corner clearance is needed &mdash; you can use the full wall length for lockers.
+						<strong>Single wall</strong>
+						<span class="corner-rule-detail">No clearance needed &mdash; the full wall length is available for lockers.</span>
 					</div>
 				</div>
 			</div>
@@ -261,6 +299,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 					<button type="button" class="placement-tooltip-cancel" id="placement-cancel">&times; Cancel</button>
 				</div>
 				<canvas id="planner-canvas"></canvas>
+				<div id="placement-toast" class="placement-toast" style="display:none"></div>
 				<div class="canvas-empty-hint" id="canvas-empty-hint" style="display:none;">
 					<div class="canvas-hint-icon">&boxplus;</div>
 					<div class="canvas-hint-title">Your layout will appear here</div>
@@ -279,14 +318,46 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	<!-- 3D Preview Modal -->
 	<div class="view3d-overlay" id="view3d-overlay">
 		<div class="view3d-header">
-			<span class="view3d-title">3D Preview</span>
+			<span class="view3d-title">3D Preview <span class="view3d-room-name" id="view3d-room-name"></span></span>
 			<div class="view3d-controls">
 				<button type="button" class="view3d-btn view3d-rotate-btn" id="btn-3d-rotate" title="Rotate selected locker 90°">&circlearrowright; Rotate</button>
+				<span class="view3d-sep"></span>
+				<button type="button" class="view3d-btn view3d-logo-btn" id="btn-3d-logo" title="Upload your team logo for the floor">Floor Logo</button>
+				<input type="file" id="logo-file-input" accept="image/png,image/jpeg,image/svg+xml,image/webp,image/gif" style="display:none" />
+				<button type="button" class="view3d-btn view3d-logo-remove" id="btn-3d-logo-remove" style="display:none" title="Remove floor logo">&times; Logo</button>
 				<button type="button" class="view3d-btn" id="btn-3d-reset">Reset View</button>
+				<span class="view3d-sep"></span>
+				<button type="button" class="view3d-btn view3d-save-btn" id="btn-3d-save" title="Save all rooms">
+					<svg class="view3d-save-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+					Save
+				</button>
 				<button type="button" class="view3d-close" id="btn-3d-close">&times;</button>
 			</div>
 		</div>
-		<canvas id="view3d-canvas"></canvas>
+		<div class="view3d-swatch-row" id="view3d-swatch-row">
+			<div class="view3d-color-bar" id="view3d-color-bar" style="display:none">
+				<span class="view3d-color-label" id="view3d-color-label">Locker Colors</span>
+				<div class="view3d-color-swatches" id="view3d-color-swatches"></div>
+			</div>
+			<div class="view3d-color-bar" id="view3d-cushion-bar" style="display:none">
+				<span class="view3d-color-label" id="view3d-cushion-label">Cushion Colors</span>
+				<div class="view3d-color-swatches" id="view3d-cushion-swatches"></div>
+			</div>
+			<div class="view3d-color-bar" id="view3d-floor-bar">
+				<span class="view3d-color-label">Floor Color</span>
+				<div class="view3d-color-swatches" id="view3d-floor-swatches"></div>
+			</div>
+			<div class="view3d-color-bar" id="view3d-wall-bar">
+				<span class="view3d-color-label">Wall Color</span>
+				<div class="view3d-color-swatches" id="view3d-wall-swatches"></div>
+			</div>
+		</div>
+		<div class="view3d-canvas-wrap">
+			<canvas id="view3d-canvas"></canvas>
+			<button type="button" class="view3d-room-arrow view3d-room-arrow-left" id="btn-3d-prev" title="Previous room" disabled>&lsaquo;</button>
+			<button type="button" class="view3d-room-arrow view3d-room-arrow-right" id="btn-3d-next" title="Next room" disabled>&rsaquo;</button>
+			<div class="view3d-room-indicator" id="view3d-room-indicator">ROOM 1 OF 1</div>
+		</div>
 		<div class="view3d-hint">Drag background to orbit &middot; Click locker to select &middot; Drag locker to move &middot; Double-click or press R to rotate</div>
 	</div>
 
@@ -404,39 +475,65 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		.hero-step-arrow { transform: rotate(90deg); }
 	}
 
-	/* Room tabs */
-	:global(.room-tabs-row) {
+	/* Room carousel */
+	:global(.room-carousel) {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 6px;
-		margin-bottom: 24px;
+		gap: 16px;
+		margin-bottom: 12px;
 	}
-	:global(.room-tabs-list) {
-		display: flex;
-		gap: 8px;
-		align-items: center;
+	:global(.room-arrow) {
+		width: 44px; height: 44px; border-radius: 50%; border: none;
+		background: rgba(0,0,0,0.07); color: #333; font-size: 28px; line-height: 1;
+		cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+		transition: background 0.2s, color 0.2s; flex-shrink: 0; padding: 0;
 	}
-	:global(.room-tab) {
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
-		font-weight: 400;
-		letter-spacing: 1px;
-		text-transform: uppercase;
-		padding: 8px 18px;
-		border: 1px solid #e0e0e0;
-		border-radius: 0;
-		background: #fff;
-		color: #8c8c8c;
-		cursor: pointer;
-		white-space: nowrap;
-		transition: all 0.2s;
+	:global(.room-arrow:hover:not(:disabled)) { background: rgba(0,0,0,0.14); color: #000; }
+	:global(.room-arrow:disabled) { opacity: 0.25; cursor: default; }
+	:global(.room-indicator) {
+		display: flex; align-items: center; gap: 8px;
+		font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 600;
+		text-transform: uppercase; letter-spacing: 1.5px; color: #8c8c8c; white-space: nowrap;
 	}
-	:global(.room-tab:hover) { border-color: #0d0d0d; color: #0d0d0d; }
-	:global(.room-tab.active) { background: #0d0d0d; border-color: #0d0d0d; color: #fff; }
+	:global(.room-indicator-sep) { color: #ccc; }
+	:global(.room-indicator-name) { color: #fe5900; font-weight: 600; }
+	:global(.room-indicator-x) {
+		display: inline-flex; align-items: center; justify-content: center;
+		width: 20px; height: 20px; border-radius: 50%; border: none; background: none;
+		color: #ccc; font-size: 16px; line-height: 1; cursor: pointer; padding: 0; margin-left: 2px;
+		transition: color 0.2s;
+	}
+	:global(.room-indicator-x:hover) { color: #fe5900; }
+	:global(.room-dots-row) {
+		display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 24px;
+	}
+	:global(.room-dots) { display: flex; gap: 8px; align-items: center; }
+	:global(.room-dot) {
+		width: 10px; height: 10px; border-radius: 50%; border: none; background: #ddd;
+		cursor: pointer; padding: 0; transition: background 0.2s, transform 0.2s;
+	}
+	:global(.room-dot:hover) { background: #bbb; transform: scale(1.2); }
+	:global(.room-dot.active) { background: #fe5900; transform: scale(1.2); }
+	:global(.room-dot-add) {
+		width: 24px; height: 24px; border-radius: 50%; border: 1px dashed #ccc;
+		background: #fff; color: #8c8c8c; font-size: 16px; line-height: 1;
+		cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+		padding: 0; transition: border-color 0.2s, color 0.2s;
+	}
+	:global(.room-dot-add:hover) { border-color: #0d0d0d; color: #0d0d0d; }
+	:global(.room-save-btn) {
+		display: inline-flex; align-items: center; gap: 6px; margin-left: 12px;
+		padding: 5px 16px; border: 1px solid #888; border-radius: 20px;
+		background: #888; color: #fff; font-family: 'Oswald', sans-serif;
+		font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+		cursor: pointer; transition: background 0.2s, border-color 0.2s; white-space: nowrap;
+	}
+	:global(.room-save-btn:hover) { background: #555; border-color: #555; }
+	:global(.room-save-btn.saved) { background: #555; border-color: #555; }
+	:global(.room-save-icon) { width: 14px; height: 14px; flex-shrink: 0; }
+	:global(.room-save-check) { font-size: 14px; opacity: 0; transition: opacity 0.3s; }
+	:global(.room-save-check.show) { opacity: 1; }
 
 	.room-setup {
 		background: #ffffff;
@@ -475,6 +572,45 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		text-transform: uppercase;
 		color: #fe5900;
 		margin-bottom: 6px;
+	}
+
+	/* Room fields group (sport selector + optional room name) */
+	.room-fields-group {
+		display: flex;
+		gap: 16px;
+		justify-content: center;
+		margin-bottom: 22px;
+	}
+	.room-field {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+	}
+	.room-field-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		color: #555;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+	.room-field-input {
+		width: 220px;
+		background: #f7f7f7;
+		border: 1px solid #e0e0e0;
+		border-radius: 4px;
+		color: #0d0d0d;
+		padding: 10px 14px;
+		font-size: 14px;
+		font-family: 'Yantramanav', sans-serif;
+		transition: border-color 0.2s;
+		box-sizing: border-box;
+	}
+	.room-field-input::placeholder { color: #b6b6b6; }
+	.room-field-input:focus { border-color: #fe5900; outline: none; }
+	.sport-select { cursor: pointer; }
+	@media (max-width: 520px) {
+		.room-fields-group { flex-direction: column; align-items: center; gap: 12px; }
 	}
 
 	/* Locker type selection */
@@ -610,60 +746,54 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 	/* Corner clearance guide */
 	.corner-guide {
-		background: #fafafa;
-		border: 1px solid #e0e0e0;
-		border-radius: 6px;
-		margin: 0 12px 8px;
+		background: #fff;
+		border: 1px solid #e8e8e8;
+		border-radius: 10px;
+		margin: 0 12px 12px;
 		overflow: hidden;
+		box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 	}
 	.corner-guide-header {
-		background: #1a1a1a;
-		color: #fff;
-		padding: 8px 14px;
-		font-size: 13px;
-		font-weight: 600;
-		letter-spacing: 0.5px;
-		text-transform: uppercase;
-		font-family: 'Oswald', sans-serif;
-	}
-	.corner-guide-rules { display: flex; gap: 0; }
-	.corner-rule {
-		flex: 1;
 		display: flex;
-		gap: 10px;
-		padding: 12px 14px;
-		font-size: 12.5px;
-		line-height: 1.5;
-		border-right: 1px solid #e0e0e0;
+		align-items: center;
+		gap: 8px;
+		padding: 10px 16px;
+		border-bottom: 1px solid #f0f0f0;
 	}
-	.corner-rule:last-child { border-right: none; }
-	.corner-rule strong { font-weight: 600; display: block; margin-bottom: 2px; }
-	.corner-rule-icon { flex-shrink: 0; font-size: 18px; margin-top: 1px; }
-	.corner-rule-warn { background: rgba(255, 89, 0, 0.05); }
-	.corner-rule-warn .corner-rule-icon { color: #d35400; }
-	.corner-rule-ok { background: rgba(0, 128, 80, 0.04); }
-	.corner-rule-ok .corner-rule-icon { color: #1a8a52; }
+	.corner-guide-icon { width: 20px; height: 20px; color: #fe5900; flex-shrink: 0; }
+	.corner-guide-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px; font-weight: 600;
+		letter-spacing: 1px; text-transform: uppercase; color: #333;
+	}
+	.corner-guide-body { display: flex; gap: 0; }
+	.corner-rule {
+		flex: 1; display: flex; align-items: flex-start;
+		gap: 12px; padding: 14px 16px;
+	}
+	.corner-rule + .corner-rule { border-left: 1px solid #f0f0f0; }
+	.corner-rule strong {
+		font-family: 'Oswald', sans-serif; font-size: 12.5px; font-weight: 600;
+		letter-spacing: 0.3px; text-transform: uppercase; color: #333;
+		display: block; margin-bottom: 3px;
+	}
+	.corner-rule-detail { display: block; font-size: 12px; line-height: 1.55; color: #777; }
+	.corner-rule-badge {
+		flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+		display: flex; align-items: center; justify-content: center;
+		font-weight: 700; font-size: 13px; line-height: 1;
+	}
+	.corner-rule-warn .corner-rule-badge { background: rgba(255,89,0,0.09); color: #d35400; }
+	.corner-rule-ok .corner-rule-badge { background: rgba(0,128,80,0.08); color: #1a8a52; font-size: 16px; }
 	.corner-status {
-		padding: 8px 14px;
-		font-size: 12.5px;
-		font-weight: 500;
-		border-top: 1px solid #e0e0e0;
-		display: none;
+		padding: 10px 16px; font-size: 12px; font-weight: 500;
+		border-top: 1px solid #f0f0f0; display: none; line-height: 1.5;
 	}
-	.corner-status.active {
-		display: block;
-		background: rgba(255, 89, 0, 0.07);
-		color: #b84400;
-	}
-	.corner-status.clear {
-		display: block;
-		background: rgba(0, 128, 80, 0.05);
-		color: #1a6b45;
-	}
+	.corner-status.active { display: block; background: rgba(255,89,0,0.05); color: #b84400; }
+	.corner-status.clear { display: block; background: rgba(0,128,80,0.04); color: #1a6b45; }
 	@media (max-width: 640px) {
-		.corner-guide-rules { flex-direction: column; }
-		.corner-rule { border-right: none; border-bottom: 1px solid #e0e0e0; }
-		.corner-rule:last-child { border-bottom: none; }
+		.corner-guide-body { flex-direction: column; }
+		.corner-rule + .corner-rule { border-left: none; border-top: 1px solid #f0f0f0; }
 	}
 
 	/* Toolbar */
@@ -699,6 +829,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		transition: all 0.2s;
 	}
 	.tb-btn:hover { background: #333; color: #fff; }
+	.tb-rotate { background: #fe5900; border-color: #fe5900; color: #fff; font-weight: 600; }
+	.tb-rotate:hover { background: #e04f00; border-color: #e04f00; color: #fff; }
 	.tb-reset { background: transparent; border-color: #fe5900; color: #fe5900; }
 	.tb-reset:hover { background: #fe5900; color: #fff; }
 	.tb-btn.active { background: #fe5900; border-color: #fe5900; color: #fff; }
@@ -902,6 +1034,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	.placement-tooltip-icon { color: #fe5900; font-size: 16px; }
 	.placement-tooltip-cancel { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #ccc; padding: 2px 10px; border-radius: 3px; font-size: 11px; cursor: pointer; margin-left: 8px; }
 	.placement-tooltip-cancel:hover { background: rgba(255,255,255,0.1); color: #fff; }
+	.placement-toast {
+		position: absolute;
+		bottom: 16px;
+		left: 50%;
+		transform: translateX(-50%);
+		background: rgba(200, 30, 30, 0.9);
+		color: #fff;
+		padding: 8px 18px;
+		border-radius: 6px;
+		font-size: 13px;
+		font-family: 'Yantramanav', sans-serif;
+		pointer-events: none;
+		z-index: 50;
+		white-space: nowrap;
+	}
 
 	/* Canvas (center) */
 	.planner-canvas-wrap {
@@ -1179,6 +1326,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		transition: background 0.2s;
 	}
 	.tb-3d:hover { background: #e04f00; }
+	.tb-save {
+		background: transparent; color: #aaa !important; border-color: #666;
+		font-weight: 600; display: inline-flex; align-items: center; gap: 5px;
+	}
+	.tb-save:hover { background: #555; color: #fff !important; border-color: #555; }
+	.tb-save.saved { background: #555; color: #fff !important; border-color: #555; }
+	.tb-save-icon { width: 13px; height: 13px; flex-shrink: 0; }
 
 	/* 3D Preview overlay */
 	.view3d-overlay {
@@ -1204,6 +1358,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		text-transform: uppercase;
 		letter-spacing: 2px;
 	}
+	.view3d-room-name {
+		color: #fe5900;
+		margin-left: 6px;
+	}
 	.view3d-controls { display: flex; gap: 12px; align-items: center; }
 	.view3d-btn {
 		background: transparent;
@@ -1225,6 +1383,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	}
 	.view3d-rotate-btn:hover { background: #e04f00; border-color: #e04f00; color: #fff; }
 	.view3d-rotate-btn:disabled { background: transparent; border-color: #444; color: #555; cursor: default; }
+	.view3d-logo-btn { background: #1a6b45; border-color: #1a6b45; color: #fff; font-weight: 600; }
+	.view3d-logo-btn:hover { background: #14553a; border-color: #14553a; color: #fff; }
+	.view3d-logo-remove { background: transparent; border-color: #888; color: #ccc; font-size: 12px; }
+	.view3d-logo-remove:hover { border-color: #fe5900; color: #fe5900; }
+	.view3d-save-btn {
+		background: transparent; border-color: #888; color: #ccc;
+		font-weight: 600; display: inline-flex; align-items: center; gap: 5px;
+	}
+	.view3d-save-btn:hover { background: #555; border-color: #555; color: #fff; }
+	.view3d-save-btn.saved { background: #555; border-color: #555; color: #fff; }
+	.view3d-save-icon { width: 13px; height: 13px; flex-shrink: 0; }
 	.view3d-close {
 		background: transparent;
 		border: none;
@@ -1236,7 +1405,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		transition: color 0.2s;
 	}
 	.view3d-close:hover { color: #fe5900; }
+	.view3d-canvas-wrap { position: relative; flex: 1; display: flex; min-height: 0; }
 	#view3d-canvas { flex: 1; width: 100%; display: block; }
+	.view3d-room-arrow {
+		position: absolute; top: 50%; transform: translateY(-50%);
+		width: 48px; height: 48px; border-radius: 50%; border: none;
+		background: rgba(0,0,0,0.45); color: #fff; font-size: 32px; line-height: 1;
+		cursor: pointer; display: flex; align-items: center; justify-content: center;
+		z-index: 10; transition: background 0.2s, opacity 0.2s; padding: 0;
+	}
+	.view3d-room-arrow-left { left: 16px; }
+	.view3d-room-arrow-right { right: 16px; }
+	.view3d-room-arrow:hover:not(:disabled) { background: rgba(0,0,0,0.7); }
+	.view3d-room-arrow:disabled { opacity: 0.2; cursor: default; }
+	.view3d-room-indicator {
+		position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+		background: rgba(0,0,0,0.55); color: #fff;
+		font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 600;
+		letter-spacing: 1.5px; text-transform: uppercase;
+		padding: 6px 18px; border-radius: 20px; z-index: 10; white-space: nowrap;
+	}
 	.view3d-hint {
 		text-align: center;
 		padding: 8px;
@@ -1245,20 +1433,83 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		background: #000;
 		flex-shrink: 0;
 	}
+	.view3d-swatch-row {
+		display: flex;
+		align-items: flex-start;
+		gap: 20px;
+		padding: 12px 20px;
+		background: #111;
+		flex-shrink: 0;
+		flex-wrap: wrap;
+		row-gap: 10px;
+	}
+	.view3d-color-bar {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		min-width: 0;
+	}
+	.view3d-color-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 10px;
+		color: #999;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		white-space: nowrap;
+		line-height: 1;
+	}
+	.view3d-color-swatches {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		align-items: center;
+	}
+	button.view3d-cswatch {
+		display: inline-block;
+		width: 28px !important;
+		height: 28px !important;
+		min-width: 28px !important;
+		min-height: 28px !important;
+		max-width: 28px;
+		max-height: 28px;
+		flex-shrink: 0;
+		border-radius: 6px;
+		border: 3px solid transparent;
+		cursor: pointer;
+		transition: border-color 0.2s, transform 0.12s;
+		box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
+		padding: 0 !important;
+		margin: 0;
+		line-height: 0;
+		font-size: 0;
+		appearance: none;
+		-webkit-appearance: none;
+		outline: none;
+	}
+	button.view3d-cswatch:hover { transform: scale(1.08); border-color: rgba(255,255,255,0.6); }
+	button.view3d-cswatch.active { border-color: #fe5900; box-shadow: 0 0 10px rgba(254,89,0,0.7); }
+	.view3d-sep {
+		width: 1px;
+		height: 36px;
+		background: #444;
+		flex-shrink: 0;
+	}
 </style>
 
 <script>
 	import { createInitialState, nextInstanceId, buildWalls, defaultDimensions } from '../../room-planner/state';
 	import type { RoomDimensions } from '../../room-planner/state';
-	import { render, screenToWorld } from '../../room-planner/render';
+	import { render, screenToWorld, setFloorLogo2D, removeFloorLogo2D } from '../../room-planner/render';
 	import { getAllTemplates, getTemplate } from '../../room-planner/catalog';
 	import { priceLocker } from '../../room-planner/pricing';
-	import { lockerAABB, wouldOverlap, packWall, wallLength, openingExclusionAABB, getWallsWithLockers, projectOntoWall, hitTestOpening } from '../../room-planner/geometry';
+	import { lockerAABB, wouldOverlap, packWall, wallLength, openingExclusionAABB, getWallsWithLockers, projectOntoWall, hitTestOpening, clampLockerToRoom } from '../../room-planner/geometry';
 	import { drawWallHighlight } from '../../room-planner/render';
 	import { formatDimension, unitLabel } from '../../room-planner/units';
+	import { CUSHION_COLORS } from '../../room-planner/types';
 	import type { PlannerState, LockerInstance, Opening, Selection, DisplayUnit } from '../../room-planner/types';
 	import { jsPDF } from 'jspdf';
-	import { launch3DPreview, dispose3DPreview, resetCamera, rotateSelected3D, hasSelection3D } from '../../room-planner/render3d';
+	import { launch3DPreview, dispose3DPreview, resetCamera, rotateSelected3D, hasSelection3D, updateFloorColor3D, updateWallColor3D, setFloorLogo, removeFloorLogo, rebuildLockerMesh3D } from '../../room-planner/render3d';
 
 	// ─── Load setup data from localStorage ───
 	const raw = localStorage.getItem('ps_planner_setup');
@@ -1268,7 +1519,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		throw new Error('No setup data');
 	}
 
-	let setupData: { email: string; rooms: { roomName: string; roomDims: RoomDimensions; openings: Opening[] }[] };
+	let setupData: { email: string; floorColor?: string; wallColor?: string; rooms: { roomName: string; roomDims: RoomDimensions; openings: Opening[] }[] };
 	try {
 		setupData = JSON.parse(raw);
 	} catch (e) {
@@ -1295,6 +1546,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	state.roomName = firstRoom.roomName;
 	state.walls = buildWalls(roomDims);
 	state.openings = JSON.parse(JSON.stringify(firstRoom.openings));
+	state.floorColor = setupData.floorColor || '#b0aba4';
+	state.wallColor = setupData.wallColor || '#ffffff';
 
 	// Pre-fill email
 	const emailInput = document.getElementById('customer-email') as HTMLInputElement;
@@ -1305,6 +1558,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	// ─── Multi-room management ───
 	interface SavedRoom {
 		roomName: string;
+		sportType: string;
+		floorColor: string;
+		wallColor: string;
+		customLogoDataUrl: string | null;
 		roomDims: RoomDimensions;
 		walls: PlannerState['walls'];
 		openings: PlannerState['openings'];
@@ -1318,6 +1575,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		const dims = { ...room.roomDims };
 		savedRooms.push({
 			roomName: room.roomName,
+			sportType: '',
 			roomDims: dims,
 			walls: buildWalls(dims),
 			openings: JSON.parse(JSON.stringify(room.openings)),
@@ -1328,6 +1586,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	function snapshotCurrentRoom(): SavedRoom {
 		return {
 			roomName: state.roomName,
+			sportType: state.sportType,
+			floorColor: state.floorColor,
+			wallColor: state.wallColor,
+			customLogoDataUrl: _savedLogoDataUrl,
 			roomDims: { ...roomDims },
 			walls: JSON.parse(JSON.stringify(state.walls)),
 			openings: JSON.parse(JSON.stringify(state.openings)),
@@ -1337,6 +1599,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 	function saveCurrentRoom() {
 		savedRooms[activeRoomIndex] = snapshotCurrentRoom();
+		persistRooms();
+	}
+
+	const ROOMS_STORAGE_KEY = 'playerstall_rooms_design';
+
+	function persistRooms() {
+		try {
+			const data = { activeRoomIndex, rooms: savedRooms };
+			localStorage.setItem(ROOMS_STORAGE_KEY, JSON.stringify(data));
+		} catch (_) { /* quota exceeded */ }
 	}
 
 	function loadRoom(index: number) {
@@ -1344,40 +1616,158 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		if (!room) return;
 		roomDims = { ...room.roomDims };
 		state.roomName = room.roomName;
+		state.sportType = (room.sportType || '') as any;
+		state.floorColor = room.floorColor || '#8B7355';
+		state.wallColor = room.wallColor || '#ffffff';
 		state.walls = JSON.parse(JSON.stringify(room.walls));
 		state.openings = JSON.parse(JSON.stringify(room.openings));
 		state.lockers = JSON.parse(JSON.stringify(room.lockers));
 		state.selection = null;
+		sportSelect.value = state.sportType;
+		applySportLogo(state.sportType);
+		_savedLogoDataUrl = room.customLogoDataUrl || null;
+		if (_savedLogoDataUrl && !SPORT_LOGO_MAP[state.sportType]) {
+			setFloorLogo2D(_savedLogoDataUrl, () => redraw());
+			setFloorLogo(_savedLogoDataUrl);
+			btnLogoRemove.style.display = '';
+		}
+		rebuildOpeningCounter();
+		syncFloorSwatches();
+		syncWallSwatches();
 		zoomFit();
 		redraw();
 	}
 
-	function renderRoomTabs() {
-		const list = document.getElementById('room-tabs-list')!;
-		list.innerHTML = '';
-		for (let i = 0; i < savedRooms.length; i++) {
-			const isActive = i === activeRoomIndex;
-			const label = (i === activeRoomIndex ? state.roomName : savedRooms[i].roomName) || `Room ${i + 1}`;
-			const btn = document.createElement('button');
-			btn.type = 'button';
-			btn.className = `room-tab${isActive ? ' active' : ''}`;
+	function rebuildOpeningCounter() {
+		let maxId = 0;
+		for (const op of state.openings) {
+			const m = op.id.match(/^op_(\d+)$/);
+			if (m) maxId = Math.max(maxId, parseInt(m[1], 10));
+		}
+		_openingCounter = maxId;
+	}
 
-			const nameSpan = document.createElement('span');
-			nameSpan.textContent = label;
-			btn.appendChild(nameSpan);
-			nameSpan.onclick = (e) => { e.stopPropagation(); switchToRoom(i); };
+	function renderCarouselNav() {
+		const total = savedRooms.length;
+		const idx = activeRoomIndex;
+		const name = state.roomName || '';
 
-			list.appendChild(btn);
+		document.getElementById('room-indicator-count')!.textContent = `ROOM ${idx + 1} OF ${total}`;
+
+		const nameEl = document.getElementById('room-indicator-name')!;
+		const sepEl = document.querySelector('.room-indicator-sep') as HTMLElement;
+		if (name) {
+			nameEl.textContent = name;
+			nameEl.style.display = '';
+			sepEl.style.display = '';
+		} else {
+			nameEl.textContent = '';
+			nameEl.style.display = 'none';
+			sepEl.style.display = 'none';
+		}
+
+		const removeBtn = document.getElementById('btn-remove-room');
+		if (removeBtn) removeBtn.style.display = total > 1 ? '' : 'none';
+
+		(document.getElementById('btn-room-prev') as HTMLButtonElement).disabled = idx <= 0;
+		(document.getElementById('btn-room-next') as HTMLButtonElement).disabled = idx >= total - 1;
+
+		const dotsContainer = document.getElementById('room-dots')!;
+		dotsContainer.innerHTML = '';
+		for (let i = 0; i < total; i++) {
+			const dot = document.createElement('button');
+			dot.type = 'button';
+			dot.className = `room-dot${i === idx ? ' active' : ''}`;
+			dot.title = savedRooms[i]?.roomName || `Room ${i + 1}`;
+			dot.onclick = () => switchToRoom(i);
+			dotsContainer.appendChild(dot);
 		}
 	}
+
+	const renderRoomTabs = renderCarouselNav;
 
 	function switchToRoom(index: number) {
 		if (index === activeRoomIndex) return;
 		saveCurrentRoom();
 		activeRoomIndex = index;
 		loadRoom(index);
-		renderRoomTabs();
+		renderCarouselNav();
 	}
+
+	document.getElementById('btn-room-prev')!.onclick = () => {
+		if (activeRoomIndex > 0) switchToRoom(activeRoomIndex - 1);
+	};
+	document.getElementById('btn-room-next')!.onclick = () => {
+		if (activeRoomIndex < savedRooms.length - 1) switchToRoom(activeRoomIndex + 1);
+	};
+	const removeBtnEl = document.getElementById('btn-remove-room');
+	if (removeBtnEl) {
+		removeBtnEl.onclick = () => {
+			if (savedRooms.length <= 1) return;
+			savedRooms.splice(activeRoomIndex, 1);
+			if (activeRoomIndex >= savedRooms.length) activeRoomIndex = savedRooms.length - 1;
+			loadRoom(activeRoomIndex);
+			renderCarouselNav();
+		};
+	}
+	const MAX_ROOMS = 5;
+	const addRoomBtn = document.getElementById('btn-add-room');
+	if (addRoomBtn) {
+		addRoomBtn.onclick = () => {
+			if (savedRooms.length >= MAX_ROOMS) {
+				alert(`You can add up to ${MAX_ROOMS} rooms.`);
+				return;
+			}
+			saveCurrentRoom();
+			const newIdx = savedRooms.length;
+			savedRooms.push({ roomName: '', sportType: '', floorColor: '#8B7355', wallColor: '#ffffff', customLogoDataUrl: null, roomDims: { ...roomDims }, walls: buildWalls(roomDims), openings: [], lockers: [] });
+			activeRoomIndex = newIdx;
+			loadRoom(newIdx);
+			renderCarouselNav();
+		};
+	}
+
+	document.addEventListener('keydown', (e) => {
+		const tag = (e.target as HTMLElement).tagName;
+		if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+		const inPlanner = (e.target as HTMLElement).closest('#planner-canvas, .carousel-nav, .room-tabs');
+		if (!inPlanner && e.target !== document.body) return;
+		if (e.key === 'ArrowLeft' && activeRoomIndex > 0) { e.preventDefault(); switchToRoom(activeRoomIndex - 1); }
+		if (e.key === 'ArrowRight' && activeRoomIndex < savedRooms.length - 1) { e.preventDefault(); switchToRoom(activeRoomIndex + 1); }
+	});
+
+	// ─── Save buttons (dots row + 2D toolbar + 3D toolbar) ───
+	let _saveTimeout: ReturnType<typeof setTimeout> | null = null;
+	const allSaveBtns = [
+		document.getElementById('btn-save-room'),
+		document.getElementById('btn-toolbar-save'),
+		document.getElementById('btn-3d-save'),
+	].filter(Boolean) as HTMLElement[];
+
+	function flashAllSaveBtns() {
+		saveCurrentRoom();
+		const check = document.getElementById('room-save-check');
+		allSaveBtns.forEach(b => b.classList.add('saved'));
+		if (check) { check.textContent = '✓'; check.classList.add('show'); }
+		if (_saveTimeout) clearTimeout(_saveTimeout);
+		_saveTimeout = setTimeout(() => {
+			allSaveBtns.forEach(b => b.classList.remove('saved'));
+			if (check) { check.textContent = ''; check.classList.remove('show'); }
+		}, 2000);
+	}
+
+	allSaveBtns.forEach(b => { b.onclick = flashAllSaveBtns; });
+
+	// ─── Sport type selector ───
+	const sportSelect = document.getElementById('sport-type') as HTMLSelectElement;
+	const SPORT_LOGO_MAP: Record<string, string> = {
+		football:   '/images/sport-football-floor.png',
+		hockey:     '/images/sport-hockey-floor.png',
+		basketball: '/images/sport-basketball-floor.png',
+		baseball:   '/images/sport-baseball-floor.png',
+		soccer:     '/images/sport-soccer-floor.png',
+		lacrosse:   '/images/sport-lacrosse-floor.png',
+	};
 
 	// ─── Locker type dropdown in setup form ───
 	const ltModel = document.getElementById('lt-model') as HTMLSelectElement;
@@ -1521,7 +1911,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 					const inst: LockerInstance = {
 						instanceId: nextInstanceId(),
 						templateId: t.templateId,
-						config: { widthIn, depthIn, colorCode, accessoryIds: [...accessoryIds] },
+						config: { widthIn, depthIn, colorCode, accessoryIds: [...accessoryIds], cushionColorHex: '#1A1A1A' },
 						x: cx + dx, y: cy + dy, rotationDeg: 0,
 					};
 					if (!wouldOverlap(inst, state.lockers, state.openings, state.walls)) {
@@ -1654,16 +2044,233 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	// ─── 3D Preview ───
 	const overlay3d = document.getElementById('view3d-overlay')!;
 	const canvas3d = document.getElementById('view3d-canvas') as HTMLCanvasElement;
+	const roomNameLabel3d = document.getElementById('view3d-room-name')!;
 	document.getElementById('btn-view-3d')!.onclick = () => {
 		if (state.walls.length === 0) return;
 		overlay3d.style.display = 'flex';
-		launch3DPreview(state, canvas3d, () => { redraw(); updateLayers(); btn3dRotate.disabled = !hasSelection3D(); });
+		swatchRow.style.display = 'flex';
+		roomNameLabel3d.textContent = state.roomName ? '— ' + state.roomName : '';
+		populateFloorWallSwatches();
+		launch3DPreview(state, canvas3d, () => { redraw(); updateLayers(); btn3dRotate.disabled = !hasSelection3D(); update3DColorBar(); });
+		if (_savedLogoDataUrl) { setFloorLogo(_savedLogoDataUrl); btnLogoRemove.style.display = ''; }
+		else { btnLogoRemove.style.display = 'none'; }
+		update3DColorBar();
+		update3DRoomNav();
 	};
-	document.getElementById('btn-3d-close')!.onclick = () => { overlay3d.style.display = 'none'; dispose3DPreview(); };
 	document.getElementById('btn-3d-reset')!.onclick = () => resetCamera();
+
+	const btn3dPrev = document.getElementById('btn-3d-prev') as HTMLButtonElement;
+	const btn3dNext = document.getElementById('btn-3d-next') as HTMLButtonElement;
+	const roomIndicator3d = document.getElementById('view3d-room-indicator')!;
+
+	function update3DRoomNav() {
+		const total = savedRooms.length;
+		const idx = activeRoomIndex;
+		const name = state.roomName || '';
+		btn3dPrev.disabled = idx <= 0;
+		btn3dNext.disabled = idx >= total - 1;
+		btn3dPrev.style.display = total > 1 ? '' : 'none';
+		btn3dNext.style.display = total > 1 ? '' : 'none';
+		roomIndicator3d.style.display = total > 1 ? '' : 'none';
+		roomIndicator3d.textContent = name ? `ROOM ${idx + 1} OF ${total} — ${name}` : `ROOM ${idx + 1} OF ${total}`;
+		roomNameLabel3d.textContent = name ? '— ' + name : '';
+	}
+
+	function switch3DRoom(newIndex: number) {
+		if (newIndex < 0 || newIndex >= savedRooms.length || newIndex === activeRoomIndex) return;
+		saveCurrentRoom();
+		activeRoomIndex = newIndex;
+		loadRoom(newIndex);
+		renderCarouselNav();
+		dispose3DPreview();
+		launch3DPreview(state, canvas3d, () => { redraw(); updateLayers(); btn3dRotate.disabled = !hasSelection3D(); update3DColorBar(); });
+		if (_savedLogoDataUrl) { setFloorLogo(_savedLogoDataUrl); btnLogoRemove.style.display = ''; }
+		else { btnLogoRemove.style.display = 'none'; }
+		update3DRoomNav();
+	}
+
+	btn3dPrev.onclick = () => switch3DRoom(activeRoomIndex - 1);
+	btn3dNext.onclick = () => switch3DRoom(activeRoomIndex + 1);
 	const btn3dRotate = document.getElementById('btn-3d-rotate') as HTMLButtonElement;
 	btn3dRotate.disabled = true;
 	btn3dRotate.onclick = () => rotateSelected3D();
+
+	let _savedLogoDataUrl: string | null = null;
+	const logoFileInput = document.getElementById('logo-file-input') as HTMLInputElement;
+	const btnLogoRemove = document.getElementById('btn-3d-logo-remove') as HTMLButtonElement;
+	document.getElementById('btn-3d-logo')!.onclick = () => logoFileInput.click();
+	logoFileInput.addEventListener('change', () => {
+		const file = logoFileInput.files?.[0];
+		if (!file) return;
+		const reader = new FileReader();
+		reader.onload = () => {
+			_savedLogoDataUrl = reader.result as string;
+			setFloorLogo2D(_savedLogoDataUrl, () => redraw());
+			setFloorLogo(_savedLogoDataUrl);
+			btnLogoRemove.style.display = '';
+		};
+		reader.readAsDataURL(file);
+		logoFileInput.value = '';
+	});
+	btnLogoRemove.onclick = () => {
+		removeFloorLogo2D();
+		removeFloorLogo();
+		_savedLogoDataUrl = null;
+		btnLogoRemove.style.display = 'none';
+		redraw();
+	};
+
+	// ─── Sport → floor logo mapping ───
+	function applySportLogo(sport: string) {
+		const logo = SPORT_LOGO_MAP[sport] || '';
+		if (logo) {
+			_savedLogoDataUrl = logo;
+			setFloorLogo2D(logo, () => redraw());
+			setFloorLogo(logo);
+			btnLogoRemove.style.display = '';
+		} else {
+			removeFloorLogo2D();
+			removeFloorLogo();
+			_savedLogoDataUrl = null;
+			btnLogoRemove.style.display = 'none';
+		}
+	}
+	sportSelect.onchange = () => {
+		state.sportType = sportSelect.value as any;
+		applySportLogo(state.sportType);
+		redraw();
+	};
+
+	// ─── 3D Color bar ───
+	const swatchRow = document.getElementById('view3d-swatch-row')!;
+	const colorBar = document.getElementById('view3d-color-bar')!;
+	const colorBarLabel = document.getElementById('view3d-color-label')!;
+	const colorBarSwatches = document.getElementById('view3d-color-swatches')!;
+	const cushionBar = document.getElementById('view3d-cushion-bar')!;
+	const cushionBarLabel = document.getElementById('view3d-cushion-label')!;
+	const cushionBarSwatches = document.getElementById('view3d-cushion-swatches')!;
+	const floorBarSwatches = document.getElementById('view3d-floor-swatches')!;
+	const wallBarSwatches = document.getElementById('view3d-wall-swatches')!;
+
+	const FLOOR_COLORS = [
+		{ hex: '#b0aba4', label: 'Concrete' },
+		{ hex: '#8b6f47', label: 'Darker Wood' },
+		{ hex: '#c4a882', label: 'Lighter Wood' },
+		{ hex: '#2a2a2a', label: 'Black Rubber' },
+	];
+	const WALL_COLORS = [
+		{ hex: '#ffffff', label: 'White' },
+		{ hex: '#d4c5a9', label: 'Tan' },
+		{ hex: '#5c5c5c', label: 'Dark Grey' },
+		{ hex: '#1a1a1a', label: 'Black' },
+	];
+
+	function populateFloorWallSwatches(): void {
+		floorBarSwatches.innerHTML = '';
+		for (const c of FLOOR_COLORS) {
+			const btn = document.createElement('button');
+			btn.type = 'button';
+			btn.className = 'view3d-cswatch' + (c.hex === state.floorColor ? ' active' : '');
+			btn.dataset.color = c.hex;
+			btn.style.cssText = `background:${c.hex};width:28px;height:28px;min-width:28px;min-height:28px;`;
+			btn.title = c.label;
+			btn.onclick = () => {
+				state.floorColor = c.hex;
+				floorBarSwatches.querySelectorAll('.view3d-cswatch').forEach(s => s.classList.remove('active'));
+				btn.classList.add('active');
+				syncFloorSwatches();
+				redraw();
+			};
+			floorBarSwatches.appendChild(btn);
+		}
+
+		wallBarSwatches.innerHTML = '';
+		for (const c of WALL_COLORS) {
+			const btn = document.createElement('button');
+			btn.type = 'button';
+			btn.className = 'view3d-cswatch' + (c.hex === state.wallColor ? ' active' : '');
+			btn.dataset.color = c.hex;
+			btn.style.cssText = `background:${c.hex};width:28px;height:28px;min-width:28px;min-height:28px;${c.hex === '#ffffff' ? 'border:1px solid #666;' : ''}`;
+			btn.title = c.label;
+			btn.onclick = () => {
+				state.wallColor = c.hex;
+				wallBarSwatches.querySelectorAll('.view3d-cswatch').forEach(s => s.classList.remove('active'));
+				btn.classList.add('active');
+				syncWallSwatches();
+				redraw();
+			};
+			wallBarSwatches.appendChild(btn);
+		}
+	}
+
+	function syncFloorSwatches() {
+		document.querySelectorAll('#view3d-floor-swatches .view3d-cswatch').forEach(s => {
+			const el = s as HTMLElement;
+			el.classList.toggle('active', el.dataset.color === state.floorColor);
+		});
+		updateFloorColor3D(state.floorColor);
+	}
+	function syncWallSwatches() {
+		document.querySelectorAll('#view3d-wall-swatches .view3d-cswatch').forEach(s => {
+			const el = s as HTMLElement;
+			el.classList.toggle('active', el.dataset.color === state.wallColor);
+		});
+		updateWallColor3D(state.wallColor);
+	}
+
+	function update3DColorBar(): void {
+		if (!state.selection || state.selection.type !== 'locker') {
+			colorBar.style.display = 'none';
+			cushionBar.style.display = 'none';
+			return;
+		}
+		const locker = state.lockers.find(l => l.instanceId === state.selection!.id);
+		if (!locker) { colorBar.style.display = 'none'; cushionBar.style.display = 'none'; return; }
+		const template = getTemplate(locker.templateId);
+		if (!template) { colorBar.style.display = 'none'; cushionBar.style.display = 'none'; return; }
+
+		colorBar.style.display = 'flex';
+		colorBarLabel.textContent = 'Locker Colors';
+
+		colorBarSwatches.innerHTML = '';
+		for (const c of template.colors) {
+			const btn = document.createElement('button');
+			btn.type = 'button';
+			btn.className = 'view3d-cswatch' + (c.code === locker.config.colorCode ? ' active' : '');
+			btn.style.cssText = `background:${c.hex};width:28px;height:28px;min-width:28px;min-height:28px;`;
+			btn.title = c.label;
+			btn.onclick = () => {
+				locker.config.colorCode = c.code;
+				colorBarSwatches.querySelectorAll('.view3d-cswatch').forEach(s => s.classList.remove('active'));
+				btn.classList.add('active');
+				rebuildLockerMesh3D(locker.instanceId);
+				redraw();
+			};
+			colorBarSwatches.appendChild(btn);
+		}
+
+		cushionBar.style.display = 'flex';
+		cushionBarLabel.textContent = 'Cushion Colors';
+
+		cushionBarSwatches.innerHTML = '';
+		for (const c of CUSHION_COLORS) {
+			const btn = document.createElement('button');
+			btn.type = 'button';
+			btn.className = 'view3d-cswatch' + (c.hex === locker.config.cushionColorHex ? ' active' : '');
+			btn.style.cssText = `background:${c.hex};width:28px;height:28px;min-width:28px;min-height:28px;`;
+			btn.title = c.label;
+			btn.onclick = () => {
+				locker.config.cushionColorHex = c.hex;
+				cushionBarSwatches.querySelectorAll('.view3d-cswatch').forEach(s => s.classList.remove('active'));
+				btn.classList.add('active');
+				rebuildLockerMesh3D(locker.instanceId);
+				redraw();
+			};
+			cushionBarSwatches.appendChild(btn);
+		}
+	}
+
+	document.getElementById('btn-3d-close')!.onclick = () => { swatchRow.style.display = 'none'; colorBar.style.display = 'none'; cushionBar.style.display = 'none'; overlay3d.style.display = 'none'; dispose3DPreview(); };
 
 	// ─── Reset lockers ───
 	document.getElementById('btn-reset-lockers')!.onclick = () => { state.lockers = []; state.selection = null; redraw(); };
@@ -1699,7 +2306,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 				for (const { dx, dy } of candidates) {
 					const inst: LockerInstance = {
 						instanceId: nextInstanceId(), templateId: t.templateId,
-						config: { widthIn: w, depthIn: d, colorCode: t.colors[0].code, accessoryIds: [] },
+						config: { widthIn: w, depthIn: d, colorCode: t.colors[0].code, accessoryIds: [], cushionColorHex: '#1A1A1A' },
 						x: cx + dx, y: cy + dy, rotationDeg: 0,
 					};
 					if (!wouldOverlap(inst, state.lockers, state.openings, state.walls)) {
@@ -1708,7 +2315,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 				}
 			}
 		}
-		if (lastPlacedId) state.selection = { type: 'locker', id: lastPlacedId };
+		if (lastPlacedId) {
+			state.selection = { type: 'locker', id: lastPlacedId };
+		} else {
+			const toast = document.getElementById('placement-toast');
+			if (toast) {
+				toast.textContent = 'Not enough space — try removing lockers or enlarging the room.';
+				toast.style.display = 'block';
+				setTimeout(() => { toast.style.display = 'none'; }, 3000);
+			}
+		}
 		redraw();
 	};
 
@@ -1895,7 +2511,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			const world = screenToWorld(e.clientX - rect.left, e.clientY - rect.top, state.camera, canvas.clientWidth, canvas.clientHeight);
 			const oldX = dragging.x, oldY = dragging.y;
 			dragging.x = world.x - dragOffsetX; dragging.y = world.y - dragOffsetY;
+			clampLockerToRoom(dragging, state.walls);
 			snapLocker(dragging);
+			clampLockerToRoom(dragging, state.walls);
 			if (wouldOverlap(dragging, state.lockers, state.openings, state.walls)) { dragging.x = oldX; dragging.y = oldY; }
 			redraw();
 		} else if (isPanning) {
@@ -1995,13 +2613,31 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			}
 			const colorSel = document.getElementById('prop-color-select') as HTMLSelectElement;
 			colorSel.innerHTML = '';
-			for (const c of template.colors) { const opt = document.createElement('option'); opt.value = c.code; opt.textContent = c.label; opt.selected = c.code === locker.config.colorCode; colorSel.appendChild(opt); }
-			colorSel.onchange = () => { locker.config.colorCode = colorSel.value; redraw(); };
+			for (const c of template.colors) {
+				const opt = document.createElement('option');
+				opt.value = c.code;
+				opt.textContent = c.label;
+				opt.selected = c.code === locker.config.colorCode;
+				colorSel.appendChild(opt);
+			}
+			colorSel.onchange = () => {
+				locker.config.colorCode = colorSel.value;
+				rebuildLockerMesh3D(locker.instanceId);
+				redraw();
+			};
 			const accDiv = document.getElementById('prop-accessories')!;
 			accDiv.innerHTML = '';
 			for (const acc of template.accessories) {
 				const lbl = document.createElement('label'); const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = locker.config.accessoryIds.includes(acc.id);
-				cb.onchange = () => { if (cb.checked) locker.config.accessoryIds.push(acc.id); else locker.config.accessoryIds = locker.config.accessoryIds.filter((a) => a !== acc.id); redraw(); };
+				cb.onchange = () => {
+					if (cb.checked) {
+						locker.config.accessoryIds.push(acc.id);
+					} else {
+						locker.config.accessoryIds = locker.config.accessoryIds.filter((a) => a !== acc.id);
+					}
+					rebuildLockerMesh3D(locker.instanceId);
+					redraw();
+				};
 				lbl.appendChild(cb); lbl.appendChild(document.createTextNode(` ${acc.label} (+$${acc.price})`)); accDiv.appendChild(lbl);
 			}
 			document.getElementById('prop-price')!.textContent = `$${priceLocker(template, locker.config).toLocaleString()}`;
@@ -2055,7 +2691,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		const wall = state.walls.find((w) => w.id === state.selection!.id);
 		if (!wall) return;
 		const t = getSelectedTemplate();
-		const defaultConfig = { widthIn: t.geometry.defaultWidthIn, depthIn: t.geometry.defaultDepthIn, colorCode: t.colors[0].code, accessoryIds: [] as string[] };
+		const defaultConfig = { widthIn: t.geometry.defaultWidthIn, depthIn: t.geometry.defaultDepthIn, colorCode: t.colors[0].code, accessoryIds: [] as string[], cushionColorHex: '#1A1A1A' };
 		const wallOpenings = state.openings.filter((o) => o.wallId === wall.id);
 		const newLockers = packWall(wall, t.templateId, defaultConfig, Date.now() % 100000, wallOpenings, state.lockers, state.walls);
 		const valid = newLockers.filter((l) => !wouldOverlap(l, [...state.lockers, ...newLockers.filter((n) => n !== l)], state.openings, state.walls));
@@ -2118,9 +2754,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 	// ─── PDF Generation ───
 	async function generateLayoutPDF(allLines: LineItem[], orderSummary: string, grandTotal: number, customerEmail: string): Promise<Blob | null> {
+		const origIndex = activeRoomIndex;
 		try {
 			saveCurrentRoom();
-			const origIndex = activeRoomIndex;
 			const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'letter' });
 			const pageW = pdf.internal.pageSize.getWidth();
 			const pageH = pdf.internal.pageSize.getHeight();
@@ -2130,7 +2766,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			for (let ri = 0; ri < savedRooms.length; ri++) {
 				if (ri > 0) pdf.addPage('letter', 'landscape');
 				const room = savedRooms[ri]; const roomLabel = room.roomName || `Room ${ri + 1}`;
-				const tempState: PlannerState = { roomName: room.roomName, displayUnit: state.displayUnit, editMode: false, camera: { centerX: 0, centerY: 0, pixelsPerInch: 2 }, walls: JSON.parse(JSON.stringify(room.walls)), openings: JSON.parse(JSON.stringify(room.openings)), lockers: JSON.parse(JSON.stringify(room.lockers)), selection: null };
+				const tempState: PlannerState = { roomName: room.roomName, sportType: (room.sportType || '') as any, displayUnit: state.displayUnit, editMode: false, camera: { centerX: 0, centerY: 0, pixelsPerInch: 2 }, walls: JSON.parse(JSON.stringify(room.walls)), openings: JSON.parse(JSON.stringify(room.openings)), lockers: JSON.parse(JSON.stringify(room.lockers)), selection: null, floorColor: room.floorColor || '#8B7355', wallColor: room.wallColor || '#ffffff' };
 				let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
 				for (const w of tempState.walls) { minX = Math.min(minX, w.start.x, w.end.x); minY = Math.min(minY, w.start.y, w.end.y); maxX = Math.max(maxX, w.start.x, w.end.x); maxY = Math.max(maxY, w.start.y, w.end.y); }
 				if (isFinite(minX)) { tempState.camera.pixelsPerInch = Math.min((offCanvas.width - 60) / (maxX - minX || 100), (offCanvas.height - 60) / (maxY - minY || 100)); tempState.camera.centerX = (minX + maxX) / 2; tempState.camera.centerY = (minY + maxY) / 2; }
@@ -2162,7 +2798,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			pdf.text('This layout is an estimate. Final pricing may vary based on customization and installation requirements.', margin, y, { maxWidth: pW - margin * 2 }); pdf.setTextColor(0);
 			loadRoom(origIndex);
 			return pdf.output('blob');
-		} catch (e) { console.error('PDF generation failed:', e); return null; }
+		} catch (e) { console.error('PDF generation failed:', e); try { loadRoom(origIndex); } catch (_) {} return null; }
 	}
 
 	// ─── Request Quote ───

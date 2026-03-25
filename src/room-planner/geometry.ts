@@ -217,6 +217,70 @@ export function projectOntoWall(worldX: number, worldY: number, wall: Wall): num
   return Math.max(0, Math.min(len, t * len));
 }
 
+/**
+ * Compute the inner bounding box of the room (inset by half-wall thicknesses).
+ * Lockers must stay entirely within this box.
+ */
+export function computeRoomInnerBounds(walls: Wall[]): AABB {
+  if (walls.length === 0) return { minX: 0, minY: 0, maxX: 0, maxY: 0 };
+
+  let outerMinX = Infinity, outerMaxX = -Infinity;
+  let outerMinY = Infinity, outerMaxY = -Infinity;
+  for (const w of walls) {
+    outerMinX = Math.min(outerMinX, w.start.x, w.end.x);
+    outerMaxX = Math.max(outerMaxX, w.start.x, w.end.x);
+    outerMinY = Math.min(outerMinY, w.start.y, w.end.y);
+    outerMaxY = Math.max(outerMaxY, w.start.y, w.end.y);
+  }
+
+  let topThick = 0, bottomThick = 0, leftThick = 0, rightThick = 0;
+  for (const w of walls) {
+    const isHoriz = Math.abs(w.end.y - w.start.y) < 0.01;
+    if (isHoriz) {
+      if (Math.abs(w.start.y - outerMinY) < 0.01) topThick = Math.max(topThick, w.thicknessIn);
+      if (Math.abs(w.start.y - outerMaxY) < 0.01) bottomThick = Math.max(bottomThick, w.thicknessIn);
+    } else {
+      if (Math.abs(w.start.x - outerMinX) < 0.01) leftThick = Math.max(leftThick, w.thicknessIn);
+      if (Math.abs(w.start.x - outerMaxX) < 0.01) rightThick = Math.max(rightThick, w.thicknessIn);
+    }
+  }
+
+  return {
+    minX: outerMinX + leftThick / 2,
+    minY: outerMinY + topThick / 2,
+    maxX: outerMaxX - rightThick / 2,
+    maxY: outerMaxY - bottomThick / 2,
+  };
+}
+
+/**
+ * Clamp a locker so its AABB stays entirely within the room's inner bounds.
+ */
+export function clampLockerToRoom(locker: LockerInstance, walls: Wall[]): void {
+  if (walls.length === 0) return;
+  const bounds = computeRoomInnerBounds(walls);
+  const box = lockerAABB(locker);
+  const w = box.maxX - box.minX;
+  const h = box.maxY - box.minY;
+
+  const roomW = bounds.maxX - bounds.minX;
+  const roomH = bounds.maxY - bounds.minY;
+
+  if (w > roomW) {
+    locker.x = bounds.minX + (roomW - w) / 2;
+  } else {
+    if (box.minX < bounds.minX) locker.x = bounds.minX;
+    else if (box.minX + w > bounds.maxX) locker.x = bounds.maxX - w;
+  }
+
+  if (h > roomH) {
+    locker.y = bounds.minY + (roomH - h) / 2;
+  } else {
+    if (box.minY < bounds.minY) locker.y = bounds.minY;
+    else if (box.minY + h > bounds.maxY) locker.y = bounds.maxY - h;
+  }
+}
+
 /** Wall length in inches. */
 export function wallLength(wall: Wall): number {
   const dx = wall.end.x - wall.start.x;

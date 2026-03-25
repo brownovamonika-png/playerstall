@@ -36,7 +36,7 @@ export function buildWalls(dims: RoomDimensions): Wall[] {
 
 export function defaultDimensions(): RoomDimensions {
   return {
-    wallA: 0, wallB: 0, wallC: 0, wallD: 0,
+    wallA: 240, wallB: 240, wallC: 240, wallD: 240,
     thicknessA: 4.5, thicknessB: 4.5, thicknessC: 4.5, thicknessD: 4.5,
   };
 }
@@ -46,6 +46,7 @@ export function createInitialState(dims?: RoomDimensions): PlannerState {
   const d = dims ?? defaultDimensions();
   return {
     roomName: '',
+    sportType: '',
     displayUnit: 'in',
     editMode: true,
     camera: {
@@ -57,5 +58,7 @@ export function createInitialState(dims?: RoomDimensions): PlannerState {
     openings: [],
     lockers: [],
     selection: null,
+    floorColor: '#b0aba4',
+    wallColor: '#ffffff',
   };
 }

@@ -6,6 +6,21 @@ import { formatDimension } from './units';
 const _imgCache = new Map<string, HTMLImageElement>();
 let _imagesPreloaded = false;
 
+let _floorLogoImg: HTMLImageElement | null = null;
+let _floorLogoReady = false;
+
+export function setFloorLogo2D(src: string, onReady?: () => void): void {
+  _floorLogoReady = false;
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => { _floorLogoImg = img; _floorLogoReady = true; if (onReady) onReady(); };
+  img.src = src;
+}
+export function removeFloorLogo2D(): void {
+  _floorLogoImg = null;
+  _floorLogoReady = false;
+}
+
 function preloadLockerImages(): void {
   if (_imagesPreloaded) return;
   _imagesPreloaded = true;
@@ -82,6 +97,7 @@ export function render(ctx: CanvasRenderingContext2D, state: PlannerState): void
 
   drawGrid(ctx, state, cssW, cssH);
   drawFloor(ctx, state, cssW, cssH);
+  drawFloorLogo(ctx, state, cssW, cssH);
   drawWalls(ctx, state, cssW, cssH);
   drawOpenings(ctx, state, cssW, cssH);
   drawCornerZones(ctx, state, cssW, cssH);
@@ -127,7 +143,7 @@ function drawFloor(ctx: CanvasRenderingContext2D, state: PlannerState, cw: numbe
   const { walls, camera: cam } = state;
   if (walls.length < 3) return;
 
-  ctx.fillStyle = FLOOR_COLOR;
+  ctx.fillStyle = state.floorColor || FLOOR_COLOR;
   ctx.beginPath();
   ctx.moveTo(wx(walls[0].start.x, cam, cw), wy(walls[0].start.y, cam, ch));
   for (const wall of walls) {
@@ -135,6 +151,40 @@ function drawFloor(ctx: CanvasRenderingContext2D, state: PlannerState, cw: numbe
   }
   ctx.closePath();
   ctx.fill();
+}
+
+function drawFloorLogo(ctx: CanvasRenderingContext2D, state: PlannerState, cw: number, ch: number): void {
+  if (!_floorLogoReady || !_floorLogoImg) return;
+  const { walls, camera: cam } = state;
+  if (walls.length < 3) return;
+
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  for (const w of walls) {
+    minX = Math.min(minX, w.start.x, w.end.x);
+    minY = Math.min(minY, w.start.y, w.end.y);
+    maxX = Math.max(maxX, w.start.x, w.end.x);
+    maxY = Math.max(maxY, w.start.y, w.end.y);
+  }
+  const roomCx = (minX + maxX) / 2;
+  const roomCy = (minY + maxY) / 2;
+  const roomW = maxX - minX;
+  const roomH = maxY - minY;
+
+  const imgAspect = _floorLogoImg.width / _floorLogoImg.height;
+  const maxDim = Math.min(roomW, roomH) * 0.45;
+  const logoW = imgAspect >= 1 ? maxDim : maxDim * imgAspect;
+  const logoH = imgAspect >= 1 ? maxDim / imgAspect : maxDim;
+
+  const ppi = cam.pixelsPerInch;
+  const drawW = logoW * ppi;
+  const drawH = logoH * ppi;
+  const sx = wx(roomCx, cam, cw) - drawW / 2;
+  const sy = wy(roomCy, cam, ch) - drawH / 2;
+
+  ctx.save();
+  ctx.globalAlpha = 0.35;
+  ctx.drawImage(_floorLogoImg, sx, sy, drawW, drawH);
+  ctx.restore();
 }
 
 function drawWalls(ctx: CanvasRenderingContext2D, state: PlannerState, cw: number, ch: number): void {
@@ -150,7 +200,7 @@ function drawWalls(ctx: CanvasRenderingContext2D, state: PlannerState, cw: numbe
     const ex = wx(wall.end.x, cam, cw);
     const ey = wy(wall.end.y, cam, ch);
 
-    ctx.strokeStyle = isSelected ? SELECTED_STROKE : WALL_COLOR;
+    ctx.strokeStyle = isSelected ? SELECTED_STROKE : (state.wallColor || WALL_COLOR);
     ctx.lineWidth = Math.max(thickPx, 2);
     ctx.lineCap = 'square';
     ctx.beginPath();
@@ -198,8 +248,7 @@ function drawOpenings(ctx: CanvasRenderingContext2D, state: PlannerState, cw: nu
     const isSelected = selection?.type === 'opening' && selection.id === op.id;
     const color = op.type === 'door' ? DOOR_COLOR : op.type === 'window' ? WINDOW_COLOR : OBSTACLE_COLOR;
 
-    // Draw gap in wall (clear wall segment with floor color, then redraw opening symbol)
-    ctx.strokeStyle = FLOOR_COLOR;
+    ctx.strokeStyle = state.floorColor || FLOOR_COLOR;
     ctx.lineWidth = Math.max(wall.thicknessIn * ppi, 3) + 2;
     ctx.lineCap = 'square';
     ctx.beginPath();

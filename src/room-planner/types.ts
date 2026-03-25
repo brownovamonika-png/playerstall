@@ -33,11 +33,24 @@ export interface AccessoryOption {
   price: number;
 }
 
+/** Cushion color options (shared across all models). */
+export const CUSHION_COLORS: { code: string; label: string; hex: string }[] = [
+  { code: 'CW', label: 'White', hex: '#F5F5F5' },
+  { code: 'CB', label: 'Black', hex: '#1A1A1A' },
+  { code: 'CC', label: 'Charcoal', hex: '#4D4D4D' },
+  { code: 'CG', label: 'Grey', hex: '#A8A8A8' },
+  { code: 'CR', label: 'Red', hex: '#C41E3A' },
+  { code: 'CN', label: 'Navy', hex: '#1F4E8C' },
+  { code: 'CU', label: 'Blue', hex: '#2E5090' },
+  { code: 'CE', label: 'Green', hex: '#2D5A27' },
+];
+
 /** Per-locker configuration chosen by the user. */
 export interface LockerConfig {
   widthIn: number;
   depthIn: number;
   colorCode: string;
+  cushionColorHex: string;
   accessoryIds: string[];
 }
 
@@ -91,9 +104,12 @@ export interface Camera {
   pixelsPerInch: number;
 }
 
+export type SportType = 'football' | 'hockey' | 'basketball' | 'baseball' | 'soccer' | 'lacrosse' | 'other' | '';
+
 /** Full application state for the room planner. */
 export interface PlannerState {
   roomName: string;
+  sportType: SportType;
   displayUnit: DisplayUnit;
   editMode: boolean;
   camera: Camera;
@@ -101,4 +117,6 @@ export interface PlannerState {
   openings: Opening[];
   lockers: LockerInstance[];
   selection: Selection | null;
+  floorColor: string;
+  wallColor: string;
 }
