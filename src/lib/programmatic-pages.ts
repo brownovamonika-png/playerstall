@@ -73,6 +73,39 @@ export const woodVsMetalSports: { slug: string; name: string }[] = [
   { slug: 'lacrosse', name: 'Lacrosse' },
 ];
 
+export interface ProgrammaticProvince {
+  slug: string;
+  name: string;
+  region: string;
+}
+
+export interface ProgrammaticCity {
+  slug: string;
+  name: string;
+  province: string;
+  provinceSlug: string;
+}
+
+export const canadianProvinces: ProgrammaticProvince[] = [
+  { slug: 'ontario', name: 'Ontario', region: 'Central Canada' },
+  { slug: 'british-columbia', name: 'British Columbia', region: 'Western Canada' },
+  { slug: 'alberta', name: 'Alberta', region: 'Western Canada' },
+  { slug: 'quebec', name: 'Quebec', region: 'Eastern Canada' },
+  { slug: 'manitoba', name: 'Manitoba', region: 'Central Canada' },
+  { slug: 'saskatchewan', name: 'Saskatchewan', region: 'Central Canada' },
+];
+
+export const canadianCities: ProgrammaticCity[] = [
+  { slug: 'toronto', name: 'Toronto', province: 'Ontario', provinceSlug: 'ontario' },
+  { slug: 'vancouver', name: 'Vancouver', province: 'British Columbia', provinceSlug: 'british-columbia' },
+  { slug: 'calgary', name: 'Calgary', province: 'Alberta', provinceSlug: 'alberta' },
+  { slug: 'edmonton', name: 'Edmonton', province: 'Alberta', provinceSlug: 'alberta' },
+  { slug: 'ottawa', name: 'Ottawa', province: 'Ontario', provinceSlug: 'ontario' },
+  { slug: 'montreal', name: 'Montreal', province: 'Quebec', provinceSlug: 'quebec' },
+  { slug: 'winnipeg', name: 'Winnipeg', province: 'Manitoba', provinceSlug: 'manitoba' },
+  { slug: 'hamilton', name: 'Hamilton', province: 'Ontario', provinceSlug: 'ontario' },
+];
+
 /** Level/market pages: collegiate, high school, professional, college × sport. */
 export const levelMarketPages: { levelSlug: string; levelName: string; sportSlug: string; sportName: string }[] = [
   { levelSlug: 'collegiate', levelName: 'Collegiate', sportSlug: 'football', sportName: 'Football' },
