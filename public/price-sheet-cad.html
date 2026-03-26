@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PlayerStall Price Sheet – CAD</title>
+<link href="https://fonts.googleapis.com/css?family=Yantramanav:400,500|Oswald:600,700&display=swap" rel="stylesheet" />
+<style>
+	@page { size: letter; margin: 0.5in; }
+	* { margin: 0; padding: 0; box-sizing: border-box; }
+	body { font-family: 'Yantramanav', Arial, Helvetica, sans-serif; color: #0d0d0d; background: #f5f5f5; padding: 30px; }
+	.page { max-width: 960px; margin: 0 auto; background: #fff; padding: 48px 44px; border-radius: 4px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
+
+	.header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #0d0d0d; padding-bottom: 20px; margin-bottom: 28px; }
+	.header-left h1 { font-family: 'Oswald', sans-serif; font-size: 32px; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; line-height: 1.1; }
+	.header-left p.subtitle { font-size: 13px; color: #8c8c8c; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+	.header-right { text-align: right; font-size: 12px; color: #666; line-height: 1.7; }
+	.header-right strong { color: #0d0d0d; }
+
+	h2 { font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: #0d0d0d; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #e0e0e0; }
+	h2:first-of-type { margin-top: 0; }
+
+	.tier-label { display: inline-block; font-family: 'Oswald', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #fff; background: #0d0d0d; padding: 2px 10px; border-radius: 2px; margin-bottom: 2px; }
+	.tier-label.premium { background: #fe5900; }
+
+	table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+	thead th { font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; color: #666; padding: 8px 10px; text-align: center; border-bottom: 2px solid #0d0d0d; }
+	thead th:first-child { text-align: left; }
+	tbody td { padding: 7px 10px; text-align: center; border-bottom: 1px solid #eee; }
+	tbody td:first-child { text-align: left; font-weight: 500; }
+	tbody tr:last-child td { border-bottom: none; }
+	tbody tr:hover { background: #fafafa; }
+
+	.model-name { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.5px; }
+	.model-detail { font-size: 11px; color: #999; font-weight: 400; display: block; }
+	.price { font-weight: 500; }
+
+	.acc-table td:last-child { font-weight: 500; text-align: right; }
+	.acc-table th:last-child { text-align: right; }
+
+	/* Total per locker table */
+	.total-table { font-size: 12px; }
+	.total-table thead th { font-size: 10px; white-space: nowrap; padding: 8px 6px; }
+	.total-table tbody td { padding: 8px 6px; }
+	.total-table .col-model { text-align: left; min-width: 80px; }
+	.total-table .col-acc { background: #fafafa; }
+	.total-table .col-acc-head { background: #f5f5f5; color: #333; }
+	.total-table .col-total { background: #0d0d0d; color: #fff; font-weight: 700; font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 0.5px; }
+	.total-table .col-total-head { background: #0d0d0d; color: #fff; }
+	.total-table .tier-sep td { padding: 10px 0 2px; border-bottom: none; background: #fff; }
+	.total-table .other-acc-val { font-size: 10px; color: #fe5900; }
+
+	/* Cost & profit tables */
+	.internal-banner { background: #fff3e0; border: 1px solid #ffcc80; border-radius: 4px; padding: 10px 16px; margin: 32px 0 16px; font-size: 12px; color: #e65100; font-weight: 500; }
+	.cost-table td, .cost-table th { font-size: 12px; padding: 6px 8px; }
+	.cost-table .cost-val { font-weight: 500; }
+	.profit-table { font-size: 12px; }
+	.profit-table thead th { font-size: 10px; white-space: nowrap; padding: 8px 5px; }
+	.profit-table tbody td { padding: 7px 5px; }
+	.profit-table .col-model { text-align: left; min-width: 75px; }
+	.profit-table .col-rev { background: #f0f0f0; }
+	.profit-table .col-cost { background: #fff8f0; }
+	.profit-table .col-profit { font-weight: 700; }
+	.profit-table .col-profit.positive { color: #2e7d32; }
+	.profit-table .col-margin { font-size: 11px; color: #666; }
+	.profit-table .tier-sep td { padding: 10px 0 2px; border-bottom: none; background: #fff; }
+	@media print { .internal-banner { border-color: #ccc; background: #fafafa; } }
+
+	.footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #e0e0e0; font-size: 11px; color: #999; line-height: 1.8; }
+	.footer strong { color: #666; }
+
+	@media print {
+		body { background: #fff; padding: 0; }
+		.page { box-shadow: none; padding: 0; max-width: 100%; border-radius: 0; }
+		.no-print { display: none; }
+		h2 { break-after: avoid; }
+		table { break-inside: avoid; }
+		.acc-selector { background: #fff; border-color: #ccc; }
+	}
+
+	.print-btn { position: fixed; bottom: 24px; right: 24px; background: #0d0d0d; color: #fff; border: none; font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; padding: 12px 28px; border-radius: 3px; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: background 0.2s; }
+	.print-btn:hover { background: #fe5900; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">Print / Save PDF</button>
+
+<div class="page">
+
+	<div class="header">
+		<div class="header-left">
+			<h1>Price Sheet</h1>
+			<p class="subtitle">All prices in Canadian Dollars (CAD)</p>
+		</div>
+		<div class="header-right">
+			<strong>PlayerStall</strong><br />
+			2934 200 Street, Langley, BC V2Z 2C1<br />
+			1 888 584 1444 &nbsp;|&nbsp; sales@playerstall.com<br />
+			playerstall.com<br />
+			<br />
+			<strong>Effective:</strong> March 2026
+		</div>
+	</div>
+
+	<!-- ─── PREMIUM LINE ─── -->
+	<h2><span class="tier-label premium">Premium Line</span> &nbsp; Locker Pricing by Width</h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Model</th>
+				<th>18"</th>
+				<th>20"</th>
+				<th>22"</th>
+				<th>24"</th>
+				<th>26"</th>
+				<th>28"</th>
+				<th>30"</th>
+				<th>32"</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><span class="model-name">Model X</span><span class="model-detail">Curved design, max customization</span></td>
+				<td class="price">$649</td><td class="price">$649</td><td class="price">$649</td><td class="price">$649</td>
+				<td class="price">$699</td><td class="price">$699</td><td class="price">$749</td><td class="price">$749</td>
+			</tr>
+			<tr>
+				<td><span class="model-name">Model Z</span><span class="model-detail">Premium melamine, elite tier</span></td>
+				<td class="price">$649</td><td class="price">$649</td><td class="price">$649</td><td class="price">$649</td>
+				<td class="price">$699</td><td class="price">$699</td><td class="price">$749</td><td class="price">$749</td>
+			</tr>
+			<tr>
+				<td><span class="model-name">Model S</span><span class="model-detail">Premium melamine, stadium-grade</span></td>
+				<td class="price">$649</td><td class="price">$649</td><td class="price">$649</td><td class="price">$649</td>
+				<td class="price">$699</td><td class="price">$699</td><td class="price">$749</td><td class="price">$749</td>
+			</tr>
+			<tr>
+				<td><span class="model-name">Model L</span><span class="model-detail">Premium melamine</span></td>
+				<td class="price">$599</td><td class="price">$599</td><td class="price">$599</td><td class="price">$599</td>
+				<td class="price">$629</td><td class="price">$629</td><td class="price">$649</td><td class="price">$649</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<!-- ─── TOTAL PER LOCKER ─── -->
+	<h2>Total Per Locker <span style="font-size:12px; font-weight:400; color:#999; letter-spacing:0;">(base + vented front + lock box + cushion + hooks)</span></h2>
+
+	<table class="total-table" id="totalTable">
+		<thead>
+			<tr>
+				<th class="col-model">Model</th>
+				<th>Base<br/>18–24"</th>
+				<th>Base<br/>26–28"</th>
+				<th>Base<br/>30–32"</th>
+				<th class="col-acc-head">Vented<br/>$40</th>
+				<th class="col-acc-head">Lock Box<br/>$80</th>
+				<th class="col-acc-head">Cushion<br/>$75</th>
+				<th class="col-acc-head">Hooks<br/>$12</th>
+				<th class="col-total-head">Total<br/>18–24"</th>
+				<th class="col-total-head">Total<br/>26–28"</th>
+				<th class="col-total-head">Total<br/>30–32"</th>
+			</tr>
+		</thead>
+		<tbody id="totalBody">
+		</tbody>
+	</table>
+
+	<!-- ─── COST BREAKDOWN (INTERNAL) ─── -->
+	<div class="internal-banner">INTERNAL USE ONLY — Cost data below is confidential</div>
+
+	<h2>Cost Per Locker by Width <span style="font-size:12px; font-weight:400; color:#999; letter-spacing:0;">(includes vented front + lock box + cushion + hooks + digital lock + shipping from Vietnam to Canada)</span></h2>
+
+	<table class="cost-table">
+		<thead>
+			<tr>
+				<th>Width</th>
+				<th>Base (VND)<br/><span style="font-weight:400;font-size:9px;color:#999;">760,000/sheet</span></th>
+				<th>VAT 8%</th>
+				<th>Packing</th>
+				<th>Total (VND)</th>
+				<th>Total (CAD)</th>
+				<th>Shipping<br/><span style="font-weight:400;font-size:9px;color:#999;">$8,000 ÷ 250 lockers</span></th>
+				<th>Digital Lock</th>
+				<th>Cushion<br/>&amp; Foam</th>
+				<th>Hooks</th>
+				<th>All-In Cost</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td>18"</td><td>3,720,000</td><td>297,600</td><td>TBD</td><td>4,017,600</td><td class="cost-val">$211.45</td><td>$35.00</td><td>$30.00</td><td>$23.16</td><td>$3.00</td><td class="cost-val">$302.61</td></tr>
+			<tr><td>20"</td><td>3,800,000</td><td>304,000</td><td>TBD</td><td>4,104,000</td><td class="cost-val">$216.00</td><td>$35.00</td><td>$30.00</td><td>$23.16</td><td>$3.00</td><td class="cost-val">$307.16</td></tr>
+			<tr><td>22"</td><td>3,840,000</td><td>307,200</td><td>TBD</td><td>4,147,200</td><td class="cost-val">$218.27</td><td>$35.00</td><td>$30.00</td><td>$23.16</td><td>$3.00</td><td class="cost-val">$309.43</td></tr>
+			<tr><td>24"</td><td>3,840,000</td><td>307,200</td><td>TBD</td><td>4,147,200</td><td class="cost-val">$218.27</td><td>$35.00</td><td>$30.00</td><td>$23.16</td><td>$3.00</td><td class="cost-val">$309.43</td></tr>
+			<tr><td>26"</td><td>3,960,000</td><td>316,800</td><td>TBD</td><td>4,276,800</td><td class="cost-val">$225.09</td><td>$35.00</td><td>$30.00</td><td>$23.16</td><td>$3.00</td><td class="cost-val">$316.25</td></tr>
+			<tr><td>28"</td><td>4,120,000</td><td>329,600</td><td>TBD</td><td>4,449,600</td><td class="cost-val">$234.19</td><td>$35.00</td><td>$30.00</td><td>$23.16</td><td>$3.00</td><td class="cost-val">$325.35</td></tr>
+			<tr><td>30"</td><td>4,280,000</td><td>342,400</td><td>TBD</td><td>4,622,400</td><td class="cost-val">$243.28</td><td>$35.00</td><td>$30.00</td><td>$23.16</td><td>$3.00</td><td class="cost-val">$334.44</td></tr>
+			<tr><td>32"</td><td>4,520,000</td><td>361,600</td><td>TBD</td><td>4,881,600</td><td class="cost-val">$256.93</td><td>$35.00</td><td>$30.00</td><td>$23.16</td><td>$3.00</td><td class="cost-val">$348.09</td></tr>
+		</tbody>
+	</table>
+	<p style="font-size:11px; color:#999; margin: -12px 0 20px;">Cushion + foam: $23.16. Hooks: $3.00. Digital lock: $30.00. Shipping: $35.00 ($8,000 ÷ 250 lockers). Rate: 19,000 VND/CAD. Packing: TBD.</p>
+
+	<!-- ─── PROFIT PER LOCKER ─── -->
+	<h2>Profit Per Locker — Revenue: Sales in USA Converted to CAD <span style="font-size:12px; font-weight:400; color:#999; letter-spacing:0;">(USD × 1.38 = CAD)</span><br/><span style="font-size:12px; font-weight:400; color:#999; letter-spacing:0;">(includes vented front + lock box + cushion + hooks + digital lock + shipping from Vietnam to Canada)</span></h2>
+
+	<table class="profit-table" id="profitTable">
+		<thead>
+			<tr>
+				<th class="col-model">Model</th>
+				<th>18"</th>
+				<th>20"</th>
+				<th>22"</th>
+				<th>24"</th>
+				<th>26"</th>
+				<th>28"</th>
+				<th>30"</th>
+				<th>32"</th>
+			</tr>
+		</thead>
+		<tbody id="profitBody">
+		</tbody>
+	</table>
+
+	<!-- ─── PROFIT BASE ONLY ─── -->
+	<h2>Profit Per Locker — Base Price Only <span style="font-size:12px; font-weight:400; color:#999; letter-spacing:0;">(USD × 1.38 = CAD)</span><br/><span style="font-size:12px; font-weight:400; color:#999; letter-spacing:0;">(no accessories)</span></h2>
+
+	<table class="profit-table" id="profitBaseTable">
+		<thead>
+			<tr>
+				<th class="col-model">Model</th>
+				<th>18"</th>
+				<th>20"</th>
+				<th>22"</th>
+				<th>24"</th>
+				<th>26"</th>
+				<th>28"</th>
+				<th>30"</th>
+				<th>32"</th>
+			</tr>
+		</thead>
+		<tbody id="profitBaseBody">
+		</tbody>
+	</table>
+
+	<!-- ─── NOTES ─── -->
+	<div class="footer">
+		<strong>Notes</strong><br />
+		&bull; All prices are in Canadian Dollars (CAD).<br />
+		&bull; No depth surcharge — 19" and 24" depths are the same price (where available).<br />
+		&bull; Bottom cushion and Top &amp; bottom cushions are mutually exclusive — selecting one deselects the other.<br />
+		&bull; All lockers custom-built in 8–12 weeks. Five year warranty included.<br />
+		&bull; Shipping and installation quoted separately.<br />
+		&bull; For custom dimensions, wood species, or volume pricing — contact <strong>sales@playerstall.com</strong> or call <strong>1 888 584 1444</strong>.<br />
+		&bull; Prices subject to change. Confirm with sales before quoting.
+	</div>
+
+</div>
+
+<script>
+const VENTED   = 40;
+const LOCK_BOX = 80;
+const CUSHION  = 75;
+const HOOKS    = 12;
+const WIDTHS   = [18, 20, 22, 24, 26, 28, 30, 32];
+
+const COST_CAD = { 18: 302.61, 20: 307.16, 22: 309.43, 24: 309.43, 26: 316.25, 28: 325.35, 30: 334.44, 32: 348.09 };
+
+const MODELS = [
+	{ name: 'Model X', tier: 'premium', base: [649, 699, 749], prices: {18:649,20:649,22:649,24:649,26:699,28:699,30:749,32:749} },
+	{ name: 'Model Z', tier: 'premium', base: [649, 699, 749], prices: {18:649,20:649,22:649,24:649,26:699,28:699,30:749,32:749} },
+	{ name: 'Model S', tier: 'premium', base: [649, 699, 749], prices: {18:649,20:649,22:649,24:649,26:699,28:699,30:749,32:749} },
+	{ name: 'Model L', tier: 'premium', base: [599, 629, 649], prices: {18:599,20:599,22:599,24:599,26:629,28:629,30:649,32:649} },
+];
+
+const totalBody = document.getElementById('totalBody');
+const profitBody = document.getElementById('profitBody');
+const fixed = VENTED + LOCK_BOX + CUSHION + HOOKS;
+
+function fmt(n) {
+	return '$' + n.toLocaleString('en-CA', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+function fmtD(n) {
+	return '$' + n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// Revenue table
+let html = '';
+for (const m of MODELS) {
+	html += '<tr>';
+	html += `<td class="col-model"><span class="model-name">${m.name}</span></td>`;
+	for (const b of m.base) html += `<td>${fmt(b)}</td>`;
+	html += `<td class="col-acc">${fmt(VENTED)}</td>`;
+	html += `<td class="col-acc">${fmt(LOCK_BOX)}</td>`;
+	html += `<td class="col-acc">${fmt(CUSHION)}</td>`;
+	html += `<td class="col-acc">${fmt(HOOKS)}</td>`;
+	for (const b of m.base) html += `<td class="col-total">${fmt(b + fixed)}</td>`;
+	html += '</tr>';
+}
+totalBody.innerHTML = html;
+
+// Profit table (premium line only, USD prices × 1.38 = CAD revenue)
+const USD_TO_CAD = 1.38;
+let phtml = '';
+for (const m of MODELS) {
+	if (m.tier !== 'premium') continue;
+
+	phtml += '<tr>';
+	phtml += `<td class="col-model"><span class="model-name">${m.name}</span><span style="display:block;font-size:10px;color:#999;">price (USD)</span></td>`;
+	for (const w of WIDTHS) {
+		phtml += `<td style="color:#999;font-size:11px;">US${fmtD(m.prices[w] + fixed)}</td>`;
+	}
+	phtml += '</tr>';
+
+	phtml += '<tr>';
+	phtml += `<td class="col-model" style="font-size:10px;color:#999;padding-left:12px;">revenue (CAD)</td>`;
+	for (const w of WIDTHS) {
+		const revCad = (m.prices[w] + fixed) * USD_TO_CAD;
+		phtml += `<td class="col-rev">${fmtD(revCad)}</td>`;
+	}
+	phtml += '</tr>';
+
+	phtml += '<tr>';
+	phtml += `<td class="col-model" style="font-size:10px;color:#999;padding-left:12px;">cost (CAD)</td>`;
+	for (const w of WIDTHS) {
+		phtml += `<td class="col-cost">${fmtD(COST_CAD[w])}</td>`;
+	}
+	phtml += '</tr>';
+
+	phtml += '<tr style="border-bottom:2px solid #e0e0e0;">';
+	phtml += `<td class="col-model" style="font-size:10px;color:#2e7d32;font-weight:600;padding-left:12px;">profit (CAD)</td>`;
+	for (const w of WIDTHS) {
+		const revCad = (m.prices[w] + fixed) * USD_TO_CAD;
+		const profit = revCad - COST_CAD[w];
+		const margin = ((profit / revCad) * 100).toFixed(0);
+		phtml += `<td class="col-profit positive">${fmt(Math.round(profit))}<br/><span class="col-margin">${margin}%</span></td>`;
+	}
+	phtml += '</tr>';
+}
+profitBody.innerHTML = phtml;
+
+// Base-only profit table (same cost, revenue is base price only)
+const profitBaseBody = document.getElementById('profitBaseBody');
+let bhtml = '';
+for (const m of MODELS) {
+	if (m.tier !== 'premium') continue;
+
+	bhtml += '<tr>';
+	bhtml += `<td class="col-model"><span class="model-name">${m.name}</span><span style="display:block;font-size:10px;color:#999;">price (USD)</span></td>`;
+	for (const w of WIDTHS) {
+		bhtml += `<td style="color:#999;font-size:11px;">US${fmtD(m.prices[w])}</td>`;
+	}
+	bhtml += '</tr>';
+
+	bhtml += '<tr>';
+	bhtml += `<td class="col-model" style="font-size:10px;color:#999;padding-left:12px;">revenue (CAD)</td>`;
+	for (const w of WIDTHS) {
+		const revCad = m.prices[w] * USD_TO_CAD;
+		bhtml += `<td class="col-rev">${fmtD(revCad)}</td>`;
+	}
+	bhtml += '</tr>';
+
+	bhtml += '<tr>';
+	bhtml += `<td class="col-model" style="font-size:10px;color:#999;padding-left:12px;">cost (CAD)</td>`;
+	for (const w of WIDTHS) {
+		bhtml += `<td class="col-cost">${fmtD(COST_CAD[w])}</td>`;
+	}
+	bhtml += '</tr>';
+
+	bhtml += '<tr style="border-bottom:2px solid #e0e0e0;">';
+	bhtml += `<td class="col-model" style="font-size:10px;color:#2e7d32;font-weight:600;padding-left:12px;">profit (CAD)</td>`;
+	for (const w of WIDTHS) {
+		const revCad = m.prices[w] * USD_TO_CAD;
+		const profit = revCad - COST_CAD[w];
+		const margin = ((profit / revCad) * 100).toFixed(0);
+		bhtml += `<td class="col-profit positive">${fmt(Math.round(profit))}<br/><span class="col-margin">${margin}%</span></td>`;
+	}
+	bhtml += '</tr>';
+}
+profitBaseBody.innerHTML = bhtml;
+
+</script>
+
+</body>
+</html>

@@ -25,7 +25,7 @@ const modelSSpecs = [
 
 <BaseLayout
 	title="Model S Wood Locker | PlayerStall"
-	description="Model S wood locker: premium melamine, 76&quot; H x 19&quot; or 24&quot; D, widths 18&quot;–32&quot;. From $599. Full color options. Custom-built in 8–12 weeks. 5 year warranty."
+	description="Model S wood locker: premium melamine, 76&quot; H x 19&quot; or 24&quot; D, widths 18&quot;–32&quot;. From $649. Full color options. Custom-built in 8–12 weeks. 5 year warranty."
 >
 	<!-- Hero Section -->
 	<section class="product-hero-section">
@@ -90,7 +90,7 @@ const modelSSpecs = [
 					<p class="product-lead-time">Lead time: Custom-built in three months</p>
 
 					<div class="product-price-block">
-						<span class="product-price" data-base-price="599">$599.00</span>
+						<span class="product-price" data-base-price="649">$649.00</span>
 					</div>
 
 					<div class="product-options">
@@ -106,14 +106,14 @@ const modelSSpecs = [
 							<label class="option-label">Width:</label>
 							<span class="option-value">18&quot;</span>
 							<div class="option-swatches">
-								<button type="button" class="swatch width-swatch active" data-base-price="599" title="18 inch width">18&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="599" title="20 inch width">20&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="599" title="22 inch width">22&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="599" title="24 inch width">24&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="629" title="26 inch width">26&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="629" title="28 inch width">28&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="649" title="30 inch width">30&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="649" title="32 inch width">32&quot;</button>
+								<button type="button" class="swatch width-swatch active" data-base-price="649" title="18 inch width">18&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="649" title="20 inch width">20&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="649" title="22 inch width">22&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="649" title="24 inch width">24&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="699" title="26 inch width">26&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="699" title="28 inch width">28&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="749" title="30 inch width">30&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="749" title="32 inch width">32&quot;</button>
 							</div>
 						</div>
 						<div class="product-option">
@@ -1102,8 +1102,8 @@ const modelSSpecs = [
 		}
 		addCartBtn.addEventListener('click', () => {
 			const priceEl = document.querySelector('.product-price');
-			const priceText = priceEl?.textContent?.replace(/[$,]/g, '') ?? '599';
-			const price = parseFloat(priceText) || 599;
+			const priceText = priceEl?.textContent?.replace(/[$,]/g, '') ?? '649';
+			const price = parseFloat(priceText) || 649;
 			const qtyEl = document.getElementById('product-qty');
 			const qty = Math.max(1, parseInt(qtyEl?.value ?? '1', 10) || 1);
 			const titleEl = document.querySelector('.product-title');

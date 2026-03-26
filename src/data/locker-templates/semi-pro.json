@@ -4,7 +4,7 @@
   "pdpUrl": "/product-semi-pro-locker",
   "heroImage": "https://playerstall.b-cdn.net/images/legendary-locker.png",
   "geometry": {
-    "heightIn": 72,
+    "heightIn": 76,
     "widthOptionsIn": [18, 20, 22, 24, 26, 28, 30, 32],
     "depthOptionsIn": [19],
     "defaultWidthIn": 24,
