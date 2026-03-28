@@ -883,6 +883,54 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		outline: none;
 	}
 
+	/* Planner item styles – match order summary in Review Your Layout */
+	:global(.cart-section .ot-item-name) {
+		display: block;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		color: #0d0d0d;
+	}
+
+	:global(.cart-section .ot-base-price) {
+		font-weight: 400;
+		color: #888;
+		font-size: 11px;
+		margin-left: 4px;
+		letter-spacing: 0;
+		text-transform: none;
+	}
+
+	:global(.cart-section .ot-item-spec) {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		color: #8c8c8c;
+		margin-top: 3px;
+		line-height: 1.4;
+	}
+
+	:global(.cart-section .ot-acc-list) {
+		list-style: none;
+		margin: 6px 0 0;
+		padding: 0 0 0 10px;
+		border-left: 2px solid #e0e0e0;
+	}
+
+	:global(.cart-section .ot-acc-list li) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		color: #555;
+		line-height: 1.7;
+	}
+
+	:global(.cart-section .ot-acc-price) {
+		color: #999;
+		font-size: 10px;
+	}
+
 	/* Responsive */
 	@media (max-width: 1024px) {
 		.cart-collaterals {
@@ -1014,10 +1062,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			let subtotal = 0;
 			let html = '';
 
-			cart.forEach((item: { name: string; image: string; price: number; quantity: number; model?: string }, index: number) => {
+			cart.forEach((item: { id?: string; name: string; image: string; price: number; quantity: number; model?: string; planner?: boolean; basePrice?: number; widthIn?: number; depthIn?: number; colorLabel?: string; roomName?: string; accessories?: { label: string; price: number }[] }, index: number) => {
 				const itemTotal = item.price * item.quantity;
 				subtotal += itemTotal;
-				// Show product name and description (model/spec) like essential lockers
+				const isPlanner = item.planner || (item.id && item.id.startsWith('planner-'));
+				let nameHtml = '';
+				if (isPlanner && item.accessories) {
+					let accHtml = '';
+					if (item.accessories.length) {
+						accHtml = `<ul class="ot-acc-list">${item.accessories.map((a) => `<li>${a.label} <span class="ot-acc-price">+$${a.price}</span></li>`).join('')}</ul>`;
+					}
+					nameHtml = `<span class="ot-item-name">${item.name} <span class="ot-base-price">$${(item.basePrice ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span></span><span class="ot-item-spec">${item.widthIn}\u2033W \u00d7 ${item.depthIn}\u2033D \u00b7 ${item.colorLabel}</span>${accHtml}`;
+				} else if (isPlanner && item.model) {
+					const parts = item.model.split(' \u00b7 ');
+					const dimParts: string[] = [];
+					const accParts: string[] = [];
+					for (let i = 1; i < parts.length; i++) {
+						if (parts[i].includes('(+$')) accParts.push(parts[i]);
+						else dimParts.push(parts[i]);
+					}
+					const specLine = dimParts.join(' \u00b7 ');
+					let accHtml = '';
+					if (accParts.length) {
+						accHtml = `<ul class="ot-acc-list">${accParts.map((a) => `<li>${a}</li>`).join('')}</ul>`;
+					}
+					nameHtml = `<span class="ot-item-name">${item.name}</span><span class="ot-item-spec">${specLine}</span>${accHtml}`;
+				} else {
+					nameHtml = `<span class="cart-item-name">${item.name}</span>${item.model ? `<br /><span class="cart-item-description">${item.model}</span>` : ''}`;
+				}
 				html += `
 					<tr class="cart_item">
 						<td class="product-remove">
@@ -1027,11 +1099,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<img src="${item.image}" alt="${item.name}" width="32" height="32" style="width: 32px !important; height: 32px !important; max-width: 32px !important; max-height: 32px !important; min-width: 32px !important; min-height: 32px !important; object-fit: cover; display: block; margin: 0; padding: 0; background: #ffffff;" />
 						</td>
 						<td class="product-name" data-title="Product">
-							<span class="cart-item-name">${item.name}</span>${item.model ? `<br /><span class="cart-item-description">${item.model}</span>` : ''}
+							${nameHtml}
 						</td>
 						<td class="product-price" data-title="Price">
 							<span class="woocommerce-Price-amount amount">
-								<bdi><span class="woocommerce-Price-currencySymbol">$</span>${item.price.toFixed(2)}</bdi>
+								<bdi><span class="woocommerce-Price-currencySymbol">$</span>${item.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</bdi>
 							</span>
 						</td>
 						<td class="product-quantity" data-title="Quantity">
@@ -1045,7 +1117,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</td>
 						<td class="product-subtotal" data-title="Subtotal">
 							<span class="woocommerce-Price-amount amount">
-								<bdi><span class="woocommerce-Price-currencySymbol">$</span>${itemTotal.toFixed(2)}</bdi>
+								<bdi><span class="woocommerce-Price-currencySymbol">$</span>${itemTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</bdi>
 							</span>
 						</td>
 					</tr>
@@ -1053,7 +1125,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			});
 
 			if (cartBody) cartBody.innerHTML = html;
-			if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
+			if (subtotalEl) subtotalEl.textContent = subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 			
 			// Calculate total with handling and shipping (default $0.00 each)
 			const handlingCostEl = document.getElementById('handling-cost');
@@ -1061,7 +1133,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			const shippingCostEl = document.getElementById('shipping-cost');
 			const shippingCost = shippingCostEl ? parseFloat(shippingCostEl.textContent || '0') : 0.00;
 			const total = subtotal + handlingCost + shippingCost;
-			if (totalEl) totalEl.textContent = total.toFixed(2);
+			if (totalEl) totalEl.textContent = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 			// Attach event listeners
 			document.querySelectorAll('.remove').forEach(btn => {
@@ -1167,7 +1239,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					}
 					const shippingCost = parseFloat(shippingCostEl.textContent || '0');
 					const total = subtotal + handlingCost + shippingCost;
-					totalEl.textContent = total.toFixed(2);
+					totalEl.textContent = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 				});
 			});
 		}

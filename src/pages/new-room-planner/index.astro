@@ -1229,7 +1229,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		emailInput.focus();
 	};
 
-	// Email submit: save to localStorage and navigate
+	// Email submit: save to localStorage, send to Formspree, and navigate
 	function submitEmail() {
 		const email = emailInput.value.trim();
 		if (!email || !email.includes('@') || !email.includes('.')) {
@@ -1240,6 +1240,24 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		emailError.style.display = 'none';
 
 		saveCurrentRoom();
+
+		const roomSummary = savedRooms.map((r, i) => {
+			const name = r.roomName || `Room ${i + 1}`;
+			const dims = r.roomDims;
+			const ft = (v: number) => `${Math.floor(v / 12)}' ${Math.round(v % 12)}"`;
+			return `${name}: ${ft(dims.wallA)} × ${ft(dims.wallB)}`;
+		}).join(', ');
+
+		fetch('https://formspree.io/f/mgopozqe', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+			body: JSON.stringify({
+				email,
+				_subject: 'Room Planner — New Lead',
+				source: 'Room Planner (Step 1)',
+				rooms: roomSummary,
+			}),
+		}).catch(() => {});
 
 		const payload = {
 			email,

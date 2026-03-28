@@ -119,4 +119,7 @@ export interface PlannerState {
   selection: Selection | null;
   floorColor: string;
   wallColor: string;
+  showBase: boolean;
+  baseColor: string;
+  edgebandColor: string;
 }

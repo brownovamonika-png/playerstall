@@ -1,0 +1,1 @@
+function p(c,r){const e=String(r.widthIn),s=c.pricing.basePriceByWidthIn[e]??0,t=String(r.depthIn),n=c.pricing.depthSurcharge[t]??0,i=r.accessoryIds.reduce((d,o)=>{const a=c.accessories.find(h=>h.id===o);return d+(a?.price??0)},0);return s+n+i}export{p};

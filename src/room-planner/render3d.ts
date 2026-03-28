@@ -404,7 +404,7 @@ function addLockers(scene: THREE.Scene, state: PlannerState): void {
   const edgeMat = new THREE.LineBasicMaterial({ color: EDGE_HEX, transparent: true, opacity: 0.25 });
 
   for (const locker of state.lockers) {
-    const group = buildLockerGroup(locker, edgeMat);
+    const group = buildLockerGroup(locker, edgeMat, state.showBase, state.baseColor, state.edgebandColor || undefined);
     if (!group) continue;
     scene.add(group);
     _lockerMeshes.push({ instanceId: locker.instanceId, group });
@@ -414,6 +414,8 @@ function addLockers(scene: THREE.Scene, state: PlannerState): void {
 /* ── Open-Front Locker Geometry ─────────────────────────── */
 
 const PANEL_T = 0.75;
+const BASE_H = 4;
+const BASE_RECESS = 2.5;
 const VARSITY_IDS = new Set(['varsity']);
 
 const FRAC_BOTTOM = 0.211;
@@ -540,6 +542,9 @@ function addAccessories(
 function buildLockerGroup(
   locker: import('./types').LockerInstance,
   _edgeMat: THREE.LineBasicMaterial,
+  showBase?: boolean,
+  baseColorHex?: string,
+  edgebandHex?: string,
 ): THREE.Group | null {
   const tmpl = getTemplate(locker.templateId);
   if (!tmpl) return null;
@@ -557,7 +562,7 @@ function buildLockerGroup(
 
   const group = new THREE.Group();
   group.userData = { lockerId: locker.instanceId };
-  group.position.set(cx, 0, cz);
+  group.position.set(cx, showBase ? BASE_H : 0, cz);
   if (rot === 90) group.rotation.y = Math.PI / 2;
   else if (rot === 180) group.rotation.y = Math.PI;
   else if (rot === 270) group.rotation.y = -Math.PI / 2;
@@ -648,6 +653,82 @@ function buildLockerGroup(
   addPanel(group, 0, 0.4, hd + 0.2, widthIn * 0.5, 0.8, 0.4, frontMat);
   addPanel(group, 0, 0.4, hd + 0.8, widthIn * 0.15, 0.8, 0.8, frontMat);
 
+  /* ── Kick-plate base (sits below the locker on the floor) ── */
+  if (showBase) {
+    const baseHex = baseColorHex ? parseInt(baseColorHex.replace('#', ''), 16) : 0x1a1a1a;
+    const baseMat = new THREE.MeshStandardMaterial({ color: baseHex, roughness: 0.5, metalness: 0.15 });
+    const baseDepth = depthIn - BASE_RECESS;
+    addPanel(group, 0, -BASE_H / 2, -BASE_RECESS / 2, widthIn, BASE_H, baseDepth, baseMat);
+  }
+
+  /* ── Edgebanding (colored trim on all exposed panel edges) ─── */
+  if (edgebandHex) {
+    const ebColor = parseInt(edgebandHex.replace('#', ''), 16);
+    const ebMat = new THREE.MeshStandardMaterial({ color: ebColor, roughness: 0.35, metalness: 0.05 });
+    const ebW = 0.4;
+    const ebD = 0.15;
+    const midFrontZ = -hd + sideMidDepth;
+
+    /* ── Front-face horizontal strips ─────────────────────── */
+    addPanel(group, 0, h - t / 2, hd + ebD / 2, widthIn, ebW, ebD, ebMat);           // top
+    addPanel(group, 0, t / 2, hd + ebD / 2, widthIn, ebW, ebD, ebMat);                // bottom
+    addPanel(group, 0, bottomH + benchThick / 2, hd + ebD / 2, widthIn, ebW, ebD, ebMat); // bench
+    addPanel(group, 0, cubbyBot + shelfThick / 2, hd + ebD / 2, widthIn, ebW, ebD, ebMat); // cubby shelf
+
+    /* ── Front-face vertical strips (left & right sides) ──── */
+    // Bottom section (full depth)
+    addPanel(group, -hw + t / 2, t + sideBottomH / 2, hd + ebD / 2, ebW, sideBottomH, ebD, ebMat);
+    addPanel(group, hw - t / 2, t + sideBottomH / 2, hd + ebD / 2, ebW, sideBottomH, ebD, ebMat);
+    // Top/cubby section (full depth)
+    addPanel(group, -hw + t / 2, cubbyBot + sideTopH / 2, hd + ebD / 2, ebW, sideTopH, ebD, ebMat);
+    addPanel(group, hw - t / 2, cubbyBot + sideTopH / 2, hd + ebD / 2, ebW, sideTopH, ebD, ebMat);
+
+    /* ── Middle open section — recessed side panel front edges ── */
+    addPanel(group, -hw + t / 2, benchTop + sideMidH / 2, midFrontZ + ebD / 2, ebW, sideMidH, ebD, ebMat);
+    addPanel(group, hw - t / 2, benchTop + sideMidH / 2, midFrontZ + ebD / 2, ebW, sideMidH, ebD, ebMat);
+
+    /* ── Middle section — horizontal transition strips (bench → recess, recess → cubby shelf) ── */
+    const transW = hd - midFrontZ;
+    const lx = -hw + t / 2;
+    const rx = hw - t / 2;
+    // Left side: bench-level horizontal (connects front face to recessed face)
+    addPanel(group, lx, benchTop + ebW / 2, midFrontZ + transW / 2, ebW, ebD, transW, ebMat);
+    // Left side: cubby-shelf-level horizontal
+    addPanel(group, lx, cubbyBot - ebW / 2, midFrontZ + transW / 2, ebW, ebD, transW, ebMat);
+    // Right side: bench-level horizontal
+    addPanel(group, rx, benchTop + ebW / 2, midFrontZ + transW / 2, ebW, ebD, transW, ebMat);
+    // Right side: cubby-shelf-level horizontal
+    addPanel(group, rx, cubbyBot - ebW / 2, midFrontZ + transW / 2, ebW, ebD, transW, ebMat);
+
+    /* ── Side edges of horizontal panels (visible from left/right) ── */
+    addPanel(group, -hw - ebD / 2, h - t / 2, 0, ebD, ebW, depthIn, ebMat);            // top left
+    addPanel(group, hw + ebD / 2, h - t / 2, 0, ebD, ebW, depthIn, ebMat);             // top right
+    addPanel(group, -hw - ebD / 2, t / 2, 0, ebD, ebW, depthIn, ebMat);                // bottom left
+    addPanel(group, hw + ebD / 2, t / 2, 0, ebD, ebW, depthIn, ebMat);                 // bottom right
+    addPanel(group, -hw - ebD / 2, bottomH + benchThick / 2, 0, ebD, ebW, depthIn, ebMat); // bench left
+    addPanel(group, hw + ebD / 2, bottomH + benchThick / 2, 0, ebD, ebW, depthIn, ebMat);  // bench right
+    addPanel(group, -hw - ebD / 2, cubbyBot + shelfThick / 2, 0, ebD, ebW, depthIn, ebMat); // cubby shelf left
+    addPanel(group, hw + ebD / 2, cubbyBot + shelfThick / 2, 0, ebD, ebW, depthIn, ebMat);  // cubby shelf right
+
+    /* ── Cubby divider — front edge ───────────────────────── */
+    addPanel(group, divX, cubbyShelfTop + cubbyH / 2, hd + ebD / 2, ebW, cubbyH, ebD, ebMat);
+
+    /* ── Bottom compartment front panel — top edge ────────── */
+    const bpW = widthIn - t * 2;
+    if (bpW > 0) {
+      addPanel(group, 0, bottomH - ebW / 2, hd + ebD / 2, bpW, ebW, ebD, ebMat);
+    }
+
+    /* ── Cubby door — edgebanding around perimeter ────────── */
+    if (cubbyDoorW > 1) {
+      const doorCx = (-hw + t + divX) / 2;
+      addPanel(group, doorCx, cubbyShelfTop + ebW / 2, hd + ebD / 2, cubbyDoorW, ebW, ebD, ebMat); // bottom
+      addPanel(group, doorCx, cubbyShelfTop + cubbyH - ebW / 2, hd + ebD / 2, cubbyDoorW, ebW, ebD, ebMat); // top
+      addPanel(group, -hw + t + ebW / 2, cubbyShelfTop + cubbyH / 2, hd + ebD / 2, ebW, cubbyH, ebD, ebMat); // left
+      addPanel(group, divX - ebW / 2, cubbyShelfTop + cubbyH / 2, hd + ebD / 2, ebW, cubbyH, ebD, ebMat); // right
+    }
+  }
+
   return group;
 }
 
@@ -683,7 +764,7 @@ function rebuildLockerMesh(instanceId: string): void {
   const locker = _state.lockers.find((l) => l.instanceId === instanceId);
   if (!locker) { _lockerMeshes.splice(idx, 1); return; }
   const edgeMat = new THREE.LineBasicMaterial({ color: EDGE_HEX, transparent: true, opacity: 0.25 });
-  const group = buildLockerGroup(locker, edgeMat);
+  const group = buildLockerGroup(locker, edgeMat, _state.showBase, _state.baseColor, _state.edgebandColor || undefined);
   if (group) {
     _scene.add(group);
     _lockerMeshes[idx] = { instanceId, group };
@@ -904,6 +985,28 @@ export function hasSelection3D(): boolean {
   return _selectedMeshId !== null;
 }
 
+export function highlightAllLockers3D(): void {
+  for (const lm of _lockerMeshes) {
+    lm.group.traverse((child) => {
+      if (child instanceof THREE.Mesh && child.material) {
+        const mats = Array.isArray(child.material) ? child.material : [child.material];
+        for (const m of mats) {
+          if (m instanceof THREE.MeshStandardMaterial) {
+            m.emissive.setHex(0xff5900);
+            m.emissiveIntensity = 0.3;
+          }
+        }
+      }
+    });
+  }
+  _selectedMeshId = null;
+}
+
+export function clearSelection3D(): void {
+  _selectedMeshId = null;
+  highlightLocker(null);
+}
+
 export function rebuildLockerMesh3D(instanceId: string): void {
   rebuildLockerMesh(instanceId);
 }
@@ -919,6 +1022,30 @@ export function updateWallColor3D(hex: string): void {
   const c = parseInt(hex.replace('#', ''), 16);
   _wallMaterial.color.set(c);
   _wallMaterial.emissive.set(c);
+}
+
+export function updateBaseColor3D(hex: string): void {
+  if (!_state) return;
+  _state.baseColor = hex;
+  for (const lm of _lockerMeshes) rebuildLockerMesh(lm.instanceId);
+}
+
+export function toggleBase3D(show: boolean): void {
+  if (!_state) return;
+  _state.showBase = show;
+  for (const lm of _lockerMeshes) rebuildLockerMesh(lm.instanceId);
+}
+
+export function updateEdgebandColor3D(hex: string): void {
+  if (!_state) return;
+  _state.edgebandColor = hex;
+  for (const lm of _lockerMeshes) rebuildLockerMesh(lm.instanceId);
+}
+
+export function toggleEdgeband3D(show: boolean): void {
+  if (!_state) return;
+  _state.edgebandColor = show ? _state.edgebandColor || '' : '';
+  for (const lm of _lockerMeshes) rebuildLockerMesh(lm.instanceId);
 }
 
 /* ── Floor logo ────────────────────────────────────────── */

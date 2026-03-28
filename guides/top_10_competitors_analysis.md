@@ -1,7 +1,7 @@
 # Top 10 Competitors Analysis
 ## playerstall.com Competitive Landscape
 
-**Analysis Date:** January 2025  
+**Analysis Date:** January 2025 (Updated March 28, 2026)
 **Target Domain:** playerstall.com  
 **Methodology:** Combined analysis of keyword overlap, SERP rankings, and backlink profile intersections
 
@@ -14,6 +14,35 @@ Based on comprehensive SEO data analysis, here are your **top 10 direct competit
 ---
 
 ## Top 10 Competitors (Ranked by Competitive Threat)
+
+### 🔴 #0 — **American Modern Cabinetry LLC** ⚠️ STRONGEST DIRECT COMPETITOR (Added March 2026)
+- **Domain:** americanmoderncabinetryllc.com
+- **URL:** https://americanmoderncabinetryllc.com/
+- **Location:** Broadalbin, NY
+- **Why They're Your #1 Threat:**
+  - **Identical product** — Custom wood athletic lockers, solid hardwood, fully assembled. This is the closest product match to Player Stall of any competitor.
+  - Solid hardwood with a 3-step UV cured finish (durable, chemical-resistant)
+  - Fully assembled and ready to install — same selling point as you
+  - Highly customizable (size, hardware, lock box, clothes rod, hooks, mirror, name plate)
+- **Product Models:**
+  - The All-American Curve Side Wood Locker
+  - The All-American Straight Side Wood Locker
+  - Country Club Wood Lockers (also targets golf clubs, gyms, spas)
+- **Markets Served:** Colleges, universities, pro teams, high schools, country clubs, gyms, spas — exact same customer base
+- **Also Listed On:** Athletic Business directory (industry authority site)
+- **Strengths:**
+  - Most similar product to yours in the entire market
+  - Custom wood lockers with professional finish
+  - Covers the same sports facility + country club/gym segments
+  - Portfolio of completed projects (credibility)
+- **Your Competitive Advantages:**
+  - 30+ years experience (if you can outmarket this)
+  - Lifetime guarantee
+  - Direct sales + custom design service
+  - Stronger web presence (if SEO is done right)
+- **Action Priority:** 🔴 CRITICAL — Study their website, pricing, product photography, and content strategy closely. This is your most similar competitor.
+
+---
 
 ### 1. **SchoolLockers.com** ⚠️ HIGHEST THREAT
 - **Domain:** schoollockers.com
@@ -256,6 +285,7 @@ Based on comprehensive SEO data analysis, here are your **top 10 direct competit
 
 | Rank | Competitor | Threat Level | Keyword Overlap | Avg Position Gap | Action Priority |
 |------|-----------|--------------|-----------------|------------------|-----------------|
+| 0 | **American Modern Cabinetry LLC** | 🔴 **CRITICAL** | Identical product | TBD | **CRITICAL — Most Similar Product** |
 | 1 | SchoolLockers.com | 🔴 CRITICAL | 96 keywords | -9 positions | **HIGHEST** |
 | 2 | Lockers.com | 🔴 CRITICAL | 82 keywords | -7 positions | **HIGH** |
 | 3 | Case Systems | 🟠 HIGH | 58 keywords | -1 position | **HIGH** |

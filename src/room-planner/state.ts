@@ -60,5 +60,8 @@ export function createInitialState(dims?: RoomDimensions): PlannerState {
     selection: null,
     floorColor: '#b0aba4',
     wallColor: '#ffffff',
+    showBase: false,
+    baseColor: '#1A1A1A',
+    edgebandColor: '',
   };
 }

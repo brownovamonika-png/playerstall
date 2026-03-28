@@ -1,8 +1,8 @@
 # Competitor Websites List
 ## Add New Competitor URLs Here for Analysis
 
-**Last Updated:** January 24, 2026  
-**Total Competitors:** 16  
+**Last Updated:** March 28, 2026
+**Total Competitors:** 17
 **Purpose:** Centralized list of competitor websites for SEO analysis, competitive research, and strategic planning.
 
 ---
@@ -105,6 +105,11 @@ Add new competitor websites here. Format:
 - **URL:** https://hockeyforce.com/en/products/locker-prohome-full
 - **Notes:** At-home hockey locker system. Consumer product (not commercial). Ventilated design for home use. Different market segment but shows demand for hockey storage solutions.
 
+### 17. American Modern Cabinetry LLC
+- **Website Name:** American Modern Cabinetry LLC
+- **URL:** https://americanmoderncabinetryllc.com/
+- **Notes:** 🔴 **STRONGEST DIRECT COMPETITOR** - Most similar product. Custom wood athletic lockers, solid hardwood with 3-step UV cured finish. Fully assembled units. Serves colleges, universities, pro teams, high schools, country clubs, gyms, and spas. Product models include: All-American Curve Side Wood Locker, All-American Straight Side Wood Locker, and Country Club Wood Lockers. Highly customizable (width, depth, height; add-ons include lock box, clothes rod, hooks, mirror, name plate). Located in Broadalbin, NY. Also listed on Athletic Business directory. **Identical market and product — top priority to monitor.**
+
 ### 16. Grid (Built by Grid)
 - **Website Name:** Grid / Built by Grid
 - **URL:** https://builtbygrid.com/
@@ -112,7 +117,7 @@ Add new competitor websites here. Format:
 
 ---
 
-**Total Competitors Added:** 16
+**Total Competitors Added:** 17
 
 
 
@@ -123,7 +128,8 @@ Add new competitor websites here. Format:
 
 **Status:** Ready for Analysis  
 **Competitors Added:** 16  
-**Priority Competitors:** 
+**Priority Competitors:**
+- 🔴 **STRONGEST DIRECT COMPETITOR:** American Modern Cabinetry LLC (most similar product — custom wood athletic lockers)
 - 🔴 **CRITICAL:** All Wood Lockers (ranks #1 for "wood sports lockers")
 - 🔴 **HIGHEST THREAT:** SchoolLockers.com (ranks #1 for "sports lockers")
 - 🔴 **HIGH THREAT:** Lockers.com (high domain authority)
