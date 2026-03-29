@@ -10,21 +10,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		<div class="planner-hero-inner">
 			<span class="planner-hero-subtitle">Free Online Tool</span>
 			<h1>Locker Room Planner</h1>
-			<p>Plan your perfect locker room in three simple steps. No account required. Just enter your room dimensions, add lockers, and request a quote when you're done.</p>
+			<p>Design your perfect locker room in three simple steps. No account needed — just enter your room size, add lockers, and request a quote.</p>
 			<div class="hero-steps">
-				<div class="hero-step">
+				<div class="hero-step-card">
 					<span class="hero-step-num">1</span>
-					<span class="hero-step-text">Enter your room size</span>
+					<span class="hero-step-label">Room Size</span>
+					<span class="hero-step-text">Enter wall dimensions and mark doors or windows</span>
 				</div>
-				<div class="hero-step-arrow">→</div>
-				<div class="hero-step">
+				<div class="hero-step-arrow">&rarr;</div>
+				<div class="hero-step-card">
 					<span class="hero-step-num">2</span>
-					<span class="hero-step-text">Add & arrange lockers</span>
+					<span class="hero-step-label">Add Lockers</span>
+					<span class="hero-step-text">Pick models, colors, and arrange them on your floor plan</span>
 				</div>
-				<div class="hero-step-arrow">→</div>
-				<div class="hero-step">
+				<div class="hero-step-arrow">&rarr;</div>
+				<div class="hero-step-card">
 					<span class="hero-step-num">3</span>
-					<span class="hero-step-text">Review & send to us</span>
+					<span class="hero-step-label">Get a Quote</span>
+					<span class="hero-step-text">Review your layout and send it to our team</span>
 				</div>
 			</div>
 		</div>
@@ -442,6 +445,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<button type="button" class="view3d-btn view3d-rotate-btn" id="btn-3d-rotate" title="Rotate selected locker 90°">↻ Rotate</button>
 				<button type="button" class="view3d-btn view3d-select-all-btn" id="btn-3d-select-all" title="Select all lockers to change them at once">Select All</button>
 				<span class="view3d-sep"></span>
+				<div class="view3d-delete-group">
+					<input type="number" class="view3d-delete-count" id="input-3d-delete-count" min="1" value="1" title="Number of lockers to delete" />
+					<button type="button" class="view3d-btn view3d-delete-btn" id="btn-3d-delete" title="Delete lockers from the end">Delete Locker</button>
+				</div>
+				<span class="view3d-sep"></span>
 				<button type="button" class="view3d-btn view3d-logo-btn" id="btn-3d-logo" title="Upload your team logo for the floor">Floor Logo</button>
 				<input type="file" id="logo-file-input" accept="image/png,image/jpeg,image/svg+xml,image/webp,image/gif" style="display:none" />
 				<button type="button" class="view3d-btn view3d-logo-remove" id="btn-3d-logo-remove" style="display:none" title="Remove floor logo">&times; Logo</button>
@@ -560,81 +568,139 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</div>
 		</div>
 	</section>
+
+	<!-- Guide Agent -->
+	<div class="guide-fab" id="guide-fab" title="Open step-by-step guide">?</div>
+	<div class="guide-panel" id="guide-panel">
+		<div class="guide-header">
+			<span class="guide-title">Locker Room Guide</span>
+			<button type="button" class="guide-minimize" id="guide-minimize" title="Minimize guide">&minus;</button>
+		</div>
+		<div class="guide-progress">
+			<div class="guide-progress-bar" id="guide-progress-bar"></div>
+		</div>
+		<div class="guide-step-count" id="guide-step-count">Step 1 of 9</div>
+		<div class="guide-body" id="guide-body">
+			<div class="guide-step-title" id="guide-step-title"></div>
+			<div class="guide-step-desc" id="guide-step-desc"></div>
+		</div>
+		<div class="guide-nav">
+			<button type="button" class="guide-nav-btn" id="guide-prev" disabled>&larr; Back</button>
+			<button type="button" class="guide-nav-btn guide-nav-next" id="guide-next">Next &rarr;</button>
+		</div>
+	</div>
 </BaseLayout>
 
 <style>
 	.planner-hero {
-		background: #ffffff;
+		background: #fafafa;
 		color: #0d0d0d;
-		padding: 80px 20px 40px;
+		padding: 80px 20px 48px;
 		text-align: center;
+		border-bottom: 1px solid #eee;
+	}
+	.planner-hero-inner {
+		max-width: 800px;
+		margin: 0 auto;
 	}
 	.planner-hero-subtitle {
-		display: block;
+		display: inline-block;
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		letter-spacing: 6px;
+		font-size: 11px;
+		letter-spacing: 3px;
 		text-transform: uppercase;
-		color: #8c8c8c;
-		margin-bottom: 12px;
+		color: #fe5900;
+		font-weight: 600;
+		background: rgba(254,89,0,0.08);
+		padding: 5px 14px;
+		border-radius: 20px;
+		margin-bottom: 16px;
 	}
 	.planner-hero h1 {
 		font-family: 'Oswald', sans-serif;
-		font-size: clamp(32px, 4vw, 52px);
+		font-size: clamp(30px, 4vw, 46px);
 		font-weight: 700;
 		margin: 0;
 		text-transform: uppercase;
-		color: #0d0d0d;
-		line-height: 1.1;
-		letter-spacing: 2px;
+		color: #1a1a1a;
+		line-height: 1.15;
+		letter-spacing: 1.5px;
 	}
 	.planner-hero p {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 15px;
 		margin: 14px auto 0;
-		color: #8c8c8c;
-		max-width: 600px;
-		line-height: 1.6;
+		color: #777;
+		max-width: 560px;
+		line-height: 1.65;
 	}
 
 	.hero-steps {
 		display: flex;
-		align-items: center;
+		align-items: stretch;
 		justify-content: center;
-		gap: 16px;
-		margin-top: 32px;
+		gap: 20px;
+		margin-top: 36px;
 	}
-	.hero-step {
+	.hero-step-card {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		gap: 10px;
+		gap: 6px;
+		background: #fff;
+		border: 1px solid #e8e8e8;
+		border-radius: 14px;
+		padding: 20px 22px 18px;
+		min-width: 170px;
+		flex: 1;
+		max-width: 220px;
+		transition: box-shadow 0.2s, border-color 0.2s;
+	}
+	.hero-step-card:hover {
+		border-color: #fe5900;
+		box-shadow: 0 4px 16px rgba(254,89,0,0.1);
 	}
 	.hero-step-num {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 28px;
-		height: 28px;
+		width: 34px;
+		height: 34px;
 		border-radius: 50%;
-		background: #0d0d0d;
+		background: #fe5900;
 		color: #fff;
 		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
-		font-weight: 600;
+		font-size: 15px;
+		font-weight: 700;
 		flex-shrink: 0;
+		margin-bottom: 4px;
+	}
+	.hero-step-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		color: #1a1a1a;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
 	}
 	.hero-step-text {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #0d0d0d;
+		font-size: 13px;
+		color: #888;
+		line-height: 1.45;
+		text-align: center;
 	}
 	.hero-step-arrow {
-		color: #ccc;
-		font-size: 18px;
+		color: #ddd;
+		font-size: 22px;
+		display: flex;
+		align-items: center;
+		padding-top: 10px;
 	}
 	@media (max-width: 640px) {
-		.hero-steps { flex-direction: column; gap: 10px; }
-		.hero-step-arrow { transform: rotate(90deg); }
+		.hero-steps { flex-direction: column; gap: 12px; align-items: center; }
+		.hero-step-card { max-width: 280px; width: 100%; }
+		.hero-step-arrow { transform: rotate(90deg); padding-top: 0; }
 	}
 
 	/* Room carousel */
@@ -1086,14 +1152,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin-top: 40px;
 	}
 	.step-badge {
-		display: block;
+		display: inline-block;
 		font-family: 'Oswald', sans-serif;
-		font-size: 20px;
+		font-size: 12px;
 		font-weight: 600;
 		letter-spacing: 2px;
 		text-transform: uppercase;
 		color: #fe5900;
-		margin-bottom: 6px;
+		background: rgba(254,89,0,0.08);
+		padding: 4px 14px;
+		border-radius: 20px;
+		margin-bottom: 10px;
 	}
 	.section-divider {
 		height: 1px;
@@ -2009,15 +2078,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		align-items: center;
 		justify-content: space-between;
 		padding: 10px 20px;
-		background: #000;
-		color: #fff;
+		background: #ffffff;
+		color: #1a1a1a;
 		flex-shrink: 0;
+		border-bottom: 1px solid #e8e8e8;
 	}
 	.view3d-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: 18px;
 		text-transform: uppercase;
 		letter-spacing: 2px;
+		color: #1a1a1a;
 	}
 	.view3d-room-name {
 		color: #fe5900;
@@ -2030,17 +2101,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		align-items: center;
 	}
 	.view3d-btn {
-		background: transparent;
-		border: 1px solid #555;
-		color: #fff;
+		background: #fff;
+		border: 1px solid #ddd;
+		color: #444;
 		padding: 6px 16px;
 		font-size: 13px;
 		cursor: pointer;
-		border-radius: 4px;
+		border-radius: 6px;
 		font-family: 'Yantramanav', sans-serif;
-		transition: border-color 0.2s, color 0.2s;
+		transition: border-color 0.2s, color 0.2s, background 0.2s;
 	}
 	.view3d-btn:hover { border-color: #fe5900; color: #fe5900; }
+	.view3d-delete-group {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+	.view3d-delete-count {
+		width: 44px;
+		padding: 5px 4px;
+		font-size: 13px;
+		border: 1px solid #ddd;
+		border-radius: 6px;
+		background: #f5f5f5;
+		color: #333;
+		text-align: center;
+		font-family: 'Yantramanav', sans-serif;
+		-moz-appearance: textfield;
+	}
+	.view3d-delete-count::-webkit-outer-spin-button,
+	.view3d-delete-count::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+	.view3d-delete-btn {
+		border-color: #c0392b !important;
+		color: #e74c3c !important;
+	}
+	.view3d-delete-btn:hover {
+		background: #c0392b !important;
+		color: #fff !important;
+	}
 	.view3d-rotate-btn {
 		background: #fe5900;
 		border-color: #fe5900;
@@ -2049,31 +2147,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 	.view3d-rotate-btn:hover { background: #e04f00; border-color: #e04f00; color: #fff; }
 	.view3d-rotate-btn:disabled {
-		background: transparent;
-		border-color: #444;
-		color: #555;
+		background: #f5f5f5;
+		border-color: #ddd;
+		color: #bbb;
 		cursor: default;
 	}
 	.view3d-logo-btn { background: #1a6b45; border-color: #1a6b45; color: #fff; font-weight: 600; }
 	.view3d-logo-btn:hover { background: #14553a; border-color: #14553a; color: #fff; }
-	.view3d-logo-remove { background: transparent; border-color: #888; color: #ccc; font-size: 12px; }
+	.view3d-logo-remove { background: #fff; border-color: #ccc; color: #888; font-size: 12px; }
 	.view3d-logo-remove:hover { border-color: #fe5900; color: #fe5900; }
 	.view3d-save-btn {
-		background: transparent;
-		border-color: #888;
-		color: #ccc;
+		background: #fff;
+		border-color: #ccc;
+		color: #555;
 		font-weight: 600;
 		display: inline-flex;
 		align-items: center;
 		gap: 5px;
 	}
-	.view3d-save-btn:hover { background: #555; border-color: #555; color: #fff; }
-	.view3d-save-btn.saved { background: #555; border-color: #555; color: #fff; }
+	.view3d-save-btn:hover { background: #f0f0f0; border-color: #bbb; color: #333; }
+	.view3d-save-btn.saved { background: #f0f0f0; border-color: #bbb; color: #333; }
 	.view3d-save-icon { width: 13px; height: 13px; flex-shrink: 0; }
 	.view3d-close {
 		background: transparent;
 		border: none;
-		color: #fff;
+		color: #999;
 		font-size: 28px;
 		cursor: pointer;
 		padding: 0 4px;
@@ -2146,10 +2244,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		align-items: flex-start;
 		gap: 20px;
 		padding: 12px 20px;
-		background: #111;
+		background: #f5f5f5;
 		flex-shrink: 0;
 		flex-wrap: wrap;
 		row-gap: 10px;
+		border-bottom: 1px solid #e8e8e8;
 	}
 	.view3d-color-bar {
 		display: flex;
@@ -2170,7 +2269,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.view3d-color-label {
 		font-family: 'Oswald', sans-serif;
 		font-size: 10px;
-		color: #999;
+		color: #777;
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 1px;
@@ -2196,7 +2295,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		border: 3px solid transparent;
 		cursor: pointer;
 		transition: border-color 0.2s, transform 0.12s;
-		box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
+		box-shadow: inset 0 0 0 1px rgba(0,0,0,0.12);
 		padding: 0 !important;
 		margin: 0;
 		line-height: 0;
@@ -2205,7 +2304,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		-webkit-appearance: none;
 		outline: none;
 	}
-	button.view3d-cswatch:hover { transform: scale(1.08); border-color: rgba(255,255,255,0.6); }
+	button.view3d-cswatch:hover { transform: scale(1.08); border-color: rgba(0,0,0,0.3); }
 	button.view3d-cswatch.active { border-color: #fe5900; box-shadow: 0 0 10px rgba(254,89,0,0.7); }
 	:global(.view3d-acc-bar) { }
 	:global(.view3d-acc-toggles) {
@@ -2244,9 +2343,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	:global(.view3d-base-toggle) {
 		padding: 4px 14px;
 		border-radius: 14px;
-		border: 1px solid #555;
-		background: transparent;
-		color: #bbb;
+		border: 1px solid #ccc;
+		background: #fff;
+		color: #666;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 11px;
 		cursor: pointer;
@@ -2254,7 +2353,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		white-space: nowrap;
 		flex-shrink: 0;
 	}
-	:global(.view3d-base-toggle:hover) { border-color: #999; color: #fff; }
+	:global(.view3d-base-toggle:hover) { border-color: #999; color: #333; }
 	:global(.view3d-base-toggle.active) { background: #fe5900; border-color: #fe5900; color: #fff; }
 
 	:global(.view3d-select-all-btn.active) { background: #fe5900 !important; border-color: #fe5900 !important; color: #fff !important; }
@@ -2274,9 +2373,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		min-width: 42px;
 		padding: 3px 10px;
 		border-radius: 14px;
-		border: 1px solid #555;
-		background: transparent;
-		color: #bbb;
+		border: 1px solid #ccc;
+		background: #fff;
+		color: #666;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 11px;
 		cursor: pointer;
@@ -2284,19 +2383,206 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		white-space: nowrap;
 		line-height: 1.4;
 	}
-	:global(button.view3d-size-opt:hover) { border-color: #999; color: #fff; }
+	:global(button.view3d-size-opt:hover) { border-color: #999; color: #333; }
 	:global(button.view3d-size-opt.active) { background: #fe5900; border-color: #fe5900; color: #fff; }
 
 	.view3d-sep {
 		width: 1px;
 		height: 36px;
-		background: #444;
+		background: #ddd;
 		flex-shrink: 0;
 	}
 
 	button:focus-visible, .color-swatch:focus-visible, .view3d-cswatch:focus-visible {
 		outline: 2px solid #fe5900;
 		outline-offset: 2px;
+	}
+
+	/* ── Guide Agent ─────────────────────────────────── */
+	:global(.guide-fab) {
+		position: fixed;
+		bottom: 24px;
+		right: 24px;
+		width: 52px;
+		height: 52px;
+		border-radius: 50%;
+		background: #fe5900;
+		color: #fff;
+		font-family: 'Oswald', sans-serif;
+		font-size: 26px;
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		box-shadow: 0 4px 20px rgba(254,89,0,0.4);
+		z-index: 10000;
+		transition: transform 0.2s, box-shadow 0.2s;
+		border: none;
+		line-height: 1;
+	}
+	:global(.guide-fab:hover) { transform: scale(1.1); box-shadow: 0 6px 28px rgba(254,89,0,0.55); }
+	:global(.guide-fab.hidden) { display: none; }
+
+	:global(.guide-panel) {
+		position: fixed;
+		bottom: 24px;
+		right: 24px;
+		width: 340px;
+		max-height: 420px;
+		background: #ffffff;
+		border: 1px solid #e0e0e0;
+		border-radius: 16px;
+		z-index: 10001;
+		display: flex;
+		flex-direction: column;
+		box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+		overflow: hidden;
+		animation: guideSlideIn 0.3s ease-out;
+	}
+	:global(.guide-panel.hidden) { display: none; }
+
+	@keyframes guideSlideIn {
+		from { opacity: 0; transform: translateY(20px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	:global(.guide-header) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 16px 20px 12px;
+		border-bottom: 1px solid #f0f0f0;
+		background: #fafafa;
+	}
+	:global(.guide-title) {
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		color: #fe5900;
+		text-transform: uppercase;
+		letter-spacing: 1.5px;
+	}
+	:global(.guide-minimize) {
+		background: none;
+		border: 1px solid #ddd;
+		color: #999;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		cursor: pointer;
+		font-size: 18px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: border-color 0.2s, color 0.2s;
+		line-height: 1;
+		padding: 0;
+	}
+	:global(.guide-minimize:hover) { border-color: #fe5900; color: #fe5900; }
+
+	:global(.guide-progress) {
+		height: 4px;
+		background: #f0f0f0;
+	}
+	:global(.guide-progress-bar) {
+		height: 100%;
+		background: #fe5900;
+		width: 11%;
+		transition: width 0.4s ease;
+		border-radius: 0 2px 2px 0;
+	}
+
+	:global(.guide-step-count) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		color: #999;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		padding: 14px 20px 0;
+	}
+
+	:global(.guide-body) {
+		padding: 8px 20px 18px;
+		flex: 1;
+		overflow-y: auto;
+	}
+	:global(.guide-step-title) {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #1a1a1a;
+		margin-bottom: 8px;
+		line-height: 1.3;
+	}
+	:global(.guide-step-desc) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #555;
+		line-height: 1.65;
+	}
+	:global(.guide-step-desc strong) {
+		color: #fe5900;
+		font-weight: 600;
+	}
+
+	:global(.guide-nav) {
+		display: flex;
+		gap: 8px;
+		padding: 0 20px 16px;
+		justify-content: space-between;
+	}
+	:global(.guide-nav-btn) {
+		flex: 1;
+		padding: 9px 0;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		background: #fff;
+		color: #555;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		cursor: pointer;
+		transition: border-color 0.2s, color 0.2s, background 0.2s;
+	}
+	:global(.guide-nav-btn:hover:not(:disabled)) { border-color: #bbb; color: #222; }
+	:global(.guide-nav-btn:disabled) { opacity: 0.3; cursor: default; }
+	:global(.guide-nav-next) {
+		background: #fe5900;
+		border-color: #fe5900;
+		color: #fff;
+		font-weight: 600;
+	}
+	:global(.guide-nav-next:hover:not(:disabled)) { background: #e04f00; border-color: #e04f00; }
+
+	:global(.guide-highlight) {
+		outline: 2px solid #fe5900 !important;
+		outline-offset: 4px !important;
+		box-shadow: 0 0 20px rgba(254,89,0,0.3) !important;
+		transition: outline 0.3s, box-shadow 0.3s !important;
+	}
+
+	@keyframes guidePulse {
+		0%, 100% { box-shadow: 0 0 0 0 rgba(254,89,0,0.35); }
+		50% { box-shadow: 0 0 0 8px rgba(254,89,0,0); }
+	}
+	:global(.guide-pulse) {
+		animation: guidePulse 2s ease-in-out infinite;
+	}
+
+	@media (max-width: 768px) {
+		:global(.guide-panel) {
+			width: calc(100vw - 32px);
+			right: 16px;
+			bottom: 16px;
+			max-height: 340px;
+		}
+		:global(.guide-fab) {
+			bottom: 16px;
+			right: 16px;
+			width: 46px;
+			height: 46px;
+			font-size: 22px;
+		}
 	}
 </style>
 
@@ -2312,7 +2598,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	import { CUSHION_COLORS } from '../room-planner/types';
 	import type { PlannerState, LockerInstance, Opening, Selection, DisplayUnit } from '../room-planner/types';
 	import { jsPDF } from 'jspdf';
-	import { launch3DPreview, dispose3DPreview, resetCamera, rotateSelected3D, hasSelection3D, updateFloorColor3D, updateWallColor3D, setFloorLogo, removeFloorLogo, rebuildLockerMesh3D, highlightAllLockers3D, clearSelection3D, toggleBase3D, updateBaseColor3D, updateEdgebandColor3D } from '../room-planner/render3d';
+	import { launch3DPreview, dispose3DPreview, resetCamera, rotateSelected3D, hasSelection3D, updateFloorColor3D, updateWallColor3D, setFloorLogo, removeFloorLogo, rebuildLockerMesh3D, highlightAllLockers3D, clearSelection3D, toggleBase3D, updateBaseColor3D, updateEdgebandColor3D, removeLockers3D } from '../room-planner/render3d';
 
 	const canvas = document.getElementById('planner-canvas') as HTMLCanvasElement;
 	const ctx = canvas.getContext('2d')!;
@@ -3029,6 +3315,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		}
 	};
 
+	const deleteCountInput = document.getElementById('input-3d-delete-count') as HTMLInputElement;
+	document.getElementById('btn-3d-delete')!.onclick = () => {
+		const count = Math.max(1, parseInt(deleteCountInput.value) || 1);
+		if (state.lockers.length === 0) return;
+		const toRemove = Math.min(count, state.lockers.length);
+		const removedIds = state.lockers.slice(-toRemove).map(l => l.instanceId);
+		removeLockers3D(removedIds);
+		state.lockers.splice(state.lockers.length - toRemove, toRemove);
+		state.selection = null;
+		selectAll3D = false;
+		btnSelectAll.classList.remove('active');
+		hideBars();
+		redraw();
+		updateLayers();
+		deleteCountInput.value = '1';
+		deleteCountInput.max = String(Math.max(state.lockers.length, 1));
+	};
+
 	document.getElementById('btn-view-3d')!.onclick = () => {
 		if (state.walls.length === 0) return;
 		selectAll3D = false; btnSelectAll.classList.remove('active');
@@ -3038,6 +3342,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		populateFloorWallSwatches();
 		syncBaseToggle();
 		syncEdgebandToggle();
+		deleteCountInput.value = '1';
+		deleteCountInput.max = String(Math.max(state.lockers.length, 1));
 		launch3DPreview(state, canvas3d, () => {
 			if (selectAll3D && hasSelection3D()) { selectAll3D = false; btnSelectAll.classList.remove('active'); }
 			redraw();
@@ -4726,4 +5032,177 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		zoomFit();
 		redraw();
 	});
+
+	/* ── Guide Agent ─────────────────────────────────── */
+	(function initGuide() {
+		const STEPS = [
+			{
+				title: 'Welcome!',
+				desc: "Let's build your dream locker room step by step. This guide will walk you through the entire process. Click <strong>Next</strong> to begin!",
+				target: null
+			},
+			{
+				title: 'Set Room Dimensions',
+				desc: 'Enter the length of each wall (A–D) in the cards below. If a wall has a door, window, or obstacle, click the button under that wall to mark it.',
+				target: '#room-setup'
+			},
+			{
+				title: 'Draw Your Room',
+				desc: "Once your dimensions are set, click <strong>Draw My Room</strong> to generate the floor plan on the canvas below.",
+				target: '#btn-apply-room'
+			},
+			{
+				title: 'Choose a Locker',
+				desc: 'Pick a locker model, set the width, depth, and color. Choose your quantity and click <strong>Add to Layout</strong>.',
+				target: '#locker-type-section'
+			},
+			{
+				title: 'Place Your Lockers',
+				desc: 'Your lockers appear on the canvas. <strong>Drag</strong> them to reposition, <strong>double-click</strong> to rotate, and they\'ll snap to walls automatically.',
+				target: '#planner-canvas'
+			},
+			{
+				title: 'Open 3D View',
+				desc: 'Click the <strong>3D View</strong> button in the toolbar to see your locker room come to life. You can orbit, select, and customize lockers in 3D.',
+				target: '#btn-view-3d'
+			},
+			{
+				title: 'Customize Colors & Options',
+				desc: 'In the 3D view, change locker colors, cushion colors, add a <strong>4″ base</strong>, <strong>edgebanding</strong>, upload your <strong>floor logo</strong>, and more. Use <strong>Select All</strong> for bulk changes.',
+				target: null
+			},
+			{
+				title: 'Review Your Layout',
+				desc: 'Scroll down to the <strong>Order Summary</strong> to see all your lockers, quantities, and pricing across every room.',
+				target: '#order-section'
+			},
+			{
+				title: 'Get Your Quote!',
+				desc: 'Enter your email and click <strong>Get In Touch With Us</strong>. We\'ll send a detailed summary so our team can help bring your locker room to life!',
+				target: '#btn-request-quote'
+			}
+		];
+
+		const fab = document.getElementById('guide-fab')!;
+		const panel = document.getElementById('guide-panel')!;
+		const btnMin = document.getElementById('guide-minimize')!;
+		const btnPrev = document.getElementById('guide-prev') as HTMLButtonElement;
+		const btnNext = document.getElementById('guide-next') as HTMLButtonElement;
+		const stepTitle = document.getElementById('guide-step-title')!;
+		const stepDesc = document.getElementById('guide-step-desc')!;
+		const stepCount = document.getElementById('guide-step-count')!;
+		const progressBar = document.getElementById('guide-progress-bar')!;
+
+		let current = 0;
+		let _highlightEl: Element | null = null;
+		const STORAGE_KEY = 'ps_guide_collapsed';
+
+		function renderStep() {
+			const s = STEPS[current];
+			stepTitle.textContent = s.title;
+			stepDesc.innerHTML = s.desc;
+			stepCount.textContent = `Step ${current + 1} of ${STEPS.length}`;
+			progressBar.style.width = `${((current + 1) / STEPS.length) * 100}%`;
+			btnPrev.disabled = current === 0;
+			btnNext.textContent = current === STEPS.length - 1 ? 'Done ✓' : 'Next →';
+
+			if (_highlightEl) {
+				_highlightEl.classList.remove('guide-highlight', 'guide-pulse');
+				_highlightEl = null;
+			}
+			if (s.target) {
+				const el = document.querySelector(s.target);
+				if (el) {
+					_highlightEl = el;
+					el.classList.add('guide-highlight', 'guide-pulse');
+					el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+				}
+			}
+		}
+
+		function goTo(step: number) {
+			current = Math.max(0, Math.min(STEPS.length - 1, step));
+			renderStep();
+		}
+
+		function advanceIfBefore(step: number) {
+			if (current < step) goTo(step);
+		}
+
+		function show() {
+			panel.classList.remove('hidden');
+			fab.classList.add('hidden');
+			localStorage.removeItem(STORAGE_KEY);
+			renderStep();
+		}
+
+		function hide() {
+			panel.classList.add('hidden');
+			fab.classList.remove('hidden');
+			localStorage.setItem(STORAGE_KEY, '1');
+			if (_highlightEl) {
+				_highlightEl.classList.remove('guide-highlight', 'guide-pulse');
+				_highlightEl = null;
+			}
+		}
+
+		btnMin.onclick = hide;
+		fab.onclick = show;
+
+		btnPrev.onclick = () => goTo(current - 1);
+		btnNext.onclick = () => {
+			if (current === STEPS.length - 1) { hide(); return; }
+			goTo(current + 1);
+		};
+
+		// Auto-advance hooks
+		const origApplyRoom = document.getElementById('btn-apply-room')!.onclick as Function | null;
+		document.getElementById('btn-apply-room')!.addEventListener('click', () => {
+			setTimeout(() => {
+				if (state.walls.length > 0) advanceIfBefore(3);
+			}, 100);
+		});
+
+		const origAddBtn = document.getElementById('lt-add-btn')!;
+		origAddBtn.addEventListener('click', () => {
+			setTimeout(() => {
+				if (state.lockers.length > 0) advanceIfBefore(4);
+			}, 100);
+		});
+
+		document.getElementById('btn-view-3d')!.addEventListener('click', () => {
+			setTimeout(() => advanceIfBefore(6), 200);
+		});
+
+		document.getElementById('btn-3d-close')!.addEventListener('click', () => {
+			setTimeout(() => advanceIfBefore(7), 100);
+		});
+
+		const orderSection = document.getElementById('order-section');
+		if (orderSection) {
+			const obs = new IntersectionObserver((entries) => {
+				if (entries[0].isIntersecting) advanceIfBefore(7);
+			}, { threshold: 0.2 });
+			obs.observe(orderSection);
+		}
+
+		// Wall dimension auto-advance
+		document.querySelectorAll('.wall-input').forEach(input => {
+			input.addEventListener('change', () => {
+				const aVal = (document.querySelector('[data-wall="wallA"]') as HTMLInputElement)?.value;
+				const bVal = (document.querySelector('[data-wall="wallB"]') as HTMLInputElement)?.value;
+				if (parseFloat(aVal) > 0 && parseFloat(bVal) > 0) advanceIfBefore(2);
+			});
+		});
+
+		// Initialize
+		if (localStorage.getItem(STORAGE_KEY) === '1') {
+			panel.classList.add('hidden');
+			fab.classList.remove('hidden');
+		} else {
+			fab.classList.add('hidden');
+			panel.classList.remove('hidden');
+			renderStep();
+		}
+	})();
 </script>

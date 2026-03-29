@@ -1048,6 +1048,27 @@ export function toggleEdgeband3D(show: boolean): void {
   for (const lm of _lockerMeshes) rebuildLockerMesh(lm.instanceId);
 }
 
+export function removeLockers3D(instanceIds: string[]): void {
+  if (!_scene || !_state) return;
+  for (const id of instanceIds) {
+    const idx = _lockerMeshes.findIndex((lm) => lm.instanceId === id);
+    if (idx === -1) continue;
+    const old = _lockerMeshes[idx];
+    _scene.remove(old.group);
+    old.group.traverse((o) => {
+      if (o instanceof THREE.Mesh) {
+        o.geometry.dispose();
+        (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => m.dispose());
+      }
+    });
+    _lockerMeshes.splice(idx, 1);
+  }
+  if (_selectedMeshId && instanceIds.includes(_selectedMeshId)) {
+    _selectedMeshId = null;
+    highlightLocker(null);
+  }
+}
+
 /* ── Floor logo ────────────────────────────────────────── */
 
 export function setFloorLogo(dataUrl: string): void {
