@@ -34,6 +34,35 @@ export function buildWalls(dims: RoomDimensions): Wall[] {
   ];
 }
 
+/** Human-readable labels for `PlannerState.needByTimeline` select values. */
+const NEED_BY_LABELS: Record<string, string> = {
+	asap: 'ASAP / under 2 months',
+	'1-3': '1–3 months',
+	'3-6': '3–6 months',
+	'6plus': '6+ months',
+	flexible: 'Flexible / still planning',
+	unsure: 'Not sure yet',
+};
+
+export function needByTimelineLabel(code: string): string {
+	const c = (code || '').trim();
+	if (!c) return '';
+	return NEED_BY_LABELS[c] || c;
+}
+
+/** Human-readable labels for `PlannerState.fundingStatus` select values. */
+const FUNDING_LABELS: Record<string, string> = {
+	have_funds: 'Have funds / budget approved',
+	fundraising: 'Currently fundraising',
+	need_help: 'Need help with fundraising',
+};
+
+export function fundingStatusLabel(code: string): string {
+	const c = (code || '').trim();
+	if (!c) return '';
+	return FUNDING_LABELS[c] || c;
+}
+
 export function defaultDimensions(): RoomDimensions {
   return {
     wallA: 240, wallB: 240, wallC: 240, wallD: 240,
@@ -46,6 +75,8 @@ export function createInitialState(dims?: RoomDimensions): PlannerState {
   const d = dims ?? defaultDimensions();
   return {
     roomName: '',
+    needByTimeline: '',
+    fundingStatus: '',
     sportType: '',
     displayUnit: 'in',
     editMode: true,

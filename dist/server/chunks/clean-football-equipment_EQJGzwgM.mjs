@@ -1,0 +1,114 @@
+import { j as createVNode, F as Fragment, az as __astro_tag_component__ } from './astro/server_BKRL6jPE.mjs';
+import 'clsx';
+
+const frontmatter = {
+  "title": "Simple Steps To Clean Your Shoulder Pads",
+  "description": "Simple Steps To Clean Your Shoulder Pads   Football Lockers are a simple and effective way of keeping your shoulder pads dry and organized. If you are an avid f",
+  "category": "Football",
+  "tags": ["football", "equipment-care", "maintenance", "bacteria-prevention"],
+  "heroImage": "https://playerstall.b-cdn.net/images/EkPbSwSXcAA172U.jpg",
+  "datePublished": "2017-04-27",
+  "readTime": "3 min read",
+  "author": "PlayerStall",
+  "wordCount": 556
+};
+function getHeadings() {
+  return [{
+    "depth": 2,
+    "slug": "simple-steps-to-clean-your-shoulder-pads",
+    "text": "Simple Steps To Clean Your Shoulder Pads"
+  }];
+}
+function _createMdxContent(props) {
+  const _components = {
+    a: "a",
+    em: "em",
+    h2: "h2",
+    img: "img",
+    li: "li",
+    p: "p",
+    strong: "strong",
+    ul: "ul",
+    ...props.components
+  };
+  return createVNode(Fragment, {
+    children: [createVNode(_components.h2, {
+      id: "simple-steps-to-clean-your-shoulder-pads",
+      children: "Simple Steps To Clean Your Shoulder Pads"
+    }), "\n", createVNode(_components.p, {
+      children: [createVNode(_components.a, {
+        href: "/sport/football",
+        children: "Football Lockers"
+      }), " are a simple and effective way of keeping your shoulder pads dry and organized. If you are an avid football player, then you understand how difficult it can be to maintain clean shoulder pads. Not only do they collect mud from the field, but there is also the accumulation of sweat that gets absorbed as you play."]
+    }), "\n", createVNode(_components.p, {
+      children: createVNode(_components.img, {
+        src: "http://playerstall.com/wp-content/uploads/2017/04/football-locker-mudroom-locker-300x200.jpg",
+        alt: "athletic locker football lockers"
+      })
+    }), "\n", createVNode(_components.p, {
+      children: ["The good news is that there is a 3 step process that you can easily use to help keep your shoulder pads disinfected and fresh. Of course at the end of the football season you will need to get professional cleaning services, but in the interim period, use this procedure to ensure that your pads stay in excellent condition. For more cleaning tips, check out our guide on ", createVNode(_components.a, {
+        href: "/blog/athletic-lockers-disinfection",
+        children: "athletic locker disinfection"
+      }), "."]
+    }), "\n", createVNode(_components.ul, {
+      children: ["\n", createVNode(_components.li, {
+        children: ["\n", createVNode(_components.p, {
+          children: ["After practice, always ensure that you put your pads in the PlayerStall ", createVNode(_components.strong, {
+            children: "Football Locker"
+          }), " so that they can air out and dry. We recommend that you invest in ", createVNode(_components.a, {
+            href: "/blog/choose-athletic-lockers",
+            children: "sports lockers"
+          }), " that have been professionally made to handle different types of sports gear. Good aeration prevents bacteria and mold from thriving."]
+        }), "\n"]
+      }), "\n", createVNode(_components.li, {
+        children: ["\n", createVNode(_components.p, {
+          children: ["Use water to get rid of dirt. An easy process would be to add some disinfectant to the water, then use a damp cloth to wipe your pads. You will then have handled the dirt, bacteria and odor all at once. You must however ensure that the disinfectant is safe to use on plastic. We have a ", createVNode(_components.a, {
+            href: "/blog/sport-equipment-storage",
+            children: "previous article"
+          }), " that discusses how to make your own disinfecting spray."]
+        }), "\n"]
+      }), "\n", createVNode(_components.li, {
+        children: ["\n", createVNode(_components.p, {
+          children: "As earlier advised, ensure that your sports gear is thoroughly checked by experts when the season is over. They would dismantle your pads, thoroughly clean, sanitize and inspect them for signs of damage. This way, you will always have well maintained sports equipment for maximum performance when you get back on the field."
+        }), "\n"]
+      }), "\n"]
+    }), "\n", createVNode(_components.p, {
+      children: "Leaving your sports gear on the floor is an unsafe practice. Not only is this a hazard for anyone walking by, it also leaves your sports equipment in a position where drying properly is next to impossible. Visit Playerstall today and learn more about our innovative wood lockers and their ability to store your gear in proper condition. PlayerStall Athletic lockers will make any mudroom or garage look great and our mudroom lockers will keep the area safe, neat and tidy."
+    }), "\n", createVNode(_components.p, {
+      children: ["Whether you are looking for athletic lockers, football lockers or ", createVNode(_components.a, {
+        href: "/blog/hockey-wood-lockers-complete-2025-guide-for-ice-hockey-teams",
+        children: "hockey lockers"
+      }), ", we can make you something that is customized to your preference. At the end of the day, you need sports lockers that have enough room for air circulation. PlayerStall ", createVNode(_components.em, {
+        children: "Athletic lockers"
+      }), " are perfect for this and is well suited for use in any environment. Learn more about ", createVNode(_components.a, {
+        href: "/blog/custom-sports-locker-solutions",
+        children: "custom sports locker solutions"
+      }), " that fit your needs. PlayerStall is the perfect sports equipment storage solution for professional locker room lockers, garage lockers or as ", createVNode(_components.a, {
+        href: "/blog/making-life-easier-wood-lockers",
+        children: "mudroom lockers"
+      }), ". Come check out our athletic lockers and see what we can do for you."]
+    })]
+  });
+}
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? createVNode(MDXLayout, {
+    ...props,
+    children: createVNode(_createMdxContent, {
+      ...props
+    })
+  }) : _createMdxContent(props);
+}
+
+const url = "src/content/blog/clean-football-equipment.mdx";
+const file = "/Users/monikabrownova/Documents/github/player-stall December 19 2025/src/content/blog/clean-football-equipment.mdx";
+const Content = (props = {}) => MDXContent({
+  ...props,
+  components: { Fragment: Fragment, ...props.components, },
+});
+Content[Symbol.for('mdx-component')] = true;
+Content[Symbol.for('astro.needsHeadRendering')] = !Boolean(frontmatter.layout);
+Content.moduleId = "/Users/monikabrownova/Documents/github/player-stall December 19 2025/src/content/blog/clean-football-equipment.mdx";
+__astro_tag_component__(Content, 'astro:jsx');
+
+export { Content, Content as default, file, frontmatter, getHeadings, url };

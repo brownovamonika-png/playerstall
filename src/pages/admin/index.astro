@@ -1,0 +1,390 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getSession } from '../../lib/auth';
+import { supabaseAdmin, isSupabaseConfigured, STAGE_LABELS, STAGE_COLORS, type OrderStage } from '../../lib/supabase';
+
+const demoMode = !isSupabaseConfigured;
+
+if (!demoMode) {
+	const session = await getSession(Astro.cookies);
+	if (!session) return Astro.redirect('/admin/login');
+}
+
+let totalClients = 0;
+let totalOrders = 0;
+let activeOrders = 0;
+let newLeadsThisWeek = 0;
+let unreadMessages = 0;
+let recentOrders: any[] = [];
+let stageDistribution: Record<string, number> = {};
+let recentActivity: any[] = [];
+
+if (demoMode) {
+	totalClients = 64;
+	totalOrders = 75;
+	activeOrders = 75;
+	newLeadsThisWeek = 2;
+	unreadMessages = 0;
+	stageDistribution = { new_lead: 0, consultation: 0, quote_sent: 12, quote_approved: 0, design_phase: 0, in_production: 0, shipped: 0, installed: 0, quality_check: 0, complete: 0 };
+	recentOrders = [
+		{ id: 'o12', title: 'Stadium 24" × 60 — Shawn Blechinger', clients: { contact_name: 'Shawn Blechinger' }, stage: 'quote_sent', updated_at: '2026-03-16T00:00:00.000Z' },
+		{ id: 'o13', title: 'Stadium 24"/28"/32" × 91 — Jeff Bloomer', clients: { contact_name: 'Jeff Bloomer' }, stage: 'quote_sent', updated_at: '2026-03-11T00:00:00.000Z' },
+		{ id: 'o14', title: 'Stadium 24"/30" × 58 — John Loftis', clients: { contact_name: 'John Loftis' }, stage: 'quote_sent', updated_at: '2026-03-06T00:00:00.000Z' },
+		{ id: 'o15', title: 'Semi Pro 24" × 30 — Chris Hudson', clients: { contact_name: 'Chris Hudson' }, stage: 'quote_sent', updated_at: '2026-03-03T00:00:00.000Z' },
+		{ id: 'o16', title: 'Varsity 24" × 25 — Libby Messer', clients: { contact_name: 'Libby Messer' }, stage: 'quote_sent', updated_at: '2026-03-03T00:00:00.000Z' },
+		{ id: 'o17', title: 'Stadium 24" × 130 — MD Daniels', clients: { contact_name: 'MD Daniels' }, stage: 'quote_sent', updated_at: '2026-02-11T00:00:00.000Z' },
+		{ id: 'o18', title: 'Stadium 24"/30" × 64 — Alexander Johnson', clients: { contact_name: 'Alexander Johnson' }, stage: 'quote_sent', updated_at: '2026-01-20T00:00:00.000Z' },
+		{ id: 'o19', title: 'Stadium 20" × 55 — Christian Hall', clients: { contact_name: 'Christian Hall' }, stage: 'quote_sent', updated_at: '2026-01-13T00:00:00.000Z' },
+		{ id: 'o20', title: 'Stadium 24" × 50 — Dana Tarver', clients: { contact_name: 'Dana Tarver' }, stage: 'quote_sent', updated_at: '2026-01-09T00:00:00.000Z' },
+	];
+	recentActivity = [
+		{ to_stage: 'quote_sent', from_stage: 'new_lead', orders: { title: 'Est #1296 — Stadium × 60' }, changed_by: 'admin', notes: 'Quote sent to Shawn Blechinger — St. Mary High School', created_at: '2026-03-16T00:00:00.000Z' },
+		{ to_stage: 'quote_sent', from_stage: 'new_lead', orders: { title: 'Est #1295 — Stadium × 91' }, changed_by: 'admin', notes: 'Quote sent to Jeff Bloomer — Signal Peak Energy Arena', created_at: '2026-03-11T00:00:00.000Z' },
+		{ to_stage: 'quote_sent', from_stage: 'new_lead', orders: { title: 'Est #1294 — Stadium × 58' }, changed_by: 'admin', notes: 'Quote sent to John Loftis — Hockey lockers with stick racks', created_at: '2026-03-06T00:00:00.000Z' },
+		{ to_stage: 'quote_sent', from_stage: 'new_lead', orders: { title: 'Est #1293 — Semi Pro × 30' }, changed_by: 'admin', notes: 'Quote sent to Chris Hudson — Texarkana, AR', created_at: '2026-03-03T00:00:00.000Z' },
+		{ to_stage: 'quote_sent', from_stage: 'new_lead', orders: { title: 'Est #1287 — Stadium × 130' }, changed_by: 'admin', notes: 'Quote sent to MD Daniels — Largest order, 130 lockers', created_at: '2026-02-11T00:00:00.000Z' },
+	];
+} else {
+	const [
+		{ count: tc },
+		{ count: to },
+		{ data: ro },
+		{ data: sc },
+		{ count: um },
+	] = await Promise.all([
+		supabaseAdmin.from('clients').select('*', { count: 'exact', head: true }),
+		supabaseAdmin.from('orders').select('*', { count: 'exact', head: true }),
+		supabaseAdmin.from('orders').select('*, clients(contact_name, company_name)').order('updated_at', { ascending: false }).limit(10),
+		supabaseAdmin.from('orders').select('stage'),
+		supabaseAdmin.from('messages').select('*', { count: 'exact', head: true }).eq('sender', 'client').eq('read', false),
+	]);
+
+	totalClients = tc || 0;
+	totalOrders = to || 0;
+	unreadMessages = um || 0;
+	recentOrders = ro || [];
+
+	if (sc) {
+		for (const row of sc) {
+			stageDistribution[row.stage] = (stageDistribution[row.stage] || 0) + 1;
+		}
+	}
+
+	activeOrders = totalOrders - (stageDistribution['complete'] || 0);
+
+	const weekAgo = new Date();
+	weekAgo.setDate(weekAgo.getDate() - 7);
+	const { count: nlw } = await supabaseAdmin
+		.from('orders')
+		.select('*', { count: 'exact', head: true })
+		.eq('stage', 'new_lead')
+		.gte('created_at', weekAgo.toISOString());
+	newLeadsThisWeek = nlw || 0;
+
+	const { data: ra } = await supabaseAdmin
+		.from('stage_history')
+		.select('*, orders(title, clients(contact_name))')
+		.order('created_at', { ascending: false })
+		.limit(8);
+	recentActivity = ra || [];
+}
+---
+
+<AdminLayout title="Dashboard" activeNav="dashboard">
+	{demoMode && (
+		<div class="demo-banner">
+			<strong>Demo Mode</strong> — You're viewing sample data. To connect to your real database, set up Supabase and add your API keys to <code>.env</code>. See <a href="/guides/CRM_SETUP.md">Setup Guide</a>.
+		</div>
+	)}
+	<div class="stats-grid">
+		<div class="stat-card">
+			<div class="stat-label">Total Clients</div>
+			<div class="stat-value">{totalClients || 0}</div>
+		</div>
+		<div class="stat-card">
+			<div class="stat-label">Active Orders</div>
+			<div class="stat-value">{activeOrders}</div>
+		</div>
+		<div class="stat-card">
+			<div class="stat-label">New Leads This Week</div>
+			<div class="stat-value">{newLeadsThisWeek || 0}</div>
+		</div>
+		<div class="stat-card">
+			<div class="stat-label">Unread Messages</div>
+			<div class="stat-value">{unreadMessages || 0}</div>
+		</div>
+	</div>
+
+	<div class="dashboard-grid">
+		<div class="card">
+			<div class="card-header">
+				<h2>Pipeline Overview</h2>
+				<a href="/admin/pipeline" class="btn btn-sm btn-secondary">View Board</a>
+			</div>
+			<div class="pipeline-bars">
+				{Object.entries(STAGE_LABELS).map(([stage, label]) => {
+					const count = stageDistribution[stage] || 0;
+					const maxCount = Math.max(...Object.values(stageDistribution), 1);
+					const width = Math.max((count / maxCount) * 100, count > 0 ? 8 : 0);
+					return (
+						<div class="pipeline-row">
+							<span class="pipeline-label">{label}</span>
+							<div class="pipeline-bar-track">
+								<div
+									class="pipeline-bar-fill"
+									style={`width: ${width}%; background: ${STAGE_COLORS[stage as OrderStage]}`}
+								/>
+							</div>
+							<span class="pipeline-count">{count}</span>
+						</div>
+					);
+				})}
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-header">
+				<h2>Recent Orders</h2>
+				<a href="/admin/clients" class="btn btn-sm btn-secondary">View All</a>
+			</div>
+			{recentOrders && recentOrders.length > 0 ? (
+				<div class="table-wrap">
+					<table class="data-table">
+						<thead>
+							<tr>
+								<th>Order</th>
+								<th>Client</th>
+								<th>Stage</th>
+								<th>Updated</th>
+							</tr>
+						</thead>
+						<tbody>
+							{recentOrders.map((order: any) => (
+								<tr>
+									<td><a href={`/admin/orders/${order.id}`}>{order.title}</a></td>
+									<td>{order.clients?.contact_name || '—'}</td>
+									<td>
+										<span
+											class="badge"
+											style={`background: ${STAGE_COLORS[order.stage as OrderStage]}20; color: ${STAGE_COLORS[order.stage as OrderStage]}`}
+										>
+											{STAGE_LABELS[order.stage as OrderStage]}
+										</span>
+									</td>
+									<td>{new Date(order.updated_at).toLocaleDateString()}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+			) : (
+				<div class="empty-state">
+					<h3>No orders yet</h3>
+					<p>Create your first client and order to get started.</p>
+					<a href="/admin/clients" class="btn btn-primary">Add Client</a>
+				</div>
+			)}
+		</div>
+
+		<div class="card">
+			<div class="card-header">
+				<h2>Recent Activity</h2>
+			</div>
+			{recentActivity && recentActivity.length > 0 ? (
+				<div class="activity-list">
+					{recentActivity.map((entry: any) => (
+						<div class="activity-item">
+							<div class="activity-dot" style={`background: ${STAGE_COLORS[entry.to_stage as OrderStage]}`} />
+							<div class="activity-content">
+								<span class="activity-text">
+									<strong>{entry.orders?.title || 'Order'}</strong> moved to{' '}
+									<span style={`color: ${STAGE_COLORS[entry.to_stage as OrderStage]}`}>
+										{STAGE_LABELS[entry.to_stage as OrderStage]}
+									</span>
+								</span>
+								{entry.notes && <p class="activity-note">{entry.notes}</p>}
+								<span class="activity-time">{new Date(entry.created_at).toLocaleString()}</span>
+							</div>
+						</div>
+					))}
+				</div>
+			) : (
+				<div class="empty-state">
+					<p>No activity yet. Stage changes will appear here.</p>
+				</div>
+			)}
+		</div>
+	</div>
+</AdminLayout>
+
+<style>
+	.stats-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 25px;
+		margin-bottom: 32px;
+	}
+
+	.dashboard-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 25px;
+	}
+
+	.dashboard-grid .card:nth-child(2) {
+		grid-column: 1 / -1;
+	}
+
+	.card-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 24px;
+		padding-bottom: 14px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.card-header h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.pipeline-bars {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.pipeline-row {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.pipeline-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		font-weight: 500;
+		color: #8c8c8c;
+		width: 110px;
+		flex-shrink: 0;
+		text-align: right;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.pipeline-bar-track {
+		flex: 1;
+		height: 6px;
+		background: #f0f0f0;
+		overflow: hidden;
+	}
+
+	.pipeline-bar-fill {
+		height: 100%;
+		transition: width 0.5s ease;
+	}
+
+	.pipeline-count {
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 700;
+		color: #0d0d0d;
+		width: 24px;
+		text-align: right;
+	}
+
+	.activity-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.activity-item {
+		display: flex;
+		gap: 14px;
+		padding: 14px 0;
+		border-bottom: 1px solid #f0f0f0;
+	}
+
+	.activity-item:last-child {
+		border-bottom: none;
+	}
+
+	.activity-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		margin-top: 6px;
+		flex-shrink: 0;
+	}
+
+	.activity-text {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+	}
+
+	.activity-note {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		margin-top: 4px;
+		font-style: italic;
+	}
+
+	.activity-time {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #b6b6b6;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.demo-banner {
+		background: #ffffff;
+		border: 1px solid #e0e0e0;
+		color: #666666;
+		padding: 14px 24px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		margin-bottom: 24px;
+		line-height: 1.6;
+		letter-spacing: 0.02em;
+	}
+
+	.demo-banner strong {
+		font-family: 'Oswald', sans-serif;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #fe5900;
+	}
+
+	.demo-banner code {
+		background: #f7f7f7;
+		padding: 2px 8px;
+		font-size: 12px;
+	}
+
+	.demo-banner a {
+		color: #fe5900;
+		font-weight: 600;
+	}
+
+	@media (max-width: 768px) {
+		.stats-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.dashboard-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

@@ -486,7 +486,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	header.scrolled {
 		background: #ffffff;
 		color: #0d0d0d;
-		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		box-shadow: none;
 		position: sticky;
 		top: 0;
 	}
@@ -685,7 +685,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		font-size: 10px;
 		font-weight: 600;
 		padding: 2px 6px;
-		border-radius: 10px;
+		border-radius: 0;
 		min-width: 18px;
 		text-align: center;
 		line-height: 1.4;
@@ -1021,7 +1021,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		header.menu-open {
 			background: #ffffff;
 			color: #0d0d0d;
-			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+			box-shadow: none;
 		}
 
 		header.menu-open .logo h1 {
@@ -1113,19 +1113,188 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 			grid-template-columns: 1fr;
 		}
 	}
+
+	/*
+	 * All locker planner flows use .planner-hero (/room-planner, /new-room-planner, /room-planner-v2, etc.).
+	 * :has() forces a solid header + dark nav without per-page props (avoids “invisible menu” on light heroes).
+	 */
+	:global(body:has(.planner-hero)) header {
+		background: #ffffff !important;
+		color: #0d0d0d !important;
+		box-shadow: none !important;
+		position: sticky;
+		top: 0;
+	}
+	:global(body:has(.planner-hero)) header .navbar {
+		color: #0d0d0d !important;
+	}
+	:global(body:has(.planner-hero)) header .logo,
+	:global(body:has(.planner-hero)) header .logo h1 {
+		color: #0d0d0d !important;
+	}
+	:global(body:has(.planner-hero)) header .nav-links a,
+	:global(body:has(.planner-hero)) header .nav-dropdown-trigger {
+		color: #0d0d0d !important;
+	}
+	:global(body:has(.planner-hero)) header .nav-menu-btn {
+		color: #0d0d0d !important;
+	}
+	:global(body:has(.planner-hero)) header .nav-links a:hover,
+	:global(body:has(.planner-hero)) header .nav-dropdown-trigger:hover {
+		color: #fe5900 !important;
+	}
+	:global(body:has(.planner-hero)) header.menu-open .logo h1 {
+		color: #0d0d0d !important;
+	}
+
+	/*
+	 * Room planners: same minimal bar as mobile — black top strip hidden, PLAYERSTALL left,
+	 * hamburger right, full nav only inside the panel (all breakpoints).
+	 */
+	:global(body:has(.planner-hero)) .top-bar {
+		display: none !important;
+	}
+	:global(body:has(.planner-hero)) header {
+		top: 0 !important;
+		border-bottom: none !important;
+	}
+	:global(body:has(.planner-hero)) .navbar {
+		padding: 12px 0 !important;
+	}
+	:global(body:has(.planner-hero)) .nav-container {
+		flex-wrap: nowrap !important;
+		justify-content: space-between !important;
+		gap: 0 !important;
+	}
+	:global(body:has(.planner-hero)) .nav-links-left,
+	:global(body:has(.planner-hero)) .nav-links-right {
+		display: none !important;
+	}
+	:global(body:has(.planner-hero)) .logo {
+		position: static !important;
+		transform: none !important;
+		order: 1;
+		padding-left: 0;
+	}
+	:global(body:has(.planner-hero)) .logo h1 {
+		font-size: 22px !important;
+		letter-spacing: 0.05em !important;
+		font-weight: 700 !important;
+	}
+	:global(body:has(.planner-hero)) .nav-menu-btn {
+		display: flex !important;
+		align-items: center;
+		justify-content: center;
+		order: 2;
+	}
+	:global(body:has(.planner-hero)) .nav-menu-panel {
+		display: block !important;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		background: #ffffff;
+		box-shadow: none !important;
+		border-top: none;
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.3s ease;
+		z-index: 100;
+	}
+	:global(body:has(.planner-hero)) header.menu-open .nav-menu-panel {
+		max-height: 80vh;
+		overflow-y: auto;
+		border-top: 1px solid #e8e8e8;
+	}
+	:global(body:has(.planner-hero).menu-open) {
+		overflow: hidden;
+	}
+	:global(body:has(.planner-hero)) header.menu-open {
+		background: #ffffff !important;
+		color: #0d0d0d !important;
+		box-shadow: none !important;
+	}
+	:global(body:has(.planner-hero)) .nav-menu-list {
+		list-style: none;
+		margin: 0;
+		padding: 16px 20px 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+	:global(body:has(.planner-hero)) .nav-menu-list > li {
+		border-bottom: 1px solid #e8e8e8;
+	}
+	:global(body:has(.planner-hero)) .nav-menu-list > li:last-child {
+		border-bottom: none;
+	}
+	:global(body:has(.planner-hero)) .nav-menu-list a,
+	:global(body:has(.planner-hero)) .nav-menu-dropdown-trigger {
+		display: block;
+		padding: 14px 0;
+		color: #0d0d0d;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 13px;
+		font-weight: 500;
+		letter-spacing: 0.3em;
+		font-family: 'Yantramanav', sans-serif;
+		transition: color 0.3s;
+		width: 100%;
+		text-align: left;
+		background: none;
+		border: none;
+		cursor: pointer;
+	}
+	:global(body:has(.planner-hero)) .nav-menu-dropdown-trigger {
+		appearance: none;
+	}
+	:global(body:has(.planner-hero)) .nav-menu-list a:hover,
+	:global(body:has(.planner-hero)) .nav-menu-dropdown-trigger:hover {
+		color: #fe5900;
+	}
+	:global(body:has(.planner-hero)) .nav-menu-dropdown-list {
+		list-style: none;
+		margin: 0;
+		padding: 0 0 8px 20px;
+		display: none;
+	}
+	:global(body:has(.planner-hero)) .nav-menu-dropdown.open .nav-menu-dropdown-list {
+		display: block;
+	}
+	:global(body:has(.planner-hero)) .nav-menu-dropdown-list a {
+		padding: 10px 0;
+		font-size: 12px;
+		letter-spacing: 0.15em;
+	}
+
+	/* Site-wide square corners (overrides per-page border-radius) */
+	:global(*),
+	:global(*)::before,
+	:global(*)::after {
+		border-radius: 0 !important;
+	}
 </style>
 
 <script>
-	// Handle header scroll behavior (homepage hero-slider or blog post-hero)
+	// Handle header scroll behavior (homepage hero-slider, blog post-hero, or room planner hero)
 	function initHeaderScroll() {
 		const header = document.querySelector('header');
 		const heroSlider = document.querySelector('.hero-slider') as HTMLElement | null;
 		const postHero = document.querySelector('.post-hero') as HTMLElement | null;
-		const heroEl = heroSlider ?? postHero;
+		const plannerHero = document.querySelector('.planner-hero') as HTMLElement | null;
+		const heroEl = heroSlider ?? postHero ?? plannerHero;
 
 		if (!header || !heroEl) return;
 
 		const headerEl = header;
+
+		/* Locker room planner: keep solid header always (readable menu; matches post-scroll site chrome). */
+		if (plannerHero && !heroSlider && !postHero) {
+			headerEl.classList.add('scrolled');
+			return;
+		}
+
 		const heroForScroll = heroEl;
 		function handleScroll() {
 			const scrollY = window.scrollY;

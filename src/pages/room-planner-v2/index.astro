@@ -127,27 +127,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 				</div>
 			</div>
 
-		<div class="color-picker-row">
-			<div class="color-picker-group">
-				<label class="color-picker-label">Floor Color</label>
-				<div class="color-swatches" id="floor-swatches">
-					<button type="button" class="color-swatch active" data-color="#b0aba4" data-target="floor" style="background:#b0aba4" title="Concrete"></button>
-					<button type="button" class="color-swatch" data-color="#8b6f47" data-target="floor" style="background:#8b6f47" title="Darker Wood"></button>
-					<button type="button" class="color-swatch" data-color="#c4a882" data-target="floor" style="background:#c4a882" title="Lighter Wood"></button>
-					<button type="button" class="color-swatch" data-color="#2a2a2a" data-target="floor" style="background:#2a2a2a" title="Black Rubber"></button>
-				</div>
-			</div>
-			<div class="color-picker-group">
-				<label class="color-picker-label">Wall Color</label>
-				<div class="color-swatches" id="wall-swatches">
-					<button type="button" class="color-swatch active" data-color="#ffffff" data-target="wall" style="background:#ffffff" title="White"></button>
-					<button type="button" class="color-swatch" data-color="#d4c5a9" data-target="wall" style="background:#d4c5a9" title="Tan"></button>
-					<button type="button" class="color-swatch" data-color="#5c5c5c" data-target="wall" style="background:#5c5c5c" title="Dark Grey"></button>
-					<button type="button" class="color-swatch" data-color="#1a1a1a" data-target="wall" style="background:#1a1a1a" title="Black"></button>
-				</div>
-			</div>
-		</div>
-
 			<div class="room-btn-row">
 				<button type="button" class="room-apply-btn" id="btn-apply-room">Draw My Room</button>
 				<button type="button" class="room-reset-btn" id="btn-reset-room">Clear &amp; Start Over</button>
@@ -558,57 +537,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		font-size: 13px;
 		color: #8c8c8c;
 		flex-shrink: 0;
-	}
-	.color-picker-row {
-		margin-top: 24px;
-		padding-top: 16px;
-		border-top: 1px solid #e0e0e0;
-		display: flex;
-		gap: 32px;
-		flex-wrap: wrap;
-	}
-	.color-picker-group { min-width: 0; }
-	.color-picker-label {
-		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		color: #0d0d0d;
-		margin-bottom: 8px;
-		display: block;
-	}
-	.color-swatches {
-		display: flex;
-		gap: 6px;
-	}
-	.color-swatch {
-		width: 40px;
-		height: 40px;
-		min-width: 40px;
-		min-height: 40px;
-		aspect-ratio: 1;
-		flex-shrink: 0;
-		border-radius: 6px;
-		border: 3px solid transparent;
-		cursor: pointer;
-		transition: border-color 0.2s, transform 0.15s;
-		box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
-		position: relative;
-	}
-	.color-swatch:hover { transform: scale(1.12); }
-	.color-swatch.active { border-color: #fe5900; box-shadow: 0 0 6px rgba(254,89,0,0.4); }
-	.color-swatch::after {
-		content: attr(title);
-		position: absolute;
-		top: 100%;
-		left: 50%;
-		transform: translateX(-50%);
-		font-size: 9px;
-		color: #8c8c8c;
-		white-space: nowrap;
-		margin-top: 3px;
-		pointer-events: none;
 	}
 	.room-btn-row {
 		display: flex;
@@ -1029,24 +957,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		renderWallOpeningsForms();
 		renderPreview();
 	};
-
-	// ─── Floor & wall color pickers ───
-	document.querySelectorAll('.color-swatch').forEach(btn => {
-		btn.addEventListener('click', () => {
-			const el = btn as HTMLElement;
-			const hex = el.dataset.color!;
-			const target = el.dataset.target!;
-			const container = el.parentElement!;
-			container.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-			el.classList.add('active');
-			if (target === 'floor') {
-				state.floorColor = hex;
-			} else {
-				state.wallColor = hex;
-			}
-			renderPreview();
-		});
-	});
 
 	// Wall openings
 	let _openingCounter = 0;

@@ -5,7 +5,7 @@ This file tracks which posts have been generated so the automation avoids repeat
 ## Content Pillar Rotation
 Education → Social Proof → Behind-the-Scenes → Community → (repeat)
 
-**Next pillar to use:** Education
+**Next pillar to use:** Social Proof
 
 ---
 
@@ -13,14 +13,14 @@ Education → Social Proof → Behind-the-Scenes → Community → (repeat)
 
 | Date | Pillar | Topic | Post Preview |
 |------|--------|-------|--------------|
-| — | — | Starting fresh — no posts yet | — |
+| 2026-03-30 | Education | Wood breathes vs. metal doesn't (reduces odor/mold) | "Here's something nobody talks about when buying sports lockers: your locker room might be making your players sick." |
 
 ---
 
 ## Topic Bank (check off when used)
 
 ### Education
-- [ ] Wood breathes vs metal doesn't (reduces odor/mold)
+- [x] Wood breathes vs metal doesn't (reduces odor/mold) — used 2026-03-30
 - [ ] Total cost of ownership: wood lasts 15+ yrs vs metal 8-10 yrs
 - [ ] Modular design: replace one part, not the whole locker
 - [ ] Curt's Quick Tip #1 — measuring for the right locker size

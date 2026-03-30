@@ -43,11 +43,47 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 				<h2 class="room-setup-title">Room Dimensions</h2>
 				<p class="room-setup-desc">Measure your locker room and enter the length of each wall below. If a wall has a door or window, click the button under that wall to mark it so lockers won't be placed in those areas.</p>
 
-				<div class="room-name-row">
-					<label for="room-name" class="room-name-label">Name this room</label>
-					<input type="text" id="room-name" class="room-name-input" placeholder="e.g. Home Locker Room, Visitors, Training Room…" maxlength="80" />
+				<div class="room-fields-group">
+					<div class="room-field">
+						<label for="need-by-timeline" class="room-field-label">When do you need the lockers?</label>
+						<select id="need-by-timeline" class="room-field-input sport-select" aria-describedby="need-by-hint-step1">
+							<option value="">Select timeframe…</option>
+							<option value="asap">ASAP / under 2 months</option>
+							<option value="1-3">1–3 months</option>
+							<option value="3-6">3–6 months</option>
+							<option value="6plus">6+ months</option>
+							<option value="flexible">Flexible / still planning</option>
+							<option value="unsure">Not sure yet</option>
+						</select>
+					</div>
+					<div class="room-field">
+						<label for="funding-status" class="room-field-label">Funding / budget</label>
+						<select id="funding-status" class="room-field-input sport-select" aria-describedby="need-by-hint-step1">
+							<option value="">Select an option…</option>
+							<option value="have_funds">Have funds / budget approved</option>
+							<option value="fundraising">Currently fundraising</option>
+							<option value="need_help">Need help with fundraising</option>
+						</select>
+					</div>
+					<div class="room-field">
+						<label for="sport-type" class="room-field-label">Sport</label>
+						<select id="sport-type" class="room-field-input sport-select">
+							<option value="">Select a sport…</option>
+							<option value="football">Football</option>
+							<option value="hockey">Hockey</option>
+							<option value="basketball">Basketball</option>
+							<option value="baseball">Baseball</option>
+							<option value="soccer">Soccer</option>
+							<option value="lacrosse">Lacrosse</option>
+							<option value="other">Other / Multi-Sport</option>
+						</select>
+					</div>
+					<div class="room-field">
+						<label for="room-name" class="room-field-label" id="room-name-label">Name Room 1</label>
+						<input type="text" id="room-name" class="room-field-input" placeholder="e.g. Home Locker Room, Visitors…" maxlength="80" />
+					</div>
 				</div>
-				<p class="room-setup-hint">Tip: Give each room a name so you can tell them apart in your quote.</p>
+				<p class="room-setup-hint" id="need-by-hint-step1">Timeline helps us prioritize production. Funding helps us tailor your quote and payment options.</p>
 
 				<div class="wall-cards">
 				<!-- Wall A -->
@@ -127,27 +163,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 				</div>
 			</div>
 
-		<div class="color-picker-row">
-			<div class="color-picker-group">
-				<label class="color-picker-label">Floor Color</label>
-				<div class="color-swatches" id="floor-swatches">
-					<button type="button" class="color-swatch active" data-color="#b0aba4" data-target="floor" style="background:#b0aba4" title="Concrete"></button>
-					<button type="button" class="color-swatch" data-color="#8b6f47" data-target="floor" style="background:#8b6f47" title="Darker Wood"></button>
-					<button type="button" class="color-swatch" data-color="#c4a882" data-target="floor" style="background:#c4a882" title="Lighter Wood"></button>
-					<button type="button" class="color-swatch" data-color="#2a2a2a" data-target="floor" style="background:#2a2a2a" title="Black Rubber"></button>
-				</div>
-			</div>
-			<div class="color-picker-group">
-				<label class="color-picker-label">Wall Color</label>
-				<div class="color-swatches" id="wall-swatches">
-					<button type="button" class="color-swatch active" data-color="#ffffff" data-target="wall" style="background:#ffffff" title="White"></button>
-					<button type="button" class="color-swatch" data-color="#d4c5a9" data-target="wall" style="background:#d4c5a9" title="Tan"></button>
-					<button type="button" class="color-swatch" data-color="#5c5c5c" data-target="wall" style="background:#5c5c5c" title="Dark Grey"></button>
-					<button type="button" class="color-swatch" data-color="#1a1a1a" data-target="wall" style="background:#1a1a1a" title="Black"></button>
-				</div>
-			</div>
-		</div>
-
 			<div class="room-btn-row">
 				<button type="button" class="room-apply-btn" id="btn-apply-room">Draw My Room</button>
 				<button type="button" class="room-reset-btn" id="btn-reset-room">Clear &amp; Start Over</button>
@@ -178,6 +193,27 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			<p class="email-modal-error" id="email-error" style="display:none;">Please enter a valid email address.</p>
 			<button type="button" class="email-modal-submit" id="btn-email-submit">Continue to Design &rarr;</button>
 			<p class="email-modal-privacy">We'll only use your email to send your locker room plan. No spam, ever.</p>
+		</div>
+	</div>
+
+	<!-- Guide Agent (Step 1 — room setup) -->
+	<div class="guide-fab" id="guide-fab" title="Open step-by-step guide">?</div>
+	<div class="guide-panel" id="guide-panel">
+		<div class="guide-header">
+			<span class="guide-title">Locker Room Guide</span>
+			<button type="button" class="guide-minimize" id="guide-minimize" title="Minimize guide">&minus;</button>
+		</div>
+		<div class="guide-progress">
+			<div class="guide-progress-bar" id="guide-progress-bar"></div>
+		</div>
+		<div class="guide-step-count" id="guide-step-count">Step 1 of 6</div>
+		<div class="guide-body" id="guide-body">
+			<div class="guide-step-title" id="guide-step-title"></div>
+			<div class="guide-step-desc" id="guide-step-desc"></div>
+		</div>
+		<div class="guide-nav">
+			<button type="button" class="guide-nav-btn" id="guide-prev" disabled>&larr; Back</button>
+			<button type="button" class="guide-nav-btn guide-nav-next" id="guide-next">Next &rarr;</button>
 		</div>
 	</div>
 </BaseLayout>
@@ -367,41 +403,50 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		letter-spacing: 0.3px;
 		text-align: center;
 	}
-	.room-name-row {
+	/* Match Locker Room Planner (/room-planner) field row */
+	.room-fields-group {
 		display: flex;
-		align-items: center;
+		gap: 16px;
 		justify-content: center;
-		gap: 12px;
-		margin-bottom: 20px;
+		margin-bottom: 22px;
 	}
-	.room-name-label {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		font-weight: 500;
-		color: #0d0d0d;
-		white-space: nowrap;
-		letter-spacing: 0.5px;
+	.room-field {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
 	}
-	.room-name-input {
-		width: 240px;
+	.room-field-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		color: #555;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+	.room-field-input {
+		width: 220px;
 		background: #f7f7f7;
 		border: 1px solid #e0e0e0;
-		border-radius: 0;
+		border-radius: 4px;
 		color: #0d0d0d;
 		padding: 10px 14px;
 		font-size: 14px;
 		font-family: 'Yantramanav', sans-serif;
-		transition: border-color 0.3s;
+		transition: border-color 0.2s;
+		box-sizing: border-box;
 	}
-	.room-name-input::placeholder { color: #b6b6b6; }
-	.room-name-input:focus { border-color: #fe5900; outline: none; }
+	.room-field-input::placeholder { color: #b6b6b6; }
+	.room-field-input:focus { border-color: #fe5900; outline: none; }
+	.sport-select { appearance: auto; cursor: pointer; }
 	.room-setup-hint {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
 		color: #b6b6b6;
-		margin: 6px 0 16px;
+		margin: -8px auto 20px;
+		max-width: 520px;
 		font-style: italic;
 		text-align: center;
+		line-height: 1.45;
 	}
 	.wall-cards {
 		display: grid;
@@ -410,6 +455,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	}
 	@media (max-width: 640px) {
 		.wall-cards { grid-template-columns: 1fr; }
+	}
+	@media (max-width: 520px) {
+		.room-fields-group {
+			flex-direction: column;
+			align-items: center;
+			gap: 12px;
+		}
+		.room-field-input {
+			width: 100%;
+			max-width: 280px;
+		}
 	}
 	.wall-card {
 		background: #f7f7f7;
@@ -558,57 +614,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		font-size: 13px;
 		color: #8c8c8c;
 		flex-shrink: 0;
-	}
-	.color-picker-row {
-		margin-top: 24px;
-		padding-top: 16px;
-		border-top: 1px solid #e0e0e0;
-		display: flex;
-		gap: 32px;
-		flex-wrap: wrap;
-	}
-	.color-picker-group { min-width: 0; }
-	.color-picker-label {
-		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		color: #0d0d0d;
-		margin-bottom: 8px;
-		display: block;
-	}
-	.color-swatches {
-		display: flex;
-		gap: 6px;
-	}
-	.color-swatch {
-		width: 40px;
-		height: 40px;
-		min-width: 40px;
-		min-height: 40px;
-		aspect-ratio: 1;
-		flex-shrink: 0;
-		border-radius: 6px;
-		border: 3px solid transparent;
-		cursor: pointer;
-		transition: border-color 0.2s, transform 0.15s;
-		box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
-		position: relative;
-	}
-	.color-swatch:hover { transform: scale(1.12); }
-	.color-swatch.active { border-color: #fe5900; box-shadow: 0 0 6px rgba(254,89,0,0.4); }
-	.color-swatch::after {
-		content: attr(title);
-		position: absolute;
-		top: 100%;
-		left: 50%;
-		transform: translateX(-50%);
-		font-size: 9px;
-		color: #8c8c8c;
-		white-space: nowrap;
-		margin-top: 3px;
-		pointer-events: none;
 	}
 	.room-btn-row {
 		display: flex;
@@ -799,15 +804,199 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		line-height: 1.4;
 	}
 
+	/* ── Guide Agent ─────────────────────────────────── */
+	:global(.guide-fab) {
+		position: fixed;
+		bottom: 24px;
+		right: 24px;
+		width: 52px;
+		height: 52px;
+		border-radius: 50%;
+		background: #0d0d0d;
+		color: #fff;
+		font-family: 'Oswald', sans-serif;
+		font-size: 26px;
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+		z-index: 10000;
+		transition: transform 0.2s, box-shadow 0.2s;
+		border: none;
+		line-height: 1;
+	}
+	:global(.guide-fab:hover) { transform: scale(1.1); box-shadow: 0 6px 28px rgba(0, 0, 0, 0.35); }
+	:global(.guide-fab.hidden) { display: none; }
+
+	:global(.guide-panel) {
+		position: fixed;
+		bottom: 24px;
+		right: 24px;
+		width: 340px;
+		max-height: 420px;
+		background: #ffffff;
+		border: 1px solid #e0e0e0;
+		border-radius: 16px;
+		z-index: 10001;
+		display: flex;
+		flex-direction: column;
+		box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+		overflow: hidden;
+		animation: guideSlideIn 0.3s ease-out;
+	}
+	:global(.guide-panel.hidden) { display: none; }
+
+	@keyframes guideSlideIn {
+		from { opacity: 0; transform: translateY(20px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	:global(.guide-header) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 16px 20px 12px;
+		border-bottom: 1px solid #f0f0f0;
+		background: #fafafa;
+	}
+	:global(.guide-title) {
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		color: #404040;
+		text-transform: uppercase;
+		letter-spacing: 1.5px;
+	}
+	:global(.guide-minimize) {
+		background: none;
+		border: 1px solid #ddd;
+		color: #999;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		cursor: pointer;
+		font-size: 18px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: border-color 0.2s, color 0.2s;
+		line-height: 1;
+		padding: 0;
+	}
+	:global(.guide-minimize:hover) { border-color: #0d0d0d; color: #0d0d0d; }
+
+	:global(.guide-progress) {
+		height: 4px;
+		background: #f0f0f0;
+	}
+	:global(.guide-progress-bar) {
+		height: 100%;
+		background: #0d0d0d;
+		width: 16%;
+		transition: width 0.4s ease;
+		border-radius: 0 2px 2px 0;
+	}
+
+	:global(.guide-step-count) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		color: #999;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		padding: 14px 20px 0;
+	}
+
+	:global(.guide-body) {
+		padding: 8px 20px 18px;
+		flex: 1;
+		overflow-y: auto;
+	}
+	:global(.guide-step-title) {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #1a1a1a;
+		margin-bottom: 8px;
+		line-height: 1.3;
+	}
+	:global(.guide-step-desc) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #555;
+		line-height: 1.65;
+	}
+	:global(.guide-step-desc strong) {
+		color: #0d0d0d;
+		font-weight: 600;
+	}
+
+	:global(.guide-nav) {
+		display: flex;
+		gap: 8px;
+		padding: 0 20px 16px;
+		justify-content: space-between;
+	}
+	:global(.guide-nav-btn) {
+		flex: 1;
+		padding: 9px 0;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		background: #fff;
+		color: #555;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		cursor: pointer;
+		transition: border-color 0.2s, color 0.2s, background 0.2s;
+	}
+	:global(.guide-nav-btn:hover:not(:disabled)) { border-color: #bbb; color: #222; }
+	:global(.guide-nav-btn:disabled) { opacity: 0.3; cursor: default; }
+	:global(.guide-nav-next) {
+		background: #0d0d0d;
+		border-color: #0d0d0d;
+		color: #fff;
+		font-weight: 600;
+	}
+	:global(.guide-nav-next:hover:not(:disabled)) { background: #333333; border-color: #333333; }
+
+	:global(.guide-highlight) {
+		outline: 2px solid #0d0d0d !important;
+		outline-offset: 4px !important;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.2) !important;
+		transition: outline 0.3s, box-shadow 0.3s !important;
+	}
+
+	@keyframes guidePulse {
+		0%, 100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.25); }
+		50% { box-shadow: 0 0 0 8px rgba(0, 0, 0, 0); }
+	}
+	:global(.guide-pulse) {
+		animation: guidePulse 2s ease-in-out infinite;
+	}
+
 	@media (max-width: 768px) {
 		.planner-hero { padding: 50px 20px 30px; }
 		.room-setup { padding: 30px 20px; }
 		.email-modal { padding: 36px 24px 28px; }
+		:global(.guide-panel) {
+			width: calc(100vw - 32px);
+			right: 16px;
+			bottom: 16px;
+			max-height: 340px;
+		}
+		:global(.guide-fab) {
+			bottom: 16px;
+			right: 16px;
+			width: 46px;
+			height: 46px;
+			font-size: 22px;
+		}
 	}
 </style>
 
 <script>
-	import { createInitialState, buildWalls, defaultDimensions } from '../../room-planner/state';
+	import { createInitialState, buildWalls, defaultDimensions, needByTimelineLabel, fundingStatusLabel } from '../../room-planner/state';
 	import type { RoomDimensions } from '../../room-planner/state';
 	import { render } from '../../room-planner/render';
 	import { wallLength } from '../../room-planner/geometry';
@@ -818,6 +1007,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 	interface SavedRoom {
 		roomName: string;
+		needByTimeline: string;
+		fundingStatus: string;
+		sportType: string;
 		roomDims: RoomDimensions;
 		openings: Opening[];
 	}
@@ -827,6 +1019,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	function snapshotCurrentRoom(): SavedRoom {
 		return {
 			roomName: state.roomName,
+			needByTimeline: state.needByTimeline,
+			fundingStatus: state.fundingStatus,
+			sportType: state.sportType,
 			roomDims: { ...roomDims },
 			openings: JSON.parse(JSON.stringify(state.openings)),
 		};
@@ -841,11 +1036,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		if (!room) return;
 		roomDims = { ...room.roomDims };
 		state.roomName = room.roomName;
+		state.needByTimeline = room.needByTimeline || '';
+		state.fundingStatus = room.fundingStatus || '';
+		state.sportType = (room.sportType || '') as any;
 		state.walls = buildWalls(roomDims);
 		state.openings = JSON.parse(JSON.stringify(room.openings));
 		state.lockers = [];
 		state.selection = null;
 		roomNameInput.value = state.roomName;
+		(document.getElementById('need-by-timeline') as HTMLSelectElement).value = state.needByTimeline || '';
+		(document.getElementById('funding-status') as HTMLSelectElement).value = state.fundingStatus || '';
+		(document.getElementById('sport-type') as HTMLSelectElement).value = state.sportType || '';
 		writeAllDimInputs();
 		renderWallOpeningsForms();
 	}
@@ -898,6 +1099,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 			list.appendChild(btn);
 		}
+		const roomLabelEl = document.getElementById('room-name-label');
+		if (roomLabelEl) roomLabelEl.textContent = `Name Room ${activeRoomIndex + 1}`;
 	}
 
 	function switchToRoom(index: number) {
@@ -913,6 +1116,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		const newIndex = savedRooms.length;
 		savedRooms.push({
 			roomName: '',
+			needByTimeline: '',
+			fundingStatus: '',
+			sportType: '',
 			roomDims: defaultDimensions(),
 			openings: [],
 		});
@@ -921,11 +1127,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		renderRoomTabs();
 	};
 
-	// Room name
+	// Room name, timeline & sport
 	const roomNameInput = document.getElementById('room-name') as HTMLInputElement;
+	const needBySelect = document.getElementById('need-by-timeline') as HTMLSelectElement;
+	const fundingSelect = document.getElementById('funding-status') as HTMLSelectElement;
+	const sportTypeSelect = document.getElementById('sport-type') as HTMLSelectElement;
 	roomNameInput.oninput = () => {
 		state.roomName = roomNameInput.value.trim();
 		renderRoomTabs();
+	};
+	needBySelect.onchange = () => {
+		state.needByTimeline = needBySelect.value;
+		saveCurrentRoom();
+	};
+	fundingSelect.onchange = () => {
+		state.fundingStatus = fundingSelect.value;
+		saveCurrentRoom();
+	};
+	sportTypeSelect.onchange = () => {
+		state.sportType = sportTypeSelect.value as any;
+		saveCurrentRoom();
 	};
 
 	// Room dimension inputs
@@ -1020,6 +1241,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		writeAllDimInputs();
 		state.roomName = '';
 		roomNameInput.value = '';
+		state.needByTimeline = '';
+		needBySelect.value = '';
+		state.fundingStatus = '';
+		fundingSelect.value = '';
+		state.sportType = '';
+		sportTypeSelect.value = '';
 		state.walls = buildWalls(roomDims);
 		state.lockers = [];
 		state.openings = [];
@@ -1029,24 +1256,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		renderWallOpeningsForms();
 		renderPreview();
 	};
-
-	// ─── Floor & wall color pickers ───
-	document.querySelectorAll('.color-swatch').forEach(btn => {
-		btn.addEventListener('click', () => {
-			const el = btn as HTMLElement;
-			const hex = el.dataset.color!;
-			const target = el.dataset.target!;
-			const container = el.parentElement!;
-			container.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-			el.classList.add('active');
-			if (target === 'floor') {
-				state.floorColor = hex;
-			} else {
-				state.wallColor = hex;
-			}
-			renderPreview();
-		});
-	});
 
 	// Wall openings
 	let _openingCounter = 0;
@@ -1248,6 +1457,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			return `${name}: ${ft(dims.wallA)} × ${ft(dims.wallB)}`;
 		}).join(', ');
 
+		const timingSummary = savedRooms
+			.map((r, i) => {
+				const lbl = needByTimelineLabel(r.needByTimeline || '');
+				if (!lbl) return '';
+				const name = r.roomName || `Room ${i + 1}`;
+				return `${name}: ${lbl}`;
+			})
+			.filter(Boolean)
+			.join('; ');
+
+		const fundingSummary = savedRooms
+			.map((r, i) => {
+				const lbl = fundingStatusLabel(r.fundingStatus || '');
+				if (!lbl) return '';
+				const name = r.roomName || `Room ${i + 1}`;
+				return `${name}: ${lbl}`;
+			})
+			.filter(Boolean)
+			.join('; ');
+
 		fetch('https://formspree.io/f/mgopozqe', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1256,6 +1485,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 				_subject: 'Room Planner — New Lead',
 				source: 'Room Planner (Step 1)',
 				rooms: roomSummary,
+				...(timingSummary ? { delivery_timing: timingSummary } : {}),
+				...(fundingSummary ? { funding_budget: fundingSummary } : {}),
 			}),
 		}).catch(() => {});
 
@@ -1265,6 +1496,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			wallColor: state.wallColor,
 			rooms: savedRooms.map((r) => ({
 				roomName: r.roomName,
+				needByTimeline: r.needByTimeline,
+				fundingStatus: r.fundingStatus,
+				sportType: r.sportType,
 				roomDims: r.roomDims,
 				openings: r.openings,
 			})),
@@ -1283,4 +1517,133 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	savedRooms.push(snapshotCurrentRoom());
 	renderRoomTabs();
 	window.addEventListener('resize', () => renderPreview());
+
+	/* ── Guide Agent (Step 1) ─────────────────────────────────── */
+	(function initGuide() {
+		const STEPS = [
+			{
+				title: 'Welcome!',
+				desc: "First we'll capture your room size and openings. Then you'll move on to add lockers. Click <strong>Next</strong> to begin.",
+				target: null
+			},
+			{
+				title: 'When, funding & sport',
+				desc: 'Tell us <strong>when you need the lockers</strong>, your <strong>funding</strong> situation, <strong>sport</strong>, and a <strong>room name</strong> so we can tailor your quote.',
+				target: '.room-fields-group'
+			},
+			{
+				title: 'Measure each wall',
+				desc: 'Enter the <strong>length</strong> of walls A–D. Use <strong>Door</strong>, <strong>Window</strong>, or <strong>Obstacle</strong> so lockers are not placed in those areas.',
+				target: '.wall-cards'
+			},
+			{
+				title: 'Draw your floor plan',
+				desc: 'Click <strong>Draw My Room</strong> to build the floor plan from your dimensions.',
+				target: '#btn-apply-room'
+			},
+			{
+				title: 'Preview your room',
+				desc: 'After drawing, a <strong>preview</strong> appears below. Adjust walls or openings and click <strong>Draw My Room</strong> again to refresh.',
+				target: '#room-preview-wrap'
+			},
+			{
+				title: 'Continue to design',
+				desc: 'Click <strong>Next</strong>, enter your email, and you\'ll open the locker designer. You can add multiple rooms with <strong>+ Add Room</strong> first if needed.',
+				target: '#btn-next'
+			}
+		];
+
+		const fab = document.getElementById('guide-fab')!;
+		const panel = document.getElementById('guide-panel')!;
+		const btnMin = document.getElementById('guide-minimize')!;
+		const btnPrev = document.getElementById('guide-prev') as HTMLButtonElement;
+		const btnNextGuide = document.getElementById('guide-next') as HTMLButtonElement;
+		const stepTitle = document.getElementById('guide-step-title')!;
+		const stepDesc = document.getElementById('guide-step-desc')!;
+		const stepCount = document.getElementById('guide-step-count')!;
+		const progressBar = document.getElementById('guide-progress-bar')!;
+
+		let current = 0;
+		let _highlightEl: Element | null = null;
+		const STORAGE_KEY = 'ps_guide_setup_collapsed';
+
+		function renderStep() {
+			const s = STEPS[current];
+			stepTitle.textContent = s.title;
+			stepDesc.innerHTML = s.desc;
+			stepCount.textContent = `Step ${current + 1} of ${STEPS.length}`;
+			progressBar.style.width = `${((current + 1) / STEPS.length) * 100}%`;
+			btnPrev.disabled = current === 0;
+			btnNextGuide.textContent = current === STEPS.length - 1 ? 'Done ✓' : 'Next →';
+
+			if (_highlightEl) {
+				_highlightEl.classList.remove('guide-highlight', 'guide-pulse');
+				_highlightEl = null;
+			}
+			if (s.target) {
+				const el = document.querySelector(s.target);
+				if (el) {
+					_highlightEl = el;
+					el.classList.add('guide-highlight', 'guide-pulse');
+					el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+				}
+			}
+		}
+
+		function goTo(step: number) {
+			current = Math.max(0, Math.min(STEPS.length - 1, step));
+			renderStep();
+		}
+
+		function advanceIfBefore(step: number) {
+			if (current < step) goTo(step);
+		}
+
+		function show() {
+			panel.classList.remove('hidden');
+			fab.classList.add('hidden');
+			localStorage.removeItem(STORAGE_KEY);
+			renderStep();
+		}
+
+		function hide() {
+			panel.classList.add('hidden');
+			fab.classList.remove('hidden');
+			localStorage.setItem(STORAGE_KEY, '1');
+			if (_highlightEl) {
+				_highlightEl.classList.remove('guide-highlight', 'guide-pulse');
+				_highlightEl = null;
+			}
+		}
+
+		btnMin.onclick = hide;
+		fab.onclick = show;
+
+		btnPrev.onclick = () => goTo(current - 1);
+		btnNextGuide.onclick = () => {
+			if (current === STEPS.length - 1) { hide(); return; }
+			goTo(current + 1);
+		};
+
+		document.getElementById('btn-apply-room')!.addEventListener('click', () => {
+			setTimeout(() => {
+				if (previewWrap.style.display !== 'none') advanceIfBefore(4);
+			}, 50);
+		});
+
+		document.getElementById('btn-next')!.addEventListener('click', () => {
+			setTimeout(() => {
+				if (overlay.style.display === 'flex') advanceIfBefore(5);
+			}, 100);
+		});
+
+		if (localStorage.getItem(STORAGE_KEY) === '1') {
+			panel.classList.add('hidden');
+			fab.classList.remove('hidden');
+		} else {
+			fab.classList.add('hidden');
+			panel.classList.remove('hidden');
+			renderStep();
+		}
+	})();
 </script>

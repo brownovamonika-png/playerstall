@@ -1,0 +1,692 @@
+---
+export const prerender = false;
+
+import { supabaseAdmin, STAGE_LABELS, STAGE_COLORS, STAGE_ORDER, type OrderStage } from '../../lib/supabase';
+
+const { token } = Astro.params;
+
+// Look up client by portal token
+const { data: client } = await supabaseAdmin
+	.from('clients')
+	.select('*')
+	.eq('portal_token', token)
+	.single();
+
+if (!client) {
+	return new Response('Project not found', { status: 404 });
+}
+
+// Handle message submission
+if (Astro.request.method === 'POST') {
+	const form = await Astro.request.formData();
+	const content = form.get('message') as string;
+	if (content?.trim()) {
+		await supabaseAdmin.from('messages').insert({
+			client_id: client.id,
+			content: content.trim(),
+			sender: 'client',
+		});
+	}
+}
+
+// Fetch orders for this client
+const { data: orders } = await supabaseAdmin
+	.from('orders')
+	.select('*')
+	.eq('client_id', client.id)
+	.order('created_at', { ascending: false });
+
+// Get the primary (most recent) order
+const primaryOrder = orders?.[0] || null;
+
+// Fetch timeline for primary order
+const { data: timeline } = primaryOrder
+	? await supabaseAdmin
+		.from('stage_history')
+		.select('*')
+		.eq('order_id', primaryOrder.id)
+		.eq('client_visible', true)
+		.order('created_at', { ascending: true })
+	: { data: [] };
+
+// Fetch client-visible attachments
+const { data: attachments } = primaryOrder
+	? await supabaseAdmin
+		.from('attachments')
+		.select('*')
+		.eq('order_id', primaryOrder.id)
+		.eq('client_visible', true)
+		.order('uploaded_at', { ascending: false })
+	: { data: [] };
+
+// Fetch client-visible notes
+const { data: notes } = primaryOrder
+	? await supabaseAdmin
+		.from('notes')
+		.select('*')
+		.eq('order_id', primaryOrder.id)
+		.eq('client_visible', true)
+		.order('created_at', { ascending: false })
+	: { data: [] };
+
+// Fetch messages
+const { data: messages } = await supabaseAdmin
+	.from('messages')
+	.select('*')
+	.eq('client_id', client.id)
+	.order('created_at', { ascending: true })
+	.limit(50);
+
+const currentStageIndex = primaryOrder ? STAGE_ORDER.indexOf(primaryOrder.stage as OrderStage) : -1;
+const progressPercent = primaryOrder ? Math.round(((currentStageIndex + 1) / STAGE_ORDER.length) * 100) : 0;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="robots" content="noindex, nofollow" />
+		<title>My Project | PlayerStall</title>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link href="https://fonts.googleapis.com/css?family=Yantramanav:400,500,700|Oswald:600,700&display=swap" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="portal-wrapper">
+			<header class="portal-header">
+				<div class="portal-header-inner">
+					<a href="https://playerstall.com" class="portal-brand">
+						<span class="brand-name">PLAYERSTALL</span>
+					</a>
+					<div class="portal-greeting">
+						<span>Welcome, <strong>{client.contact_name}</strong></span>
+					</div>
+				</div>
+			</header>
+
+			<main class="portal-main">
+				{primaryOrder ? (
+					<>
+						<!-- Project Overview -->
+						<section class="portal-card hero-card">
+							<div class="project-overview">
+								<div>
+									<h1 class="project-title">{primaryOrder.title}</h1>
+									<p class="project-stage">
+										Current Status:
+										<span class="stage-badge" style={`background: ${STAGE_COLORS[primaryOrder.stage as OrderStage]}20; color: ${STAGE_COLORS[primaryOrder.stage as OrderStage]}`}>
+											{STAGE_LABELS[primaryOrder.stage as OrderStage]}
+										</span>
+									</p>
+									{primaryOrder.estimated_completion && (
+										<p class="project-est">Estimated Completion: <strong>{new Date(primaryOrder.estimated_completion).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong></p>
+									)}
+								</div>
+							</div>
+
+							<!-- Progress Bar -->
+							<div class="progress-section">
+								<div class="progress-bar">
+									<div class="progress-fill" style={`width: ${progressPercent}%`} />
+								</div>
+								<div class="progress-steps">
+									{STAGE_ORDER.map((stage, i) => {
+										const isActive = stage === primaryOrder.stage;
+										const isPast = i < currentStageIndex;
+										return (
+											<div class:list={['progress-step', { active: isActive, past: isPast }]}>
+												<div class="step-dot" style={isActive ? `background: ${STAGE_COLORS[stage]}; box-shadow: 0 0 0 3px ${STAGE_COLORS[stage]}33` : ''} />
+												<span class="step-label">{STAGE_LABELS[stage]}</span>
+											</div>
+										);
+									})}
+								</div>
+							</div>
+						</section>
+
+						<!-- Timeline & Files Row -->
+						<div class="portal-grid">
+							<!-- Timeline -->
+							<section class="portal-card">
+								<h2>Project Timeline</h2>
+								{timeline && timeline.length > 0 ? (
+									<div class="timeline">
+										{timeline.map((entry: any, i: number) => (
+											<div class:list={['timeline-item', { latest: i === timeline.length - 1 }]}>
+												<div class="timeline-dot" style={`background: ${STAGE_COLORS[entry.to_stage as OrderStage]}`} />
+												<div class="timeline-content">
+													<span class="timeline-stage" style={`color: ${STAGE_COLORS[entry.to_stage as OrderStage]}`}>
+														{STAGE_LABELS[entry.to_stage as OrderStage]}
+													</span>
+													{entry.notes && <p class="timeline-notes">{entry.notes}</p>}
+													<span class="timeline-date">
+														{new Date(entry.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+													</span>
+												</div>
+											</div>
+										))}
+									</div>
+								) : (
+									<p class="empty-text">Your timeline will appear here as your project progresses.</p>
+								)}
+							</section>
+
+							<!-- Files & Documents -->
+							<section class="portal-card">
+								<h2>Files & Documents</h2>
+								{attachments && attachments.length > 0 ? (
+									<div class="files-list">
+										{attachments.map((file: any) => (
+											<a href={file.file_url} class="file-item" target="_blank" rel="noopener noreferrer">
+												<div class="file-icon">
+													<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+												</div>
+												<div class="file-info">
+													<span class="file-name">{file.filename}</span>
+													<span class="file-type">{file.file_type}</span>
+												</div>
+												<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+											</a>
+										))}
+									</div>
+								) : (
+									<p class="empty-text">Documents such as room plans, design mockups, and quotes will appear here.</p>
+								)}
+							</section>
+						</div>
+
+						<!-- Updates & Messages Row -->
+						<div class="portal-grid">
+							<!-- Notes / Updates -->
+							{notes && notes.length > 0 && (
+								<section class="portal-card">
+									<h2>Updates from Our Team</h2>
+									<div class="updates-list">
+										{notes.map((note: any) => (
+											<div class="update-item">
+												<p class="update-content">{note.content}</p>
+												<span class="update-date">
+													{note.author} · {new Date(note.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+												</span>
+											</div>
+										))}
+									</div>
+								</section>
+							)}
+
+							<!-- Messages -->
+							<section class="portal-card">
+								<h2>Messages</h2>
+								<div class="messages-container">
+									{messages && messages.length > 0 ? (
+										<div class="messages-list">
+											{messages.map((msg: any) => (
+												<div class:list={['message-bubble', { 'from-me': msg.sender === 'client', 'from-them': msg.sender !== 'client' }]}>
+													<p>{msg.content}</p>
+													<span class="message-time">
+														{msg.sender === 'client' ? 'You' : 'PlayerStall'} · {new Date(msg.created_at).toLocaleString()}
+													</span>
+												</div>
+											))}
+										</div>
+									) : (
+										<p class="empty-text" style="margin-bottom: 16px">Have a question? Send us a message below.</p>
+									)}
+									<form method="POST" class="message-form">
+										<textarea name="message" rows="2" placeholder="Type a message..." required></textarea>
+										<button type="submit" class="send-btn">
+											Send
+											<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+										</button>
+									</form>
+								</div>
+							</section>
+						</div>
+					</>
+				) : (
+					<section class="portal-card hero-card">
+						<h1 class="project-title">Welcome, {client.contact_name}</h1>
+						<p class="empty-text">Your project details will appear here once your order is set up. We'll be in touch soon!</p>
+					</section>
+				)}
+			</main>
+
+			<footer class="portal-footer">
+				<p>PlayerStall — Custom Sports Lockers Since 1996</p>
+				<p>Questions? Email <a href="mailto:sales@playerstall.com">sales@playerstall.com</a> or call 1-888-584-1444</p>
+			</footer>
+		</div>
+	</body>
+</html>
+
+<style>
+	* { margin: 0; padding: 0; box-sizing: border-box; }
+
+	body {
+		font-family: 'Yantramanav', -apple-system, sans-serif;
+		background: #f3f4f6;
+		color: #1f2937;
+		min-height: 100vh;
+	}
+
+	.portal-wrapper {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.portal-header {
+		background: #111827;
+		padding: 16px 0;
+	}
+
+	.portal-header-inner {
+		max-width: 1000px;
+		margin: 0 auto;
+		padding: 0 20px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.portal-brand {
+		text-decoration: none;
+	}
+
+	.brand-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 700;
+		color: #ffffff;
+		letter-spacing: 0.05em;
+	}
+
+	.portal-greeting {
+		font-size: 14px;
+		color: #9ca3af;
+	}
+
+	.portal-greeting strong {
+		color: #ffffff;
+	}
+
+	.portal-main {
+		max-width: 1000px;
+		margin: 0 auto;
+		padding: 32px 20px;
+		width: 100%;
+		flex: 1;
+	}
+
+	.portal-card {
+		background: #ffffff;
+		border: 1px solid #e5e7eb;
+		border-radius: 12px;
+		padding: 24px;
+		margin-bottom: 20px;
+	}
+
+	.portal-card h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #111827;
+		margin-bottom: 16px;
+	}
+
+	.hero-card {
+		border-left: 4px solid #fe5900;
+	}
+
+	.project-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 700;
+		color: #111827;
+		margin-bottom: 8px;
+	}
+
+	.project-stage {
+		font-size: 15px;
+		color: #6b7280;
+		margin-bottom: 4px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.stage-badge {
+		display: inline-block;
+		padding: 2px 12px;
+		border-radius: 999px;
+		font-size: 13px;
+		font-weight: 600;
+	}
+
+	.project-est {
+		font-size: 14px;
+		color: #6b7280;
+	}
+
+	.progress-section {
+		margin-top: 24px;
+	}
+
+	.progress-bar {
+		width: 100%;
+		height: 8px;
+		background: #e5e7eb;
+		border-radius: 4px;
+		overflow: hidden;
+		margin-bottom: 12px;
+	}
+
+	.progress-fill {
+		height: 100%;
+		background: linear-gradient(90deg, #fe5900, #ff8c42);
+		border-radius: 4px;
+		transition: width 0.5s ease;
+	}
+
+	.progress-steps {
+		display: flex;
+		justify-content: space-between;
+		overflow-x: auto;
+		gap: 4px;
+	}
+
+	.progress-step {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		min-width: 60px;
+	}
+
+	.step-dot {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: #e5e7eb;
+		margin-bottom: 4px;
+	}
+
+	.progress-step.past .step-dot {
+		background: #10b981;
+	}
+
+	.step-label {
+		font-size: 10px;
+		color: #9ca3af;
+		text-align: center;
+		white-space: nowrap;
+	}
+
+	.progress-step.active .step-label {
+		color: #111827;
+		font-weight: 700;
+	}
+
+	.progress-step.past .step-label {
+		color: #10b981;
+	}
+
+	.portal-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 20px;
+	}
+
+	.portal-grid .portal-card {
+		margin-bottom: 0;
+	}
+
+	.timeline {
+		position: relative;
+	}
+
+	.timeline-item {
+		display: flex;
+		gap: 12px;
+		padding: 12px 0;
+		position: relative;
+	}
+
+	.timeline-item:not(:last-child)::before {
+		content: '';
+		position: absolute;
+		left: 6px;
+		top: 28px;
+		bottom: 0;
+		width: 2px;
+		background: #e5e7eb;
+	}
+
+	.timeline-dot {
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+
+	.timeline-stage {
+		font-size: 15px;
+		font-weight: 600;
+		display: block;
+	}
+
+	.timeline-notes {
+		font-size: 14px;
+		color: #4b5563;
+		margin-top: 4px;
+	}
+
+	.timeline-date {
+		font-size: 12px;
+		color: #9ca3af;
+	}
+
+	.timeline-item.latest {
+		background: #fefce8;
+		border-radius: 8px;
+		padding: 12px;
+		margin: -4px -8px;
+	}
+
+	.files-list {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.file-item {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 12px;
+		border: 1px solid #e5e7eb;
+		border-radius: 8px;
+		text-decoration: none;
+		color: inherit;
+		transition: border-color 0.15s, background 0.15s;
+	}
+
+	.file-item:hover {
+		border-color: #fe5900;
+		background: #fff7ed;
+	}
+
+	.file-icon {
+		color: #6b7280;
+	}
+
+	.file-info {
+		flex: 1;
+	}
+
+	.file-name {
+		display: block;
+		font-size: 14px;
+		font-weight: 500;
+		color: #111827;
+	}
+
+	.file-type {
+		font-size: 12px;
+		color: #9ca3af;
+		text-transform: capitalize;
+	}
+
+	.updates-list {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.update-item {
+		padding: 12px;
+		background: #f9fafb;
+		border-radius: 8px;
+	}
+
+	.update-content {
+		font-size: 14px;
+		color: #374151;
+		line-height: 1.5;
+	}
+
+	.update-date {
+		font-size: 12px;
+		color: #9ca3af;
+		margin-top: 4px;
+		display: block;
+	}
+
+	.messages-container {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.messages-list {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin-bottom: 16px;
+		max-height: 300px;
+		overflow-y: auto;
+	}
+
+	.message-bubble {
+		padding: 10px 14px;
+		border-radius: 12px;
+		max-width: 80%;
+	}
+
+	.message-bubble.from-me {
+		background: #fe5900;
+		color: #ffffff;
+		align-self: flex-end;
+		border-bottom-right-radius: 4px;
+	}
+
+	.message-bubble.from-them {
+		background: #f3f4f6;
+		color: #374151;
+		align-self: flex-start;
+		border-bottom-left-radius: 4px;
+	}
+
+	.message-bubble p {
+		font-size: 14px;
+		line-height: 1.4;
+	}
+
+	.message-time {
+		font-size: 11px;
+		opacity: 0.7;
+		margin-top: 4px;
+		display: block;
+	}
+
+	.message-form {
+		display: flex;
+		gap: 8px;
+	}
+
+	.message-form textarea {
+		flex: 1;
+		padding: 10px 14px;
+		border: 1px solid #d1d5db;
+		border-radius: 8px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		resize: none;
+	}
+
+	.message-form textarea:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 3px rgba(254, 89, 0, 0.1);
+	}
+
+	.send-btn {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		padding: 10px 20px;
+		background: #fe5900;
+		color: #ffffff;
+		border: none;
+		border-radius: 8px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		cursor: pointer;
+		white-space: nowrap;
+	}
+
+	.send-btn:hover {
+		background: #e55100;
+	}
+
+	.empty-text {
+		font-size: 14px;
+		color: #9ca3af;
+		line-height: 1.6;
+	}
+
+	.portal-footer {
+		background: #1a1a1a;
+		color: #9ca3af;
+		text-align: center;
+		padding: 24px 20px;
+		font-size: 13px;
+	}
+
+	.portal-footer p {
+		margin: 4px 0;
+	}
+
+	.portal-footer a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	.portal-footer a:hover {
+		text-decoration: underline;
+	}
+
+	@media (max-width: 768px) {
+		.portal-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.project-title {
+			font-size: 22px;
+		}
+
+		.progress-steps {
+			display: none;
+		}
+	}
+</style>

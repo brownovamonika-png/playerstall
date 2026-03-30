@@ -1,0 +1,897 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { getSession } from '../../../lib/auth';
+import { supabaseAdmin, STAGE_LABELS, STAGE_COLORS, STAGE_ORDER, type OrderStage } from '../../../lib/supabase';
+
+const session = await getSession(Astro.cookies);
+if (!session) return Astro.redirect('/admin/login');
+
+const { id } = Astro.params;
+let formMessage = '';
+
+// Handle POST actions
+if (Astro.request.method === 'POST') {
+	const form = await Astro.request.formData();
+	const action = form.get('action') as string;
+
+	if (action === 'update_stage') {
+		const newStage = form.get('new_stage') as OrderStage;
+		const stageNotes = form.get('stage_notes') as string;
+
+		const { data: currentOrder } = await supabaseAdmin.from('orders').select('stage').eq('id', id).single();
+		if (currentOrder) {
+			await supabaseAdmin.from('orders').update({ stage: newStage }).eq('id', id);
+			await supabaseAdmin.from('stage_history').insert({
+				order_id: id,
+				from_stage: currentOrder.stage,
+				to_stage: newStage,
+				changed_by: session.user.email,
+				notes: stageNotes || null,
+			});
+			formMessage = `Stage updated to ${STAGE_LABELS[newStage]}`;
+		}
+	}
+
+	if (action === 'update_order') {
+		const { error } = await supabaseAdmin.from('orders').update({
+			title: form.get('title') as string,
+			description: (form.get('description') as string) || null,
+			estimate_number: (form.get('estimate_number') as string) || null,
+			invoice_number: (form.get('invoice_number') as string) || null,
+			quoted_amount: form.get('quoted_amount') ? Number(form.get('quoted_amount')) : null,
+			locker_type: (form.get('locker_type') as string) || null,
+			locker_size: (form.get('locker_size') as string) || null,
+			locker_width: (form.get('locker_width') as string) || null,
+			locker_color: (form.get('locker_color') as string) || null,
+			accessories: (form.get('accessories') as string) || null,
+			quantity: form.get('quantity') ? Number(form.get('quantity')) : null,
+			assigned_to: (form.get('assigned_to') as string) || null,
+			estimated_completion: (form.get('estimated_completion') as string) || null,
+			completed_date: (form.get('completed_date') as string) || null,
+		}).eq('id', id);
+		formMessage = error ? `Error: ${error.message}` : 'Order updated';
+	}
+
+	if (action === 'add_note') {
+		await supabaseAdmin.from('notes').insert({
+			order_id: id,
+			client_id: (form.get('client_id') as string) || null,
+			content: form.get('content') as string,
+			client_visible: form.get('client_visible') === 'on',
+			author: session.user.email || 'Admin',
+		});
+		formMessage = 'Note added';
+	}
+
+	if (action === 'upload_document') {
+		const file = form.get('file') as File;
+		const docType = (form.get('doc_type') as string) || 'invoice';
+		if (file && file.size > 0) {
+			const ext = file.name.split('.').pop();
+			const storagePath = `orders/${id}/${Date.now()}-${file.name}`;
+			const { error: uploadError } = await supabaseAdmin.storage
+				.from('documents')
+				.upload(storagePath, file, { contentType: file.type });
+			if (uploadError) {
+				formMessage = `Upload error: ${uploadError.message}`;
+			} else {
+				await supabaseAdmin.from('documents').insert({
+					order_id: id,
+					client_id: order ? (await supabaseAdmin.from('orders').select('client_id').eq('id', id).single()).data?.client_id : null,
+					file_name: file.name,
+					file_type: file.type,
+					file_size: file.size,
+					storage_path: storagePath,
+					doc_type: docType,
+					uploaded_by: session.user.email || 'Admin',
+				});
+				formMessage = `"${file.name}" uploaded successfully`;
+			}
+		}
+	}
+
+	if (action === 'delete_document') {
+		const docId = form.get('doc_id') as string;
+		const { data: doc } = await supabaseAdmin.from('documents').select('storage_path').eq('id', docId).single();
+		if (doc) {
+			await supabaseAdmin.storage.from('documents').remove([doc.storage_path]);
+			await supabaseAdmin.from('documents').delete().eq('id', docId);
+			formMessage = 'Document deleted';
+		}
+	}
+}
+
+// Fetch order with client data
+const { data: order } = await supabaseAdmin
+	.from('orders')
+	.select('*, clients(*)')
+	.eq('id', id)
+	.single();
+
+if (!order) return Astro.redirect('/admin');
+
+const client = order.clients;
+
+// Fetch related data
+const [
+	{ data: stageHistory },
+	{ data: notes },
+	{ data: attachments },
+	{ data: emailLog },
+	{ data: documents },
+] = await Promise.all([
+	supabaseAdmin.from('stage_history').select('*').eq('order_id', id).order('created_at', { ascending: false }),
+	supabaseAdmin.from('notes').select('*').eq('order_id', id).order('created_at', { ascending: false }),
+	supabaseAdmin.from('attachments').select('*').eq('order_id', id).order('uploaded_at', { ascending: false }),
+	supabaseAdmin.from('email_log').select('*').eq('order_id', id).order('sent_at', { ascending: false }),
+	supabaseAdmin.from('documents').select('*').eq('order_id', id).order('created_at', { ascending: false }),
+]);
+
+const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
+---
+
+<AdminLayout title={order.title} activeNav="pipeline">
+	<Fragment slot="header-actions">
+		<a href={`/admin/clients/${client.id}`} class="btn btn-secondary btn-sm">View Client</a>
+	</Fragment>
+
+	{formMessage && (
+		<div class:list={['alert', { 'alert-error': formMessage.startsWith('Error') }]}>
+			{formMessage}
+		</div>
+	)}
+
+	<!-- Stage Progress Bar -->
+	<div class="card stage-card">
+		<div class="stage-progress">
+			{STAGE_ORDER.map((stage, i) => {
+				const isActive = stage === order.stage;
+				const isPast = i < currentStageIndex;
+				const color = STAGE_COLORS[stage];
+				return (
+					<div class:list={['stage-step', { active: isActive, past: isPast }]}>
+						<div class="stage-dot" style={isActive ? `background: ${color}; box-shadow: 0 0 0 4px ${color}33` : isPast ? `background: ${color}` : ''} />
+						<span class="stage-name" style={isActive ? `color: ${color}; font-weight: 700` : ''}>{STAGE_LABELS[stage]}</span>
+					</div>
+				);
+			})}
+		</div>
+
+		<div class="stage-actions">
+			<form method="POST" class="stage-change-form">
+				<input type="hidden" name="action" value="update_stage" />
+				<select name="new_stage" class="stage-select">
+					{STAGE_ORDER.map((stage) => (
+						<option value={stage} selected={stage === order.stage}>{STAGE_LABELS[stage]}</option>
+					))}
+				</select>
+				<input type="text" name="stage_notes" placeholder="Note (optional)" class="stage-note-input" />
+				<button type="submit" class="btn btn-primary btn-sm">Move Stage</button>
+			</form>
+		</div>
+	</div>
+
+	<div class="order-layout">
+		<!-- Left: Order Details -->
+		<div class="order-sidebar">
+			<div class="card">
+				<h3>Order Details</h3>
+				<form method="POST">
+					<input type="hidden" name="action" value="update_order" />
+					<div class="form-group">
+						<label>Title</label>
+						<input type="text" name="title" value={order.title} required />
+					</div>
+					<div class="form-group">
+						<label>Description</label>
+						<textarea name="description" rows="3">{order.description || ''}</textarea>
+					</div>
+					<div class="form-group">
+						<label>Estimate #</label>
+						<input type="text" name="estimate_number" value={order.estimate_number || ''} placeholder="e.g. EST-1296" />
+					</div>
+					<div class="form-group">
+						<label>Invoice #</label>
+						<input type="text" name="invoice_number" value={order.invoice_number || ''} placeholder="e.g. INV-1088" />
+					</div>
+					<div class="form-group">
+						<label>Quoted Amount ($)</label>
+						<input type="number" name="quoted_amount" step="0.01" value={order.quoted_amount || ''} />
+					</div>
+					<div class="form-group">
+						<label>Locker Type</label>
+						<select name="locker_type">
+							<option value="">Select...</option>
+							<option value="Model L" selected={order.locker_type === 'Model L'}>Model L</option>
+							<option value="Model S" selected={order.locker_type === 'Model S'}>Model S</option>
+							<option value="Model Z" selected={order.locker_type === 'Model Z'}>Model Z</option>
+							<option value="Model X" selected={order.locker_type === 'Model X'}>Model X</option>
+							<option value="Semi Pro" selected={order.locker_type === 'Semi Pro'}>Semi Pro</option>
+							<option value="Varsity" selected={order.locker_type === 'Varsity'}>Varsity</option>
+							<option value="Pro" selected={order.locker_type === 'Pro'}>Pro</option>
+							<option value="Stadium" selected={order.locker_type === 'Stadium'}>Stadium</option>
+							<option value="Custom" selected={order.locker_type === 'Custom'}>Custom</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Width</label>
+						<input type="text" name="locker_size" value={order.locker_size || ''} placeholder='e.g. 24"' />
+					</div>
+					<div class="form-group">
+						<label>Depth</label>
+						<input type="text" name="locker_width" value={order.locker_width || ''} placeholder='e.g. 18"' />
+					</div>
+					<div class="form-group">
+						<label>Color</label>
+						<input type="text" name="locker_color" value={order.locker_color || ''} placeholder="e.g. Natural Oak, Dark Walnut" />
+					</div>
+					<div class="form-group">
+						<label>Accessories</label>
+						<input type="text" name="accessories" value={order.accessories || ''} placeholder="e.g. Name plates, hooks, shelves" />
+					</div>
+					<div class="form-group">
+						<label>Quantity</label>
+						<input type="number" name="quantity" min="1" value={order.quantity || ''} />
+					</div>
+					<div class="form-group">
+						<label>Assigned To</label>
+						<input type="text" name="assigned_to" value={order.assigned_to || ''} />
+					</div>
+					<div class="form-group">
+						<label>Est. Completion</label>
+						<input type="date" name="estimated_completion" value={order.estimated_completion || ''} />
+					</div>
+					<div class="form-group">
+						<label>Completed Date</label>
+						<input type="date" name="completed_date" value={order.completed_date || ''} />
+					</div>
+					<button type="submit" class="btn btn-primary btn-sm" style="width:100%">Save Changes</button>
+				</form>
+			</div>
+
+			<div class="card info-card">
+				<h3>Client</h3>
+				<div class="info-row">
+					<span class="info-label">Name</span>
+					<a href={`/admin/clients/${client.id}`}>{client.contact_name}</a>
+				</div>
+				{client.company_name && (
+					<div class="info-row">
+						<span class="info-label">Company</span>
+						<span>{client.company_name}</span>
+					</div>
+				)}
+				{client.email && (
+					<div class="info-row">
+						<span class="info-label">Email</span>
+						<a href={`mailto:${client.email}`}>{client.email}</a>
+					</div>
+				)}
+				{client.phone && (
+					<div class="info-row">
+						<span class="info-label">Phone</span>
+						<span>{client.phone}</span>
+					</div>
+				)}
+			</div>
+		</div>
+
+		<!-- Right: Timeline, Notes, Files -->
+		<div class="order-main">
+			<!-- Stage Timeline -->
+			<div class="card">
+				<h3>Timeline</h3>
+				{stageHistory && stageHistory.length > 0 ? (
+					<div class="timeline">
+						{stageHistory.map((entry: any) => (
+							<div class="timeline-item">
+								<div class="timeline-dot" style={`background: ${STAGE_COLORS[entry.to_stage as OrderStage]}`} />
+								<div class="timeline-content">
+									<div class="timeline-header">
+										{entry.from_stage ? (
+											<span>{STAGE_LABELS[entry.from_stage as OrderStage]} → <strong style={`color: ${STAGE_COLORS[entry.to_stage as OrderStage]}`}>{STAGE_LABELS[entry.to_stage as OrderStage]}</strong></span>
+										) : (
+											<span>Created as <strong style={`color: ${STAGE_COLORS[entry.to_stage as OrderStage]}`}>{STAGE_LABELS[entry.to_stage as OrderStage]}</strong></span>
+										)}
+									</div>
+									{entry.notes && <p class="timeline-notes">{entry.notes}</p>}
+									<span class="timeline-meta">{entry.changed_by || 'System'} · {new Date(entry.created_at).toLocaleString()}</span>
+								</div>
+							</div>
+						))}
+					</div>
+				) : (
+					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No stage changes yet</p>
+				)}
+			</div>
+
+			<!-- Notes -->
+			<div class="card">
+				<h3>Notes</h3>
+				<form method="POST" class="note-form">
+					<input type="hidden" name="action" value="add_note" />
+					<input type="hidden" name="client_id" value={client.id} />
+					<textarea name="content" rows="2" placeholder="Add a note..." required></textarea>
+					<div class="note-form-actions">
+						<label class="checkbox-label">
+							<input type="checkbox" name="client_visible" />
+							<span>Visible to client</span>
+						</label>
+						<button type="submit" class="btn btn-sm btn-primary">Add Note</button>
+					</div>
+				</form>
+				{notes && notes.length > 0 && (
+					<div class="notes-list">
+						{notes.map((note: any) => (
+							<div class="note-item">
+								<div class="note-header">
+									<span class="note-author">{note.author}</span>
+									{note.client_visible && <span class="badge" style="background: #dbeafe; color: #2563eb; font-size: 10px">Client visible</span>}
+									<span class="note-time">{new Date(note.created_at).toLocaleString()}</span>
+								</div>
+								<p class="note-content">{note.content}</p>
+							</div>
+						))}
+					</div>
+				)}
+			</div>
+
+			<!-- Attachments -->
+			<div class="card">
+				<h3>Files & Attachments</h3>
+				{attachments && attachments.length > 0 ? (
+					<div class="files-list">
+						{attachments.map((file: any) => (
+							<div class="file-item">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+								<a href={file.file_url} target="_blank" rel="noopener noreferrer">{file.filename}</a>
+								<span class="badge" style="background: #f3f4f6; color: #6b7280; font-size: 10px">{file.file_type}</span>
+								{file.client_visible && <span class="badge" style="background: #dbeafe; color: #2563eb; font-size: 10px">Client visible</span>}
+							</div>
+						))}
+					</div>
+				) : (
+					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No files attached yet</p>
+				)}
+			</div>
+
+			<!-- Documents / Invoices -->
+			<div class="card">
+				<h3>Documents & Invoices</h3>
+				<form method="POST" enctype="multipart/form-data" class="upload-form">
+					<input type="hidden" name="action" value="upload_document" />
+					<div class="upload-row">
+						<select name="doc_type" class="upload-select">
+							<option value="invoice">Invoice (QBO)</option>
+							<option value="quote">Quote</option>
+							<option value="design">Design / Drawing</option>
+							<option value="room_plan">Room Plan</option>
+							<option value="contract">Contract</option>
+							<option value="photo">Photo</option>
+							<option value="other">Other</option>
+						</select>
+						<label class="upload-btn btn btn-sm btn-secondary">
+							Choose File
+							<input type="file" name="file" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx,.xls,.xlsx" style="display:none" onchange="this.closest('.upload-row').querySelector('.upload-filename').textContent = this.files[0]?.name || 'No file chosen'" />
+						</label>
+						<span class="upload-filename">No file chosen</span>
+						<button type="submit" class="btn btn-sm btn-primary">Upload</button>
+					</div>
+				</form>
+				{documents && documents.length > 0 ? (
+					<div class="doc-list">
+						{documents.map((doc: any) => {
+							const { data: urlData } = supabaseAdmin.storage.from('documents').getPublicUrl(doc.storage_path);
+							const fileUrl = urlData?.publicUrl || '#';
+							const sizeKB = doc.file_size ? `${(doc.file_size / 1024).toFixed(0)} KB` : '';
+							const typeLabel = {
+								invoice: 'Invoice',
+								quote: 'Quote',
+								design: 'Design',
+								room_plan: 'Room Plan',
+								contract: 'Contract',
+								photo: 'Photo',
+								other: 'Other',
+							};
+							return (
+								<div class="doc-item">
+									<div class="doc-icon">
+										{doc.file_type === 'application/pdf' ? (
+											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+										) : (
+											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+										)}
+									</div>
+									<div class="doc-info">
+										<a href={fileUrl} target="_blank" rel="noopener noreferrer" class="doc-name">{doc.file_name}</a>
+										<span class="doc-meta">
+											<span class="badge" style="background: #f3f4f6; color: #6b7280; font-size: 10px">{typeLabel[doc.doc_type] || doc.doc_type}</span>
+											{sizeKB && <span>{sizeKB}</span>}
+											<span>{new Date(doc.created_at).toLocaleDateString()}</span>
+											{doc.uploaded_by && <span>by {doc.uploaded_by}</span>}
+										</span>
+									</div>
+									<form method="POST" style="margin:0">
+										<input type="hidden" name="action" value="delete_document" />
+										<input type="hidden" name="doc_id" value={doc.id} />
+										<button type="submit" class="doc-delete" title="Delete" onclick="return confirm('Delete this document?')">
+											<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+										</button>
+									</form>
+								</div>
+							);
+						})}
+					</div>
+				) : (
+					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No documents uploaded yet. Upload invoices from QBO, designs, contracts, or room plans.</p>
+				)}
+			</div>
+
+			<!-- Email History -->
+			<div class="card">
+				<h3>Email History</h3>
+				{emailLog && emailLog.length > 0 ? (
+					<div class="email-list">
+						{emailLog.map((log: any) => (
+							<div class="email-item">
+								<span class="email-subject">{log.subject}</span>
+								<span class="email-meta">{new Date(log.sent_at).toLocaleString()}</span>
+								<span class="badge" style={`background: ${log.status === 'sent' ? '#dcfce7' : '#fef9c3'}; color: ${log.status === 'sent' ? '#166534' : '#854d0e'}`}>{log.status}</span>
+							</div>
+						))}
+					</div>
+				) : (
+					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No emails sent yet</p>
+				)}
+			</div>
+		</div>
+	</div>
+</AdminLayout>
+
+<style>
+	.stage-card {
+		margin-bottom: 24px;
+	}
+
+	.stage-progress {
+		display: flex;
+		align-items: flex-start;
+		gap: 0;
+		margin-bottom: 20px;
+		overflow-x: auto;
+		padding-bottom: 4px;
+	}
+
+	.stage-step {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		flex: 1;
+		position: relative;
+		min-width: 80px;
+	}
+
+	.stage-step::after {
+		content: '';
+		position: absolute;
+		top: 8px;
+		left: 50%;
+		right: -50%;
+		height: 2px;
+		background: #e5e7eb;
+		z-index: 0;
+	}
+
+	.stage-step:last-child::after {
+		display: none;
+	}
+
+	.stage-step.past::after {
+		background: #10b981;
+	}
+
+	.stage-dot {
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		background: #e5e7eb;
+		position: relative;
+		z-index: 1;
+		margin-bottom: 6px;
+	}
+
+	.stage-step.past .stage-dot {
+		background: #10b981;
+	}
+
+	.stage-name {
+		font-size: 10px;
+		color: #9ca3af;
+		text-align: center;
+		white-space: nowrap;
+	}
+
+	.stage-actions {
+		border-top: 1px solid #f3f4f6;
+		padding-top: 16px;
+	}
+
+	.stage-change-form {
+		display: flex;
+		gap: 8px;
+		align-items: center;
+	}
+
+	.stage-select {
+		padding: 6px 12px;
+		border: 1px solid #d1d5db;
+		border-radius: 8px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+	}
+
+	.stage-note-input {
+		flex: 1;
+		padding: 6px 12px;
+		border: 1px solid #d1d5db;
+		border-radius: 8px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+	}
+
+	.order-layout {
+		display: grid;
+		grid-template-columns: 320px 1fr;
+		gap: 24px;
+		align-items: start;
+	}
+
+	.order-sidebar {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.order-sidebar h3,
+	.order-main h3 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		margin-bottom: 16px;
+	}
+
+	.order-main {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.info-card .info-row {
+		display: flex;
+		justify-content: space-between;
+		padding: 8px 0;
+		border-bottom: 1px solid #f3f4f6;
+		font-size: 14px;
+	}
+
+	.info-card .info-row:last-child {
+		border-bottom: none;
+	}
+
+	.info-label {
+		color: #6b7280;
+		font-size: 13px;
+	}
+
+	.info-card a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	.info-card a:hover {
+		text-decoration: underline;
+	}
+
+	.timeline {
+		position: relative;
+	}
+
+	.timeline-item {
+		display: flex;
+		gap: 12px;
+		padding: 12px 0;
+		position: relative;
+	}
+
+	.timeline-item:not(:last-child)::before {
+		content: '';
+		position: absolute;
+		left: 5px;
+		top: 28px;
+		bottom: 0;
+		width: 2px;
+		background: #e5e7eb;
+	}
+
+	.timeline-dot {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+
+	.timeline-content {
+		flex: 1;
+	}
+
+	.timeline-header {
+		font-size: 14px;
+		color: #374151;
+	}
+
+	.timeline-notes {
+		font-size: 13px;
+		color: #6b7280;
+		margin-top: 2px;
+		font-style: italic;
+	}
+
+	.timeline-meta {
+		font-size: 12px;
+		color: #9ca3af;
+	}
+
+	.note-form {
+		margin-bottom: 16px;
+		padding-bottom: 16px;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.note-form textarea {
+		width: 100%;
+		padding: 8px 12px;
+		border: 1px solid #d1d5db;
+		border-radius: 8px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		margin-bottom: 8px;
+		resize: vertical;
+	}
+
+	.note-form-actions {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.checkbox-label {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 13px;
+		color: #6b7280;
+		cursor: pointer;
+	}
+
+	.notes-list .note-item {
+		padding: 12px 0;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.notes-list .note-item:last-child {
+		border-bottom: none;
+	}
+
+	.note-header {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 4px;
+	}
+
+	.note-author {
+		font-size: 13px;
+		font-weight: 600;
+		color: #374151;
+	}
+
+	.note-time {
+		font-size: 12px;
+		color: #9ca3af;
+		margin-left: auto;
+	}
+
+	.note-content {
+		font-size: 14px;
+		color: #4b5563;
+	}
+
+	.files-list {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.file-item {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 0;
+	}
+
+	.file-item a {
+		color: #fe5900;
+		text-decoration: none;
+		font-size: 14px;
+	}
+
+	.file-item a:hover {
+		text-decoration: underline;
+	}
+
+	.email-list {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.email-item {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 10px 0;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.email-item:last-child {
+		border-bottom: none;
+	}
+
+	.email-subject {
+		font-size: 14px;
+		font-weight: 500;
+		flex: 1;
+	}
+
+	.email-meta {
+		font-size: 12px;
+		color: #9ca3af;
+	}
+
+	.alert {
+		background: #f0fdf4;
+		border: 1px solid #bbf7d0;
+		color: #166534;
+		padding: 10px 16px;
+		border-radius: 8px;
+		font-size: 14px;
+		margin-bottom: 20px;
+	}
+
+	.alert-error {
+		background: #fef2f2;
+		border-color: #fecaca;
+		color: #dc2626;
+	}
+
+	.upload-form {
+		margin-bottom: 16px;
+		padding-bottom: 16px;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.upload-row {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+
+	.upload-select {
+		padding: 6px 10px;
+		border: 1px solid #d1d5db;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		background: #fff;
+	}
+
+	.upload-btn {
+		cursor: pointer;
+		white-space: nowrap;
+	}
+
+	.upload-filename {
+		font-size: 12px;
+		color: #8c8c8c;
+		max-width: 200px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.doc-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.doc-item {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 10px 0;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.doc-item:last-child {
+		border-bottom: none;
+	}
+
+	.doc-icon {
+		flex-shrink: 0;
+		width: 32px;
+		height: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #f9fafb;
+		border: 1px solid #e5e7eb;
+		border-radius: 4px;
+	}
+
+	.doc-info {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.doc-name {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 500;
+		color: #0d0d0d;
+		text-decoration: none;
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.doc-name:hover {
+		color: #fe5900;
+	}
+
+	.doc-meta {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 11px;
+		color: #9ca3af;
+		margin-top: 2px;
+	}
+
+	.doc-delete {
+		background: none;
+		border: none;
+		color: #d1d5db;
+		cursor: pointer;
+		padding: 4px;
+		transition: color 0.2s;
+		flex-shrink: 0;
+	}
+
+	.doc-delete:hover {
+		color: #dc2626;
+	}
+
+	@media (max-width: 768px) {
+		.order-layout {
+			grid-template-columns: 1fr;
+		}
+
+		.stage-change-form {
+			flex-wrap: wrap;
+		}
+	}
+</style>

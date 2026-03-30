@@ -1,0 +1,816 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { getSession } from '../../../lib/auth';
+import { supabaseAdmin, STAGE_LABELS, STAGE_COLORS, STAGE_ORDER, type OrderStage } from '../../../lib/supabase';
+
+const session = await getSession(Astro.cookies);
+if (!session) return Astro.redirect('/admin/login');
+
+const { id } = Astro.params;
+let formMessage = '';
+
+// Handle POST actions
+if (Astro.request.method === 'POST') {
+	const form = await Astro.request.formData();
+	const action = form.get('action') as string;
+
+	if (action === 'update_client') {
+		const { error } = await supabaseAdmin.from('clients').update({
+			contact_name: form.get('contact_name') as string,
+			company_name: (form.get('company_name') as string) || null,
+			email: (form.get('email') as string) || null,
+			phone: (form.get('phone') as string) || null,
+			sport: (form.get('sport') as string) || null,
+			team_name: (form.get('team_name') as string) || null,
+			country: (form.get('country') as string) || null,
+			shipping_address: (form.get('shipping_address') as string) || null,
+			source_website: (form.get('source_website') as string) || null,
+			notes: (form.get('notes') as string) || null,
+		}).eq('id', id);
+		formMessage = error ? `Error: ${error.message}` : 'Client updated';
+	}
+
+	if (action === 'create_order') {
+		const { data: order, error } = await supabaseAdmin.from('orders').insert({
+			client_id: id,
+			title: form.get('title') as string,
+			description: (form.get('description') as string) || null,
+			locker_type: (form.get('locker_type') as string) || null,
+			locker_size: (form.get('locker_size') as string) || null,
+			locker_width: (form.get('locker_width') as string) || null,
+			locker_color: (form.get('locker_color') as string) || null,
+			accessories: (form.get('accessories') as string) || null,
+			quantity: form.get('quantity') ? Number(form.get('quantity')) : null,
+		}).select().single();
+
+		if (!error && order) {
+			await supabaseAdmin.from('stage_history').insert({
+				order_id: order.id,
+				to_stage: 'new_lead',
+				changed_by: session.user.email,
+				notes: 'Order created',
+			});
+			formMessage = 'Order created';
+		} else {
+			formMessage = `Error: ${error?.message}`;
+		}
+	}
+
+	if (action === 'add_note') {
+		const { error } = await supabaseAdmin.from('notes').insert({
+			client_id: id,
+			order_id: (form.get('order_id') as string) || null,
+			content: form.get('content') as string,
+			client_visible: form.get('client_visible') === 'on',
+			author: session.user.email || 'Admin',
+		});
+		formMessage = error ? `Error: ${error.message}` : 'Note added';
+	}
+
+	if (action === 'regenerate_token') {
+		const newToken = [...Array(48)].map(() => Math.random().toString(36)[2]).join('');
+		await supabaseAdmin.from('clients').update({ portal_token: newToken }).eq('id', id);
+		formMessage = 'Portal link regenerated';
+	}
+}
+
+// Fetch client data
+const { data: client } = await supabaseAdmin
+	.from('clients')
+	.select('*')
+	.eq('id', id)
+	.single();
+
+if (!client) return Astro.redirect('/admin/clients');
+
+// Fetch related data
+const [
+	{ data: orders },
+	{ data: notes },
+	{ data: messages },
+	{ data: emailLog },
+	{ data: clientDocs },
+] = await Promise.all([
+	supabaseAdmin.from('orders').select('*').eq('client_id', id).order('created_at', { ascending: false }),
+	supabaseAdmin.from('notes').select('*').eq('client_id', id).order('created_at', { ascending: false }),
+	supabaseAdmin.from('messages').select('*').eq('client_id', id).order('created_at', { ascending: false }).limit(20),
+	supabaseAdmin.from('email_log').select('*').eq('client_id', id).order('sent_at', { ascending: false }).limit(20),
+	supabaseAdmin.from('documents').select('*').eq('client_id', id).order('created_at', { ascending: false }),
+]);
+
+const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
+---
+
+<AdminLayout title={client.contact_name} activeNav="clients">
+	<Fragment slot="header-actions">
+		<a href="/admin/clients" class="btn btn-secondary btn-sm">Back to Clients</a>
+	</Fragment>
+
+	{formMessage && (
+		<div class:list={['alert', { 'alert-error': formMessage.startsWith('Error') }]}>
+			{formMessage}
+		</div>
+	)}
+
+	<div class="client-layout">
+		<!-- Left Column: Client Info -->
+		<div class="client-sidebar">
+			<div class="card">
+				<h3>Client Details</h3>
+				<form method="POST">
+					<input type="hidden" name="action" value="update_client" />
+					<div class="form-group">
+						<label>Contact Name</label>
+						<input type="text" name="contact_name" value={client.contact_name} required />
+					</div>
+					<div class="form-group">
+						<label>Company</label>
+						<input type="text" name="company_name" value={client.company_name || ''} />
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input type="email" name="email" value={client.email || ''} />
+					</div>
+					<div class="form-group">
+						<label>Phone</label>
+						<input type="tel" name="phone" value={client.phone || ''} />
+					</div>
+					<div class="form-group">
+						<label>Sport</label>
+						<select name="sport">
+							<option value="">Select...</option>
+							{['Football', 'Hockey', 'Basketball', 'Baseball', 'Soccer', 'Lacrosse', 'Other'].map(s => (
+								<option value={s} selected={client.sport === s}>{s}</option>
+							))}
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Team Name</label>
+						<input type="text" name="team_name" value={client.team_name || ''} />
+					</div>
+					<div class="form-group">
+						<label>Country</label>
+						<select name="country">
+							<option value="">Select...</option>
+							<option value="USA" selected={client.country === 'USA'}>USA</option>
+							<option value="Canada" selected={client.country === 'Canada'}>Canada</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Source Website</label>
+						<input type="text" name="source_website" value={client.source_website || ''} placeholder="e.g. customsportslockers.com" />
+					</div>
+					<div class="form-group">
+						<label>Shipping Address</label>
+						<textarea name="shipping_address" rows="2" placeholder="Full shipping address">{client.shipping_address || ''}</textarea>
+					</div>
+					<div class="form-group">
+						<label>Notes</label>
+						<textarea name="notes" rows="3">{client.notes || ''}</textarea>
+					</div>
+					<button type="submit" class="btn btn-primary btn-sm" style="width:100%">Save Changes</button>
+				</form>
+			</div>
+
+			<div class="card portal-card">
+				<h3>Client Portal</h3>
+				<p class="portal-desc">Share this link so your client can track their project:</p>
+				<div class="portal-link-box">
+					<input type="text" value={portalUrl} readonly id="portalUrl" class="portal-input" />
+					<button type="button" class="btn btn-sm btn-secondary" onclick="navigator.clipboard.writeText(document.getElementById('portalUrl').value).then(()=>this.textContent='Copied!').catch(()=>{})">Copy</button>
+				</div>
+				<form method="POST" style="margin-top: 8px">
+					<input type="hidden" name="action" value="regenerate_token" />
+					<button type="submit" class="btn btn-sm btn-secondary" style="width:100%" onclick="return confirm('Regenerate portal link? The old link will stop working.')">Regenerate Link</button>
+				</form>
+			</div>
+		</div>
+
+		<!-- Right Column: Orders, Notes, Activity -->
+		<div class="client-main">
+			<!-- Orders Section -->
+			<div class="card">
+				<div class="card-header">
+					<h3>Orders</h3>
+					<button class="btn btn-primary btn-sm" onclick="document.getElementById('newOrderModal').showModal()">New Order</button>
+				</div>
+				{orders && orders.length > 0 ? (
+					<div class="order-cards">
+						{orders.map((order: any) => (
+							<div class="order-card">
+								<div class="order-card-top">
+									<div class="order-card-title">
+										<a href={`/admin/orders/${order.id}`}>{order.title}</a>
+									</div>
+									<span class="badge" style={`background: ${STAGE_COLORS[order.stage as OrderStage]}20; color: ${STAGE_COLORS[order.stage as OrderStage]}`}>
+										{STAGE_LABELS[order.stage as OrderStage]}
+									</span>
+								</div>
+								<div class="order-card-grid">
+									<div class="order-field">
+										<span class="order-field-label">Estimate #</span>
+										<span class="order-field-value">{order.estimate_number || '—'}</span>
+									</div>
+									<div class="order-field">
+										<span class="order-field-label">Invoice #</span>
+										<span class="order-field-value">{order.invoice_number || '—'}</span>
+									</div>
+									<div class="order-field">
+										<span class="order-field-label">Locker Type</span>
+										<span class="order-field-value">{order.locker_type || '—'}</span>
+									</div>
+									<div class="order-field">
+										<span class="order-field-label">Width</span>
+										<span class="order-field-value">{order.locker_size || '—'}</span>
+									</div>
+									<div class="order-field">
+										<span class="order-field-label">Depth</span>
+										<span class="order-field-value">{order.locker_width || '—'}</span>
+									</div>
+									<div class="order-field">
+										<span class="order-field-label">Quantity</span>
+										<span class="order-field-value">{order.quantity || '—'}</span>
+									</div>
+									<div class="order-field">
+										<span class="order-field-label">Color</span>
+										<span class="order-field-value">{order.locker_color || '—'}</span>
+									</div>
+									<div class="order-field">
+										<span class="order-field-label">Quoted Amount</span>
+										<span class="order-field-value">{order.quoted_amount ? `$${Number(order.quoted_amount).toLocaleString()}` : '—'}</span>
+									</div>
+									<div class="order-field full-width">
+										<span class="order-field-label">Accessories</span>
+										<span class="order-field-value">{order.accessories || '—'}</span>
+									</div>
+									{order.description && (
+										<div class="order-field full-width">
+											<span class="order-field-label">Description</span>
+											<span class="order-field-value">{order.description}</span>
+										</div>
+									)}
+									<div class="order-field">
+										<span class="order-field-label">Assigned To</span>
+										<span class="order-field-value">{order.assigned_to || '—'}</span>
+									</div>
+									<div class="order-field">
+										<span class="order-field-label">Est. Completion</span>
+										<span class="order-field-value">{order.estimated_completion ? new Date(order.estimated_completion).toLocaleDateString() : '—'}</span>
+									</div>
+									<div class="order-field">
+										<span class="order-field-label">Completed Date</span>
+										<span class="order-field-value" style={order.completed_date ? 'color: #16a34a; font-weight: 600' : ''}>
+											{order.completed_date ? new Date(order.completed_date).toLocaleDateString() : '—'}
+										</span>
+									</div>
+									<div class="order-field">
+										<span class="order-field-label">Created</span>
+										<span class="order-field-value">{new Date(order.created_at).toLocaleDateString()}</span>
+									</div>
+								</div>
+								{(() => {
+									const orderDocs = clientDocs?.filter((d: any) => d.order_id === order.id) || [];
+									return orderDocs.length > 0 ? (
+										<div class="order-docs">
+											<span class="order-field-label">Documents ({orderDocs.length})</span>
+											<div class="order-docs-list">
+												{orderDocs.map((doc: any) => (
+													<span class="order-doc-badge">
+														{doc.file_type === 'application/pdf' ? '📄' : '📎'} {doc.file_name}
+													</span>
+												))}
+											</div>
+										</div>
+									) : null;
+								})()}
+								{client.shipping_address && (
+									<div class="order-shipping">
+										<span class="order-field-label">Shipping To</span>
+										<span class="order-field-value">{client.shipping_address}</span>
+									</div>
+								)}
+							</div>
+						))}
+					</div>
+				) : (
+					<p style="color: #9ca3af; font-size: 14px; text-align: center; padding: 20px">No orders yet</p>
+				)}
+			</div>
+
+			<!-- Notes Section -->
+			<div class="card">
+				<div class="card-header">
+					<h3>Notes</h3>
+				</div>
+				<form method="POST" class="note-form">
+					<input type="hidden" name="action" value="add_note" />
+					<div class="form-group">
+						<textarea name="content" rows="2" placeholder="Add a note..." required></textarea>
+					</div>
+					<div class="note-form-actions">
+						<label class="checkbox-label">
+							<input type="checkbox" name="client_visible" />
+							<span>Visible to client</span>
+						</label>
+						<button type="submit" class="btn btn-sm btn-primary">Add Note</button>
+					</div>
+				</form>
+				{notes && notes.length > 0 && (
+					<div class="notes-list">
+						{notes.map((note: any) => (
+							<div class="note-item">
+								<div class="note-header">
+									<span class="note-author">{note.author}</span>
+									{note.client_visible && <span class="badge" style="background: #dbeafe; color: #2563eb; font-size: 10px">Client visible</span>}
+									<span class="note-time">{new Date(note.created_at).toLocaleString()}</span>
+								</div>
+								<p class="note-content">{note.content}</p>
+							</div>
+						))}
+					</div>
+				)}
+			</div>
+
+			<!-- Email History -->
+			<div class="card">
+				<div class="card-header">
+					<h3>Email History</h3>
+				</div>
+				{emailLog && emailLog.length > 0 ? (
+					<div class="email-list">
+						{emailLog.map((log: any) => (
+							<div class="email-item">
+								<span class="email-subject">{log.subject}</span>
+								<span class="email-meta">to {log.recipient_email} · {new Date(log.sent_at).toLocaleString()}</span>
+								<span class="badge" style={`background: ${log.status === 'sent' ? '#dcfce7' : '#fef9c3'}; color: ${log.status === 'sent' ? '#166534' : '#854d0e'}`}>{log.status}</span>
+							</div>
+						))}
+					</div>
+				) : (
+					<p style="color: #9ca3af; font-size: 14px; text-align: center; padding: 20px">No emails sent yet</p>
+				)}
+			</div>
+
+			<!-- Messages -->
+			{messages && messages.length > 0 && (
+				<div class="card">
+					<div class="card-header">
+						<h3>Client Messages</h3>
+					</div>
+					<div class="messages-list">
+						{messages.map((msg: any) => (
+							<div class:list={['message-item', { 'from-client': msg.sender === 'client' }]}>
+								<span class="message-sender">{msg.sender === 'client' ? client.contact_name : 'You'}</span>
+								<p class="message-content">{msg.content}</p>
+								<span class="message-time">{new Date(msg.created_at).toLocaleString()}</span>
+							</div>
+						))}
+					</div>
+				</div>
+			)}
+		</div>
+	</div>
+
+	<!-- New Order Modal -->
+	<dialog id="newOrderModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>New Order for {client.contact_name}</h2>
+				<button type="button" class="modal-close" onclick="document.getElementById('newOrderModal').close()">&times;</button>
+			</div>
+			<form method="POST">
+				<input type="hidden" name="action" value="create_order" />
+				<div class="form-group">
+					<label>Order Title *</label>
+					<input type="text" name="title" required placeholder="e.g. Football Lockers - 50 units" />
+				</div>
+				<div class="form-group">
+					<label>Description</label>
+					<textarea name="description" rows="3" placeholder="Details about the order..."></textarea>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label>Locker Type</label>
+						<select name="locker_type">
+							<option value="">Select...</option>
+							<option value="Model L">Model L</option>
+							<option value="Model S">Model S</option>
+							<option value="Model Z">Model Z</option>
+							<option value="Model X">Model X</option>
+							<option value="Semi Pro">Semi Pro</option>
+							<option value="Varsity">Varsity</option>
+							<option value="Pro">Pro</option>
+							<option value="Stadium">Stadium</option>
+							<option value="Custom">Custom</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Quantity</label>
+						<input type="number" name="quantity" min="1" placeholder="Number of lockers" />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label>Width</label>
+						<input type="text" name="locker_size" placeholder='e.g. 24"' />
+					</div>
+					<div class="form-group">
+						<label>Depth</label>
+						<input type="text" name="locker_width" placeholder='e.g. 18"' />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label>Color</label>
+						<input type="text" name="locker_color" placeholder="e.g. Natural Oak, Dark Walnut" />
+					</div>
+					<div class="form-group">
+						<label>Accessories</label>
+						<input type="text" name="accessories" placeholder="e.g. Name plates, hooks, shelves" />
+					</div>
+				</div>
+				<div class="modal-actions">
+					<button type="button" class="btn btn-secondary" onclick="document.getElementById('newOrderModal').close()">Cancel</button>
+					<button type="submit" class="btn btn-primary">Create Order</button>
+				</div>
+			</form>
+		</div>
+	</dialog>
+</AdminLayout>
+
+<style>
+	.client-layout {
+		display: grid;
+		grid-template-columns: 320px 1fr;
+		gap: 24px;
+		align-items: start;
+	}
+
+	.client-sidebar {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.client-sidebar h3 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		margin-bottom: 16px;
+	}
+
+	.client-main {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.card-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 16px;
+	}
+
+	.card-header h3 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+	}
+
+	.portal-card {
+		background: #fefce8;
+		border-color: #fde68a;
+	}
+
+	.portal-desc {
+		font-size: 13px;
+		color: #6b7280;
+		margin-bottom: 8px;
+	}
+
+	.portal-link-box {
+		display: flex;
+		gap: 8px;
+	}
+
+	.portal-input {
+		flex: 1;
+		padding: 6px 10px;
+		border: 1px solid #d1d5db;
+		border-radius: 6px;
+		font-size: 12px;
+		background: #fff;
+		color: #374151;
+	}
+
+	.note-form {
+		margin-bottom: 16px;
+		padding-bottom: 16px;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.note-form-actions {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.checkbox-label {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 13px;
+		color: #6b7280;
+		cursor: pointer;
+	}
+
+	.notes-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.note-item {
+		padding: 12px 0;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.note-item:last-child {
+		border-bottom: none;
+	}
+
+	.note-header {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 4px;
+	}
+
+	.note-author {
+		font-size: 13px;
+		font-weight: 600;
+		color: #374151;
+	}
+
+	.note-time {
+		font-size: 12px;
+		color: #9ca3af;
+		margin-left: auto;
+	}
+
+	.note-content {
+		font-size: 14px;
+		color: #4b5563;
+		line-height: 1.5;
+	}
+
+	.email-list {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.email-item {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 10px 0;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.email-item:last-child {
+		border-bottom: none;
+	}
+
+	.email-subject {
+		font-size: 14px;
+		font-weight: 500;
+		color: #374151;
+		flex: 1;
+	}
+
+	.email-meta {
+		font-size: 12px;
+		color: #9ca3af;
+	}
+
+	.messages-list {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.message-item {
+		padding: 12px;
+		border-radius: 8px;
+		background: #f9fafb;
+	}
+
+	.message-item.from-client {
+		background: #fef3c7;
+	}
+
+	.message-sender {
+		font-size: 12px;
+		font-weight: 600;
+		color: #6b7280;
+	}
+
+	.message-content {
+		font-size: 14px;
+		color: #374151;
+		margin: 4px 0;
+	}
+
+	.message-time {
+		font-size: 11px;
+		color: #9ca3af;
+	}
+
+	.alert {
+		background: #f0fdf4;
+		border: 1px solid #bbf7d0;
+		color: #166534;
+		padding: 10px 16px;
+		border-radius: 8px;
+		font-size: 14px;
+		margin-bottom: 20px;
+	}
+
+	.alert-error {
+		background: #fef2f2;
+		border-color: #fecaca;
+		color: #dc2626;
+	}
+
+	.modal {
+		border: none;
+		border-radius: 16px;
+		padding: 0;
+		max-width: 500px;
+		width: 90%;
+		box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+	}
+
+	.modal::backdrop {
+		background: rgba(0, 0, 0, 0.5);
+	}
+
+	.modal-content {
+		padding: 28px;
+	}
+
+	.modal-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+
+	.modal-header h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+	}
+
+	.modal-close {
+		background: none;
+		border: none;
+		font-size: 28px;
+		color: #6b7280;
+		cursor: pointer;
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 16px;
+	}
+
+	.modal-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: 12px;
+		margin-top: 24px;
+		padding-top: 20px;
+		border-top: 1px solid #e5e7eb;
+	}
+
+	.order-cards {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.order-card {
+		border: 1px solid #e0e0e0;
+		padding: 20px;
+		background: #fafafa;
+	}
+
+	.order-card-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 16px;
+		padding-bottom: 12px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.order-card-title a {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+		color: #0d0d0d;
+		text-decoration: none;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+	}
+
+	.order-card-title a:hover {
+		color: #fe5900;
+	}
+
+	.order-card-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 14px 20px;
+	}
+
+	.order-field {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.order-field.full-width {
+		grid-column: 1 / -1;
+	}
+
+	.order-field-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 10px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #8c8c8c;
+	}
+
+	.order-field-value {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		font-weight: 500;
+	}
+
+	.order-docs {
+		margin-top: 14px;
+		padding-top: 12px;
+		border-top: 1px solid #e0e0e0;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.order-docs-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin-top: 4px;
+	}
+
+	.order-doc-badge {
+		background: #f3f4f6;
+		padding: 3px 10px;
+		font-size: 12px;
+		color: #374151;
+		border: 1px solid #e5e7eb;
+	}
+
+	.order-shipping {
+		margin-top: 14px;
+		padding-top: 12px;
+		border-top: 1px solid #e0e0e0;
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	@media (max-width: 1024px) {
+		.order-card-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.client-layout {
+			grid-template-columns: 1fr;
+		}
+
+		.order-card-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>

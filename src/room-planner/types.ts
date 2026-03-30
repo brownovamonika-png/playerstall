@@ -109,6 +109,10 @@ export type SportType = 'football' | 'hockey' | 'basketball' | 'baseball' | 'soc
 /** Full application state for the room planner. */
 export interface PlannerState {
   roomName: string;
+  /** When the customer hopes to receive / install lockers (select value, e.g. "1-3"). */
+  needByTimeline: string;
+  /** Funding / budget stage (select value, e.g. "have_funds"). */
+  fundingStatus: string;
   sportType: SportType;
   displayUnit: DisplayUnit;
   editMode: boolean;

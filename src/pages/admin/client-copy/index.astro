@@ -1,0 +1,252 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { getSession } from '../../../lib/auth';
+import { isSupabaseConfigured } from '../../../lib/supabase';
+import { parseCsv, isLikelyHtmlLoginResponse } from '../../../lib/parse-csv';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const demoMode = !isSupabaseConfigured;
+
+if (!demoMode) {
+	const session = await getSession(Astro.cookies);
+	if (!session) return Astro.redirect('/admin/login');
+}
+
+/** Your Google Sheet — CSV export (works when the sheet is shared: “Anyone with the link” can view, or published). */
+const GOOGLE_SHEET_CSV =
+	'https://docs.google.com/spreadsheets/d/1JfSrwC3UPs4rPfxKkd4kTlavKyiY7wfValE2y3gcNyU/export?format=csv&gid=0';
+
+const SHEET_EDIT_URL =
+	'https://docs.google.com/spreadsheets/d/1JfSrwC3UPs4rPfxKkd4kTlavKyiY7wfValE2y3gcNyU/edit?gid=0';
+
+const envCsvUrl = typeof import.meta.env.CLIENT_COPY_CSV_URL === 'string' ? import.meta.env.CLIENT_COPY_CSV_URL.trim() : '';
+
+let csvText = '';
+let loadSource = '';
+let loadWarning = '';
+
+const tryUrls = envCsvUrl ? [envCsvUrl, GOOGLE_SHEET_CSV] : [GOOGLE_SHEET_CSV];
+
+for (const url of tryUrls) {
+	try {
+		const res = await fetch(url, { redirect: 'follow', headers: { Accept: 'text/csv,text/plain,*/*' } });
+		const text = await res.text();
+		if (!res.ok) continue;
+		if (isLikelyHtmlLoginResponse(text)) continue;
+		if (text.trim().length < 5) continue;
+		csvText = text;
+		loadSource = url.includes('1JfSrwC3UPs4rPfxKkd4kTlavKyiY7wfValE2y3gcNyU')
+			? 'Google Sheet (linked)'
+			: 'CLIENT_COPY_CSV_URL';
+		break;
+	} catch {
+		continue;
+	}
+}
+
+if (!csvText) {
+	const localPath = path.join(process.cwd(), 'src/data/client-copy.csv');
+	if (fs.existsSync(localPath)) {
+		csvText = fs.readFileSync(localPath, 'utf-8');
+		loadSource = 'Local file (src/data/client-copy.csv)';
+		loadWarning =
+			'Using local CSV fallback. Share your Google Sheet as “Anyone with the link can view” so the live sheet loads, or set CLIENT_COPY_CSV_URL to a published CSV link.';
+	}
+}
+
+if (!csvText) {
+	loadWarning =
+		'No data loaded. Share the Google Sheet with “Anyone with the link” as Viewer (or publish to web), or add src/data/client-copy.csv, or set CLIENT_COPY_CSV_URL in .env.';
+}
+
+const { headers, rows: rawRows } = csvText ? parseCsv(csvText) : { headers: [], rows: [] as string[][] };
+
+const colCount = Math.max(headers.length, ...rawRows.map((r) => r.length), 0);
+const padRow = (r: string[]) => {
+	const out = [...r];
+	while (out.length < colCount) out.push('');
+	return out.slice(0, colCount);
+};
+const rows = rawRows.map(padRow);
+
+const searchRaw = (Astro.url.searchParams.get('q') || '').trim();
+const searchLower = searchRaw.toLowerCase();
+const filteredRows = searchLower
+	? rows.filter((r) => r.some((c) => String(c).toLowerCase().includes(searchLower)))
+	: rows;
+---
+
+<AdminLayout title="Client copy" activeNav="client-copy">
+	<Fragment slot="header-actions">
+		<a
+			href={SHEET_EDIT_URL}
+			class="btn btn-secondary"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			Open Google Sheet
+		</a>
+	</Fragment>
+
+	{(loadWarning || loadSource) && (
+		<div class:list={['sheet-banner', { warn: !!loadWarning }]}>
+			{loadSource && (
+				<p>
+					<strong>Data source:</strong> {loadSource}
+					{filteredRows.length > 0 && (
+						<>
+							{' '}
+							· <strong>{filteredRows.length}</strong> row{filteredRows.length === 1 ? '' : 's'}
+							{searchRaw && ` (filtered)`}
+						</>
+					)}
+				</p>
+			)}
+			{loadWarning && <p class="banner-detail">{loadWarning}</p>}
+		</div>
+	)}
+
+	<div class="clients-toolbar">
+		<form method="GET" class="search-form">
+			<input type="text" name="q" value={searchRaw} placeholder="Search…" class="search-input" />
+			<button type="submit" class="btn btn-secondary btn-sm">Search</button>
+		</form>
+		<span class="client-count">{headers.length} columns</span>
+	</div>
+
+	{headers.length > 0 ? (
+		<div class="card">
+			<div class="table-wrap">
+				<table class="data-table sheet-table">
+					<thead>
+						<tr>
+							{headers.map((h) => (
+								<th>{h || '—'}</th>
+							))}
+						</tr>
+					</thead>
+					<tbody>
+						{filteredRows.map((row, ri) => (
+							<tr>
+								{padRow(row).map((cell, ci) => (
+									<td class:list={[{ 'num-cell': ci === 0 }]}>{cell || '—'}</td>
+								))}
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	) : (
+		<div class="card empty-sheet">
+			<h3>No rows to show</h3>
+			<p>Fix sharing on the Google Sheet or add data to <code>src/data/client-copy.csv</code>.</p>
+			<a href={SHEET_EDIT_URL} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+				Open Google Sheet
+			</a>
+		</div>
+	)}
+</AdminLayout>
+
+<style>
+	.sheet-banner {
+		background: #f0fdf4;
+		border: 1px solid #bbf7d0;
+		color: #166534;
+		padding: 14px 18px;
+		margin-bottom: 20px;
+		font-size: 14px;
+		line-height: 1.5;
+	}
+	.sheet-banner.warn {
+		background: #fffbeb;
+		border-color: #fde68a;
+		color: #92400e;
+	}
+	.sheet-banner p {
+		margin: 0;
+	}
+	.banner-detail {
+		margin-top: 8px !important;
+		font-size: 13px;
+		opacity: 0.95;
+	}
+	.clients-toolbar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 24px;
+	}
+	.search-form {
+		display: flex;
+		gap: 8px;
+	}
+	.search-input {
+		padding: 10px 14px;
+		border: 1px solid #e0e0e0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		width: 300px;
+		transition: border-color 0.3s;
+	}
+	.search-input:focus {
+		outline: none;
+		border-color: #0d0d0d;
+	}
+	.client-count {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+	.table-wrap {
+		overflow-x: auto;
+	}
+	.sheet-table td,
+	.sheet-table th {
+		max-width: 280px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		vertical-align: top;
+	}
+	.sheet-table td {
+		white-space: normal;
+		word-break: break-word;
+		max-width: 320px;
+	}
+	.num-cell {
+		color: #999;
+		font-size: 12px;
+		white-space: nowrap;
+		max-width: 48px !important;
+	}
+	.empty-sheet {
+		text-align: center;
+		padding: 48px 24px;
+	}
+	.empty-sheet h3 {
+		font-family: 'Oswald', sans-serif;
+		text-transform: uppercase;
+		margin-bottom: 12px;
+	}
+	.empty-sheet code {
+		font-size: 13px;
+		background: #f3f4f6;
+		padding: 2px 8px;
+	}
+	@media (max-width: 640px) {
+		.clients-toolbar {
+			flex-direction: column;
+			gap: 12px;
+			align-items: flex-start;
+		}
+		.search-input {
+			width: 100%;
+		}
+	}
+</style>

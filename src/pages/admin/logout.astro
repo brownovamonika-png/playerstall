@@ -1,0 +1,11 @@
+---
+export const prerender = false;
+
+import { isSupabaseConfigured } from '../../lib/supabase';
+import { clearSessionCookies } from '../../lib/auth';
+
+if (isSupabaseConfigured) {
+	clearSessionCookies(Astro.cookies);
+}
+return Astro.redirect('/admin/login');
+---

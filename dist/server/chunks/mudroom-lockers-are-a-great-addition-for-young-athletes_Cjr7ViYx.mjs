@@ -1,0 +1,71 @@
+import { j as createVNode, F as Fragment, az as __astro_tag_component__ } from './astro/server_BKRL6jPE.mjs';
+import 'clsx';
+
+const frontmatter = {
+  "title": "Mudroom Lockers are a great addition for young athletes",
+  "description": "Mudroom lockers are a great addition to any garage, especially if you have young athletes in the household. These lockers provide a convenient and organized spa",
+  "category": "Home Storage",
+  "tags": ["mudroom", "organization", "high-school"],
+  "heroImage": "https://playerstall.b-cdn.net/images/Wood-Lockers-UBC-1024x1024.jpg",
+  "datePublished": "2022-12-24",
+  "readTime": "3 min read",
+  "author": "PlayerStall",
+  "wordCount": 420
+};
+function getHeadings() {
+  return [];
+}
+function _createMdxContent(props) {
+  const _components = {
+    a: "a",
+    img: "img",
+    li: "li",
+    p: "p",
+    ul: "ul",
+    ...props.components
+  };
+  return createVNode(Fragment, {
+    children: [createVNode(_components.p, {
+      children: [createVNode(_components.a, {
+        href: "/mudroom-lockers/",
+        children: "Mudroom lockers"
+      }), " are a great addition to any garage, especially if you have young athletes in the household. These lockers provide a convenient and organized space for storing sports equipment, shoes, and other items that may accumulate in a garage. Here are just a few benefits of using mudroom lockers in a garage:"]
+    }), "\n", createVNode(_components.ul, {
+      children: ["\n", createVNode(_components.li, {
+        children: "Improved organization: One of the biggest benefits of mudroom lockers is that they help to keep everything organized and in its place. Each family member can have their own locker to store their sports equipment, shoes, and other items, which helps to prevent clutter from accumulating in the garage.- Easy access to sports equipment: With mudroom lockers, young athletes can easily access their sports equipment whenever they need it. They won’t have to search through piles of clutter or dig through storage bins to find what they’re looking for.- Protection of sports equipment: Mudroom lockers are a great way to protect sports equipment from damage or wear and tear. Storing sports equipment in a damp or cluttered garage can lead to rust or other damage, but mudroom lockers provide a dry, secure space to store these items.- Convenient for parents: If you have young athletes in the household, you know how much sports equipment they can accumulate. Mudroom lockers provide a convenient and organized space for storing all of this equipment, which can make life easier for parents. Instead of constantly searching for missing items or trying to keep track of multiple bags and boxes of equipment, everything can be stored in one easy-to-access location.- Increased home value: A Mudroom locker can also add value to your home. A well-organized and functional mudroom can be a major selling point for potential buyers, and adding mudroom lockers to your garage can be a simple and effective way to upgrade this space."
+      }), "\n"]
+    }), "\n", createVNode(_components.p, {
+      children: ["In conclusion, a mudroom locker is a great addition to any garage, especially if you have young athletes in the household. They provide a convenient and organized space for storing sports equipment, shoes, and other items, and can help to protect these items from damage or wear and tear. Additionally, it can make life easier for parents and even increase the value of your home. If you’re looking to improve the organization and functionality of your garage, consider adding a ", createVNode(_components.a, {
+        href: "https://www.instagram.com/playerstallsports/?hl=en",
+        children: "PlayerStall"
+      }), " sports lockers."]
+    }), "\n", createVNode(_components.p, {
+      children: createVNode(_components.img, {
+        src: "https://playerstall.com/wp-content/uploads/2022/12/sports-lockers-basement-1024x1024.jpg",
+        alt: "mudroom lockers"
+      })
+    })]
+  });
+}
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? createVNode(MDXLayout, {
+    ...props,
+    children: createVNode(_createMdxContent, {
+      ...props
+    })
+  }) : _createMdxContent(props);
+}
+
+const url = "src/content/blog/mudroom-lockers-are-a-great-addition-for-young-athletes.mdx";
+const file = "/Users/monikabrownova/Documents/github/player-stall December 19 2025/src/content/blog/mudroom-lockers-are-a-great-addition-for-young-athletes.mdx";
+const Content = (props = {}) => MDXContent({
+  ...props,
+  components: { Fragment: Fragment, ...props.components, },
+});
+Content[Symbol.for('mdx-component')] = true;
+Content[Symbol.for('astro.needsHeadRendering')] = !Boolean(frontmatter.layout);
+Content.moduleId = "/Users/monikabrownova/Documents/github/player-stall December 19 2025/src/content/blog/mudroom-lockers-are-a-great-addition-for-young-athletes.mdx";
+__astro_tag_component__(Content, 'astro:jsx');
+
+export { Content, Content as default, file, frontmatter, getHeadings, url };

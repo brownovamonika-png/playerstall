@@ -9,11 +9,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	<section class="planner-hero">
 		<div class="planner-hero-inner">
 			<a href="/new-room-planner/design" class="back-link">&larr; Back to Design</a>
-			<h1>Review Your Layout</h1>
+			<span class="planner-hero-subtitle">Free Online Tool</span>
+			<h1>Locker Room Planner</h1>
+			<p class="planner-hero-lead">Review your layout, confirm pricing, and send everything to our team.</p>
 			<div class="hero-steps">
 				<div class="hero-step done-step">
 					<span class="hero-step-num">&check;</span>
-					<span class="hero-step-text">Room size entered</span>
+					<span class="hero-step-text">Enter your room size</span>
 				</div>
 				<div class="hero-step-arrow">&rarr;</div>
 				<div class="hero-step done-step">
@@ -75,12 +77,25 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	.planner-hero {
 		background: #ffffff;
 		color: #0d0d0d;
-		padding: 60px 20px 30px;
+		padding: 80px 20px 40px;
 		text-align: center;
+	}
+	.planner-hero-inner {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+	.planner-hero-subtitle {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		letter-spacing: 6px;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		margin-bottom: 12px;
 	}
 	.planner-hero h1 {
 		font-family: 'Oswald', sans-serif;
-		font-size: clamp(28px, 3.5vw, 44px);
+		font-size: clamp(32px, 4vw, 52px);
 		font-weight: 700;
 		margin: 0;
 		text-transform: uppercase;
@@ -88,13 +103,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		line-height: 1.1;
 		letter-spacing: 2px;
 	}
+	.planner-hero-lead {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		margin: 14px auto 0;
+		color: #8c8c8c;
+		max-width: 600px;
+		line-height: 1.6;
+	}
 	.back-link {
 		display: inline-block;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
 		color: #8c8c8c;
 		text-decoration: none;
-		margin-bottom: 12px;
+		margin-bottom: 16px;
 		letter-spacing: 0.5px;
 		transition: color 0.2s;
 	}
@@ -105,7 +128,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		align-items: center;
 		justify-content: center;
 		gap: 16px;
-		margin-top: 24px;
+		margin-top: 32px;
+		flex-wrap: wrap;
 	}
 	.hero-step {
 		display: flex;
@@ -351,7 +375,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	import { getTemplate } from '../../room-planner/catalog';
 	import { priceLocker } from '../../room-planner/pricing';
 	import { render } from '../../room-planner/render';
-	import { buildWalls } from '../../room-planner/state';
+	import { buildWalls, needByTimelineLabel, fundingStatusLabel } from '../../room-planner/state';
 	import type { PlannerState, LockerInstance } from '../../room-planner/types';
 	import { jsPDF } from 'jspdf';
 
@@ -359,11 +383,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 	interface SavedRoom {
 		roomName: string;
+		needByTimeline?: string;
+		fundingStatus?: string;
 		sportType: string;
 		floorColor: string;
 		wallColor: string;
 		showBase: boolean;
 		baseColor: string;
+		edgebandColor?: string;
 		customLogoDataUrl: string | null;
 		roomDims: { wallA: number; wallB: number; wallC: number; wallD: number };
 		walls: PlannerState['walls'];
@@ -461,7 +488,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			for (let ri = 0; ri < savedRooms.length; ri++) {
 				if (ri > 0) pdf.addPage('letter', 'landscape');
 				const room = savedRooms[ri]; const roomLabel = room.roomName || `Room ${ri + 1}`;
-				const tempState: PlannerState = { roomName: room.roomName, sportType: (room.sportType || '') as any, displayUnit: 'in', editMode: false, camera: { centerX: 0, centerY: 0, pixelsPerInch: 2 }, walls: JSON.parse(JSON.stringify(room.walls)), openings: JSON.parse(JSON.stringify(room.openings)), lockers: JSON.parse(JSON.stringify(room.lockers)), selection: null, floorColor: room.floorColor || '#8B7355', wallColor: room.wallColor || '#ffffff', showBase: room.showBase ?? false, baseColor: room.baseColor || '#1A1A1A', edgebandColor: room.edgebandColor || '' };
+				const tempState: PlannerState = { roomName: room.roomName, needByTimeline: room.needByTimeline || '', fundingStatus: room.fundingStatus || '', sportType: (room.sportType || '') as any, displayUnit: 'in', editMode: false, camera: { centerX: 0, centerY: 0, pixelsPerInch: 2 }, walls: JSON.parse(JSON.stringify(room.walls)), openings: JSON.parse(JSON.stringify(room.openings)), lockers: JSON.parse(JSON.stringify(room.lockers)), selection: null, floorColor: room.floorColor || '#8B7355', wallColor: room.wallColor || '#ffffff', showBase: room.showBase ?? false, baseColor: room.baseColor || '#1A1A1A', edgebandColor: room.edgebandColor || '' };
 				let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
 				for (const w of tempState.walls) { minX = Math.min(minX, w.start.x, w.end.x); minY = Math.min(minY, w.start.y, w.end.y); maxX = Math.max(maxX, w.start.x, w.end.x); maxY = Math.max(maxY, w.start.y, w.end.y); }
 				if (isFinite(minX)) { tempState.camera.pixelsPerInch = Math.min((offCanvas.width - 60) / (maxX - minX || 100), (offCanvas.height - 60) / (maxY - minY || 100)); tempState.camera.centerX = (minX + maxX) / 2; tempState.camera.centerY = (minY + maxY) / 2; }
@@ -525,6 +552,29 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		}
 		const grandTotal = allLines.reduce((sum: number, l: any) => sum + l.unitPrice * l.qty, 0);
 		orderSummary += `\nEstimated Total: $${grandTotal.toFixed(2)}`;
+
+		let timingBlock = '';
+		for (let ri = 0; ri < savedRooms.length; ri++) {
+			const r = savedRooms[ri];
+			const lbl = needByTimelineLabel(r.needByTimeline || '');
+			if (!lbl) continue;
+			const rm = r.roomName || `Room ${ri + 1}`;
+			timingBlock += `${rm}: ${lbl}\n`;
+		}
+		let fundingBlock = '';
+		for (let ri = 0; ri < savedRooms.length; ri++) {
+			const r = savedRooms[ri];
+			const lbl = fundingStatusLabel(r.fundingStatus || '');
+			if (!lbl) continue;
+			const rm = r.roomName || `Room ${ri + 1}`;
+			fundingBlock += `${rm}: ${lbl}\n`;
+		}
+		if (fundingBlock) {
+			orderSummary = `Funding / budget:\n${fundingBlock}\n` + orderSummary;
+		}
+		if (timingBlock) {
+			orderSummary = `Preferred delivery timing:\n${timingBlock}\n` + orderSummary;
+		}
 
 		const statusMsg = document.getElementById('order-status-msg')!;
 		const btn = document.getElementById('btn-request-quote') as HTMLButtonElement;

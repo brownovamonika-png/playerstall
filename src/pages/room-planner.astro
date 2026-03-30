@@ -10,24 +10,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		<div class="planner-hero-inner">
 			<span class="planner-hero-subtitle">Free Online Tool</span>
 			<h1>Locker Room Planner</h1>
-			<p>Design your perfect locker room in three simple steps. No account needed — just enter your room size, add lockers, and request a quote.</p>
+			<p>Plan your perfect locker room in three simple steps. No account required. Just enter your room dimensions, add lockers, and request a quote when you're done.</p>
 			<div class="hero-steps">
-				<div class="hero-step-card">
+				<div class="hero-step active-step">
 					<span class="hero-step-num">1</span>
-					<span class="hero-step-label">Room Size</span>
-					<span class="hero-step-text">Enter wall dimensions and mark doors or windows</span>
+					<span class="hero-step-text">Enter your room size</span>
 				</div>
 				<div class="hero-step-arrow">&rarr;</div>
-				<div class="hero-step-card">
+				<div class="hero-step">
 					<span class="hero-step-num">2</span>
-					<span class="hero-step-label">Add Lockers</span>
-					<span class="hero-step-text">Pick models, colors, and arrange them on your floor plan</span>
+					<span class="hero-step-text">Add & arrange lockers</span>
 				</div>
 				<div class="hero-step-arrow">&rarr;</div>
-				<div class="hero-step-card">
+				<div class="hero-step">
 					<span class="hero-step-num">3</span>
-					<span class="hero-step-label">Get a Quote</span>
-					<span class="hero-step-text">Review your layout and send it to our team</span>
+					<span class="hero-step-text">Review & send to us</span>
 				</div>
 			</div>
 		</div>
@@ -37,19 +34,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<section class="room-setup" id="room-setup">
 		<div class="room-setup-columns">
 			<div class="room-setup-left">
-				<div class="room-carousel" id="room-carousel">
-					<button type="button" class="room-arrow room-arrow-left" id="btn-room-prev" title="Previous room" disabled>&lsaquo;</button>
-					<div class="room-indicator">
-						<span class="room-indicator-count" id="room-indicator-count">ROOM 1 OF 1</span>
-						<span class="room-indicator-sep">—</span>
-						<span class="room-indicator-name" id="room-indicator-name"></span>
-						<span class="room-indicator-x" id="btn-remove-room" title="Remove this room" style="display:none">&times;</span>
+				<div class="room-tabs-row" id="room-tabs-bar">
+					<div class="room-tabs-list" id="room-tabs-list">
+						<button type="button" class="room-tab active" data-room-idx="0">Room 1</button>
 					</div>
-					<button type="button" class="room-arrow room-arrow-right" id="btn-room-next" title="Next room" disabled>&rsaquo;</button>
-				</div>
-				<div class="room-dots-row">
-					<div class="room-dots" id="room-dots"></div>
-					<button type="button" class="room-dot-add" id="btn-add-room" title="Add another room">+</button>
+					<button type="button" class="room-tab-add" id="btn-add-room">+ Add Room</button>
 					<button type="button" class="room-save-btn" id="btn-save-room" title="Save all rooms">
 						<svg class="room-save-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
 						Save
@@ -61,6 +50,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<p class="room-setup-desc">Measure your locker room and enter the length of each wall below. If a wall has a door or window, click the button under that wall to mark it so lockers won't be placed in those areas.</p>
 
 				<div class="room-fields-group">
+					<div class="room-field">
+						<label for="need-by-timeline" class="room-field-label">When do you need the lockers?</label>
+						<select id="need-by-timeline" class="room-field-input sport-select" aria-describedby="need-by-hint">
+							<option value="">Select timeframe…</option>
+							<option value="asap">ASAP / under 2 months</option>
+							<option value="1-3">1–3 months</option>
+							<option value="3-6">3–6 months</option>
+							<option value="6plus">6+ months</option>
+							<option value="flexible">Flexible / still planning</option>
+							<option value="unsure">Not sure yet</option>
+						</select>
+					</div>
+					<div class="room-field">
+						<label for="funding-status" class="room-field-label">Funding / budget</label>
+						<select id="funding-status" class="room-field-input sport-select" aria-describedby="need-by-hint">
+							<option value="">Select an option…</option>
+							<option value="have_funds">Have funds / budget approved</option>
+							<option value="fundraising">Currently fundraising</option>
+							<option value="need_help">Need help with fundraising</option>
+						</select>
+					</div>
 					<div class="room-field">
 						<label for="sport-type" class="room-field-label">Sport</label>
 						<select id="sport-type" class="room-field-input sport-select">
@@ -79,6 +89,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<input type="text" id="room-name" class="room-field-input" placeholder="e.g. Home Locker Room, Visitors…" maxlength="80" />
 					</div>
 				</div>
+				<p class="room-setup-hint" id="need-by-hint">Timeline helps us prioritize production. Funding helps us tailor your quote and payment options.</p>
 
 				<div class="wall-cards">
 				<!-- Wall A -->
@@ -154,27 +165,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<button type="button" class="wall-add-btn" data-wall-id="Wall D" data-type="door">+ Door</button>
 						<button type="button" class="wall-add-btn" data-wall-id="Wall D" data-type="window">+ Window</button>
 						<button type="button" class="wall-add-btn" data-wall-id="Wall D" data-type="obstacle">+ Obstacle</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="color-picker-row">
-				<div class="color-picker-group">
-					<label class="color-picker-label">Floor Color</label>
-					<div class="color-swatches" id="floor-swatches">
-						<button type="button" class="color-swatch active" data-color="#b0aba4" data-target="floor" style="background:#b0aba4" title="Concrete"></button>
-						<button type="button" class="color-swatch" data-color="#8b6f47" data-target="floor" style="background:#8b6f47" title="Darker Wood"></button>
-						<button type="button" class="color-swatch" data-color="#c4a882" data-target="floor" style="background:#c4a882" title="Lighter Wood"></button>
-						<button type="button" class="color-swatch" data-color="#2a2a2a" data-target="floor" style="background:#2a2a2a" title="Black Rubber"></button>
-					</div>
-				</div>
-				<div class="color-picker-group">
-					<label class="color-picker-label">Wall Color</label>
-					<div class="color-swatches" id="wall-swatches">
-						<button type="button" class="color-swatch active" data-color="#ffffff" data-target="wall" style="background:#ffffff" title="White"></button>
-						<button type="button" class="color-swatch" data-color="#d4c5a9" data-target="wall" style="background:#d4c5a9" title="Tan"></button>
-						<button type="button" class="color-swatch" data-color="#5c5c5c" data-target="wall" style="background:#5c5c5c" title="Dark Grey"></button>
-						<button type="button" class="color-swatch" data-color="#1a1a1a" data-target="wall" style="background:#1a1a1a" title="Black"></button>
 					</div>
 				</div>
 			</div>
@@ -592,238 +582,194 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
+	/* Hero + steps — match step-by-step /new-room-planner */
 	.planner-hero {
-		background: #fafafa;
+		background: #ffffff;
 		color: #0d0d0d;
-		padding: 80px 20px 48px;
+		padding: 80px 20px 40px;
 		text-align: center;
-		border-bottom: 1px solid #eee;
 	}
 	.planner-hero-inner {
-		max-width: 800px;
+		max-width: 900px;
 		margin: 0 auto;
 	}
 	.planner-hero-subtitle {
-		display: inline-block;
+		display: block;
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 11px;
-		letter-spacing: 3px;
+		font-size: 13px;
+		letter-spacing: 6px;
 		text-transform: uppercase;
-		color: #fe5900;
-		font-weight: 600;
-		background: rgba(254,89,0,0.08);
-		padding: 5px 14px;
-		border-radius: 20px;
-		margin-bottom: 16px;
+		color: #8c8c8c;
+		margin-bottom: 12px;
 	}
 	.planner-hero h1 {
 		font-family: 'Oswald', sans-serif;
-		font-size: clamp(30px, 4vw, 46px);
+		font-size: clamp(32px, 4vw, 52px);
 		font-weight: 700;
 		margin: 0;
 		text-transform: uppercase;
-		color: #1a1a1a;
-		line-height: 1.15;
-		letter-spacing: 1.5px;
+		color: #0d0d0d;
+		line-height: 1.1;
+		letter-spacing: 2px;
 	}
 	.planner-hero p {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 15px;
 		margin: 14px auto 0;
-		color: #777;
-		max-width: 560px;
-		line-height: 1.65;
+		color: #8c8c8c;
+		max-width: 600px;
+		line-height: 1.6;
 	}
 
 	.hero-steps {
 		display: flex;
-		align-items: stretch;
-		justify-content: center;
-		gap: 20px;
-		margin-top: 36px;
-	}
-	.hero-step-card {
-		display: flex;
-		flex-direction: column;
 		align-items: center;
-		gap: 6px;
-		background: #fff;
-		border: 1px solid #e8e8e8;
-		border-radius: 14px;
-		padding: 20px 22px 18px;
-		min-width: 170px;
-		flex: 1;
-		max-width: 220px;
-		transition: box-shadow 0.2s, border-color 0.2s;
+		justify-content: center;
+		gap: 16px;
+		margin-top: 32px;
+		flex-wrap: wrap;
 	}
-	.hero-step-card:hover {
-		border-color: #fe5900;
-		box-shadow: 0 4px 16px rgba(254,89,0,0.1);
+	.hero-step {
+		display: flex;
+		align-items: center;
+		gap: 10px;
 	}
 	.hero-step-num {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 34px;
-		height: 34px;
+		width: 28px;
+		height: 28px;
 		border-radius: 50%;
-		background: #fe5900;
+		background: #0d0d0d;
 		color: #fff;
 		font-family: 'Oswald', sans-serif;
-		font-size: 15px;
-		font-weight: 700;
-		flex-shrink: 0;
-		margin-bottom: 4px;
-	}
-	.hero-step-label {
-		font-family: 'Oswald', sans-serif;
-		font-size: 15px;
+		font-size: 13px;
 		font-weight: 600;
-		color: #1a1a1a;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
+		flex-shrink: 0;
 	}
 	.hero-step-text {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #888;
-		line-height: 1.45;
-		text-align: center;
+		font-size: 14px;
+		color: #0d0d0d;
 	}
 	.hero-step-arrow {
-		color: #ddd;
-		font-size: 22px;
-		display: flex;
-		align-items: center;
-		padding-top: 10px;
+		color: #ccc;
+		font-size: 18px;
+	}
+	.active-step .hero-step-num {
+		background: #fe5900;
 	}
 	@media (max-width: 640px) {
-		.hero-steps { flex-direction: column; gap: 12px; align-items: center; }
-		.hero-step-card { max-width: 280px; width: 100%; }
-		.hero-step-arrow { transform: rotate(90deg); padding-top: 0; }
+		.hero-steps { flex-direction: column; gap: 10px; }
+		.hero-step-arrow { transform: rotate(90deg); }
 	}
 
-	/* Room carousel */
-	:global(.room-carousel) {
+	/* Room tabs — match step-by-step planner */
+	:global(.room-tabs-row) {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 16px;
-		margin-bottom: 12px;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin-bottom: 32px;
 	}
-	:global(.room-arrow) {
-		width: 44px;
-		height: 44px;
-		border-radius: 50%;
-		border: none;
-		background: rgba(0,0,0,0.07);
-		color: #333;
-		font-size: 28px;
-		line-height: 1;
-		cursor: pointer;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		transition: background 0.2s, color 0.2s;
-		flex-shrink: 0;
-		padding: 0;
-	}
-	:global(.room-arrow:hover:not(:disabled)) { background: rgba(0,0,0,0.14); color: #000; }
-	:global(.room-arrow:disabled) { opacity: 0.25; cursor: default; }
-	:global(.room-indicator) {
+	:global(.room-tabs-list) {
 		display: flex;
-		align-items: center;
 		gap: 8px;
-		font-family: 'Oswald', sans-serif;
-		font-size: 14px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 1.5px;
-		color: #8c8c8c;
-		white-space: nowrap;
+		align-items: center;
+		flex-wrap: wrap;
+		justify-content: center;
 	}
-	:global(.room-indicator-sep) { color: #ccc; }
-	:global(.room-indicator-name) { color: #fe5900; font-weight: 600; text-transform: uppercase; }
-	:global(.room-indicator-x) {
+	:global(.room-tab) {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 400;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		padding: 8px 18px;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		background: #fff;
+		color: #8c8c8c;
+		cursor: pointer;
+		white-space: nowrap;
+		transition: all 0.2s;
+	}
+	:global(.room-tab:hover) {
+		border-color: #0d0d0d;
+		color: #0d0d0d;
+	}
+	:global(.room-tab.active) {
+		background: #0d0d0d;
+		border-color: #0d0d0d;
+		color: #fff;
+	}
+	:global(.room-tab-sep) { display: none; }
+	:global(.room-tab-x) {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 20px;
-		height: 20px;
+		width: 14px;
+		height: 14px;
 		border-radius: 50%;
 		border: none;
 		background: none;
 		color: #ccc;
-		font-size: 16px;
+		font-size: 10px;
 		line-height: 1;
 		cursor: pointer;
 		padding: 0;
 		margin-left: 2px;
-		transition: color 0.2s;
+		transition: all 0.2s;
 	}
-	:global(.room-indicator-x:hover) { color: #fe5900; }
-	:global(.room-dots-row) {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 10px;
-		margin-bottom: 28px;
-	}
-	:global(.room-dots) {
-		display: flex;
-		gap: 8px;
-		align-items: center;
-	}
-	:global(.room-dot) {
-		width: 10px;
-		height: 10px;
-		border-radius: 50%;
-		border: none;
-		background: #ddd;
-		cursor: pointer;
-		padding: 0;
-		transition: background 0.2s, transform 0.2s;
-	}
-	:global(.room-dot:hover) { background: #bbb; transform: scale(1.2); }
-	:global(.room-dot.active) { background: #fe5900; transform: scale(1.2); }
-	:global(.room-dot-add) {
-		width: 24px;
-		height: 24px;
-		border-radius: 50%;
+	:global(.room-tab.active .room-tab-x) { color: rgba(255,255,255,0.5); }
+	:global(.room-tab.active .room-tab-x:hover) { color: #fe5900; }
+	:global(.room-tab-x:hover) { color: #fe5900; }
+	:global(.room-tab-add) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 500;
+		letter-spacing: 0.5px;
+		padding: 8px 18px;
 		border: 1px dashed #ccc;
+		border-radius: 0;
 		background: #fff;
 		color: #8c8c8c;
-		font-size: 16px;
-		line-height: 1;
 		cursor: pointer;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0;
-		transition: border-color 0.2s, color 0.2s;
+		white-space: nowrap;
+		margin-left: 4px;
+		transition: color 0.2s, border-color 0.2s;
 	}
-	:global(.room-dot-add:hover) { border-color: #0d0d0d; color: #0d0d0d; }
-	:global(.room-save-btn) {
+	:global(.room-tab-add:hover) { border-color: #0d0d0d; color: #0d0d0d; }
+	:global(.room-tabs-row .room-save-btn) {
 		display: inline-flex;
 		align-items: center;
 		gap: 6px;
-		margin-left: 12px;
-		padding: 5px 16px;
-		border: 1px solid #888;
-		border-radius: 20px;
-		background: #888;
-		color: #fff;
+		margin-left: 4px;
+		padding: 8px 18px;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		background: #fff;
+		color: #8c8c8c;
 		font-family: 'Oswald', sans-serif;
-		font-size: 12px;
+		font-size: 13px;
 		font-weight: 600;
 		letter-spacing: 1px;
 		text-transform: uppercase;
 		cursor: pointer;
-		transition: background 0.2s, border-color 0.2s;
+		transition: all 0.2s;
 		white-space: nowrap;
 	}
-	:global(.room-save-btn:hover) { background: #555; border-color: #555; }
-	:global(.room-save-btn.saved) { background: #555; border-color: #555; }
+	:global(.room-tabs-row .room-save-btn:hover) { border-color: #0d0d0d; color: #0d0d0d; }
+	:global(.room-tabs-row .room-save-btn.saved) {
+		background: #0d0d0d;
+		border-color: #0d0d0d;
+		color: #fff;
+	}
 	:global(.room-save-icon) { width: 14px; height: 14px; flex-shrink: 0; }
 	:global(.room-save-check) {
 		font-size: 14px;
@@ -897,6 +843,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.sport-select { cursor: pointer; }
 	@media (max-width: 520px) {
 		.room-fields-group { flex-direction: column; align-items: center; gap: 12px; }
+	}
+	.room-setup-hint {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #b6b6b6;
+		margin: -8px auto 20px;
+		max-width: 520px;
+		font-style: italic;
+		text-align: center;
+		line-height: 1.45;
 	}
 	.wall-cards {
 		display: grid;
@@ -1058,59 +1014,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		color: #8c8c8c;
 		flex-shrink: 0;
 	}
-	.color-picker-row {
-		margin-top: 24px;
-		padding-top: 16px;
-		border-top: 1px solid #e0e0e0;
-		display: flex;
-		gap: 32px;
-		flex-wrap: wrap;
-	}
-	.color-picker-group { min-width: 0; }
-	.color-picker-label {
-		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		color: #0d0d0d;
-		margin-bottom: 8px;
-		display: block;
-	}
-	.color-swatches {
-		display: flex;
-		gap: 18px;
-	}
-	.color-swatch {
-		width: 40px;
-		height: 40px;
-		min-width: 40px;
-		min-height: 40px;
-		aspect-ratio: 1;
-		flex-shrink: 0;
-		border-radius: 6px;
-		border: 3px solid transparent;
-		cursor: pointer;
-		transition: border-color 0.2s, transform 0.15s;
-		box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
-		position: relative;
-	}
-	.color-swatch:hover { transform: scale(1.12); }
-	.color-swatch.active { border-color: #fe5900; box-shadow: 0 0 6px rgba(254,89,0,0.4); }
-	.color-swatch::after {
-		content: attr(title);
-		position: absolute;
-		top: 100%;
-		left: 50%;
-		transform: translateX(-50%);
-		font-size: 8px;
-		color: #8c8c8c;
-		white-space: nowrap;
-		margin-top: 4px;
-		pointer-events: none;
-		font-family: 'Yantramanav', sans-serif;
-		letter-spacing: 0.2px;
-	}
 	.room-btn-row {
 		display: flex;
 		justify-content: space-between;
@@ -1152,17 +1055,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		margin-top: 40px;
 	}
 	.step-badge {
-		display: inline-block;
+		display: block;
 		font-family: 'Oswald', sans-serif;
-		font-size: 12px;
+		font-size: 20px;
 		font-weight: 600;
 		letter-spacing: 2px;
 		text-transform: uppercase;
 		color: #fe5900;
-		background: rgba(254,89,0,0.08);
-		padding: 4px 14px;
-		border-radius: 20px;
-		margin-bottom: 10px;
+		margin-bottom: 6px;
+		text-align: center;
 	}
 	.section-divider {
 		height: 1px;
@@ -2393,12 +2294,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		flex-shrink: 0;
 	}
 
-	button:focus-visible, .color-swatch:focus-visible, .view3d-cswatch:focus-visible {
+	button:focus-visible, .view3d-cswatch:focus-visible {
 		outline: 2px solid #fe5900;
 		outline-offset: 2px;
 	}
 
-	/* ── Guide Agent ─────────────────────────────────── */
+	/* ── Guide Agent (match step-by-step /new-room-planner/design) ── */
 	:global(.guide-fab) {
 		position: fixed;
 		bottom: 24px;
@@ -2406,7 +2307,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		width: 52px;
 		height: 52px;
 		border-radius: 50%;
-		background: #fe5900;
+		background: #0d0d0d;
 		color: #fff;
 		font-family: 'Oswald', sans-serif;
 		font-size: 26px;
@@ -2415,13 +2316,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
-		box-shadow: 0 4px 20px rgba(254,89,0,0.4);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 		z-index: 10000;
 		transition: transform 0.2s, box-shadow 0.2s;
 		border: none;
 		line-height: 1;
 	}
-	:global(.guide-fab:hover) { transform: scale(1.1); box-shadow: 0 6px 28px rgba(254,89,0,0.55); }
+	:global(.guide-fab:hover) { transform: scale(1.1); box-shadow: 0 6px 28px rgba(0, 0, 0, 0.35); }
 	:global(.guide-fab.hidden) { display: none; }
 
 	:global(.guide-panel) {
@@ -2459,7 +2360,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		font-family: 'Oswald', sans-serif;
 		font-size: 15px;
 		font-weight: 600;
-		color: #fe5900;
+		color: #404040;
 		text-transform: uppercase;
 		letter-spacing: 1.5px;
 	}
@@ -2479,7 +2380,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		line-height: 1;
 		padding: 0;
 	}
-	:global(.guide-minimize:hover) { border-color: #fe5900; color: #fe5900; }
+	:global(.guide-minimize:hover) { border-color: #0d0d0d; color: #0d0d0d; }
 
 	:global(.guide-progress) {
 		height: 4px;
@@ -2487,8 +2388,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 	:global(.guide-progress-bar) {
 		height: 100%;
-		background: #fe5900;
-		width: 11%;
+		background: #0d0d0d;
+		width: 16%;
 		transition: width 0.4s ease;
 		border-radius: 0 2px 2px 0;
 	}
@@ -2522,7 +2423,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		line-height: 1.65;
 	}
 	:global(.guide-step-desc strong) {
-		color: #fe5900;
+		color: #0d0d0d;
 		font-weight: 600;
 	}
 
@@ -2547,23 +2448,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	:global(.guide-nav-btn:hover:not(:disabled)) { border-color: #bbb; color: #222; }
 	:global(.guide-nav-btn:disabled) { opacity: 0.3; cursor: default; }
 	:global(.guide-nav-next) {
-		background: #fe5900;
-		border-color: #fe5900;
+		background: #0d0d0d;
+		border-color: #0d0d0d;
 		color: #fff;
 		font-weight: 600;
 	}
-	:global(.guide-nav-next:hover:not(:disabled)) { background: #e04f00; border-color: #e04f00; }
+	:global(.guide-nav-next:hover:not(:disabled)) { background: #333333; border-color: #333333; }
 
 	:global(.guide-highlight) {
-		outline: 2px solid #fe5900 !important;
+		outline: 2px solid #0d0d0d !important;
 		outline-offset: 4px !important;
-		box-shadow: 0 0 20px rgba(254,89,0,0.3) !important;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.2) !important;
 		transition: outline 0.3s, box-shadow 0.3s !important;
 	}
 
 	@keyframes guidePulse {
-		0%, 100% { box-shadow: 0 0 0 0 rgba(254,89,0,0.35); }
-		50% { box-shadow: 0 0 0 8px rgba(254,89,0,0); }
+		0%, 100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.25); }
+		50% { box-shadow: 0 0 0 8px rgba(0, 0, 0, 0); }
 	}
 	:global(.guide-pulse) {
 		animation: guidePulse 2s ease-in-out infinite;
@@ -2587,7 +2488,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </style>
 
 <script>
-	import { createInitialState, nextInstanceId, buildWalls, defaultDimensions } from '../room-planner/state';
+	import { createInitialState, nextInstanceId, buildWalls, defaultDimensions, needByTimelineLabel, fundingStatusLabel } from '../room-planner/state';
 	import type { RoomDimensions } from '../room-planner/state';
 	import { render, screenToWorld, setFloorLogo2D, removeFloorLogo2D } from '../room-planner/render';
 	import { getAllTemplates, getTemplate } from '../room-planner/catalog';
@@ -2609,6 +2510,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	// ─── Multi-room management ───
 	interface SavedRoom {
 		roomName: string;
+		needByTimeline: string;
+		fundingStatus: string;
 		sportType: string;
 		floorColor: string;
 		wallColor: string;
@@ -2627,6 +2530,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	function snapshotCurrentRoom(): SavedRoom {
 		return {
 			roomName: state.roomName,
+			needByTimeline: state.needByTimeline,
+			fundingStatus: state.fundingStatus,
 			sportType: state.sportType,
 			floorColor: state.floorColor,
 			wallColor: state.wallColor,
@@ -2674,6 +2579,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		if (!room) return;
 		roomDims = { ...room.roomDims };
 		state.roomName = room.roomName;
+		state.needByTimeline = room.needByTimeline || '';
+		state.fundingStatus = room.fundingStatus || '';
 		state.sportType = (room.sportType || '') as any;
 		state.floorColor = room.floorColor || '#8B7355';
 		state.wallColor = room.wallColor || '#ffffff';
@@ -2686,6 +2593,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		state.selection = null;
 
 		roomNameInput.value = state.roomName;
+		needBySelect.value = state.needByTimeline || '';
+		fundingSelect.value = state.fundingStatus || '';
 		sportSelect.value = state.sportType;
 
 		syncFloorSwatches();
@@ -2732,42 +2641,43 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	function renderCarouselNav() {
-		const total = savedRooms.length;
+		const list = document.getElementById('room-tabs-list')!;
+		if (!list) return;
+		list.innerHTML = '';
+		const canRemove = savedRooms.length > 1;
 		const idx = activeRoomIndex;
-		const name = (idx === activeRoomIndex ? state.roomName : savedRooms[idx]?.roomName) || '';
-
-		document.getElementById('room-indicator-count')!.textContent = `ROOM ${idx + 1} OF ${total}`;
+		for (let i = 0; i < savedRooms.length; i++) {
+			if (i > 0) {
+				const sep = document.createElement('span');
+				sep.className = 'room-tab-sep';
+				sep.textContent = '/';
+				list.appendChild(sep);
+			}
+			const isActive = i === idx;
+			const label = (i === idx ? state.roomName : savedRooms[i].roomName) || `Room ${i + 1}`;
+			const btn = document.createElement('button');
+			btn.type = 'button';
+			btn.className = `room-tab${isActive ? ' active' : ''}`;
+			btn.dataset.roomIdx = String(i);
+			btn.onclick = () => switchToRoom(i);
+			const nameSpan = document.createElement('span');
+			nameSpan.textContent = label;
+			btn.appendChild(nameSpan);
+			if (canRemove) {
+				const xBtn = document.createElement('span');
+				xBtn.className = 'room-tab-x';
+				xBtn.textContent = '\u00d7';
+				xBtn.title = 'Remove room';
+				xBtn.onclick = (e) => {
+					e.stopPropagation();
+					removeRoom(i);
+				};
+				btn.appendChild(xBtn);
+			}
+			list.appendChild(btn);
+		}
 		const roomLabel = document.getElementById('room-name-label');
 		if (roomLabel) roomLabel.textContent = `Name Room ${idx + 1}`;
-
-		const nameEl = document.getElementById('room-indicator-name')!;
-		const sepEl = document.querySelector('.room-indicator-sep') as HTMLElement;
-		if (name) {
-			nameEl.textContent = name;
-			nameEl.style.display = '';
-			sepEl.style.display = '';
-		} else {
-			nameEl.textContent = '';
-			nameEl.style.display = 'none';
-			sepEl.style.display = 'none';
-		}
-
-		const removeBtn = document.getElementById('btn-remove-room')!;
-		removeBtn.style.display = total > 1 ? '' : 'none';
-
-		(document.getElementById('btn-room-prev') as HTMLButtonElement).disabled = idx <= 0;
-		(document.getElementById('btn-room-next') as HTMLButtonElement).disabled = idx >= total - 1;
-
-		const dotsContainer = document.getElementById('room-dots')!;
-		dotsContainer.innerHTML = '';
-		for (let i = 0; i < total; i++) {
-			const dot = document.createElement('button');
-			dot.type = 'button';
-			dot.className = `room-dot${i === idx ? ' active' : ''}`;
-			dot.title = savedRooms[i]?.roomName || `Room ${i + 1}`;
-			dot.onclick = () => switchToRoom(i);
-			dotsContainer.appendChild(dot);
-		}
 	}
 
 	const renderRoomTabs = renderCarouselNav;
@@ -2790,6 +2700,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		const newIndex = savedRooms.length;
 		savedRooms.push({
 			roomName: '',
+			needByTimeline: '',
+			fundingStatus: '',
 			sportType: '',
 			floorColor: '#8B7355',
 			wallColor: '#ffffff',
@@ -2808,20 +2720,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		renderCarouselNav();
 	};
 
-	document.getElementById('btn-room-prev')!.onclick = () => {
-		if (activeRoomIndex > 0) switchToRoom(activeRoomIndex - 1);
-	};
-	document.getElementById('btn-room-next')!.onclick = () => {
-		if (activeRoomIndex < savedRooms.length - 1) switchToRoom(activeRoomIndex + 1);
-	};
-	document.getElementById('btn-remove-room')!.onclick = () => {
-		removeRoom(activeRoomIndex);
-	};
-
 	document.addEventListener('keydown', (e) => {
 		const tag = (e.target as HTMLElement).tagName;
 		if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-		const inPlanner = (e.target as HTMLElement).closest('#planner-canvas, .carousel-nav, .room-tabs');
+		const inPlanner = (e.target as HTMLElement).closest('#planner-canvas, .carousel-nav, .room-tabs, #room-tabs-bar, .room-tabs-list');
 		if (!inPlanner && e.target !== document.body) return;
 		if (e.key === 'ArrowLeft' && activeRoomIndex > 0) { e.preventDefault(); switchToRoom(activeRoomIndex - 1); }
 		if (e.key === 'ArrowRight' && activeRoomIndex < savedRooms.length - 1) { e.preventDefault(); switchToRoom(activeRoomIndex + 1); }
@@ -2849,7 +2751,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	allSaveBtns.forEach(b => { b.onclick = flashAllSaveBtns; });
 
-	// ─── Sport type selector ───
+	// ─── Need-by, funding & sport ───
+	const needBySelect = document.getElementById('need-by-timeline') as HTMLSelectElement;
+	const fundingSelect = document.getElementById('funding-status') as HTMLSelectElement;
 	const sportSelect = document.getElementById('sport-type') as HTMLSelectElement;
 	const SPORT_LOGO_MAP: Record<string, string> = {
 		football:   '/images/sport-football-floor.png',
@@ -2931,6 +2835,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		writeAllDimInputs();
 		state.roomName = '';
 		roomNameInput.value = '';
+		state.needByTimeline = '';
+		needBySelect.value = '';
+		state.fundingStatus = '';
+		fundingSelect.value = '';
+		state.sportType = '';
+		sportSelect.value = '';
 		state.walls = buildWalls(roomDims);
 		state.lockers = [];
 		state.openings = [];
@@ -2942,38 +2852,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		redraw();
 	};
 
-	// ─── Floor & wall color pickers ───
-	document.querySelectorAll('.color-swatch').forEach(btn => {
-		btn.addEventListener('click', () => {
-			const el = btn as HTMLElement;
-			const hex = el.dataset.color!;
-			const target = el.dataset.target!;
-			const container = el.parentElement!;
-			container.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-			el.classList.add('active');
-			if (target === 'floor') {
-				state.floorColor = hex;
-				updateFloorColor3D(hex);
-			} else {
-				state.wallColor = hex;
-				updateWallColor3D(hex);
-			}
-			redraw();
-		});
-	});
-
 	function syncFloorSwatches() {
-		document.querySelectorAll('#floor-swatches .color-swatch').forEach(s => {
-			const el = s as HTMLElement;
-			el.classList.toggle('active', el.dataset.color === state.floorColor);
-		});
 		updateFloorColor3D(state.floorColor);
 	}
 	function syncWallSwatches() {
-		document.querySelectorAll('#wall-swatches .color-swatch').forEach(s => {
-			const el = s as HTMLElement;
-			el.classList.toggle('active', el.dataset.color === state.wallColor);
-		});
 		updateWallColor3D(state.wallColor);
 	}
 
@@ -3338,7 +3220,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		selectAll3D = false; btnSelectAll.classList.remove('active');
 		overlay3d.style.display = 'flex';
 		swatchRow.style.display = 'flex';
-		roomNameLabel3d.textContent = state.roomName ? '— ' + state.roomName : '';
+		roomNameLabel3d.textContent = '— ' + ((state.roomName || '').trim() || 'Unnamed room');
 		populateFloorWallSwatches();
 		syncBaseToggle();
 		syncEdgebandToggle();
@@ -3376,16 +3258,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	function update3DRoomNav() {
 		const total = savedRooms.length;
 		const idx = activeRoomIndex;
-		const name = state.roomName || '';
+		const customName = (state.roomName || '').trim();
+		const displayName = customName || 'Unnamed room';
 		btn3dPrev.disabled = idx <= 0;
 		btn3dNext.disabled = idx >= total - 1;
 		btn3dPrev.style.display = total > 1 ? '' : 'none';
 		btn3dNext.style.display = total > 1 ? '' : 'none';
 		roomIndicator3d.style.display = total > 1 ? '' : 'none';
-		roomIndicator3d.textContent = name
-			? `ROOM ${idx + 1} OF ${total} — ${name}`
-			: `ROOM ${idx + 1} OF ${total}`;
-		roomNameLabel3d.textContent = name ? '— ' + name : '';
+		roomIndicator3d.textContent = `ROOM ${idx + 1} OF ${total} — ${displayName}`;
+		roomNameLabel3d.textContent = '— ' + displayName;
 	}
 
 	function switch3DRoom(newIndex: number) {
@@ -3458,6 +3339,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			btnLogoRemove.style.display = 'none';
 		}
 	}
+	needBySelect.onchange = () => {
+		state.needByTimeline = needBySelect.value;
+		saveCurrentRoom();
+	};
+	fundingSelect.onchange = () => {
+		state.fundingStatus = fundingSelect.value;
+		saveCurrentRoom();
+	};
 	sportSelect.onchange = () => {
 		state.sportType = sportSelect.value as any;
 		applySportLogo(state.sportType);
@@ -4764,6 +4653,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 				const tempState: PlannerState = {
 					roomName: room.roomName,
+					needByTimeline: room.needByTimeline || '',
+					fundingStatus: room.fundingStatus || '',
 					sportType: (room.sportType || '') as any,
 					displayUnit: state.displayUnit,
 					editMode: false,
@@ -4774,6 +4665,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					selection: null,
 					floorColor: room.floorColor || '#8B7355',
 					wallColor: room.wallColor || '#ffffff',
+					showBase: room.showBase ?? false,
+					baseColor: room.baseColor || '#1A1A1A',
+					edgebandColor: room.edgebandColor || '',
 				};
 
 				let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
@@ -4939,6 +4833,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		}
 		const grandTotal = allLines.reduce((sum: number, l: any) => sum + l.unitPrice * l.qty, 0);
 		orderSummary += `\nEstimated Total: $${grandTotal.toFixed(2)}`;
+
+		let timingBlock = '';
+		for (let ri = 0; ri < savedRooms.length; ri++) {
+			const r = savedRooms[ri];
+			const lbl = needByTimelineLabel(r.needByTimeline || '');
+			if (!lbl) continue;
+			const rm = r.roomName || `Room ${ri + 1}`;
+			timingBlock += `${rm}: ${lbl}\n`;
+		}
+		let fundingBlock = '';
+		for (let ri = 0; ri < savedRooms.length; ri++) {
+			const r = savedRooms[ri];
+			const lbl = fundingStatusLabel(r.fundingStatus || '');
+			if (!lbl) continue;
+			const rm = r.roomName || `Room ${ri + 1}`;
+			fundingBlock += `${rm}: ${lbl}\n`;
+		}
+		if (fundingBlock) {
+			orderSummary = `Funding / budget:\n${fundingBlock}\n` + orderSummary;
+		}
+		if (timingBlock) {
+			orderSummary = `Preferred delivery timing:\n${timingBlock}\n` + orderSummary;
+		}
 
 		const statusMsg = document.getElementById('order-status-msg')!;
 		const btn = document.getElementById('btn-request-quote') as HTMLButtonElement;

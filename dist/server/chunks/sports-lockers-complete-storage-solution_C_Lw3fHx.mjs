@@ -1,0 +1,96 @@
+import { j as createVNode, F as Fragment, az as __astro_tag_component__ } from './astro/server_BKRL6jPE.mjs';
+import 'clsx';
+
+const frontmatter = {
+  "title": "Sports Lockers- The Complete Sports Equipment Storage Solution",
+  "description": "Sports Lockers- The Complete Sports Equipment Storage Solution   Sports Lockers are the easiest way to keeping your sports equipment dry and organized. Place yo",
+  "category": "Buying Guides",
+  "tags": ["equipment-storage", "organization", "wood-lockers"],
+  "heroImage": "https://playerstall.b-cdn.net/images/Wood-Lockers-UBC-1024x1024.jpg",
+  "datePublished": "2017-05-01",
+  "readTime": "3 min read",
+  "author": "PlayerStall",
+  "wordCount": 439
+};
+function getHeadings() {
+  return [{
+    "depth": 3,
+    "slug": "sports-locker-options",
+    "text": "Sports Locker Options"
+  }, {
+    "depth": 3,
+    "slug": "athletic-locker-with-a-five-year-guarantee",
+    "text": "Athletic Locker with a Five Year Guarantee"
+  }];
+}
+function _createMdxContent(props) {
+  const _components = {
+    a: "a",
+    em: "em",
+    h3: "h3",
+    img: "img",
+    p: "p",
+    strong: "strong",
+    ...props.components
+  };
+  return createVNode(Fragment, {
+    children: [createVNode("h2", {
+      children: "Sports Lockers- The Complete Sports Equipment Storage Solution"
+    }), "\n", createVNode(_components.p, {
+      children: ["Sports Lockers are the easiest way to keeping your sports equipment dry and organized. Place your wood locker in the garage so when you get home, you can quickly unzip your bag, hang your gear, and it’s ready to go when you are! Not only does PlayerStall ", createVNode(_components.em, {
+        children: "Athletic Lockers"
+      }), " look great, but they are the easiest way to encourage your young athlete to keep their sports equipment organized."]
+    }), "\n", createVNode(_components.p, {
+      children: ["Our ", createVNode(_components.strong, {
+        children: "sports lockers"
+      }), " are made with only the strongest materials and our unique design makes our wood lockers very sturdy. They have been designed to be rigid and strong, making it resistant to bumps and shakes, and the hooks will hold all different types of sports gear."]
+    }), "\n", createVNode(_components.p, {
+      children: ["Our ", createVNode(_components.a, {
+        href: "/products/",
+        children: "athletic lockers"
+      }), " are built to last. PlayerStall Wood lockers are made from ¾” Birch construction and finished with a moisture resistant urethane coating.Our competitors typically use a thinner wood that is less rigid and of cheaper quality but we don’t cut corners- everything is built using top quality materials and our wood lockers are hand crafted here in North America."]
+    }), "\n", createVNode(_components.h3, {
+      id: "sports-locker-options",
+      children: "Sports Locker Options"
+    }), "\n", createVNode(_components.p, {
+      children: "We have multiple options if you are looking for a sports equipment storage solution. If you are tight on space, our Wall Locker hangs from the wall, saving a ton of space. If you are looking for sports equipment storage, you  can check out either our Varsity, Pro or Stadium athletic locker models. Each of these wood lockers has lift up seat compartment to safely and securely store your valuables."
+    }), "\n", createVNode(_components.p, {
+      children: createVNode(_components.img, {
+        src: "http://playerstall.com/wp-content/uploads/2016/03/lineupcustom-300x200.jpg",
+        alt: "sports locker lineup"
+      })
+    }), "\n", createVNode(_components.h3, {
+      id: "athletic-locker-with-a-five-year-guarantee",
+      children: "Athletic Locker with a Five Year Guarantee"
+    }), "\n", createVNode(_components.p, {
+      children: ["We are so sure that we make the toughest sports lockers in the business, that we offer a five year guarantee on any damage that is sustain to any of our ", createVNode(_components.strong, {
+        children: "athletic lockers"
+      }), ". We offer this because we know how tough they are- nobody comes close to offering this kind of guarantee in the business!\nAt PlayerStall Sports Lockers, we can help with all your sport equipment storage needs. Please contact us today for more information. Whether you are looking for mudroom lockers, employee lockers, hockey lockers,", createVNode(_components.a, {
+        href: "/products/",
+        children: " football lockers"
+      }), ", or any other type of wood locker, we have you covered!"]
+    })]
+  });
+}
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? createVNode(MDXLayout, {
+    ...props,
+    children: createVNode(_createMdxContent, {
+      ...props
+    })
+  }) : _createMdxContent(props);
+}
+
+const url = "src/content/blog/sports-lockers-complete-storage-solution.mdx";
+const file = "/Users/monikabrownova/Documents/github/player-stall December 19 2025/src/content/blog/sports-lockers-complete-storage-solution.mdx";
+const Content = (props = {}) => MDXContent({
+  ...props,
+  components: { Fragment: Fragment, ...props.components, },
+});
+Content[Symbol.for('mdx-component')] = true;
+Content[Symbol.for('astro.needsHeadRendering')] = !Boolean(frontmatter.layout);
+Content.moduleId = "/Users/monikabrownova/Documents/github/player-stall December 19 2025/src/content/blog/sports-lockers-complete-storage-solution.mdx";
+__astro_tag_component__(Content, 'astro:jsx');
+
+export { Content, Content as default, file, frontmatter, getHeadings, url };
