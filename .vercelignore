@@ -1,0 +1,6 @@
+# Keep CLI uploads small; Vercel runs install + build on their servers
+.git
+node_modules
+dist
+.claude
+.cursor
