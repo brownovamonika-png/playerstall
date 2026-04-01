@@ -63,12 +63,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</select>
 					</div>
 					<div class="room-field">
-						<label for="funding-status" class="room-field-label">Funding / budget</label>
-						<select id="funding-status" class="room-field-input sport-select" aria-describedby="need-by-hint">
+						<label for="funding-status" class="room-field-label">Fundraising status</label>
+						<select id="funding-status" class="room-field-input sport-select" aria-describedby="need-by-hint" name="fundraising_status">
 							<option value="">Select an option…</option>
-							<option value="have_funds">Have funds / budget approved</option>
-							<option value="fundraising">Currently fundraising</option>
-							<option value="need_help">Need help with fundraising</option>
+							<option value="have_funds">Have Funds</option>
+							<option value="need_funding">Need Funding</option>
+							<option value="fundraising">Currently Fundraising</option>
+							<option value="unsure">Unsure</option>
 						</select>
 					</div>
 					<div class="room-field">
@@ -444,11 +445,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<input type="file" id="logo-file-input" accept="image/png,image/jpeg,image/svg+xml,image/webp,image/gif" style="display:none" />
 				<button type="button" class="view3d-btn view3d-logo-remove" id="btn-3d-logo-remove" style="display:none" title="Remove floor logo">&times; Logo</button>
 				<button type="button" class="view3d-btn" id="btn-3d-reset">Reset View</button>
-				<span class="view3d-sep"></span>
-				<button type="button" class="view3d-btn view3d-save-btn" id="btn-3d-save" title="Save all rooms">
-					<svg class="view3d-save-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-					Save
-				</button>
 				<button type="button" class="view3d-close" id="btn-3d-close">&times;</button>
 			</div>
 		</div>
@@ -511,8 +507,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<button type="button" class="view3d-room-arrow view3d-room-arrow-left" id="btn-3d-prev" title="Previous room" disabled>&lsaquo;</button>
 			<button type="button" class="view3d-room-arrow view3d-room-arrow-right" id="btn-3d-next" title="Next room" disabled>&rsaquo;</button>
 			<div class="view3d-room-indicator" id="view3d-room-indicator">ROOM 1 OF 1</div>
+			<div class="view3d-bottom-cta">
+				<div class="view3d-bottom-actions">
+					<button type="button" class="view3d-bottom-btn view3d-bottom-btn--secondary" id="btn-3d-flash-save">Save</button>
+					<button type="button" class="view3d-bottom-btn view3d-bottom-btn--primary" id="btn-3d-continue-review" disabled>Continue</button>
+				</div>
+			</div>
 		</div>
-		<div class="view3d-hint">Drag background to orbit &middot; Click locker to select &middot; Drag locker to move &middot; Double-click or press R to rotate</div>
 	</div>
 
 	<!-- Order summary (below designer) -->
@@ -1973,6 +1974,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		z-index: 9999;
 		flex-direction: column;
 		background: #1a1a1a;
+		margin: 0;
+		padding: 0;
+		border: none;
+		outline: none;
+		box-shadow: none;
+		box-sizing: border-box;
+	}
+	.view3d-overlay:focus,
+	.view3d-overlay:focus-visible {
+		outline: none;
 	}
 	.view3d-header {
 		display: flex;
@@ -2057,18 +2068,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.view3d-logo-btn:hover { background: #14553a; border-color: #14553a; color: #fff; }
 	.view3d-logo-remove { background: #fff; border-color: #ccc; color: #888; font-size: 12px; }
 	.view3d-logo-remove:hover { border-color: #fe5900; color: #fe5900; }
-	.view3d-save-btn {
-		background: #fff;
-		border-color: #ccc;
-		color: #555;
-		font-weight: 600;
-		display: inline-flex;
-		align-items: center;
-		gap: 5px;
-	}
-	.view3d-save-btn:hover { background: #f0f0f0; border-color: #bbb; color: #333; }
-	.view3d-save-btn.saved { background: #f0f0f0; border-color: #bbb; color: #333; }
-	.view3d-save-icon { width: 13px; height: 13px; flex-shrink: 0; }
 	.view3d-close {
 		background: transparent;
 		border: none;
@@ -2085,11 +2084,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		flex: 1;
 		display: flex;
 		min-height: 0;
+		background: #d4dce6;
 	}
 	#view3d-canvas {
 		flex: 1;
 		width: 100%;
 		display: block;
+		border: none;
+		outline: none;
+		vertical-align: top;
 	}
 	.view3d-room-arrow {
 		position: absolute;
@@ -2117,9 +2120,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.view3d-room-arrow:disabled { opacity: 0.2; cursor: default; }
 	.view3d-room-indicator {
 		position: absolute;
-		bottom: 16px;
-		left: 50%;
-		transform: translateX(-50%);
+		top: 16px;
+		left: 16px;
+		bottom: auto;
+		transform: none;
 		background: rgba(0,0,0,0.55);
 		color: #fff;
 		font-family: 'Oswald', sans-serif;
@@ -2129,16 +2133,61 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		text-transform: uppercase;
 		padding: 6px 18px;
 		border-radius: 20px;
-		z-index: 10;
-		white-space: nowrap;
+		z-index: 11;
+		max-width: min(420px, calc(100% - 100px));
+		white-space: normal;
+		line-height: 1.25;
+		text-align: left;
 	}
-	.view3d-hint {
-		text-align: center;
-		padding: 8px;
-		color: #888;
+	.view3d-bottom-cta {
+		position: absolute;
+		left: 50%;
+		bottom: max(12px, calc(6px + env(safe-area-inset-bottom, 0px)));
+		transform: translateX(-50%);
+		z-index: 12;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0;
+		margin: 0;
+		background: transparent;
+		border: none;
+		pointer-events: none;
+	}
+	.view3d-bottom-actions {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		pointer-events: auto;
+	}
+	.view3d-bottom-btn {
+		font-family: 'Oswald', sans-serif;
 		font-size: 12px;
-		background: #000;
-		flex-shrink: 0;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		padding: 8px 18px;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background 0.15s, border-color 0.15s, opacity 0.15s, box-shadow 0.15s;
+		line-height: 1.25;
+		box-shadow: 0 2px 14px rgba(0,0,0,0.2);
+	}
+	.view3d-bottom-btn--primary {
+		border: none;
+		background: #fe5900;
+		color: #fff;
+	}
+	.view3d-bottom-btn--primary:hover:not(:disabled) { background: #e04d00; }
+	.view3d-bottom-btn--primary:disabled { opacity: 0.45; cursor: default; background: #666; color: #eee; }
+	.view3d-bottom-btn--secondary {
+		background: rgba(255,255,255,0.95);
+		border: 1px solid rgba(0,0,0,0.12);
+		color: #1a1a1a;
+	}
+	.view3d-bottom-btn--secondary:hover {
+		border-color: #fe5900;
+		color: #fe5900;
 	}
 	.view3d-swatch-row {
 		display: flex;
@@ -2498,7 +2547,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	import { formatDimension, unitLabel } from '../room-planner/units';
 	import { CUSHION_COLORS } from '../room-planner/types';
 	import type { PlannerState, LockerInstance, Opening, Selection, DisplayUnit } from '../room-planner/types';
-	import { jsPDF } from 'jspdf';
+	import { generateEstimatePdfBlob } from '../room-planner/pdfEstimate';
+	import { generateLayoutPdfBlob } from '../room-planner/pdfLayoutDoc';
 	import { launch3DPreview, dispose3DPreview, resetCamera, rotateSelected3D, hasSelection3D, updateFloorColor3D, updateWallColor3D, setFloorLogo, removeFloorLogo, rebuildLockerMesh3D, highlightAllLockers3D, clearSelection3D, toggleBase3D, updateBaseColor3D, updateEdgebandColor3D, removeLockers3D } from '../room-planner/render3d';
 
 	const canvas = document.getElementById('planner-canvas') as HTMLCanvasElement;
@@ -2729,12 +2779,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		if (e.key === 'ArrowRight' && activeRoomIndex < savedRooms.length - 1) { e.preventDefault(); switchToRoom(activeRoomIndex + 1); }
 	});
 
-	// ─── Save buttons (dots row + 2D toolbar + 3D toolbar) ───
+	// ─── Save buttons (dots row + 2D toolbar) ───
 	let _saveTimeout: ReturnType<typeof setTimeout> | null = null;
 	const allSaveBtns = [
 		document.getElementById('btn-save-room'),
 		document.getElementById('btn-toolbar-save'),
-		document.getElementById('btn-3d-save'),
 	].filter(Boolean) as HTMLElement[];
 
 	function flashAllSaveBtns() {
@@ -2750,6 +2799,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	}
 
 	allSaveBtns.forEach(b => { b.onclick = flashAllSaveBtns; });
+	document.getElementById('btn-3d-flash-save')!.onclick = flashAllSaveBtns;
 
 	// ─── Need-by, funding & sport ───
 	const needBySelect = document.getElementById('need-by-timeline') as HTMLSelectElement;
@@ -3103,6 +3153,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		scheduleAutosave();
 		const hasRoom = state.walls.some((w) => wallLength(w) > 0);
 		if (canvasHint) canvasHint.style.display = hasRoom ? 'none' : '';
+		const cont3d = document.getElementById('btn-3d-continue-review') as HTMLButtonElement | null;
+		if (cont3d) {
+			let tl = 0;
+			for (const r of savedRooms) tl += r.lockers.length;
+			cont3d.disabled = tl === 0;
+		}
 	}
 
 	// ─── Zoom ───
@@ -3237,17 +3293,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		else { btnLogoRemove.style.display = 'none'; }
 		update3DRoomNav();
 	};
-	document.getElementById('btn-3d-close')!.onclick = () => {
-		selectAll3D = false; btnSelectAll.classList.remove('active');
-		overlay3d.style.display = 'none';
-		swatchRow.style.display = 'none';
-		colorBar.style.display = 'none';
-		cushionBar.style.display = 'none';
-		accBar.style.display = 'none';
-		widthBar.style.display = 'none';
-		depthBar.style.display = 'none';
-		dispose3DPreview();
-	};
 	document.getElementById('btn-3d-reset')!.onclick = () => resetCamera();
 
 	// ─── 3D room navigation arrows ───
@@ -3372,6 +3417,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	const baseBar = document.getElementById('view3d-base-bar')!;
 	const baseBarSwatches = document.getElementById('view3d-base-swatches')!;
 	const edgebandBarSwatches = document.getElementById('view3d-edgeband-swatches')!;
+
+	function close3DOverlay() {
+		selectAll3D = false;
+		btnSelectAll.classList.remove('active');
+		overlay3d.style.display = 'none';
+		swatchRow.style.display = 'none';
+		colorBar.style.display = 'none';
+		cushionBar.style.display = 'none';
+		accBar.style.display = 'none';
+		widthBar.style.display = 'none';
+		depthBar.style.display = 'none';
+		dispose3DPreview();
+	}
+	document.getElementById('btn-3d-close')!.onclick = close3DOverlay;
+	const btn3dContinueReview = document.getElementById('btn-3d-continue-review') as HTMLButtonElement;
+	btn3dContinueReview.onclick = () => {
+		saveCurrentRoom();
+		close3DOverlay();
+		requestAnimationFrame(() => {
+			document.getElementById('order-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		});
+	};
 
 	const FLOOR_COLORS = [
 		{ hex: '#b0aba4', label: 'Concrete' },
@@ -4624,148 +4691,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		countEl.textContent = `${totalLockers} locker${totalLockers !== 1 ? 's' : ''} across ${savedRooms.length || 1} room${savedRooms.length > 1 ? 's' : ''}`;
 	}
 
-	// ─── PDF Generation ───
-	async function generateLayoutPDF(
-		allLines: LineItem[],
-		orderSummary: string,
-		grandTotal: number,
-		customerEmail: string,
-	): Promise<Blob | null> {
-		const origIndex = activeRoomIndex;
-		try {
-			saveCurrentRoom();
+	function blobToBase64(blob: Blob): Promise<string> {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
+			reader.onerror = () => reject(new Error('read failed'));
+			reader.readAsDataURL(blob);
+		});
+	}
 
-			const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'letter' });
-			const pageW = pdf.internal.pageSize.getWidth();
-			const pageH = pdf.internal.pageSize.getHeight();
-			const margin = 40;
-
-			const offCanvas = document.createElement('canvas');
-			offCanvas.width = 1200;
-			offCanvas.height = 800;
-			const offCtx = offCanvas.getContext('2d')!;
-
-			for (let ri = 0; ri < savedRooms.length; ri++) {
-				if (ri > 0) pdf.addPage('letter', 'landscape');
-
-				const room = savedRooms[ri];
-				const roomLabel = room.roomName || `Room ${ri + 1}`;
-
-				const tempState: PlannerState = {
-					roomName: room.roomName,
-					needByTimeline: room.needByTimeline || '',
-					fundingStatus: room.fundingStatus || '',
-					sportType: (room.sportType || '') as any,
-					displayUnit: state.displayUnit,
-					editMode: false,
-					camera: { centerX: 0, centerY: 0, pixelsPerInch: 2 },
-					walls: JSON.parse(JSON.stringify(room.walls)),
-					openings: JSON.parse(JSON.stringify(room.openings)),
-					lockers: JSON.parse(JSON.stringify(room.lockers)),
-					selection: null,
-					floorColor: room.floorColor || '#8B7355',
-					wallColor: room.wallColor || '#ffffff',
-					showBase: room.showBase ?? false,
-					baseColor: room.baseColor || '#1A1A1A',
-					edgebandColor: room.edgebandColor || '',
-				};
-
-				let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-				for (const w of tempState.walls) {
-					minX = Math.min(minX, w.start.x, w.end.x);
-					minY = Math.min(minY, w.start.y, w.end.y);
-					maxX = Math.max(maxX, w.start.x, w.end.x);
-					maxY = Math.max(maxY, w.start.y, w.end.y);
-				}
-				if (isFinite(minX)) {
-					const worldW = maxX - minX || 100;
-					const worldH = maxY - minY || 100;
-					tempState.camera.pixelsPerInch = Math.min((offCanvas.width - 60) / worldW, (offCanvas.height - 60) / worldH);
-					tempState.camera.centerX = (minX + maxX) / 2;
-					tempState.camera.centerY = (minY + maxY) / 2;
-				}
-
-				offCtx.fillStyle = '#fff';
-				offCtx.fillRect(0, 0, offCanvas.width, offCanvas.height);
-				render(offCtx, tempState);
-
-				const imgData = offCanvas.toDataURL('image/png');
-				const imgW = pageW - margin * 2;
-				const imgH = (offCanvas.height / offCanvas.width) * imgW;
-
-				pdf.setFontSize(16);
-				pdf.setFont('helvetica', 'bold');
-				pdf.text(roomLabel, margin, margin);
-				pdf.addImage(imgData, 'PNG', margin, margin + 10, imgW, Math.min(imgH, pageH - margin * 2 - 80));
-
-				pdf.setFontSize(8);
-				pdf.setFont('helvetica', 'italic');
-				pdf.setTextColor(180);
-				pdf.text('PlayerStall Room Planner — playerstall.com', pageW / 2, pageH - 20, { align: 'center' });
-				pdf.setTextColor(0);
-			}
-
-			pdf.addPage('letter', 'portrait');
-			const pW = pdf.internal.pageSize.getWidth();
-			let y = margin;
-			pdf.setFontSize(18);
-			pdf.setFont('helvetica', 'bold');
-			pdf.text('Order Summary', margin, y);
-			y += 28;
-			pdf.setFontSize(10);
-			pdf.setFont('helvetica', 'normal');
-			pdf.text(`Customer: ${customerEmail}`, margin, y);
-			y += 20;
-
-			let currentRoom = '';
-			for (const line of allLines) {
-				const room = line.roomName || 'Unnamed Room';
-				if (room !== currentRoom) {
-					currentRoom = room;
-					y += 8;
-					pdf.setFont('helvetica', 'bold');
-					pdf.setFontSize(11);
-					pdf.text(room, margin, y);
-					y += 16;
-					pdf.setFont('helvetica', 'normal');
-					pdf.setFontSize(10);
-				}
-				const accText = line.accessories.length ? ` + ${line.accessories.map((a) => a.label).join(', ')}` : '';
-				const lineText = `${line.qty}x ${line.displayName} (${line.widthIn}"W x ${line.depthIn}"D, ${line.colorLabel}${accText})`;
-				const priceText = `$${(line.unitPrice * line.qty).toFixed(2)}`;
-				pdf.text(lineText, margin, y);
-				pdf.text(priceText, pW - margin, y, { align: 'right' });
-				y += 14;
-				if (y > pdf.internal.pageSize.getHeight() - 60) {
-					pdf.addPage('letter', 'portrait');
-					y = margin;
-				}
-			}
-
-			y += 12;
-			pdf.setDrawColor(200);
-			pdf.line(margin, y, pW - margin, y);
-			y += 18;
-			pdf.setFontSize(13);
-			pdf.setFont('helvetica', 'bold');
-			pdf.text('Estimated Total', margin, y);
-			pdf.text(`$${grandTotal.toFixed(2)}`, pW - margin, y, { align: 'right' });
-
-			y += 30;
-			pdf.setFontSize(8);
-			pdf.setFont('helvetica', 'italic');
-			pdf.setTextColor(150);
-			pdf.text('This layout is an estimate. Final pricing may vary based on customization and installation requirements.', margin, y, { maxWidth: pW - margin * 2 });
-			pdf.setTextColor(0);
-
-			loadRoom(origIndex);
-
-			return pdf.output('blob');
-		} catch (e) {
-			console.error('PDF generation failed:', e);
-			try { loadRoom(origIndex); } catch (_) {}
-			return null;
-		}
+	function downloadBlob(blob: Blob, filename: string) {
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = filename;
+		document.body.appendChild(a);
+		a.click();
+		a.remove();
+		URL.revokeObjectURL(url);
 	}
 
 	// ─── Request Quote → add to site cart ───
@@ -4860,23 +4803,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		const statusMsg = document.getElementById('order-status-msg')!;
 		const btn = document.getElementById('btn-request-quote') as HTMLButtonElement;
 		btn.disabled = true;
-		btn.textContent = 'Generating PDF...';
+		btn.textContent = 'Generating PDFs...';
 
-		const pdfBlob = await generateLayoutPDF(allLines, orderSummary, grandTotal, customerEmail);
+		const origIndex = activeRoomIndex;
+		saveCurrentRoom();
+		const estimateLines = allLines.map((l) => ({
+			roomName: l.roomName,
+			displayName: l.displayName,
+			widthIn: l.widthIn,
+			depthIn: l.depthIn,
+			colorLabel: l.colorLabel,
+			accessories: l.accessories,
+			unitPrice: l.unitPrice,
+			qty: l.qty,
+		}));
+		const estimateBlob = generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal);
+		let layoutBlob: Blob | null = null;
+		try {
+			layoutBlob = await generateLayoutPdfBlob(savedRooms, state.displayUnit);
+		} catch (e) {
+			console.error('Layout PDF failed:', e);
+		}
+		try {
+			loadRoom(origIndex);
+		} catch (_) {}
 
 		btn.textContent = 'Sending...';
 
-		let pdfBase64: string | undefined;
-		if (pdfBlob) {
-			pdfBase64 = await new Promise<string>((resolve) => {
-				const reader = new FileReader();
-				reader.onloadend = () => {
-					const dataUrl = reader.result as string;
-					resolve(dataUrl.split(',')[1]);
-				};
-				reader.readAsDataURL(pdfBlob);
-			});
-		}
+		let estimatePdfBase64: string | undefined;
+		let layoutPdfBase64: string | undefined;
+		try {
+			if (estimateBlob) estimatePdfBase64 = await blobToBase64(estimateBlob);
+			if (layoutBlob) layoutPdfBase64 = await blobToBase64(layoutBlob);
+		} catch (_) {}
 
 		fetch('/api/send-room-plan', {
 			method: 'POST',
@@ -4885,23 +4844,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				email: customerEmail,
 				orderSummary,
 				grandTotal: grandTotal.toFixed(2),
-				pdfBase64,
+				estimatePdfBase64,
+				layoutPdfBase64,
 			}),
 		}).then(async (res) => {
 			if (res.ok) {
-				statusMsg.textContent = 'Thank you! We just emailed your room plan to ' + customerEmail + '. Our team received a copy too and will be in touch shortly.';
+				statusMsg.textContent =
+					'Thank you! We emailed two PDFs to ' +
+					customerEmail +
+					': your project estimate and your layout (floor plans + 3D). Our team received copies too.';
 				statusMsg.style.color = '#0d0d0d';
 				btn.textContent = 'Sent!';
-				if (pdfBlob) {
-					const url = URL.createObjectURL(pdfBlob);
-					const a = document.createElement('a');
-					a.href = url;
-					a.download = 'room-planner-layout.pdf';
-					document.body.appendChild(a);
-					a.click();
-					a.remove();
-					URL.revokeObjectURL(url);
-				}
+				if (estimateBlob) downloadBlob(estimateBlob, 'PlayerStall-Room-Estimate.pdf');
+				if (layoutBlob) setTimeout(() => downloadBlob(layoutBlob, 'PlayerStall-Room-Layout.pdf'), 400);
 			} else {
 				let detail = '';
 				try { const j = await res.json(); detail = j.error || ''; } catch {}

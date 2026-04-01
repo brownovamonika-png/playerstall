@@ -16,5 +16,8 @@ guides/
 
 # Cursor agent skills (local only)
 .cursor/skills/
+
+# Claude Code local worktrees
+.claude/
 .DS_Store
 .vercel

@@ -150,6 +150,7 @@ CREATE TABLE email_templates (
   stage_trigger order_stage,
   delay_hours INTEGER DEFAULT 0,
   enabled BOOLEAN DEFAULT true,
+  company TEXT NOT NULL DEFAULT 'playerstall' CHECK (company IN ('playerstall', 'custom_sport_lockers')),
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
@@ -387,4 +388,117 @@ INSERT INTO email_templates (name, subject, body, stage_trigger, delay_hours) VA
   '<p>Hi {{first_name}},</p><p>Just a friendly reminder that your PlayerStall lockers are covered by our 5-year guarantee.</p><p>If you need any maintenance, repairs, or have questions about your warranty coverage, we''re always here to help. You can also check our <a href="https://playerstall.com/warranty">warranty &amp; care page</a> for tips.</p><p>Thinking about expanding or upgrading? We''d love to work with you again.</p><p>Best,<br>The PlayerStall Team</p>',
   NULL,
   0
+),
+(
+  'Fundraising & Funding Ideas (Room Planner)',
+  'Ideas to help fund your locker project, {{first_name}} | PlayerStall',
+  '<p>Hi {{first_name}},</p><p>Thank you for sharing that <strong>{{company_name}}</strong> is working on fundraising for your {{sport}} locker project. We saw that in your room planner notes — and we want you to know we''re rooting for you. A great locker room is absolutely worth the effort, and many schools and programs have successfully closed the gap with a mix of the ideas below.</p><p><strong>Ideas that work well in the U.S.</strong></p><ul><li><strong>Athletic booster club</strong> — dedicated campaigns, annual drives, or a line item for facility improvements</li><li><strong>Corporate &amp; local sponsors</strong> — naming rights on locker plaques, donor walls, or end panels (check district/athletic association rules)</li><li><strong>Alumni &amp; community giving</strong> — targeted appeals, giving days, or small-donor crowdfunding</li><li><strong>Events</strong> — tournaments, silent auctions, golf outings, or spirit-wear sales with proceeds earmarked for the locker room</li><li><strong>Grants &amp; foundations</strong> — school foundations, education funds, and regional grants for athletics or facilities (requirements vary by state and district)</li></ul><p><strong>Ideas that work well in Canada</strong></p><ul><li><strong>Parent councils &amp; athletic associations</strong> — formal proposals for capital or equipment budgets</li><li><strong>Municipal &amp; provincial programs</strong> — recreation, facility, or healthy communities grants (eligibility varies by province)</li><li><strong>Community partners</strong> — local businesses, service clubs, and alumni networks</li><li><strong>Kids'' sport &amp; access programs</strong> — programs such as Jumpstart (Canadian Tire) and similar regional initiatives where your project qualifies</li><li><strong>Fundraising events</strong> — same spirit as in the U.S.: tournaments, auctions, and team-led campaigns</li></ul><p>We''re happy to provide <strong>renderings, a simple one-pager, or a ballpark summary</strong> you can attach to grant or donor packets — reply and tell us what would help your committee.</p><p>You can always review your project and documents here:</p><p><a href="{{portal_link}}" style="display:inline-block;padding:14px 36px;background:#fe5900;color:#ffffff;text-decoration:none;font-weight:600;border-radius:6px;text-transform:uppercase;">View Your Project</a></p><p>If you''d like to brainstorm what has worked for other {{sport}} programs, call us at <strong>1 888 584 1444</strong> or reply to this email. We''re here to help you get across the finish line.</p><p>Best,<br>The PlayerStall Team</p>',
+  NULL,
+  0
+);
+
+-- ============================================================
+-- SEED: Custom Sport Lockers email templates (disabled by default)
+-- ============================================================
+
+INSERT INTO email_templates (name, subject, body, stage_trigger, delay_hours, company, enabled) VALUES
+(
+  'Inquiry Acknowledgment — Custom Sport Lockers',
+  'Thanks for reaching out, {{first_name}}! | Custom Sport Lockers',
+  '<p>Hi {{first_name}},</p><p>Thank you for your interest in Custom Sport Lockers custom wood lockers! We received your inquiry and wanted to let you know that one of our team members will be in touch within 24 hours.</p><p>In the meantime, here are a few things that set us apart:</p><ul><li><strong>30+ years</strong> of craftsmanship</li><li><strong>5-year guarantee</strong> on every locker</li><li><strong>Custom-built</strong> in 8-12 weeks</li><li><strong>Free design consultation</strong></li></ul><p>Feel free to browse our <a href="https://customsportslockers.com/gallery">gallery</a> to see some of our recent work.</p><p>We look forward to helping you create something special for your team.</p><p>Best,<br>The Custom Sport Lockers Team</p>',
+  'new_lead',
+  0,
+  'custom_sport_lockers',
+  false
+),
+(
+  'Consultation Follow-Up — Custom Sport Lockers',
+  'Great talking with you, {{first_name}}! | Custom Sport Lockers',
+  '<p>Hi {{first_name}},</p><p>Thank you for taking the time to speak with us about your {{sport}} locker project. It was great learning about what you''re looking for.</p><p>Here''s a quick recap of what we discussed:</p><p><em>{{consultation_notes}}</em></p><p>Our next step is to put together a detailed quote based on your requirements. You can expect to hear from us within the next few business days.</p><p>If you think of any additional questions in the meantime, don''t hesitate to reach out.</p><p>Best,<br>The Custom Sport Lockers Team</p>',
+  'consultation',
+  1,
+  'custom_sport_lockers',
+  false
+),
+(
+  'Quote Delivery — Custom Sport Lockers',
+  'Your custom locker quote is ready, {{first_name}}! | Custom Sport Lockers',
+  '<p>Hi {{first_name}},</p><p>Great news — your custom quote for {{order_title}} is ready!</p><p><strong>Quoted Amount: {{quoted_amount}}</strong></p><p>You can view all the details, download the quote, and track your project anytime at your personal project page:</p><p><a href="{{portal_link}}" style="display:inline-block;padding:14px 36px;background:#fe5900;color:#ffffff;text-decoration:none;font-weight:600;border-radius:6px;text-transform:uppercase;">View Your Project</a></p><p>This quote is valid for 30 days. If you have any questions or would like to make adjustments, just reply to this email or give us a call.</p><p>We''d love to build something great for your team.</p><p>Best,<br>The Custom Sport Lockers Team</p>',
+  'quote_sent',
+  0,
+  'custom_sport_lockers',
+  false
+),
+(
+  'Order Confirmation — Custom Sport Lockers',
+  'Welcome aboard, {{first_name}}! Your project is underway | Custom Sport Lockers',
+  '<p>Hi {{first_name}},</p><p>This is exciting — your {{sport}} locker project is officially underway!</p><p>Here''s what to expect next:</p><ol><li><strong>Design Phase</strong> — Our team will begin working on your custom locker design</li><li><strong>Your Approval</strong> — We''ll share design mockups for your review</li><li><strong>Production</strong> — Once approved, we begin crafting your lockers</li><li><strong>Delivery &amp; Installation</strong> — Estimated completion: {{estimated_date}}</li></ol><p>You can track every step of the process at your project page:</p><p><a href="{{portal_link}}" style="display:inline-block;padding:14px 36px;background:#fe5900;color:#ffffff;text-decoration:none;font-weight:600;border-radius:6px;text-transform:uppercase;">Track Your Project</a></p><p>Thank you for choosing Custom Sport Lockers. We take great pride in every locker we build.</p><p>Best,<br>The Custom Sport Lockers Team</p>',
+  'quote_approved',
+  2,
+  'custom_sport_lockers',
+  false
+),
+(
+  'Design Phase Update — Custom Sport Lockers',
+  'Your locker design is in progress, {{first_name}} | Custom Sport Lockers',
+  '<p>Hi {{first_name}},</p><p>Quick update — our design team has started working on your custom {{sport}} lockers. We''re putting careful thought into every detail to make sure your locker room looks and functions exactly how you envisioned.</p><p>You''ll be able to view design updates and mockups as they become available on your project page:</p><p><a href="{{portal_link}}" style="display:inline-block;padding:14px 36px;background:#fe5900;color:#ffffff;text-decoration:none;font-weight:600;border-radius:6px;text-transform:uppercase;">View Design Progress</a></p><p>If you have any specific preferences or changes in mind, now is the perfect time to let us know.</p><p>Best,<br>The Custom Sport Lockers Team</p>',
+  'design_phase',
+  1,
+  'custom_sport_lockers',
+  false
+),
+(
+  'Production Update — Custom Sport Lockers',
+  'Your lockers are being built, {{first_name}}! | Custom Sport Lockers',
+  '<p>Hi {{first_name}},</p><p>Exciting news — your custom {{sport}} lockers are now in production! Our craftsmen are hard at work bringing your design to life.</p><p><strong>Estimated completion: {{estimated_date}}</strong></p><p>Each locker is built with the same attention to detail that has defined Custom Sport Lockers for over 30 years. Your lockers are backed by our 5-year guarantee.</p><p>Track your project progress anytime:</p><p><a href="{{portal_link}}" style="display:inline-block;padding:14px 36px;background:#fe5900;color:#ffffff;text-decoration:none;font-weight:600;border-radius:6px;text-transform:uppercase;">Track Your Project</a></p><p>Best,<br>The Custom Sport Lockers Team</p>',
+  'in_production',
+  2,
+  'custom_sport_lockers',
+  false
+),
+(
+  'Shipping Notification — Custom Sport Lockers',
+  'Your lockers are on their way, {{first_name}}! | Custom Sport Lockers',
+  '<p>Hi {{first_name}},</p><p>Your custom {{sport}} lockers have shipped and are on their way to you!</p><p>View delivery details and tracking information on your project page:</p><p><a href="{{portal_link}}" style="display:inline-block;padding:14px 36px;background:#fe5900;color:#ffffff;text-decoration:none;font-weight:600;border-radius:6px;text-transform:uppercase;">View Delivery Details</a></p><p>Please make sure your installation area is prepared and accessible for delivery. If you need any help preparing, check out our <a href="https://customsportslockers.com/installation-guide">installation guide</a>.</p><p>We can''t wait for your team to see them!</p><p>Best,<br>The Custom Sport Lockers Team</p>',
+  'shipped',
+  0,
+  'custom_sport_lockers',
+  false
+),
+(
+  'Installation Complete — Custom Sport Lockers',
+  'Your new lockers are installed, {{first_name}}! | Custom Sport Lockers',
+  '<p>Hi {{first_name}},</p><p>Your new {{sport}} lockers are installed and ready for your team!</p><p>A few things to keep in mind:</p><ul><li>Your lockers come with our <strong>5-year guarantee</strong></li><li>Check our <a href="https://customsportslockers.com/warranty">care &amp; warranty page</a> for maintenance tips</li><li>Your project page has all your documents and photos: <a href="{{portal_link}}">View Project</a></li></ul><p>We''d love to hear what your team thinks! If you have a moment, we''d really appreciate a quick testimonial or photo to share.</p><p>Thank you for choosing Custom Sport Lockers.</p><p>Best,<br>The Custom Sport Lockers Team</p>',
+  'installed',
+  1,
+  'custom_sport_lockers',
+  false
+),
+(
+  'Gentle Quote Follow-Up — Custom Sport Lockers',
+  'Checking in on your locker quote, {{first_name}} | Custom Sport Lockers',
+  '<p>Hi {{first_name}},</p><p>Just wanted to check in — we sent over a quote for your {{sport}} locker project about a week ago, and wanted to make sure you had a chance to review it.</p><p>You can view the full details anytime here:</p><p><a href="{{portal_link}}" style="display:inline-block;padding:14px 36px;background:#fe5900;color:#ffffff;text-decoration:none;font-weight:600;border-radius:6px;text-transform:uppercase;">View Your Quote</a></p><p>If you have any questions, need adjustments to the design, or want to discuss pricing — we''re here to help. No pressure at all.</p><p>Best,<br>The Custom Sport Lockers Team</p>',
+  NULL,
+  0,
+  'custom_sport_lockers',
+  false
+),
+(
+  '30-Day Check-In — Custom Sport Lockers',
+  'How are the new lockers, {{first_name}}? | Custom Sport Lockers',
+  '<p>Hi {{first_name}},</p><p>It''s been about a month since your new {{sport}} lockers were installed, and we wanted to check in.</p><p>How is everything working out? Is your team enjoying the new setup?</p><p>If there''s anything we can help with — adjustments, additional accessories, or maintenance questions — just let us know.</p><p>And if your team is happy with the lockers, we''d be thrilled if you could share a quick testimonial or photo. It really helps other programs find us.</p><p>Thank you again for trusting Custom Sport Lockers with your locker room.</p><p>Best,<br>The Custom Sport Lockers Team</p>',
+  NULL,
+  0,
+  'custom_sport_lockers',
+  false
+),
+(
+  'Annual Warranty Reminder — Custom Sport Lockers',
+  'Your Custom Sport Lockers warranty check-in | Custom Sport Lockers',
+  '<p>Hi {{first_name}},</p><p>Just a friendly reminder that your wood lockers from Custom Sport Lockers are covered by our 5-year guarantee.</p><p>If you need any maintenance, repairs, or have questions about your warranty coverage, we''re always here to help. You can also check our <a href="https://customsportslockers.com/warranty">warranty &amp; care page</a> for tips.</p><p>Thinking about expanding or upgrading? We''d love to work with you again.</p><p>Best,<br>The Custom Sport Lockers Team</p>',
+  NULL,
+  0,
+  'custom_sport_lockers',
+  false
+)
 );

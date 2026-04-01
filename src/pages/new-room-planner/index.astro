@@ -57,12 +57,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 						</select>
 					</div>
 					<div class="room-field">
-						<label for="funding-status" class="room-field-label">Funding / budget</label>
-						<select id="funding-status" class="room-field-input sport-select" aria-describedby="need-by-hint-step1">
+						<label for="funding-status" class="room-field-label">Fundraising status</label>
+						<select id="funding-status" class="room-field-input sport-select" aria-describedby="need-by-hint-step1" name="fundraising_status">
 							<option value="">Select an option…</option>
-							<option value="have_funds">Have funds / budget approved</option>
-							<option value="fundraising">Currently fundraising</option>
-							<option value="need_help">Need help with fundraising</option>
+							<option value="have_funds">Have Funds</option>
+							<option value="need_funding">Need Funding</option>
+							<option value="fundraising">Currently Fundraising</option>
+							<option value="unsure">Unsure</option>
 						</select>
 					</div>
 					<div class="room-field">

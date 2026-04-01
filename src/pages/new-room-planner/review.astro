@@ -33,7 +33,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 	<section class="order-section">
 		<div class="order-section-header">
-			<p class="order-desc">Here's everything you've configured across all your rooms. When you're happy with the layout, send it to us and we'll help you bring it to life.</p>
+			<p class="order-desc">Here's everything you've configured across all your rooms. When you submit, you'll get <strong>two PDFs</strong> by email: a polished <strong>project estimate</strong> with pricing, and a <strong>layout pack</strong> with floor plans plus 3D views for fundraising or sharing. We'll help you bring it to life.</p>
 		</div>
 		<div class="order-section-inner">
 			<div class="order-panel" id="order-panel">
@@ -374,10 +374,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 <script>
 	import { getTemplate } from '../../room-planner/catalog';
 	import { priceLocker } from '../../room-planner/pricing';
-	import { render } from '../../room-planner/render';
 	import { buildWalls, needByTimelineLabel, fundingStatusLabel } from '../../room-planner/state';
 	import type { PlannerState, LockerInstance } from '../../room-planner/types';
-	import { jsPDF } from 'jspdf';
+	import { generateEstimatePdfBlob } from '../../room-planner/pdfEstimate';
+	import { generateLayoutPdfBlob } from '../../room-planner/pdfLayoutDoc';
 
 	const ROOMS_STORAGE_KEY = 'playerstall_rooms_design';
 
@@ -476,50 +476,24 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		countEl.textContent = `${totalLockers} locker${totalLockers !== 1 ? 's' : ''} across ${savedRooms.length} room${savedRooms.length > 1 ? 's' : ''}`;
 	}
 
-	// ─── PDF Generation ───
-	async function generateLayoutPDF(lines: LineItem[], orderSummary: string, grandTotal: number, email: string): Promise<Blob | null> {
-		try {
-			const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'letter' });
-			const pageW = pdf.internal.pageSize.getWidth();
-			const pageH = pdf.internal.pageSize.getHeight();
-			const margin = 40;
-			const offCanvas = document.createElement('canvas'); offCanvas.width = 1200; offCanvas.height = 800;
-			const offCtx = offCanvas.getContext('2d')!;
-			for (let ri = 0; ri < savedRooms.length; ri++) {
-				if (ri > 0) pdf.addPage('letter', 'landscape');
-				const room = savedRooms[ri]; const roomLabel = room.roomName || `Room ${ri + 1}`;
-				const tempState: PlannerState = { roomName: room.roomName, needByTimeline: room.needByTimeline || '', fundingStatus: room.fundingStatus || '', sportType: (room.sportType || '') as any, displayUnit: 'in', editMode: false, camera: { centerX: 0, centerY: 0, pixelsPerInch: 2 }, walls: JSON.parse(JSON.stringify(room.walls)), openings: JSON.parse(JSON.stringify(room.openings)), lockers: JSON.parse(JSON.stringify(room.lockers)), selection: null, floorColor: room.floorColor || '#8B7355', wallColor: room.wallColor || '#ffffff', showBase: room.showBase ?? false, baseColor: room.baseColor || '#1A1A1A', edgebandColor: room.edgebandColor || '' };
-				let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-				for (const w of tempState.walls) { minX = Math.min(minX, w.start.x, w.end.x); minY = Math.min(minY, w.start.y, w.end.y); maxX = Math.max(maxX, w.start.x, w.end.x); maxY = Math.max(maxY, w.start.y, w.end.y); }
-				if (isFinite(minX)) { tempState.camera.pixelsPerInch = Math.min((offCanvas.width - 60) / (maxX - minX || 100), (offCanvas.height - 60) / (maxY - minY || 100)); tempState.camera.centerX = (minX + maxX) / 2; tempState.camera.centerY = (minY + maxY) / 2; }
-				offCtx.fillStyle = '#fff'; offCtx.fillRect(0, 0, offCanvas.width, offCanvas.height); render(offCtx, tempState);
-				const imgData = offCanvas.toDataURL('image/png');
-				const imgW = pageW - margin * 2; const imgH = (offCanvas.height / offCanvas.width) * imgW;
-				pdf.setFontSize(16); pdf.setFont('helvetica', 'bold'); pdf.text(roomLabel, margin, margin);
-				pdf.addImage(imgData, 'PNG', margin, margin + 10, imgW, Math.min(imgH, pageH - margin * 2 - 80));
-				pdf.setFontSize(8); pdf.setFont('helvetica', 'italic'); pdf.setTextColor(180);
-				pdf.text('PlayerStall Room Planner \u2014 playerstall.com', pageW / 2, pageH - 20, { align: 'center' }); pdf.setTextColor(0);
-			}
-			pdf.addPage('letter', 'portrait');
-			const pW = pdf.internal.pageSize.getWidth(); let y = margin;
-			pdf.setFontSize(18); pdf.setFont('helvetica', 'bold'); pdf.text('Order Summary', margin, y); y += 28;
-			pdf.setFontSize(10); pdf.setFont('helvetica', 'normal'); pdf.text(`Customer: ${email}`, margin, y); y += 20;
-			let curRoom = '';
-			for (const line of lines) {
-				const room = line.roomName || 'Unnamed Room';
-				if (room !== curRoom) { curRoom = room; y += 8; pdf.setFont('helvetica', 'bold'); pdf.setFontSize(11); pdf.text(room, margin, y); y += 16; pdf.setFont('helvetica', 'normal'); pdf.setFontSize(10); }
-				const accText = line.accessories.length ? ` + ${line.accessories.map((a) => a.label).join(', ')}` : '';
-				pdf.text(`${line.qty}x ${line.displayName} (${line.widthIn}"W x ${line.depthIn}"D, ${line.colorLabel}${accText})`, margin, y);
-				pdf.text(`$${(line.unitPrice * line.qty).toFixed(2)}`, pW - margin, y, { align: 'right' }); y += 14;
-				if (y > pdf.internal.pageSize.getHeight() - 60) { pdf.addPage('letter', 'portrait'); y = margin; }
-			}
-			y += 12; pdf.setDrawColor(200); pdf.line(margin, y, pW - margin, y); y += 18;
-			pdf.setFontSize(13); pdf.setFont('helvetica', 'bold');
-			pdf.text('Estimated Total', margin, y); pdf.text(`$${grandTotal.toFixed(2)}`, pW - margin, y, { align: 'right' });
-			y += 30; pdf.setFontSize(8); pdf.setFont('helvetica', 'italic'); pdf.setTextColor(150);
-			pdf.text('This layout is an estimate. Final pricing may vary based on customization and installation requirements.', margin, y, { maxWidth: pW - margin * 2 }); pdf.setTextColor(0);
-			return pdf.output('blob');
-		} catch (e) { console.error('PDF generation failed:', e); return null; }
+	function blobToBase64(blob: Blob): Promise<string> {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
+			reader.onerror = () => reject(new Error('read failed'));
+			reader.readAsDataURL(blob);
+		});
+	}
+
+	function downloadBlob(blob: Blob, filename: string) {
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = filename;
+		document.body.appendChild(a);
+		a.click();
+		a.remove();
+		URL.revokeObjectURL(url);
 	}
 
 	// ─── Request Quote ───
@@ -578,29 +552,47 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 		const statusMsg = document.getElementById('order-status-msg')!;
 		const btn = document.getElementById('btn-request-quote') as HTMLButtonElement;
-		btn.disabled = true; btn.textContent = 'Generating PDF...';
-		const pdfBlob = await generateLayoutPDF(allLines, orderSummary, grandTotal, customerEmail);
+		btn.disabled = true; btn.textContent = 'Generating PDFs...';
+		const estimateLines = allLines.map((l) => ({
+			roomName: l.roomName,
+			displayName: l.displayName,
+			widthIn: l.widthIn,
+			depthIn: l.depthIn,
+			colorLabel: l.colorLabel,
+			accessories: l.accessories,
+			unitPrice: l.unitPrice,
+			qty: l.qty,
+		}));
+		const estimateBlob = generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal);
+		const layoutBlob = await generateLayoutPdfBlob(savedRooms, 'in');
 		btn.textContent = 'Sending...';
 
-		let pdfBase64: string | undefined;
-		if (pdfBlob) {
-			pdfBase64 = await new Promise<string>((resolve) => {
-				const reader = new FileReader();
-				reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
-				reader.readAsDataURL(pdfBlob);
-			});
-		}
+		let estimatePdfBase64: string | undefined;
+		let layoutPdfBase64: string | undefined;
+		try {
+			if (estimateBlob) estimatePdfBase64 = await blobToBase64(estimateBlob);
+			if (layoutBlob) layoutPdfBase64 = await blobToBase64(layoutBlob);
+		} catch (_) { /* continue without attachment */ }
 
 		fetch('/api/send-room-plan', {
 			method: 'POST', headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email: customerEmail, orderSummary, grandTotal: grandTotal.toFixed(2), pdfBase64 }),
+			body: JSON.stringify({
+				email: customerEmail,
+				orderSummary,
+				grandTotal: grandTotal.toFixed(2),
+				estimatePdfBase64,
+				layoutPdfBase64,
+			}),
 		}).then(async (res) => {
 			if (res.ok) {
-				statusMsg.textContent = 'Thank you! We just emailed your room plan to ' + customerEmail + '. Our team received a copy too and will be in touch shortly.';
+				statusMsg.textContent =
+					'Thank you! We emailed two PDFs to ' +
+					customerEmail +
+					': your project estimate and your layout (floor plans + 3D). Our team received copies too.';
 				statusMsg.style.color = '#0d0d0d'; btn.textContent = 'Sent!';
-				if (pdfBlob) {
-					const url = URL.createObjectURL(pdfBlob); const a = document.createElement('a');
-					a.href = url; a.download = 'room-planner-layout.pdf'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+				if (estimateBlob) downloadBlob(estimateBlob, 'PlayerStall-Room-Estimate.pdf');
+				if (layoutBlob) {
+					setTimeout(() => downloadBlob(layoutBlob, 'PlayerStall-Room-Layout.pdf'), 400);
 				}
 			} else {
 				let detail = ''; try { const j = await res.json(); detail = j.error || ''; } catch {}

@@ -31,15 +31,20 @@ const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 ---
 
 <BaseLayout title="Blog - Sports Locker Insights & Tips | PlayerStall" description="Expert insights on sports lockers, locker room design, and athletic facility management. Tips from 30+ years of experience.">
-	<div class="qodef-page-title">
-		<div class="qodef-page-title-inner">
-			<div class="qodef-breadcrumbs">
-				<a href="/">Home</a>
-				<span class="qodef-breadcrumbs-sep"></span>
-				<span class="qodef-breadcrumbs-current">Blog</span>
-			</div>
+	<!-- Hero: same image and treatment as /shop -->
+	<section class="shop-hero-section">
+		<div class="shop-hero-background">
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Blog — sports locker insights and tips" class="shop-hero-bg-image" />
 		</div>
-	</div>
+		<div class="shop-hero-background-overlay"></div>
+		<div class="shop-hero-container">
+			<div class="shop-breadcrumbs">
+				<a href="/">Home</a>
+				<span>Blog</span>
+			</div>
+			<h1 class="shop-page-title">Blog</h1>
+		</div>
+	</section>
 
 	<div class="qodef-page-inner" id="blog-posts">
 		<div class="qodef-grid-inner">
@@ -153,47 +158,89 @@ const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 </BaseLayout>
 
 <style>
-	/* ── Page title / breadcrumb bar ── */
-	.qodef-page-title {
-		background: #1a1a1a;
-		padding: 120px 0 25px;
+	/* ── Hero (matches /shop: h1-img-8, grayscale, overlay) ── */
+	.shop-hero-section {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
+		overflow: hidden;
+		min-height: 320px;
+		width: 100%;
+		max-width: none;
+		margin: 0;
 	}
 
-	.qodef-page-title-inner {
+	.shop-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.shop-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
+	}
+
+	.shop-hero-background-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	.shop-hero-container {
+		position: relative;
+		z-index: 10;
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
+		text-align: left;
+		width: 100%;
 	}
 
-	.qodef-breadcrumbs {
+	.shop-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: rgba(255, 255, 255, 0.7);
+		font-size: 12px;
+		color: rgba(255, 255, 255, 0.85);
 		text-transform: uppercase;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.1em;
+		margin-bottom: 30px;
 	}
 
-	.qodef-breadcrumbs a {
-		color: rgba(255, 255, 255, 0.7);
+	.shop-breadcrumbs a {
+		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
 		transition: color 0.3s;
 	}
 
-	.qodef-breadcrumbs a:hover {
+	.shop-breadcrumbs a:hover {
 		color: #fe5900;
 	}
 
-	.qodef-breadcrumbs-sep {
-		display: inline-block;
-		width: 8px;
-		height: 1px;
-		background: rgba(255, 255, 255, 0.35);
-		margin: 0 10px;
-		vertical-align: middle;
+	.shop-breadcrumbs span {
+		margin-left: 10px;
+		color: #ffffff;
 	}
 
-	.qodef-breadcrumbs-current {
+	.shop-page-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 52px;
+		font-weight: 600;
 		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
 	}
 
 	/* ── Main grid ── */
@@ -678,8 +725,8 @@ const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 	}
 
 	@media (max-width: 768px) {
-		.qodef-page-title {
-			padding-top: 100px;
+		.shop-page-title {
+			font-size: 42px;
 		}
 
 		.qodef-page-inner {
@@ -696,6 +743,12 @@ const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 
 		.cta-content h2 {
 			font-size: 36px;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.shop-page-title {
+			font-size: 32px;
 		}
 	}
 

@@ -1123,3 +1123,162 @@ export function removeFloorLogo(): void {
     _logoTexture = null;
   }
 }
+
+/* ── Off-screen 3D snapshot (PDF / fundraising) ───────────────────
+ * Does not touch interactive preview globals (_scene, _renderer, etc.).
+ */
+
+function snapshotAddFloor(scene: THREE.Scene, b: Bounds, state: PlannerState): void {
+  const w = b.maxX - b.minX;
+  const d = b.maxZ - b.minZ;
+  const cx = (b.minX + b.maxX) / 2;
+  const cz = (b.minZ + b.maxZ) / 2;
+  const pad = Math.max(w, d) * 0.5;
+
+  const ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(w + pad * 2, d + pad * 2),
+    new THREE.MeshStandardMaterial({ color: FLOOR_HEX, roughness: 0.85 }),
+  );
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.set(cx, -0.1, cz);
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  const floorHex = state.floorColor
+    ? parseInt(state.floorColor.replace('#', ''), 16)
+    : ROOM_FLOOR_HEX;
+  const roomFloor = new THREE.Mesh(
+    new THREE.PlaneGeometry(w, d),
+    new THREE.MeshStandardMaterial({ color: floorHex, roughness: 0.7 }),
+  );
+  roomFloor.rotation.x = -Math.PI / 2;
+  roomFloor.position.set(cx, 0, cz);
+  roomFloor.receiveShadow = true;
+  scene.add(roomFloor);
+}
+
+function snapshotAddLockers(scene: THREE.Scene, state: PlannerState): void {
+  const edgeMat = new THREE.LineBasicMaterial({ color: EDGE_HEX, transparent: true, opacity: 0.25 });
+  for (const locker of state.lockers) {
+    const group = buildLockerGroup(
+      locker,
+      edgeMat,
+      state.showBase,
+      state.baseColor,
+      state.edgebandColor || undefined,
+    );
+    if (group) scene.add(group);
+  }
+  edgeMat.dispose();
+}
+
+function disposeSnapshotScene(scene: THREE.Scene): void {
+  scene.traverse((o: THREE.Object3D) => {
+    if (o instanceof THREE.Mesh) {
+      o.geometry?.dispose();
+      (Array.isArray(o.material) ? o.material : [o.material]).forEach((m: THREE.Material) => m.dispose());
+    }
+    if (o instanceof THREE.LineSegments) {
+      o.geometry.dispose();
+      (o.material as THREE.Material).dispose();
+    }
+  });
+}
+
+function addSnapshotFloorLogo(scene: THREE.Scene, state: PlannerState, dataUrl: string): Promise<void> {
+  const b = roomBounds(state);
+  return new Promise((resolve) => {
+    const loader = new THREE.TextureLoader();
+    loader.load(
+      dataUrl,
+      (tex: THREE.Texture) => {
+        tex.colorSpace = THREE.SRGBColorSpace;
+        const roomW = b.maxX - b.minX;
+        const roomD = b.maxZ - b.minZ;
+        const cx = (b.minX + b.maxX) / 2;
+        const cz = (b.minZ + b.maxZ) / 2;
+        const img = tex.image as HTMLImageElement;
+        const imgAspect = img.width / img.height;
+        const maxDim = Math.min(roomW, roomD) * 0.5;
+        const logoW = imgAspect >= 1 ? maxDim : maxDim * imgAspect;
+        const logoD = imgAspect >= 1 ? maxDim / imgAspect : maxDim;
+        const geo = new THREE.PlaneGeometry(logoW, logoD);
+        const mat = new THREE.MeshStandardMaterial({
+          map: tex,
+          transparent: true,
+          roughness: 0.7,
+          metalness: 0,
+          polygonOffset: true,
+          polygonOffsetFactor: -1,
+        });
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.rotation.x = -Math.PI / 2;
+        mesh.position.set(cx, 0.05, cz);
+        mesh.receiveShadow = true;
+        scene.add(mesh);
+        resolve();
+      },
+      undefined,
+      () => resolve(),
+    );
+  });
+}
+
+/**
+ * Renders a one-off 3D view of the room (same style as the 3D preview modal) for PDFs and sharing.
+ * Safe to call while the interactive 3D modal is closed; uses an isolated WebGL context.
+ */
+export async function capturePlanner3DDataURL(
+  state: PlannerState,
+  options?: { width?: number; height?: number; customLogoDataUrl?: string | null },
+): Promise<string | null> {
+  const prevWallMaterial = _wallMaterial;
+  const width = options?.width ?? 1600;
+  const height = options?.height ?? 1000;
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(SKY_HEX);
+  let renderer: THREE.WebGLRenderer | null = null;
+  try {
+    const bounds = roomBounds(state);
+    setupLights(scene, bounds);
+    snapshotAddFloor(scene, bounds, state);
+    addWalls(scene, state);
+    addCornerZones(scene, state);
+    snapshotAddLockers(scene, state);
+
+    const logoUrl = options?.customLogoDataUrl;
+    if (logoUrl) {
+      await addSnapshotFloorLogo(scene, state, logoUrl);
+    }
+
+    const cx = (bounds.minX + bounds.maxX) / 2;
+    const cz = (bounds.minZ + bounds.maxZ) / 2;
+    const span = Math.max(bounds.maxX - bounds.minX, bounds.maxZ - bounds.minZ, 120);
+    const camera = new THREE.PerspectiveCamera(50, width / height, 1, span * 10);
+    const dist = span * 1.2;
+    camera.position.set(cx + dist * 0.6, dist * 0.8, cz + dist * 0.6);
+    camera.lookAt(cx, WALL_HEIGHT * 0.3, cz);
+
+    renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      preserveDrawingBuffer: true,
+      alpha: false,
+    });
+    renderer.setSize(width, height, false);
+    renderer.setPixelRatio(1);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
+    renderer.toneMapping = THREE.LinearToneMapping;
+    renderer.toneMappingExposure = 1.0;
+
+    renderer.render(scene, camera);
+    return renderer.domElement.toDataURL('image/png');
+  } catch (e) {
+    console.error('capturePlanner3DDataURL failed:', e);
+    return null;
+  } finally {
+    _wallMaterial = prevWallMaterial;
+    disposeSnapshotScene(scene);
+    renderer?.dispose();
+  }
+}

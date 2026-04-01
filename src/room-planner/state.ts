@@ -50,11 +50,14 @@ export function needByTimelineLabel(code: string): string {
 	return NEED_BY_LABELS[c] || c;
 }
 
-/** Human-readable labels for `PlannerState.fundingStatus` select values. */
+/** Human-readable labels for `PlannerState.fundingStatus` (fundraising status) select values. */
 const FUNDING_LABELS: Record<string, string> = {
-	have_funds: 'Have funds / budget approved',
-	fundraising: 'Currently fundraising',
-	need_help: 'Need help with fundraising',
+	have_funds: 'Have Funds',
+	need_funding: 'Need Funding',
+	fundraising: 'Currently Fundraising',
+	unsure: 'Unsure',
+	/** Legacy saved submissions */
+	need_help: 'Need Funding',
 };
 
 export function fundingStatusLabel(code: string): string {

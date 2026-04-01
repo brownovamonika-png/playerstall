@@ -9,7 +9,10 @@ interface RequestBody {
   email: string;
   orderSummary: string;
   grandTotal: string;
+  /** @deprecated Single combined PDF; prefer estimatePdfBase64 + layoutPdfBase64 */
   pdfBase64?: string;
+  estimatePdfBase64?: string;
+  layoutPdfBase64?: string;
 }
 
 function buildCustomerHTML(email: string, orderSummary: string, grandTotal: string): string {
@@ -38,7 +41,7 @@ function buildCustomerHTML(email: string, orderSummary: string, grandTotal: stri
   <tr><td style="padding:40px;">
     <h2 style="margin:0 0 12px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:20px;color:#0d0d0d;">Your Locker Room Plan</h2>
     <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#555;">
-      Thanks for using the PlayerStall Room Planner! We've attached a PDF copy of your layout below. Our team has also received a copy and will review it to help bring your dream locker room to life.
+      Thanks for using the PlayerStall Room Planner! We've attached <strong>two PDFs</strong>: a polished <strong>project estimate</strong> with pricing, and a <strong>layout pack</strong> with floor plans and 3D views for fundraising or sharing. Our team has also received copies and will follow up.
     </p>
 
     <!-- Order summary table -->
@@ -65,8 +68,8 @@ function buildCustomerHTML(email: string, orderSummary: string, grandTotal: stri
       <li>We'll work with you to finalize colors, accessories, and specs</li>
     </ol>
 
-    <p style="margin:0 0 4px;font-size:14px;color:#555;">📎 <strong>Your room plan PDF is attached to this email.</strong></p>
-    <p style="margin:0;font-size:13px;color:#999;">If the attachment didn't come through, just reply to this email and we'll resend it.</p>
+    <p style="margin:0 0 4px;font-size:14px;color:#555;">📎 <strong>Attachments:</strong> <em>PlayerStall-Room-Estimate.pdf</em> (pricing) and <em>PlayerStall-Room-Layout.pdf</em> (plans + 3D).</p>
+    <p style="margin:0;font-size:13px;color:#999;">If an attachment didn't come through, reply to this email and we'll resend it.</p>
   </td></tr>
 
   <!-- CTA -->
@@ -110,7 +113,7 @@ function buildSalesHTML(email: string, orderSummary: string, grandTotal: string)
     </table>
 
     <p style="font-size:18px;font-weight:700;color:#fe5900;margin:0 0 20px;">Estimated Total: $${grandTotal}</p>
-    <p style="font-size:13px;color:#888;">The customer's room plan PDF is attached. Reply directly to this email to reach them at <a href="mailto:${email}">${email}</a>.</p>
+    <p style="font-size:13px;color:#888;">Both PDFs are attached (estimate + layout). Reply directly to this email to reach the customer at <a href="mailto:${email}">${email}</a>.</p>
   </td></tr>
 </table>
 </body></html>`;
@@ -161,15 +164,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { email, orderSummary, grandTotal, pdfBase64 } = req.body as RequestBody;
+    const { email, orderSummary, grandTotal, pdfBase64, estimatePdfBase64, layoutPdfBase64 } =
+      req.body as RequestBody;
 
     if (!email || !orderSummary) {
       return res.status(400).json({ error: 'Missing required fields (email, orderSummary)' });
     }
 
-    const attachments = pdfBase64
-      ? [{ filename: 'room-planner-layout.pdf', content: pdfBase64 }]
-      : [];
+    const attachments: { filename: string; content: string }[] = [];
+    if (estimatePdfBase64) {
+      attachments.push({ filename: 'PlayerStall-Room-Estimate.pdf', content: estimatePdfBase64 });
+    }
+    if (layoutPdfBase64) {
+      attachments.push({ filename: 'PlayerStall-Room-Layout.pdf', content: layoutPdfBase64 });
+    }
+    if (attachments.length === 0 && pdfBase64) {
+      attachments.push({ filename: 'room-planner-layout.pdf', content: pdfBase64 });
+    }
 
     const customerHTML = buildCustomerHTML(email, orderSummary, grandTotal);
     const salesHTML = buildSalesHTML(email, orderSummary, grandTotal);

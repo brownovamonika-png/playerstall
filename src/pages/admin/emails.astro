@@ -3,7 +3,15 @@ export const prerender = false;
 
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import { getSession } from '../../lib/auth';
-import { supabaseAdmin, isSupabaseConfigured, STAGE_LABELS, type OrderStage } from '../../lib/supabase';
+import {
+	supabaseAdmin,
+	isSupabaseConfigured,
+	STAGE_LABELS,
+	EMAIL_SENDER_COMPANY_LABELS,
+	normalizeEmailSenderCompany,
+	getCrmMailerFromEmail,
+	type OrderStage,
+} from '../../lib/supabase';
 
 const demoMode = !isSupabaseConfigured;
 
@@ -16,18 +24,23 @@ let formMessage = '';
 let templates: any[] = [];
 
 if (demoMode) {
+	const fundraisingRoomPlannerBody =
+		'<p>Hi {{first_name}},</p><p>Thank you for sharing that <strong>{{company_name}}</strong> is working on fundraising for your {{sport}} locker project. We saw that in your room planner notes — and we want you to know we\'re rooting for you. A great locker room is absolutely worth the effort, and many schools and programs have successfully closed the gap with a mix of the ideas below.</p><p><strong>Ideas that work well in the U.S.</strong></p><ul><li><strong>Athletic booster club</strong> — dedicated campaigns, annual drives, or a line item for facility improvements</li><li><strong>Corporate &amp; local sponsors</strong> — naming rights on locker plaques, donor walls, or end panels (check district/athletic association rules)</li><li><strong>Alumni &amp; community giving</strong> — targeted appeals, giving days, or small-donor crowdfunding</li><li><strong>Events</strong> — tournaments, silent auctions, golf outings, or spirit-wear sales with proceeds earmarked for the locker room</li><li><strong>Grants &amp; foundations</strong> — school foundations, education funds, and regional grants for athletics or facilities (requirements vary by state and district)</li></ul><p><strong>Ideas that work well in Canada</strong></p><ul><li><strong>Parent councils &amp; athletic associations</strong> — formal proposals for capital or equipment budgets</li><li><strong>Municipal &amp; provincial programs</strong> — recreation, facility, or healthy communities grants (eligibility varies by province)</li><li><strong>Community partners</strong> — local businesses, service clubs, and alumni networks</li><li><strong>Kids\' sport &amp; access programs</strong> — programs such as Jumpstart (Canadian Tire) and similar regional initiatives where your project qualifies</li><li><strong>Fundraising events</strong> — same spirit as in the U.S.: tournaments, auctions, and team-led campaigns</li></ul><p>We\'re happy to provide <strong>renderings, a simple one-pager, or a ballpark summary</strong> you can attach to grant or donor packets — reply and tell us what would help your committee.</p><p>You can always review your project and documents here:</p><p><a href="{{portal_link}}" style="display:inline-block;padding:14px 36px;background:#fe5900;color:#ffffff;text-decoration:none;font-weight:600;border-radius:6px;text-transform:uppercase;">View Your Project</a></p><p>If you\'d like to brainstorm what has worked for other {{sport}} programs, call us at <strong>1 888 584 1444</strong> or reply to this email. We\'re here to help you get across the finish line.</p><p>Best,<br>The PlayerStall Team</p>';
+
 	templates = [
-		{ id: 'd1', name: 'Inquiry Acknowledgment', subject: 'Thanks for reaching out, {{first_name}}! | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Thank you for your interest in PlayerStall!</p>', stage_trigger: 'new_lead', delay_hours: 0, enabled: true },
-		{ id: 'd2', name: 'Consultation Follow-Up', subject: 'Great talking with you, {{first_name}} | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Thank you for taking the time to speak with us...</p>', stage_trigger: 'consultation', delay_hours: 1, enabled: true },
-		{ id: 'd3', name: 'Quote Delivery', subject: 'Your custom locker quote is ready, {{first_name}} | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Great news — your custom quote is ready!</p>', stage_trigger: 'quote_sent', delay_hours: 0, enabled: true },
-		{ id: 'd4', name: 'Order Confirmation', subject: 'Welcome aboard, {{first_name}}! | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Your project is officially underway!</p>', stage_trigger: 'quote_approved', delay_hours: 2, enabled: true },
-		{ id: 'd5', name: 'Design Phase Update', subject: 'Your locker design is in progress | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Our design team has started working...</p>', stage_trigger: 'design_phase', delay_hours: 1, enabled: true },
-		{ id: 'd6', name: 'Production Update', subject: 'Your lockers are being built! | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Exciting news — your lockers are now in production!</p>', stage_trigger: 'in_production', delay_hours: 2, enabled: true },
-		{ id: 'd7', name: 'Shipping Notification', subject: 'Your lockers are on their way! | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Your custom lockers have shipped!</p>', stage_trigger: 'shipped', delay_hours: 0, enabled: true },
-		{ id: 'd8', name: 'Installation Complete', subject: 'Your new lockers are installed! | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Your new lockers are installed and ready!</p>', stage_trigger: 'installed', delay_hours: 1, enabled: true },
-		{ id: 'd9', name: 'Gentle Quote Follow-Up', subject: 'Checking in on your locker quote | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Just wanted to check in on the quote we sent...</p>', stage_trigger: null, delay_hours: 0, enabled: true },
-		{ id: 'd10', name: '30-Day Check-In', subject: 'How are the new lockers? | PlayerStall', body: '<p>Hi {{first_name}},</p><p>It has been about a month since installation...</p>', stage_trigger: null, delay_hours: 0, enabled: true },
-		{ id: 'd11', name: 'Annual Warranty Reminder', subject: 'Your PlayerStall warranty check-in | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Just a friendly reminder about your 5-year guarantee...</p>', stage_trigger: null, delay_hours: 0, enabled: false },
+		{ id: 'd1', name: 'Inquiry Acknowledgment', subject: 'Thanks for reaching out, {{first_name}}! | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Thank you for your interest in PlayerStall!</p>', stage_trigger: 'new_lead', delay_hours: 0, enabled: true, company: 'playerstall' },
+		{ id: 'd2', name: 'Consultation Follow-Up', subject: 'Great talking with you, {{first_name}} | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Thank you for taking the time to speak with us...</p>', stage_trigger: 'consultation', delay_hours: 1, enabled: true, company: 'playerstall' },
+		{ id: 'd3', name: 'Quote Delivery', subject: 'Your custom locker quote is ready, {{first_name}} | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Great news — your custom quote is ready!</p>', stage_trigger: 'quote_sent', delay_hours: 0, enabled: true, company: 'playerstall' },
+		{ id: 'd4', name: 'Order Confirmation', subject: 'Welcome aboard, {{first_name}}! | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Your project is officially underway!</p>', stage_trigger: 'quote_approved', delay_hours: 2, enabled: true, company: 'playerstall' },
+		{ id: 'd5', name: 'Design Phase Update', subject: 'Your locker design is in progress | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Our design team has started working...</p>', stage_trigger: 'design_phase', delay_hours: 1, enabled: true, company: 'playerstall' },
+		{ id: 'd6', name: 'Production Update', subject: 'Your lockers are being built! | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Exciting news — your lockers are now in production!</p>', stage_trigger: 'in_production', delay_hours: 2, enabled: true, company: 'playerstall' },
+		{ id: 'd7', name: 'Shipping Notification', subject: 'Your lockers are on their way! | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Your custom lockers have shipped!</p>', stage_trigger: 'shipped', delay_hours: 0, enabled: true, company: 'playerstall' },
+		{ id: 'd8', name: 'Installation Complete', subject: 'Your new lockers are installed! | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Your new lockers are installed and ready!</p>', stage_trigger: 'installed', delay_hours: 1, enabled: true, company: 'playerstall' },
+		{ id: 'd9', name: 'Gentle Quote Follow-Up', subject: 'Checking in on your locker quote | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Just wanted to check in on the quote we sent...</p>', stage_trigger: null, delay_hours: 0, enabled: true, company: 'playerstall' },
+		{ id: 'd10', name: '30-Day Check-In', subject: 'How are the new lockers? | PlayerStall', body: '<p>Hi {{first_name}},</p><p>It has been about a month since installation...</p>', stage_trigger: null, delay_hours: 0, enabled: true, company: 'playerstall' },
+		{ id: 'd11', name: 'Annual Warranty Reminder', subject: 'Your PlayerStall warranty check-in | PlayerStall', body: '<p>Hi {{first_name}},</p><p>Just a friendly reminder about your 5-year guarantee...</p>', stage_trigger: null, delay_hours: 0, enabled: false, company: 'playerstall' },
+		{ id: 'd12', name: 'Fundraising & Funding Ideas (Room Planner)', subject: 'Ideas to help fund your locker project, {{first_name}} | PlayerStall', body: fundraisingRoomPlannerBody, stage_trigger: null, delay_hours: 0, enabled: true, company: 'playerstall' },
+		{ id: 'c1', name: 'Inquiry Acknowledgment (CSL demo)', subject: 'Thanks, {{first_name}}! | Custom Sport Lockers', body: '<p>Hi {{first_name}},</p><p>Thank you for contacting Custom Sport Lockers.</p>', stage_trigger: null, delay_hours: 0, enabled: false, company: 'custom_sport_lockers' },
 	];
 } else {
 	if (Astro.request.method === 'POST') {
@@ -36,6 +49,7 @@ if (demoMode) {
 
 		if (action === 'update_template') {
 			const templateId = form.get('template_id') as string;
+			const company = normalizeEmailSenderCompany(form.get('company') as string);
 			const { error } = await supabaseAdmin.from('email_templates').update({
 				name: form.get('name') as string,
 				subject: form.get('subject') as string,
@@ -43,11 +57,13 @@ if (demoMode) {
 				stage_trigger: (form.get('stage_trigger') as string) || null,
 				delay_hours: Number(form.get('delay_hours') || 0),
 				enabled: form.get('enabled') === 'on',
+				company,
 			}).eq('id', templateId);
 			formMessage = error ? `Error: ${error.message}` : 'Template updated';
 		}
 
 		if (action === 'create_template') {
+			const company = normalizeEmailSenderCompany(form.get('company') as string);
 			const { error } = await supabaseAdmin.from('email_templates').insert({
 				name: form.get('name') as string,
 				subject: form.get('subject') as string,
@@ -55,6 +71,7 @@ if (demoMode) {
 				stage_trigger: (form.get('stage_trigger') as string) || null,
 				delay_hours: Number(form.get('delay_hours') || 0),
 				enabled: true,
+				company,
 			});
 			formMessage = error ? `Error: ${error.message}` : 'Template created';
 		}
@@ -70,8 +87,12 @@ if (demoMode) {
 	const { data } = await supabaseAdmin
 		.from('email_templates')
 		.select('*')
+		.order('company', { ascending: true })
 		.order('created_at', { ascending: true });
-	templates = data || [];
+	templates = (data || []).map((row: Record<string, unknown>) => ({
+		...row,
+		company: normalizeEmailSenderCompany(typeof row.company === 'string' ? row.company : undefined),
+	}));
 }
 
 const mergeVars = [
@@ -114,6 +135,15 @@ const mergeVars = [
 							</div>
 						</div>
 						<div class="template-tags">
+							<span
+								class:list={[
+									'badge',
+									'company-badge',
+									{ 'company-badge--csl': normalizeEmailSenderCompany(template.company) === 'custom_sport_lockers' },
+								]}
+							>
+								{EMAIL_SENDER_COMPANY_LABELS[normalizeEmailSenderCompany(template.company)]}
+							</span>
 							{template.stage_trigger && (
 								<span class="badge" style="background: #f3f4f6; color: #6b7280">
 									Trigger: {STAGE_LABELS[template.stage_trigger as OrderStage]}
@@ -136,11 +166,15 @@ const mergeVars = [
 									<input type="text" name="name" value={template.name} required />
 								</div>
 								<div class="form-group">
-									<label>Stage Trigger</label>
-									<select name="stage_trigger">
-										<option value="">None (manual only)</option>
-										{Object.entries(STAGE_LABELS).map(([stage, label]) => (
-											<option value={stage} selected={template.stage_trigger === stage}>{label}</option>
+									<label>Send as</label>
+									<select name="company">
+										{Object.entries(EMAIL_SENDER_COMPANY_LABELS).map(([value, label]) => (
+											<option
+												value={value}
+												selected={normalizeEmailSenderCompany(template.company) === value}
+											>
+												{label}
+											</option>
 										))}
 									</select>
 								</div>
@@ -154,6 +188,15 @@ const mergeVars = [
 									<label>Delay (hours)</label>
 									<input type="number" name="delay_hours" min="0" value={template.delay_hours} />
 								</div>
+							</div>
+							<div class="form-group">
+								<label>Stage Trigger</label>
+								<select name="stage_trigger">
+									<option value="">None (manual only)</option>
+									{Object.entries(STAGE_LABELS).map(([stage, label]) => (
+										<option value={stage} selected={template.stage_trigger === stage}>{label}</option>
+									))}
+								</select>
 							</div>
 							<div class="form-group">
 								<label>Email Body (HTML)</label>
@@ -185,6 +228,12 @@ const mergeVars = [
 		<div class="merge-vars-panel">
 			<div class="card">
 				<h3>Merge Variables</h3>
+				<p class="merge-desc from-line">
+					<strong>From address</strong> follows &ldquo;Send as&rdquo;: PlayerStall uses{' '}
+					<code>{getCrmMailerFromEmail('playerstall')}</code>
+					{' '}· Custom Sport Lockers uses <code>{getCrmMailerFromEmail('custom_sport_lockers')}</code>
+					(configure in <code>.env</code>; domain must be verified in MailerSend).
+				</p>
 				<p class="merge-desc">Use these in subject lines and email body:</p>
 				<div class="vars-list">
 					{mergeVars.map(v => (
@@ -214,6 +263,14 @@ const mergeVars = [
 				<div class="form-group">
 					<label>Subject Line *</label>
 					<input type="text" name="subject" required placeholder="e.g. Checking in, {{first_name}} | PlayerStall" />
+				</div>
+				<div class="form-group">
+					<label>Send as *</label>
+					<select name="company">
+						{Object.entries(EMAIL_SENDER_COMPANY_LABELS).map(([value, label]) => (
+							<option value={value}>{label}</option>
+						))}
+					</select>
 				</div>
 				<div class="form-row">
 					<div class="form-group">
@@ -323,6 +380,23 @@ const mergeVars = [
 	.template-tags {
 		display: flex;
 		gap: 8px;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+	}
+
+	.company-badge {
+		background: #fff7ed;
+		color: #9a3412;
+	}
+
+	.company-badge--csl {
+		background: #ede9fe;
+		color: #5b21b6;
+	}
+
+	.from-line code {
+		font-size: 11px;
+		word-break: break-all;
 	}
 
 	.template-editor {

@@ -111,7 +111,7 @@ export interface PlannerState {
   roomName: string;
   /** When the customer hopes to receive / install lockers (select value, e.g. "1-3"). */
   needByTimeline: string;
-  /** Funding / budget stage (select value, e.g. "have_funds"). */
+  /** Fundraising status (select value: have_funds | need_funding | fundraising | unsure). */
   fundingStatus: string;
   sportType: SportType;
   displayUnit: DisplayUnit;

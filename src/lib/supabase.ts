@@ -68,6 +68,36 @@ export const STAGE_ORDER: OrderStage[] = [
   'complete',
 ];
 
+/** Which brand a CRM email template sends as (MailerSend from-address mapping). */
+export type EmailSenderCompany = 'playerstall' | 'custom_sport_lockers';
+
+export const EMAIL_SENDER_COMPANY_LABELS: Record<EmailSenderCompany, string> = {
+  playerstall: 'PlayerStall',
+  custom_sport_lockers: 'Custom Sport Lockers',
+};
+
+export function normalizeEmailSenderCompany(
+  value: string | null | undefined
+): EmailSenderCompany {
+  return value === 'custom_sport_lockers' ? 'custom_sport_lockers' : 'playerstall';
+}
+
+function crmEnv(key: 'MAILERSEND_FROM_EMAIL' | 'MAILERSEND_FROM_EMAIL_CUSTOM_SPORT_LOCKERS'): string {
+  const fromImport = import.meta.env[key];
+  if (fromImport) return String(fromImport).trim();
+  if (typeof process !== 'undefined' && process.env[key]) return String(process.env[key]).trim();
+  return '';
+}
+
+/** From address when sending CRM email for this template (verify domain in MailerSend). */
+export function getCrmMailerFromEmail(company: EmailSenderCompany | null | undefined): string {
+  const c = normalizeEmailSenderCompany(company ?? undefined);
+  if (c === 'custom_sport_lockers') {
+    return crmEnv('MAILERSEND_FROM_EMAIL_CUSTOM_SPORT_LOCKERS') || 'sales@customsportslockers.com';
+  }
+  return crmEnv('MAILERSEND_FROM_EMAIL') || 'sales@playerstall.com';
+}
+
 export interface Client {
   id: string;
   company_name: string | null;
@@ -142,6 +172,7 @@ export interface EmailTemplate {
   stage_trigger: OrderStage | null;
   delay_hours: number;
   enabled: boolean;
+  company: EmailSenderCompany;
   created_at: string;
   updated_at: string;
 }
