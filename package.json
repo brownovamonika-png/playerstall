@@ -8,7 +8,11 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:status": "supabase status",
+    "supabase:db-reset": "supabase db reset"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
@@ -24,6 +28,7 @@
     "@astrojs/check": "^0.9.0",
     "@vercel/node": "^5.6.18",
     "sharp": "^0.34.5",
+    "supabase": "^2.84.8",
     "typescript": "^5.3.0"
   }
 }

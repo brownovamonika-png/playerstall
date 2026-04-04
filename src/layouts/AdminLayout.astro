@@ -19,7 +19,7 @@ const { title, activeNav } = Astro.props;
 	</head>
 	<body>
 		<div class="admin-wrapper">
-			<aside class="sidebar">
+			<aside class="sidebar" data-crm-tour="sidebar">
 				<div class="sidebar-brand">
 					<a href="/admin">
 						<span class="brand-name">PLAYERSTALL</span>
@@ -27,28 +27,58 @@ const { title, activeNav } = Astro.props;
 					</a>
 				</div>
 				<nav class="sidebar-nav">
-					<a href="/admin" class:list={['nav-item', { active: activeNav === 'dashboard' }]}>
+					<a href="/admin/paste-inquiry" class:list={['nav-item', { active: activeNav === 'paste-inquiry' }]}>
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13h4"/><path d="M12 11v4"/><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h.01"/><path d="M7 13h.01"/></svg>
+						<span>Paste inquiry</span>
+					</a>
+					<a href="/admin" data-crm-tour="dashboard" class:list={['nav-item', { active: activeNav === 'dashboard' }]}>
 						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
 						<span>Dashboard</span>
 					</a>
-					<a href="/admin/pipeline" class:list={['nav-item', { active: activeNav === 'pipeline' }]}>
+					<a href="/admin/pipeline" data-crm-tour="pipeline" class:list={['nav-item', { active: activeNav === 'pipeline' }]}>
 						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
 						<span>Pipeline</span>
 					</a>
-					<a href="/admin/clients" class:list={['nav-item', { active: activeNav === 'clients' }]}>
+					<a href="/admin/clients" data-crm-tour="clients" class:list={['nav-item', { active: activeNav === 'clients' }]}>
 						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
 						<span>Clients</span>
 					</a>
-					<a href="/admin/client-copy" class:list={['nav-item', { active: activeNav === 'client-copy' }]}>
+					<a href="/admin/client-copy" data-crm-tour="client-copy" class:list={['nav-item', { active: activeNav === 'client-copy' }]}>
 						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
 						<span>Client copy</span>
 					</a>
-					<a href="/admin/emails" class:list={['nav-item', { active: activeNav === 'emails' }]}>
+					<a href="/admin/emails" data-crm-tour="emails" class:list={['nav-item', { active: activeNav === 'emails' }]}>
 						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
 						<span>Email Templates</span>
 					</a>
+					<a href="/admin/help" data-crm-tour="help" class:list={['nav-item', { active: activeNav === 'help' }]}>
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+						<span>Help</span>
+					</a>
+					<a href="/admin/inventory" class:list={['nav-item', { active: activeNav === 'inventory' }]}>
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+						<span>Inventory</span>
+					</a>
+					<a href="/admin/shipping" class:list={['nav-item', { active: activeNav === 'shipping' }]}>
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+						<span>Shipping</span>
+					</a>
 				</nav>
 				<div class="sidebar-footer">
+					<a
+						href="/admin/profit-cost-sheet"
+						class:list={['nav-item', { active: activeNav === 'profit-cost-sheet' }]}
+					>
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="0"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="14" y2="18"/></svg>
+						<span>Profit cost sheet</span>
+					</a>
+					<a
+						href="/admin/interactive-cost-sheet"
+						class:list={['nav-item', { active: activeNav === 'interactive-cost-sheet' }]}
+					>
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="0"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="14" y2="18"/></svg>
+						<span>Interactive cost sheet</span>
+					</a>
 					<a href="/" class="nav-item" target="_blank">
 						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
 						<span>View Site</span>
@@ -63,14 +93,185 @@ const { title, activeNav } = Astro.props;
 			</aside>
 			<main class="admin-main">
 				<header class="admin-header">
-					<h1 class="page-title">{title}</h1>
-					<slot name="header-actions" />
+					<div class="admin-header-leading">
+						<h1 class="page-title">{title}</h1>
+						<slot name="header-sub" />
+					</div>
+					<div class="admin-header-actions">
+						<slot name="header-actions" />
+					</div>
 				</header>
 				<div class="admin-content">
 					<slot />
 				</div>
 			</main>
 		</div>
+
+		<!-- CRM quick tour (same pattern as room planner guide: bottom-right ? + steps) -->
+		<div class="crm-guide-fab hidden" id="crm-guide-fab" title="Open CRM quick tour">?</div>
+		<div class="crm-guide-panel hidden" id="crm-guide-panel" aria-live="polite">
+			<div class="crm-guide-header">
+				<span class="crm-guide-title">CRM Quick Tour</span>
+				<button type="button" class="crm-guide-minimize" id="crm-guide-minimize" title="Minimize">&minus;</button>
+			</div>
+			<div class="crm-guide-progress">
+				<div class="crm-guide-progress-bar" id="crm-guide-progress-bar"></div>
+			</div>
+			<div class="crm-guide-step-count" id="crm-guide-step-count">Step 1 of 6</div>
+			<div class="crm-guide-body" id="crm-guide-body">
+				<div class="crm-guide-step-title" id="crm-guide-step-title"></div>
+				<div class="crm-guide-step-desc" id="crm-guide-step-desc"></div>
+			</div>
+			<div class="crm-guide-nav">
+				<button type="button" class="crm-guide-nav-btn" id="crm-guide-prev" disabled>&larr; Back</button>
+				<button type="button" class="crm-guide-nav-btn crm-guide-nav-next" id="crm-guide-next">Next &rarr;</button>
+			</div>
+			<button type="button" class="crm-guide-skip" id="crm-guide-skip">Skip tour</button>
+		</div>
+
+		<script is:inline>
+			(function () {
+				const KEY_DONE = 'ps_crm_tour_done';
+				const KEY_COLLAPSE = 'ps_crm_tour_collapsed';
+
+				const STEPS = [
+					{
+						title: 'Welcome',
+						desc: 'This is the <strong>PlayerStall CRM</strong>—clients, orders, and email templates in one place. This short tour matches the <strong>?</strong> helper in the room designer. Use <strong>Next</strong> to continue, or <strong>−</strong> to tuck the panel away (the <strong>?</strong> button brings it back).',
+						target: '[data-crm-tour="sidebar"]',
+					},
+					{
+						title: 'Dashboard',
+						desc: 'The <strong>Dashboard</strong> shows totals, a pipeline snapshot, and recent activity. Click it anytime to return home.',
+						target: '[data-crm-tour="dashboard"]',
+					},
+					{
+						title: 'Pipeline',
+						desc: '<strong>Pipeline</strong> is your board by stage—from New Lead through Complete. Move deals as they progress.',
+						target: '[data-crm-tour="pipeline"]',
+					},
+					{
+						title: 'Clients',
+						desc: 'Open <strong>Clients</strong> for your contact list. Each person can have orders, notes, and a client portal link.',
+						target: '[data-crm-tour="clients"]',
+					},
+					{
+						title: 'Email templates',
+						desc: 'Under <strong>Email Templates</strong>, edit messages such as inquiry acknowledgments. Use <strong>Send as</strong> to choose <strong>PlayerStall</strong> or <strong>Custom Sport Lockers</strong> so the right brand goes out.',
+						target: '[data-crm-tour="emails"]',
+					},
+					{
+						title: 'Help & finished',
+						desc: 'Open <strong>Help</strong> for links and reminders anytime. You can <strong>show this tour again</strong> from the Help page. Click <strong>Done</strong> to close the tour for this browser.',
+						target: '[data-crm-tour="help"]',
+					},
+				];
+
+				const fab = document.getElementById('crm-guide-fab');
+				const panel = document.getElementById('crm-guide-panel');
+				const btnMin = document.getElementById('crm-guide-minimize');
+				const btnPrev = document.getElementById('crm-guide-prev');
+				const btnNext = document.getElementById('crm-guide-next');
+				const btnSkip = document.getElementById('crm-guide-skip');
+				const stepTitle = document.getElementById('crm-guide-step-title');
+				const stepDesc = document.getElementById('crm-guide-step-desc');
+				const stepCount = document.getElementById('crm-guide-step-count');
+				const progressBar = document.getElementById('crm-guide-progress-bar');
+
+				if (!fab || !panel || !btnMin || !btnPrev || !btnNext || !btnSkip || !stepTitle || !stepDesc || !stepCount || !progressBar) return;
+
+				let current = 0;
+				let highlightEl = null;
+
+				function clearHighlight() {
+					if (highlightEl) {
+						highlightEl.classList.remove('crm-guide-highlight', 'crm-guide-pulse');
+						highlightEl = null;
+					}
+				}
+
+				function renderStep() {
+					const s = STEPS[current];
+					stepTitle.textContent = s.title;
+					stepDesc.innerHTML = s.desc;
+					stepCount.textContent = 'Step ' + (current + 1) + ' of ' + STEPS.length;
+					progressBar.style.width = ((100 * (current + 1)) / STEPS.length).toFixed(1) + '%';
+					btnPrev.disabled = current === 0;
+					btnNext.textContent = current === STEPS.length - 1 ? 'Done ✓' : 'Next →';
+
+					clearHighlight();
+					if (s.target) {
+						const el = document.querySelector(s.target);
+						if (el) {
+							highlightEl = el;
+							el.classList.add('crm-guide-highlight', 'crm-guide-pulse');
+							try {
+								el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+							} catch (_) {}
+						}
+					}
+				}
+
+				function goTo(i) {
+					current = Math.max(0, Math.min(STEPS.length - 1, i));
+					renderStep();
+				}
+
+				function showPanel() {
+					panel.classList.remove('hidden');
+					fab.classList.add('hidden');
+					localStorage.removeItem(KEY_COLLAPSE);
+					renderStep();
+				}
+
+				function minimizePanel() {
+					clearHighlight();
+					panel.classList.add('hidden');
+					fab.classList.remove('hidden');
+					localStorage.setItem(KEY_COLLAPSE, '1');
+				}
+
+				function finishTour() {
+					clearHighlight();
+					panel.classList.add('hidden');
+					fab.classList.add('hidden');
+					localStorage.setItem(KEY_DONE, '1');
+					localStorage.removeItem(KEY_COLLAPSE);
+				}
+
+				function applyInitialState() {
+					if (localStorage.getItem(KEY_DONE) === '1') {
+						panel.classList.add('hidden');
+						fab.classList.add('hidden');
+						return false;
+					}
+					if (localStorage.getItem(KEY_COLLAPSE) === '1') {
+						panel.classList.add('hidden');
+						fab.classList.remove('hidden');
+						return true;
+					}
+					panel.classList.remove('hidden');
+					fab.classList.add('hidden');
+					return true;
+				}
+
+				const active = applyInitialState();
+				if (!active) return;
+
+				if (!panel.classList.contains('hidden')) renderStep();
+
+				fab.addEventListener('click', showPanel);
+				btnMin.addEventListener('click', minimizePanel);
+				btnPrev.addEventListener('click', function () {
+					goTo(current - 1);
+				});
+				btnNext.addEventListener('click', function () {
+					if (current === STEPS.length - 1) finishTour();
+					else goTo(current + 1);
+				});
+				btnSkip.addEventListener('click', finishTour);
+			})();
+		</script>
 	</body>
 </html>
 
@@ -198,10 +399,21 @@ const { title, activeNav } = Astro.props;
 		padding: 28px 40px 22px;
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-start;
+		gap: 20px;
 		position: sticky;
 		top: 0;
 		z-index: 50;
+	}
+
+	.admin-header-leading {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.admin-header-actions {
+		flex-shrink: 0;
+		padding-top: 4px;
 	}
 
 	.page-title {
@@ -211,6 +423,7 @@ const { title, activeNav } = Astro.props;
 		color: #0d0d0d;
 		letter-spacing: 0.02em;
 		text-transform: uppercase;
+		margin: 0;
 	}
 
 	.admin-content {
@@ -358,17 +571,44 @@ const { title, activeNav } = Astro.props;
 		margin-bottom: 6px;
 	}
 
+	.form-group label.crm-acc-label {
+		font-size: 13px;
+		font-weight: 400;
+		text-transform: none;
+		letter-spacing: 0.02em;
+		color: #374151;
+		line-height: 1.35;
+		margin-bottom: 0;
+	}
+
 	.form-group input,
 	.form-group select,
 	.form-group textarea {
 		width: 100%;
+		max-width: 100%;
+		margin: 0;
 		padding: 10px 14px;
 		border: 1px solid #e0e0e0;
+		border-radius: 0;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
 		color: #0d0d0d;
 		transition: border-color 0.3s ease;
 		background: #ffffff;
+		box-sizing: border-box;
+	}
+
+	/* Native selects reserve uneven space for the chevron; custom arrow + padding keeps left/right inset even. */
+	.form-group select {
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		padding-right: 40px;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238c8c8c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 14px center;
+		background-color: #ffffff;
+		cursor: pointer;
 	}
 
 	.form-group input:focus,
@@ -381,6 +621,13 @@ const { title, activeNav } = Astro.props;
 	.form-group textarea {
 		min-height: 100px;
 		resize: vertical;
+	}
+
+	/* Inputs outside .form-group (search, stage controls, etc.) */
+	.admin-main input:not([type='checkbox']):not([type='radio']):not([type='file']):not([type='hidden']):not([type='range']):not([type='button']):not([type='submit']):not([type='reset']):not([type='image']),
+	.admin-main select,
+	.admin-main textarea {
+		border-radius: 0;
 	}
 
 	.badge {
@@ -466,5 +713,240 @@ const { title, activeNav } = Astro.props;
 		color: #8c8c8c;
 		margin-bottom: 24px;
 		line-height: 1.7;
+	}
+</style>
+
+<style is:global>
+	/* CRM quick tour — same UX as room planner guide-fab / guide-panel */
+	.crm-guide-fab {
+		position: fixed;
+		bottom: 24px;
+		right: 24px;
+		width: 52px;
+		height: 52px;
+		border-radius: 50%;
+		background: #0d0d0d;
+		color: #fff;
+		font-family: 'Oswald', sans-serif;
+		font-size: 26px;
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+		z-index: 10000;
+		transition: transform 0.2s, box-shadow 0.2s;
+		border: none;
+		line-height: 1;
+	}
+	.crm-guide-fab:hover {
+		transform: scale(1.05);
+		box-shadow: 0 6px 28px rgba(0, 0, 0, 0.35);
+	}
+	.crm-guide-fab.hidden,
+	.crm-guide-panel.hidden {
+		display: none !important;
+	}
+
+	.crm-guide-panel {
+		position: fixed;
+		bottom: 24px;
+		right: 24px;
+		width: 340px;
+		max-height: 440px;
+		background: #ffffff;
+		border: 1px solid #e0e0e0;
+		border-radius: 16px;
+		z-index: 10001;
+		display: flex;
+		flex-direction: column;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+		overflow: hidden;
+		animation: crmGuideSlideIn 0.3s ease-out;
+	}
+
+	@keyframes crmGuideSlideIn {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.crm-guide-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 16px 20px 12px;
+		border-bottom: 1px solid #f0f0f0;
+		background: #fafafa;
+	}
+	.crm-guide-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		color: #404040;
+		text-transform: uppercase;
+		letter-spacing: 1.5px;
+	}
+	.crm-guide-minimize {
+		background: none;
+		border: 1px solid #ddd;
+		color: #999;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		cursor: pointer;
+		font-size: 18px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: border-color 0.2s, color 0.2s;
+		line-height: 1;
+		padding: 0;
+	}
+	.crm-guide-minimize:hover {
+		border-color: #fe5900;
+		color: #0d0d0d;
+	}
+
+	.crm-guide-progress {
+		height: 4px;
+		background: #f0f0f0;
+	}
+	.crm-guide-progress-bar {
+		height: 100%;
+		width: 0;
+		background: #fe5900;
+		transition: width 0.25s ease;
+	}
+
+	.crm-guide-step-count {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		color: #999;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		padding: 14px 20px 0;
+	}
+
+	.crm-guide-body {
+		padding: 8px 20px 12px;
+		flex: 1;
+		overflow-y: auto;
+		min-height: 0;
+	}
+	.crm-guide-step-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #1a1a1a;
+		margin-bottom: 8px;
+		line-height: 1.3;
+	}
+	.crm-guide-step-desc {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #555;
+		line-height: 1.65;
+	}
+	.crm-guide-step-desc strong {
+		color: #0d0d0d;
+		font-weight: 600;
+	}
+
+	.crm-guide-nav {
+		display: flex;
+		gap: 8px;
+		padding: 0 20px 8px;
+		justify-content: space-between;
+	}
+	.crm-guide-nav-btn {
+		flex: 1;
+		padding: 9px 0;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		background: #fff;
+		color: #555;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		cursor: pointer;
+		transition: border-color 0.2s, color 0.2s, background 0.2s;
+	}
+	.crm-guide-nav-btn:hover:not(:disabled) {
+		border-color: #bbb;
+		color: #222;
+	}
+	.crm-guide-nav-btn:disabled {
+		opacity: 0.3;
+		cursor: default;
+	}
+	.crm-guide-nav-next {
+		background: #0d0d0d;
+		border-color: #0d0d0d;
+		color: #fff;
+		font-weight: 600;
+	}
+	.crm-guide-nav-next:hover:not(:disabled) {
+		background: #333333;
+		border-color: #333333;
+	}
+
+	.crm-guide-skip {
+		margin: 0 20px 14px;
+		padding: 8px;
+		border: none;
+		background: none;
+		color: #999;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		cursor: pointer;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+	.crm-guide-skip:hover {
+		color: #fe5900;
+	}
+
+	.crm-guide-highlight {
+		outline: 2px solid #fe5900 !important;
+		outline-offset: 4px !important;
+		box-shadow: 0 0 20px rgba(254, 89, 0, 0.25) !important;
+		transition: outline 0.3s, box-shadow 0.3s !important;
+		position: relative;
+		z-index: 99;
+	}
+
+	@keyframes crmGuidePulse {
+		0%,
+		100% {
+			box-shadow: 0 0 0 0 rgba(254, 89, 0, 0.35);
+		}
+		50% {
+			box-shadow: 0 0 0 8px rgba(254, 89, 0, 0);
+		}
+	}
+	.crm-guide-pulse {
+		animation: crmGuidePulse 2s ease-in-out infinite;
+	}
+
+	@media (max-width: 768px) {
+		.crm-guide-panel {
+			width: calc(100vw - 32px);
+			right: 16px;
+			bottom: 16px;
+			max-height: 360px;
+		}
+		.crm-guide-fab {
+			bottom: 16px;
+			right: 16px;
+			width: 46px;
+			height: 46px;
+			font-size: 22px;
+		}
 	}
 </style>

@@ -3,6 +3,26 @@ export const prerender = false;
 
 import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { getSession } from '../../../lib/auth';
+import {
+	accessoryQuantitiesFromFormPrefixed,
+	buildAccessoriesFromForm,
+	buildAccessoriesFromFormPrefixed,
+	LOCKER_SPEC_ACCESSORY_ROWS,
+	parseAccessoriesField,
+} from '../../../lib/crm-locker-accessories';
+import {
+	SITE_CATALOG_WIDTHS,
+	SITE_LOCKER_MODELS,
+	computeCatalogLineUsd,
+	getSiteCatalogModel,
+	getSitePricingClientPayload,
+	parseDepthInches,
+	parseWidthInches,
+} from '../../../lib/crm-site-pricing';
+import {
+	fundraisingStatusOptionsForSelect,
+	normalizeFundraisingStatus,
+} from '../../../lib/crm-fundraising-status';
 import { supabaseAdmin, STAGE_LABELS, STAGE_COLORS, STAGE_ORDER, type OrderStage } from '../../../lib/supabase';
 
 const session = await getSession(Astro.cookies);
@@ -41,7 +61,7 @@ if (Astro.request.method === 'POST') {
 			locker_size: (form.get('locker_size') as string) || null,
 			locker_width: (form.get('locker_width') as string) || null,
 			locker_color: (form.get('locker_color') as string) || null,
-			accessories: (form.get('accessories') as string) || null,
+			accessories: buildAccessoriesFromForm(form),
 			quantity: form.get('quantity') ? Number(form.get('quantity')) : null,
 		}).select().single();
 
@@ -74,7 +94,81 @@ if (Astro.request.method === 'POST') {
 		await supabaseAdmin.from('clients').update({ portal_token: newToken }).eq('id', id);
 		formMessage = 'Portal link regenerated';
 	}
+
+	if (action === 'update_order_financials') {
+		const orderId = form.get('order_id') as string;
+		const { data: row } = await supabaseAdmin.from('orders').select('id').eq('id', orderId).eq('client_id', id).single();
+		if (!row) {
+			formMessage = 'Error: order not found for this client';
+		} else {
+			const est = ((form.get('estimate_number') as string) || '').trim() || null;
+			const inv = ((form.get('invoice_number') as string) || '').trim() || null;
+			const qaRaw = form.get('quoted_amount') as string;
+			const { error } = await supabaseAdmin
+				.from('orders')
+				.update({
+					estimate_number: est,
+					invoice_number: inv,
+					quoted_amount: qaRaw && String(qaRaw).trim() !== '' ? Number(qaRaw) : null,
+				})
+				.eq('id', orderId);
+			formMessage = error ? `Error: ${error.message}` : 'Estimate / invoice details saved';
+		}
+	}
+
+	if (action === 'apply_site_catalog_to_order') {
+		const orderId = form.get('order_id') as string;
+		const { data: row } = await supabaseAdmin
+			.from('orders')
+			.select('id, title')
+			.eq('id', orderId)
+			.eq('client_id', id)
+			.single();
+		if (!row) {
+			formMessage = 'Error: order not found for this client';
+		} else {
+			const model = String(form.get('catalog_model') || '').trim();
+			const w = Math.floor(Number(form.get('catalog_width')));
+			const qty = Math.max(1, Math.floor(Number(form.get('catalog_quantity')) || 1));
+			let depthIn = String(form.get('catalog_depth') || '19') === '24' ? 24 : 19;
+			const meta = getSiteCatalogModel(model);
+			if (meta?.tier === 'essential') depthIn = 19;
+			const prefix = `co_${orderId}_`;
+			const accQty = accessoryQuantitiesFromFormPrefixed(form, prefix);
+			const accStr = buildAccessoriesFromFormPrefixed(form, prefix);
+			const computed = computeCatalogLineUsd({
+				modelValue: model,
+				widthInches: w,
+				lockerQuantity: qty,
+				accessoryQuantities: accQty,
+			});
+			if (!computed) {
+				formMessage = 'Error: choose a valid model and width from the site catalog';
+			} else {
+				const titleOverride = String(form.get('catalog_title') || '').trim();
+				const desc = String(form.get('catalog_description') || '').trim();
+				const updates: Record<string, unknown> = {
+					locker_type: model || null,
+					locker_size: `${w}"`,
+					locker_width: depthIn === 24 ? '24"' : '19"',
+					quantity: qty,
+					accessories: accStr,
+					quoted_amount: computed.total,
+				};
+				if (titleOverride) updates.title = titleOverride;
+				if (desc) updates.description = desc;
+				const color = String(form.get('catalog_color') || '').trim();
+				if (color) updates.locker_color = color;
+				const { error } = await supabaseAdmin.from('orders').update(updates).eq('id', orderId);
+				formMessage = error
+					? `Error: ${error.message}`
+					: `Site catalog applied — ${qty} locker${qty === 1 ? '' : 's'} × $${computed.perLocker.toFixed(2)} = $${computed.total.toFixed(2)} USD. Estimate/invoice totals updated; add numbers below if needed.`;
+			}
+		}
+	}
 }
+
+const sitePricingPayloadJson = JSON.stringify(getSitePricingClientPayload());
 
 // Fetch client data
 const { data: client } = await supabaseAdmin
@@ -101,6 +195,7 @@ const [
 ]);
 
 const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
+const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 ---
 
 <AdminLayout title={client.contact_name} activeNav="clients">
@@ -117,9 +212,9 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 	<div class="client-layout">
 		<!-- Left Column: Client Info -->
 		<div class="client-sidebar">
-			<div class="card">
+			<div class="card client-details-card">
 				<h3>Client Details</h3>
-				<form method="POST">
+				<form method="POST" class="client-details-form">
 					<input type="hidden" name="action" value="update_client" />
 					<div class="form-group">
 						<label>Contact Name</label>
@@ -151,6 +246,16 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 						<input type="text" name="team_name" value={client.team_name || ''} />
 					</div>
 					<div class="form-group">
+						<label>Fundraising status</label>
+						<select name="fundraising_status">
+							{fundraisingSelectOptions.map((o) => (
+								<option value={o.value} selected={o.value === (client.fundraising_status || '')}>
+									{o.label}
+								</option>
+							))}
+						</select>
+					</div>
+					<div class="form-group">
 						<label>Country</label>
 						<select name="country">
 							<option value="">Select...</option>
@@ -170,7 +275,7 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 						<label>Notes</label>
 						<textarea name="notes" rows="3">{client.notes || ''}</textarea>
 					</div>
-					<button type="submit" class="btn btn-primary btn-sm" style="width:100%">Save Changes</button>
+					<button type="submit" class="btn btn-primary btn-sm client-details-save">Save Changes</button>
 				</form>
 			</div>
 
@@ -196,6 +301,9 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 					<h3>Orders</h3>
 					<button class="btn btn-primary btn-sm" onclick="document.getElementById('newOrderModal').showModal()">New Order</button>
 				</div>
+				<p class="orders-lead">
+					Use <strong>Site price list</strong> to pull the same models, widths, depths, and accessory prices as playerstall.com / your CAD sheet — totals are computed on the server. Then set estimate and invoice numbers and use <strong>Open estimate</strong> or <strong>Open invoice</strong> (Print → Save as PDF).
+				</p>
 				{orders && orders.length > 0 ? (
 					<div class="order-cards">
 						{orders.map((order: any) => (
@@ -204,19 +312,14 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 									<div class="order-card-title">
 										<a href={`/admin/orders/${order.id}`}>{order.title}</a>
 									</div>
-									<span class="badge" style={`background: ${STAGE_COLORS[order.stage as OrderStage]}20; color: ${STAGE_COLORS[order.stage as OrderStage]}`}>
-										{STAGE_LABELS[order.stage as OrderStage]}
-									</span>
+									<div class="order-card-top-actions">
+										<a href={`/admin/orders/${order.id}`} class="btn btn-primary btn-sm">Edit order</a>
+										<span class="badge" style={`background: ${STAGE_COLORS[order.stage as OrderStage]}20; color: ${STAGE_COLORS[order.stage as OrderStage]}`}>
+											{STAGE_LABELS[order.stage as OrderStage]}
+										</span>
+									</div>
 								</div>
 								<div class="order-card-grid">
-									<div class="order-field">
-										<span class="order-field-label">Estimate #</span>
-										<span class="order-field-value">{order.estimate_number || '—'}</span>
-									</div>
-									<div class="order-field">
-										<span class="order-field-label">Invoice #</span>
-										<span class="order-field-value">{order.invoice_number || '—'}</span>
-									</div>
 									<div class="order-field">
 										<span class="order-field-label">Locker Type</span>
 										<span class="order-field-value">{order.locker_type || '—'}</span>
@@ -236,10 +339,6 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 									<div class="order-field">
 										<span class="order-field-label">Color</span>
 										<span class="order-field-value">{order.locker_color || '—'}</span>
-									</div>
-									<div class="order-field">
-										<span class="order-field-label">Quoted Amount</span>
-										<span class="order-field-value">{order.quoted_amount ? `$${Number(order.quoted_amount).toLocaleString()}` : '—'}</span>
 									</div>
 									<div class="order-field full-width">
 										<span class="order-field-label">Accessories</span>
@@ -270,6 +369,190 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 										<span class="order-field-value">{new Date(order.created_at).toLocaleDateString()}</span>
 									</div>
 								</div>
+
+								{(() => {
+									const coPrefix = `co_${order.id}_`;
+									const accPrefill = parseAccessoriesField(order.accessories);
+									const defWidth = parseWidthInches(order.locker_size) ?? 24;
+									const modelOk = SITE_LOCKER_MODELS.some((m) => m.value === order.locker_type);
+									const defModel = modelOk ? String(order.locker_type) : 'Model L';
+									const tier = getSiteCatalogModel(defModel)?.tier ?? 'premium';
+									let defDepth = parseDepthInches(order.locker_width);
+									if (tier === 'essential') defDepth = 19;
+									const defQty = order.quantity != null && order.quantity > 0 ? order.quantity : 1;
+									return (
+										<details class="site-catalog-panel">
+											<summary class="site-catalog-summary">Site price list — fill order from shop pricing (USD)</summary>
+											<form method="POST" class="site-catalog-form" data-site-catalog-form data-acc-prefix={coPrefix} data-order-id={order.id}>
+												<input type="hidden" name="action" value="apply_site_catalog_to_order" />
+												<input type="hidden" name="order_id" value={order.id} />
+												<p class="site-catalog-hint">
+													Prices match <strong>playerstall.com</strong> / <code>price-sheet-cad.html</code>. Total is saved to this order and flows into printable estimates and invoices.
+												</p>
+												<div class="site-catalog-grid">
+													<div class="form-group site-catalog-field">
+														<label for={`cm-${order.id}`}>Model</label>
+														<select id={`cm-${order.id}`} name="catalog_model" class="site-catalog-model" required>
+															{SITE_LOCKER_MODELS.map((m) => (
+																<option value={m.value} selected={m.value === defModel}>
+																	{m.label}
+																</option>
+															))}
+														</select>
+													</div>
+													<div class="form-group site-catalog-field">
+														<label for={`cw-${order.id}`}>Width</label>
+														<select id={`cw-${order.id}`} name="catalog_width" class="site-catalog-width" required>
+															{SITE_CATALOG_WIDTHS.map((w) => (
+																<option value={w} selected={w === defWidth}>
+																	{w}"
+																</option>
+															))}
+														</select>
+													</div>
+													<div class="form-group site-catalog-field">
+														<label for={`cd-${order.id}`}>Depth</label>
+														<select id={`cd-${order.id}`} name="catalog_depth" class="site-catalog-depth">
+															<option value="19" selected={defDepth === 19}>
+																19″ (Essential / standard)
+															</option>
+															<option value="24" selected={defDepth === 24}>
+																24″ (Premium only, same list price)
+															</option>
+														</select>
+													</div>
+													<div class="form-group site-catalog-field">
+														<label for={`cq-${order.id}`}>Locker qty</label>
+														<input id={`cq-${order.id}`} type="number" name="catalog_quantity" min="1" step="1" value={defQty} class="site-catalog-qty" required />
+													</div>
+													<div class="form-group site-catalog-field site-catalog-field-wide">
+														<label for={`ccol-${order.id}`}>Color / finish</label>
+														<input
+															id={`ccol-${order.id}`}
+															type="text"
+															name="catalog_color"
+															placeholder="e.g. Designer White, Fusion Maple"
+															value={order.locker_color || ''}
+														/>
+													</div>
+													<div class="form-group site-catalog-field site-catalog-field-wide">
+														<label for={`ct-${order.id}`}>Line title (estimate / invoice)</label>
+														<input id={`ct-${order.id}`} type="text" name="catalog_title" value={order.title} />
+													</div>
+													<div class="form-group site-catalog-field site-catalog-field-full">
+														<label for={`cdesc-${order.id}`}>Description / notes</label>
+														<textarea id={`cdesc-${order.id}`} name="catalog_description" rows="2" placeholder="Optional scope notes">{order.description || ''}</textarea>
+													</div>
+												</div>
+												<p class="site-catalog-acc-label">Accessories (qty per locker — same options as spec sheets)</p>
+												<div class="site-catalog-acc-table-wrap">
+													<table class="site-catalog-acc-table">
+														<thead>
+															<tr>
+																<th scope="col">Accessory</th>
+																<th scope="col" class="site-catalog-acc-qty">Qty / locker</th>
+															</tr>
+														</thead>
+														<tbody>
+															{LOCKER_SPEC_ACCESSORY_ROWS.map((row) => (
+																<tr>
+																	<td>{row.label}</td>
+																	<td>
+																		<label class="visually-hidden" for={`${coPrefix}acc-${row.id}`}>
+																			Quantity — {row.label}
+																		</label>
+																		<input
+																			type="number"
+																			id={`${coPrefix}acc-${row.id}`}
+																			name={`${coPrefix}acc_qty_${row.id}`}
+																			class="site-catalog-acc-input"
+																			min="0"
+																			step="1"
+																			value={accPrefill.quantities[row.id] > 0 ? String(accPrefill.quantities[row.id]) : ''}
+																			placeholder="0"
+																		/>
+																	</td>
+																</tr>
+															))}
+														</tbody>
+													</table>
+												</div>
+												<div class="form-group site-catalog-field-full">
+													<label for={`${coPrefix}notes`}>Other accessories / notes</label>
+													<textarea id={`${coPrefix}notes`} name={`${coPrefix}accessories_notes`} rows="2" placeholder="e.g. Corner units">{accPrefill.notes}</textarea>
+												</div>
+												<div class="site-catalog-footer">
+													<p class="site-catalog-live-total-wrap">
+														<span class="site-catalog-live-label">Live total (USD):</span>{' '}
+														<strong class="site-catalog-live-total">—</strong>
+														<span class="site-catalog-live-sub" />
+													</p>
+													<button type="submit" class="btn btn-primary btn-sm">
+														Apply to order &amp; update total
+													</button>
+												</div>
+											</form>
+										</details>
+									);
+								})()}
+
+								<div class="order-estimate-invoice">
+									<h4 class="order-ei-title">Estimate &amp; invoice</h4>
+									<form method="POST" class="order-fin-form">
+										<input type="hidden" name="action" value="update_order_financials" />
+										<input type="hidden" name="order_id" value={order.id} />
+										<div class="order-fin-grid">
+											<div class="form-group order-fin-field">
+												<label for={`est-${order.id}`}>Estimate #</label>
+												<input
+													id={`est-${order.id}`}
+													type="text"
+													name="estimate_number"
+													value={order.estimate_number || ''}
+													placeholder="e.g. EST-2026-0142"
+													autocomplete="off"
+												/>
+											</div>
+											<div class="form-group order-fin-field">
+												<label for={`inv-${order.id}`}>Invoice #</label>
+												<input
+													id={`inv-${order.id}`}
+													type="text"
+													name="invoice_number"
+													value={order.invoice_number || ''}
+													placeholder="e.g. INV-2026-0142"
+													autocomplete="off"
+												/>
+											</div>
+											<div class="form-group order-fin-field">
+												<label for={`amt-${order.id}`}>Total (USD)</label>
+												<input
+													id={`amt-${order.id}`}
+													type="number"
+													name="quoted_amount"
+													step="0.01"
+													min="0"
+													placeholder="0.00"
+													value={order.quoted_amount != null ? String(order.quoted_amount) : ''}
+												/>
+											</div>
+										</div>
+										<div class="order-fin-actions">
+											<button type="submit" class="btn btn-primary btn-sm">Save</button>
+											<a
+												href={`/admin/orders/${order.id}/print-document?type=estimate`}
+												class="btn btn-secondary btn-sm"
+												target="_blank"
+												rel="noopener noreferrer">Open estimate</a>
+											<a
+												href={`/admin/orders/${order.id}/print-document?type=invoice`}
+												class="btn btn-secondary btn-sm"
+												target="_blank"
+												rel="noopener noreferrer">Open invoice</a>
+										</div>
+									</form>
+								</div>
+
 								{(() => {
 									const orderDocs = clientDocs?.filter((d: any) => d.order_id === order.id) || [];
 									return orderDocs.length > 0 ? (
@@ -426,10 +709,41 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 						<label>Color</label>
 						<input type="text" name="locker_color" placeholder="e.g. Natural Oak, Dark Walnut" />
 					</div>
-					<div class="form-group">
-						<label>Accessories</label>
-						<input type="text" name="accessories" placeholder="e.g. Name plates, hooks, shelves" />
-					</div>
+				</div>
+				<p class="order-spec-section-label">Accessories</p>
+				<span class="field-hint order-accessories-hint">Spec sheet add-ons — quantity each (0 or empty = none).</span>
+				<div class="order-accessories-table-wrap">
+					<table class="order-accessories-table">
+						<thead>
+							<tr>
+								<th scope="col">Accessory</th>
+								<th scope="col" class="order-accessories-th-qty">Qty</th>
+							</tr>
+						</thead>
+						<tbody>
+							{LOCKER_SPEC_ACCESSORY_ROWS.map((row) => (
+								<tr>
+									<td class="order-accessories-td-name">{row.label}</td>
+									<td class="order-accessories-td-qty">
+										<label class="visually-hidden" for={`new-acc-qty-${row.id}`}>Quantity — {row.label}</label>
+										<input
+											type="number"
+											id={`new-acc-qty-${row.id}`}
+											name={`acc_qty_${row.id}`}
+											class="order-accessory-qty-input"
+											min="0"
+											step="1"
+											placeholder="0"
+										/>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+				<div class="form-group">
+					<label>Other accessories / notes</label>
+					<textarea name="accessories_notes" rows="2" placeholder="e.g. Corner units, finish notes"></textarea>
 				</div>
 				<div class="modal-actions">
 					<button type="button" class="btn btn-secondary" onclick="document.getElementById('newOrderModal').close()">Cancel</button>
@@ -438,6 +752,103 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 			</form>
 		</div>
 	</dialog>
+
+	<script type="application/json" id="ps-site-pricing-json" set:html={sitePricingPayloadJson} />
+	<script is:inline>
+		document.addEventListener('DOMContentLoaded', function () {
+			const el = document.getElementById('ps-site-pricing-json');
+			if (!el || !el.textContent) return;
+			var SITE = JSON.parse(el.textContent);
+
+			function tierForModel(value) {
+				var m = SITE.models.find(function (x) {
+					return x.value === value;
+				});
+				return m ? m.tier : 'premium';
+			}
+
+			function syncDepthSelect(depthSel, tier) {
+				if (!depthSel) return;
+				var opt24 = depthSel.querySelector('option[value="24"]');
+				if (!opt24) return;
+				if (tier === 'essential') {
+					opt24.disabled = true;
+					if (depthSel.value === '24') depthSel.value = '19';
+				} else {
+					opt24.disabled = false;
+				}
+			}
+
+			function computeFormTotal(form) {
+				var prefix = form.getAttribute('data-acc-prefix');
+				if (!prefix) return null;
+				var modelEl = form.querySelector('[name="catalog_model"]');
+				var widthEl = form.querySelector('[name="catalog_width"]');
+				var qtyEl = form.querySelector('[name="catalog_quantity"]');
+				if (!modelEl || !widthEl || !qtyEl) return null;
+				var model = modelEl.value;
+				var width = parseInt(widthEl.value, 10);
+				var qty = Math.max(1, parseInt(qtyEl.value, 10) || 1);
+				var mod = SITE.models.find(function (x) {
+					return x.value === model;
+				});
+				if (!mod || typeof mod.prices[width] !== 'number') return null;
+				var base = mod.prices[width];
+				var acc = 0;
+				function normAccQty(n, lockerCount) {
+					var nint = Math.max(0, Math.floor(Number(n)) || 0);
+					var L = Math.max(1, lockerCount);
+					if (L > 1 && nint >= L && nint % L === 0) return nint / L;
+					return nint;
+				}
+				for (var i = 0; i < SITE.accessoryIds.length; i++) {
+					var id = SITE.accessoryIds[i];
+					var inp = form.querySelector('[name="' + prefix + 'acc_qty_' + id + '"]');
+					var raw = Math.max(0, parseInt(inp && inp.value ? inp.value : '0', 10) || 0);
+					var n = normAccQty(raw, qty);
+					if (n > 0) acc += (SITE.accessoryUsd[id] || 0) * n;
+				}
+				var per = Math.round((base + acc) * 100) / 100;
+				var total = Math.round(per * qty * 100) / 100;
+				return { per: per, total: total, qty: qty };
+			}
+
+			function refreshForm(form) {
+				var depthSel = form.querySelector('.site-catalog-depth');
+				var modelEl = form.querySelector('[name="catalog_model"]');
+				if (modelEl && depthSel) syncDepthSelect(depthSel, tierForModel(modelEl.value));
+				var out = computeFormTotal(form);
+				var strong = form.querySelector('.site-catalog-live-total');
+				var sub = form.querySelector('.site-catalog-live-sub');
+				if (!strong) return;
+				if (!out) {
+					strong.textContent = '—';
+					if (sub) sub.textContent = '';
+					return;
+				}
+				strong.textContent = '$' + out.total.toFixed(2);
+				if (sub)
+					sub.textContent =
+						' (' +
+						out.qty +
+						' × $' +
+						out.per.toFixed(2) +
+						' per locker)';
+			}
+
+			document.querySelectorAll('[data-site-catalog-form]').forEach(function (form) {
+				function onChange() {
+					refreshForm(form);
+				}
+				form.addEventListener('change', onChange);
+				form.addEventListener('input', onChange);
+				var modelEl = form.querySelector('[name="catalog_model"]');
+				if (modelEl) modelEl.addEventListener('change', onChange);
+				refreshForm(form);
+			});
+		});
+	</script>
+
 </AdminLayout>
 
 <style>
@@ -452,6 +863,37 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 		display: flex;
 		flex-direction: column;
 		gap: 20px;
+		min-width: 0;
+	}
+
+	/* Symmetric inset so fields don’t look flush on one side of the card */
+	.client-sidebar .client-details-card {
+		padding-left: 28px;
+		padding-right: 28px;
+		box-sizing: border-box;
+		overflow-x: hidden;
+	}
+
+	.client-details-form {
+		width: 100%;
+		max-width: 100%;
+		box-sizing: border-box;
+	}
+
+	.client-details-form .form-group :is(input, select, textarea) {
+		width: 100%;
+		max-width: 100%;
+		box-sizing: border-box;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.client-details-save {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		box-sizing: border-box;
+		margin-top: 4px;
 	}
 
 	.client-sidebar h3 {
@@ -480,9 +922,244 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 		font-weight: 600;
 	}
 
+	.orders-lead {
+		font-size: 13px;
+		color: #6b7280;
+		line-height: 1.5;
+		margin: -8px 0 16px 0;
+		max-width: 720px;
+	}
+
+	.order-estimate-invoice {
+		margin-top: 16px;
+		padding-top: 16px;
+		border-top: 1px solid #e0e0e0;
+		background: #fff;
+		border: 1px solid #e5e7eb;
+		padding: 16px 18px 18px;
+	}
+
+	.order-ei-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #0d0d0d;
+		margin: 0 0 12px 0;
+	}
+
+	.order-fin-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 12px 16px;
+		margin-bottom: 12px;
+	}
+
+	.order-fin-field label {
+		font-size: 11px;
+		font-weight: 600;
+		color: #6b7280;
+	}
+
+	.order-fin-field input {
+		width: 100%;
+		padding: 8px 10px;
+		border: 1px solid #d1d5db;
+		font-size: 14px;
+		box-sizing: border-box;
+	}
+
+	.order-fin-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 10px;
+	}
+
+	@media (max-width: 900px) {
+		.order-fin-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.site-catalog-panel {
+		margin-top: 16px;
+		padding: 0;
+		border: 1px solid #c7d2fe;
+		background: #eef2ff;
+		border-radius: 0;
+	}
+
+	.site-catalog-summary {
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #312e81;
+		padding: 12px 16px;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.site-catalog-summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.site-catalog-form {
+		padding: 0 16px 16px;
+		border-top: 1px solid #c7d2fe;
+	}
+
+	.site-catalog-hint {
+		font-size: 12px;
+		color: #4338ca;
+		line-height: 1.5;
+		margin: 12px 0 14px 0;
+	}
+
+	.site-catalog-hint code {
+		font-size: 11px;
+		background: #e0e7ff;
+		padding: 1px 5px;
+	}
+
+	.site-catalog-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 12px 14px;
+		margin-bottom: 12px;
+	}
+
+	.site-catalog-field label {
+		font-size: 11px;
+		font-weight: 600;
+		color: #4b5563;
+	}
+
+	.site-catalog-field :is(input, select, textarea) {
+		width: 100%;
+		padding: 8px 10px;
+		border: 1px solid #d1d5db;
+		font-size: 14px;
+		box-sizing: border-box;
+		margin-top: 4px;
+	}
+
+	.site-catalog-field-wide {
+		grid-column: span 2;
+	}
+
+	.site-catalog-field-full {
+		grid-column: 1 / -1;
+	}
+
+	.site-catalog-acc-label {
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #374151;
+		margin: 8px 0 6px 0;
+	}
+
+	.site-catalog-acc-table-wrap {
+		overflow-x: auto;
+		border: 1px solid #e5e7eb;
+		background: #fff;
+		margin-bottom: 10px;
+	}
+
+	.site-catalog-acc-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 13px;
+	}
+
+	.site-catalog-acc-table th {
+		text-align: left;
+		padding: 8px 10px;
+		background: #f9fafb;
+		border-bottom: 1px solid #e5e7eb;
+		font-size: 10px;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #6b7280;
+	}
+
+	.site-catalog-acc-table td {
+		padding: 6px 10px;
+		border-bottom: 1px solid #f3f4f6;
+		vertical-align: middle;
+	}
+
+	.site-catalog-acc-qty {
+		width: 100px;
+		text-align: right;
+	}
+
+	.site-catalog-acc-input {
+		width: 4rem !important;
+		margin-top: 0 !important;
+		text-align: center;
+	}
+
+	.site-catalog-footer {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-top: 14px;
+		padding-top: 12px;
+		border-top: 1px solid #c7d2fe;
+	}
+
+	.site-catalog-live-total-wrap {
+		margin: 0;
+		font-size: 14px;
+		color: #312e81;
+	}
+
+	.site-catalog-live-label {
+		font-weight: 600;
+	}
+
+	.site-catalog-live-sub {
+		display: block;
+		font-size: 12px;
+		font-weight: 400;
+		color: #6366f1;
+		margin-top: 4px;
+	}
+
+	@media (max-width: 1024px) {
+		.site-catalog-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.site-catalog-field-wide {
+			grid-column: span 2;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.site-catalog-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.site-catalog-field-wide {
+			grid-column: span 1;
+		}
+	}
+
 	.portal-card {
 		background: #fefce8;
 		border-color: #fde68a;
+		padding-left: 28px;
+		padding-right: 28px;
+		box-sizing: border-box;
 	}
 
 	.portal-desc {
@@ -500,7 +1177,7 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 		flex: 1;
 		padding: 6px 10px;
 		border: 1px solid #d1d5db;
-		border-radius: 6px;
+		border-radius: 0;
 		font-size: 12px;
 		background: #fff;
 		color: #374151;
@@ -604,7 +1281,7 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 
 	.message-item {
 		padding: 12px;
-		border-radius: 8px;
+		border-radius: 0;
 		background: #f9fafb;
 	}
 
@@ -634,7 +1311,7 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 		border: 1px solid #bbf7d0;
 		color: #166534;
 		padding: 10px 16px;
-		border-radius: 8px;
+		border-radius: 0;
 		font-size: 14px;
 		margin-bottom: 20px;
 	}
@@ -647,7 +1324,7 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 
 	.modal {
 		border: none;
-		border-radius: 16px;
+		border-radius: 0;
 		padding: 0;
 		max-width: 500px;
 		width: 90%;
@@ -714,9 +1391,18 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
 		margin-bottom: 16px;
 		padding-bottom: 12px;
 		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.order-card-top-actions {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex-shrink: 0;
 	}
 
 	.order-card-title a {
@@ -812,5 +1498,127 @@ const portalUrl = `${Astro.url.origin}/my-project/${client.portal_token}`;
 		.order-card-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
+	}
+
+	.field-hint {
+		display: block;
+		font-size: 12px;
+		color: #9ca3af;
+		margin-bottom: 6px;
+		line-height: 1.4;
+	}
+
+	.order-spec-section-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #8c8c8c;
+		margin: 12px 0 4px 0;
+	}
+
+	.order-accessories-hint {
+		margin-bottom: 10px;
+	}
+
+	.order-accessories-table-wrap {
+		border: 1px solid #e5e7eb;
+		border-radius: 0;
+		overflow: hidden;
+		background: #ffffff;
+		margin-bottom: 12px;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+	}
+
+	.order-accessories-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-family: 'Yantramanav', sans-serif;
+	}
+
+	.order-accessories-table thead th {
+		text-align: left;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.09em;
+		color: #6b7280;
+		padding: 10px 14px;
+		background: #f3f4f6;
+		border-bottom: 1px solid #e5e7eb;
+	}
+
+	.order-accessories-table .order-accessories-th-qty {
+		width: 88px;
+		text-align: right;
+	}
+
+	.order-accessories-table tbody td {
+		padding: 10px 14px;
+		border-bottom: 1px solid #f0f0f0;
+		vertical-align: middle;
+	}
+
+	.order-accessories-table tbody tr:nth-child(even) {
+		background: #fafafa;
+	}
+
+	.order-accessories-table tbody tr:last-child td {
+		border-bottom: none;
+	}
+
+	.order-accessories-td-name {
+		font-size: 13px;
+		line-height: 1.45;
+		color: #0d0d0d;
+		padding-right: 16px;
+	}
+
+	.order-accessories-td-qty {
+		text-align: right;
+		width: 88px;
+		vertical-align: middle;
+	}
+
+	.order-accessory-qty-input {
+		width: 100%;
+		max-width: 76px;
+		margin-left: auto;
+		display: block;
+		padding: 8px 10px;
+		border: 1px solid #d1d5db;
+		border-radius: 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		font-weight: 500;
+		text-align: center;
+		color: #0d0d0d;
+		background: #fff;
+		box-sizing: border-box;
+		min-height: 40px;
+		transition: border-color 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.order-accessory-qty-input:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 3px rgba(254, 89, 0, 0.12);
+	}
+
+	.order-accessory-qty-input::placeholder {
+		color: #c4c4c4;
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
 	}
 </style>

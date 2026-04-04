@@ -1,0 +1,762 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getSession } from '../../lib/auth';
+import { supabaseAdmin, isSupabaseConfigured } from '../../lib/supabase';
+import {
+	INVENTORY_REGIONS,
+	REGION_LABELS,
+	type InventoryRegion,
+	PART_CODE_LABELS,
+	essentialModelsForParts,
+	lockerBoxModels,
+	VIETNAM_BOX_WIDTHS,
+	MATERIAL_MELAMINE,
+	essentialModelValuesForPartGrid,
+	buildCaMxPartGridDemoRows,
+	validateLockerBoxInsert,
+	describeStockLine,
+	type InventoryStockLineRow,
+} from '../../lib/crm-inventory';
+import {
+	ASSEMBLY_INSTRUCTION_PDF_PUBLIC_HREFS,
+	ASSEMBLY_MANUAL_FILES,
+	LOCKER_MANUAL_PDF_DIR,
+	MANUAL_EXTRAS_PER_LOCKER,
+	TYPICAL_HARDWARE_NOTE,
+	TRACKED_PARTS_PER_LOCKER,
+	assemblyInstructionPdfHref,
+	type AssemblyManualModel,
+} from '../../lib/crm-locker-assembly-bom';
+import {
+	PDF_ASSEMBLY_OVERVIEW,
+	instructionPdfHrefForCatalogModel,
+	lockerSpecSheetLinksForCatalog,
+	specSheetPathForCatalogModel,
+} from '../../lib/crm-locker-spec-pdfs';
+
+const demoMode = !isSupabaseConfigured;
+
+if (!demoMode) {
+	const session = await getSession(Astro.cookies);
+	if (!session) return Astro.redirect('/admin/login');
+}
+
+let formError = '';
+let formSuccess = '';
+let stripToastFromBar = false;
+
+if (Astro.request.method !== 'POST') {
+	const toastParam = Astro.url.searchParams.get('toast');
+	if (toastParam === 'qty') {
+		formSuccess = 'Quantity updated.';
+		stripToastFromBar = true;
+	} else if (toastParam === 'box') {
+		formSuccess = 'Locker box line added.';
+		stripToastFromBar = true;
+	}
+}
+
+const regionParam = Astro.url.searchParams.get('region') || 'canada';
+const currentRegion: InventoryRegion = INVENTORY_REGIONS.includes(regionParam as InventoryRegion)
+	? (regionParam as InventoryRegion)
+	: 'canada';
+
+const modelParamRaw = Astro.url.searchParams.get('model') || '';
+const partModelValueSet = new Set(essentialModelValuesForPartGrid());
+const modelFilter =
+	currentRegion === 'canada' || currentRegion === 'mexico'
+		? partModelValueSet.has(modelParamRaw)
+			? modelParamRaw
+			: ''
+		: '';
+
+if (!demoMode && Astro.request.method === 'POST') {
+	const form = await Astro.request.formData();
+	const action = String(form.get('action') || '');
+
+	if (action === 'set_qty') {
+		const id = String(form.get('line_id') || '');
+		const rawQty = form.get('quantity_on_hand');
+		const qty = Math.max(0, Math.floor(Number(rawQty)));
+		if (!id) {
+			formError = 'Missing line.';
+		} else {
+			const { error } = await supabaseAdmin.from('inventory_stock_lines').update({ quantity_on_hand: qty }).eq('id', id);
+			if (error) {
+				formError = error.message;
+			} else {
+				const u = new URL(Astro.url);
+				u.searchParams.delete('toast');
+				u.searchParams.set('toast', 'qty');
+				return Astro.redirect(`${u.pathname}${u.search}`);
+			}
+		}
+	}
+
+	if (action === 'add_box') {
+		const essential_model = String(form.get('essential_model') || '');
+		const width_inches = Math.floor(Number(form.get('width_inches')));
+		const lockRaw = String(form.get('lock_box_variant') || 'false');
+		const lock_box_variant = lockRaw === 'true' || lockRaw === '1' || lockRaw === 'on';
+		const startQty = Math.max(0, Math.floor(Number(form.get('initial_qty') ?? 0)));
+		const v = validateLockerBoxInsert({
+			region: 'vietnam',
+			essential_model,
+			width_inches,
+			lock_box_variant,
+		});
+		if (v) {
+			formError = v;
+		} else {
+			const { error } = await supabaseAdmin.from('inventory_stock_lines').insert({
+				region: 'vietnam',
+				tracking_mode: 'locker_box',
+				essential_model,
+				part_code: null,
+				material: MATERIAL_MELAMINE,
+				width_inches,
+				depth_inches: 19,
+				vented_front: true,
+				lock_box_variant,
+				quantity_on_hand: startQty,
+			});
+			if (error) {
+				if (String(error.message).includes('duplicate') || error.code === '23505') {
+					formError = 'That locker box SKU already exists.';
+				} else {
+					formError = error.message;
+				}
+			} else {
+				const u = new URL(Astro.url);
+				u.searchParams.delete('toast');
+				u.searchParams.set('toast', 'box');
+				return Astro.redirect(`${u.pathname}${u.search}`);
+			}
+		}
+	}
+}
+
+let lines: InventoryStockLineRow[] = [];
+
+if (demoMode) {
+	if (currentRegion === 'vietnam') {
+		lines = [
+			{
+				id: 'demo-vn-1',
+				region: 'vietnam',
+				tracking_mode: 'locker_box',
+				essential_model: 'Stadium Locker',
+				part_code: null,
+				material: 'melamine',
+				width_inches: 24,
+				depth_inches: 19,
+				vented_front: true,
+				lock_box_variant: false,
+				quantity_on_hand: 40,
+				notes: null,
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+			},
+			{
+				id: 'demo-vn-2',
+				region: 'vietnam',
+				tracking_mode: 'locker_box',
+				essential_model: 'Stadium Locker',
+				part_code: null,
+				material: 'melamine',
+				width_inches: 24,
+				depth_inches: 19,
+				vented_front: true,
+				lock_box_variant: true,
+				quantity_on_hand: 8,
+				notes: null,
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+			},
+		];
+	} else {
+		let grid = buildCaMxPartGridDemoRows(currentRegion as 'canada' | 'mexico');
+		if (modelFilter) {
+			grid = grid.filter((row) => row.essential_model === modelFilter);
+		}
+		lines = grid;
+	}
+} else {
+	let invQuery = supabaseAdmin
+		.from('inventory_stock_lines')
+		.select('*')
+		.eq('region', currentRegion);
+	if ((currentRegion === 'canada' || currentRegion === 'mexico') && modelFilter) {
+		invQuery = invQuery.eq('essential_model', modelFilter);
+	}
+	const { data, error } = await invQuery
+		.order('tracking_mode', { ascending: true })
+		.order('essential_model', { ascending: true })
+		.order('width_inches', { ascending: true })
+		.order('part_code', { ascending: true });
+	if (error) {
+		formError = formError || error.message;
+	} else if (data) {
+		lines = data as InventoryStockLineRow[];
+	}
+}
+
+const partModels = essentialModelsForParts();
+const boxModels = lockerBoxModels();
+
+const assemblyManualModels = Object.keys(TRACKED_PARTS_PER_LOCKER) as AssemblyManualModel[];
+const catalogSpecLinks = lockerSpecSheetLinksForCatalog();
+const filteredModelSpecHref =
+	(currentRegion === 'canada' || currentRegion === 'mexico') && modelFilter
+		? specSheetPathForCatalogModel(modelFilter)
+		: null;
+const filteredInstructionPdfHref =
+	(currentRegion === 'canada' || currentRegion === 'mexico') && modelFilter
+		? instructionPdfHrefForCatalogModel(modelFilter)
+		: null;
+---
+
+<AdminLayout title="Inventory" activeNav="inventory">
+	<p class="inv-lead">
+		<strong>Canada &amp; Mexico:</strong> Essential lockers, UV prefinished wood — every <strong>part × width</strong> line is listed (run migration <code>006_seed_ca_mx_part_grid.sql</code> to create rows at qty 0). Filter by model below.
+		<strong>Vietnam:</strong> melamine <strong>whole locker</strong> SKUs (19″ deep, 24–30″ wide, vented front, with/without lock box). Stadium rows can be seeded by migration; add more models here when needed.
+	</p>
+	<p class="inv-lead inv-muted">
+		<a href="/admin/shipping">Shipping &amp; C &amp; D Logistics memos</a> — pallet sizes (Essential vs Premium) and downloadable shipment text for the carrier.
+	</p>
+
+	<div class="card inv-pdf-ref">
+		<h2 class="inv-card-title">Spec sheets &amp; assembly (reference)</h2>
+		<p class="inv-muted inv-pdf-lead">
+			<strong>Spec pages</strong> (below): open in the browser, then <strong>Print</strong> → <strong>Save as PDF</strong> if you need a file — same URLs as the public site.
+		</p>
+		<p class="inv-muted inv-pdf-lead">
+			<strong>Instruction PDFs</strong> (per model): place files in <code>public/locker-instruction-manuals/</code> using the slug names in{' '}
+			<code>crm-locker-assembly-bom.ts</code> / <code>crm-locker-spec-pdfs.ts</code> (e.g. copy <code>SEMI-PRO LOCKER INSTRUCTION MANUAL (1).pdf</code> →{' '}
+			<code>semi-pro-locker-instructions.pdf</code>). Links open the PDF directly for part callouts while you count stock.
+		</p>
+		<p class="inv-pdf-row">
+			<a
+				class="inv-pdf-link"
+				href={PDF_ASSEMBLY_OVERVIEW}
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				Shipping &amp; assembly overview
+			</a>
+			<span class="inv-pdf-hint"> — flat-pack, typical box sizes, assembly time</span>
+		</p>
+		<p class="inv-bom-sub inv-pdf-subtitle">Locker spec sheets (dimensions, construction)</p>
+		<ul class="inv-pdf-model-list">
+			{catalogSpecLinks.map((row) => (
+				<li class="inv-pdf-model-row">
+					<a class="inv-pdf-link" href={row.href} target="_blank" rel="noopener noreferrer">
+						{row.label}
+					</a>
+					<span class="inv-pdf-sep"> — </span>
+					{row.instructionPdfHref ? (
+						<a
+							class="inv-pdf-link inv-pdf-instruction"
+							href={row.instructionPdfHref}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Instruction PDF
+						</a>
+					) : (
+						<span class="inv-pdf-hint">no instruction PDF mapped</span>
+					)}
+				</li>
+			))}
+		</ul>
+	</div>
+
+	<details class="inv-bom-details card">
+		<summary class="inv-bom-summary">Parts per locker (from instruction PDFs)</summary>
+		<p class="inv-muted inv-bom-lead">
+			Counts below are pieces per <strong>one</strong> finished locker; stock lines are still by model + part + width. Upload instruction PDFs to <code>{LOCKER_MANUAL_PDF_DIR}</code> (see slug filenames above) — originals for BOM extraction were named like <code>SEMI-PRO LOCKER INSTRUCTION MANUAL (1).pdf</code>.
+			{TYPICAL_HARDWARE_NOTE}
+		</p>
+		<div class="inv-bom-grid">
+			{assemblyManualModels.map((model) => {
+				const specHref = specSheetPathForCatalogModel(model);
+				return (
+					<div class="inv-bom-card">
+						<h3 class="inv-bom-model">{model}</h3>
+						{specHref && (
+							<p class="inv-bom-spec-link">
+								<a href={specHref} target="_blank" rel="noopener noreferrer">
+									Open spec sheet (site)
+								</a>
+								<span class="inv-pdf-hint"> — dimensions / construction</span>
+							</p>
+						)}
+						<p class="inv-bom-spec-link">
+							<a
+								href={assemblyInstructionPdfHref(model)}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Open instruction PDF (parts)
+							</a>
+							<span class="inv-pdf-hint"> — {ASSEMBLY_INSTRUCTION_PDF_PUBLIC_HREFS[model]}</span>
+						</p>
+						<p class="inv-muted inv-bom-file">
+							Original filename (rename to slug above): <code>{ASSEMBLY_MANUAL_FILES[model]}</code>
+						</p>
+						<p class="inv-bom-sub">Tracked part codes</p>
+						<ul class="inv-bom-list">
+							{TRACKED_PARTS_PER_LOCKER[model].map((row) => (
+								<li>
+									{PART_CODE_LABELS[row.code]} × {row.perLocker}
+								</li>
+							))}
+						</ul>
+						<p class="inv-bom-sub">Also in manual (not part_code yet)</p>
+						<ul class="inv-bom-list">
+							{MANUAL_EXTRAS_PER_LOCKER[model].map((ex) => (
+								<li>
+									{ex.label} × {ex.qtyPerLocker}
+								</li>
+							))}
+						</ul>
+					</div>
+				);
+			})}
+		</div>
+	</details>
+
+	{formError && <div class="inv-alert inv-alert-error" role="alert">{formError}</div>}
+	{formSuccess && <div class="inv-alert inv-alert-ok" role="status">{formSuccess}</div>}
+	{stripToastFromBar && (
+		<script is:inline>
+			try {
+				var u = new URL(location.href);
+				if (u.searchParams.has('toast')) {
+					u.searchParams.delete('toast');
+					var q = u.searchParams.toString();
+					history.replaceState(null, '', u.pathname + (q ? '?' + q : '') + u.hash);
+				}
+			} catch (_) {}
+		</script>
+	)}
+
+	<nav class="inv-tabs" aria-label="Region">
+		{INVENTORY_REGIONS.map((r) => (
+			<a
+				href={`/admin/inventory?region=${r}${(r === 'canada' || r === 'mexico') && modelFilter ? `&model=${encodeURIComponent(modelFilter)}` : ''}`}
+				class:list={['inv-tab', { active: r === currentRegion }]}
+			>
+				{REGION_LABELS[r]}
+			</a>
+		))}
+	</nav>
+
+	{(currentRegion === 'canada' || currentRegion === 'mexico') && (
+		<nav class="inv-subtabs" aria-label="Essential model">
+			<a
+				href={`/admin/inventory?region=${currentRegion}`}
+				class:list={['inv-subtab', { active: !modelFilter }]}
+			>
+				All models
+			</a>
+			{partModels.map((m) => (
+				<a
+					href={`/admin/inventory?region=${currentRegion}&model=${encodeURIComponent(m.value)}`}
+					class:list={['inv-subtab', { active: modelFilter === m.value }]}
+				>
+					{m.label}
+				</a>
+			))}
+		</nav>
+	)}
+
+	{(filteredModelSpecHref || filteredInstructionPdfHref) && (
+		<p class="inv-model-spec-callout">
+			<strong>Quick reference ({modelFilter}):</strong>{' '}
+			{filteredModelSpecHref && (
+				<>
+					<a href={filteredModelSpecHref} target="_blank" rel="noopener noreferrer">
+						Spec sheet
+					</a>
+				</>
+			)}
+			{filteredModelSpecHref && filteredInstructionPdfHref && <span class="inv-pdf-hint"> · </span>}
+			{filteredInstructionPdfHref && (
+				<a href={filteredInstructionPdfHref} target="_blank" rel="noopener noreferrer">
+					Instruction PDF
+				</a>
+			)}
+		</p>
+	)}
+
+	<div class="card">
+		<h2 class="inv-card-title">Stock lines — {REGION_LABELS[currentRegion]}</h2>
+		{demoMode && (
+			<p class="inv-demo">
+				Preview: Canada/Mexico show the full part grid (288 lines per country). Vietnam shows sample locker boxes. Connect Supabase; run <code>005_inventory_stock_lines.sql</code> then <code>006_seed_ca_mx_part_grid.sql</code>.
+			</p>
+		)}
+		{lines.length === 0 ? (
+			<p class="inv-empty">No lines yet for this region.</p>
+		) : (
+			<div class="inv-table-wrap">
+				<table class="inv-table">
+					<thead>
+						<tr>
+							<th>Description</th>
+							<th>Qty</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{lines.map((row) => (
+							<tr>
+								<td>{describeStockLine(row)}</td>
+								<td>
+									{demoMode ? (
+										<span>{row.quantity_on_hand}</span>
+									) : (
+										<form method="POST" class="inv-qty-form">
+											<input type="hidden" name="action" value="set_qty" />
+											<input type="hidden" name="line_id" value={row.id} />
+											<input
+												type="number"
+												name="quantity_on_hand"
+												min="0"
+												step="1"
+												class="inv-qty-input"
+												value={row.quantity_on_hand}
+											/>
+											<button type="submit" class="btn btn-secondary btn-sm">Save</button>
+										</form>
+									)}
+								</td>
+								<td />
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		)}
+	</div>
+
+	{currentRegion === 'vietnam' && (
+		<div class="card">
+			<h2 class="inv-card-title">Add locker box SKU</h2>
+			{demoMode ? (
+				<p class="inv-muted">Available when Supabase is configured.</p>
+			) : (
+				<form method="POST" class="inv-add-form">
+					<input type="hidden" name="action" value="add_box" />
+					<div class="form-group">
+						<label for="box_model">Model</label>
+						<select id="box_model" name="essential_model" required>
+							{boxModels.map((m) => (
+								<option value={m.value}>{m.label}</option>
+							))}
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="box_width">Width (inches)</label>
+						<select id="box_width" name="width_inches" required>
+							{VIETNAM_BOX_WIDTHS.map((w) => (
+								<option value={w}>{w}"</option>
+							))}
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="lock_box_variant">Lock box</label>
+						<select id="lock_box_variant" name="lock_box_variant" required>
+							<option value="false">Without lock box</option>
+							<option value="true">With lock box</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="initial_qty_box">Starting qty</label>
+						<input id="initial_qty_box" type="number" name="initial_qty" min="0" step="1" value="0" />
+					</div>
+					<button type="submit" class="btn btn-primary">Add SKU</button>
+				</form>
+			)}
+		</div>
+	)}
+</AdminLayout>
+
+<style>
+	.inv-lead {
+		font-family: 'Yantramanav', sans-serif;
+		color: #333;
+		line-height: 1.55;
+		margin: 0 0 1rem;
+		max-width: 900px;
+	}
+	.inv-lead strong {
+		margin-right: 0.35rem;
+	}
+	.inv-alert {
+		padding: 12px 16px;
+		border-radius: 6px;
+		margin-bottom: 1rem;
+		font-family: 'Yantramanav', sans-serif;
+	}
+	.inv-alert-error {
+		background: #fde8e8;
+		color: #8b1a1a;
+		border: 1px solid #f5bcbc;
+	}
+	.inv-alert-ok {
+		background: #e8f5e9;
+		color: #1b5e20;
+		border: 1px solid #c8e6c9;
+	}
+	.inv-tabs {
+		display: flex;
+		gap: 8px;
+		flex-wrap: wrap;
+		margin-bottom: 1.25rem;
+	}
+	.inv-tab {
+		font-family: 'Oswald', sans-serif;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		padding: 10px 18px;
+		border-radius: 6px;
+		background: #f0f0f0;
+		color: #0d0d0d;
+		text-decoration: none;
+		border: 1px solid #ddd;
+	}
+	.inv-tab:hover {
+		border-color: #fe5900;
+		color: #fe5900;
+	}
+	.inv-tab.active {
+		background: #fe5900;
+		color: #fff;
+		border-color: #fe5900;
+	}
+	.inv-subtabs {
+		display: flex;
+		gap: 6px;
+		flex-wrap: wrap;
+		margin: -8px 0 1.25rem;
+	}
+	.inv-subtab {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		padding: 8px 12px;
+		border-radius: 4px;
+		background: #fafafa;
+		color: #333;
+		text-decoration: none;
+		border: 1px solid #e0e0e0;
+	}
+	.inv-subtab:hover {
+		border-color: #fe5900;
+		color: #fe5900;
+	}
+	.inv-subtab.active {
+		background: #0d0d0d;
+		color: #fff;
+		border-color: #0d0d0d;
+	}
+	.inv-card-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 1.1rem;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		margin: 0 0 1rem;
+	}
+	.inv-demo {
+		margin: 0 0 1rem;
+		padding: 12px 14px;
+		background: #fff8e6;
+		border: 1px solid #ffe0a3;
+		font-size: 0.9rem;
+	}
+	.inv-empty {
+		margin: 0;
+		color: #666;
+	}
+	.inv-table-wrap {
+		overflow-x: auto;
+	}
+	.inv-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 0.95rem;
+	}
+	.inv-table th,
+	.inv-table td {
+		padding: 10px 12px;
+		text-align: left;
+		border-bottom: 1px solid #eee;
+		vertical-align: middle;
+	}
+	.inv-table th {
+		font-family: 'Oswald', sans-serif;
+		text-transform: uppercase;
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		color: #666;
+	}
+	.inv-qty-form {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+	.inv-qty-input {
+		width: 88px;
+		padding: 8px 10px;
+		border: 1px solid #ccc;
+		font-family: 'Yantramanav', sans-serif;
+	}
+	.inv-add-form {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 0 20px;
+		align-items: end;
+	}
+	.inv-muted {
+		margin: 0;
+		color: #777;
+	}
+	.inv-muted a {
+		color: #fe5900;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.inv-muted a:hover {
+		text-decoration: underline;
+	}
+	.inv-bom-details {
+		margin-bottom: 1.25rem;
+		padding: 1rem 1.25rem;
+	}
+	.inv-bom-summary {
+		font-family: 'Oswald', sans-serif;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		cursor: pointer;
+		font-size: 0.95rem;
+	}
+	.inv-bom-lead {
+		margin: 1rem 0 1rem;
+		font-size: 0.88rem;
+		line-height: 1.5;
+	}
+	.inv-bom-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+		gap: 1rem;
+	}
+	.inv-bom-card {
+		border: 1px solid #e8e8e8;
+		border-radius: 8px;
+		padding: 12px 14px;
+		background: #fafafa;
+	}
+	.inv-bom-model {
+		font-family: 'Oswald', sans-serif;
+		font-size: 1rem;
+		margin: 0 0 6px;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+	}
+	.inv-bom-file {
+		font-size: 0.75rem;
+		margin: 0 0 12px;
+		word-break: break-all;
+	}
+	.inv-bom-file code {
+		font-size: 0.72rem;
+	}
+	.inv-bom-sub {
+		font-family: 'Oswald', sans-serif;
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #666;
+		margin: 0 0 6px;
+	}
+	.inv-bom-list {
+		margin: 0 0 12px;
+		padding-left: 1.1rem;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 0.85rem;
+		line-height: 1.45;
+	}
+	.inv-bom-list:last-child {
+		margin-bottom: 0;
+	}
+	.inv-pdf-ref {
+		margin-bottom: 1.25rem;
+		padding: 1rem 1.25rem 1.25rem;
+	}
+	.inv-pdf-lead {
+		margin: 0 0 0.75rem;
+		font-size: 0.88rem;
+		line-height: 1.5;
+	}
+	.inv-pdf-subtitle {
+		margin-top: 1rem;
+	}
+	.inv-pdf-row {
+		margin: 0 0 0.35rem;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 0.9rem;
+	}
+	.inv-pdf-link {
+		color: #fe5900;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.inv-pdf-link:hover {
+		text-decoration: underline;
+	}
+	.inv-pdf-hint {
+		color: #666;
+		font-weight: 400;
+	}
+	.inv-pdf-model-list {
+		margin: 0.35rem 0 0;
+		padding-left: 1.25rem;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 0.9rem;
+		line-height: 1.6;
+	}
+	.inv-bom-spec-link {
+		margin: 0 0 8px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 0.85rem;
+	}
+	.inv-bom-spec-link a {
+		color: #fe5900;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.inv-bom-spec-link a:hover {
+		text-decoration: underline;
+	}
+	.inv-model-spec-callout {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 0.9rem;
+		margin: 0 0 1rem;
+		padding: 10px 14px;
+		background: #f7f7f7;
+		border-left: 4px solid #fe5900;
+	}
+	.inv-model-spec-callout a {
+		color: #fe5900;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.inv-model-spec-callout a:hover {
+		text-decoration: underline;
+	}
+</style>

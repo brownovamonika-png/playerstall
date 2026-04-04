@@ -1,0 +1,648 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getSession } from '../../lib/auth';
+import { supabaseAdmin, isSupabaseConfigured } from '../../lib/supabase';
+import { parseCslInquiryPaste } from '../../lib/parse-csl-inquiry';
+import { createClientWithInitialOrder } from '../../lib/crm-create-client-order';
+
+const demoMode = !isSupabaseConfigured;
+
+if (!demoMode) {
+	const session = await getSession(Astro.cookies);
+	if (!session) return Astro.redirect('/admin/login');
+}
+
+type ReviewFields = {
+	contact_name: string;
+	company_name: string;
+	email: string;
+	phone: string;
+	sport: string;
+	team_name: string;
+	country: string;
+	source_website: string;
+	shipping_address: string;
+	order_title: string;
+	locker_type: string;
+	quantity: string;
+	locker_size: string;
+	locker_width: string;
+	locker_color: string;
+	accessories: string;
+	estimated_completion: string;
+	notes: string;
+	paste_text: string;
+};
+
+function fromParsed(p: ReturnType<typeof parseCslInquiryPaste>, raw: string): ReviewFields {
+	return {
+		contact_name: p.contact_name,
+		company_name: p.company_name || '',
+		email: p.email || '',
+		phone: p.phone || '',
+		sport: '',
+		team_name: '',
+		country: p.country || '',
+		source_website: 'customsportslockers.com',
+		shipping_address: p.shipping_address || '',
+		order_title: p.order_title,
+		locker_type: p.locker_type || '',
+		quantity: p.quantity != null ? String(p.quantity) : '',
+		locker_size: p.locker_size || '',
+		locker_width: '',
+		locker_color: p.locker_color || '',
+		accessories: p.accessories || '',
+		estimated_completion: p.estimated_completion || '',
+		notes: p.client_notes || '',
+		paste_text: raw,
+	};
+}
+
+function fromForm(form: FormData): ReviewFields {
+	const g = (k: string) => String(form.get(k) ?? '');
+	return {
+		contact_name: g('contact_name'),
+		company_name: g('company_name'),
+		email: g('email'),
+		phone: g('phone'),
+		sport: g('sport'),
+		team_name: g('team_name'),
+		country: g('country'),
+		source_website: g('source_website'),
+		shipping_address: g('shipping_address'),
+		order_title: g('order_title'),
+		locker_type: g('locker_type'),
+		quantity: g('quantity'),
+		locker_size: g('locker_size'),
+		locker_width: g('locker_width'),
+		locker_color: g('locker_color'),
+		accessories: g('accessories'),
+		estimated_completion: g('estimated_completion'),
+		notes: g('notes'),
+		paste_text: g('paste_text'),
+	};
+}
+
+let formError = '';
+let parseWarnings: string[] = [];
+let showReview = false;
+let fields: ReviewFields | null = null;
+let initialPaste = '';
+
+if (Astro.request.method === 'POST') {
+	const form = await Astro.request.formData();
+	const action = form.get('action') as string;
+
+	if (action === 'parse') {
+		const raw = String(form.get('paste_text') || '');
+		initialPaste = raw;
+		const parsed = parseCslInquiryPaste(raw);
+		parseWarnings = parsed.warnings;
+		fields = fromParsed(parsed, raw);
+		showReview = true;
+	}
+
+	if (action === 'create') {
+		fields = fromForm(form);
+		initialPaste = fields.paste_text;
+		showReview = true;
+
+		if (demoMode) {
+			formError =
+				'Still in “no database” mode: put SUPABASE_URL and SUPABASE_ANON_KEY in .env (see yellow box above), save, restart npm run dev. Or use Copy for Google Sheets. Guide: docs/SUPABASE_CRM_SETUP.md';
+		} else if (!fields.contact_name.trim()) {
+			formError = 'Contact name is required.';
+		} else {
+			const ec = fields.estimated_completion.trim();
+			const result = await createClientWithInitialOrder(supabaseAdmin!, {
+				contact_name: fields.contact_name.trim(),
+				company_name: fields.company_name.trim() || null,
+				email: fields.email.trim() || null,
+				phone: fields.phone.trim() || null,
+				sport: fields.sport.trim() || null,
+				team_name: fields.team_name.trim() || null,
+				fundraising_status: null,
+				country: fields.country.trim() || null,
+				shipping_address: fields.shipping_address.trim() || null,
+				source: 'old_website',
+				source_website: fields.source_website.trim() || 'customsportslockers.com',
+				notes: fields.notes.trim() || null,
+				order_title: fields.order_title.trim() || null,
+				locker_type: fields.locker_type.trim() || null,
+				locker_size: fields.locker_size.trim() || null,
+				locker_width: fields.locker_width.trim() || null,
+				locker_color: fields.locker_color.trim() || null,
+				accessories: fields.accessories.trim() || null,
+				quantity: fields.quantity ? Number(fields.quantity) : null,
+				estimated_completion: ec || null,
+			});
+			if ('error' in result) {
+				formError = result.error;
+			} else {
+				return Astro.redirect(`/admin/clients/${result.clientId}`);
+			}
+		}
+	}
+}
+
+const f = fields;
+
+const envUrlSet = Boolean(String(import.meta.env.SUPABASE_URL || '').trim());
+const envAnonSet = Boolean(String(import.meta.env.SUPABASE_ANON_KEY || '').trim());
+const envServiceSet = Boolean(String(import.meta.env.SUPABASE_SERVICE_ROLE_KEY || '').trim());
+---
+
+<AdminLayout title="Paste inquiry" activeNav="paste-inquiry">
+	<Fragment slot="header-actions">
+		<a href="/admin/clients" class="btn btn-secondary">Back to Clients</a>
+	</Fragment>
+
+	<p class="page-intro">
+		Paste the body of an estimate request from your old Custom Sport Lockers site (the part with <strong>Name</strong>, <strong>Shipping Address</strong>,
+		<strong>Product</strong>, etc.). We fill in the fields for you. <strong>No database?</strong> After you click <strong>Parse &amp; review</strong>, use
+		<strong>Copy for Google Sheets</strong> and paste into a spreadsheet row — that is enough for many workflows. Saving inside the CRM needs Supabase later (optional).
+	</p>
+
+	{demoMode && (
+		<div class="env-missing-banner">
+			<strong>CRM save is off</strong> because this app does not see Supabase in <code>.env</code> yet.
+			<ul>
+				<li><code>SUPABASE_URL</code>: {envUrlSet ? 'set' : 'missing'}</li>
+				<li><code>SUPABASE_ANON_KEY</code>: {envAnonSet ? 'set' : 'missing'}</li>
+				<li><code>SUPABASE_SERVICE_ROLE_KEY</code>: {envServiceSet ? 'set' : 'missing (optional but recommended)'}</li>
+			</ul>
+			<p class="env-missing-detail">
+				Open <code>.env</code> in your project folder (next to <code>package.json</code>), paste the three values from Supabase → <strong>Project Settings → API</strong>, save, then stop and run <code>npm run dev</code> again.
+			</p>
+		</div>
+	)}
+
+	{!showReview ? (
+		<form method="POST" class="card paste-card">
+			<input type="hidden" name="action" value="parse" />
+			<label for="paste_text" class="label-block">Inquiry text</label>
+			<textarea id="paste_text" name="paste_text" class="paste-textarea" rows="18" placeholder="Paste email or form submission text here…" required>{initialPaste}</textarea>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">Parse &amp; review</button>
+			</div>
+		</form>
+	) : (
+		<>
+			{parseWarnings.length > 0 && (
+				<div class="warn-banner">
+					<strong>Heads up</strong>
+					<ul>
+						{parseWarnings.map((w) => (
+							<li>{w}</li>
+						))}
+					</ul>
+				</div>
+			)}
+			{formError && <div class="error-banner">{formError}</div>}
+
+			<form method="POST" class="card review-card">
+				<input type="hidden" name="action" value="create" />
+				<input type="hidden" name="paste_text" value={f?.paste_text} />
+
+				<h2 class="review-title">Review</h2>
+			<p class="review-hint">
+				{demoMode ? (
+					<>
+						<strong>Easiest:</strong> click <strong>Copy for Google Sheets</strong>, then paste into Google Sheets (or Excel). You do not need Supabase for that.
+					</>
+				) : (
+					<>Use <strong>Copy for Google Sheets</strong> anytime, or <strong>Create client &amp; order</strong> to save in the CRM database.</>
+				)}
+			</p>
+			<div class="copy-toolbar">
+				<button type="button" class="btn btn-primary" id="copy-sheets-btn">
+					Copy for Google Sheets
+				</button>
+				<button type="button" class="btn btn-secondary" id="copy-text-btn">
+					Copy as plain text
+				</button>
+				<span class="copy-toast" id="copy-toast" hidden>Copied</span>
+			</div>
+
+				<div class="form-row">
+					<div class="form-group">
+						<label for="contact_name">Contact name *</label>
+						<input type="text" id="contact_name" name="contact_name" required value={f?.contact_name} />
+					</div>
+					<div class="form-group">
+						<label for="company_name">Company / organization</label>
+						<input type="text" id="company_name" name="company_name" value={f?.company_name} />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="email" id="email" name="email" value={f?.email} />
+					</div>
+					<div class="form-group">
+						<label for="phone">Phone</label>
+						<input type="text" id="phone" name="phone" value={f?.phone} />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label for="sport">Sport</label>
+						<select id="sport" name="sport">
+							<option value="" selected={!f?.sport}>—</option>
+							<option value="Football" selected={f?.sport === 'Football'}>Football</option>
+							<option value="Hockey" selected={f?.sport === 'Hockey'}>Hockey</option>
+							<option value="Basketball" selected={f?.sport === 'Basketball'}>Basketball</option>
+							<option value="Baseball" selected={f?.sport === 'Baseball'}>Baseball</option>
+							<option value="Soccer" selected={f?.sport === 'Soccer'}>Soccer</option>
+							<option value="Lacrosse" selected={f?.sport === 'Lacrosse'}>Lacrosse</option>
+							<option value="Other" selected={f?.sport === 'Other'}>Other</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="team_name">Team name</label>
+						<input type="text" id="team_name" name="team_name" value={f?.team_name} />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label for="country">Country</label>
+						<select id="country" name="country">
+							<option value="" selected={!f?.country}>—</option>
+							<option value="USA" selected={f?.country === 'USA'}>USA</option>
+							<option value="Canada" selected={f?.country === 'Canada'}>Canada</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="source_website">Source website</label>
+						<input type="text" id="source_website" name="source_website" value={f?.source_website} />
+					</div>
+				</div>
+				<div class="form-group full">
+					<label for="shipping_address">Shipping address</label>
+					<input type="text" id="shipping_address" name="shipping_address" value={f?.shipping_address} />
+				</div>
+
+				<div class="section-label">Initial order</div>
+				<div class="form-group full">
+					<label for="order_title">Order title</label>
+					<input type="text" id="order_title" name="order_title" value={f?.order_title} />
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label for="locker_type">Locker type</label>
+						<select id="locker_type" name="locker_type">
+							<option value="" selected={!f?.locker_type}>—</option>
+							<option value="Stadium" selected={f?.locker_type === 'Stadium'}>Stadium</option>
+							<option value="Varsity" selected={f?.locker_type === 'Varsity'}>Varsity</option>
+							<option value="Semi Pro" selected={f?.locker_type === 'Semi Pro'}>Semi Pro</option>
+							<option value="Pro" selected={f?.locker_type === 'Pro'}>Pro</option>
+							<option value="Curve" selected={f?.locker_type === 'Curve'}>Curve</option>
+							<option value="Model L" selected={f?.locker_type === 'Model L'}>Model L</option>
+							<option value="Model S" selected={f?.locker_type === 'Model S'}>Model S</option>
+							<option value="Model Z" selected={f?.locker_type === 'Model Z'}>Model Z</option>
+							<option value="Model X" selected={f?.locker_type === 'Model X'}>Model X</option>
+							<option value="Custom" selected={f?.locker_type === 'Custom'}>Custom</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="quantity">Quantity</label>
+						<input type="number" id="quantity" name="quantity" min="1" value={f?.quantity} />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label for="locker_size">Width</label>
+						<input type="text" id="locker_size" name="locker_size" value={f?.locker_size} />
+					</div>
+					<div class="form-group">
+						<label for="locker_width">Depth</label>
+						<input type="text" id="locker_width" name="locker_width" value={f?.locker_width} />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label for="locker_color">Color / finish</label>
+						<input type="text" id="locker_color" name="locker_color" value={f?.locker_color} />
+					</div>
+					<div class="form-group">
+						<label for="estimated_completion">Needed by (date)</label>
+						<input type="date" id="estimated_completion" name="estimated_completion" value={f?.estimated_completion} />
+					</div>
+				</div>
+				<div class="form-group full">
+					<label for="accessories">Accessories</label>
+					<input type="text" id="accessories" name="accessories" value={f?.accessories} />
+				</div>
+				<div class="form-group full">
+					<label for="notes">Client notes</label>
+					<textarea id="notes" name="notes" rows="3">{f?.notes}</textarea>
+				</div>
+
+				<div class="form-actions spaced">
+					<a href="/admin/paste-inquiry" class="btn btn-secondary">Start over</a>
+					<button type="submit" class:list={['btn', demoMode ? 'btn-secondary' : 'btn-primary']}>
+						{demoMode ? 'Save to CRM (needs Supabase in .env)' : 'Create client &amp; order'}
+					</button>
+				</div>
+			</form>
+		</>
+	)}
+
+	{showReview && (
+		<script is:inline>
+			(function () {
+				function cell(id) {
+					var el = document.getElementById(id);
+					if (!el) return '';
+					var v = 'value' in el ? el.value : '';
+					return String(v || '')
+						.replace(/\t/g, ' ')
+						.replace(/\r\n/g, '\n')
+						.replace(/\n/g, ' | ');
+				}
+				var labels = [
+					'Contact name',
+					'Company',
+					'Email',
+					'Phone',
+					'Sport',
+					'Team name',
+					'Country',
+					'Source website',
+					'Shipping address',
+					'Order title',
+					'Locker type',
+					'Quantity',
+					'Width',
+					'Depth',
+					'Color / finish',
+					'Needed by',
+					'Accessories',
+					'Notes',
+				];
+				var ids = [
+					'contact_name',
+					'company_name',
+					'email',
+					'phone',
+					'sport',
+					'team_name',
+					'country',
+					'source_website',
+					'shipping_address',
+					'order_title',
+					'locker_type',
+					'quantity',
+					'locker_size',
+					'locker_width',
+					'locker_color',
+					'estimated_completion',
+					'accessories',
+					'notes',
+				];
+				function rowTsv() {
+					return labels.join('\t') + '\n' + ids.map(cell).join('\t');
+				}
+				function plainBlock() {
+					var lines = [];
+					for (var i = 0; i < labels.length; i++) {
+						lines.push(labels[i] + ': ' + cell(ids[i]));
+					}
+					return lines.join('\n');
+				}
+				function toast(msg) {
+					var t = document.getElementById('copy-toast');
+					if (!t) return;
+					t.textContent = msg || 'Copied';
+					t.hidden = false;
+					clearTimeout(toast._timer);
+					toast._timer = setTimeout(function () {
+						t.hidden = true;
+					}, 2500);
+				}
+				document.getElementById('copy-sheets-btn')?.addEventListener('click', function () {
+					navigator.clipboard.writeText(rowTsv()).then(
+						function () {
+							toast('Copied — paste into row 1 in Sheets, then row 2');
+						},
+						function () {
+							toast('Copy failed — try plain text button');
+						},
+					);
+				});
+				document.getElementById('copy-text-btn')?.addEventListener('click', function () {
+					navigator.clipboard.writeText(plainBlock()).then(
+						function () {
+							toast('Copied plain text');
+						},
+						function () {
+							toast('Copy failed');
+						},
+					);
+				});
+			})();
+		</script>
+	)}
+</AdminLayout>
+
+<style>
+	.page-intro {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #6b7280;
+		max-width: 720px;
+		line-height: 1.55;
+		margin-bottom: 24px;
+	}
+
+	.env-missing-banner {
+		background: #fffbeb;
+		border: 1px solid #fcd34d;
+		color: #78350f;
+		padding: 16px 20px;
+		margin-bottom: 24px;
+		max-width: 900px;
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	.env-missing-banner ul {
+		margin: 10px 0 10px 20px;
+	}
+
+	.env-missing-banner code {
+		font-size: 12px;
+		background: #fef3c7;
+		padding: 2px 6px;
+	}
+
+	.env-missing-detail {
+		margin: 0;
+		font-size: 13px;
+		color: #92400e;
+	}
+
+	.paste-card,
+	.review-card {
+		padding: 28px 32px;
+		max-width: 900px;
+	}
+
+	.label-block {
+		display: block;
+		font-size: 11px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: #8c8c8c;
+		margin-bottom: 10px;
+		font-family: 'Yantramanav', sans-serif;
+	}
+
+	.paste-textarea {
+		width: 100%;
+		padding: 14px;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		font-family: ui-monospace, monospace;
+		font-size: 13px;
+		line-height: 1.45;
+		resize: vertical;
+		min-height: 280px;
+	}
+
+	.paste-textarea:focus {
+		outline: none;
+		border-color: #fe5900;
+	}
+
+	.warn-banner {
+		background: #fffbeb;
+		border: 1px solid #fcd34d;
+		color: #92400e;
+		padding: 14px 18px;
+		margin-bottom: 20px;
+		max-width: 900px;
+		font-size: 14px;
+	}
+
+	.warn-banner ul {
+		margin: 8px 0 0 18px;
+	}
+
+	.error-banner {
+		background: #fef2f2;
+		border: 1px solid #fecaca;
+		color: #dc2626;
+		padding: 14px 18px;
+		margin-bottom: 20px;
+		max-width: 900px;
+		font-size: 14px;
+	}
+
+	.review-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		margin-bottom: 12px;
+		color: #0d0d0d;
+	}
+
+	.review-hint {
+		font-size: 14px;
+		color: #4b5563;
+		line-height: 1.5;
+		margin-bottom: 18px;
+		max-width: 820px;
+	}
+
+	.copy-toolbar {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 10px;
+		margin-bottom: 24px;
+		padding: 16px;
+		background: #f9fafb;
+		border: 1px solid #e5e7eb;
+	}
+
+	.copy-toast {
+		font-size: 13px;
+		color: #059669;
+		font-weight: 500;
+		font-family: 'Yantramanav', sans-serif;
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 16px;
+		margin-bottom: 16px;
+	}
+
+	.form-group label {
+		display: block;
+		font-size: 11px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #8c8c8c;
+		margin-bottom: 6px;
+		font-family: 'Yantramanav', sans-serif;
+	}
+
+	.form-group input,
+	.form-group select,
+	.form-group textarea {
+		width: 100%;
+		padding: 10px 12px;
+		border: 1px solid #e0e0e0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+	}
+
+	.form-group input:focus,
+	.form-group select:focus,
+	.form-group textarea:focus {
+		outline: none;
+		border-color: #fe5900;
+	}
+
+	.form-group.full {
+		margin-bottom: 16px;
+	}
+
+	.section-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #9ca3af;
+		margin: 24px 0 16px;
+		padding-top: 16px;
+		border-top: 1px solid #e5e7eb;
+	}
+
+	.form-actions {
+		margin-top: 20px;
+	}
+
+	.form-actions.spaced {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+
+	@media (max-width: 640px) {
+		.form-row {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

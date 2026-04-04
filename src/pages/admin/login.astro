@@ -3,8 +3,16 @@ export const prerender = false;
 
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import { getSession, setSessionCookies } from '../../lib/auth';
+import {
+	isCrmGateEnabled,
+	isPreviewModeMissingPassword,
+	verifyGatePasswordSubmitted,
+	setCrmGateCookie,
+} from '../../lib/crm-gate';
 
 const demoMode = !isSupabaseConfigured;
+const gateOn = isCrmGateEnabled();
+const previewBlocked = isPreviewModeMissingPassword();
 
 if (!demoMode) {
 	const session = await getSession(Astro.cookies);
@@ -16,25 +24,40 @@ if (!demoMode) {
 let error = '';
 
 if (Astro.request.method === 'POST') {
-	if (demoMode) {
-		// In demo mode, any login goes straight to dashboard
-		return Astro.redirect('/admin');
+	const formData = await Astro.request.formData();
+	const gatePassword = formData.get('gate_password') as string;
+
+	if (gateOn) {
+		if (!verifyGatePasswordSubmitted(gatePassword)) {
+			error = 'Invalid CRM password';
+		} else {
+			setCrmGateCookie(Astro.cookies);
+		}
 	}
 
-	const formData = await Astro.request.formData();
-	const email = formData.get('email') as string;
-	const password = formData.get('password') as string;
-
-	const { data, error: authError } = await supabase.auth.signInWithPassword({
-		email,
-		password,
-	});
-
-	if (authError || !data.session) {
-		error = authError?.message || 'Invalid credentials';
+	if (error) {
+		// gate failed — do not continue
+	} else if (demoMode) {
+		if (previewBlocked) {
+			error = 'Set CRM_SHARED_PASSWORD in your environment to sign in.';
+		} else {
+			return Astro.redirect('/admin');
+		}
 	} else {
-		setSessionCookies(Astro.cookies, data.session.access_token, data.session.refresh_token);
-		return Astro.redirect('/admin');
+		const email = formData.get('email') as string;
+		const password = formData.get('password') as string;
+
+		const { data, error: authError } = await supabase!.auth.signInWithPassword({
+			email,
+			password,
+		});
+
+		if (authError || !data.session) {
+			error = authError?.message || 'Invalid credentials';
+		} else {
+			setSessionCookies(Astro.cookies, data.session.access_token, data.session.refresh_token);
+			return Astro.redirect('/admin');
+		}
 	}
 }
 ---
@@ -60,18 +83,38 @@ if (Astro.request.method === 'POST') {
 
 			{demoMode && (
 				<div class="demo-banner">
-					<strong>Demo Mode</strong> — Supabase not connected yet. Click "Enter Demo" to preview the CRM with sample data.
+					{previewBlocked ? (
+						<>
+							<strong>Configuration needed</strong> — Supabase is not connected. Add <code>CRM_SHARED_PASSWORD</code> to your environment, then sign in with that password to open the CRM (sample data).
+						</>
+					) : (
+						<>
+							<strong>Preview</strong> — Supabase is not connected; you are using sample data. Sign in with your CRM password to continue.
+						</>
+					)}
 				</div>
 			)}
 
 			{error && <div class="error-msg">{error}</div>}
 
 			{demoMode ? (
+				previewBlocked ? null : (
 				<form method="POST">
-					<button type="submit" class="login-btn demo-btn">Enter Demo</button>
+					<div class="field">
+						<label for="gate_password">Password</label>
+						<input type="password" id="gate_password" name="gate_password" required autocomplete="current-password" placeholder="CRM password" />
+					</div>
+					<button type="submit" class="login-btn">Sign In</button>
 				</form>
+				)
 			) : (
 				<form method="POST">
+					{gateOn && (
+						<div class="field">
+							<label for="gate_password">CRM password</label>
+							<input type="password" id="gate_password" name="gate_password" required autocomplete="current-password" placeholder="Shared CRM password" />
+						</div>
+					)}
 					<div class="field">
 						<label for="email">Email</label>
 						<input type="email" id="email" name="email" required autocomplete="email" placeholder="you@playerstall.com" />
@@ -176,6 +219,7 @@ if (Astro.request.method === 'POST') {
 		width: 100%;
 		padding: 12px 14px;
 		border: 1px solid #e0e0e0;
+		border-radius: 0;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
 		color: #0d0d0d;
@@ -245,15 +289,9 @@ if (Astro.request.method === 'POST') {
 		letter-spacing: 0.08em;
 	}
 
-	.demo-btn {
-		background: #fe5900;
-		border-color: #fe5900;
-		font-size: 14px;
-		letter-spacing: 0.15em;
-	}
-
-	.demo-btn:hover {
-		background: #e04d00;
-		border-color: #e04d00;
+	.demo-banner code {
+		font-size: 12px;
+		background: #eeeeee;
+		padding: 2px 6px;
 	}
 </style>

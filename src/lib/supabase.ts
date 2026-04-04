@@ -107,6 +107,8 @@ export interface Client {
   sport: string | null;
   team_name: string | null;
   notes: string | null;
+  /** have_funds | need_funding | fundraising | unsure (room planner) */
+  fundraising_status: string | null;
   country: string | null;
   shipping_address: string | null;
   source: string;

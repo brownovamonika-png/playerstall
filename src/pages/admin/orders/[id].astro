@@ -3,6 +3,12 @@ export const prerender = false;
 
 import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { getSession } from '../../../lib/auth';
+import {
+	buildAccessoriesFromForm,
+	LOCKER_SPEC_ACCESSORY_ROWS,
+	parseAccessoriesField,
+} from '../../../lib/crm-locker-accessories';
+import { computeSiteListForOrderFields, getSitePricingClientPayload } from '../../../lib/crm-site-pricing';
 import { supabaseAdmin, STAGE_LABELS, STAGE_COLORS, STAGE_ORDER, type OrderStage } from '../../../lib/supabase';
 
 const session = await getSession(Astro.cookies);
@@ -35,9 +41,11 @@ if (Astro.request.method === 'POST') {
 	}
 
 	if (action === 'update_order') {
+		const estNoteRaw = String(form.get('estimate_customer_note') ?? '').trim();
 		const { error } = await supabaseAdmin.from('orders').update({
 			title: form.get('title') as string,
 			description: (form.get('description') as string) || null,
+			estimate_customer_note: estNoteRaw || null,
 			estimate_number: (form.get('estimate_number') as string) || null,
 			invoice_number: (form.get('invoice_number') as string) || null,
 			quoted_amount: form.get('quoted_amount') ? Number(form.get('quoted_amount')) : null,
@@ -45,7 +53,7 @@ if (Astro.request.method === 'POST') {
 			locker_size: (form.get('locker_size') as string) || null,
 			locker_width: (form.get('locker_width') as string) || null,
 			locker_color: (form.get('locker_color') as string) || null,
-			accessories: (form.get('accessories') as string) || null,
+			accessories: buildAccessoriesFromForm(form),
 			quantity: form.get('quantity') ? Number(form.get('quantity')) : null,
 			assigned_to: (form.get('assigned_to') as string) || null,
 			estimated_completion: (form.get('estimated_completion') as string) || null,
@@ -77,9 +85,10 @@ if (Astro.request.method === 'POST') {
 			if (uploadError) {
 				formMessage = `Upload error: ${uploadError.message}`;
 			} else {
+				const { data: orderRow } = await supabaseAdmin.from('orders').select('client_id').eq('id', id).single();
 				await supabaseAdmin.from('documents').insert({
 					order_id: id,
-					client_id: order ? (await supabaseAdmin.from('orders').select('client_id').eq('id', id).single()).data?.client_id : null,
+					client_id: orderRow?.client_id ?? null,
 					file_name: file.name,
 					file_type: file.type,
 					file_size: file.size,
@@ -130,9 +139,123 @@ const [
 ]);
 
 const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
+
+const safeStageHistory = stageHistory ?? [];
+const safeDocuments = documents ?? [];
+
+const DOC_TYPE_LABELS: Record<string, string> = {
+	invoice: 'Invoice',
+	quote: 'Quote',
+	design: 'Design / drawing',
+	room_plan: 'Room plan',
+	layout: 'Locker layout',
+	spec_sheet: 'Spec sheet',
+	contract: 'Contract',
+	photo: 'Photo',
+	other: 'Other',
+};
+
+const layoutDocTypes = new Set(['layout', 'room_plan', 'design']);
+const latestLayoutDoc = [...safeDocuments]
+	.filter((d) => layoutDocTypes.has(d.doc_type))
+	.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0];
+
+const latestLayoutPublicUrl = latestLayoutDoc
+	? supabaseAdmin.storage.from('documents').getPublicUrl(latestLayoutDoc.storage_path).data.publicUrl
+	: null;
+
+type MergedT =
+	| { kind: 'created'; t: number; title: string }
+	| { kind: 'stage'; t: number; entry: (typeof safeStageHistory)[number] }
+	| { kind: 'file'; t: number; doc: (typeof safeDocuments)[number] }
+	| { kind: 'date'; t: number; label: string; dateStr: string };
+
+const mergedTimeline: MergedT[] = [];
+mergedTimeline.push({ kind: 'created', t: new Date(order.created_at).getTime(), title: order.title });
+for (const e of safeStageHistory) {
+	mergedTimeline.push({ kind: 'stage', t: new Date(e.created_at).getTime(), entry: e });
+}
+for (const d of safeDocuments) {
+	mergedTimeline.push({ kind: 'file', t: new Date(d.created_at).getTime(), doc: d });
+}
+if (order.estimated_completion) {
+	mergedTimeline.push({
+		kind: 'date',
+		t: new Date(order.estimated_completion + 'T12:00:00').getTime(),
+		label: 'Target completion',
+		dateStr: order.estimated_completion,
+	});
+}
+if (order.completed_date) {
+	mergedTimeline.push({
+		kind: 'date',
+		t: new Date(order.completed_date + 'T12:00:00').getTime(),
+		label: 'Completed (date)',
+		dateStr: order.completed_date,
+	});
+}
+mergedTimeline.sort((a, b) => a.t - b.t);
+
+const accParsed = parseAccessoriesField(order.accessories);
+
+const siteListLine = computeSiteListForOrderFields({
+	locker_type: order.locker_type,
+	locker_size: order.locker_size,
+	quantity: order.quantity,
+	accessoryQuantities: accParsed.quantities,
+});
+
+const sitePricingPayloadJson = JSON.stringify(getSitePricingClientPayload());
+
+const hasSavedQuotedAmount =
+	order.quoted_amount != null && !Number.isNaN(Number(order.quoted_amount));
+
+function lockerTypeOptionSelected(stored: string | null | undefined, value: string): boolean {
+	const o = String(stored ?? '').trim();
+	if (value === 'Pro Locker') return o === 'Pro Locker' || o === 'Pro';
+	if (value === 'Stadium Locker') return o === 'Stadium Locker' || o === 'Stadium';
+	return o === value;
+}
+
+/** Strip trailing " × 60" / " x 60" so the page title stays clean; quantity shows in the header metrics row. */
+function orderPageDisplayTitle(raw: string): string {
+	const t = raw.trim();
+	const m = t.match(/^(.+?)\s+[×x]\s*\d+\s*$/i);
+	return m ? m[1].trim() : t;
+}
+
+const orderHeaderTitle = orderPageDisplayTitle(order.title);
+const qtyDisplay =
+	order.quantity != null && !Number.isNaN(Number(order.quantity))
+		? Number(order.quantity).toLocaleString()
+		: '—';
 ---
 
-<AdminLayout title={order.title} activeNav="pipeline">
+<AdminLayout title={orderHeaderTitle} activeNav="pipeline">
+	<Fragment slot="header-sub">
+		<div class="order-header-metrics">
+			<div class="order-header-metric">
+				<span class="order-header-metric-label">Locker type</span>
+				<span class="order-header-metric-value">{order.locker_type?.trim() || '—'}</span>
+			</div>
+			<div class="order-header-metric">
+				<span class="order-header-metric-label">Quantity</span>
+				<span class="order-header-metric-value">{qtyDisplay}</span>
+			</div>
+			<div class="order-header-metric">
+				<span class="order-header-metric-label">Width</span>
+				<span class="order-header-metric-value">{order.locker_size?.trim() || '—'}</span>
+			</div>
+			<div class="order-header-metric">
+				<span class="order-header-metric-label">Depth</span>
+				<span class="order-header-metric-value">{order.locker_width?.trim() || '—'}</span>
+			</div>
+			<div class="order-header-metric">
+				<span class="order-header-metric-label">Color</span>
+				<span class="order-header-metric-value">{order.locker_color?.trim() || '—'}</span>
+			</div>
+		</div>
+	</Fragment>
 	<Fragment slot="header-actions">
 		<a href={`/admin/clients/${client.id}`} class="btn btn-secondary btn-sm">View Client</a>
 	</Fragment>
@@ -143,6 +266,7 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 		</div>
 	)}
 
+	<div class="order-page-content">
 	<!-- Stage Progress Bar -->
 	<div class="card stage-card">
 		<div class="stage-progress">
@@ -173,12 +297,24 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 		</div>
 	</div>
 
+	{latestLayoutDoc && latestLayoutPublicUrl && (
+		<div class="card layout-highlight-card">
+			<h3>Latest layout / drawing</h3>
+			<p class="layout-highlight-hint">Newer uploads of type Layout, Room plan, or Design appear here so the team always has the current drawing.</p>
+			<div class="layout-highlight-row">
+				<span class="badge layout-badge">{DOC_TYPE_LABELS[latestLayoutDoc.doc_type] || latestLayoutDoc.doc_type}</span>
+				<a href={latestLayoutPublicUrl} target="_blank" rel="noopener noreferrer" class="layout-highlight-link">{latestLayoutDoc.file_name}</a>
+				<span class="layout-highlight-meta">{new Date(latestLayoutDoc.created_at).toLocaleString()}</span>
+			</div>
+		</div>
+	)}
+
 	<div class="order-layout">
 		<!-- Left: Order Details -->
 		<div class="order-sidebar">
 			<div class="card">
 				<h3>Order Details</h3>
-				<form method="POST">
+				<form method="POST" class="order-details-form">
 					<input type="hidden" name="action" value="update_order" />
 					<div class="form-group">
 						<label>Title</label>
@@ -187,6 +323,20 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 					<div class="form-group">
 						<label>Description</label>
 						<textarea name="description" rows="3">{order.description || ''}</textarea>
+					</div>
+					<div class="form-group order-estimate-customer-note">
+						<label for="estimate-customer-note">Note for customer (printed estimate / invoice)</label>
+						<textarea
+							id="estimate-customer-note"
+							name="estimate_customer_note"
+							rows="10"
+							class="order-estimate-customer-note-input"
+							placeholder="Thank you for your inquiry. This estimate includes… Lead time… Anything you want the customer to read on the PDF goes here. Standard legal text still prints at the bottom of the document."
+						>{(order as { estimate_customer_note?: string | null }).estimate_customer_note || ''}</textarea>
+						<span class="field-hint">
+							Prints on the PDF <strong>under</strong> the locker count line (e.g. “60 lockers”), still inside the order
+							summary. Leave blank if you do not need a custom message.
+						</span>
 					</div>
 					<div class="form-group">
 						<label>Estimate #</label>
@@ -197,57 +347,142 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 						<input type="text" name="invoice_number" value={order.invoice_number || ''} placeholder="e.g. INV-1088" />
 					</div>
 					<div class="form-group">
-						<label>Quoted Amount ($)</label>
-						<input type="number" name="quoted_amount" step="0.01" value={order.quoted_amount || ''} />
+						<label for="order-quoted-amount">Quoted amount (USD)</label>
+						<input
+							type="number"
+							id="order-quoted-amount"
+							name="quoted_amount"
+							step="0.01"
+							min="0"
+							placeholder={siteListLine ? `Site list: ${siteListLine.total.toFixed(2)}` : 'Set locker type, width, qty, then use button below'}
+							value={
+								hasSavedQuotedAmount
+									? String(Number(order.quoted_amount))
+									: siteListLine
+										? String(siteListLine.total)
+										: ''
+							}
+						/>
+						{siteListLine && (
+							<span class="field-hint order-quoted-hint">
+								Site list (saved fields):{' '}
+								<strong>${siteListLine.basePerLocker.toFixed(2)}</strong> list per locker
+								{siteListLine.accessoriesPerLocker > 0 ? (
+									<>
+										{' '}
+										+ <strong>${siteListLine.accessoriesPerLocker.toFixed(2)}</strong> add-ons per locker
+									</>
+								) : null}{' '}
+								= <strong>${siteListLine.perLocker.toFixed(2)}</strong> per locker ×{' '}
+								<strong>{Math.max(1, Math.floor(Number(order.quantity) || 1))}</strong> ={' '}
+								<strong>${siteListLine.total.toFixed(2)}</strong> USD project total. The shop price (e.g. $599 for Pro
+								24″) is <em>one locker</em>; multiply by quantity for the full order. You can still edit quoted
+								amount — use <strong>Use site list price</strong> under Locker specifications after changing specs.
+							</span>
+						)}
+						{!siteListLine && (
+							<span class="field-hint order-quoted-hint">
+								Choose a catalog locker type and a valid width (18–32″) to auto-fill from the shop price list.
+							</span>
+						)}
 					</div>
-					<div class="form-group">
-						<label>Locker Type</label>
-						<select name="locker_type">
-							<option value="">Select...</option>
-							<option value="Model L" selected={order.locker_type === 'Model L'}>Model L</option>
-							<option value="Model S" selected={order.locker_type === 'Model S'}>Model S</option>
-							<option value="Model Z" selected={order.locker_type === 'Model Z'}>Model Z</option>
-							<option value="Model X" selected={order.locker_type === 'Model X'}>Model X</option>
-							<option value="Semi Pro" selected={order.locker_type === 'Semi Pro'}>Semi Pro</option>
-							<option value="Varsity" selected={order.locker_type === 'Varsity'}>Varsity</option>
-							<option value="Pro" selected={order.locker_type === 'Pro'}>Pro</option>
-							<option value="Stadium" selected={order.locker_type === 'Stadium'}>Stadium</option>
-							<option value="Custom" selected={order.locker_type === 'Custom'}>Custom</option>
-						</select>
+					<div class="order-spec-panel">
+					<p class="order-spec-section-label">Locker specifications</p>
+					<div class="order-spec-fields">
+						<div class="form-group">
+							<label>Locker type</label>
+							<select name="locker_type" id="order-locker-type">
+								<option value="">Select...</option>
+								<option value="Model L" selected={lockerTypeOptionSelected(order.locker_type, 'Model L')}>Model L</option>
+								<option value="Model S" selected={lockerTypeOptionSelected(order.locker_type, 'Model S')}>Model S</option>
+								<option value="Model Z" selected={lockerTypeOptionSelected(order.locker_type, 'Model Z')}>Model Z</option>
+								<option value="Model X" selected={lockerTypeOptionSelected(order.locker_type, 'Model X')}>Model X</option>
+								<option value="Semi Pro" selected={lockerTypeOptionSelected(order.locker_type, 'Semi Pro')}>Semi Pro</option>
+								<option value="Varsity" selected={lockerTypeOptionSelected(order.locker_type, 'Varsity')}>Varsity</option>
+								<option value="Pro Locker" selected={lockerTypeOptionSelected(order.locker_type, 'Pro Locker')}>Pro Locker</option>
+								<option value="Stadium Locker" selected={lockerTypeOptionSelected(order.locker_type, 'Stadium Locker')}>Stadium Locker</option>
+								<option value="Custom" selected={lockerTypeOptionSelected(order.locker_type, 'Custom')}>Custom</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Quantity</label>
+							<input type="number" name="quantity" min="1" placeholder="e.g. 60" value={order.quantity ?? ''} />
+							<span class="field-hint">Number of lockers. Site total = (per-locker list + per-locker accessories) × this.</span>
+						</div>
+						<div class="form-group">
+							<label>Width</label>
+							<input type="text" name="locker_size" value={order.locker_size || ''} placeholder='e.g. 24"' />
+						</div>
+						<div class="form-group">
+							<label>Depth</label>
+							<input type="text" name="locker_width" value={order.locker_width || ''} placeholder='e.g. 19" or 24"' />
+						</div>
+						<div class="form-group order-spec-full">
+							<label>Color</label>
+							<input type="text" name="locker_color" value={order.locker_color || ''} placeholder="e.g. Natural Oak, Dark Walnut" />
+						</div>
 					</div>
-					<div class="form-group">
-						<label>Width</label>
-						<input type="text" name="locker_size" value={order.locker_size || ''} placeholder='e.g. 24"' />
+					<div class="order-spec-price-actions">
+						<button type="button" class="btn btn-secondary btn-sm" id="fill-site-list-price-btn">
+							Use site list price
+						</button>
+						<span class="order-site-list-live-hint field-hint" id="order-site-list-live-hint" />
 					</div>
-					<div class="form-group">
-						<label>Depth</label>
-						<input type="text" name="locker_width" value={order.locker_width || ''} placeholder='e.g. 18"' />
 					</div>
-					<div class="form-group">
-						<label>Color</label>
-						<input type="text" name="locker_color" value={order.locker_color || ''} placeholder="e.g. Natural Oak, Dark Walnut" />
+					<p class="order-spec-section-label order-spec-section-label--after-panel">Accessories</p>
+					<span class="field-hint order-accessories-hint">
+						Same line items as locker PDF spec sheets. Prefer <strong>per locker</strong> counts (e.g. 1 name plate each).
+						If you enter a <strong>total</strong> that divides evenly by locker quantity (e.g. 60 hooks for 60 lockers), the
+						site list treats it as 1 per locker automatically.
+					</span>
+					<div class="order-accessories-table-wrap">
+						<table class="order-accessories-table">
+							<thead>
+								<tr>
+									<th scope="col">Accessory</th>
+									<th scope="col" class="order-accessories-th-qty">Qty</th>
+								</tr>
+							</thead>
+							<tbody>
+								{LOCKER_SPEC_ACCESSORY_ROWS.map((row) => (
+									<tr>
+										<td class="order-accessories-td-name">{row.label}</td>
+										<td class="order-accessories-td-qty">
+											<label class="visually-hidden" for={`acc_qty_${row.id}`}>Quantity — {row.label}</label>
+											<input
+												type="number"
+												id={`acc_qty_${row.id}`}
+												name={`acc_qty_${row.id}`}
+												class="order-accessory-qty-input"
+												min="0"
+												step="1"
+												placeholder="0"
+												value={accParsed.quantities[row.id] > 0 ? accParsed.quantities[row.id] : ''}
+											/>
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
 					</div>
-					<div class="form-group">
-						<label>Accessories</label>
-						<input type="text" name="accessories" value={order.accessories || ''} placeholder="e.g. Name plates, hooks, shelves" />
-					</div>
-					<div class="form-group">
-						<label>Quantity</label>
-						<input type="number" name="quantity" min="1" value={order.quantity || ''} />
+					<div class="form-group order-spec-full">
+						<label>Other accessories / notes</label>
+						<textarea name="accessories_notes" rows="2" placeholder="e.g. Corner units (6), black vs silver, extra hook count per locker">{accParsed.notes}</textarea>
 					</div>
 					<div class="form-group">
 						<label>Assigned To</label>
 						<input type="text" name="assigned_to" value={order.assigned_to || ''} />
 					</div>
 					<div class="form-group">
-						<label>Est. Completion</label>
+						<label>Est. completion</label>
 						<input type="date" name="estimated_completion" value={order.estimated_completion || ''} />
+						<span class="field-hint">Shows on the project timeline and helps track production timing.</span>
 					</div>
 					<div class="form-group">
-						<label>Completed Date</label>
+						<label>Completed date</label>
 						<input type="date" name="completed_date" value={order.completed_date || ''} />
 					</div>
-					<button type="submit" class="btn btn-primary btn-sm" style="width:100%">Save Changes</button>
+					<button type="submit" class="btn btn-primary btn-sm order-form-submit">Save Changes</button>
 				</form>
 			</div>
 
@@ -280,30 +515,79 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 
 		<!-- Right: Timeline, Notes, Files -->
 		<div class="order-main">
-			<!-- Stage Timeline -->
+			<!-- Unified project timeline: stages + files + schedule -->
 			<div class="card">
-				<h3>Timeline</h3>
-				{stageHistory && stageHistory.length > 0 ? (
-					<div class="timeline">
-						{stageHistory.map((entry: any) => (
-							<div class="timeline-item">
-								<div class="timeline-dot" style={`background: ${STAGE_COLORS[entry.to_stage as OrderStage]}`} />
-								<div class="timeline-content">
-									<div class="timeline-header">
-										{entry.from_stage ? (
-											<span>{STAGE_LABELS[entry.from_stage as OrderStage]} → <strong style={`color: ${STAGE_COLORS[entry.to_stage as OrderStage]}`}>{STAGE_LABELS[entry.to_stage as OrderStage]}</strong></span>
-										) : (
-											<span>Created as <strong style={`color: ${STAGE_COLORS[entry.to_stage as OrderStage]}`}>{STAGE_LABELS[entry.to_stage as OrderStage]}</strong></span>
-										)}
+				<h3>Project timeline</h3>
+				<p class="timeline-intro">Everything in order: pipeline moves, file uploads (layouts, spec sheets, quotes), and target dates.</p>
+				{mergedTimeline.length > 0 ? (
+					<div class="timeline merged-timeline">
+						{mergedTimeline.map((item) => {
+							if (item.kind === 'created') {
+								return (
+									<div class="timeline-item merged-item merged-created">
+										<div class="timeline-dot" style="background: #6366f1" />
+										<div class="timeline-content">
+											<div class="timeline-header"><strong>Order opened</strong></div>
+											<p class="timeline-notes">{item.title}</p>
+											<span class="timeline-meta">{new Date(item.t).toLocaleString()}</span>
+										</div>
 									</div>
-									{entry.notes && <p class="timeline-notes">{entry.notes}</p>}
-									<span class="timeline-meta">{entry.changed_by || 'System'} · {new Date(entry.created_at).toLocaleString()}</span>
+								);
+							}
+							if (item.kind === 'stage') {
+								const entry = item.entry;
+								return (
+									<div class="timeline-item merged-item">
+										<div class="timeline-dot" style={`background: ${STAGE_COLORS[entry.to_stage as OrderStage]}`} />
+										<div class="timeline-content">
+											<div class="timeline-header">
+												<span class="merged-kind">Stage</span>
+												{entry.from_stage ? (
+													<span>{STAGE_LABELS[entry.from_stage as OrderStage]} → <strong style={`color: ${STAGE_COLORS[entry.to_stage as OrderStage]}`}>{STAGE_LABELS[entry.to_stage as OrderStage]}</strong></span>
+												) : (
+													<span>Set to <strong style={`color: ${STAGE_COLORS[entry.to_stage as OrderStage]}`}>{STAGE_LABELS[entry.to_stage as OrderStage]}</strong></span>
+												)}
+											</div>
+											{entry.notes && <p class="timeline-notes">{entry.notes}</p>}
+											<span class="timeline-meta">{entry.changed_by || 'System'} · {new Date(entry.created_at).toLocaleString()}</span>
+										</div>
+									</div>
+								);
+							}
+							if (item.kind === 'file') {
+								const doc = item.doc;
+								const { data: urlData } = supabaseAdmin.storage.from('documents').getPublicUrl(doc.storage_path);
+								const href = urlData?.publicUrl || '#';
+								return (
+									<div class="timeline-item merged-item merged-file">
+										<div class="timeline-dot" style="background: #0d9488" />
+										<div class="timeline-content">
+											<div class="timeline-header">
+												<span class="merged-kind">File</span>
+												<span class="badge" style="background: #ecfdf5; color: #0f766e; font-size: 10px">{DOC_TYPE_LABELS[doc.doc_type] || doc.doc_type}</span>
+											</div>
+											<p class="timeline-notes">
+												<a href={href} target="_blank" rel="noopener noreferrer">{doc.file_name}</a>
+												{doc.uploaded_by && <span class="file-by"> · {doc.uploaded_by}</span>}
+											</p>
+											<span class="timeline-meta">{new Date(doc.created_at).toLocaleString()}</span>
+										</div>
+									</div>
+								);
+							}
+							return (
+								<div class="timeline-item merged-item merged-milestone">
+									<div class="timeline-dot" style="background: #f59e0b" />
+									<div class="timeline-content">
+										<div class="timeline-header"><strong>{item.label}</strong></div>
+										<p class="timeline-notes">{item.dateStr}</p>
+									</div>
 								</div>
-							</div>
-						))}
+							);
+						})}
 					</div>
 				) : (
-					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No stage changes yet</p>
+					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No activity yet</p>
 				)}
 			</div>
 
@@ -357,24 +641,27 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 				)}
 			</div>
 
-			<!-- Documents / Invoices -->
+			<!-- Documents: layouts, specs, quotes, invoices (stored on order — follows project) -->
 			<div class="card">
-				<h3>Documents & Invoices</h3>
+				<h3>Project files</h3>
+				<p class="docs-intro">Upload locker layouts, room plans, spec sheets, quotes, and invoices. They stay on this order and appear in the timeline above.</p>
 				<form method="POST" enctype="multipart/form-data" class="upload-form">
 					<input type="hidden" name="action" value="upload_document" />
 					<div class="upload-row">
 						<select name="doc_type" class="upload-select">
-							<option value="invoice">Invoice (QBO)</option>
+							<option value="layout">Locker layout (CAD / PDF)</option>
+							<option value="room_plan">Room plan</option>
+							<option value="design">Design / drawing</option>
+							<option value="spec_sheet">Spec sheet</option>
 							<option value="quote">Quote</option>
-							<option value="design">Design / Drawing</option>
-							<option value="room_plan">Room Plan</option>
+							<option value="invoice">Invoice (e.g. QBO)</option>
 							<option value="contract">Contract</option>
 							<option value="photo">Photo</option>
 							<option value="other">Other</option>
 						</select>
 						<label class="upload-btn btn btn-sm btn-secondary">
 							Choose File
-							<input type="file" name="file" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx,.xls,.xlsx" style="display:none" onchange="this.closest('.upload-row').querySelector('.upload-filename').textContent = this.files[0]?.name || 'No file chosen'" />
+							<input type="file" name="file" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx,.xls,.xlsx,.dwg" style="display:none" onchange="this.closest('.upload-row').querySelector('.upload-filename').textContent = this.files[0]?.name || 'No file chosen'" />
 						</label>
 						<span class="upload-filename">No file chosen</span>
 						<button type="submit" class="btn btn-sm btn-primary">Upload</button>
@@ -386,15 +673,6 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 							const { data: urlData } = supabaseAdmin.storage.from('documents').getPublicUrl(doc.storage_path);
 							const fileUrl = urlData?.publicUrl || '#';
 							const sizeKB = doc.file_size ? `${(doc.file_size / 1024).toFixed(0)} KB` : '';
-							const typeLabel = {
-								invoice: 'Invoice',
-								quote: 'Quote',
-								design: 'Design',
-								room_plan: 'Room Plan',
-								contract: 'Contract',
-								photo: 'Photo',
-								other: 'Other',
-							};
 							return (
 								<div class="doc-item">
 									<div class="doc-icon">
@@ -407,7 +685,7 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 									<div class="doc-info">
 										<a href={fileUrl} target="_blank" rel="noopener noreferrer" class="doc-name">{doc.file_name}</a>
 										<span class="doc-meta">
-											<span class="badge" style="background: #f3f4f6; color: #6b7280; font-size: 10px">{typeLabel[doc.doc_type] || doc.doc_type}</span>
+											<span class="badge" style="background: #f3f4f6; color: #6b7280; font-size: 10px">{DOC_TYPE_LABELS[doc.doc_type] || doc.doc_type}</span>
 											{sizeKB && <span>{sizeKB}</span>}
 											<span>{new Date(doc.created_at).toLocaleDateString()}</span>
 											{doc.uploaded_by && <span>by {doc.uploaded_by}</span>}
@@ -425,7 +703,7 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 						})}
 					</div>
 				) : (
-					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No documents uploaded yet. Upload invoices from QBO, designs, contracts, or room plans.</p>
+					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No files yet — add layouts, spec sheets, quotes, or invoices.</p>
 				)}
 			</div>
 
@@ -448,9 +726,128 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 			</div>
 		</div>
 	</div>
+	</div>
+
+	<script type="application/json" id="ps-order-site-pricing-json" set:html={sitePricingPayloadJson} />
+	<script is:inline>
+		document.addEventListener('DOMContentLoaded', function () {
+			var jsonEl = document.getElementById('ps-order-site-pricing-json');
+			var form = document.querySelector('.order-details-form');
+			var quotedInput = document.getElementById('order-quoted-amount');
+			var hintEl = document.getElementById('order-site-list-live-hint');
+			var fillBtn = document.getElementById('fill-site-list-price-btn');
+			if (!jsonEl || !jsonEl.textContent || !form || !quotedInput) return;
+			var SITE = JSON.parse(jsonEl.textContent);
+
+			function parseWidth(raw) {
+				if (raw == null || String(raw).trim() === '') return null;
+				var m = String(raw).trim().match(/^(\d+)/);
+				if (!m) return null;
+				var w = parseInt(m[1], 10);
+				return SITE.widths.indexOf(w) >= 0 ? w : null;
+			}
+
+			function computeLive() {
+				var modelEl = form.querySelector('[name="locker_type"]');
+				var widthEl = form.querySelector('[name="locker_size"]');
+				var qtyEl = form.querySelector('[name="quantity"]');
+				var model = modelEl && modelEl.value ? modelEl.value : '';
+				if (!model || model === 'Custom') return null;
+				var w = parseWidth(widthEl && widthEl.value);
+				var qty = Math.max(1, parseInt(qtyEl && qtyEl.value ? qtyEl.value : '1', 10) || 1);
+				if (w == null) return null;
+				var mod = SITE.models.find(function (x) {
+					return x.value === model;
+				});
+				if (!mod || typeof mod.prices[w] !== 'number') return null;
+				var base = mod.prices[w];
+				var acc = 0;
+				function normAccQty(n, lockerCount) {
+					var nint = Math.max(0, Math.floor(Number(n)) || 0);
+					var L = Math.max(1, lockerCount);
+					if (L > 1 && nint >= L && nint % L === 0) return nint / L;
+					return nint;
+				}
+				for (var i = 0; i < SITE.accessoryIds.length; i++) {
+					var id = SITE.accessoryIds[i];
+					var inp = form.querySelector('[name="acc_qty_' + id + '"]');
+					var raw = Math.max(0, parseInt(inp && inp.value ? inp.value : '0', 10) || 0);
+					var n = normAccQty(raw, qty);
+					if (n > 0) acc += (SITE.accessoryUsd[id] || 0) * n;
+				}
+				var per = Math.round((base + acc) * 100) / 100;
+				var total = Math.round(per * qty * 100) / 100;
+				return { per: per, total: total, qty: qty };
+			}
+
+			function refreshHint() {
+				if (!hintEl) return;
+				var out = computeLive();
+				if (!out) {
+					hintEl.textContent = 'Select a catalog locker type and width (18–32″) to see the site list total.';
+					return;
+				}
+				var modelEl = form.querySelector('[name="locker_type"]');
+				var widthEl = form.querySelector('[name="locker_size"]');
+				var model = modelEl && modelEl.value ? modelEl.value : '';
+				var w = parseWidth(widthEl && widthEl.value);
+				var mod = SITE.models.find(function (x) {
+					return x.value === model;
+				});
+				var base = mod && w != null && typeof mod.prices[w] === 'number' ? mod.prices[w] : 0;
+				var acc = Math.round((out.per - base) * 100) / 100;
+				var accPart = acc > 0 ? ' + $' + acc.toFixed(2) + ' add-ons each' : '';
+				hintEl.textContent =
+					'Site list: $' +
+					base.toFixed(2) +
+					' list each' +
+					accPart +
+					' = $' +
+					out.per.toFixed(2) +
+					' per locker × ' +
+					out.qty +
+					' = $' +
+					out.total.toFixed(2) +
+					' project total (shop shows one-locker list; × qty for full order). Button copies total into Quoted amount.';
+			}
+
+			if (fillBtn) {
+				fillBtn.addEventListener('click', function () {
+					var out = computeLive();
+					if (!out) {
+						alert('Choose a locker type from the price list and a valid width (e.g. 24") first.');
+						return;
+					}
+					quotedInput.value = String(out.total.toFixed(2));
+					quotedInput.dispatchEvent(new Event('input', { bubbles: true }));
+				});
+			}
+
+			form.addEventListener('change', refreshHint);
+			form.addEventListener('input', refreshHint);
+			refreshHint();
+		});
+	</script>
+
 </AdminLayout>
 
 <style>
+	.order-page-content {
+		width: 100%;
+		max-width: 1320px;
+		margin-left: auto;
+		margin-right: auto;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.order-page-content .stage-card,
+	.order-page-content .layout-highlight-card {
+		margin-bottom: 0;
+	}
+
 	.stage-card {
 		margin-bottom: 24px;
 	}
@@ -527,7 +924,7 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 	.stage-select {
 		padding: 6px 12px;
 		border: 1px solid #d1d5db;
-		border-radius: 8px;
+		border-radius: 0;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
 	}
@@ -536,22 +933,53 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 		flex: 1;
 		padding: 6px 12px;
 		border: 1px solid #d1d5db;
-		border-radius: 8px;
+		border-radius: 0;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
 	}
 
 	.order-layout {
 		display: grid;
-		grid-template-columns: 320px 1fr;
-		gap: 24px;
+		grid-template-columns: minmax(340px, 42%) minmax(0, 1fr);
+		gap: 28px;
 		align-items: start;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
 	.order-sidebar {
 		display: flex;
 		flex-direction: column;
 		gap: 20px;
+		min-width: 0;
+	}
+
+	.order-sidebar .card,
+	.order-main .card {
+		padding-left: 28px;
+		padding-right: 28px;
+	}
+
+	.order-details-form .form-group input,
+	.order-details-form .form-group select,
+	.order-details-form .form-group textarea {
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.order-details-form .order-form-submit {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		box-sizing: border-box;
+		margin-top: 4px;
+	}
+
+	.order-estimate-customer-note-input {
+		min-height: 220px;
+		line-height: 1.55;
+		font-size: 14px;
+		resize: vertical;
 	}
 
 	.order-sidebar h3,
@@ -644,6 +1072,307 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 		color: #9ca3af;
 	}
 
+	.timeline-intro,
+	.docs-intro,
+	.layout-highlight-hint {
+		font-size: 13px;
+		color: #6b7280;
+		margin: 0 0 12px 0;
+		line-height: 1.5;
+	}
+
+	.timeline-intro {
+		margin-top: -6px;
+	}
+
+	.layout-highlight-card {
+		margin-bottom: 20px;
+		border-left: 4px solid #0d9488;
+	}
+
+	.layout-highlight-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.layout-highlight-link {
+		color: #fe5900;
+		font-weight: 600;
+		text-decoration: none;
+		font-size: 14px;
+	}
+
+	.layout-highlight-link:hover {
+		text-decoration: underline;
+	}
+
+	.layout-badge {
+		background: #ecfdf5 !important;
+		color: #0f766e !important;
+	}
+
+	.layout-highlight-meta {
+		font-size: 12px;
+		color: #9ca3af;
+		margin-left: auto;
+	}
+
+	.merged-item .timeline-header {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.merged-kind {
+		font-size: 10px;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #9ca3af;
+		font-weight: 600;
+	}
+
+	.file-by {
+		color: #9ca3af;
+		font-size: 13px;
+	}
+
+	.field-hint {
+		display: block;
+		font-size: 12px;
+		color: #9ca3af;
+		margin-top: 4px;
+		line-height: 1.4;
+	}
+
+	.order-accessories-hint {
+		margin-bottom: 12px;
+	}
+
+	.order-spec-panel {
+		border: 1px solid #e8e8e8;
+		border-radius: 0;
+		padding: 18px 20px 4px;
+		background: linear-gradient(180deg, #fcfcfc 0%, #f7f7f8 100%);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+		margin: 4px 0 18px 0;
+		box-sizing: border-box;
+	}
+
+	.order-spec-panel .order-spec-section-label {
+		margin-top: 0;
+		margin-bottom: 12px;
+		color: #6b7280;
+	}
+
+	.order-spec-price-actions {
+		margin-top: 12px;
+		padding-top: 14px;
+		border-top: 1px solid #e5e7eb;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.order-site-list-live-hint {
+		margin: 0;
+		flex: 1;
+		min-width: 180px;
+		color: #4b5563;
+		font-size: 12px;
+		line-height: 1.45;
+	}
+
+	.order-quoted-hint {
+		display: block;
+		margin-top: 6px;
+	}
+
+	.order-spec-section-label--after-panel {
+		margin-top: 4px;
+	}
+
+	.order-accessories-table-wrap {
+		border: 1px solid #e5e7eb;
+		border-radius: 0;
+		overflow: hidden;
+		background: #ffffff;
+		margin-bottom: 14px;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+		width: 100%;
+		max-width: 100%;
+		box-sizing: border-box;
+	}
+
+	.order-accessories-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-family: 'Yantramanav', sans-serif;
+	}
+
+	.order-accessories-table thead th {
+		text-align: left;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.09em;
+		color: #6b7280;
+		padding: 12px 16px;
+		background: #f3f4f6;
+		border-bottom: 1px solid #e5e7eb;
+	}
+
+	.order-accessories-table .order-accessories-th-qty {
+		width: 96px;
+		text-align: right;
+		vertical-align: middle;
+	}
+
+	.order-accessories-table tbody td {
+		padding: 12px 16px;
+		border-bottom: 1px solid #f0f0f0;
+		vertical-align: middle;
+	}
+
+	.order-accessories-table tbody tr:nth-child(even) {
+		background: #fafafa;
+	}
+
+	.order-accessories-table tbody tr:last-child td {
+		border-bottom: none;
+	}
+
+	.order-accessories-td-name {
+		font-size: 14px;
+		line-height: 1.45;
+		color: #0d0d0d;
+		padding-right: 20px;
+	}
+
+	.order-accessories-td-qty {
+		text-align: right;
+		width: 96px;
+		vertical-align: middle;
+	}
+
+	.order-accessory-qty-input {
+		width: 100%;
+		max-width: 84px;
+		margin-left: auto;
+		display: block;
+		padding: 10px 12px;
+		border: 1px solid #d1d5db;
+		border-radius: 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		font-weight: 500;
+		text-align: center;
+		color: #0d0d0d;
+		background: #fff;
+		box-sizing: border-box;
+		min-height: 42px;
+		transition: border-color 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.order-accessory-qty-input:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 3px rgba(254, 89, 0, 0.12);
+	}
+
+	.order-accessory-qty-input::placeholder {
+		color: #c4c4c4;
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.order-header-metrics {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-top: 16px;
+		padding-top: 16px;
+		border-top: 1px solid #ececec;
+	}
+
+	.order-header-metric {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		min-width: 108px;
+		flex: 1 1 108px;
+		max-width: 160px;
+		padding: 10px 14px;
+		background: #f9fafb;
+		border: 1px solid #ebebeb;
+		border-radius: 0;
+	}
+
+	.order-header-metric-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 10px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #8c8c8c;
+	}
+
+	.order-header-metric-value {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		color: #0d0d0d;
+	}
+
+	.order-spec-section-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #8c8c8c;
+		margin: 8px 0 4px 0;
+	}
+
+	.order-spec-fields {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0 18px;
+		margin-bottom: 4px;
+		align-items: start;
+	}
+
+	.order-spec-fields .form-group {
+		margin-bottom: 16px;
+	}
+
+	.order-spec-fields .form-group label {
+		margin-bottom: 8px;
+	}
+
+	.order-spec-full {
+		grid-column: 1 / -1;
+	}
+
+	@media (max-width: 520px) {
+		.order-spec-fields {
+			grid-template-columns: 1fr;
+		}
+	}
+
 	.note-form {
 		margin-bottom: 16px;
 		padding-bottom: 16px;
@@ -654,7 +1383,7 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 		width: 100%;
 		padding: 8px 12px;
 		border: 1px solid #d1d5db;
-		border-radius: 8px;
+		border-radius: 0;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
 		margin-bottom: 8px;
@@ -765,7 +1494,7 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 		border: 1px solid #bbf7d0;
 		color: #166534;
 		padding: 10px 16px;
-		border-radius: 8px;
+		border-radius: 0;
 		font-size: 14px;
 		margin-bottom: 20px;
 	}
@@ -838,7 +1567,7 @@ const currentStageIndex = STAGE_ORDER.indexOf(order.stage as OrderStage);
 		justify-content: center;
 		background: #f9fafb;
 		border: 1px solid #e5e7eb;
-		border-radius: 4px;
+		border-radius: 0;
 	}
 
 	.doc-info {

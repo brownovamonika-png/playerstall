@@ -4,6 +4,12 @@ export const prerender = false;
 import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { getSession } from '../../../lib/auth';
 import { supabaseAdmin, isSupabaseConfigured, STAGE_LABELS, STAGE_COLORS, type OrderStage } from '../../../lib/supabase';
+import { createClientWithInitialOrder } from '../../../lib/crm-create-client-order';
+import {
+	displayFundraisingStatus,
+	fundraisingStatusOptionsForSelect,
+	normalizeFundraisingStatus,
+} from '../../../lib/crm-fundraising-status';
 
 const demoMode = !isSupabaseConfigured;
 
@@ -90,38 +96,33 @@ if (demoMode) {
 		const action = form.get('action') as string;
 
 		if (action === 'create_client') {
-			const session = await getSession(Astro.cookies);
-			const { data, error } = await supabaseAdmin.from('clients').insert({
+			const orderTitle = (form.get('order_title') as string)?.trim() || null;
+			const result = await createClientWithInitialOrder(supabaseAdmin!, {
 				contact_name: form.get('contact_name') as string,
 				company_name: (form.get('company_name') as string) || null,
 				email: (form.get('email') as string) || null,
 				phone: (form.get('phone') as string) || null,
 				sport: (form.get('sport') as string) || null,
 				team_name: (form.get('team_name') as string) || null,
+				fundraising_status: normalizeFundraisingStatus(form.get('fundraising_status') as string),
 				country: (form.get('country') as string) || null,
 				shipping_address: (form.get('shipping_address') as string) || null,
 				source: (form.get('source') as string) || 'other',
 				source_website: (form.get('source_website') as string) || null,
-			}).select().single();
-
-			if (error) {
-				formError = error.message;
-			} else if (data) {
-				const orderTitle = form.get('order_title') as string;
-				if (orderTitle) {
-					await supabaseAdmin.from('orders').insert({
-						client_id: data.id,
-						title: orderTitle,
-						locker_type: (form.get('locker_type') as string) || null,
-						locker_size: (form.get('locker_size') as string) || null,
-						locker_width: (form.get('locker_width') as string) || null,
-						locker_color: (form.get('locker_color') as string) || null,
-						accessories: (form.get('accessories') as string) || null,
-						quantity: form.get('quantity') ? Number(form.get('quantity')) : null,
-						stage: 'new_lead',
-					});
-				}
-				return Astro.redirect(`/admin/clients/${data.id}`);
+				notes: null,
+				order_title: orderTitle,
+				locker_type: (form.get('locker_type') as string) || null,
+				locker_size: (form.get('locker_size') as string) || null,
+				locker_width: (form.get('locker_width') as string) || null,
+				locker_color: (form.get('locker_color') as string) || null,
+				accessories: (form.get('accessories') as string) || null,
+				quantity: form.get('quantity') ? Number(form.get('quantity')) : null,
+				estimated_completion: null,
+			});
+			if ('error' in result) {
+				formError = result.error;
+			} else {
+				return Astro.redirect(`/admin/clients/${result.clientId}`);
 			}
 		}
 	}
@@ -163,12 +164,18 @@ const processedRows = allRows.map((row, idx) => {
 	const amountStr = row.order?.quoted_amount ? '$' + Number(row.order.quoted_amount).toLocaleString() : '—';
 	const sourceStr = row.client.source ? row.client.source.replace('_', ' ') : '';
 	const dateStr = new Date(row.client.created_at).toLocaleDateString();
-	return { ...row, idx, stageColor, stageLabel, badgeStyle, amountStr, sourceStr, dateStr };
+	const fundingStr = displayFundraisingStatus(row.client.fundraising_status);
+	return { ...row, idx, stageColor, stageLabel, badgeStyle, amountStr, sourceStr, dateStr, fundingStr };
 });
+
+const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 ---
 
 <AdminLayout title="Clients" activeNav="clients">
 	<Fragment slot="header-actions">
+		<a href="/admin/paste-inquiry" class="btn btn-secondary">
+			Paste inquiry
+		</a>
 		<button class="btn btn-primary" onclick="document.getElementById('newClientModal').showModal()">
 			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
 			New Client
@@ -200,6 +207,7 @@ const processedRows = allRows.map((row, idx) => {
 						<th>Phone</th>
 						<th>Company / Team</th>
 						<th>Sport</th>
+						<th>Fundraising</th>
 						<th>Country</th>
 						<th>Shipping Address</th>
 						<th>Estimate #</th>
@@ -252,7 +260,7 @@ const processedRows = allRows.map((row, idx) => {
 				</tbody>
 				<tfoot>
 					<tr class="totals-row">
-						<td colspan="12" class="totals-label">TOTALS</td>
+						<td colspan="13" class="totals-label">TOTALS</td>
 						<td><strong>{fmtQty}</strong></td>
 						<td></td>
 						<td><strong>{fmtValue}</strong></td>
@@ -310,6 +318,16 @@ const processedRows = allRows.map((row, idx) => {
 					<div class="form-group">
 						<label for="team_name">Team Name</label>
 						<input type="text" id="team_name" name="team_name" />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group" style="grid-column: 1 / -1;">
+						<label for="fundraising_status">Fundraising status</label>
+						<select id="fundraising_status" name="fundraising_status">
+							{fundraisingSelectOptions.map((o) => (
+								<option value={o.value}>{o.label}</option>
+							))}
+						</select>
 					</div>
 				</div>
 				<div class="form-row">
@@ -419,6 +437,7 @@ const processedRows = allRows.map((row, idx) => {
 	.search-input {
 		padding: 10px 14px;
 		border: 1px solid #e0e0e0;
+		border-radius: 0;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
 		width: 300px;

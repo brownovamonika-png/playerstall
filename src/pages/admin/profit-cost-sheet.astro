@@ -1,0 +1,79 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getSession } from '../../lib/auth';
+import { isSupabaseConfigured } from '../../lib/supabase';
+
+const demoMode = !isSupabaseConfigured;
+
+if (!demoMode) {
+	const session = await getSession(Astro.cookies);
+	if (!session) return Astro.redirect('/admin/login');
+}
+---
+
+<AdminLayout title="Profit cost sheet" activeNav="profit-cost-sheet">
+	<div class="cost-sheet-card card">
+		<p class="cost-sheet-lead">
+			This is your <strong>internal CAD price sheet</strong> with <strong>profit per locker</strong> (loaded from the same tool you built—Vietnam cost in CAD, US list converted at 1.38, premium line tables, and base-only profit). Use <strong>Print / Save PDF</strong> inside the sheet when you need a file.
+		</p>
+		<p class="cost-sheet-actions">
+			<a
+				class="btn btn-secondary"
+				href="/price-sheet-cad.html"
+				target="_blank"
+				rel="noopener noreferrer">Open cost sheet in new tab</a
+			>
+		</p>
+	</div>
+
+	<div class="cost-sheet-frame-shell card">
+		<iframe
+			class="cost-sheet-iframe"
+			title="PlayerStall CAD price sheet and profit per locker"
+			src="/price-sheet-cad.html"
+		></iframe>
+	</div>
+</AdminLayout>
+
+<style>
+	.cost-sheet-card {
+		margin-bottom: 20px;
+		padding-bottom: 24px;
+	}
+
+	.cost-sheet-lead {
+		font-size: 14px;
+		line-height: 1.65;
+		color: #4b5563;
+		margin: 0 0 16px 0;
+		max-width: 900px;
+	}
+
+	.cost-sheet-actions {
+		margin: 0;
+	}
+
+	.cost-sheet-frame-shell {
+		padding: 0;
+		overflow: hidden;
+		border: 1px solid #e5e7eb;
+		background: #ffffff;
+	}
+
+	.cost-sheet-iframe {
+		display: block;
+		width: 100%;
+		min-height: min(2000px, calc(100dvh - 200px));
+		height: 2200px;
+		border: 0;
+	}
+
+	@media (max-width: 768px) {
+		.cost-sheet-iframe {
+			height: 2400px;
+			min-height: 75vh;
+		}
+	}
+</style>

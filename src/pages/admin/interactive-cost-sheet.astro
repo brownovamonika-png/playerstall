@@ -1,0 +1,594 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getSession } from '../../lib/auth';
+import { isSupabaseConfigured } from '../../lib/supabase';
+
+const demoMode = !isSupabaseConfigured;
+
+if (!demoMode) {
+	const session = await getSession(Astro.cookies);
+	if (!session) return Astro.redirect('/admin/login');
+}
+---
+
+<AdminLayout title="Interactive cost sheet" activeNav="interactive-cost-sheet">
+	<div class="calc-intro card">
+		<p class="calc-intro-text">
+			<strong>Internal calculator</strong> — model your <strong>supplier cost</strong> (all-in or by components), add <strong>your container</strong> freight / packing / extras split across lockers, and compare to <strong>list revenue (CAD)</strong> from the same rules as
+			<code>price-sheet-cad.html</code> (Premium Models X/Z/S/L and Essential Semi Pro, Varsity, Pro Locker, Stadium Locker — same width USD tiers as the shop product pages). Use <strong>All-in per locker</strong> when the factory quotes one price per locker; use <strong>Build from components</strong> when they quote plywood, build, packing, etc. separately.
+		</p>
+		<p class="calc-intro-actions">
+			<a class="btn btn-secondary" href="/price-sheet-cad.html" target="_blank" rel="noopener noreferrer">Open reference CAD sheet</a>
+		</p>
+	</div>
+
+	<div class="calc-grid">
+		<div class="card calc-card">
+			<h3 class="calc-card-title">Product</h3>
+			<div class="form-group">
+				<label for="calc-model">Model</label>
+				<select id="calc-model">
+					<option value="Model X">Model X (Premium)</option>
+					<option value="Model Z">Model Z (Premium)</option>
+					<option value="Model S">Model S (Premium)</option>
+					<option value="Model L">Model L (Premium)</option>
+					<option value="Semi Pro">Semi Pro (Essential)</option>
+					<option value="Varsity">Varsity (Essential)</option>
+					<option value="Pro Locker">Pro Locker (Essential)</option>
+					<option value="Stadium Locker">Stadium Locker (Essential)</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="calc-width">Width</label>
+				<select id="calc-width">
+					<option value="18">18"</option>
+					<option value="20">20"</option>
+					<option value="22">22"</option>
+					<option value="24" selected>24"</option>
+					<option value="26">26"</option>
+					<option value="28">28"</option>
+					<option value="30">30"</option>
+					<option value="32">32"</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="calc-depth">Depth</label>
+				<select id="calc-depth">
+					<option value="19" selected>19″</option>
+					<option value="24">24″</option>
+				</select>
+			</div>
+			<p class="calc-micro-hint" id="calc-depth-note"></p>
+			<p class="calc-hint">
+				<button type="button" class="btn btn-sm btn-secondary" id="calc-apply-width-defaults">Apply reference defaults for this width</button>
+				<span class="calc-hint-note">Fills all-in cost and component fields from the current internal sheet (adjust after you get supplier quotes).</span>
+			</p>
+		</div>
+
+		<div class="card calc-card">
+			<h3 class="calc-card-title">Supplier cost</h3>
+			<div class="form-group calc-mode-row">
+				<label class="calc-radio-label"><input type="radio" name="supplier-mode" value="allin" checked /> All-in per locker</label>
+				<label class="calc-radio-label"><input type="radio" name="supplier-mode" value="components" /> Build from components</label>
+			</div>
+
+			<div id="calc-panel-allin" class="calc-mode-panel">
+				<div class="form-group">
+					<label for="calc-supplier-allin">Supplier cost per locker (CAD)</label>
+					<input type="number" id="calc-supplier-allin" step="0.01" min="0" />
+				</div>
+			</div>
+
+			<div id="calc-panel-components" class="calc-mode-panel hidden">
+				<div class="form-row">
+					<div class="form-group">
+						<label for="calc-plywood-sheet">Plywood sheet cost (CAD)</label>
+						<input type="number" id="calc-plywood-sheet" step="0.01" min="0" value="0" />
+					</div>
+					<div class="form-group">
+						<label for="calc-lockers-per-sheet">Lockers per sheet</label>
+						<input type="number" id="calc-lockers-per-sheet" step="0.01" min="0" value="0" />
+					</div>
+				</div>
+				<p class="calc-micro-hint">Plywood per locker = sheet cost ÷ lockers per sheet (0 if not used).</p>
+				<div class="form-row">
+					<div class="form-group">
+						<label for="calc-build">Build / melamine &amp; labor (CAD / locker)</label>
+						<input type="number" id="calc-build" step="0.01" min="0" />
+					</div>
+					<div class="form-group">
+						<label for="calc-supplier-pack">Supplier packaging (CAD / locker)</label>
+						<input type="number" id="calc-supplier-pack" step="0.01" min="0" value="0" />
+					</div>
+				</div>
+				<p class="calc-subhead">Included lines (CAD / locker, from reference sheet)</p>
+				<div class="form-row">
+					<div class="form-group">
+						<label for="calc-cost-vn">VN → share / freight slice</label>
+						<input type="number" id="calc-cost-vn" step="0.01" min="0" />
+					</div>
+					<div class="form-group">
+						<label for="calc-cost-digital">Digital lock</label>
+						<input type="number" id="calc-cost-digital" step="0.01" min="0" />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label for="calc-cost-cushion">Cushion &amp; foam</label>
+						<input type="number" id="calc-cost-cushion" step="0.01" min="0" />
+					</div>
+					<div class="form-group">
+						<label for="calc-cost-hooks">Hooks</label>
+						<input type="number" id="calc-cost-hooks" step="0.01" min="0" />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label for="calc-cost-vented">Vented front (factory)</label>
+						<input type="number" id="calc-cost-vented" step="0.01" min="0" value="0" />
+					</div>
+					<div class="form-group">
+						<label for="calc-cost-lockbox">Lock box (factory)</label>
+						<input type="number" id="calc-cost-lockbox" step="0.01" min="0" value="0" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card calc-card">
+			<h3 class="calc-card-title">Your container</h3>
+			<p class="calc-micro-hint">Your ocean freight, crating/packing, and misc — split across all lockers in the container.</p>
+			<div class="form-group">
+				<label for="calc-lockers-container">Lockers per container</label>
+				<input type="number" id="calc-lockers-container" step="1" min="1" value="250" />
+			</div>
+			<div class="form-group">
+				<label for="calc-ocean">Ocean freight (CAD / container)</label>
+				<input type="number" id="calc-ocean" step="0.01" min="0" value="0" />
+			</div>
+			<div class="form-group">
+				<label for="calc-packing">Packing / crating (CAD / container)</label>
+				<input type="number" id="calc-packing" step="0.01" min="0" value="0" />
+			</div>
+			<div class="form-group">
+				<label for="calc-additional">Additional cost (CAD / container)</label>
+				<input type="number" id="calc-additional" step="0.01" min="0" value="0" />
+			</div>
+		</div>
+
+		<div class="card calc-card calc-card--wide">
+			<h3 class="calc-card-title">Results</h3>
+			<div class="calc-results-grid">
+				<div class="calc-result-block">
+					<span class="calc-result-label">Plywood per locker</span>
+					<span class="calc-result-value" id="res-plywood-pl">—</span>
+				</div>
+				<div class="calc-result-block">
+					<span class="calc-result-label">Supplier subtotal / locker</span>
+					<span class="calc-result-value" id="res-supplier-sub">—</span>
+				</div>
+				<div class="calc-result-block">
+					<span class="calc-result-label">Container share / locker</span>
+					<span class="calc-result-value" id="res-container-share">—</span>
+				</div>
+				<div class="calc-result-block calc-result-block--emph">
+					<span class="calc-result-label">Total cost / locker</span>
+					<span class="calc-result-value" id="res-cost-locker">—</span>
+				</div>
+				<div class="calc-result-block">
+					<span class="calc-result-label">List revenue (CAD) / locker</span>
+					<span class="calc-result-value" id="res-revenue">—</span>
+				</div>
+				<div class="calc-result-block calc-result-block--profit">
+					<span class="calc-result-label">Profit / locker</span>
+					<span class="calc-result-value" id="res-profit-locker">—</span>
+				</div>
+				<div class="calc-result-block">
+					<span class="calc-result-label">Margin on revenue</span>
+					<span class="calc-result-value" id="res-margin">—</span>
+				</div>
+				<div class="calc-result-block calc-result-block--emph">
+					<span class="calc-result-label">Total cost (full container)</span>
+					<span class="calc-result-value" id="res-total-container">—</span>
+				</div>
+			</div>
+			<p class="calc-footnote">
+				Revenue uses list USD (model × width) + accessory bundle (vented + lock box + cushion + hooks) × 1.38 → CAD, same as the reference profit table. Depth is informational: Premium 19″/24″ same list; Essential models are 19″ on the sheet.
+			</p>
+		</div>
+	</div>
+</AdminLayout>
+
+<style>
+	.calc-intro {
+		margin-bottom: 24px;
+	}
+
+	.calc-intro-text {
+		font-size: 14px;
+		line-height: 1.65;
+		color: #4b5563;
+		margin: 0 0 16px 0;
+		max-width: 960px;
+	}
+
+	.calc-intro-text code {
+		font-size: 12px;
+		background: #f3f4f6;
+		padding: 2px 6px;
+	}
+
+	.calc-intro-actions {
+		margin: 0;
+	}
+
+	.calc-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 20px;
+		align-items: start;
+		max-width: 1100px;
+	}
+
+	.calc-card--wide {
+		grid-column: 1 / -1;
+	}
+
+	.calc-card-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		margin: 0 0 16px 0;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #ececec;
+	}
+
+	.calc-mode-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px;
+		margin-bottom: 16px;
+	}
+
+	.calc-radio-label {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 13px;
+		color: #374151;
+		cursor: pointer;
+		text-transform: none;
+		letter-spacing: 0.02em;
+	}
+
+	.calc-mode-panel.hidden {
+		display: none;
+	}
+
+	.calc-hint {
+		margin: 16px 0 0 0;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+	.calc-hint-note {
+		font-size: 12px;
+		color: #6b7280;
+		line-height: 1.45;
+		max-width: 100%;
+	}
+
+	.calc-micro-hint {
+		font-size: 12px;
+		color: #6b7280;
+		margin: -8px 0 12px 0;
+		line-height: 1.45;
+	}
+
+	.calc-subhead {
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #8c8c8c;
+		margin: 16px 0 8px 0;
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 16px;
+	}
+
+	@media (max-width: 900px) {
+		.calc-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.form-row {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.calc-results-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 16px 24px;
+	}
+
+	.calc-result-block {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		padding: 12px 0;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.calc-result-block--emph .calc-result-value {
+		font-family: 'Oswald', sans-serif;
+		font-size: 22px;
+		font-weight: 700;
+		color: #0d0d0d;
+	}
+
+	.calc-result-block--profit .calc-result-value {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 700;
+		color: #2e7d32;
+	}
+
+	.calc-result-label {
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #8c8c8c;
+	}
+
+	.calc-result-value {
+		font-size: 16px;
+		font-weight: 600;
+		color: #111827;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.calc-footnote {
+		margin: 20px 0 0 0;
+		font-size: 12px;
+		color: #6b7280;
+		line-height: 1.5;
+		max-width: 720px;
+	}
+</style>
+
+<script>
+	(function () {
+		const USD_TO_CAD = 1.38;
+		const LIST_USD_ACCESSORIES = 40 + 80 + 75 + 12;
+		const COST_CAD = {
+			18: 302.61,
+			20: 307.16,
+			22: 309.43,
+			24: 309.43,
+			26: 316.25,
+			28: 325.35,
+			30: 334.44,
+			32: 348.09,
+		};
+		const MODELS = [
+			{ name: 'Model X', prices: { 18: 649, 20: 649, 22: 649, 24: 649, 26: 699, 28: 699, 30: 749, 32: 749 } },
+			{ name: 'Model Z', prices: { 18: 649, 20: 649, 22: 649, 24: 649, 26: 699, 28: 699, 30: 749, 32: 749 } },
+			{ name: 'Model S', prices: { 18: 649, 20: 649, 22: 649, 24: 649, 26: 699, 28: 699, 30: 749, 32: 749 } },
+			{ name: 'Model L', prices: { 18: 599, 20: 599, 22: 599, 24: 599, 26: 629, 28: 629, 30: 649, 32: 649 } },
+			{ name: 'Semi Pro', prices: { 18: 349, 20: 349, 22: 349, 24: 349, 26: 399, 28: 399, 30: 429, 32: 429 } },
+			{ name: 'Varsity', prices: { 18: 449, 20: 449, 22: 449, 24: 449, 26: 499, 28: 499, 30: 529, 32: 529 } },
+			{ name: 'Pro Locker', prices: { 18: 599, 20: 599, 22: 599, 24: 599, 26: 629, 28: 629, 30: 649, 32: 649 } },
+			{ name: 'Stadium Locker', prices: { 18: 599, 20: 599, 22: 599, 24: 599, 26: 629, 28: 629, 30: 649, 32: 649 } },
+		];
+		const STANDARD_CAD = { vn: 35, digital: 30, cushion: 23.16, hooks: 3 };
+
+		function standardCadSum() {
+			return STANDARD_CAD.vn + STANDARD_CAD.digital + STANDARD_CAD.cushion + STANDARD_CAD.hooks;
+		}
+
+		function fmtD(n) {
+			return (
+				'$' +
+				Number(n).toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+			);
+		}
+
+		function num(el) {
+			if (!el) return 0;
+			const v = parseFloat(String(el.value).replace(/,/g, ''));
+			return Number.isFinite(v) ? v : 0;
+		}
+
+		function getWidth() {
+			const w = document.getElementById('calc-width');
+			return w ? parseInt(w.value, 10) : 24;
+		}
+
+		function getModel() {
+			const sel = document.getElementById('calc-model');
+			return MODELS.find((m) => m.name === sel?.value) || MODELS[0];
+		}
+
+		const ESSENTIAL_NAMES = new Set(['Semi Pro', 'Varsity', 'Pro Locker', 'Stadium Locker']);
+
+		function syncDepthFromModel() {
+			const m = getModel();
+			const depthSel = document.getElementById('calc-depth');
+			const note = document.getElementById('calc-depth-note');
+			if (!depthSel || !note) return;
+			const essential = ESSENTIAL_NAMES.has(m.name);
+			const opt24 = depthSel.querySelector('option[value="24"]');
+			if (opt24) opt24.disabled = essential;
+			if (essential) depthSel.value = '19';
+			note.textContent = essential
+				? 'Essential models: 19″ depth on the price sheet; 24″ is not offered for this line in the calculator.'
+				: 'Premium: 19″ or 24″ — same USD list price (matches price-sheet-cad.html).';
+		}
+
+		function revenueCad(width) {
+			const m = getModel();
+			const list = m.prices[width];
+			if (list == null) return 0;
+			return (list + LIST_USD_ACCESSORIES) * USD_TO_CAD;
+		}
+
+		function applyWidthDefaults() {
+			const w = getWidth();
+			const total = COST_CAD[w];
+			if (total == null) return;
+			const baseBuild = total - standardCadSum();
+
+			const allin = document.getElementById('calc-supplier-allin');
+			if (allin) allin.value = String(total);
+
+			const b = document.getElementById('calc-build');
+			if (b) b.value = String(Math.round(baseBuild * 100) / 100);
+
+			const vn = document.getElementById('calc-cost-vn');
+			const dig = document.getElementById('calc-cost-digital');
+			const cush = document.getElementById('calc-cost-cushion');
+			const hooks = document.getElementById('calc-cost-hooks');
+			if (vn) vn.value = String(STANDARD_CAD.vn);
+			if (dig) dig.value = String(STANDARD_CAD.digital);
+			if (cush) cush.value = String(STANDARD_CAD.cushion);
+			if (hooks) hooks.value = String(STANDARD_CAD.hooks);
+
+			const vented = document.getElementById('calc-cost-vented');
+			const lockbox = document.getElementById('calc-cost-lockbox');
+			if (vented) vented.value = '0';
+			if (lockbox) lockbox.value = '0';
+
+			const pack = document.getElementById('calc-supplier-pack');
+			if (pack) pack.value = '0';
+
+			compute();
+		}
+
+		function plywoodPerLocker() {
+			const sheet = num(document.getElementById('calc-plywood-sheet'));
+			const perSheet = num(document.getElementById('calc-lockers-per-sheet'));
+			if (perSheet <= 0) return 0;
+			return sheet / perSheet;
+		}
+
+		function containerShare() {
+			const n = num(document.getElementById('calc-lockers-container'));
+			if (n <= 0) return 0;
+			const sum =
+				num(document.getElementById('calc-ocean')) +
+				num(document.getElementById('calc-packing')) +
+				num(document.getElementById('calc-additional'));
+			return sum / n;
+		}
+
+		function supplierSubtotalComponents() {
+			const pl = plywoodPerLocker();
+			const build = num(document.getElementById('calc-build'));
+			const spack = num(document.getElementById('calc-supplier-pack'));
+			const vn = num(document.getElementById('calc-cost-vn'));
+			const dig = num(document.getElementById('calc-cost-digital'));
+			const cush = num(document.getElementById('calc-cost-cushion'));
+			const hooks = num(document.getElementById('calc-cost-hooks'));
+			const vented = num(document.getElementById('calc-cost-vented'));
+			const lockbox = num(document.getElementById('calc-cost-lockbox'));
+			return pl + build + spack + vn + dig + cush + hooks + vented + lockbox;
+		}
+
+		function compute() {
+			const width = getWidth();
+			const mode = document.querySelector('input[name="supplier-mode"]:checked')?.value || 'allin';
+
+			const panelAllin = document.getElementById('calc-panel-allin');
+			const panelComp = document.getElementById('calc-panel-components');
+			if (panelAllin && panelComp) {
+				if (mode === 'allin') {
+					panelAllin.classList.remove('hidden');
+					panelComp.classList.add('hidden');
+				} else {
+					panelAllin.classList.add('hidden');
+					panelComp.classList.remove('hidden');
+				}
+			}
+
+			const pl = plywoodPerLocker();
+			let supplierSub = 0;
+			if (mode === 'allin') {
+				supplierSub = num(document.getElementById('calc-supplier-allin'));
+			} else {
+				supplierSub = supplierSubtotalComponents();
+			}
+
+			const cShare = containerShare();
+			const costLocker = supplierSub + cShare;
+			const rev = revenueCad(width);
+			const profit = rev - costLocker;
+			const marginPct = rev > 0 ? (profit / rev) * 100 : 0;
+			const nCont = Math.max(1, Math.floor(num(document.getElementById('calc-lockers-container'))) || 1);
+			const totalContainer = costLocker * nCont;
+
+			const set = (id, text) => {
+				const el = document.getElementById(id);
+				if (el) el.textContent = text;
+			};
+
+			set('res-plywood-pl', mode === 'components' ? fmtD(pl) : '—');
+			set('res-supplier-sub', fmtD(supplierSub));
+			set('res-container-share', fmtD(cShare));
+			set('res-cost-locker', fmtD(costLocker));
+			set('res-revenue', fmtD(rev));
+			set('res-profit-locker', fmtD(profit));
+			set('res-margin', rev > 0 ? marginPct.toFixed(1) + '%' : '—');
+			set('res-total-container', fmtD(totalContainer));
+		}
+
+		document.getElementById('calc-apply-width-defaults')?.addEventListener('click', applyWidthDefaults);
+
+		document.getElementById('calc-model')?.addEventListener('change', function () {
+			syncDepthFromModel();
+			compute();
+		});
+
+		document.querySelectorAll('input[name="supplier-mode"]').forEach((r) => {
+			r.addEventListener('change', compute);
+		});
+
+		[
+			'calc-width',
+			'calc-depth',
+			'calc-supplier-allin',
+			'calc-plywood-sheet',
+			'calc-lockers-per-sheet',
+			'calc-build',
+			'calc-supplier-pack',
+			'calc-cost-vn',
+			'calc-cost-digital',
+			'calc-cost-cushion',
+			'calc-cost-hooks',
+			'calc-cost-vented',
+			'calc-cost-lockbox',
+			'calc-lockers-container',
+			'calc-ocean',
+			'calc-packing',
+			'calc-additional',
+		].forEach((id) => {
+			document.getElementById(id)?.addEventListener('input', compute);
+			document.getElementById(id)?.addEventListener('change', compute);
+		});
+
+		syncDepthFromModel();
+		applyWidthDefaults();
+	})();
+</script>

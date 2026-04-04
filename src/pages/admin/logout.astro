@@ -3,9 +3,11 @@ export const prerender = false;
 
 import { isSupabaseConfigured } from '../../lib/supabase';
 import { clearSessionCookies } from '../../lib/auth';
+import { clearCrmGateCookie } from '../../lib/crm-gate';
 
 if (isSupabaseConfigured) {
 	clearSessionCookies(Astro.cookies);
 }
+clearCrmGateCookie(Astro.cookies);
 return Astro.redirect('/admin/login');
 ---

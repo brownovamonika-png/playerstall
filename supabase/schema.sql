@@ -1,5 +1,13 @@
 -- PlayerStall CRM Database Schema
 -- Run this in the Supabase SQL Editor to set up all tables
+--
+-- If Supabase says: ERROR: syntax error at end of input LINE 0
+--   → The editor ran an EMPTY query (nothing pasted), or only whitespace / a comment was selected.
+--   Fix: SQL Editor → New query → click inside the empty box → paste the ENTIRE file
+--        (Select All in Cursor: Cmd+A on this file, Copy, Paste into Supabase) → Run.
+--   Do NOT use "Run selected" unless you really selected all SQL.
+
+SELECT 1 AS schema_paste_ok;
 
 -- ============================================================
 -- ENUM TYPES
@@ -59,6 +67,7 @@ CREATE TABLE clients (
   sport TEXT,
   team_name TEXT,
   notes TEXT,
+  fundraising_status TEXT,
   country TEXT,
   shipping_address TEXT,
   source client_source DEFAULT 'web_form',
@@ -81,6 +90,7 @@ CREATE TABLE orders (
   client_id UUID NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
   title TEXT NOT NULL,
   description TEXT,
+  estimate_customer_note TEXT,
   estimate_number TEXT,
   invoice_number TEXT,
   stage order_stage DEFAULT 'new_lead',
@@ -253,6 +263,108 @@ CREATE TABLE messages (
 
 CREATE INDEX idx_messages_client ON messages(client_id);
 
+
+-- ============================================================
+-- REGIONAL INVENTORY (Canada/Mexico parts vs Vietnam locker boxes)
+-- ============================================================
+
+CREATE TABLE inventory_stock_lines (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  region TEXT NOT NULL CHECK (region IN ('canada', 'mexico', 'vietnam')),
+  tracking_mode TEXT NOT NULL CHECK (tracking_mode IN ('part', 'locker_box')),
+  essential_model TEXT,
+  part_code TEXT,
+  material TEXT NOT NULL,
+  width_inches INT NOT NULL,
+  depth_inches INT NOT NULL DEFAULT 19,
+  vented_front BOOLEAN,
+  lock_box_variant BOOLEAN,
+  quantity_on_hand INT NOT NULL DEFAULT 0 CHECK (quantity_on_hand >= 0),
+  notes TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  CONSTRAINT inventory_row_shape CHECK (
+    (
+      tracking_mode = 'part'
+      AND region IN ('canada', 'mexico')
+      AND part_code IS NOT NULL
+      AND essential_model IS NOT NULL
+      AND material = 'prefinished_uv'
+      AND depth_inches = 19
+      AND vented_front IS NULL
+      AND lock_box_variant IS NULL
+      AND width_inches IN (18, 20, 22, 24, 26, 28, 30, 32)
+    )
+    OR
+    (
+      tracking_mode = 'locker_box'
+      AND region = 'vietnam'
+      AND part_code IS NULL
+      AND essential_model IS NOT NULL
+      AND material = 'melamine'
+      AND depth_inches = 19
+      AND vented_front IS TRUE
+      AND lock_box_variant IS NOT NULL
+      AND width_inches IN (24, 26, 28, 30)
+    )
+  ),
+  CONSTRAINT inventory_part_codes CHECK (
+    part_code IS NULL
+    OR part_code IN (
+      'side_support_left',
+      'side_support_right',
+      'front_panel',
+      'back_panel',
+      'side_panel',
+      'seat_top',
+      'shelf',
+      'bottom_shelf',
+      'shelf_spacers'
+    )
+  )
+);
+
+CREATE UNIQUE INDEX uq_inventory_part_line
+  ON inventory_stock_lines (region, essential_model, part_code, width_inches, depth_inches, material)
+  WHERE tracking_mode = 'part';
+
+CREATE UNIQUE INDEX uq_inventory_locker_box_line
+  ON inventory_stock_lines (region, essential_model, width_inches, lock_box_variant)
+  WHERE tracking_mode = 'locker_box';
+
+CREATE INDEX idx_inventory_region ON inventory_stock_lines(region);
+CREATE INDEX idx_inventory_tracking ON inventory_stock_lines(tracking_mode);
+
+
+-- ============================================================
+-- SHIPPING: Pallet profiles (Essential vs Premium) + C & D memo template
+-- ============================================================
+
+CREATE TABLE shipping_pallet_profiles (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  product_tier TEXT NOT NULL UNIQUE CHECK (product_tier IN ('essential', 'premium')),
+  label TEXT NOT NULL,
+  pallet_length_in NUMERIC(8, 2),
+  pallet_width_in NUMERIC(8, 2),
+  pallet_height_in NUMERIC(8, 2),
+  weight_lb NUMERIC(10, 2),
+  lockers_per_pallet_note TEXT,
+  packing_notes TEXT,
+  handling_instructions TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE logistics_carrier_templates (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  carrier_slug TEXT NOT NULL UNIQUE,
+  carrier_display_name TEXT NOT NULL DEFAULT 'C & D Logistics',
+  email_subject_template TEXT NOT NULL DEFAULT 'Shipment — PlayerStall — {{reference}}',
+  attachment_body_template TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
 -- ============================================================
 -- AUTO-UPDATE updated_at TRIGGER
 -- ============================================================
@@ -277,6 +389,18 @@ CREATE TRIGGER email_templates_updated_at
   BEFORE UPDATE ON email_templates
   FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
+CREATE TRIGGER inventory_stock_lines_updated_at
+  BEFORE UPDATE ON inventory_stock_lines
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+CREATE TRIGGER shipping_pallet_profiles_updated_at
+  BEFORE UPDATE ON shipping_pallet_profiles
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+CREATE TRIGGER logistics_carrier_templates_updated_at
+  BEFORE UPDATE ON logistics_carrier_templates
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
 -- ============================================================
 -- ROW LEVEL SECURITY
 -- ============================================================
@@ -291,6 +415,9 @@ ALTER TABLE attachments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE automation_rules ENABLE ROW LEVEL SECURITY;
 ALTER TABLE scheduled_tasks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE inventory_stock_lines ENABLE ROW LEVEL SECURITY;
+ALTER TABLE shipping_pallet_profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE logistics_carrier_templates ENABLE ROW LEVEL SECURITY;
 
 -- Admin users (authenticated) can do everything
 CREATE POLICY admin_all ON clients FOR ALL TO authenticated USING (true) WITH CHECK (true);
@@ -303,6 +430,9 @@ CREATE POLICY admin_all ON attachments FOR ALL TO authenticated USING (true) WIT
 CREATE POLICY admin_all ON automation_rules FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY admin_all ON scheduled_tasks FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY admin_all ON messages FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY admin_all_inventory ON inventory_stock_lines FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY admin_all_shipping_profiles ON shipping_pallet_profiles FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY admin_all_logistics_templates ON logistics_carrier_templates FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
 -- Anon users can read client-visible data via portal token (handled in app layer)
 -- The portal uses the service role key server-side, so no anon RLS policies needed
@@ -500,5 +630,4 @@ INSERT INTO email_templates (name, subject, body, stage_trigger, delay_hours, co
   0,
   'custom_sport_lockers',
   false
-)
 );

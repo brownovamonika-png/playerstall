@@ -5,7 +5,7 @@ This file tracks which posts have been generated so the automation avoids repeat
 ## Content Pillar Rotation
 Education → Social Proof → Behind-the-Scenes → Community → (repeat)
 
-**Next pillar to use:** Social Proof
+**Next pillar to use:** Behind-the-Scenes
 
 ---
 
@@ -14,6 +14,7 @@ Education → Social Proof → Behind-the-Scenes → Community → (repeat)
 | Date | Pillar | Topic | Post Preview |
 |------|--------|-------|--------------|
 | 2026-03-30 | Education | Wood breathes vs. metal doesn't (reduces odor/mold) | "Here's something nobody talks about when buying sports lockers: your locker room might be making your players sick." |
+| 2026-04-02 | Social Proof | Recruiting edge: prospects notice locker room quality | "A coach called me a few years back. He'd just finished his first season with a new program, and recruiting wasn't going the way he'd hoped." |
 
 ---
 
@@ -31,7 +32,7 @@ Education → Social Proof → Behind-the-Scenes → Community → (repeat)
 - [ ] How to plan your locker room layout (common mistakes)
 
 ### Social Proof
-- [ ] Recruiting edge: prospects notice locker room quality
+- [x] Recruiting edge: prospects notice locker room quality — used 2026-04-02
 - [ ] "Best investment we've made" — coach testimonial angle
 - [ ] Before & After: locker room transformation story
 - [ ] "Players said I belong here when they saw their lockers"

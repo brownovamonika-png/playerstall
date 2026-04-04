@@ -1,0 +1,484 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getSession } from '../../lib/auth';
+import { supabaseAdmin, isSupabaseConfigured } from '../../lib/supabase';
+import {
+	CD_LOGISTICS_MERGE_FIELD_HELP,
+	DEFAULT_DEMO_CD_TEMPLATE,
+	DEFAULT_DEMO_PROFILES,
+	type LogisticsCarrierTemplateRow,
+	type ShippingPalletProfileRow,
+	type ShippingProductTier,
+	SHIPPING_TIER_LABELS,
+	SHIPPING_TIERS,
+	isShippingTier,
+} from '../../lib/crm-shipping';
+
+const demoMode = !isSupabaseConfigured;
+
+if (!demoMode) {
+	const session = await getSession(Astro.cookies);
+	if (!session) return Astro.redirect('/admin/login');
+}
+
+let formError = '';
+let formSuccess = '';
+
+if (Astro.request.method !== 'POST') {
+	const toast = Astro.url.searchParams.get('toast');
+	if (toast === 'saved') formSuccess = 'Saved.';
+}
+
+if (!demoMode && Astro.request.method === 'POST') {
+	const form = await Astro.request.formData();
+	const action = String(form.get('action') || '');
+
+	if (action === 'save_profile') {
+		const tier = String(form.get('product_tier') || '');
+		if (tier !== 'essential' && tier !== 'premium') {
+			formError = 'Invalid tier.';
+		} else {
+			const { error } = await supabaseAdmin!
+				.from('shipping_pallet_profiles')
+				.update({
+					label: String(form.get('label') || '').trim(),
+					pallet_length_in: parseFloat(String(form.get('pallet_length_in') || '')) || null,
+					pallet_width_in: parseFloat(String(form.get('pallet_width_in') || '')) || null,
+					pallet_height_in: parseFloat(String(form.get('pallet_height_in') || '')) || null,
+					weight_lb: parseFloat(String(form.get('weight_lb') || '')) || null,
+					lockers_per_pallet_note: String(form.get('lockers_per_pallet_note') || '').trim() || null,
+					packing_notes: String(form.get('packing_notes') || '').trim() || null,
+					handling_instructions: String(form.get('handling_instructions') || '').trim() || null,
+				})
+				.eq('product_tier', tier);
+			if (error) formError = error.message;
+			else return Astro.redirect(`/admin/shipping?tier=${encodeURIComponent(tier)}&toast=saved`);
+		}
+	}
+
+	if (action === 'save_cd_template') {
+		const { error } = await supabaseAdmin!
+			.from('logistics_carrier_templates')
+			.update({
+				carrier_display_name: String(form.get('carrier_display_name') || 'C & D Logistics').trim(),
+				email_subject_template: String(form.get('email_subject_template') || '').trim(),
+				attachment_body_template: String(form.get('attachment_body_template') || '').trim(),
+			})
+			.eq('carrier_slug', 'cd_logistics');
+		if (error) formError = error.message;
+		else {
+			const navTier = String(form.get('nav_tier') || 'essential');
+			const t = isShippingTier(navTier) ? navTier : 'essential';
+			return Astro.redirect(`/admin/shipping?tier=${encodeURIComponent(t)}&toast=saved`);
+		}
+	}
+}
+
+let profilesByTier: Record<ShippingProductTier, ShippingPalletProfileRow>;
+
+if (demoMode) {
+	profilesByTier = {
+		essential: DEFAULT_DEMO_PROFILES.find((p) => p.product_tier === 'essential')!,
+		premium: DEFAULT_DEMO_PROFILES.find((p) => p.product_tier === 'premium')!,
+	};
+} else {
+	const { data, error } = await supabaseAdmin!.from('shipping_pallet_profiles').select('*');
+	if (error) {
+		formError = formError || error.message;
+		profilesByTier = {
+			essential: DEFAULT_DEMO_PROFILES[0],
+			premium: DEFAULT_DEMO_PROFILES[1],
+		};
+	} else {
+		const rows = (data || []) as ShippingPalletProfileRow[];
+		profilesByTier = {
+			essential: rows.find((r) => r.product_tier === 'essential') ?? DEFAULT_DEMO_PROFILES[0],
+			premium: rows.find((r) => r.product_tier === 'premium') ?? DEFAULT_DEMO_PROFILES[1],
+		};
+	}
+}
+
+let cdTemplate: LogisticsCarrierTemplateRow;
+
+if (demoMode) {
+	cdTemplate = {
+		id: 'demo',
+		carrier_slug: 'cd_logistics',
+		carrier_display_name: DEFAULT_DEMO_CD_TEMPLATE.carrier_display_name,
+		email_subject_template: DEFAULT_DEMO_CD_TEMPLATE.email_subject_template,
+		attachment_body_template: DEFAULT_DEMO_CD_TEMPLATE.attachment_body_template,
+		created_at: '',
+		updated_at: '',
+	};
+} else {
+	const { data: trow, error: terr } = await supabaseAdmin!
+		.from('logistics_carrier_templates')
+		.select('*')
+		.eq('carrier_slug', 'cd_logistics')
+		.single();
+	if (terr || !trow) {
+		cdTemplate = {
+			id: '',
+			carrier_slug: 'cd_logistics',
+			carrier_display_name: DEFAULT_DEMO_CD_TEMPLATE.carrier_display_name,
+			email_subject_template: DEFAULT_DEMO_CD_TEMPLATE.email_subject_template,
+			attachment_body_template: DEFAULT_DEMO_CD_TEMPLATE.attachment_body_template,
+			created_at: '',
+			updated_at: '',
+		};
+		if (terr && !formError) formError = terr.message;
+	} else {
+		cdTemplate = trow as LogisticsCarrierTemplateRow;
+	}
+}
+
+const stripToast = Astro.request.method !== 'POST' && Astro.url.searchParams.get('toast') === 'saved';
+
+const tierParamRaw = Astro.url.searchParams.get('tier') || '';
+const activeTier: ShippingProductTier = isShippingTier(tierParamRaw) ? tierParamRaw : 'essential';
+const activeProfile = profilesByTier[activeTier];
+const TIER_MODEL_BLURB: Record<ShippingProductTier, string> = {
+	essential: 'Semi Pro, Varsity, Pro Locker, Stadium Locker',
+	premium: 'Model X, Model Z, Model S, Model L',
+};
+---
+
+<AdminLayout title="Shipping" activeNav="shipping">
+	<p class="ship-lead">
+		Choose which locker line you are shipping below. Only that line’s <strong>pallet reference</strong> and <strong>shipment memo</strong> show — dimensions and weight should match your warehouse / C &amp; D setup.
+	</p>
+	<p class="ship-lead ship-muted">
+		<a href="/admin/inventory">← Back to Inventory</a>
+	</p>
+
+	<nav class="ship-tier-tabs" aria-label="Locker line">
+		{SHIPPING_TIERS.map((tier) => (
+			<a
+				href={`/admin/shipping?tier=${tier}`}
+				class:list={['ship-tier-tab', { active: tier === activeTier }]}
+			>
+				{SHIPPING_TIER_LABELS[tier]}
+			</a>
+		))}
+	</nav>
+	<p class="ship-active-hint" role="status">
+		<strong>Showing:</strong> {SHIPPING_TIER_LABELS[activeTier]} — <span class="ship-muted">{TIER_MODEL_BLURB[activeTier]}</span>
+	</p>
+
+	{formError && <div class="ship-alert ship-alert-error" role="alert">{formError}</div>}
+	{formSuccess && <div class="ship-alert ship-alert-ok" role="status">{formSuccess}</div>}
+	{stripToast && (
+		<script is:inline>
+			try {
+				var u = new URL(location.href);
+				if (u.searchParams.has('toast')) {
+					u.searchParams.delete('toast');
+					var q = u.searchParams.toString();
+					history.replaceState(null, '', u.pathname + (q ? '?' + q : '') + u.hash);
+				}
+			} catch (_) {}
+		</script>
+	)}
+
+	{demoMode && (
+		<p class="ship-demo">
+			Preview mode: pallet data shown is sample only. Connect Supabase and run <code>007_shipping_cd_logistics.sql</code> to save profiles and template.
+		</p>
+	)}
+
+	<div class="card ship-card ship-panel-active">
+		<h2 class="ship-card-title">Pallet reference — {SHIPPING_TIER_LABELS[activeTier]}</h2>
+		<p class="ship-muted">{activeProfile.label}</p>
+		{demoMode ? (
+			<p class="ship-muted">Saving disabled without Supabase.</p>
+		) : (
+			<form method="POST" class="ship-form">
+				<input type="hidden" name="action" value="save_profile" />
+				<input type="hidden" name="product_tier" value={activeTier} />
+				<div class="form-group">
+					<label for="ship-label-active">Display label</label>
+					<input id="ship-label-active" type="text" name="label" value={activeProfile.label} required />
+				</div>
+				<div class="ship-dims">
+					<div class="form-group">
+						<label for="ship-pl">Pallet L (in)</label>
+						<input id="ship-pl" type="number" step="0.01" name="pallet_length_in" value={activeProfile.pallet_length_in ?? ''} />
+					</div>
+					<div class="form-group">
+						<label for="ship-pw">Pallet W (in)</label>
+						<input id="ship-pw" type="number" step="0.01" name="pallet_width_in" value={activeProfile.pallet_width_in ?? ''} />
+					</div>
+					<div class="form-group">
+						<label for="ship-ph">Pallet H (in)</label>
+						<input id="ship-ph" type="number" step="0.01" name="pallet_height_in" value={activeProfile.pallet_height_in ?? ''} />
+					</div>
+					<div class="form-group">
+						<label for="ship-wt">Weight (lb, est.)</label>
+						<input id="ship-wt" type="number" step="0.01" name="weight_lb" value={activeProfile.weight_lb ?? ''} />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="ship-lpn">Lockers / pallet note</label>
+					<textarea id="ship-lpn" name="lockers_per_pallet_note" rows="2">{activeProfile.lockers_per_pallet_note ?? ''}</textarea>
+				</div>
+				<div class="form-group">
+					<label for="ship-pk">Packing notes</label>
+					<textarea id="ship-pk" name="packing_notes" rows="3">{activeProfile.packing_notes ?? ''}</textarea>
+				</div>
+				<div class="form-group">
+					<label for="ship-hi">Handling instructions</label>
+					<textarea id="ship-hi" name="handling_instructions" rows="3">{activeProfile.handling_instructions ?? ''}</textarea>
+				</div>
+				<button type="submit" class="btn btn-primary">Save pallet profile</button>
+			</form>
+		)}
+
+		<hr class="ship-divider" />
+
+		<h3 class="ship-subtitle">C &amp; D memo for this line</h3>
+		<p class="ship-muted">
+			Uses saved pallet data for <strong>{SHIPPING_TIER_LABELS[activeTier]}</strong>. Download attaches dimensions/weight from the fields above.
+		</p>
+		<form method="POST" action="/admin/shipping/memo" class="ship-form">
+			<input type="hidden" name="product_tier" value={activeTier} />
+			<div class="form-group">
+				<label for="reference">Reference / PO</label>
+				<input id="reference" type="text" name="reference" placeholder="e.g. INV-1296" required />
+			</div>
+			<div class="form-group">
+				<label for="ship_date">Ship / pickup date</label>
+				<input id="ship_date" type="text" name="ship_date" placeholder="e.g. 2026-04-15" />
+			</div>
+			<div class="form-group">
+				<label for="ship_to">Deliver to (full address)</label>
+				<textarea id="ship_to" name="ship_to" rows="4" placeholder="Name, company, street, city, province/state, postal, phone" />
+			</div>
+			<div class="ship-dims">
+				<div class="form-group">
+					<label for="locker_qty">Locker qty</label>
+					<input id="locker_qty" type="text" name="locker_qty" placeholder="e.g. 24" />
+				</div>
+				<div class="form-group">
+					<label for="pallet_qty">Pallet count</label>
+					<input id="pallet_qty" type="text" name="pallet_qty" placeholder="e.g. 3" />
+				</div>
+			</div>
+			<div class="ship-dims">
+				<div class="form-group">
+					<label for="shipper_company">Shipper company</label>
+					<input id="shipper_company" type="text" name="shipper_company" value="PlayerStall" />
+				</div>
+				<div class="form-group">
+					<label for="shipper_contact">Shipper contact</label>
+					<input id="shipper_contact" type="text" name="shipper_contact" />
+				</div>
+				<div class="form-group">
+					<label for="shipper_phone">Shipper phone</label>
+					<input id="shipper_phone" type="text" name="shipper_phone" placeholder="1 888 584 1444" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="internal_notes">Internal notes (this shipment only)</label>
+				<textarea id="internal_notes" name="internal_notes" rows="3" />
+			</div>
+			<button type="submit" class="btn btn-primary">Download memo (.txt)</button>
+		</form>
+	</div>
+
+	<details class="card ship-card ship-template-details">
+		<summary class="ship-template-summary">C &amp; D Logistics — email &amp; attachment template (both lines)</summary>
+		<p class="ship-muted ship-template-intro">
+			Shared template for every shipment. Merge fields pull from the pallet profile for whichever line you had selected when you generated the memo.
+		</p>
+		<p class="ship-muted">
+			Edit the subject and body below. Use <code>{'{{field_name}}'}</code> placeholders; they are replaced when you generate the download. You can paste the subject into your email client and attach the downloaded <code>.txt</code> file (or copy the body into the message).
+		</p>
+		<details class="ship-merge">
+			<summary>Merge fields (reference)</summary>
+			<ul class="ship-merge-list">
+				{CD_LOGISTICS_MERGE_FIELD_HELP.map((row) => (
+					<li>
+						<code>{'{{' + row.key + '}}'}</code> — {row.description}
+					</li>
+				))}
+			</ul>
+		</details>
+		{demoMode ? (
+			<p class="ship-muted">Template editing requires Supabase.</p>
+		) : (
+			<form method="POST" class="ship-form">
+				<input type="hidden" name="action" value="save_cd_template" />
+				<input type="hidden" name="nav_tier" value={activeTier} />
+				<div class="form-group">
+					<label for="carrier_display_name">Carrier display name</label>
+					<input
+						id="carrier_display_name"
+						type="text"
+						name="carrier_display_name"
+						value={cdTemplate.carrier_display_name}
+					/>
+				</div>
+				<div class="form-group">
+					<label for="email_subject_template">Email subject template</label>
+					<input
+						id="email_subject_template"
+						type="text"
+						name="email_subject_template"
+						value={cdTemplate.email_subject_template}
+						required
+					/>
+				</div>
+				<div class="form-group">
+					<label for="attachment_body_template">Attachment body template</label>
+					<textarea id="attachment_body_template" name="attachment_body_template" rows="18" required>{cdTemplate.attachment_body_template}</textarea>
+				</div>
+				<button type="submit" class="btn btn-primary">Save C &amp; D template</button>
+			</form>
+		)}
+	</details>
+</AdminLayout>
+
+<style>
+	.ship-lead {
+		font-family: 'Yantramanav', sans-serif;
+		color: #333;
+		line-height: 1.55;
+		margin: 0 0 0.75rem;
+		max-width: 920px;
+	}
+	.ship-lead strong {
+		margin-right: 0.25rem;
+	}
+	.ship-muted {
+		color: #666;
+		font-size: 0.9rem;
+	}
+	.ship-muted a {
+		color: #fe5900;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.ship-muted a:hover {
+		text-decoration: underline;
+	}
+	.ship-demo {
+		padding: 12px 14px;
+		background: #fff8e6;
+		border: 1px solid #ffe0a3;
+		font-size: 0.88rem;
+		margin-bottom: 1rem;
+		max-width: 920px;
+	}
+	.ship-alert {
+		padding: 12px 16px;
+		border-radius: 6px;
+		margin-bottom: 1rem;
+		font-family: 'Yantramanav', sans-serif;
+	}
+	.ship-alert-error {
+		background: #fde8e8;
+		color: #8b1a1a;
+		border: 1px solid #f5bcbc;
+	}
+	.ship-alert-ok {
+		background: #e8f5e9;
+		color: #1b5e20;
+		border: 1px solid #c8e6c9;
+	}
+	.ship-card {
+		margin-bottom: 1.25rem;
+		padding-bottom: 1.5rem;
+	}
+	.ship-card-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 1.1rem;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		margin: 0 0 0.5rem;
+	}
+	.ship-dims {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+		gap: 0 16px;
+	}
+	.ship-form {
+		margin-top: 1rem;
+	}
+	.ship-merge {
+		margin: 1rem 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 0.88rem;
+	}
+	.ship-merge summary {
+		cursor: pointer;
+		color: #fe5900;
+		font-weight: 600;
+	}
+	.ship-merge-list {
+		margin: 0.5rem 0 0;
+		padding-left: 1.2rem;
+		line-height: 1.5;
+	}
+	.ship-tier-tabs {
+		display: flex;
+		gap: 8px;
+		flex-wrap: wrap;
+		margin-bottom: 0.5rem;
+	}
+	.ship-tier-tab {
+		font-family: 'Oswald', sans-serif;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		padding: 10px 18px;
+		border-radius: 6px;
+		background: #f0f0f0;
+		color: #0d0d0d;
+		text-decoration: none;
+		border: 1px solid #ddd;
+	}
+	.ship-tier-tab:hover {
+		border-color: #fe5900;
+		color: #fe5900;
+	}
+	.ship-tier-tab.active {
+		background: #fe5900;
+		color: #fff;
+		border-color: #fe5900;
+	}
+	.ship-active-hint {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 0.95rem;
+		margin: 0 0 1.25rem;
+		max-width: 920px;
+	}
+	.ship-panel-active {
+		border-left: 4px solid #fe5900;
+	}
+	.ship-divider {
+		border: none;
+		border-top: 1px solid #e8e8e8;
+		margin: 1.75rem 0 1.25rem;
+	}
+	.ship-subtitle {
+		font-family: 'Oswald', sans-serif;
+		font-size: 1rem;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		margin: 0 0 0.5rem;
+	}
+	.ship-template-details {
+		padding: 1rem 1.25rem 1.25rem;
+	}
+	.ship-template-summary {
+		font-family: 'Oswald', sans-serif;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		cursor: pointer;
+		font-size: 0.95rem;
+	}
+	.ship-template-intro {
+		margin: 0.75rem 0 1rem;
+	}
+</style>

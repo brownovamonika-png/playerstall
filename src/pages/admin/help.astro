@@ -1,0 +1,211 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getSession } from '../../lib/auth';
+import { isSupabaseConfigured } from '../../lib/supabase';
+
+const demoMode = !isSupabaseConfigured;
+
+if (!demoMode) {
+	const session = await getSession(Astro.cookies);
+	if (!session) return Astro.redirect('/admin/login');
+}
+---
+
+<AdminLayout title="Help" activeNav="help">
+	<p class="help-lead">
+		Use this page to find your way around the CRM. The <strong>?</strong> button in the <strong>bottom-right corner</strong> opens the same style of step-by-step tour as the room designer (first visits see the panel open; you can minimize it or finish the tour anytime).
+	</p>
+
+	<div class="card help-section help-tour-reset">
+		<div class="card-header">
+			<h2>CRM quick tour</h2>
+		</div>
+		<p class="help-p">
+			If you already finished or skipped the tour and want it back, click below. You’ll return to the dashboard with the tour reset for this browser.
+		</p>
+		<button type="button" class="btn btn-secondary" id="crm-tour-restart">Show CRM tour again</button>
+	</div>
+
+	<script is:inline>
+		document.getElementById('crm-tour-restart')?.addEventListener('click', function () {
+			try {
+				localStorage.removeItem('ps_crm_tour_done');
+				localStorage.removeItem('ps_crm_tour_collapsed');
+			} catch (_) {}
+			window.location.href = '/admin';
+		});
+	</script>
+
+	<div class="help-cards">
+		<a class="help-card" href="/admin">
+			<strong>Dashboard</strong>
+			<span>Counts, pipeline snapshot, recent orders and activity.</span>
+		</a>
+		<a class="help-card" href="/admin/pipeline">
+			<strong>Pipeline</strong>
+			<span>Move deals by stage (New Lead → … → Complete).</span>
+		</a>
+		<a class="help-card" href="/admin/clients">
+			<strong>Clients</strong>
+			<span>List of contacts; open a row for details, orders, notes.</span>
+		</a>
+		<a class="help-card" href="/admin/emails">
+			<strong>Email templates</strong>
+			<span>Edit inquiry ack and other emails; set “Send as” per brand.</span>
+		</a>
+		<a class="help-card" href="/admin/client-copy">
+			<strong>Client copy</strong>
+			<span>Helper content for client-facing text.</span>
+		</a>
+	</div>
+
+	<div class="card help-section">
+		<div class="card-header">
+			<h2>Login &amp; access</h2>
+		</div>
+		<ul class="help-list">
+			<li>
+				<strong>Supabase configured:</strong> go to <a href="/admin/login">/admin/login</a> and sign in with email and password. Log out from the sidebar.
+			</li>
+			<li>
+				<strong>CRM shared password</strong> (<code>CRM_SHARED_PASSWORD</code>): when Supabase is connected, setting this requires that password first, then your Supabase sign-in. Log out clears the password session cookie.
+			</li>
+			<li>
+				<strong>Preview without Supabase:</strong> you must set <code>CRM_SHARED_PASSWORD</code> in your environment, then sign in on <a href="/admin/login">/admin/login</a> with that password (sample data). Admin URLs are not open without signing in.
+			</li>
+		</ul>
+	</div>
+
+	<div class="card help-section">
+		<div class="card-header">
+			<h2>Two companies &amp; inquiry emails</h2>
+		</div>
+		<ul class="help-list">
+			<li>
+				On <a href="/admin/emails">Email Templates</a>, each row has <strong>Send as</strong>: <em>PlayerStall</em> or <em>Custom Sport Lockers</em>.
+			</li>
+			<li>
+				Use one inquiry-acknowledgment template per brand. Paste your Gmail wording into <strong>Subject</strong> and <strong>Email Body (HTML)</strong> (wrap plain text in <code>&lt;p&gt;…&lt;/p&gt;</code> if needed).
+			</li>
+			<li>
+				<strong>Stage trigger “New Lead”</strong> ties a template to new inquiries when automated sending is wired up; enabling the template prepares it for that.
+			</li>
+			<li>
+				MailerSend “from” addresses: set <code>MAILERSEND_FROM_EMAIL</code> and <code>MAILERSEND_FROM_EMAIL_CUSTOM_SPORT_LOCKERS</code> in your deployment environment.
+			</li>
+		</ul>
+	</div>
+
+	<div class="card help-section">
+		<div class="card-header">
+			<h2>Using Cursor AI with this CRM</h2>
+		</div>
+		<p class="help-p">
+			In Cursor Chat, you can ask questions like “how do I set up inquiry acknowledgment for both brands?” The project includes a skill file at
+			<code>.cursor/skills/playerstall-crm/SKILL.md</code> that guides the AI. It is <strong>not</strong> a button inside the CRM—keep <strong>Help</strong> in the sidebar for that.
+		</p>
+	</div>
+</AdminLayout>
+
+<style>
+	.help-lead {
+		color: #4b5563;
+		font-size: 15px;
+		line-height: 1.5;
+		margin-bottom: 24px;
+		max-width: 720px;
+	}
+
+	.help-cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 14px;
+		margin-bottom: 28px;
+	}
+
+	.help-card {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		padding: 18px 16px;
+		background: #fff;
+		border: 1px solid #e5e7eb;
+		border-radius: 8px;
+		text-decoration: none;
+		color: inherit;
+		transition: border-color 0.15s, box-shadow 0.15s;
+	}
+
+	.help-card:hover {
+		border-color: #fe5900;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+	}
+
+	.help-card strong {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		color: #0d0d0d;
+	}
+
+	.help-card span {
+		font-size: 13px;
+		color: #6b7280;
+		line-height: 1.45;
+	}
+
+	.help-section {
+		margin-bottom: 20px;
+	}
+
+	.help-section .card-header {
+		padding-bottom: 12px;
+		margin-bottom: 12px;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.help-section .card-header h2 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		margin: 0;
+		color: #0d0d0d;
+	}
+
+	.help-list {
+		margin: 0;
+		padding-left: 20px;
+		color: #374151;
+		line-height: 1.6;
+		font-size: 14px;
+	}
+
+	.help-list li {
+		margin-bottom: 10px;
+	}
+
+	.help-list a {
+		color: #fe5900;
+		font-weight: 500;
+	}
+
+	.help-p {
+		margin: 0;
+		font-size: 14px;
+		line-height: 1.6;
+		color: #374151;
+	}
+
+	.help-p code {
+		font-size: 12px;
+		background: #f3f4f6;
+		padding: 2px 6px;
+		border-radius: 4px;
+	}
+
+	.help-tour-reset .help-p {
+		margin-bottom: 16px;
+	}
+</style>

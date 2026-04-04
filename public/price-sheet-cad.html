@@ -22,6 +22,7 @@
 
 	.tier-label { display: inline-block; font-family: 'Oswald', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #fff; background: #0d0d0d; padding: 2px 10px; border-radius: 2px; margin-bottom: 2px; }
 	.tier-label.premium { background: #fe5900; }
+	.tier-label.essential { background: #374151; }
 
 	table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
 	thead th { font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; color: #666; padding: 8px 10px; text-align: center; border-bottom: 2px solid #0d0d0d; }
@@ -64,6 +65,8 @@
 	.profit-table .col-profit.positive { color: #2e7d32; }
 	.profit-table .col-margin { font-size: 11px; color: #666; }
 	.profit-table .tier-sep td { padding: 10px 0 2px; border-bottom: none; background: #fff; }
+	.col-depth { text-align: left; font-size: 11px; color: #555; font-weight: 500; white-space: nowrap; max-width: 100px; }
+	.total-table .col-depth { font-size: 11px; color: #555; }
 	@media print { .internal-banner { border-color: #ccc; background: #fafafa; } }
 
 	.footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #e0e0e0; font-size: 11px; color: #999; line-height: 1.8; }
@@ -110,6 +113,7 @@
 		<thead>
 			<tr>
 				<th>Model</th>
+				<th>Depth</th>
 				<th>18"</th>
 				<th>20"</th>
 				<th>22"</th>
@@ -123,21 +127,71 @@
 		<tbody>
 			<tr>
 				<td><span class="model-name">Model X</span><span class="model-detail">Curved design, max customization</span></td>
+				<td class="col-depth">19″ or 24″</td>
 				<td class="price">$649</td><td class="price">$649</td><td class="price">$649</td><td class="price">$649</td>
 				<td class="price">$699</td><td class="price">$699</td><td class="price">$749</td><td class="price">$749</td>
 			</tr>
 			<tr>
 				<td><span class="model-name">Model Z</span><span class="model-detail">Premium melamine, elite tier</span></td>
+				<td class="col-depth">19″ or 24″</td>
 				<td class="price">$649</td><td class="price">$649</td><td class="price">$649</td><td class="price">$649</td>
 				<td class="price">$699</td><td class="price">$699</td><td class="price">$749</td><td class="price">$749</td>
 			</tr>
 			<tr>
 				<td><span class="model-name">Model S</span><span class="model-detail">Premium melamine, stadium-grade</span></td>
+				<td class="col-depth">19″ or 24″</td>
 				<td class="price">$649</td><td class="price">$649</td><td class="price">$649</td><td class="price">$649</td>
 				<td class="price">$699</td><td class="price">$699</td><td class="price">$749</td><td class="price">$749</td>
 			</tr>
 			<tr>
 				<td><span class="model-name">Model L</span><span class="model-detail">Premium melamine</span></td>
+				<td class="col-depth">19″ or 24″</td>
+				<td class="price">$599</td><td class="price">$599</td><td class="price">$599</td><td class="price">$599</td>
+				<td class="price">$629</td><td class="price">$629</td><td class="price">$649</td><td class="price">$649</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<!-- ─── ESSENTIAL LINE ─── -->
+	<h2><span class="tier-label essential">Essential Line</span> &nbsp; Locker Pricing by Width <span style="font-size:12px; font-weight:400; color:#999; letter-spacing:0;">(USD list — same accessory bundle as Premium totals below)</span></h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Model</th>
+				<th>Depth</th>
+				<th>18"</th>
+				<th>20"</th>
+				<th>22"</th>
+				<th>24"</th>
+				<th>26"</th>
+				<th>28"</th>
+				<th>30"</th>
+				<th>32"</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><span class="model-name">Semi Pro</span><span class="model-detail">Pre-finished birch plywood</span></td>
+				<td class="col-depth">19″</td>
+				<td class="price">$349</td><td class="price">$349</td><td class="price">$349</td><td class="price">$349</td>
+				<td class="price">$399</td><td class="price">$399</td><td class="price">$429</td><td class="price">$429</td>
+			</tr>
+			<tr>
+				<td><span class="model-name">Varsity</span><span class="model-detail">Pre-finished birch plywood</span></td>
+				<td class="col-depth">19″</td>
+				<td class="price">$449</td><td class="price">$449</td><td class="price">$449</td><td class="price">$449</td>
+				<td class="price">$499</td><td class="price">$499</td><td class="price">$529</td><td class="price">$529</td>
+			</tr>
+			<tr>
+				<td><span class="model-name">Pro Locker</span><span class="model-detail">Essential line — melamine</span></td>
+				<td class="col-depth">19″</td>
+				<td class="price">$599</td><td class="price">$599</td><td class="price">$599</td><td class="price">$599</td>
+				<td class="price">$629</td><td class="price">$629</td><td class="price">$649</td><td class="price">$649</td>
+			</tr>
+			<tr>
+				<td><span class="model-name">Stadium Locker</span><span class="model-detail">Essential line — melamine</span></td>
+				<td class="col-depth">19″</td>
 				<td class="price">$599</td><td class="price">$599</td><td class="price">$599</td><td class="price">$599</td>
 				<td class="price">$629</td><td class="price">$629</td><td class="price">$649</td><td class="price">$649</td>
 			</tr>
@@ -151,6 +205,7 @@
 		<thead>
 			<tr>
 				<th class="col-model">Model</th>
+				<th class="col-depth">Depth</th>
 				<th>Base<br/>18–24"</th>
 				<th>Base<br/>26–28"</th>
 				<th>Base<br/>30–32"</th>
@@ -168,7 +223,7 @@
 	</table>
 
 	<!-- ─── COST BREAKDOWN (INTERNAL) ─── -->
-	<div class="internal-banner">INTERNAL USE ONLY — Cost data below is confidential</div>
+	<div class="internal-banner">INTERNAL USE ONLY — Cost data below is confidential. Essential-line profit rows use the same per-width factory cost as Premium until a separate Essential BOM is loaded.</div>
 
 	<h2>Cost Per Locker by Width <span style="font-size:12px; font-weight:400; color:#999; letter-spacing:0;">(includes vented front + lock box + cushion + hooks + digital lock + shipping from Vietnam to Canada)</span></h2>
 
@@ -199,7 +254,7 @@
 			<tr><td>32"</td><td>4,520,000</td><td>361,600</td><td>TBD</td><td>4,881,600</td><td class="cost-val">$256.93</td><td>$35.00</td><td>$30.00</td><td>$23.16</td><td>$3.00</td><td class="cost-val">$348.09</td></tr>
 		</tbody>
 	</table>
-	<p style="font-size:11px; color:#999; margin: -12px 0 20px;">Cushion + foam: $23.16. Hooks: $3.00. Digital lock: $30.00. Shipping: $35.00 ($8,000 ÷ 250 lockers). Rate: 19,000 VND/CAD. Packing: TBD.</p>
+	<p style="font-size:11px; color:#999; margin: -12px 0 20px;">Cushion + foam: $23.16. Hooks: $3.00. Digital lock: $30.00. Shipping: $35.00 ($8,000 ÷ 250 lockers). Rate: 19,000 VND/CAD. Packing: TBD. Per-width all-in cost applies to Premium melamine (19″ or 24″ depth — same factory cost assumption); Essential birch/melamine rows use the same figures for planning until split.</p>
 
 	<!-- ─── PROFIT PER LOCKER ─── -->
 	<h2>Profit Per Locker — Revenue: Sales in USA Converted to CAD <span style="font-size:12px; font-weight:400; color:#999; letter-spacing:0;">(USD × 1.38 = CAD)</span><br/><span style="font-size:12px; font-weight:400; color:#999; letter-spacing:0;">(includes vented front + lock box + cushion + hooks + digital lock + shipping from Vietnam to Canada)</span></h2>
@@ -208,6 +263,7 @@
 		<thead>
 			<tr>
 				<th class="col-model">Model</th>
+				<th class="col-depth">Depth</th>
 				<th>18"</th>
 				<th>20"</th>
 				<th>22"</th>
@@ -229,6 +285,7 @@
 		<thead>
 			<tr>
 				<th class="col-model">Model</th>
+				<th class="col-depth">Depth</th>
 				<th>18"</th>
 				<th>20"</th>
 				<th>22"</th>
@@ -247,7 +304,7 @@
 	<div class="footer">
 		<strong>Notes</strong><br />
 		&bull; All prices are in Canadian Dollars (CAD).<br />
-		&bull; No depth surcharge — 19" and 24" depths are the same price (where available).<br />
+		&bull; <strong>Depth:</strong> Premium (Models X, Z, S, L) — 19″ or 24″, same list price. Essential Semi Pro &amp; Varsity — 19″ standard. Essential Pro Locker &amp; Stadium Locker — 19″. Optional 4″ riser base is separate from locker depth.<br />
 		&bull; Bottom cushion and Top &amp; bottom cushions are mutually exclusive — selecting one deselects the other.<br />
 		&bull; All lockers custom-built in 8–12 weeks. Five year warranty included.<br />
 		&bull; Shipping and installation quoted separately.<br />
@@ -267,10 +324,14 @@ const WIDTHS   = [18, 20, 22, 24, 26, 28, 30, 32];
 const COST_CAD = { 18: 302.61, 20: 307.16, 22: 309.43, 24: 309.43, 26: 316.25, 28: 325.35, 30: 334.44, 32: 348.09 };
 
 const MODELS = [
-	{ name: 'Model X', tier: 'premium', base: [649, 699, 749], prices: {18:649,20:649,22:649,24:649,26:699,28:699,30:749,32:749} },
-	{ name: 'Model Z', tier: 'premium', base: [649, 699, 749], prices: {18:649,20:649,22:649,24:649,26:699,28:699,30:749,32:749} },
-	{ name: 'Model S', tier: 'premium', base: [649, 699, 749], prices: {18:649,20:649,22:649,24:649,26:699,28:699,30:749,32:749} },
-	{ name: 'Model L', tier: 'premium', base: [599, 629, 649], prices: {18:599,20:599,22:599,24:599,26:629,28:629,30:649,32:649} },
+	{ name: 'Model X', tier: 'premium', depthLabel: '19\u2033 or 24\u2033', base: [649, 699, 749], prices: {18:649,20:649,22:649,24:649,26:699,28:699,30:749,32:749} },
+	{ name: 'Model Z', tier: 'premium', depthLabel: '19\u2033 or 24\u2033', base: [649, 699, 749], prices: {18:649,20:649,22:649,24:649,26:699,28:699,30:749,32:749} },
+	{ name: 'Model S', tier: 'premium', depthLabel: '19\u2033 or 24\u2033', base: [649, 699, 749], prices: {18:649,20:649,22:649,24:649,26:699,28:699,30:749,32:749} },
+	{ name: 'Model L', tier: 'premium', depthLabel: '19\u2033 or 24\u2033', base: [599, 629, 649], prices: {18:599,20:599,22:599,24:599,26:629,28:629,30:649,32:649} },
+	{ name: 'Semi Pro', tier: 'essential', depthLabel: '19\u2033', base: [349, 399, 429], prices: {18:349,20:349,22:349,24:349,26:399,28:399,30:429,32:429} },
+	{ name: 'Varsity', tier: 'essential', depthLabel: '19\u2033', base: [449, 499, 529], prices: {18:449,20:449,22:449,24:449,26:499,28:499,30:529,32:529} },
+	{ name: 'Pro Locker', tier: 'essential', depthLabel: '19\u2033', base: [599, 629, 649], prices: {18:599,20:599,22:599,24:599,26:629,28:629,30:649,32:649} },
+	{ name: 'Stadium Locker', tier: 'essential', depthLabel: '19\u2033', base: [599, 629, 649], prices: {18:599,20:599,22:599,24:599,26:629,28:629,30:649,32:649} },
 ];
 
 const totalBody = document.getElementById('totalBody');
@@ -289,6 +350,7 @@ let html = '';
 for (const m of MODELS) {
 	html += '<tr>';
 	html += `<td class="col-model"><span class="model-name">${m.name}</span></td>`;
+	html += `<td class="col-depth">${m.depthLabel}</td>`;
 	for (const b of m.base) html += `<td>${fmt(b)}</td>`;
 	html += `<td class="col-acc">${fmt(VENTED)}</td>`;
 	html += `<td class="col-acc">${fmt(LOCK_BOX)}</td>`;
@@ -299,14 +361,15 @@ for (const m of MODELS) {
 }
 totalBody.innerHTML = html;
 
-// Profit table (premium line only, USD prices × 1.38 = CAD revenue)
+// Profit table (Premium + Essential; Essential uses same COST_CAD as Premium per internal banner)
 const USD_TO_CAD = 1.38;
 let phtml = '';
 for (const m of MODELS) {
-	if (m.tier !== 'premium') continue;
+	if (m.tier !== 'premium' && m.tier !== 'essential') continue;
 
 	phtml += '<tr>';
 	phtml += `<td class="col-model"><span class="model-name">${m.name}</span><span style="display:block;font-size:10px;color:#999;">price (USD)</span></td>`;
+	phtml += `<td class="col-depth">${m.depthLabel}</td>`;
 	for (const w of WIDTHS) {
 		phtml += `<td style="color:#999;font-size:11px;">US${fmtD(m.prices[w] + fixed)}</td>`;
 	}
@@ -314,6 +377,7 @@ for (const m of MODELS) {
 
 	phtml += '<tr>';
 	phtml += `<td class="col-model" style="font-size:10px;color:#999;padding-left:12px;">revenue (CAD)</td>`;
+	phtml += `<td class="col-depth">${m.depthLabel}</td>`;
 	for (const w of WIDTHS) {
 		const revCad = (m.prices[w] + fixed) * USD_TO_CAD;
 		phtml += `<td class="col-rev">${fmtD(revCad)}</td>`;
@@ -322,6 +386,7 @@ for (const m of MODELS) {
 
 	phtml += '<tr>';
 	phtml += `<td class="col-model" style="font-size:10px;color:#999;padding-left:12px;">cost (CAD)</td>`;
+	phtml += `<td class="col-depth">${m.depthLabel}</td>`;
 	for (const w of WIDTHS) {
 		phtml += `<td class="col-cost">${fmtD(COST_CAD[w])}</td>`;
 	}
@@ -329,6 +394,7 @@ for (const m of MODELS) {
 
 	phtml += '<tr style="border-bottom:2px solid #e0e0e0;">';
 	phtml += `<td class="col-model" style="font-size:10px;color:#2e7d32;font-weight:600;padding-left:12px;">profit (CAD)</td>`;
+	phtml += `<td class="col-depth">${m.depthLabel}</td>`;
 	for (const w of WIDTHS) {
 		const revCad = (m.prices[w] + fixed) * USD_TO_CAD;
 		const profit = revCad - COST_CAD[w];
@@ -343,10 +409,11 @@ profitBody.innerHTML = phtml;
 const profitBaseBody = document.getElementById('profitBaseBody');
 let bhtml = '';
 for (const m of MODELS) {
-	if (m.tier !== 'premium') continue;
+	if (m.tier !== 'premium' && m.tier !== 'essential') continue;
 
 	bhtml += '<tr>';
 	bhtml += `<td class="col-model"><span class="model-name">${m.name}</span><span style="display:block;font-size:10px;color:#999;">price (USD)</span></td>`;
+	bhtml += `<td class="col-depth">${m.depthLabel}</td>`;
 	for (const w of WIDTHS) {
 		bhtml += `<td style="color:#999;font-size:11px;">US${fmtD(m.prices[w])}</td>`;
 	}
@@ -354,6 +421,7 @@ for (const m of MODELS) {
 
 	bhtml += '<tr>';
 	bhtml += `<td class="col-model" style="font-size:10px;color:#999;padding-left:12px;">revenue (CAD)</td>`;
+	bhtml += `<td class="col-depth">${m.depthLabel}</td>`;
 	for (const w of WIDTHS) {
 		const revCad = m.prices[w] * USD_TO_CAD;
 		bhtml += `<td class="col-rev">${fmtD(revCad)}</td>`;
@@ -362,6 +430,7 @@ for (const m of MODELS) {
 
 	bhtml += '<tr>';
 	bhtml += `<td class="col-model" style="font-size:10px;color:#999;padding-left:12px;">cost (CAD)</td>`;
+	bhtml += `<td class="col-depth">${m.depthLabel}</td>`;
 	for (const w of WIDTHS) {
 		bhtml += `<td class="col-cost">${fmtD(COST_CAD[w])}</td>`;
 	}
@@ -369,6 +438,7 @@ for (const m of MODELS) {
 
 	bhtml += '<tr style="border-bottom:2px solid #e0e0e0;">';
 	bhtml += `<td class="col-model" style="font-size:10px;color:#2e7d32;font-weight:600;padding-left:12px;">profit (CAD)</td>`;
+	bhtml += `<td class="col-depth">${m.depthLabel}</td>`;
 	for (const w of WIDTHS) {
 		const revCad = m.prices[w] * USD_TO_CAD;
 		const profit = revCad - COST_CAD[w];

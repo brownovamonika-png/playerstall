@@ -1,0 +1,15 @@
+---
+export const prerender = false;
+
+import { getSession } from '../../lib/auth';
+import { isSupabaseConfigured } from '../../lib/supabase';
+
+const demoMode = !isSupabaseConfigured;
+
+if (!demoMode) {
+	const session = await getSession(Astro.cookies);
+	if (!session) return Astro.redirect('/admin/login');
+}
+
+return Astro.redirect('/admin', 302);
+---

@@ -1,0 +1,961 @@
+---
+export const prerender = false;
+
+import { getSession } from '../../../../lib/auth';
+import {
+	accessoryLabelWithFinishFromNotes,
+	accessoryLabelWithoutEmbeddedPrice,
+	LOCKER_SPEC_ACCESSORY_ROWS,
+	parseAccessoriesField,
+} from '../../../../lib/crm-locker-accessories';
+import {
+	computeSiteListForOrderFields,
+	normalizeAccessoryQuantitiesToPerLocker,
+	SITE_ACCESSORY_USD,
+} from '../../../../lib/crm-site-pricing';
+import { supabaseAdmin } from '../../../../lib/supabase';
+
+const session = await getSession(Astro.cookies);
+if (!session) return Astro.redirect('/admin/login');
+
+const { id } = Astro.params;
+const docType = Astro.url.searchParams.get('type') === 'invoice' ? 'invoice' : 'estimate';
+const titleLabel = docType === 'invoice' ? 'Invoice' : 'Estimate';
+
+const { data: order } = await supabaseAdmin
+	.from('orders')
+	.select('*, clients(*)')
+	.eq('id', id)
+	.single();
+
+if (!order) return Astro.redirect('/admin');
+
+const client = order.clients as Record<string, unknown> | null;
+/** Invoices/estimates always use PlayerStall letterhead regardless of lead source site. */
+const brandName = 'PlayerStall';
+const brandEmail = 'sales@playerstall.com';
+const docNumber = docType === 'invoice' ? order.invoice_number : order.estimate_number;
+const today = new Date().toLocaleDateString('en-CA', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+const amt = order.quoted_amount != null ? Number(order.quoted_amount) : null;
+const qty = order.quantity != null && order.quantity > 0 ? Number(order.quantity) : null;
+const unitPrice = amt != null && qty != null && qty > 0 ? amt / qty : null;
+
+const accParsed = parseAccessoriesField(order.accessories);
+const accessoriesBlob = String(order.accessories ?? '');
+const siteListLine = computeSiteListForOrderFields({
+	locker_type: order.locker_type,
+	locker_size: order.locker_size,
+	quantity: order.quantity,
+	accessoryQuantities: accParsed.quantities,
+});
+
+const lockerQtyForNorm = qty != null && qty > 0 ? Math.floor(qty) : 1;
+const normAcc = normalizeAccessoryQuantitiesToPerLocker(accParsed.quantities, lockerQtyForNorm);
+type AccDisp = { label: string; addPerLocker: number };
+const accessoryDisplayLines: AccDisp[] = [];
+for (const row of LOCKER_SPEC_ACCESSORY_ROWS) {
+	const q = normAcc[row.id] ?? 0;
+	if (q <= 0) continue;
+	const unit = SITE_ACCESSORY_USD[row.id];
+	if (typeof unit !== 'number') continue;
+	accessoryDisplayLines.push({
+		label: accessoryLabelWithFinishFromNotes(
+			row.id,
+			accessoryLabelWithoutEmbeddedPrice(row.label),
+			accessoriesBlob
+		),
+		addPerLocker: Math.round(unit * q * 100) / 100,
+	});
+}
+
+const displayName = String(order.locker_type || '').trim() || order.title || 'Locker';
+const widthRaw = String(order.locker_size || '').trim();
+const depthRaw = String(order.locker_width || '').trim();
+const colorRaw = String(order.locker_color || '').trim();
+const wPart = widthRaw ? `${widthRaw.replace(/"/g, '″')}W` : '';
+const dPart = depthRaw ? `${depthRaw.replace(/"/g, '″')}D` : '';
+const specLinePlanner =
+	[wPart, dPart].filter(Boolean).join(' × ') + (colorRaw ? ` · ${colorRaw}` : '');
+
+const catalogLineTotal = siteListLine?.total ?? null;
+const finalTotalUsd = amt ?? catalogLineTotal;
+const quoteDiffersFromCatalog =
+	amt != null && catalogLineTotal != null && Math.abs(amt - catalogLineTotal) > 0.02;
+
+const nLockCatalog = Math.max(1, Math.floor(Number(order.quantity) || 1));
+const lockerCountCatalog = `${nLockCatalog} locker${nLockCatalog !== 1 ? 's' : ''}`;
+const nLockFallback = qty != null && qty > 0 ? Math.floor(qty) : 0;
+const lockerCountFallback =
+	nLockFallback > 0 ? `${nLockFallback} locker${nLockFallback !== 1 ? 's' : ''}` : '';
+
+function fmtUsd(n: number): string {
+	return `$${n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+const customerNoteTrimmed = String(
+	(order as { estimate_customer_note?: string | null }).estimate_customer_note ?? ''
+).trim();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="robots" content="noindex, nofollow" />
+		<title>{titleLabel} {docNumber || '—'} | {brandName}</title>
+		<link href="https://fonts.googleapis.com/css?family=Yantramanav:400,500|Oswald:600,700&display=swap" rel="stylesheet" />
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			/* Page shell — mirrors homepage .home-shop-section + .home-shop-container (Materials we use) */
+			body.est-body {
+				font-family: 'Yantramanav', Arial, sans-serif;
+				color: #0d0d0d;
+				background: #ffffff;
+				margin: 0;
+				padding: 0;
+				line-height: 1.5;
+			}
+			.est-actions-wrap {
+				max-width: 1300px;
+				margin: 0 auto;
+				padding: 24px 20px 0;
+			}
+			.actions {
+				display: flex;
+				gap: 10px;
+				flex-wrap: wrap;
+			}
+			.btn {
+				font-family: 'Oswald', sans-serif;
+				font-size: 12px;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				padding: 14px 28px;
+				border: 2px solid transparent;
+				cursor: pointer;
+				text-decoration: none;
+				display: inline-block;
+				transition: background 0.2s, border-color 0.2s, color 0.2s;
+			}
+			.btn-print {
+				background: #000000;
+				color: #fff;
+				border-color: #000000;
+			}
+			.btn-print:hover {
+				background: #fe5900;
+				border-color: #fe5900;
+				color: #fff;
+			}
+			.btn-back {
+				background: transparent;
+				color: #0d0d0d;
+				border-color: #cccccc;
+			}
+			.btn-back:hover {
+				background: #000000;
+				border-color: #000000;
+				color: #ffffff;
+			}
+			.est-materials-section {
+				position: relative;
+				padding: 40px 0 100px;
+				background: #ffffff;
+				overflow: hidden;
+			}
+			.est-container {
+				max-width: 1300px;
+				margin: 0 auto;
+				padding: 0 20px;
+				position: relative;
+				z-index: 10;
+			}
+			.est-top-accent {
+				height: 5px;
+				width: 100%;
+				background: #fe5900;
+				margin: 0 0 36px;
+			}
+			.est-doc-column {
+				max-width: 880px;
+				margin: 0 auto;
+			}
+			.est-section-header {
+				display: grid;
+				grid-template-columns: 1fr;
+				grid-template-rows: auto auto auto;
+				row-gap: 0;
+				margin-bottom: 0;
+				padding-bottom: 36px;
+				border-bottom: 1px solid #e8e8e8;
+				text-align: left;
+			}
+			.est-doc-title {
+				grid-column: 1;
+				grid-row: 1;
+				font-family: 'Oswald', sans-serif;
+				font-size: clamp(32px, 4vw, 52px);
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+				color: #0d0d0d;
+				line-height: 1.1;
+				margin: 0 0 28px;
+			}
+			.est-header-body {
+				grid-column: 1;
+				grid-row: 3;
+				display: grid;
+				grid-template-columns: 1fr auto;
+				column-gap: 48px;
+				align-items: start;
+				min-width: 0;
+			}
+			.est-from-block {
+				min-width: 0;
+				text-align: left;
+			}
+			.est-section-header-right {
+				text-align: right;
+				max-width: 100%;
+				min-width: 0;
+				justify-self: end;
+			}
+			.est-from-label {
+				grid-column: 1;
+				grid-row: 2;
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 10px;
+				font-weight: 600;
+				letter-spacing: 0.2em;
+				text-transform: uppercase;
+				color: #9ca3af;
+				margin: 0 0 8px;
+			}
+			.est-from-block .est-meta-line:last-child {
+				margin-bottom: 0;
+			}
+			.est-from-name {
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 15px;
+				font-weight: 600;
+				color: #0d0d0d;
+				margin: 0 0 6px;
+				line-height: 1.4;
+			}
+			.est-meta-line {
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 13px;
+				color: #6b7280;
+				margin: 0 0 4px;
+				line-height: 1.55;
+			}
+			.est-doc-dl {
+				margin: 0;
+				padding: 0;
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 15px;
+				color: #374151;
+				min-width: 0;
+				width: 100%;
+				max-width: 280px;
+			}
+			.est-doc-dl-row {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				gap: 16px 28px;
+				margin: 0 0 6px;
+				line-height: 1.45;
+			}
+			.est-doc-dl-row:last-child {
+				margin-bottom: 0;
+			}
+			.est-doc-dl dt {
+				margin: 0;
+				font-weight: 600;
+				color: #111111;
+				flex: 0 0 auto;
+			}
+			.est-doc-dl dd {
+				margin: 0;
+				font-weight: 400;
+				color: #4b5563;
+				text-align: right;
+			}
+			.est-parties {
+				padding: 36px 0 40px;
+			}
+			.est-columns {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 40px 48px;
+				text-align: left;
+			}
+			.col-label {
+				font-family: 'Oswald', sans-serif;
+				font-size: 11px;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: #8c8c8c;
+				margin-bottom: 10px;
+			}
+			.party {
+				font-size: 15px;
+				font-weight: 600;
+				color: #111111;
+			}
+			.party-detail {
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 14px;
+				color: #6b7280;
+				margin-top: 6px;
+				line-height: 1.6;
+				white-space: pre-wrap;
+			}
+			.est-order-outer {
+				margin-bottom: 48px;
+			}
+			.order-summary-wrap {
+				background: #ffffff;
+				border: 1px solid #e5e5e5;
+				box-shadow: none;
+				margin-bottom: 0;
+				border-radius: 2px;
+			}
+			.order-panel-title {
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 11px;
+				font-weight: 600;
+				color: #6b7280;
+				text-transform: uppercase;
+				letter-spacing: 0.16em;
+				margin: 0;
+				padding: 20px 24px 12px;
+				border-bottom: none;
+			}
+			.order-table {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 0;
+			}
+			.order-table thead {
+				border-bottom: 1px solid #d1d5db;
+			}
+			.order-table th {
+				padding: 12px 24px;
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 10px;
+				font-weight: 600;
+				color: #4b5563;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				text-align: left;
+				background: #f3f4f6;
+			}
+			.order-table th.ot-qty {
+				text-align: center;
+				width: 56px;
+			}
+			.order-table th.ot-total {
+				text-align: right;
+				width: 100px;
+			}
+			.order-table tbody td {
+				padding: 18px 24px;
+				border-bottom: 1px solid #ececec;
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 13px;
+				color: #111111;
+				vertical-align: top;
+			}
+			.ot-item-name {
+				font-family: 'Oswald', sans-serif;
+				font-size: 13px;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+				color: #0d0d0d;
+			}
+			.ot-base-price {
+				font-weight: 400;
+				color: #888;
+				font-size: 11px;
+				margin-left: 4px;
+				letter-spacing: 0;
+				text-transform: none;
+			}
+			.ot-item-spec {
+				display: block;
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 11px;
+				color: #8c8c8c;
+				margin-top: 3px;
+				line-height: 1.4;
+			}
+			.ot-item-desc {
+				display: block;
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 12px;
+				color: #6b7280;
+				margin-top: 8px;
+				line-height: 1.55;
+			}
+			.ot-acc-list {
+				list-style: none;
+				margin: 8px 0 0;
+				padding: 0;
+			}
+			.ot-acc-list li {
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 11px;
+				color: #555;
+				line-height: 1.7;
+			}
+			.ot-acc-price {
+				color: #999;
+				font-size: 10px;
+			}
+			.ot-item-qty {
+				text-align: center;
+				font-family: 'Oswald', sans-serif;
+				font-size: 13px;
+				font-weight: 600;
+				color: #0d0d0d;
+				font-variant-numeric: tabular-nums;
+			}
+			.ot-item-total {
+				text-align: right;
+				font-family: 'Oswald', sans-serif;
+				font-size: 13px;
+				font-weight: 600;
+				color: #0d0d0d;
+				white-space: nowrap;
+				font-variant-numeric: tabular-nums;
+			}
+			.order-table tfoot th {
+				padding: 14px 24px;
+				font-family: 'Oswald', sans-serif;
+				font-size: 12px;
+				font-weight: 600;
+				color: #8c8c8c;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				text-align: left;
+				border: none;
+				background: #fafafa;
+			}
+			.order-table tfoot td {
+				padding: 14px 24px;
+				font-family: 'Oswald', sans-serif;
+				font-size: 13px;
+				font-weight: 600;
+				color: #0d0d0d;
+				text-align: right;
+				border: none;
+				background: #fafafa;
+				font-variant-numeric: tabular-nums;
+			}
+			.ot-subtotal-row th,
+			.ot-subtotal-row td {
+				border-top: 1px solid #e5e5e5 !important;
+			}
+			.ot-total-row th,
+			.ot-total-row td {
+				border-top: 1px solid #d1d5db !important;
+				padding-top: 16px !important;
+				padding-bottom: 20px !important;
+				background: #ffffff !important;
+			}
+			.ot-total-row td strong {
+				font-family: 'Oswald', sans-serif;
+				font-size: 22px;
+				font-weight: 700;
+				color: #fe5900;
+			}
+			.order-locker-count {
+				padding: 14px 24px 10px;
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 12px;
+				color: #9ca3af;
+				letter-spacing: 0.04em;
+			}
+			.crm-quote-note {
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 12px;
+				color: #6b7280;
+				padding: 0 24px 20px;
+				line-height: 1.6;
+			}
+			.fallback-wrap {
+				background: #ffffff;
+				border: 1px solid #e5e5e5;
+				box-shadow: none;
+				padding: 8px 0 24px;
+				margin-bottom: 0;
+				border-radius: 2px;
+			}
+			.fallback-lines {
+				width: 100%;
+				border-collapse: collapse;
+				margin-bottom: 16px;
+				font-size: 13px;
+			}
+			.fallback-lines thead {
+				border-bottom: 1px solid #d1d5db;
+			}
+			.fallback-lines th {
+				font-family: 'Oswald', sans-serif;
+				font-size: 10px;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				text-align: left;
+				padding: 12px 24px;
+				border-bottom: none;
+				color: #8c8c8c;
+				background: #f3f4f6;
+			}
+			.fallback-lines th.num {
+				text-align: right;
+			}
+			.fallback-lines td {
+				padding: 18px 24px;
+				border-bottom: 1px solid #ececec;
+				vertical-align: top;
+			}
+			.fallback-lines td.num {
+				text-align: right;
+				font-variant-numeric: tabular-nums;
+			}
+			.desc-sub {
+				font-size: 13px;
+				color: #666666;
+				margin-top: 8px;
+				line-height: 1.65;
+			}
+			.totals {
+				display: flex;
+				justify-content: flex-end;
+				padding: 0 24px;
+				margin-top: 0;
+			}
+			.totals-inner {
+				min-width: 280px;
+				border-top: 1px solid #e5e5e5;
+				padding-top: 16px;
+				margin-top: 8px;
+			}
+			.total-row {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0;
+				font-family: 'Oswald', sans-serif;
+				font-size: 16px;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+				border-top: none;
+				margin-top: 0;
+				color: #0d0d0d;
+			}
+			.total-row span:last-child {
+				color: #fe5900;
+				font-size: 20px;
+				font-variant-numeric: tabular-nums;
+			}
+			.est-customer-note-section {
+				margin: 0 0 40px;
+			}
+			.est-customer-note-section--in-panel {
+				margin: 8px 0 0;
+				padding: 0 24px 20px;
+			}
+			.est-customer-note-panel {
+				background: #ffffff;
+				border: 1px solid #e5e5e5;
+				border-left: 3px solid #fe5900;
+				padding: 22px 28px;
+				min-height: 120px;
+			}
+			.est-customer-note-label {
+				font-family: 'Oswald', sans-serif;
+				font-size: 11px;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.14em;
+				color: #8c8c8c;
+				margin: 0 0 14px;
+			}
+			.est-customer-note-body {
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 16px;
+				line-height: 1.75;
+				color: #0d0d0d;
+				white-space: pre-wrap;
+				margin: 0;
+			}
+			.est-footnote {
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 11px;
+				line-height: 1.7;
+				color: #9ca3af;
+				margin: 0;
+				padding: 32px 0 0;
+				text-align: left;
+				max-width: none;
+			}
+			.warn {
+				background: #fffbeb;
+				border: 1px solid #fcd34d;
+				color: #92400e;
+				padding: 14px 18px;
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 14px;
+				line-height: 1.55;
+				margin: 0 auto 40px;
+				max-width: 900px;
+				text-align: center;
+			}
+			@media (max-width: 768px) {
+				.est-columns {
+					grid-template-columns: 1fr;
+				}
+				.est-header-body {
+					grid-template-columns: 1fr;
+					row-gap: 20px;
+				}
+				.est-section-header-right {
+					justify-self: stretch;
+					text-align: left;
+					width: 100%;
+				}
+				.est-doc-dl {
+					min-width: 0;
+					width: 100%;
+					max-width: none;
+				}
+				.est-doc-dl dd {
+					text-align: right;
+				}
+			}
+			@media print {
+				html {
+					-webkit-print-color-adjust: exact;
+					print-color-adjust: exact;
+				}
+				body.est-body {
+					background: #fff;
+					margin: 0;
+					padding: 0;
+					-webkit-print-color-adjust: exact;
+					print-color-adjust: exact;
+				}
+				.est-actions-wrap {
+					display: none !important;
+				}
+				.est-materials-section {
+					padding: 0 0 40px;
+					overflow: visible;
+				}
+				.est-container {
+					max-width: 100%;
+					width: 100%;
+					margin: 0 auto;
+					padding: 0 20px;
+					box-sizing: border-box;
+				}
+				.est-top-accent {
+					margin: 0 0 36px;
+					-webkit-print-color-adjust: exact;
+					print-color-adjust: exact;
+				}
+				.est-doc-column {
+					max-width: 880px;
+					margin-left: auto;
+					margin-right: auto;
+					width: 100%;
+					box-sizing: border-box;
+				}
+				/* Print preview viewport is often narrow; override mobile single-column rules */
+				.est-columns {
+					grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+					gap: 40px 48px;
+				}
+				.est-header-body {
+					grid-template-columns: 1fr auto !important;
+					column-gap: 48px;
+					row-gap: 0;
+				}
+				.est-section-header-right {
+					justify-self: end !important;
+					text-align: right !important;
+					width: auto !important;
+				}
+				.est-doc-dl {
+					width: 100%;
+					max-width: 280px;
+				}
+				.est-doc-title {
+					font-size: 40px;
+					line-height: 1.1;
+				}
+				.order-summary-wrap,
+				.fallback-wrap {
+					box-shadow: none;
+					border: 1px solid #e0e0e0;
+					-webkit-print-color-adjust: exact;
+					print-color-adjust: exact;
+				}
+				.order-table thead th,
+				.fallback-lines thead th {
+					-webkit-print-color-adjust: exact;
+					print-color-adjust: exact;
+				}
+				.order-table tfoot th,
+				.order-table tfoot td {
+					-webkit-print-color-adjust: exact;
+					print-color-adjust: exact;
+				}
+				.est-customer-note-panel {
+					break-inside: avoid;
+					-webkit-print-color-adjust: exact;
+					print-color-adjust: exact;
+				}
+			}
+		</style>
+	</head>
+	<body class="est-body">
+		<div class="est-actions-wrap">
+			<div class="actions">
+				<button type="button" class="btn btn-print" onclick="window.print()">Print / Save as PDF</button>
+				<a class="btn btn-back" href={`/admin/clients/${order.client_id}`}>Back to client</a>
+				<a class="btn btn-back" href={`/admin/orders/${id}`}>Edit order</a>
+			</div>
+		</div>
+		<section class="est-materials-section">
+			<div class="est-container">
+				{!docNumber && (
+					<div class="warn">
+						No {docType} number on file yet. Add it on the client page, save, then refresh this page before sending to
+						the customer.
+					</div>
+				)}
+				<div class="est-doc-column">
+					<div class="est-top-accent" aria-hidden="true"></div>
+					<header class="est-section-header">
+						<h1 class="est-doc-title">{titleLabel}</h1>
+						<p class="est-from-label">From</p>
+						<div class="est-header-body">
+							<div class="est-from-block">
+								<div class="est-from-name">{brandName}</div>
+								<p class="est-meta-line">2934 200 Street, Langley, BC V2Z 2C1 Canada</p>
+								<p class="est-meta-line">
+									1 888 584 1444 · {brandEmail}
+								</p>
+							</div>
+							<div class="est-section-header-right">
+								<dl class="est-doc-dl">
+									<div class="est-doc-dl-row">
+										<dt>{docType === 'invoice' ? 'Invoice #' : 'Estimate #'}</dt>
+										<dd>{docNumber || '—'}</dd>
+									</div>
+									<div class="est-doc-dl-row">
+										<dt>Date</dt>
+										<dd>{today}</dd>
+									</div>
+								</dl>
+							</div>
+						</div>
+					</header>
+
+					<div class="est-parties">
+						<div class="est-columns">
+							<div>
+								<div class="col-label">Bill to</div>
+								<div class="party">{String(client?.contact_name || '—')}</div>
+								{client?.company_name && <div class="party-detail">{String(client.company_name)}</div>}
+								{client?.email && <div class="party-detail">{String(client.email)}</div>}
+								{client?.phone && <div class="party-detail">{String(client.phone)}</div>}
+							</div>
+							<div>
+								<div class="col-label">Ship to</div>
+								<div class="party-detail">
+									{client?.shipping_address ? String(client.shipping_address) : 'Same as bill to / TBD'}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="est-order-outer">
+			{siteListLine != null && catalogLineTotal != null ? (
+				<div class="order-summary-wrap">
+					<h3 class="order-panel-title">Line items</h3>
+					<table class="order-table">
+						<thead>
+							<tr>
+								<th class="ot-product">Description</th>
+								<th class="ot-qty">Qty</th>
+								<th class="ot-total">Subtotal</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<span class="ot-item-name">
+										{displayName}{' '}
+										<span class="ot-base-price">{fmtUsd(siteListLine.basePerLocker)}</span>
+									</span>
+									{specLinePlanner && <span class="ot-item-spec">{specLinePlanner}</span>}
+									{accessoryDisplayLines.length > 0 && (
+										<ul class="ot-acc-list">
+											{accessoryDisplayLines.map((a) => (
+												<li>
+													{a.label}{' '}
+													<span class="ot-acc-price">
+														+$
+														{a.addPerLocker.toLocaleString('en-US', {
+															minimumFractionDigits: 2,
+															maximumFractionDigits: 2,
+														})}
+													</span>
+												</li>
+											))}
+										</ul>
+									)}
+									{String(order.description || '').trim() && (
+										<p class="ot-item-desc">{order.description}</p>
+									)}
+								</td>
+								<td class="ot-item-qty">
+									{Math.max(1, Math.floor(Number(order.quantity) || 1))}
+								</td>
+								<td class="ot-item-total">{fmtUsd(catalogLineTotal)}</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr class="ot-subtotal-row">
+								<th colspan="2">Subtotal</th>
+								<td>{fmtUsd(catalogLineTotal)}</td>
+							</tr>
+							<tr class="ot-total-row">
+								<th colspan="2">
+									{docType === 'invoice' ? 'Total (USD)' : 'Estimated Total'}
+								</th>
+								<td>
+									<strong>
+										{finalTotalUsd != null ? fmtUsd(finalTotalUsd) : 'TBD'}
+									</strong>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+					<div class="order-locker-count">{lockerCountCatalog}</div>
+					{customerNoteTrimmed && (
+						<div class="est-customer-note-section est-customer-note-section--in-panel">
+							<div class="est-customer-note-panel">
+								<p class="est-customer-note-label">Message to customer</p>
+								<p class="est-customer-note-body">{customerNoteTrimmed}</p>
+							</div>
+						</div>
+					)}
+					{quoteDiffersFromCatalog && amt != null && (
+						<p class="crm-quote-note">
+							Line detail follows the public site price list (subtotal {fmtUsd(catalogLineTotal)}). The total above is
+							the amount saved on this order in the CRM ({fmtUsd(amt)}).
+						</p>
+					)}
+				</div>
+			) : (
+				<div class="fallback-wrap">
+					<h3 class="order-panel-title">Line items</h3>
+					<table class="fallback-lines">
+						<thead>
+							<tr>
+								<th>Description</th>
+								<th class="num">Qty</th>
+								<th class="num">Unit</th>
+								<th class="num">Amount (USD)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<div class="desc-sub">
+										{[
+											order.locker_type && `Model: ${order.locker_type}`,
+											order.locker_size && `Width: ${order.locker_size}`,
+											order.locker_width && `Depth: ${order.locker_width}`,
+											order.locker_color && `Color: ${order.locker_color}`,
+										]
+											.filter(Boolean)
+											.join(' · ')}
+										{String(order.description || '').trim() && (
+											<>
+												<br />
+												{order.description}
+											</>
+										)}
+										{order.accessories && (
+											<>
+												<br />
+												Accessories: {order.accessories}
+											</>
+										)}
+									</div>
+								</td>
+								<td class="num">{qty != null ? qty : '—'}</td>
+								<td class="num">
+									{unitPrice != null
+										? fmtUsd(unitPrice)
+										: amt != null
+											? '—'
+											: '—'}
+								</td>
+								<td class="num">{amt != null ? fmtUsd(amt) : 'TBD'}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="totals">
+						<div class="totals-inner">
+							<div class="total-row">
+								<span>Total (USD)</span>
+								<span>{amt != null ? fmtUsd(amt) : 'TBD'}</span>
+							</div>
+						</div>
+					</div>
+					{lockerCountFallback && <div class="order-locker-count">{lockerCountFallback}</div>}
+					{customerNoteTrimmed && (
+						<div class="est-customer-note-section est-customer-note-section--in-panel">
+							<div class="est-customer-note-panel">
+								<p class="est-customer-note-label">Message to customer</p>
+								<p class="est-customer-note-body">{customerNoteTrimmed}</p>
+							</div>
+						</div>
+					)}
+				</div>
+			)}
+					</div>
+
+					<p class="est-footnote">
+						{docType === 'estimate'
+							? 'This estimate is subject to final approval and may change if specifications change. Validity and terms as agreed in writing with sales.'
+							: 'Payment terms as agreed. Thank you for your business.'}{' '}
+						Custom-built lead times and installation are quoted separately unless noted.
+					</p>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

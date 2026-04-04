@@ -122,6 +122,24 @@ const mergeVars = [
 		</div>
 	)}
 
+	<details class="writing-tips">
+		<summary class="writing-tips-summary">Writing templates — sound human, warm &amp; professional</summary>
+		<div class="writing-tips-body">
+			<p class="writing-tips-intro">
+				Paste or type directly in the <strong>Subject</strong> and <strong>Email Body (HTML)</strong> fields below. Aim for how your best rep would actually write—upbeat and kind, not “marketing AI.”
+			</p>
+			<ul class="writing-tips-list">
+				<li><strong>Start with the person.</strong> Use <code>{'{{first_name}}'}</code> in the first line when it fits. One short thank-you or welcome beats a long preamble.</li>
+				<li><strong>Short paragraphs.</strong> 2–4 sentences per <code>&lt;p&gt;</code>. Busy coaches skim; white space helps.</li>
+				<li><strong>One clear next step.</strong> e.g. “Reply with a good time to call” or a single button link (<code>{'{{portal_link}}'}</code>). Avoid three competing links.</li>
+				<li><strong>Specific beats vague.</strong> Mention lockers, their sport, or timeline when you can—templated mail still feels personal when details come from merge tags.</li>
+				<li><strong>Professional close.</strong> Sign as a real team (“The PlayerStall Team” / your name). Include phone: <strong>1 888 584 1444</strong> where it helps.</li>
+			</ul>
+			<p class="writing-tips-avoid"><strong>Often reads like AI—cut or rewrite:</strong> “I hope this email finds you well,” “We’re excited to…”, “leverage / delve / robust / streamline,” triple em dashes, bullet lists of generic platitudes, “Don’t hesitate to reach out” (prefer “Just reply to this email—we’re here.”).</p>
+			<p class="writing-tips-avoid"><strong>Quick check:</strong> Read it aloud. If you wouldn’t say it on a phone call, soften or shorten it.</p>
+		</div>
+	</details>
+
 	<div class="templates-layout">
 		<div class="templates-list">
 			{templates && templates.map((template: any) => (
@@ -301,6 +319,78 @@ const mergeVars = [
 </AdminLayout>
 
 <style>
+	.writing-tips {
+		background: #fffbeb;
+		border: 1px solid #fde68a;
+		border-radius: 8px;
+		margin-bottom: 24px;
+		overflow: hidden;
+	}
+
+	.writing-tips-summary {
+		padding: 14px 18px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		color: #78350f;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.writing-tips-summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.writing-tips-summary::after {
+		content: ' +';
+		font-weight: 700;
+		opacity: 0.6;
+	}
+
+	.writing-tips[open] .writing-tips-summary::after {
+		content: ' −';
+	}
+
+	.writing-tips-body {
+		padding: 0 18px 16px;
+		border-top: 1px solid #fde68a;
+	}
+
+	.writing-tips-intro {
+		font-size: 14px;
+		color: #44403c;
+		line-height: 1.55;
+		margin: 14px 0 12px;
+	}
+
+	.writing-tips-list {
+		margin: 0 0 14px;
+		padding-left: 1.25rem;
+		font-size: 13px;
+		color: #44403c;
+		line-height: 1.6;
+	}
+
+	.writing-tips-list li {
+		margin-bottom: 8px;
+	}
+
+	.writing-tips-list code {
+		font-size: 12px;
+		background: rgba(255, 255, 255, 0.8);
+		padding: 1px 5px;
+		border-radius: 4px;
+	}
+
+	.writing-tips-avoid {
+		font-size: 12px;
+		color: #57534e;
+		line-height: 1.55;
+		margin: 0 0 10px;
+	}
+
 	.templates-layout {
 		display: grid;
 		grid-template-columns: 1fr 280px;
