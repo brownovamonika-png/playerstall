@@ -827,7 +827,7 @@ npm run preview
 6. **Test quote rotation** - Ensure quote of the day works on new pages
 7. **Image Directory** - When adding or changing image links, add or update the entry in `guides/IMAGE_DIRECTORY.md` with location, URL/path, and short description
 8. **Links** - Use internal paths (e.g. `/gallery/`, `/blog/slug/`) for playerstall.com pages; use `target="_blank"` and `rel="noopener noreferrer"` for external links
-9. **Google Tag Placement (Critical)** - In `src/layouts/BaseLayout.astro`, keep the Google tag (`gtag.js`, ID `G-SESQY1JBMG`) at the very top of the `<head>` section. Any new `<head>` tags/scripts must be added below the Google tag block.
+9. **Google Tag Placement (Critical)** - GA4 is implemented **via Google Tag Manager only** (container `GTM-5J3PPW7D`). In `src/layouts/BaseLayout.astro`, keep the **GTM** snippet at the top of `<head>` (before other tags when possible). Do **not** add a duplicate hardcoded `gtag.js` / `gtag('config', 'G-SESQY1JBMG')` in the repo—that would double-count with the GA4 tag in GTM. Admin layout, login, client portal, and print-document pages include the same GTM head + body snippets.
 
 ### SEO Checklist (Critical for All Changes)
 

@@ -1,4 +1,7 @@
 ---
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
+
 interface Props {
 	title: string;
 	description?: string;
@@ -32,7 +35,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<!-- Google Tag Manager -->
+		<!-- Google Tag Manager (GA4 and other tags are configured in the container, not via hardcoded gtag) -->
 		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -279,6 +282,8 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				</div>
 			</div>
 		</footer>
+		<Analytics />
+		<SpeedInsights />
 	</body>
 </html>
 
