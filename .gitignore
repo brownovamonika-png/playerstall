@@ -11,14 +11,17 @@ locker-estimates-comparison.txt
 grid-estimate.txt# Jason Vietnam Production Request - colored lockers
 *Jason*Vietnam*
 *colored*locker*
-*Production*Request*# Guides directory
+*Production*Request*# Guides directory (private strategy docs — tracked exceptions below)
 guides/
+!guides/CONTENT_CALENDAR_2026.md
 
 # Cursor agent skills (local only)
 .cursor/skills/
 
-# Claude Code local worktrees
+# Claude Code local config (tracked exceptions below)
 .claude/
+!.claude/skills/
+!.claude/skills/**
 .DS_Store
 .vercel
 
