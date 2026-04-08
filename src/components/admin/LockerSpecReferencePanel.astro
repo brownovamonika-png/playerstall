@@ -1,0 +1,844 @@
+---
+import type { SiteCatalogTier } from '../../lib/crm-site-pricing';
+import { SITE_CATALOG_WIDTHS } from '../../lib/crm-site-pricing';
+import { lockerPdfSpecReferencesForLine } from '../../lib/crm-locker-spec-sheets';
+import {
+	LOCKER_SIDE_OPTIONS,
+	LOCKER_BUILD_TOP_OPTIONS,
+	LOCKER_BUILD_BOTTOM_OPTIONS,
+	lockerBuildImagePath,
+} from '../../lib/crm-locker-build-form';
+import {
+	PREMIUM_LOCKER_TOP_OPTIONS,
+	PREMIUM_LOCKER_BOTTOM_OPTIONS,
+	premiumLockerImagePath,
+} from '../../lib/crm-premium-locker-form';
+import { CUSHION_COLOR_REFERENCE_OPTIONS, LOCKER_SPEC_ACCESSORY_ROWS } from '../../lib/crm-locker-accessories';
+
+interface Props {
+	line: SiteCatalogTier;
+	/** Prefix for unique `id`s when multiple panels exist on one page */
+	idPrefix: string;
+}
+
+const { line, idPrefix } = Astro.props;
+const sheets = lockerPdfSpecReferencesForLine(line);
+const defaultPdfHref = sheets[0]?.pdfHref ?? '#';
+
+/** Premium: side types 1–4 → Model L, Z, X, S (matches locker build thumbnails + site PDF routes). */
+const PREMIUM_SIDE_SPEC_IDS = ['model-l', 'model-z', 'model-x', 'model-s'] as const;
+const SIDE_SPEC_PDF_SHORT_LABEL = ['Model L', 'Model Z', 'Model X', 'Model S'] as const;
+
+function sideSpecPdfHref(sideIndex: number): string {
+	if (line === 'premium') {
+		const specId = PREMIUM_SIDE_SPEC_IDS[sideIndex];
+		return sheets.find((s) => s.id === specId)?.pdfHref ?? defaultPdfHref;
+	}
+	return defaultPdfHref;
+}
+
+const topOptions = line === 'premium' ? PREMIUM_LOCKER_TOP_OPTIONS : LOCKER_BUILD_TOP_OPTIONS;
+const bottomOptions = line === 'premium' ? PREMIUM_LOCKER_BOTTOM_OPTIONS : LOCKER_BUILD_BOTTOM_OPTIONS;
+
+function refFormImageSrc(imageFile: string | null): string | null {
+	if (line === 'premium') return premiumLockerImagePath(imageFile);
+	return lockerBuildImagePath(imageFile);
+}
+
+const CUSHION_PACKAGE_IDS = new Set(['cushion_top_bottom', 'cushion_both']);
+const cushionPackageRows = LOCKER_SPEC_ACCESSORY_ROWS.filter((r) => CUSHION_PACKAGE_IDS.has(r.id));
+const otherAccessoryRows = LOCKER_SPEC_ACCESSORY_ROWS.filter((r) => !CUSHION_PACKAGE_IDS.has(r.id));
+
+/** Uppercase short titles for accessory tiles (aligned with shop / spec sheet wording). */
+const ACCESSORY_TILE_TITLE: Record<string, string> = {
+	cushion_top_bottom: 'BOTTOM CUSHION ONLY',
+	cushion_both: 'TOP & BOTTOM CUSHIONS',
+	hooks: 'HOOKS',
+	name_plate: 'NAME PLATE',
+	custom_logo: 'CUSTOM LOGO',
+};
+
+function accessoryTileCaption(rowId: string): string {
+	return ACCESSORY_TILE_TITLE[rowId] ?? rowId.replace(/_/g, ' ').toUpperCase();
+}
+---
+
+<details class="lsr-wrap card" open data-lsr-panel={idPrefix}>
+	<summary class="lsr-summary">
+		Spec sheet reference — <strong>{line === 'premium' ? 'Premium' : 'Essential'}</strong> line (accessories)
+	</summary>
+	<p class="lsr-lead">
+		Choose side elevation, top, bottom, depth, width, then accessories. Reference only — not saved to the database.
+	</p>
+
+	<div class="lsr-picks" aria-label="Sides, top, bottom, dimensions, and accessories (not saved)">
+		<div class="lsr-pick-block">
+			<h3 class="lsr-pick-heading">Sides</h3>
+			<p class="lsr-pick-hint">
+				Pick 1 of 4 (elevation / profile): <strong>Locker L</strong>, <strong>Locker Z</strong>, <strong>Locker X</strong>, <strong>Locker S</strong>. Each card links to the matching spec sheet on playerstall.com.
+			</p>
+			<div class="lsr-tiles lsr-tiles--thumb-grid" role="radiogroup" aria-label="Side elevation">
+				{LOCKER_SIDE_OPTIONS.map((opt, i) => {
+					const thumbSrc = lockerBuildImagePath(opt.imageFile);
+					const pdfHref = sideSpecPdfHref(i);
+					const pdfLabel =
+						line === 'premium'
+							? `Open ${SIDE_SPEC_PDF_SHORT_LABEL[i]} spec (PDF)`
+							: 'Open Essential line spec (PDF)';
+					return (
+						<div class="lsr-side-stack">
+							<label class="lsr-tile lsr-tile--check lsr-tile--thumb-pick" title={opt.description}>
+								{thumbSrc ? (
+									<span class="lsr-pick-thumb-wrap">
+										<img
+											class="lsr-pick-thumb"
+											src={thumbSrc}
+											alt=""
+											width="110"
+											height="74"
+											loading="lazy"
+											data-lsr-pick-thumb
+										/>
+									</span>
+								) : null}
+								<span class="lsr-pick-thumb-body">
+									<input
+										type="radio"
+										name={`${idPrefix}-side`}
+										value={opt.id}
+										class="lsr-input lsr-input--square-radio"
+										checked={i === 0}
+									/>
+									<span class="lsr-tile-label lsr-tile-label--thumb">{opt.label}</span>
+								</span>
+							</label>
+							<a
+								class="lsr-pdf-link lsr-side-pdf-link"
+								href={pdfHref}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								{pdfLabel}
+							</a>
+						</div>
+					);
+				})}
+			</div>
+		</div>
+		<div class="lsr-pick-block">
+			<h3 class="lsr-pick-heading">Top</h3>
+			<p class="lsr-pick-hint">
+				Pick 1 of 4 (locker top). Thumbnails match the {line === 'premium' ? 'premium' : 'locker build'} form — same size as Sides.
+			</p>
+			<div class="lsr-tiles lsr-tiles--thumb-grid" role="radiogroup" aria-label="Locker top option">
+				{topOptions.map((opt, i) => {
+					const thumbSrc = refFormImageSrc(opt.imageFile);
+					return (
+						<label class="lsr-tile lsr-tile--check lsr-tile--thumb-pick" title={opt.description}>
+							{thumbSrc ? (
+								<span class="lsr-pick-thumb-wrap">
+									<img
+										class="lsr-pick-thumb"
+										src={thumbSrc}
+										alt=""
+										width="110"
+										height="74"
+										loading="lazy"
+										data-lsr-pick-thumb
+									/>
+								</span>
+							) : null}
+							<span class="lsr-pick-thumb-body">
+								<input
+									type="radio"
+									name={`${idPrefix}-top-ref`}
+									value={opt.id}
+									class="lsr-input lsr-input--square-radio"
+									checked={i === 0}
+								/>
+								<span class="lsr-tile-label lsr-tile-label--thumb">{opt.label}</span>
+							</span>
+						</label>
+					);
+				})}
+			</div>
+		</div>
+		<div class="lsr-pick-block">
+			<h3 class="lsr-pick-heading">Bottom</h3>
+			<p class="lsr-pick-hint">Pick 1 of 3 (locker base). Same thumbnail size as Sides and Top.</p>
+			<div class="lsr-tiles lsr-tiles--thumb-grid lsr-tiles--thumb-grid-cols-3" role="radiogroup" aria-label="Locker bottom option">
+				{bottomOptions.map((opt, i) => {
+					const thumbSrc = refFormImageSrc(opt.imageFile);
+					return (
+						<label class="lsr-tile lsr-tile--check lsr-tile--thumb-pick" title={opt.description}>
+							{thumbSrc ? (
+								<span class="lsr-pick-thumb-wrap">
+									<img
+										class="lsr-pick-thumb"
+										src={thumbSrc}
+										alt=""
+										width="110"
+										height="74"
+										loading="lazy"
+										data-lsr-pick-thumb
+									/>
+								</span>
+							) : null}
+							<span class="lsr-pick-thumb-body">
+								<input
+									type="radio"
+									name={`${idPrefix}-bottom-ref`}
+									value={opt.id}
+									class="lsr-input lsr-input--square-radio"
+									checked={i === 0}
+								/>
+								<span class="lsr-tile-label lsr-tile-label--thumb">{opt.label}</span>
+							</span>
+						</label>
+					);
+				})}
+			</div>
+		</div>
+		<div class="lsr-pick-block">
+			<h3 class="lsr-pick-heading">Deep</h3>
+			<p class="lsr-pick-hint">19″ (standard) or 24″ where the model allows</p>
+			<div class="lsr-tiles lsr-tiles--deep" role="radiogroup" aria-label="Depth">
+				<label class="lsr-tile lsr-tile--check lsr-tile--deep-pick">
+					<input type="radio" name={`${idPrefix}-depth`} value="19" class="lsr-input lsr-input--square-radio" checked />
+					<span class="lsr-tile-label lsr-tile-label--depth">19″</span>
+				</label>
+				<label class="lsr-tile lsr-tile--check lsr-tile--deep-pick">
+					<input type="radio" name={`${idPrefix}-depth`} value="24" class="lsr-input lsr-input--square-radio" />
+					<span class="lsr-tile-label lsr-tile-label--depth">24″</span>
+				</label>
+			</div>
+		</div>
+		<div class="lsr-pick-block lsr-pick-block--width">
+			<h3 class="lsr-pick-heading">Width</h3>
+			<p class="lsr-pick-hint">
+				Quantity per catalog width (use <strong>0</strong> for widths not on this order). Enter counts for more than one width when the job mixes sizes.
+			</p>
+			<div class="lsr-width-qty-scroll">
+				<div class="lsr-width-qty-grid" role="group" aria-label="Quantity per width in inches">
+					{SITE_CATALOG_WIDTHS.map((w) => (
+						<div class="lsr-width-qty-cell">
+							<label class="lsr-width-qty-label" for={`${idPrefix}-width-qty-${w}`}>
+								{w}″
+							</label>
+							<input
+								type="number"
+								id={`${idPrefix}-width-qty-${w}`}
+								name={`${idPrefix}-width-qty-${w}`}
+								class="lsr-width-qty-input"
+								min={0}
+								max={9999}
+								step={1}
+								value={w === 24 ? 1 : 0}
+								aria-label={`Quantity — ${w} inch width`}
+							/>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="lsr-acc">
+		<h3 class="lsr-pick-heading">Accessories</h3>
+		<p class="lsr-pick-hint">Select add-ons to match the site catalog / CRM (reference — not saved yet)</p>
+
+		<div class="lsr-pick-block lsr-pick-block--cushions">
+			<h4 class="lsr-pick-heading">Cushions</h4>
+			<p class="lsr-pick-hint">
+				Pick one package (or none). With <strong>No cushions</strong>, choose <strong>No color</strong> below. If you add cushions, pick a fabric color. For <strong>Other</strong>, type the color in the field beside that option.
+			</p>
+			<div class="lsr-tiles lsr-tiles--cushion-pkg" role="radiogroup" aria-label="Cushion package">
+				<label class="lsr-tile lsr-tile--check lsr-tile--cushion-pkg">
+					<input type="radio" name={`${idPrefix}-cushion-pkg`} value="" class="lsr-input lsr-input--square-radio" checked />
+					<span class="lsr-tile-label lsr-tile-label--acc">No cushions</span>
+				</label>
+				{cushionPackageRows.map((r) => (
+					<label class="lsr-tile lsr-tile--check lsr-tile--cushion-pkg">
+						<input type="radio" name={`${idPrefix}-cushion-pkg`} value={r.id} class="lsr-input lsr-input--square-radio" />
+						<span class="lsr-tile-label lsr-tile-label--acc">{accessoryTileCaption(r.id)}</span>
+					</label>
+				))}
+			</div>
+			<p class="lsr-pick-hint lsr-pick-hint--tight">Cushion color</p>
+			<div class="lsr-tiles lsr-tiles--cushion-color" role="radiogroup" aria-label="Cushion color">
+				{CUSHION_COLOR_REFERENCE_OPTIONS.filter((c) => c.id !== 'other').map((c) => (
+					<label class="lsr-tile lsr-tile--check lsr-tile--cushion-color">
+						<input
+							type="radio"
+							name={`${idPrefix}-cushion-color`}
+							value={c.id}
+							class="lsr-input lsr-input--square-radio"
+							checked={c.id === 'none'}
+						/>
+						<span class="lsr-tile-label lsr-tile-label--acc">{c.label}</span>
+					</label>
+				))}
+				<div class="lsr-cushion-other-inline">
+					<label class="lsr-tile lsr-tile--check lsr-tile--cushion-color lsr-tile--cushion-other-radio">
+						<input
+							type="radio"
+							name={`${idPrefix}-cushion-color`}
+							value="other"
+							class="lsr-input lsr-input--square-radio"
+						/>
+						<span class="lsr-tile-label lsr-tile-label--acc">Other</span>
+					</label>
+					<input
+						type="text"
+						id={`${idPrefix}-cushion-color-custom`}
+						class="lsr-cushion-other-input"
+						placeholder="Type color (e.g. navy, sand, Pantone)…"
+						autocomplete="off"
+						aria-label="Other cushion color — describe"
+						disabled
+					/>
+				</div>
+			</div>
+		</div>
+
+		<h4 class="lsr-pick-heading lsr-pick-heading--after-cushions">More accessories</h4>
+		<div class="lsr-tiles lsr-tiles--acc">
+			{otherAccessoryRows.map((r) => (
+				<label class="lsr-tile lsr-tile--check">
+					<input type="checkbox" name={`${idPrefix}-acc-${r.id}`} class="lsr-input" />
+					<span class="lsr-tile-label lsr-tile-label--acc">{accessoryTileCaption(r.id)}</span>
+				</label>
+			))}
+		</div>
+	</div>
+</details>
+
+<script is:inline define:vars={{ idPrefix }}>
+	(function () {
+		var prefix = idPrefix;
+		var panel = document.querySelector('[data-lsr-panel="' + prefix + '"]');
+		if (panel) {
+			panel.querySelectorAll('[data-lsr-pick-thumb]').forEach(function (img) {
+				img.addEventListener('error', function () {
+					var w = img.closest('.lsr-pick-thumb-wrap');
+					if (w) w.style.display = 'none';
+				});
+			});
+
+			var otherInput = document.getElementById(prefix + '-cushion-color-custom');
+			var cushionColorName = prefix + '-cushion-color';
+			var cushionPkgName = prefix + '-cushion-pkg';
+			function syncCushionOtherField() {
+				var sel = panel.querySelector('input[name="' + cushionColorName + '"]:checked');
+				var isOther = sel && sel.value === 'other';
+				if (otherInput) {
+					otherInput.disabled = !isOther;
+					if (!isOther) otherInput.value = '';
+				}
+			}
+			function syncCushionPackageAndColor() {
+				var pkgEl = panel.querySelector('input[name="' + cushionPkgName + '"]:checked');
+				var pkgVal = pkgEl ? String(pkgEl.value || '') : '';
+				var noCushions = pkgVal === '';
+				var noneRadio = panel.querySelector('input[name="' + cushionColorName + '"][value="none"]');
+				if (!noCushions) {
+					var sel = panel.querySelector('input[name="' + cushionColorName + '"]:checked');
+					if (sel && sel.value === 'none') {
+						var black = panel.querySelector('input[name="' + cushionColorName + '"][value="black"]');
+						if (black) black.checked = true;
+					}
+				}
+				if (noneRadio) noneRadio.disabled = !noCushions;
+				if (noCushions) {
+					var cSel = panel.querySelector('input[name="' + cushionColorName + '"]:checked');
+					if (!cSel || cSel.disabled) {
+						if (noneRadio) noneRadio.checked = true;
+					}
+				}
+				syncCushionOtherField();
+			}
+			panel.addEventListener('change', function (e) {
+				var t = e.target;
+				if (t && t.name === cushionColorName) syncCushionOtherField();
+				if (t && t.name === cushionPkgName) syncCushionPackageAndColor();
+			});
+			syncCushionPackageAndColor();
+		}
+	})();
+</script>
+
+<style>
+	.lsr-wrap {
+		margin-bottom: 28px;
+		padding: 20px 22px;
+		border: 1px solid #e5e7eb;
+		background: #fafafa;
+	}
+
+	.lsr-summary {
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #374151;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.lsr-summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.lsr-lead {
+		font-size: 13px;
+		color: #6b7280;
+		line-height: 1.55;
+		margin: 14px 0 16px 0;
+		max-width: 900px;
+	}
+
+	.lsr-pdf-link {
+		font-size: 13px;
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 500;
+	}
+
+	.lsr-pdf-link:hover {
+		text-decoration: underline;
+	}
+
+	.lsr-picks {
+		display: flex;
+		flex-direction: column;
+		gap: 22px;
+		margin-bottom: 22px;
+		padding-bottom: 22px;
+		border-bottom: 1px solid #e5e7eb;
+	}
+
+	.lsr-pick-heading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: #111827;
+		margin: 0 0 6px 0;
+	}
+
+	.lsr-pick-hint {
+		font-size: 12px;
+		color: #9ca3af;
+		margin: 0 0 12px 0;
+		line-height: 1.45;
+	}
+
+	.lsr-tiles--thumb-grid {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 12px;
+		width: 100%;
+		align-items: stretch;
+	}
+
+	.lsr-tiles--thumb-grid-cols-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	@media (max-width: 960px) {
+		.lsr-tiles--thumb-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 480px) {
+		.lsr-tiles--thumb-grid,
+		.lsr-tiles--thumb-grid-cols-3 {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.lsr-side-stack {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		min-width: 0;
+		height: 100%;
+	}
+
+	.lsr-side-pdf-link {
+		display: block;
+		text-align: center;
+		font-size: 12px;
+		line-height: 1.35;
+		padding: 0 4px 4px;
+		word-break: break-word;
+	}
+
+	.lsr-tile--thumb-pick {
+		flex-direction: column;
+		align-items: stretch;
+		padding: 0;
+		overflow: hidden;
+		height: 100%;
+		min-height: 168px;
+	}
+
+	.lsr-side-stack .lsr-tile--thumb-pick {
+		flex: 1;
+		min-height: 168px;
+	}
+
+	.lsr-pick-thumb-wrap {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		height: 92px;
+		min-height: 92px;
+		max-height: 92px;
+		padding: 8px 10px;
+		box-sizing: border-box;
+		background: #f0f0f0;
+		border-bottom: 1px solid #d4d4d4;
+	}
+
+	.lsr-pick-thumb {
+		display: block;
+		max-width: 100%;
+		max-height: 76px;
+		width: auto;
+		height: auto;
+		object-fit: contain;
+	}
+
+	.lsr-pick-thumb-body {
+		display: flex;
+		align-items: flex-start;
+		gap: 12px;
+		padding: 12px 14px;
+		width: 100%;
+		box-sizing: border-box;
+		flex: 1;
+		min-height: 72px;
+	}
+
+	.lsr-pick-thumb-body .lsr-input--square-radio {
+		margin-top: 2px;
+		flex-shrink: 0;
+	}
+
+	.lsr-tile-label--thumb {
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		line-height: 1.35;
+		white-space: normal;
+		hyphens: auto;
+		text-align: left;
+	}
+
+	.lsr-tiles {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.lsr-tiles--deep {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+		max-width: 320px;
+		width: 100%;
+	}
+
+	.lsr-tile--deep-pick {
+		min-height: 56px;
+		justify-content: center;
+	}
+
+	/* All catalog widths (8) stay on one row; scroll horizontally on narrow viewports */
+	.lsr-width-qty-scroll {
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		width: 100%;
+		padding-bottom: 6px;
+		margin: 0 -2px;
+	}
+
+	.lsr-width-qty-grid {
+		display: grid;
+		grid-template-columns: repeat(8, minmax(0, 1fr));
+		gap: 10px;
+		width: 100%;
+		min-width: 720px;
+		box-sizing: border-box;
+	}
+
+	.lsr-width-qty-cell {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		padding: 10px 8px;
+		background: #e8e8e8;
+		border: 2px solid #d4d4d4;
+		border-radius: 2px;
+		box-sizing: border-box;
+		min-height: 88px;
+		justify-content: space-between;
+		min-width: 0;
+	}
+
+	.lsr-width-qty-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		color: #1f2937;
+	}
+
+	.lsr-width-qty-input {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 8px 10px;
+		font-size: 15px;
+		font-family: 'Yantramanav', sans-serif;
+		border: 2px solid #d4d4d4;
+		border-radius: 2px;
+		background: #fff;
+		min-height: 40px;
+	}
+
+	.lsr-width-qty-input:focus {
+		outline: 2px solid #fe5900;
+		outline-offset: 2px;
+		border-color: #fe5900;
+	}
+
+	.lsr-pick-block--cushions {
+		margin-bottom: 20px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #e5e7eb;
+	}
+
+	.lsr-pick-hint--tight {
+		margin-top: 14px;
+		margin-bottom: 8px;
+	}
+
+	.lsr-pick-heading--after-cushions {
+		margin-top: 0;
+		margin-bottom: 6px;
+	}
+
+	.lsr-tiles--cushion-pkg {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+		gap: 12px;
+		width: 100%;
+	}
+
+	.lsr-tile--cushion-pkg {
+		min-height: 52px;
+	}
+
+	/* One horizontal row: all preset colors + Other with text field beside the radio (scroll if narrow) */
+	.lsr-tiles--cushion-color {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		align-items: stretch;
+		gap: 12px;
+		width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		padding-bottom: 4px;
+	}
+
+	.lsr-tiles--cushion-color > .lsr-tile--cushion-color {
+		flex: 0 0 auto;
+	}
+
+	.lsr-tile--cushion-color {
+		min-height: 52px;
+	}
+
+	/* Other radio + type-in field side-by-side, same row as Purple etc. */
+	.lsr-cushion-other-inline {
+		display: flex;
+		flex-direction: row;
+		align-items: stretch;
+		flex: 0 0 auto;
+		min-width: 220px;
+		border: 2px solid #d4d4d4;
+		border-radius: 2px;
+		background: #e8e8e8;
+		box-sizing: border-box;
+		overflow: hidden;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.lsr-cushion-other-inline:hover {
+		border-color: #c4c4c4;
+	}
+
+	.lsr-cushion-other-inline:has(.lsr-tile--cushion-other-radio .lsr-input:checked) {
+		border-color: #fe5900;
+		box-shadow: 0 0 0 1px rgba(254, 89, 0, 0.28);
+		background: #f0f0f0;
+	}
+
+	.lsr-tile--cushion-other-radio {
+		flex: 0 0 auto;
+		min-width: 0;
+		margin: 0;
+		border: none;
+		border-radius: 0;
+		background: transparent;
+		box-shadow: none;
+		min-height: 52px;
+	}
+
+	.lsr-tile--cushion-other-radio:hover {
+		background: rgba(0, 0, 0, 0.03);
+	}
+
+	.lsr-tile--cushion-other-radio:has(.lsr-input:checked) {
+		background: transparent;
+		border: none;
+		box-shadow: none;
+	}
+
+	.lsr-cushion-other-input {
+		flex: 1;
+		min-width: 140px;
+		box-sizing: border-box;
+		padding: 10px 12px;
+		font-size: 14px;
+		border: none;
+		border-left: 1px solid #d4d4d4;
+		border-radius: 0;
+		background: #fff;
+		font-family: 'Yantramanav', sans-serif;
+	}
+
+	.lsr-cushion-other-input:disabled {
+		background: #f3f4f6;
+		color: #9ca3af;
+		cursor: not-allowed;
+	}
+
+	.lsr-cushion-other-input:focus {
+		outline: none;
+		box-shadow: inset 0 0 0 2px #fe5900;
+	}
+
+	.lsr-tiles--acc {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+		gap: 12px;
+		width: 100%;
+	}
+
+	.lsr-tile {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 12px 14px;
+		margin: 0;
+		background: #e8e8e8;
+		border: 2px solid #d4d4d4;
+		border-radius: 2px;
+		cursor: pointer;
+		min-height: 52px;
+		box-sizing: border-box;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease,
+			background 0.15s ease;
+	}
+
+	.lsr-tile:hover {
+		border-color: #c4c4c4;
+		background: #e4e4e4;
+	}
+
+	.lsr-tile:has(.lsr-input:checked) {
+		border-color: #fe5900;
+		box-shadow: 0 0 0 1px rgba(254, 89, 0, 0.28);
+		background: #f0f0f0;
+	}
+
+	.lsr-tile:has(.lsr-input:focus-visible) {
+		outline: 2px solid #fe5900;
+		outline-offset: 2px;
+	}
+
+	.lsr-tile:has(.lsr-input:disabled) {
+		opacity: 0.45;
+		cursor: not-allowed;
+	}
+
+	.lsr-tile:has(.lsr-input:disabled) .lsr-input {
+		cursor: not-allowed;
+	}
+
+	/* Square control for radios (depth, sides, etc.) */
+	.lsr-input--square-radio {
+		appearance: none;
+		-webkit-appearance: none;
+		accent-color: transparent;
+		border-radius: 2px;
+		border: 2px solid #9ca3af;
+		background: #fff;
+	}
+
+	.lsr-input--square-radio:checked {
+		border-color: #fe5900;
+		background-color: #fe5900;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10' fill='none'%3E%3Cpath d='M1 5.5L4.5 9L11 1.5' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 11px 9px;
+	}
+
+	.lsr-tile-label--depth {
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		letter-spacing: 0.04em;
+	}
+
+	.lsr-tile-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		color: #1f2937;
+		line-height: 1.35;
+	}
+
+	.lsr-tile-label--acc {
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.lsr-input {
+		width: 18px;
+		height: 18px;
+		flex-shrink: 0;
+		margin: 0;
+		accent-color: #fe5900;
+		cursor: pointer;
+	}
+
+	.lsr-acc {
+		margin-top: 22px;
+	}
+</style>

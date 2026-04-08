@@ -8,15 +8,11 @@ import { LOCKER_SPEC_ACCESSORY_ROWS } from './crm-locker-accessories';
 
 /** USD per add-on per locker (matches shop / spec sheet list prices). */
 export const SITE_ACCESSORY_USD: Readonly<Record<string, number>> = {
-	vented_panel: 40,
 	cushion_top_bottom: 75,
 	cushion_both: 150,
 	hooks: 15,
 	name_plate: 10,
-	skate_hooks: 25,
 	custom_logo: 75,
-	stick_rack: 299,
-	lock_box: 80,
 };
 
 export const SITE_CATALOG_WIDTHS = [18, 20, 22, 24, 26, 28, 30, 32] as const;

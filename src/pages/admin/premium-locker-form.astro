@@ -2,13 +2,8 @@
 export const prerender = false;
 
 import AdminLayout from '../../layouts/AdminLayout.astro';
+import LockerSpecReferencePanel from '../../components/admin/LockerSpecReferencePanel.astro';
 import { getSession } from '../../lib/auth';
-import {
-	PREMIUM_LOCKER_SIDE_OPTIONS,
-	PREMIUM_LOCKER_TOP_OPTIONS,
-	PREMIUM_LOCKER_BOTTOM_OPTIONS,
-	premiumLockerImagePath,
-} from '../../lib/crm-premium-locker-form';
 
 const session = await getSession(Astro.cookies);
 if (!session) return Astro.redirect('/admin/login');
@@ -17,155 +12,16 @@ if (!session) return Astro.redirect('/admin/login');
 <AdminLayout title="Premium locker form" activeNav="premium-locker-form">
 	<div class="plf-card card">
 		<p class="plf-lead">
-			Premium line — choose <strong>one side profile</strong> (4 types), <strong>one top</strong> (4 types), and <strong>one bottom</strong> (3 types). Draft only — not saved to the database yet. Add CAD thumbnails under{' '}
-			<code>public/images/premium-locker-form/</code> (same filenames as the standard locker build form, or update <code>crm-premium-locker-form.ts</code>).
+			Premium line — use the <strong>spec reference panel</strong> below for side elevation, top, bottom, depth, width, and accessories. Reference only — not saved to the database yet. CAD thumbnails live under{' '}
+			<code>public/images/premium-locker-form/</code> (or adjust <code>crm-premium-locker-form.ts</code>).
 		</p>
 
-		<form class="plf-form" id="plf-form">
-			<fieldset class="plf-fieldset">
-				<legend class="plf-legend">Sides — pick 1 of 4 (elevation / profile)</legend>
-				<div class="plf-grid plf-grid--sides">
-					{PREMIUM_LOCKER_SIDE_OPTIONS.map((opt, i) => {
-						const src = premiumLockerImagePath(opt.imageFile);
-						return (
-							<label class="plf-choice">
-								<input type="radio" name="premium_side" value={opt.id} checked={i === 0} />
-								<span class="plf-choice-body">
-									<span class="plf-choice-media">
-										{src ? (
-											<>
-												<img class="plf-img" src={src} alt="" width="200" height="140" loading="lazy" data-plf-img />
-												<span class="plf-img-missing" hidden data-plf-missing>
-													Missing: <code>{opt.imageFile}</code>
-												</span>
-											</>
-										) : (
-											<span class="plf-img-missing" data-plf-missing>No image configured</span>
-										)}
-									</span>
-									<span class="plf-choice-text">
-										<span class="plf-choice-title">{opt.label}</span>
-										{opt.description && <span class="plf-choice-desc">{opt.description}</span>}
-									</span>
-								</span>
-							</label>
-						);
-					})}
-				</div>
-			</fieldset>
+		<LockerSpecReferencePanel line="premium" idPrefix="plf" />
 
-			<fieldset class="plf-fieldset">
-				<legend class="plf-legend">Top of locker — pick 1 of 4</legend>
-				<div class="plf-grid plf-grid--top">
-					{PREMIUM_LOCKER_TOP_OPTIONS.map((opt, i) => {
-						const src = premiumLockerImagePath(opt.imageFile);
-						return (
-							<label class="plf-choice">
-								<input type="radio" name="premium_top" value={opt.id} checked={i === 0} />
-								<span class="plf-choice-body">
-									<span class="plf-choice-media">
-										{src ? (
-											<>
-												<img class="plf-img" src={src} alt="" width="200" height="140" loading="lazy" data-plf-img />
-												<span class="plf-img-missing" hidden data-plf-missing>
-													Missing: <code>{opt.imageFile}</code>
-												</span>
-											</>
-										) : (
-											<span class="plf-img-missing" data-plf-missing>No image configured</span>
-										)}
-									</span>
-									<span class="plf-choice-text">
-										<span class="plf-choice-title">{opt.label}</span>
-										{opt.description && <span class="plf-choice-desc">{opt.description}</span>}
-									</span>
-								</span>
-							</label>
-						);
-					})}
-				</div>
-			</fieldset>
-
-			<fieldset class="plf-fieldset">
-				<legend class="plf-legend">Bottom of locker — pick 1 of 3</legend>
-				<div class="plf-grid plf-grid--bottom">
-					{PREMIUM_LOCKER_BOTTOM_OPTIONS.map((opt, i) => {
-						const src = premiumLockerImagePath(opt.imageFile);
-						return (
-							<label class="plf-choice">
-								<input type="radio" name="premium_bottom" value={opt.id} checked={i === 0} />
-								<span class="plf-choice-body">
-									<span class="plf-choice-media">
-										{src ? (
-											<>
-												<img class="plf-img" src={src} alt="" width="200" height="140" loading="lazy" data-plf-img />
-												<span class="plf-img-missing" hidden data-plf-missing>
-													Missing: <code>{opt.imageFile}</code>
-												</span>
-											</>
-										) : (
-											<span class="plf-img-missing" data-plf-missing>No image configured</span>
-										)}
-									</span>
-									<span class="plf-choice-text">
-										<span class="plf-choice-title">{opt.label}</span>
-										{opt.description && <span class="plf-choice-desc">{opt.description}</span>}
-									</span>
-								</span>
-							</label>
-						);
-					})}
-				</div>
-			</fieldset>
-
-			<div class="plf-summary card" id="plf-summary">
-				<span class="plf-summary-label">Current selection</span>
-				<p class="plf-summary-line" id="plf-summary-line">—</p>
-			</div>
-
-			<p class="plf-footnote">
-				Next step (when you’re ready): save premium side + top + bottom IDs on an order in Supabase, or export a PDF from this page.
-			</p>
-		</form>
+		<p class="plf-footnote">
+			Next step (when you’re ready): persist these choices on an order in Supabase, or export a PDF from this workflow.
+		</p>
 	</div>
-
-	<script is:inline>
-		(function () {
-			var form = document.getElementById('plf-form');
-			var out = document.getElementById('plf-summary-line');
-			if (!form || !out) return;
-
-			function labelFor(name, value) {
-				var input = form.querySelector('input[name="' + name + '"][value="' + value + '"]');
-				if (!input) return value;
-				var lab = input.closest('label');
-				if (!lab) return value;
-				var t = lab.querySelector('.plf-choice-title');
-				return t ? t.textContent.trim() : value;
-			}
-
-			function refresh() {
-				var side = form.querySelector('input[name="premium_side"]:checked');
-				var top = form.querySelector('input[name="premium_top"]:checked');
-				var bot = form.querySelector('input[name="premium_bottom"]:checked');
-				var s = side ? labelFor('premium_side', side.value) : '—';
-				var a = top ? labelFor('premium_top', top.value) : '—';
-				var b = bot ? labelFor('premium_bottom', bot.value) : '—';
-				out.textContent = 'Side: ' + s + ' · Top: ' + a + ' · Bottom: ' + b;
-			}
-
-			form.addEventListener('change', refresh);
-			refresh();
-
-			document.querySelectorAll('[data-plf-img]').forEach(function (img) {
-				img.addEventListener('error', function () {
-					img.style.display = 'none';
-					var ph = img.parentElement && img.parentElement.querySelector('[data-plf-missing]');
-					if (ph) ph.hidden = false;
-				});
-			});
-		})();
-	</script>
 </AdminLayout>
 
 <style>
@@ -183,167 +39,10 @@ if (!session) return Astro.redirect('/admin/login');
 		padding: 2px 6px;
 	}
 
-	.plf-fieldset {
-		border: none;
-		margin: 0 0 32px 0;
-		padding: 0;
-	}
-
-	.plf-legend {
-		font-family: 'Oswald', sans-serif;
-		font-size: 14px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		color: #374151;
-		margin: 0 0 14px 0;
-		padding: 0;
-	}
-
-	.plf-grid {
-		display: grid;
-		gap: 12px;
-	}
-
-	.plf-grid--top,
-	.plf-grid--sides {
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-	}
-
-	.plf-grid--bottom {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-	}
-
-	@media (max-width: 1024px) {
-		.plf-grid--top,
-		.plf-grid--sides {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-	}
-
-	@media (max-width: 640px) {
-		.plf-grid--top,
-		.plf-grid--sides,
-		.plf-grid--bottom {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.plf-choice {
-		display: block;
-		cursor: pointer;
-		margin: 0;
-	}
-
-	.plf-choice input {
-		position: absolute;
-		opacity: 0;
-		pointer-events: none;
-	}
-
-	.plf-choice-body {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		border: 2px solid #e5e7eb;
-		background: #fff;
-		transition:
-			border-color 0.15s ease,
-			box-shadow 0.15s ease;
-	}
-
-	.plf-choice:hover .plf-choice-body {
-		border-color: #d1d5db;
-	}
-
-	.plf-choice input:focus-visible + .plf-choice-body {
-		outline: 2px solid #fe5900;
-		outline-offset: 2px;
-	}
-
-	.plf-choice input:checked + .plf-choice-body {
-		border-color: #fe5900;
-		box-shadow: 0 0 0 1px rgba(254, 89, 0, 0.25);
-		background: linear-gradient(180deg, #fffaf7 0%, #ffffff 100%);
-	}
-
-	.plf-choice-media {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 120px;
-		background: #f3f4f6;
-		border-bottom: 1px solid #e5e7eb;
-		padding: 10px;
-	}
-
-	.plf-img {
-		max-width: 100%;
-		height: auto;
-		max-height: 120px;
-		object-fit: contain;
-	}
-
-	.plf-img-missing {
-		font-size: 12px;
-		color: #6b7280;
-		text-align: center;
-		padding: 12px;
-		line-height: 1.45;
-	}
-
-	.plf-img-missing code {
-		font-size: 11px;
-		background: #e5e7eb;
-		padding: 2px 5px;
-	}
-
-	.plf-choice-text {
-		padding: 12px 14px 14px;
-		display: flex;
-		flex-direction: column;
-		gap: 4px;
-	}
-
-	.plf-choice-title {
-		font-family: 'Oswald', sans-serif;
-		font-size: 14px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		color: #111827;
-	}
-
-	.plf-choice-desc {
-		font-size: 12px;
-		color: #6b7280;
-		line-height: 1.4;
-	}
-
-	.plf-summary {
-		padding: 18px 22px;
-		margin-bottom: 16px;
-		background: #fafafa;
-		border: 1px solid #e5e7eb;
-	}
-
-	.plf-summary-label {
-		font-size: 11px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		color: #6b7280;
-	}
-
-	.plf-summary-line {
-		margin: 8px 0 0 0;
-		font-size: 16px;
-		color: #111827;
-	}
-
 	.plf-footnote {
 		font-size: 13px;
 		color: #9ca3af;
-		margin: 0;
+		margin: 24px 0 0 0;
+		max-width: 820px;
 	}
 </style>

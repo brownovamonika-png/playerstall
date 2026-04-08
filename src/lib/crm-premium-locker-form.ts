@@ -13,26 +13,26 @@ export type PremiumLockerFormOption = {
 export const PREMIUM_LOCKER_SIDE_OPTIONS: PremiumLockerFormOption[] = [
 	{
 		id: 'premium_side_1',
-		label: 'Side type 1',
-		description: 'Premium line — stepped profile (match CAD filename to your drawing set)',
+		label: 'Locker L',
+		description: 'Model L — stepped profile (match CAD filename to your drawing set)',
 		imageFile: 'side-type-1.png',
 	},
 	{
 		id: 'premium_side_2',
-		label: 'Side type 2',
-		description: 'Premium line — C-shaped recess',
+		label: 'Locker Z',
+		description: 'Model Z (Elite) — C-shaped recess',
 		imageFile: 'side-type-2.png',
 	},
 	{
 		id: 'premium_side_3',
-		label: 'Side type 3',
-		description: 'Premium line — curved mid-height cutout',
+		label: 'Locker X',
+		description: 'Model X — curved mid-height cutout',
 		imageFile: 'side-type-3.png',
 	},
 	{
 		id: 'premium_side_4',
-		label: 'Side type 4',
-		description: 'Premium line — deep middle recess',
+		label: 'Locker S',
+		description: 'Model S — deep middle recess',
 		imageFile: 'side-type-4.png',
 	},
 ];
@@ -40,7 +40,7 @@ export const PREMIUM_LOCKER_SIDE_OPTIONS: PremiumLockerFormOption[] = [
 export const PREMIUM_LOCKER_TOP_OPTIONS: PremiumLockerFormOption[] = [
 	{
 		id: 'premium_top_open_shelf',
-		label: 'Open shelf',
+		label: 'Open shelf — no lock box at all',
 		description: 'Full-width open shelf style',
 		imageFile: 'top-type-2.png',
 	},
@@ -73,13 +73,13 @@ export const PREMIUM_LOCKER_BOTTOM_OPTIONS: PremiumLockerFormOption[] = [
 	},
 	{
 		id: 'premium_bottom_vented',
-		label: 'Vented base',
+		label: '3 slot vented bottom',
 		description: 'Horizontal vent slots',
 		imageFile: 'bottom-type-1.png',
 	},
 	{
 		id: 'premium_bottom_framed_panel',
-		label: 'Framed panel',
+		label: 'Full vented bottom',
 		description: 'Large inset panel with rounded corners',
 		imageFile: 'bottom-type-2.png',
 	},

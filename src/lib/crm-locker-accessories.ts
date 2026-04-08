@@ -2,21 +2,28 @@
  * Locker PDF spec sheet accessories (Model L/S/Z/X, Elite, Pro, Stadium, Essential).
  * Each row has a stable `id` for form fields `acc_qty_${id}`.
  */
+/** Reference / CRM line labels for cushion fabric color (spec panel + notes). */
+export const CUSHION_COLOR_REFERENCE_OPTIONS: readonly { readonly id: string; readonly label: string }[] = [
+	{ id: 'none', label: 'No color' },
+	{ id: 'black', label: 'Black' },
+	{ id: 'dark_blue', label: 'Dark blue' },
+	{ id: 'red', label: 'Red' },
+	{ id: 'green', label: 'Green' },
+	{ id: 'purple', label: 'Purple' },
+	{ id: 'other', label: 'Other' },
+] as const;
+
 export const LOCKER_SPEC_ACCESSORY_ROWS: readonly { readonly id: string; readonly label: string }[] = [
-	{ id: 'vented_panel', label: 'Vented panel (+$40)' },
-	{ id: 'cushion_top_bottom', label: 'Cushions — top or bottom (+$75)' },
-	{ id: 'cushion_both', label: 'Cushions — both (+$150)' },
-	{ id: 'hooks', label: 'Hooks (+$15) — black or silver' },
-	{ id: 'name_plate', label: 'Name plate (+$10) — black or silver' },
-	{ id: 'skate_hooks', label: 'Skate hooks (+$25) — black or silver' },
-	{ id: 'custom_logo', label: 'Custom logo (+$75) · custom orders only' },
-	{ id: 'stick_rack', label: 'Stick rack (from $299)' },
-	{ id: 'lock_box', label: 'Lock box with digital key lock (+$80)' },
+	{ id: 'cushion_top_bottom', label: 'Bottom cushion only' },
+	{ id: 'cushion_both', label: 'Top and bottom cushions' },
+	{ id: 'hooks', label: 'Hooks — black or silver' },
+	{ id: 'name_plate', label: 'Name plate — black or silver' },
+	{ id: 'custom_logo', label: 'Custom logo · custom orders only' },
 ] as const;
 
 /**
  * Removes embedded catalog prices from the PDF spec label so UIs can show the amount once
- * (e.g. "Hooks (+$15) — black or silver" → "Hooks — black or silver" with +$15.00 beside it).
+ * (e.g. strips legacy "Hooks (+$15) — …" to "Hooks — …" for display).
  */
 export function accessoryLabelWithoutEmbeddedPrice(label: string): string {
 	const s = String(label ?? '')
@@ -61,16 +68,43 @@ export function accessoryLabelWithFinishFromNotes(
 		else if (/\bblack\b.{0,48}hook|hook.{0,48}\bblack\b/i.test(blob)) finish = 'black';
 	}
 
-	if (rowId === 'skate_hooks') {
-		if (/(?:silver|chrome).{0,48}skate|skate.{0,48}(?:silver|chrome)/i.test(blob)) finish = 'silver';
-		else if (/\bblack\b.{0,48}skate|skate.{0,48}\bblack\b/i.test(blob)) finish = 'black';
-	}
-
 	if (!finish) return labelWithoutPrice;
 	return labelWithoutPrice.replace(/\s*[—–-]\s*black or silver\s*$/i, '').trim() + ` — ${finish}`;
 }
 
 type AccessoryRowId = (typeof LOCKER_SPEC_ACCESSORY_ROWS)[number]['id'];
+
+/** Serialized lines from older copy still map to the same `cushion_*` ids. */
+const LEGACY_ACCESSORY_LINE_PATTERNS: readonly { readonly re: RegExp; readonly id: AccessoryRowId }[] = [
+	{
+		re: /^Cushions — top or bottom \(\+\$75\)\s*[×x]\s*(\d+)\s*$/i,
+		id: 'cushion_top_bottom',
+	},
+	{
+		re: /^Cushions — both \(\+\$150\)\s*[×x]\s*(\d+)\s*$/i,
+		id: 'cushion_both',
+	},
+	{
+		re: /^Bottom cushion only \(\+\$75\)\s*[×x]\s*(\d+)\s*$/i,
+		id: 'cushion_top_bottom',
+	},
+	{
+		re: /^Top and bottom cushions \(\+\$150\)\s*[×x]\s*(\d+)\s*$/i,
+		id: 'cushion_both',
+	},
+	{
+		re: /^Hooks\s*\(\+\$15\)\s*[—–-]\s*black or silver\s*[×x]\s*(\d+)\s*$/i,
+		id: 'hooks',
+	},
+	{
+		re: /^Name plates?\s*\(\+\$10\)\s*[—–-]\s*black or silver\s*[×x]\s*(\d+)\s*$/i,
+		id: 'name_plate',
+	},
+	{
+		re: /^Custom logo\s*\(\+\$75\)\s*·\s*custom orders only\s*[×x]\s*(\d+)\s*$/i,
+		id: 'custom_logo',
+	},
+];
 
 /** Lines that omit the full PDF label but include finish + qty (CRM / pasted text). */
 function tryParseLooseAccessoryLine(line: string): { id: AccessoryRowId; qty: number } | null {
@@ -86,11 +120,6 @@ function tryParseLooseAccessoryLine(line: string): { id: AccessoryRowId; qty: nu
 	if (m) return { id: 'hooks', qty: Number(m[1]) };
 	m = t.match(/black\s+hooks?\s*[×x]\s*(\d+)/i);
 	if (m) return { id: 'hooks', qty: Number(m[1]) };
-
-	m = t.match(/silver\s+skate\s*hooks?\s*[×x]\s*(\d+)/i);
-	if (m) return { id: 'skate_hooks', qty: Number(m[1]) };
-	m = t.match(/black\s+skate\s*hooks?\s*[×x]\s*(\d+)/i);
-	if (m) return { id: 'skate_hooks', qty: Number(m[1]) };
 
 	return null;
 }
@@ -153,7 +182,18 @@ export function parseAccessoriesField(stored: string | null | undefined): {
 				break;
 			}
 		}
-		if (!matched) unmatched.push(line);
+		if (!matched) {
+			let legacyMatched = false;
+			for (const leg of LEGACY_ACCESSORY_LINE_PATTERNS) {
+				const m = line.match(leg.re);
+				if (m) {
+					quantities[leg.id] = Number(m[1]);
+					legacyMatched = true;
+					break;
+				}
+			}
+			if (!legacyMatched) unmatched.push(line);
+		}
 	}
 
 	unmatched = partitionLooseAccessoryLines(unmatched, quantities);

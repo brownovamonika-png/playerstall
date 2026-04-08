@@ -17,26 +17,26 @@ export type LockerBuildOption = {
 export const LOCKER_SIDE_OPTIONS: LockerBuildOption[] = [
 	{
 		id: 'side_1',
-		label: 'Side type 1',
-		description: 'Stepped profile: shallow upper, deeper base, rounded transition',
+		label: 'Locker L',
+		description: 'Model L — stepped profile: shallow upper, deeper base, rounded transition',
 		imageFile: 'side-type-1.png',
 	},
 	{
 		id: 'side_2',
-		label: 'Side type 2',
-		description: 'C-shaped recess: solid top and bottom, open middle',
+		label: 'Locker Z',
+		description: 'Model Z (Elite) — C-shaped recess: solid top and bottom, open middle',
 		imageFile: 'side-type-2.png',
 	},
 	{
 		id: 'side_3',
-		label: 'Side type 3',
-		description: 'Curved mid-height cutout on front edge',
+		label: 'Locker X',
+		description: 'Model X — curved mid-height cutout on front edge',
 		imageFile: 'side-type-3.png',
 	},
 	{
 		id: 'side_4',
-		label: 'Side type 4',
-		description: 'Deep middle recess; full-depth top and base',
+		label: 'Locker S',
+		description: 'Model S — deep middle recess; full-depth top and base',
 		imageFile: 'side-type-4.png',
 	},
 ];
@@ -44,7 +44,7 @@ export const LOCKER_SIDE_OPTIONS: LockerBuildOption[] = [
 export const LOCKER_BUILD_TOP_OPTIONS: LockerBuildOption[] = [
 	{
 		id: 'top_open_shelf',
-		label: 'Open shelf',
+		label: 'Open shelf — no lock box at all',
 		description: 'Full-width open shelf style (double top trim, detailed base line)',
 		imageFile: 'top-type-2.png',
 	},
@@ -77,13 +77,13 @@ export const LOCKER_BUILD_BOTTOM_OPTIONS: LockerBuildOption[] = [
 	},
 	{
 		id: 'bottom_vented',
-		label: 'Vented base',
+		label: '3 slot vented bottom',
 		description: 'Three horizontal vent slots; joins top section at trim line',
 		imageFile: 'bottom-type-1.png',
 	},
 	{
 		id: 'bottom_framed_panel',
-		label: 'Framed panel',
+		label: 'Full vented bottom',
 		description: 'Large inset panel with rounded corners',
 		imageFile: 'bottom-type-2.png',
 	},
