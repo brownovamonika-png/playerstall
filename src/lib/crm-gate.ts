@@ -8,7 +8,7 @@ const HMAC_SALT = 'playerstall-crm-gate-v1';
 /** When set in the environment, all /admin routes (except login/logout) require this password first. */
 export function isCrmGateEnabled(): boolean {
   const p = import.meta.env.CRM_SHARED_PASSWORD;
-  return typeof p === 'string' && p.length > 0;
+  return typeof p === 'string' && p.trim().length > 0;
 }
 
 /**
@@ -25,14 +25,14 @@ export function isPreviewModeMissingPassword(): boolean {
 }
 
 function gateCookieValue(): string {
-  const password = String(import.meta.env.CRM_SHARED_PASSWORD || '');
+  const password = String(import.meta.env.CRM_SHARED_PASSWORD || '').trim();
   return createHmac('sha256', HMAC_SALT).update(password).digest('hex');
 }
 
 export function verifyGatePasswordSubmitted(submitted: string | null | undefined): boolean {
   if (!isCrmGateEnabled()) return true;
-  const expected = String(import.meta.env.CRM_SHARED_PASSWORD || '');
-  const got = String(submitted || '');
+  const expected = String(import.meta.env.CRM_SHARED_PASSWORD || '').trim();
+  const got = String(submitted || '').trim();
   const a = Buffer.from(got, 'utf8');
   const b = Buffer.from(expected, 'utf8');
   if (a.length !== b.length) return false;

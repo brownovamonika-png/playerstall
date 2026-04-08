@@ -1,3 +1,4 @@
+import type { Session } from '@supabase/supabase-js';
 import type { AstroCookies } from 'astro';
 import { supabase, isSupabaseConfigured } from './supabase';
 
@@ -7,7 +8,12 @@ const REFRESH_TOKEN_KEY = 'sb-refresh-token';
 /** Default cookie length when session is refreshed (no “remember” context). */
 export const CRM_SESSION_DEFAULT_MAX_AGE_SEC = 60 * 60 * 24 * 7;
 
-export async function getSession(cookies: AstroCookies) {
+/**
+ * Restore CRM session from cookies. Prefer validating the access JWT with getUser()
+ * (reliable on serverless); only call setSession() when refresh is needed — setSession
+ * on every request was clearing valid sessions for some Supabase + Vercel setups.
+ */
+export async function getSession(cookies: AstroCookies): Promise<Session | null> {
   if (!isSupabaseConfigured || !supabase) {
     return null;
   }
@@ -17,6 +23,16 @@ export async function getSession(cookies: AstroCookies) {
 
   if (!accessToken || !refreshToken) {
     return null;
+  }
+
+  const { data: userData, error: userErr } = await supabase.auth.getUser(accessToken);
+
+  if (!userErr && userData?.user) {
+    return {
+      access_token: accessToken,
+      refresh_token: refreshToken,
+      user: userData.user,
+    } as Session;
   }
 
   const { data, error } = await supabase.auth.setSession({
