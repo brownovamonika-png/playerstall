@@ -1,0 +1,337 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getSession } from '../../lib/auth';
+import {
+	MANUFACTURER_FORM_GALLERY_24,
+	MANUFACTURER_FORM_GALLERY_19,
+} from '../../lib/crm-manufacturer-forms';
+
+const session = await getSession(Astro.cookies);
+if (!session) return Astro.redirect('/admin/login');
+
+const allGallery = [...MANUFACTURER_FORM_GALLERY_24, ...MANUFACTURER_FORM_GALLERY_19];
+---
+
+<AdminLayout title="Manufacturer forms (24″ width & 19″ depth CAD)" activeNav="manufacturer-forms">
+	<div class="mfg-page-card card">
+		<p class="mfg-page-lead">
+			<strong>Manufacturer CAD</strong> — two rows: <strong>24″ wide</strong> and <strong>19″ deep</strong> (side elevation). Click a model to load its drawing (nothing shows until you click). Files:
+			<code>model-l-type-1-19-inch.png</code> through <code>model-z-type-4-19-inch.png</code> in <code>public/images/crm-manufacturer-forms/</code>.
+		</p>
+
+		<p class="mfg-width-heading">24″ wide</p>
+		<div class="mfg-tablist" role="tablist" aria-label="24 inch wide CAD models">
+			{MANUFACTURER_FORM_GALLERY_24.map((opt, i) => (
+				<button
+					type="button"
+					class="mfg-tab"
+					role="tab"
+					id={`mfg-tab-${opt.tabSlug}`}
+					aria-selected="false"
+					aria-controls={`mfg-panel-${opt.tabSlug}`}
+					tabindex={i === 0 ? 0 : -1}
+					data-mfg-tab={opt.tabSlug}
+				>
+					<span class="mfg-tab-title">{opt.label}</span>
+					<span class="mfg-tab-sub">{opt.subtitle}</span>
+				</button>
+			))}
+		</div>
+
+		<p class="mfg-width-heading">19″ depth (24″ wide front)</p>
+		<div class="mfg-tablist mfg-tablist--row2" role="tablist" aria-label="19 inch depth CAD models">
+			{MANUFACTURER_FORM_GALLERY_19.map((opt) => (
+				<button
+					type="button"
+					class="mfg-tab"
+					role="tab"
+					id={`mfg-tab-${opt.tabSlug}`}
+					aria-selected="false"
+					aria-controls={`mfg-panel-${opt.tabSlug}`}
+					tabindex={-1}
+					data-mfg-tab={opt.tabSlug}
+				>
+					<span class="mfg-tab-title">{opt.label}</span>
+					<span class="mfg-tab-sub">{opt.subtitle}</span>
+				</button>
+			))}
+		</div>
+
+		<p class="mfg-placeholder" id="mfg-placeholder">
+			Click any <strong>24″</strong> or <strong>19″</strong> model button above to show that CAD here.
+		</p>
+
+		<div class="mfg-panels">
+			{allGallery.map((opt) => (
+				<div
+					class="mfg-panel"
+					role="tabpanel"
+					id={`mfg-panel-${opt.tabSlug}`}
+					aria-labelledby={`mfg-tab-${opt.tabSlug}`}
+					hidden
+					data-mfg-panel={opt.tabSlug}
+				>
+					<figure class="mfg-page-fig">
+						<a href={opt.imageSrc} target="_blank" rel="noopener noreferrer" class="mfg-page-img-link">
+							<img
+								src={opt.imageSrc}
+								alt={`${opt.label} — ${opt.subtitle} CAD`}
+								width="640"
+								height="420"
+								loading="lazy"
+							/>
+						</a>
+						<figcaption class="mfg-page-caption">
+							<strong>{opt.label}</strong>
+							<span>{opt.subtitle}</span>
+							<a href={opt.imageSrc} target="_blank" rel="noopener noreferrer" class="mfg-open-full">Open full image in new tab</a>
+						</figcaption>
+					</figure>
+				</div>
+			))}
+		</div>
+	</div>
+
+	<script is:inline>
+		(function () {
+			var tabs = Array.prototype.slice.call(document.querySelectorAll('[data-mfg-tab]'));
+			var panels = Array.prototype.slice.call(document.querySelectorAll('[data-mfg-panel]'));
+			var placeholder = document.getElementById('mfg-placeholder');
+			if (!tabs.length || !panels.length) return;
+
+			function slugFromHash() {
+				var h = (window.location.hash || '').replace(/^#/, '');
+				return h || null;
+			}
+
+			function clearView() {
+				tabs.forEach(function (btn, i) {
+					btn.setAttribute('aria-selected', 'false');
+					btn.tabIndex = i === 0 ? 0 : -1;
+					btn.classList.remove('mfg-tab--active');
+				});
+				panels.forEach(function (panel) {
+					panel.hidden = true;
+				});
+				if (placeholder) placeholder.hidden = false;
+				if (history.replaceState) history.replaceState(null, '', window.location.pathname);
+			}
+
+			function show(slug) {
+				if (!slug) return clearView();
+				tabs.forEach(function (btn) {
+					var on = btn.getAttribute('data-mfg-tab') === slug;
+					btn.setAttribute('aria-selected', on ? 'true' : 'false');
+					btn.tabIndex = on ? 0 : -1;
+					btn.classList.toggle('mfg-tab--active', on);
+				});
+				panels.forEach(function (panel) {
+					var on = panel.getAttribute('data-mfg-panel') === slug;
+					panel.hidden = !on;
+				});
+				if (placeholder) placeholder.hidden = true;
+				if (history.replaceState) history.replaceState(null, '', window.location.pathname + '#' + slug);
+			}
+
+			tabs.forEach(function (btn) {
+				btn.addEventListener('click', function () {
+					show(btn.getAttribute('data-mfg-tab'));
+				});
+			});
+
+			var initial = slugFromHash();
+			if (initial && tabs.some(function (b) { return b.getAttribute('data-mfg-tab') === initial; })) {
+				show(initial);
+			} else {
+				clearView();
+			}
+
+			window.addEventListener('hashchange', function () {
+				var s = slugFromHash();
+				if (s && tabs.some(function (b) { return b.getAttribute('data-mfg-tab') === s; })) show(s);
+				else clearView();
+			});
+		})();
+	</script>
+</AdminLayout>
+
+<style>
+	.mfg-page-lead {
+		font-size: 15px;
+		line-height: 1.6;
+		color: #4b5563;
+		margin: 0 0 16px 0;
+		max-width: 820px;
+	}
+
+	.mfg-page-lead code {
+		font-size: 12px;
+		background: #f3f4f6;
+		padding: 2px 6px;
+	}
+
+	.mfg-width-heading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		color: #6b7280;
+		margin: 18px 0 8px 0;
+	}
+
+	.mfg-page-lead + .mfg-width-heading {
+		margin-top: 0;
+	}
+
+	.mfg-tablist {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 8px;
+		margin-bottom: 0;
+	}
+
+	.mfg-tablist--row2 {
+		margin-bottom: 24px;
+	}
+
+	@media (max-width: 720px) {
+		.mfg-tablist {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	.mfg-tab {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding: 14px 10px;
+		margin: 0;
+		border: 2px solid #e5e7eb;
+		background: #ffffff;
+		cursor: pointer;
+		font: inherit;
+		color: #374151;
+		transition:
+			border-color 0.15s ease,
+			background 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.mfg-tab:hover {
+		border-color: #fe5900;
+		color: #111827;
+	}
+
+	.mfg-tab[aria-selected='true'],
+	.mfg-tab.mfg-tab--active {
+		border-color: #fe5900;
+		background: linear-gradient(180deg, #fff8f5 0%, #ffffff 100%);
+		color: #111827;
+		box-shadow: 0 0 0 1px rgba(254, 89, 0, 0.2);
+	}
+
+	.mfg-tab-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.mfg-tab-sub {
+		font-size: 11px;
+		color: #6b7280;
+		margin-top: 4px;
+		text-transform: none;
+		letter-spacing: 0.02em;
+	}
+
+	.mfg-tab[aria-selected='true'] .mfg-tab-sub,
+	.mfg-tab.mfg-tab--active .mfg-tab-sub {
+		color: #9a3412;
+	}
+
+	.mfg-placeholder {
+		margin: 0 0 20px 0;
+		padding: 36px 24px;
+		max-width: 900px;
+		text-align: center;
+		font-size: 15px;
+		line-height: 1.55;
+		color: #6b7280;
+		background: #f9fafb;
+		border: 2px dashed #e5e7eb;
+	}
+
+	.mfg-placeholder[hidden] {
+		display: none !important;
+	}
+
+	.mfg-panels {
+		max-width: 900px;
+	}
+
+	.mfg-page-fig {
+		margin: 0;
+		padding: 0;
+		background: #f9fafb;
+		border: 1px solid #e5e7eb;
+	}
+
+	.mfg-page-img-link {
+		display: block;
+		line-height: 0;
+		background: #e5e7eb;
+	}
+
+	.mfg-page-img-link img {
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+		vertical-align: middle;
+	}
+
+	.mfg-page-img-link:hover img {
+		opacity: 0.95;
+	}
+
+	.mfg-page-caption {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		padding: 14px 16px 16px;
+		font-family: 'Yantramanav', sans-serif;
+	}
+
+	.mfg-page-caption strong {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #111827;
+	}
+
+	.mfg-page-caption span {
+		font-size: 13px;
+		color: #6b7280;
+	}
+
+	.mfg-open-full {
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #fe5900;
+		text-decoration: none;
+		margin-top: 6px;
+	}
+
+	.mfg-open-full:hover {
+		text-decoration: underline;
+	}
+</style>

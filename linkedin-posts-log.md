@@ -5,7 +5,7 @@ This file tracks which posts have been generated so the automation avoids repeat
 ## Content Pillar Rotation
 Education → Social Proof → Behind-the-Scenes → Community → (repeat)
 
-**Next pillar to use:** Behind-the-Scenes
+**Next pillar to use:** Community
 
 ---
 
@@ -15,6 +15,7 @@ Education → Social Proof → Behind-the-Scenes → Community → (repeat)
 |------|--------|-------|--------------|
 | 2026-03-30 | Education | Wood breathes vs. metal doesn't (reduces odor/mold) | "Here's something nobody talks about when buying sports lockers: your locker room might be making your players sick." |
 | 2026-04-02 | Social Proof | Recruiting edge: prospects notice locker room quality | "A coach called me a few years back. He'd just finished his first season with a new program, and recruiting wasn't going the way he'd hoped." |
+| 2026-04-07 | Behind-the-Scenes | How a custom locker is made (workshop process) | "Most people have never thought about what actually goes into building their locker room." |
 
 ---
 
@@ -39,7 +40,7 @@ Education → Social Proof → Behind-the-Scenes → Community → (repeat)
 
 ### Behind-the-Scenes
 - [ ] Canadian-owned and operated since 1996 — what that means
-- [ ] How a custom locker is made (workshop process)
+- [x] How a custom locker is made (workshop process) — used 2026-04-07
 - [ ] Quality control: every locker checked before shipping
 - [ ] Family business = personal commitment to every order
 
