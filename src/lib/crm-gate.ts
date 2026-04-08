@@ -53,14 +53,16 @@ export function verifyCrmGateCookie(cookies: AstroCookies): boolean {
   }
 }
 
-export function setCrmGateCookie(cookies: AstroCookies): void {
+const CRM_GATE_DEFAULT_MAX_AGE_SEC = 60 * 60 * 24 * 7;
+
+export function setCrmGateCookie(cookies: AstroCookies, maxAgeSec: number = CRM_GATE_DEFAULT_MAX_AGE_SEC): void {
   if (!isCrmGateEnabled()) return;
   cookies.set(COOKIE_NAME, gateCookieValue(), {
     path: '/',
     httpOnly: true,
     secure: import.meta.env.PROD,
     sameSite: 'lax',
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: maxAgeSec,
   });
 }
 

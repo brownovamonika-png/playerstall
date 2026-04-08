@@ -4,6 +4,9 @@ import { supabase, isSupabaseConfigured } from './supabase';
 const ACCESS_TOKEN_KEY = 'sb-access-token';
 const REFRESH_TOKEN_KEY = 'sb-refresh-token';
 
+/** Default cookie length when session is refreshed (no “remember” context). */
+export const CRM_SESSION_DEFAULT_MAX_AGE_SEC = 60 * 60 * 24 * 7;
+
 export async function getSession(cookies: AstroCookies) {
   if (!isSupabaseConfigured || !supabase) {
     return null;
@@ -28,19 +31,25 @@ export async function getSession(cookies: AstroCookies) {
   }
 
   if (data.session.access_token !== accessToken) {
-    setSessionCookies(cookies, data.session.access_token, data.session.refresh_token);
+    setSessionCookies(cookies, data.session.access_token, data.session.refresh_token, CRM_SESSION_DEFAULT_MAX_AGE_SEC);
   }
 
   return data.session;
 }
 
-export function setSessionCookies(cookies: AstroCookies, accessToken: string, refreshToken: string) {
+export function setSessionCookies(
+  cookies: AstroCookies,
+  accessToken: string,
+  refreshToken: string,
+  maxAgeSec: number = CRM_SESSION_DEFAULT_MAX_AGE_SEC,
+) {
   const cookieOptions = {
     path: '/',
     httpOnly: true,
-    secure: true,
+    // Match crm-gate: allow cookies over http://localhost during dev (secure-only breaks some local setups).
+    secure: import.meta.env.PROD,
     sameSite: 'lax' as const,
-    maxAge: 60 * 60 * 24 * 7, // 7 days
+    maxAge: maxAgeSec,
   };
 
   cookies.set(ACCESS_TOKEN_KEY, accessToken, cookieOptions);

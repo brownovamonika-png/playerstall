@@ -129,6 +129,8 @@ export interface Order {
   stage: OrderStage;
   quoted_amount: number | null;
   locker_type: string | null;
+  /** Set when staff picks a model from Manufacturer's form (CAD); Model L / X / S / Z */
+  manufacturers_form: string | null;
   locker_size: string | null;
   locker_width: string | null;
   locker_color: string | null;

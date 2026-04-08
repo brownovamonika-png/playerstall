@@ -3,6 +3,10 @@ export const prerender = false;
 
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import { getSession, setSessionCookies } from '../../lib/auth';
+
+/** Signed-in cookie lifetime when “Keep me signed in” is checked vs unchecked */
+const SESSION_REMEMBER_MAX_AGE_SEC = 60 * 60 * 24 * 90;
+const SESSION_BRIEF_MAX_AGE_SEC = 60 * 60 * 24 * 7;
 import {
 	isCrmGateEnabled,
 	isPreviewModeMissingPassword,
@@ -25,13 +29,15 @@ let error = '';
 
 if (Astro.request.method === 'POST') {
 	const formData = await Astro.request.formData();
+	const rememberMe = formData.get('remember_me') === 'on';
+	const sessionMaxAgeSec = rememberMe ? SESSION_REMEMBER_MAX_AGE_SEC : SESSION_BRIEF_MAX_AGE_SEC;
 	const gatePassword = formData.get('gate_password') as string;
 
 	if (gateOn) {
 		if (!verifyGatePasswordSubmitted(gatePassword)) {
 			error = 'Invalid CRM password';
 		} else {
-			setCrmGateCookie(Astro.cookies);
+			setCrmGateCookie(Astro.cookies, sessionMaxAgeSec);
 		}
 	}
 
@@ -55,7 +61,7 @@ if (Astro.request.method === 'POST') {
 		if (authError || !data.session) {
 			error = authError?.message || 'Invalid credentials';
 		} else {
-			setSessionCookies(Astro.cookies, data.session.access_token, data.session.refresh_token);
+			setSessionCookies(Astro.cookies, data.session.access_token, data.session.refresh_token, sessionMaxAgeSec);
 			return Astro.redirect('/admin');
 		}
 	}
@@ -110,30 +116,53 @@ if (Astro.request.method === 'POST') {
 
 			{demoMode ? (
 				previewBlocked ? null : (
-				<form method="POST">
+				<form method="POST" action="/admin/login" autocomplete="on" class="admin-login-form">
 					<div class="field">
 						<label for="gate_password">Password</label>
 						<input type="password" id="gate_password" name="gate_password" required autocomplete="current-password" placeholder="CRM password" />
 					</div>
+					<label class="remember-row">
+						<input type="checkbox" name="remember_me" checked />
+						<span>Keep me signed in on this device (90 days)</span>
+					</label>
 					<button type="submit" class="login-btn">Sign In</button>
 				</form>
 				)
 			) : (
-				<form method="POST">
-					{gateOn && (
-						<div class="field">
-							<label for="gate_password">CRM password</label>
-							<input type="password" id="gate_password" name="gate_password" required autocomplete="current-password" placeholder="Shared CRM password" />
-						</div>
-					)}
+				<form method="POST" action="/admin/login" autocomplete="on" class="admin-login-form">
 					<div class="field">
 						<label for="email">Email</label>
-						<input type="email" id="email" name="email" required autocomplete="email" placeholder="you@playerstall.com" />
+						<input
+							type="email"
+							id="email"
+							name="email"
+							required
+							autocomplete="username"
+							inputmode="email"
+							placeholder="Your email"
+						/>
 					</div>
 					<div class="field">
 						<label for="password">Password</label>
-						<input type="password" id="password" name="password" required autocomplete="current-password" placeholder="Your password" />
+						<input type="password" id="password" name="password" required autocomplete="current-password" />
 					</div>
+					{gateOn && (
+						<div class="field">
+							<label for="gate_password">CRM shared password</label>
+							<input
+								type="password"
+								id="gate_password"
+								name="gate_password"
+								required
+								autocomplete="off"
+								placeholder="From CRM_SHARED_PASSWORD"
+							/>
+						</div>
+					)}
+					<label class="remember-row">
+						<input type="checkbox" name="remember_me" checked />
+						<span>Keep me signed in on this device (~90 days). Uncheck for a shorter session (~1 week).</span>
+					</label>
 					<button type="submit" class="login-btn">Sign In</button>
 				</form>
 			)}
@@ -304,5 +333,24 @@ if (Astro.request.method === 'POST') {
 		font-size: 12px;
 		background: #eeeeee;
 		padding: 2px 6px;
+	}
+
+	.remember-row {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+		margin: 4px 0 8px 0;
+		cursor: pointer;
+		font-size: 13px;
+		line-height: 1.45;
+		color: #4b5563;
+	}
+
+	.remember-row input {
+		margin-top: 3px;
+		width: 16px;
+		height: 16px;
+		accent-color: #fe5900;
+		flex-shrink: 0;
 	}
 </style>

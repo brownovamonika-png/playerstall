@@ -1,0 +1,133 @@
+---
+import { MANUFACTURER_FORM_OPTIONS } from '../../lib/crm-manufacturer-forms';
+
+interface Props {
+	orderId: string;
+	selected: string | null | undefined;
+}
+
+const { orderId, selected } = Astro.props;
+const sel = String(selected ?? '').trim();
+---
+
+<form method="POST" class="crm-mfg-picker">
+	<input type="hidden" name="action" value="set_manufacturers_form" />
+	<input type="hidden" name="order_id" value={orderId} />
+	<p class="crm-mfg-picker-hint">
+		Choose the 24″ manufacturer CAD. This sets <strong>Locker type</strong> and <strong>Manufacturer's form</strong> (and width to 24″ if width was empty).
+	</p>
+	<div class="crm-mfg-picker-grid" role="group" aria-label="Manufacturer form models">
+		{MANUFACTURER_FORM_OPTIONS.map((opt) => {
+			const isSelected = sel === opt.lockerType;
+			return (
+				<button
+					type="submit"
+					name="locker_model"
+					value={opt.lockerType}
+					class:list={['crm-mfg-picker-card', { 'crm-mfg-picker-card--selected': isSelected }]}
+				>
+					<img
+						src={opt.imageSrc}
+						alt={`${opt.label} — front and side CAD, 24 inch`}
+						width="220"
+						height="160"
+						loading="lazy"
+						class="crm-mfg-picker-img"
+					/>
+					<span class="crm-mfg-picker-label">{opt.label}</span>
+					<span class="crm-mfg-picker-sub">{opt.subtitle}</span>
+				</button>
+			);
+		})}
+	</div>
+</form>
+
+<style>
+	.crm-mfg-picker {
+		margin: 0;
+		padding: 0;
+		border: none;
+		background: transparent;
+	}
+
+	.crm-mfg-picker-hint {
+		font-size: 13px;
+		color: #6b7280;
+		line-height: 1.5;
+		margin: 0 0 14px 0;
+	}
+
+	.crm-mfg-picker-grid {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 12px;
+	}
+
+	@media (max-width: 1100px) {
+		.crm-mfg-picker-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 520px) {
+		.crm-mfg-picker-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.crm-mfg-picker-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		padding: 12px 10px 14px;
+		margin: 0;
+		border: 2px solid #e5e7eb;
+		border-radius: 8px;
+		background: #fff;
+		cursor: pointer;
+		font: inherit;
+		color: inherit;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease,
+			background 0.15s ease;
+		box-sizing: border-box;
+	}
+
+	.crm-mfg-picker-card:hover {
+		border-color: #fe5900;
+		box-shadow: 0 4px 14px rgba(254, 89, 0, 0.12);
+	}
+
+	.crm-mfg-picker-card--selected {
+		border-color: #fe5900;
+		background: linear-gradient(180deg, #fff8f5 0%, #ffffff 100%);
+		box-shadow: 0 0 0 1px rgba(254, 89, 0, 0.25);
+	}
+
+	.crm-mfg-picker-img {
+		width: 100%;
+		max-width: 220px;
+		height: auto;
+		object-fit: contain;
+		margin-bottom: 10px;
+		border-radius: 4px;
+		background: #f3f4f6;
+	}
+
+	.crm-mfg-picker-label {
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #111827;
+	}
+
+	.crm-mfg-picker-sub {
+		font-size: 12px;
+		color: #6b7280;
+		margin-top: 2px;
+	}
+</style>

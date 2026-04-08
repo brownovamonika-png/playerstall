@@ -2,6 +2,8 @@
 export const prerender = false;
 
 import AdminLayout from '../../../layouts/AdminLayout.astro';
+import CrmManufacturerFormPicker from '../../../components/admin/CrmManufacturerFormPicker.astro';
+import { isManufacturerFormLockerType } from '../../../lib/crm-manufacturer-forms';
 import { getSession } from '../../../lib/auth';
 import {
 	buildAccessoriesFromForm,
@@ -40,8 +42,32 @@ if (Astro.request.method === 'POST') {
 		}
 	}
 
+	if (action === 'set_manufacturers_form') {
+		const model = String(form.get('locker_model') || '').trim();
+		if (!isManufacturerFormLockerType(model)) {
+			formMessage = 'Error: invalid manufacturer form model';
+		} else {
+			const { data: cur } = await supabaseAdmin.from('orders').select('locker_size').eq('id', id).single();
+			const updates: Record<string, unknown> = {
+				manufacturers_form: model,
+				locker_type: model,
+			};
+			const ls = String(cur?.locker_size ?? '').trim();
+			if (!ls) updates.locker_size = '24"';
+			const { error } = await supabaseAdmin.from('orders').update(updates).eq('id', id);
+			formMessage = error ? `Error: ${error.message}` : `Manufacturer's form: ${model} saved (locker type updated)`;
+		}
+	}
+
 	if (action === 'update_order') {
 		const estNoteRaw = String(form.get('estimate_customer_note') ?? '').trim();
+		const lockerTypeRaw = ((form.get('locker_type') as string) || '').trim() || null;
+		const mfgPersist = String(form.get('manufacturers_form_persistent') || '').trim();
+		let manufacturers_form: string | null =
+			mfgPersist && isManufacturerFormLockerType(mfgPersist) ? mfgPersist : null;
+		if (!isManufacturerFormLockerType(lockerTypeRaw)) {
+			manufacturers_form = null;
+		}
 		const { error } = await supabaseAdmin.from('orders').update({
 			title: form.get('title') as string,
 			description: (form.get('description') as string) || null,
@@ -49,7 +75,8 @@ if (Astro.request.method === 'POST') {
 			estimate_number: (form.get('estimate_number') as string) || null,
 			invoice_number: (form.get('invoice_number') as string) || null,
 			quoted_amount: form.get('quoted_amount') ? Number(form.get('quoted_amount')) : null,
-			locker_type: (form.get('locker_type') as string) || null,
+			locker_type: lockerTypeRaw,
+			manufacturers_form,
 			locker_size: (form.get('locker_size') as string) || null,
 			locker_width: (form.get('locker_width') as string) || null,
 			locker_color: (form.get('locker_color') as string) || null,
@@ -239,6 +266,10 @@ const qtyDisplay =
 				<span class="order-header-metric-value">{order.locker_type?.trim() || '—'}</span>
 			</div>
 			<div class="order-header-metric">
+				<span class="order-header-metric-label">Manufacturer's form</span>
+				<span class="order-header-metric-value">{order.manufacturers_form?.trim() || '—'}</span>
+			</div>
+			<div class="order-header-metric">
 				<span class="order-header-metric-label">Quantity</span>
 				<span class="order-header-metric-value">{qtyDisplay}</span>
 			</div>
@@ -388,21 +419,41 @@ const qtyDisplay =
 					</div>
 					<div class="order-spec-panel">
 					<p class="order-spec-section-label">Locker specifications</p>
+					<input type="hidden" name="manufacturers_form_persistent" value={order.manufacturers_form || ''} />
 					<div class="order-spec-fields">
-						<div class="form-group">
-							<label>Locker type</label>
-							<select name="locker_type" id="order-locker-type">
-								<option value="">Select...</option>
-								<option value="Model L" selected={lockerTypeOptionSelected(order.locker_type, 'Model L')}>Model L</option>
-								<option value="Model S" selected={lockerTypeOptionSelected(order.locker_type, 'Model S')}>Model S</option>
-								<option value="Model Z" selected={lockerTypeOptionSelected(order.locker_type, 'Model Z')}>Model Z</option>
-								<option value="Model X" selected={lockerTypeOptionSelected(order.locker_type, 'Model X')}>Model X</option>
-								<option value="Semi Pro" selected={lockerTypeOptionSelected(order.locker_type, 'Semi Pro')}>Semi Pro</option>
-								<option value="Varsity" selected={lockerTypeOptionSelected(order.locker_type, 'Varsity')}>Varsity</option>
-								<option value="Pro Locker" selected={lockerTypeOptionSelected(order.locker_type, 'Pro Locker')}>Pro Locker</option>
-								<option value="Stadium Locker" selected={lockerTypeOptionSelected(order.locker_type, 'Stadium Locker')}>Stadium Locker</option>
-								<option value="Custom" selected={lockerTypeOptionSelected(order.locker_type, 'Custom')}>Custom</option>
-							</select>
+						<div class="form-group order-spec-full locker-type-tabs-wrap" data-locker-type-tabs>
+							<label id="order-locker-type-label">Locker type</label>
+							<div class="locker-type-tablist" role="tablist" aria-labelledby="order-locker-type-label">
+								<button
+									type="button"
+									class="locker-type-tab locker-type-tab--active"
+									role="tab"
+									aria-selected="true"
+									data-lt-tab="list"
+								>
+									List
+								</button>
+								<button type="button" class="locker-type-tab" role="tab" aria-selected="false" data-lt-tab="mfg">
+									Manufacturer's form
+								</button>
+							</div>
+							<div class="locker-type-tabpanel" data-lt-panel="list" role="tabpanel">
+								<select name="locker_type" id="order-locker-type" aria-label="Locker type from list">
+									<option value="">Select...</option>
+									<option value="Model L" selected={lockerTypeOptionSelected(order.locker_type, 'Model L')}>Model L</option>
+									<option value="Model S" selected={lockerTypeOptionSelected(order.locker_type, 'Model S')}>Model S</option>
+									<option value="Model Z" selected={lockerTypeOptionSelected(order.locker_type, 'Model Z')}>Model Z</option>
+									<option value="Model X" selected={lockerTypeOptionSelected(order.locker_type, 'Model X')}>Model X</option>
+									<option value="Semi Pro" selected={lockerTypeOptionSelected(order.locker_type, 'Semi Pro')}>Semi Pro</option>
+									<option value="Varsity" selected={lockerTypeOptionSelected(order.locker_type, 'Varsity')}>Varsity</option>
+									<option value="Pro Locker" selected={lockerTypeOptionSelected(order.locker_type, 'Pro Locker')}>Pro Locker</option>
+									<option value="Stadium Locker" selected={lockerTypeOptionSelected(order.locker_type, 'Stadium Locker')}>Stadium Locker</option>
+									<option value="Custom" selected={lockerTypeOptionSelected(order.locker_type, 'Custom')}>Custom</option>
+								</select>
+							</div>
+							<div class="locker-type-tabpanel" data-lt-panel="mfg" role="tabpanel" hidden>
+								<CrmManufacturerFormPicker orderId={id} selected={order.manufacturers_form} />
+							</div>
 						</div>
 						<div class="form-group">
 							<label>Quantity</label>
@@ -826,6 +877,29 @@ const qtyDisplay =
 			form.addEventListener('change', refreshHint);
 			form.addEventListener('input', refreshHint);
 			refreshHint();
+
+			(function initLockerTypeTabs() {
+				var wrap = document.querySelector('[data-locker-type-tabs]');
+				if (!wrap) return;
+				var tabs = wrap.querySelectorAll('[data-lt-tab]');
+				var panels = wrap.querySelectorAll('[data-lt-panel]');
+				function show(key) {
+					tabs.forEach(function (t) {
+						var on = t.getAttribute('data-lt-tab') === key;
+						t.setAttribute('aria-selected', on ? 'true' : 'false');
+						t.classList.toggle('locker-type-tab--active', on);
+					});
+					panels.forEach(function (p) {
+						var on = p.getAttribute('data-lt-panel') === key;
+						p.hidden = !on;
+					});
+				}
+				tabs.forEach(function (t) {
+					t.addEventListener('click', function () {
+						show(t.getAttribute('data-lt-tab'));
+					});
+				});
+			})();
 		});
 	</script>
 
@@ -1165,6 +1239,53 @@ const qtyDisplay =
 		margin-top: 0;
 		margin-bottom: 12px;
 		color: #6b7280;
+	}
+
+	.locker-type-tabs-wrap {
+		margin-bottom: 4px;
+	}
+
+	.locker-type-tablist {
+		display: flex;
+		gap: 0;
+		margin: 8px 0 12px 0;
+		border: 1px solid #e5e7eb;
+		border-radius: 8px;
+		overflow: hidden;
+		width: fit-content;
+		max-width: 100%;
+	}
+
+	.locker-type-tab {
+		margin: 0;
+		padding: 10px 16px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		border: none;
+		background: #f3f4f6;
+		color: #6b7280;
+		cursor: pointer;
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.locker-type-tab:hover {
+		background: #e5e7eb;
+		color: #374151;
+	}
+
+	.locker-type-tab--active {
+		background: #fff;
+		color: #fe5900;
+		box-shadow: inset 0 -2px 0 #fe5900;
+	}
+
+	.locker-type-tabpanel {
+		margin-top: 4px;
 	}
 
 	.order-spec-price-actions {

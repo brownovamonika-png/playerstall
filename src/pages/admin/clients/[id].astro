@@ -2,6 +2,8 @@
 export const prerender = false;
 
 import AdminLayout from '../../../layouts/AdminLayout.astro';
+import CrmManufacturerFormPicker from '../../../components/admin/CrmManufacturerFormPicker.astro';
+import { isManufacturerFormLockerType } from '../../../lib/crm-manufacturer-forms';
 import { getSession } from '../../../lib/auth';
 import {
 	accessoryQuantitiesFromFormPrefixed,
@@ -50,6 +52,33 @@ if (Astro.request.method === 'POST') {
 			notes: (form.get('notes') as string) || null,
 		}).eq('id', id);
 		formMessage = error ? `Error: ${error.message}` : 'Client updated';
+	}
+
+	if (action === 'set_manufacturers_form') {
+		const orderId = String(form.get('order_id') || '').trim();
+		const model = String(form.get('locker_model') || '').trim();
+		if (!orderId || !isManufacturerFormLockerType(model)) {
+			formMessage = 'Error: invalid manufacturer form request';
+		} else {
+			const { data: row } = await supabaseAdmin
+				.from('orders')
+				.select('id, locker_size')
+				.eq('id', orderId)
+				.eq('client_id', id)
+				.single();
+			if (!row) {
+				formMessage = 'Error: order not found for this client';
+			} else {
+				const updates: Record<string, unknown> = {
+					manufacturers_form: model,
+					locker_type: model,
+				};
+				const ls = String(row.locker_size ?? '').trim();
+				if (!ls) updates.locker_size = '24"';
+				const { error } = await supabaseAdmin.from('orders').update(updates).eq('id', orderId);
+				formMessage = error ? `Error: ${error.message}` : `Manufacturer's form: ${model} saved`;
+			}
+		}
 	}
 
 	if (action === 'create_order') {
@@ -154,6 +183,7 @@ if (Astro.request.method === 'POST') {
 					quantity: qty,
 					accessories: accStr,
 					quoted_amount: computed.total,
+					manufacturers_form: isManufacturerFormLockerType(model) ? model : null,
 				};
 				if (titleOverride) updates.title = titleOverride;
 				if (desc) updates.description = desc;
@@ -323,6 +353,10 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 									<div class="order-field">
 										<span class="order-field-label">Locker Type</span>
 										<span class="order-field-value">{order.locker_type || '—'}</span>
+									</div>
+									<div class="order-field">
+										<span class="order-field-label">Manufacturer's form</span>
+										<span class="order-field-value">{order.manufacturers_form || '—'}</span>
 									</div>
 									<div class="order-field">
 										<span class="order-field-label">Width</span>
@@ -495,6 +529,11 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 										</details>
 									);
 								})()}
+
+								<details class="site-catalog-panel mfg-form-order-details">
+									<summary class="site-catalog-summary">Manufacturer's form — 24″ CAD (click model)</summary>
+									<CrmManufacturerFormPicker orderId={order.id} selected={order.manufacturers_form} />
+								</details>
 
 								<div class="order-estimate-invoice">
 									<h4 class="order-ei-title">Estimate &amp; invoice</h4>

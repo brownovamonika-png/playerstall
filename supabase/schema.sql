@@ -96,6 +96,7 @@ CREATE TABLE orders (
   stage order_stage DEFAULT 'new_lead',
   quoted_amount DECIMAL(10,2),
   locker_type TEXT,
+  manufacturers_form TEXT, -- CRM: selected 24" CAD form (Model L/X/S/Z)
   locker_size TEXT,   -- displayed as "Width"
   locker_width TEXT,  -- displayed as "Depth"
   locker_color TEXT,
