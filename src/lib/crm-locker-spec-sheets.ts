@@ -1,6 +1,9 @@
 /**
  * PDF spec sheet copy — single source for CRM locker forms (aligned with src/pages/pdf/*-locker-spec.astro).
  * Update here first, then sync the PDF pages if wording changes.
+ *
+ * Solid paint-finish names (Sherwin-Williams-aligned palette): `src/data/adornus-designer-paint-colors.ts`.
+ * Textured woodgrain finish names: `src/data/textured-woodgrain-colors.ts`.
  */
 
 import type { SiteCatalogTier } from './crm-site-pricing';

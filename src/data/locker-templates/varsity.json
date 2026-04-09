@@ -5,41 +5,128 @@
   "heroImage": "/images/varsity-locker.png",
   "geometry": {
     "heightIn": 76,
-    "widthOptionsIn": [18, 20, 22, 24, 26, 28, 30, 32],
-    "depthOptionsIn": [19],
+    "widthOptionsIn": [
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32
+    ],
+    "depthOptionsIn": [
+      19
+    ],
     "defaultWidthIn": 24,
     "defaultDepthIn": 19
   },
   "pricing": {
     "currency": "USD",
     "basePriceByWidthIn": {
-      "18": 449, "20": 449, "22": 449, "24": 449,
-      "26": 499, "28": 499, "30": 529, "32": 529
+      "18": 449,
+      "20": 449,
+      "22": 449,
+      "24": 449,
+      "26": 499,
+      "28": 499,
+      "30": 529,
+      "32": 529
     },
-    "depthSurcharge": { "19": 0 }
+    "depthSurcharge": {
+      "19": 0
+    }
   },
   "colors": [
-    { "code": "DW", "label": "Designer White", "hex": "#f5f5f0", "group": "solid" },
-    { "code": "WS", "label": "White Sand", "hex": "#e8dcc8", "group": "solid" },
-    { "code": "FG", "label": "Fashion Grey", "hex": "#8b8680", "group": "solid" },
-    { "code": "NS", "label": "North Sea", "hex": "#5b7c8d", "group": "solid" },
-    { "code": "GR", "label": "Graphite", "hex": "#4a4a4a", "group": "solid" },
-    { "code": "BL", "label": "Black", "hex": "#1a1a1a", "group": "solid" },
-    { "code": "HB", "label": "Hollyberry", "hex": "#8b2e3f", "group": "solid" },
-    { "code": "LB", "label": "Lapis Blue", "hex": "#2e5f8d", "group": "solid" },
-    { "code": "FM", "label": "Fusion Maple", "hex": "#d4a574", "group": "woodgrain" },
-    { "code": "PO", "label": "Pasadena Oak", "hex": "#c4985e", "group": "woodgrain" },
-    { "code": "WH", "label": "Walnut Heights", "hex": "#6d5843", "group": "woodgrain" },
-    { "code": "HW", "label": "Hampton Walnut", "hex": "#5c4738", "group": "woodgrain" }
+    {
+      "code": "DW",
+      "label": "High Reflective White",
+      "hex": "#f5f5f0",
+      "group": "solid"
+    },
+    {
+      "code": "WS",
+      "label": "White Sand",
+      "hex": "#e8dcc8",
+      "group": "solid"
+    },
+    {
+      "code": "FG",
+      "label": "Fashion Grey",
+      "hex": "#8b8680",
+      "group": "solid"
+    },
+    {
+      "code": "NS",
+      "label": "North Sea",
+      "hex": "#5b7c8d",
+      "group": "solid"
+    },
+    {
+      "code": "GR",
+      "label": "Graphite",
+      "hex": "#4a4a4a",
+      "group": "solid"
+    },
+    {
+      "code": "BL",
+      "label": "Black",
+      "hex": "#1a1a1a",
+      "group": "solid"
+    },
+    {
+      "code": "HB",
+      "label": "Hollyberry",
+      "hex": "#8b2e3f",
+      "group": "solid"
+    },
+    {
+      "code": "LB",
+      "label": "Lapis Blue",
+      "hex": "#2e5f8d",
+      "group": "solid"
+    }
   ],
   "accessories": [
-    { "id": "vented_front", "label": "Vented front", "price": 40 },
-    { "id": "lock_box", "label": "Lock box", "price": 80 },
-    { "id": "bottom_cushion", "label": "Bottom cushion", "price": 75 },
-    { "id": "top_bottom_cushions", "label": "Top & bottom cushions", "price": 150 },
-    { "id": "name_plate", "label": "Name plate", "price": 10 },
-    { "id": "hooks_4", "label": "4 hooks", "price": 12 },
-    { "id": "skate_hooks", "label": "Skate hooks", "price": 25 },
-    { "id": "custom_logo", "label": "Custom logo", "price": 75 }
+    {
+      "id": "vented_front",
+      "label": "Vented front",
+      "price": 40
+    },
+    {
+      "id": "lock_box",
+      "label": "Lock box",
+      "price": 80
+    },
+    {
+      "id": "bottom_cushion",
+      "label": "Bottom cushion",
+      "price": 75
+    },
+    {
+      "id": "top_bottom_cushions",
+      "label": "Top & bottom cushions",
+      "price": 150
+    },
+    {
+      "id": "name_plate",
+      "label": "Name plate",
+      "price": 10
+    },
+    {
+      "id": "hooks_4",
+      "label": "4 hooks",
+      "price": 12
+    },
+    {
+      "id": "skate_hooks",
+      "label": "Skate hooks",
+      "price": 25
+    },
+    {
+      "id": "custom_logo",
+      "label": "Custom logo",
+      "price": 75
+    }
   ]
 }

@@ -25,6 +25,8 @@ export interface ColorOption {
   label: string;
   hex: string;
   group: 'solid' | 'woodgrain';
+  /** Optional photo swatch (e.g. textured woodgrain reference). */
+  swatchImage?: string;
 }
 
 export interface AccessoryOption {

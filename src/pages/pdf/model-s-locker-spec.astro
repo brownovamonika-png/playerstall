@@ -2,6 +2,8 @@
 // PREMIUM — Model S only. 19" or 24", melamine. Linked from product-model-s. Do not use for Stadium Locker.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductSpecSheet from '../../components/ProductSpecSheet.astro';
+import { ADORNUS_DESIGNER_PAINT_LABELS_CSV } from '../../data/adornus-designer-paint-colors';
+import { TEXTURED_WOODGRAIN_LABELS_CSV } from '../../data/textured-woodgrain-colors';
 const dimensionsSheetSrc = '/images/model-x-locker-dimensions-sheet.png';
 
 const modelSSpecs = [
@@ -86,7 +88,7 @@ const modelSSpecs = [
 				<div class="product-layout product-layout-single">
 					<div class="product-detail">
 						<h2 class="product-title">Model S Locker</h2>
-						<p class="product-model">Model # S-Designer White-18</p>
+						<p class="product-model">Model # S-High Reflective White-18</p>
 						<p class="product-lead-time">Lead time: custom-built in three months</p>
 						<div class="product-price-block">
 							<span class="product-price">From $649.00</span>
@@ -96,7 +98,7 @@ const modelSSpecs = [
 						<div class="product-options-static">
 							<p><strong>Depth:</strong> 19" (standard) or 24"</p>
 							<p><strong>Width:</strong> 18", 20", 22", 24", 26", 28", 30", 32"</p>
-							<p><strong>Color:</strong> Designer White, White Sand, Fashion Grey, North Sea, Graphite, Black, Hollyberry, Lapis Blue; woodgrains: Fusion Maple, Pasadena Oak, Walnut Heights, Hampton Walnut</p>
+							<p><strong>Color:</strong> Melamine solids (Sherwin-Williams paint color palette): {ADORNUS_DESIGNER_PAINT_LABELS_CSV}. Textured woodgrain (reference names—confirm availability): {TEXTURED_WOODGRAIN_LABELS_CSV}. See <a href="/colors/laminate-colors-pdf.html">paint finish reference PDF</a> and <a href="/colors/woodgrain-colors-pdf.html">woodgrain reference PDF</a>.</p>
 						</div>
 
 						<div class="product-accessories-static">

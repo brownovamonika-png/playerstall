@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllTemplates } from '../../room-planner/catalog';
+
+const plannerTemplates = getAllTemplates();
 ---
 
 <BaseLayout
@@ -81,7 +84,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 						<div class="lt-row">
 							<div class="lt-field">
 								<label>Model</label>
-								<select id="lt-model"></select>
+								<select id="lt-model">
+									{plannerTemplates.map((t) => (
+										<option value={t.templateId}>{t.displayName}</option>
+									))}
+								</select>
 							</div>
 							<div class="lt-field">
 								<label>Width</label>
@@ -123,7 +130,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 					<span class="tb-icon">✎</span> Edit
 				</button>
 				<div class="tb-locker-group">
-					<select id="locker-model-select" class="tb-model-select" title="Locker model"></select>
+					<select id="locker-model-select" class="tb-model-select" title="Locker model">
+						{plannerTemplates.map((t) => (
+							<option value={t.templateId}>{t.displayName}</option>
+						))}
+					</select>
 					<button type="button" class="tb-btn" id="btn-add-locker" title="Place locker(s) on the layout">
 						+ Locker
 					</button>
@@ -1658,7 +1669,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	import { createInitialState, nextInstanceId, buildWalls, defaultDimensions } from '../../room-planner/state';
 	import type { RoomDimensions } from '../../room-planner/state';
 	import { render, screenToWorld, setFloorLogo2D, removeFloorLogo2D } from '../../room-planner/render';
-	import { getAllTemplates, getTemplate } from '../../room-planner/catalog';
+	import { getAllTemplates, getTemplate, lockerColorSwatchStyle, resolveLockerColor } from '../../room-planner/catalog';
 	import { priceLocker } from '../../room-planner/pricing';
 	import { lockerAABB, wouldOverlap, packWall, wallLength, openingExclusionAABB, getWallsWithLockers, projectOntoWall, hitTestOpening, clampLockerToRoom } from '../../room-planner/geometry';
 	import { drawWallHighlight } from '../../room-planner/render';
@@ -1929,13 +1940,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	const ltQty = document.getElementById('lt-qty') as HTMLInputElement;
 	const ltPrice = document.getElementById('lt-price')!;
 
-	for (const t of getAllTemplates()) {
-		const opt = document.createElement('option');
-		opt.value = t.templateId;
-		opt.textContent = t.displayName;
-		ltModel.appendChild(opt);
-	}
-
 	const lockerImages: Record<string, string> = {
 		'model-s': '/images/stadium-locker-side.png',
 		'model-l': '/images/elite-locker-side.png',
@@ -1980,7 +1984,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			const opt = document.createElement('option');
 			opt.value = c.code;
 			opt.textContent = c.label;
-			opt.style.color = c.hex;
 			ltColor.appendChild(opt);
 		}
 		ltAccList.innerHTML = '';
@@ -2448,7 +2451,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			const btn = document.createElement('button');
 			btn.type = 'button';
 			btn.className = 'view3d-cswatch' + (c.code === refLocker.config.colorCode ? ' active' : '');
-			btn.style.cssText = `background:${c.hex};width:28px;height:28px;min-width:28px;min-height:28px;`;
+			btn.style.cssText = lockerColorSwatchStyle(c);
 			btn.title = c.label;
 			btn.onclick = () => {
 				const affected = selectAll3D ? state.lockers : targets;
@@ -2559,12 +2562,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 	// ─── Model select dropdown (hidden toolbar) ───
 	const modelSelect = document.getElementById('locker-model-select') as HTMLSelectElement;
-	for (const t of getAllTemplates()) {
-		const opt = document.createElement('option');
-		opt.value = t.templateId;
-		opt.textContent = t.displayName;
-		modelSelect.appendChild(opt);
-	}
 	function getSelectedTemplate() { return getTemplate(modelSelect.value) ?? getAllTemplates()[0]; }
 
 	// ─── Add locker(s) (hidden toolbar) ───
@@ -2845,7 +2842,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		for (const locker of state.lockers) {
 			const t = getTemplate(locker.templateId);
 			const sel = state.selection?.type === 'locker' && state.selection.id === locker.instanceId;
-			const color = t?.colors.find((c) => c.code === locker.config.colorCode);
+			const color = resolveLockerColor(t ?? undefined, locker.config.colorCode);
 			html += `<li class="${sel ? 'selected' : ''}" data-sel-type="locker" data-sel-id="${locker.instanceId}"><span class="layer-icon" style="background:${color?.hex ?? '#ccc'}"></span> ${t?.displayName ?? locker.templateId} \u00b7 ${formatDimension(locker.config.widthIn, state.displayUnit, 0)}</li>`;
 		}
 		list.innerHTML = html;
@@ -2990,7 +2987,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			const t = getTemplate(locker.templateId); if (!t) continue;
 			const price = priceLocker(t, locker.config);
 			const base = (t.pricing.basePriceByWidthIn[String(locker.config.widthIn)] ?? 0) + (t.pricing.depthSurcharge[String(locker.config.depthIn)] ?? 0);
-			const color = t.colors.find((c) => c.code === locker.config.colorCode);
+			const color = resolveLockerColor(t, locker.config.colorCode);
 			const accs = locker.config.accessoryIds.map((id) => t.accessories.find((a) => a.id === id)).filter(Boolean) as { id: string; label: string; price: number }[];
 			const sortedAcc = [...locker.config.accessoryIds].sort();
 			const key = `${locker.templateId}|${locker.config.widthIn}|${locker.config.depthIn}|${locker.config.colorCode}|${sortedAcc.join(',')}`;

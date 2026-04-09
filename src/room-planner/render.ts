@@ -1,5 +1,5 @@
 import type { PlannerState, Camera } from './types';
-import { getTemplate, getAllTemplates } from './catalog';
+import { getTemplate, getAllTemplates, resolveLockerColor } from './catalog';
 import { lockerAABB, openingExclusionAABB, wallLength, cornerExclusionAABBs, getWallsWithLockers } from './geometry';
 import { formatDimension } from './units';
 
@@ -485,7 +485,7 @@ function drawLockers(ctx: CanvasRenderingContext2D, state: PlannerState, cw: num
 
   for (const locker of lockers) {
     const template = getTemplate(locker.templateId);
-    const color = template?.colors.find((c) => c.code === locker.config.colorCode);
+    const color = resolveLockerColor(template, locker.config.colorCode);
     const fillColor = color?.hex ?? '#ccc';
 
     const box = lockerAABB(locker);

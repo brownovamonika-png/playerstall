@@ -372,7 +372,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 </style>
 
 <script>
-	import { getTemplate } from '../../room-planner/catalog';
+	import { getTemplate, resolveLockerColor } from '../../room-planner/catalog';
 	import { priceLocker } from '../../room-planner/pricing';
 	import { buildWalls, needByTimelineLabel, fundingStatusLabel } from '../../room-planner/state';
 	import type { PlannerState, LockerInstance } from '../../room-planner/types';
@@ -433,7 +433,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		for (const locker of lockers) {
 			const t = getTemplate(locker.templateId); if (!t) continue;
 			const price = priceLocker(t, locker.config);
-			const color = t.colors.find((c) => c.code === locker.config.colorCode);
+			const color = resolveLockerColor(t, locker.config.colorCode);
 			const accs = locker.config.accessoryIds.map((id) => t.accessories.find((a) => a.id === id)).filter(Boolean) as { id: string; label: string; price: number }[];
 			const sortedAcc = [...locker.config.accessoryIds].sort();
 			const key = `${locker.templateId}|${locker.config.widthIn}|${locker.config.depthIn}|${locker.config.colorCode}|${sortedAcc.join(',')}`;

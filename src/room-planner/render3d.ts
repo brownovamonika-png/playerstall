@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import type { PlannerState, Wall, Opening } from './types';
-import { getTemplate, getAllTemplates } from './catalog';
+import type { PlannerState, Wall, Opening, ColorOption } from './types';
+import { getTemplate, getAllTemplates, resolveLockerColor } from './catalog';
 import { lockerAABB, wallLength, cornerExclusionAABBs, getWallsWithLockers, wouldOverlap, clampLockerToRoom } from './geometry';
 
 const WALL_HEIGHT = 108;
@@ -31,6 +31,116 @@ let _canvas: HTMLCanvasElement | null = null;
 const _texCache = new Map<string, THREE.Texture>();
 const _texLoader = new THREE.TextureLoader();
 _texLoader.crossOrigin = 'anonymous';
+
+/** Swatch photos for textured woodgrain melamine — shared across locker meshes; do not dispose with materials. */
+const _woodgrainTexByUrl = new Map<string, THREE.Texture>();
+
+function configureWoodgrainTexture(tex: THREE.Texture): void {
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  // Repeat across each box face (UV 0–1) so tall panels show visible grain.
+  tex.repeat.set(2.4, 2.4);
+  tex.offset.set(0, 0);
+  tex.rotation = 0;
+  if (_renderer) {
+    const maxA = _renderer.capabilities.getMaxAnisotropy();
+    tex.anisotropy = Math.min(12, maxA);
+  }
+}
+
+function refreshWoodgrainAnisotropy(): void {
+  if (!_renderer) return;
+  const maxA = Math.min(12, _renderer.capabilities.getMaxAnisotropy());
+  for (const tex of _woodgrainTexByUrl.values()) {
+    tex.anisotropy = maxA;
+  }
+}
+
+const _woodgrainLoadStarted = new Set<string>();
+
+/** Preload TW-* swatch JPGs so 3D bodies can use real woodgrain instead of flat hex. */
+function preloadWoodgrainSwatches(): void {
+  const urls = new Set<string>();
+  for (const tmpl of getAllTemplates()) {
+    for (const c of tmpl.colors) {
+      if (c.group === 'woodgrain' && c.swatchImage) urls.add(c.swatchImage);
+    }
+  }
+  for (const url of urls) {
+    if (_woodgrainTexByUrl.has(url) || _woodgrainLoadStarted.has(url)) continue;
+    _woodgrainLoadStarted.add(url);
+    _texLoader.load(
+      url,
+      (tex) => {
+        _woodgrainLoadStarted.delete(url);
+        tex.userData.plannerWoodgrainUrl = url;
+        configureWoodgrainTexture(tex);
+        _woodgrainTexByUrl.set(url, tex);
+        if (_scene && _state) {
+          for (const lm of _lockerMeshes) {
+            const locker = _state.lockers.find((l) => l.instanceId === lm.instanceId);
+            const tmpl = locker ? getTemplate(locker.templateId) : undefined;
+            const co = tmpl && locker ? resolveLockerColor(tmpl, locker.config.colorCode) : undefined;
+            if (co?.swatchImage === url) rebuildLockerMesh(lm.instanceId);
+          }
+          highlightLocker(_selectedMeshId);
+        }
+      },
+      undefined,
+      () => {
+        _woodgrainLoadStarted.delete(url);
+      },
+    );
+  }
+}
+
+function createLockerBodyMaterials(
+  colorOpt: ColorOption | undefined,
+  baseHexNum: number,
+): { woodMat: THREE.MeshStandardMaterial; innerMat: THREE.MeshStandardMaterial } {
+  const url = colorOpt?.group === 'woodgrain' ? colorOpt.swatchImage : undefined;
+  const tex = url ? _woodgrainTexByUrl.get(url) : undefined;
+
+  if (tex) {
+    const woodMat = new THREE.MeshStandardMaterial({
+      map: tex,
+      bumpMap: tex,
+      bumpScale: 0.035,
+      color: 0xffffff,
+      roughness: 0.52,
+      metalness: 0.02,
+      envMapIntensity: 0.9,
+    });
+    const innerMat = new THREE.MeshStandardMaterial({
+      map: tex,
+      bumpMap: tex,
+      bumpScale: 0.02,
+      color: 0xc8c4be,
+      roughness: 0.68,
+      metalness: 0.02,
+      envMapIntensity: 0.75,
+    });
+    return { woodMat, innerMat };
+  }
+
+  const woodMat = new THREE.MeshStandardMaterial({ color: baseHexNum, roughness: 0.6, metalness: 0.05 });
+  const innerMat = new THREE.MeshStandardMaterial({
+    color: new THREE.Color(baseHexNum).multiplyScalar(0.8),
+    roughness: 0.7,
+    metalness: 0.03,
+  });
+  return { woodMat, innerMat };
+}
+
+/** Avoid disposing shared woodgrain textures when tearing down locker meshes. */
+function disposeMaterialKeepSharedMaps(m: THREE.Material): void {
+  if (m instanceof THREE.MeshStandardMaterial && m.map?.userData?.plannerWoodgrainUrl) {
+    m.map = null;
+    m.bumpMap = null;
+  }
+  m.dispose();
+}
 
 function preloadTextures(): void {
   for (const tmpl of getAllTemplates()) {
@@ -94,6 +204,8 @@ export function launch3DPreview(
   renderer.toneMapping = THREE.LinearToneMapping;
   renderer.toneMappingExposure = 1.0;
   _renderer = renderer;
+  refreshWoodgrainAnisotropy();
+  preloadWoodgrainSwatches();
 
   const bounds = roomBounds(state);
   const cx = (bounds.minX + bounds.maxX) / 2;
@@ -173,7 +285,7 @@ export function dispose3DPreview(): void {
   _scene?.traverse((o) => {
     if (o instanceof THREE.Mesh) {
       o.geometry.dispose();
-      (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => m.dispose());
+      (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => disposeMaterialKeepSharedMaps(m));
     }
     if (o instanceof THREE.LineSegments) {
       o.geometry.dispose();
@@ -549,7 +661,7 @@ function buildLockerGroup(
   const tmpl = getTemplate(locker.templateId);
   if (!tmpl) return null;
 
-  const colorOpt = tmpl.colors.find((c) => c.code === locker.config.colorCode);
+  const colorOpt = resolveLockerColor(tmpl, locker.config.colorCode);
   const hex = colorOpt ? parseInt(colorOpt.hex.replace('#', ''), 16) : 0xcccccc;
   const h = 76;
   const widthIn = locker.config.widthIn;
@@ -583,10 +695,7 @@ function buildLockerGroup(
 
   const sideMidDepth = isVarsity ? depthIn : depthIn * 0.30;
 
-  const woodMat = new THREE.MeshStandardMaterial({ color: hex, roughness: 0.6, metalness: 0.05 });
-  const innerMat = new THREE.MeshStandardMaterial({
-    color: new THREE.Color(hex).multiplyScalar(0.8), roughness: 0.7, metalness: 0.03,
-  });
+  const { woodMat, innerMat } = createLockerBodyMaterials(colorOpt, hex);
   const handleMat = new THREE.MeshStandardMaterial({ color: 0xaaaaaa, roughness: 0.3, metalness: 0.65 });
 
   /* ── Back panel ──────────────────────────────────────── */
@@ -758,7 +867,7 @@ function rebuildLockerMesh(instanceId: string): void {
   old.group.traverse((o) => {
     if (o instanceof THREE.Mesh) {
       o.geometry.dispose();
-      (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => m.dispose());
+      (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => disposeMaterialKeepSharedMaps(m));
     }
   });
   const locker = _state.lockers.find((l) => l.instanceId === instanceId);
@@ -1058,7 +1167,7 @@ export function removeLockers3D(instanceIds: string[]): void {
     old.group.traverse((o) => {
       if (o instanceof THREE.Mesh) {
         o.geometry.dispose();
-        (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => m.dispose());
+        (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => disposeMaterialKeepSharedMaps(m));
       }
     });
     _lockerMeshes.splice(idx, 1);
@@ -1176,7 +1285,9 @@ function disposeSnapshotScene(scene: THREE.Scene): void {
   scene.traverse((o: THREE.Object3D) => {
     if (o instanceof THREE.Mesh) {
       o.geometry?.dispose();
-      (Array.isArray(o.material) ? o.material : [o.material]).forEach((m: THREE.Material) => m.dispose());
+      (Array.isArray(o.material) ? o.material : [o.material]).forEach((m: THREE.Material) =>
+        disposeMaterialKeepSharedMaps(m),
+      );
     }
     if (o instanceof THREE.LineSegments) {
       o.geometry.dispose();

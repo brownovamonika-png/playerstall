@@ -105,6 +105,14 @@
             border-radius: 4px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .color-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
         
         .color-name {
@@ -114,6 +122,40 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             color: #0d0d0d;
+        }
+
+        .color-wilsonart {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 12px;
+            color: #8c8c8c;
+            margin-top: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .alusso-note {
+            font-family: 'Yantramanav', sans-serif;
+            font-size: 13px;
+            line-height: 1.65;
+            color: #666666;
+            max-width: 720px;
+            margin: -8px auto 20px;
+            text-align: center;
+        }
+
+        .alusso-note a {
+            color: #fe5900;
+        }
+
+        .color-grid--alusso {
+            gap: 22px 26px;
+        }
+
+        .color-grid--alusso .color-box {
+            height: 96px;
+        }
+
+        .color-grid--alusso .color-name {
+            font-size: 13px;
         }
         
         .material-section-image {
@@ -178,70 +220,47 @@
                 <span>Premium Quality</span> | <span>ENF Certified</span> | <span>Moisture Resistant</span> | <span>5 Year Warranty</span>
             </div>
             
-            <h2 class="section-title">Melamine Solid Colors</h2>
+            <h2 class="section-title">Melamine — Sherwin-Williams paint colors</h2>
             <div class="color-grid">
-                <div class="color-item">
-                    <div class="color-box" style="background: #F5F5F5; border: 1px solid #ddd;"></div>
-                    <div class="color-name">Designer White</div>
-                </div>
-                
-                <div class="color-item">
-                    <div class="color-box" style="background: #EDE8DA;"></div>
-                    <div class="color-name">White Sand</div>
-                </div>
-                
-                <div class="color-item">
-                    <div class="color-box" style="background: #A8A8A8;"></div>
-                    <div class="color-name">Fashion Grey</div>
-                </div>
-                
-                <div class="color-item">
-                    <div class="color-box" style="background: #6E8090;"></div>
-                    <div class="color-name">North Sea</div>
-                </div>
-                
-                <div class="color-item">
-                    <div class="color-box" style="background: #4D4D4D;"></div>
-                    <div class="color-name">Graphite</div>
-                </div>
-                
-                <div class="color-item">
-                    <div class="color-box" style="background: #1A1A1A;"></div>
-                    <div class="color-name">Black</div>
-                </div>
-                
-                <div class="color-item">
-                    <div class="color-box" style="background: #C41E3A;"></div>
-                    <div class="color-name">Hollyberry</div>
-                </div>
-                
-                <div class="color-item">
-                    <div class="color-box" style="background: #1F4E8C;"></div>
-                    <div class="color-name">Lapis Blue</div>
-                </div>
+                <div class="color-item"><div class="color-box" style="background: #f4f4f0; border: 1px solid #ddd;"></div><div class="color-name">High Reflective White</div></div>
+                <div class="color-item"><div class="color-box" style="background: #edece6; border: 1px solid #ddd;"></div><div class="color-name">Pure White</div></div>
+                <div class="color-item"><div class="color-box" style="background: #ede9de; border: 1px solid #ddd;"></div><div class="color-name">Alabaster</div></div>
+                <div class="color-item"><div class="color-box" style="background: #ede3d5; border: 1px solid #ddd;"></div><div class="color-name">Antique White</div></div>
+                <div class="color-item"><div class="color-box" style="background: #d4dcd5; border: 1px solid #ddd;"></div><div class="color-name">Sea Salt</div></div>
+                <div class="color-item"><div class="color-box" style="background: #ccc8c0; border: 1px solid #ddd;"></div><div class="color-name">Repose Gray</div></div>
+                <div class="color-item"><div class="color-box" style="background: #d4c5a9; border: 1px solid #ddd;"></div><div class="color-name">Accessible Beige</div></div>
+                <div class="color-item"><div class="color-box" style="background: #b7c3c4; border: 1px solid #ddd;"></div><div class="color-name">Quietude</div></div>
+                <div class="color-item"><div class="color-box" style="background: #c5c0b8; border: 1px solid #ddd;"></div><div class="color-name">Light French Gray</div></div>
+                <div class="color-item"><div class="color-box" style="background: #b6a99a;"></div><div class="color-name">Perfect Greige</div></div>
+                <div class="color-item"><div class="color-box" style="background: #777b80;"></div><div class="color-name">Web Gray</div></div>
+                <div class="color-item"><div class="color-box" style="background: #6b734f;"></div><div class="color-name">Roycroft Green</div></div>
+                <div class="color-item"><div class="color-box" style="background: #68696b;"></div><div class="color-name">Mindful Gray</div></div>
+                <div class="color-item"><div class="color-box" style="background: #4b697c;"></div><div class="color-name">Bracing Blue</div></div>
+                <div class="color-item"><div class="color-box" style="background: #5c5048;"></div><div class="color-name">Urban Bronze</div></div>
+                <div class="color-item"><div class="color-box" style="background: #4a4b4d;"></div><div class="color-name">Iron Ore</div></div>
+                <div class="color-item"><div class="color-box" style="background: #2f3e4c;"></div><div class="color-name">Gale Force</div></div>
+                <div class="color-item"><div class="color-box" style="background: #2e3a5a;"></div><div class="color-name">Naval</div></div>
+                <div class="color-item"><div class="color-box" style="background: #2d2d2d;"></div><div class="color-name">Tricorn Black</div></div>
+                <div class="color-item"><div class="color-box" style="background: #2a2c2e;"></div><div class="color-name">Cyberspace</div></div>
             </div>
             
-            <h2 class="section-title">Woodgrain Finishes</h2>
-            <div class="color-grid">
-                <div class="color-item">
-                    <div class="color-box" style="background: linear-gradient(135deg, #DEC7A0 0%, #D4BD96 50%, #CEBA8C 100%);"></div>
-                    <div class="color-name">Fusion Maple</div>
-                </div>
-                
-                <div class="color-item">
-                    <div class="color-box" style="background: linear-gradient(135deg, #A67C52 0%, #9C7248 50%, #92683E 100%);"></div>
-                    <div class="color-name">Pasadena Oak</div>
-                </div>
-                
-                <div class="color-item">
-                    <div class="color-box" style="background: linear-gradient(135deg, #6B4226 0%, #61381C 50%, #572E12 100%);"></div>
-                    <div class="color-name">Walnut Heights</div>
-                </div>
-                
-                <div class="color-item">
-                    <div class="color-box" style="background: linear-gradient(135deg, #4A2F1B 0%, #402511 50%, #361B07 100%);"></div>
-                    <div class="color-name">Hampton Walnut</div>
-                </div>
+            <h2 class="section-title">Textured woodgrain</h2>
+            <div class="color-grid color-grid--alusso">
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/bruno.jpg" width="1000" height="1000" alt="Textured woodgrain Bruno reference" loading="lazy" /></div><div class="color-name">Bruno</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/canella.jpg" width="1000" height="1000" alt="Textured woodgrain Canella reference" loading="lazy" /></div><div class="color-name">Canella</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/fad.jpg" width="1000" height="1000" alt="Textured woodgrain Fad reference" loading="lazy" /></div><div class="color-name">Fad</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/flaxen.jpg" width="1000" height="1000" alt="Textured woodgrain Flaxen reference" loading="lazy" /></div><div class="color-name">Flaxen</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/ice.jpg" width="1000" height="1000" alt="Textured woodgrain Ice reference" loading="lazy" /></div><div class="color-name">Ice</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/impulse.jpg" width="1000" height="1000" alt="Textured woodgrain Impulse reference" loading="lazy" /></div><div class="color-name">Impulse</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/java.jpg" width="1000" height="1000" alt="Textured woodgrain Java reference" loading="lazy" /></div><div class="color-name">Java</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/lofty.jpg" width="1000" height="1000" alt="Textured woodgrain Lofty reference" loading="lazy" /></div><div class="color-name">Lofty</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/marigold.jpg" width="1000" height="1000" alt="Textured woodgrain Marigold reference" loading="lazy" /></div><div class="color-name">Marigold</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/noir.jpg" width="1000" height="1000" alt="Textured woodgrain Noir reference" loading="lazy" /></div><div class="color-name">Noir</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/pebble.jpg" width="1000" height="1000" alt="Textured woodgrain Pebble reference" loading="lazy" /></div><div class="color-name">Pebble</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/realm.jpg" width="1000" height="1000" alt="Textured woodgrain Realm reference" loading="lazy" /></div><div class="color-name">Realm</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/rift.jpg" width="1000" height="1000" alt="Textured woodgrain Rift reference" loading="lazy" /></div><div class="color-name">Rift</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/sunset.jpg" width="1000" height="1000" alt="Textured woodgrain Sunset reference" loading="lazy" /></div><div class="color-name">Sunset</div><div class="color-wilsonart">Ref.</div></div>
+                <div class="color-item"><div class="color-box" style="background:#f0f0f0;"><img src="/images/adornus-alusso-textured/walnut.jpg" width="1000" height="1000" alt="Textured woodgrain Walnut reference" loading="lazy" /></div><div class="color-name">Walnut</div><div class="color-wilsonart">Ref.</div></div>
             </div>
             
             <h2 class="section-title">Phenolic Smooth Standard</h2>
@@ -270,7 +289,7 @@
             <h5 class="spotlight-bio-title">Complete Material Options</h5>
             <p class="spotlight-bio">
                 Built with premium 6-layer melamine-faced plywood featuring superior moisture resistance, termite protection, and fire-rated construction. 
-                Choose from melamine solid colors, authentic woodgrain patterns, or phenolic plastic for extreme durability in high-moisture environments. 
+                Choose from melamine solids named for popular Sherwin-Williams paint colors, textured woodgrain melamine, or phenolic plastic for extreme durability in high-moisture environments. 
                 All materials are ENF certified (zero harmful chemicals), water-resistant, and anti-fungal. 
                 Available in any dimension with your choice of finish, color, and hardware. Custom colors available upon request.
             </p>
@@ -286,7 +305,7 @@
         </div>
         
         <div class="footer">
-            <strong style="color: #0d0d0d;">PLAYERSTALL</strong> • info@playerstall.com • (123) 124-567-8901<br>
+            <strong style="color: #0d0d0d;">PLAYERSTALL</strong> • sales@playerstall.com • 1 888 584 1444<br>
             © 2026 PlayerStall. All rights reserved.
         </div>
     </div>

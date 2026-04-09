@@ -5,6 +5,12 @@ import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
+import {
+	ADORNUS_DESIGNER_PAINT_FINISHES,
+	DEFAULT_ADORNUS_PAINT_CODE,
+	DEFAULT_ADORNUS_PAINT_LABEL,
+} from '../data/adornus-designer-paint-colors';
+import { TEXTURED_WOODGRAIN_OPTIONS, texturedWoodgrainSwatchUrl } from '../data/textured-woodgrain-colors';
 import eliteLockerDimensionsSheet from '../assets/elite-locker-dimensions-sheet.png';
 import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
@@ -85,7 +91,7 @@ const eliteSpecs = [
 				<div class="product-detail">
 					<h1 class="product-title">Model Z Locker</h1>
 
-					<p class="product-model" data-model-letter="Z">Model # Z-Designer White-18</p>
+					<p class="product-model" data-model-letter="Z">Model # Z-{DEFAULT_ADORNUS_PAINT_LABEL}-18</p>
 
 					<p class="product-lead-time">Lead time: Custom-built in three months</p>
 
@@ -119,23 +125,25 @@ const eliteSpecs = [
 						<div class="product-option">
 							<label class="option-label" for="color-select">Color:</label>
 							<div class="color-select-wrapper">
-								<span class="color-preview" id="color-preview" style="background-color: #f5f5f0;"></span>
+								<span class="color-preview" id="color-preview" style="background-color: #f4f4f0;"></span>
 								<select id="color-select" class="color-dropdown">
-									<optgroup label="Solid Colors">
-										<option value="DW" data-color="#f5f5f0" selected>Designer White</option>
-										<option value="WS" data-color="#e8dcc8">White Sand</option>
-										<option value="FG" data-color="#8b8680">Fashion Grey</option>
-										<option value="NS" data-color="#5b7c8d">North Sea</option>
-										<option value="GR" data-color="#4a4a4a">Graphite</option>
-										<option value="BL" data-color="#1a1a1a">Black</option>
-										<option value="HB" data-color="#8b2e3f">Hollyberry</option>
-										<option value="LB" data-color="#2e5f8d">Lapis Blue</option>
+									<optgroup label="Solid colors (Sherwin-Williams)">
+										{ADORNUS_DESIGNER_PAINT_FINISHES.map((o) => (
+											<option value={o.code} data-color={o.approxHex} selected={o.code === DEFAULT_ADORNUS_PAINT_CODE}>
+												{o.label}
+											</option>
+										))}
 									</optgroup>
-									<optgroup label="Woodgrains">
-										<option value="FM" data-color="#d4a574">Fusion Maple</option>
-										<option value="PO" data-color="#c4985e">Pasadena Oak</option>
-										<option value="WH" data-color="#6d5843">Walnut Heights</option>
-										<option value="HW" data-color="#5c4738">Hampton Walnut</option>
+									<optgroup label="Textured woodgrain">
+										{TEXTURED_WOODGRAIN_OPTIONS.map((o) => (
+											<option
+												value={o.code}
+												data-color={o.fallbackHex}
+												data-swatch-image={texturedWoodgrainSwatchUrl(o.fileSlug)}
+											>
+												{o.label}
+											</option>
+										))}
 									</optgroup>
 								</select>
 							</div>
@@ -685,10 +693,6 @@ const eliteSpecs = [
 	.swatch[data-color-code="BL"]:hover, .swatch[data-color-code="BL"].active { background: #1A1A1A; color: #fff; }
 	.swatch[data-color-code="HB"]:hover, .swatch[data-color-code="HB"].active { background: #C41E3A; color: #fff; }
 	.swatch[data-color-code="LB"]:hover, .swatch[data-color-code="LB"].active { background: #1F4E8C; color: #fff; }
-	.swatch[data-color-code="FM"]:hover, .swatch[data-color-code="FM"].active { background: #DEC7A0; color: #0d0d0d; }
-	.swatch[data-color-code="PO"]:hover, .swatch[data-color-code="PO"].active { background: #A67C52; color: #fff; }
-	.swatch[data-color-code="WH"]:hover, .swatch[data-color-code="WH"].active { background: #6B4226; color: #fff; }
-	.swatch[data-color-code="HW"]:hover, .swatch[data-color-code="HW"].active { background: #4A2F1B; color: #fff; }
 
 	.product-specs-inline {
 		font-family: 'Yantramanav', sans-serif;
@@ -1050,7 +1054,7 @@ const eliteSpecs = [
 		function updateModelNumber() {
 			const activeWidth = document.querySelector('.width-swatch.active');
 			const widthLabel = (activeWidth?.textContent ?? '18"').trim().replace(/"/g, '');
-			const colorName = colorDropdown?.options[colorDropdown.selectedIndex]?.textContent?.trim() ?? 'Designer White';
+			const colorName = colorDropdown?.options[colorDropdown.selectedIndex]?.textContent?.trim() ?? 'High Reflective White';
 			if (modelEl) modelEl.textContent = 'Model # ' + modelLetter + '-' + colorName + '-' + widthLabel;
 		}
 
@@ -1090,13 +1094,28 @@ const eliteSpecs = [
 			});
 		});
 
+		function applyColorPreviewFromOption(selectedOption) {
+			if (!colorPreview || !selectedOption) return;
+			const img = selectedOption.getAttribute('data-swatch-image');
+			const color = selectedOption.getAttribute('data-color');
+			if (img) {
+				colorPreview.style.backgroundColor = 'transparent';
+				colorPreview.style.backgroundImage = `url("${img}")`;
+				colorPreview.style.backgroundSize = 'cover';
+				colorPreview.style.backgroundPosition = 'center';
+			} else {
+				colorPreview.style.backgroundImage = '';
+				if (color) colorPreview.style.backgroundColor = color;
+			}
+		}
+
 		if (colorDropdown && colorPreview) {
 			colorDropdown.addEventListener('change', () => {
 				const selectedOption = colorDropdown.options[colorDropdown.selectedIndex];
-				const color = selectedOption?.getAttribute('data-color');
-				if (color) colorPreview.style.backgroundColor = color;
+				applyColorPreviewFromOption(selectedOption);
 				updateModelNumber();
 			});
+			applyColorPreviewFromOption(colorDropdown.options[colorDropdown.selectedIndex]);
 		}
 
 		computeBaseFromWidth();
@@ -1135,7 +1154,7 @@ const eliteSpecs = [
 			const deepSwatch = document.querySelector('.deep-swatch.active');
 			const deep = (deepSwatch?.getAttribute('title') ?? '19 inch deep').replace(/\s*inch deep/, '').trim();
 			const colorSelect = document.getElementById('color-select');
-			const colorCode = colorSelect?.value ?? 'DW';
+			const colorCode = colorSelect?.value ?? 'AD-HRW';
 			const id = 'elite-locker-' + width + '-' + deep + '-' + colorCode;
 			const modelEl = document.querySelector('.product-model[data-model-letter]');
 			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;

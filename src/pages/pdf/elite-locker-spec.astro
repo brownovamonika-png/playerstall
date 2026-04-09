@@ -2,6 +2,8 @@
 // PREMIUM — Model Z (Elite) only. Linked from product-elite-locker.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductSpecSheet from '../../components/ProductSpecSheet.astro';
+import { ADORNUS_DESIGNER_PAINT_LABELS_CSV } from '../../data/adornus-designer-paint-colors';
+import { TEXTURED_WOODGRAIN_LABELS_CSV } from '../../data/textured-woodgrain-colors';
 const dimensionsSheetSrc = '/images/elite-locker-dimensions-sheet.png';
 
 const eliteSpecs = [
@@ -96,7 +98,7 @@ const eliteSpecs = [
 						<div class="product-options-static">
 							<p><strong>Depth:</strong> 19" (standard) or 24"</p>
 							<p><strong>Width:</strong> 18", 20", 22", 24", 26", 28", 30", 32"</p>
-							<p><strong>Color:</strong> Designer White, White Sand, Fashion Grey, North Sea, Graphite, Black, Hollyberry, Lapis Blue; woodgrains: Fusion Maple, Pasadena Oak, Walnut Heights, Hampton Walnut</p>
+							<p><strong>Color:</strong> Melamine solids (Sherwin-Williams paint color palette): {ADORNUS_DESIGNER_PAINT_LABELS_CSV}. Textured woodgrain (reference names—confirm availability): {TEXTURED_WOODGRAIN_LABELS_CSV}. See <a href="/colors/laminate-colors-pdf.html">paint finish reference PDF</a> and <a href="/colors/woodgrain-colors-pdf.html">woodgrain reference PDF</a>.</p>
 						</div>
 
 						<div class="product-accessories-static">

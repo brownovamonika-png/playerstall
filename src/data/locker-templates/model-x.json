@@ -5,8 +5,20 @@
   "heroImage": "/images/model-x-website-images/model-x-locker.png",
   "geometry": {
     "heightIn": 76,
-    "widthOptionsIn": [18, 20, 22, 24, 26, 28, 30, 32],
-    "depthOptionsIn": [19, 24],
+    "widthOptionsIn": [
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32
+    ],
+    "depthOptionsIn": [
+      19,
+      24
+    ],
     "defaultWidthIn": 18,
     "defaultDepthIn": 19
   },
@@ -28,27 +40,200 @@
     }
   },
   "colors": [
-    { "code": "DW", "label": "Designer White", "hex": "#f5f5f0", "group": "solid" },
-    { "code": "WS", "label": "White Sand", "hex": "#e8dcc8", "group": "solid" },
-    { "code": "FG", "label": "Fashion Grey", "hex": "#8b8680", "group": "solid" },
-    { "code": "NS", "label": "North Sea", "hex": "#5b7c8d", "group": "solid" },
-    { "code": "GR", "label": "Graphite", "hex": "#4a4a4a", "group": "solid" },
-    { "code": "BL", "label": "Black", "hex": "#1a1a1a", "group": "solid" },
-    { "code": "HB", "label": "Hollyberry", "hex": "#8b2e3f", "group": "solid" },
-    { "code": "LB", "label": "Lapis Blue", "hex": "#2e5f8d", "group": "solid" },
-    { "code": "FM", "label": "Fusion Maple", "hex": "#d4a574", "group": "woodgrain" },
-    { "code": "PO", "label": "Pasadena Oak", "hex": "#c4985e", "group": "woodgrain" },
-    { "code": "WH", "label": "Walnut Heights", "hex": "#6d5843", "group": "woodgrain" },
-    { "code": "HW", "label": "Hampton Walnut", "hex": "#5c4738", "group": "woodgrain" }
+    {
+      "code": "DW",
+      "label": "High Reflective White",
+      "hex": "#f5f5f0",
+      "group": "solid"
+    },
+    {
+      "code": "WS",
+      "label": "White Sand",
+      "hex": "#e8dcc8",
+      "group": "solid"
+    },
+    {
+      "code": "FG",
+      "label": "Fashion Grey",
+      "hex": "#8b8680",
+      "group": "solid"
+    },
+    {
+      "code": "NS",
+      "label": "North Sea",
+      "hex": "#5b7c8d",
+      "group": "solid"
+    },
+    {
+      "code": "GR",
+      "label": "Graphite",
+      "hex": "#4a4a4a",
+      "group": "solid"
+    },
+    {
+      "code": "BL",
+      "label": "Black",
+      "hex": "#1a1a1a",
+      "group": "solid"
+    },
+    {
+      "code": "HB",
+      "label": "Hollyberry",
+      "hex": "#8b2e3f",
+      "group": "solid"
+    },
+    {
+      "code": "LB",
+      "label": "Lapis Blue",
+      "hex": "#2e5f8d",
+      "group": "solid"
+    },
+    {
+      "code": "TW-BRUNO",
+      "label": "Bruno",
+      "hex": "#8d6f52",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/bruno.jpg"
+    },
+    {
+      "code": "TW-CANELLA",
+      "label": "Canella",
+      "hex": "#9a7a58",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/canella.jpg"
+    },
+    {
+      "code": "TW-FAD",
+      "label": "Fad",
+      "hex": "#7a5c40",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/fad.jpg"
+    },
+    {
+      "code": "TW-FLAXEN",
+      "label": "Flaxen",
+      "hex": "#c4a574",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/flaxen.jpg"
+    },
+    {
+      "code": "TW-ICE",
+      "label": "Ice",
+      "hex": "#b8a892",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/ice.jpg"
+    },
+    {
+      "code": "TW-IMPULSE",
+      "label": "Impulse",
+      "hex": "#6b5344",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/impulse.jpg"
+    },
+    {
+      "code": "TW-JAVA",
+      "label": "Java",
+      "hex": "#4a3528",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/java.jpg"
+    },
+    {
+      "code": "TW-LOFTY",
+      "label": "Lofty",
+      "hex": "#a89880",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/lofty.jpg"
+    },
+    {
+      "code": "TW-MARIGOLD",
+      "label": "Marigold",
+      "hex": "#b89a5e",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/marigold.jpg"
+    },
+    {
+      "code": "TW-NOIR",
+      "label": "Noir",
+      "hex": "#3d2e26",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/noir.jpg"
+    },
+    {
+      "code": "TW-PEBBLE",
+      "label": "Pebble",
+      "hex": "#8a8078",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/pebble.jpg"
+    },
+    {
+      "code": "TW-REALM",
+      "label": "Realm",
+      "hex": "#6e5644",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/realm.jpg"
+    },
+    {
+      "code": "TW-RIFT",
+      "label": "Rift",
+      "hex": "#5c4a3a",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/rift.jpg"
+    },
+    {
+      "code": "TW-SUNSET",
+      "label": "Sunset",
+      "hex": "#8b5c3c",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/sunset.jpg"
+    },
+    {
+      "code": "TW-WALNUT",
+      "label": "Walnut",
+      "hex": "#4a3520",
+      "group": "woodgrain",
+      "swatchImage": "/images/adornus-alusso-textured/walnut.jpg"
+    }
   ],
   "accessories": [
-    { "id": "vented_front", "label": "Vented front", "price": 40 },
-    { "id": "lock_box", "label": "Lock box", "price": 80 },
-    { "id": "bottom_cushion", "label": "Bottom cushion", "price": 75 },
-    { "id": "top_bottom_cushions", "label": "Top & bottom cushions", "price": 150 },
-    { "id": "name_plate", "label": "Name plate", "price": 10 },
-    { "id": "hooks_4", "label": "4 hooks", "price": 12 },
-    { "id": "skate_hooks", "label": "Skate hooks", "price": 25 },
-    { "id": "custom_logo", "label": "Custom logo", "price": 75 }
+    {
+      "id": "vented_front",
+      "label": "Vented front",
+      "price": 40
+    },
+    {
+      "id": "lock_box",
+      "label": "Lock box",
+      "price": 80
+    },
+    {
+      "id": "bottom_cushion",
+      "label": "Bottom cushion",
+      "price": 75
+    },
+    {
+      "id": "top_bottom_cushions",
+      "label": "Top & bottom cushions",
+      "price": 150
+    },
+    {
+      "id": "name_plate",
+      "label": "Name plate",
+      "price": 10
+    },
+    {
+      "id": "hooks_4",
+      "label": "4 hooks",
+      "price": 12
+    },
+    {
+      "id": "skate_hooks",
+      "label": "Skate hooks",
+      "price": 25
+    },
+    {
+      "id": "custom_logo",
+      "label": "Custom logo",
+      "price": 75
+    }
   ]
 }
