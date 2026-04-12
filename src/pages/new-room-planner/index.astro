@@ -1439,8 +1439,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		emailInput.focus();
 	};
 
-	// Email submit: save to localStorage, send to Formspree, and navigate
-	function submitEmail() {
+	// Email submit: save to localStorage, send to Formspree, then navigate.
+	// We await Formspree before redirect — otherwise the browser often aborts the fetch.
+	async function submitEmail() {
 		const email = emailInput.value.trim();
 		if (!email || !email.includes('@') || !email.includes('.')) {
 			emailError.style.display = '';
@@ -1478,18 +1479,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			.filter(Boolean)
 			.join('; ');
 
-		fetch('https://formspree.io/f/mgopozqe', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-			body: JSON.stringify({
-				email,
-				_subject: 'Room Planner — New Lead',
-				source: 'Room Planner (Step 1)',
-				rooms: roomSummary,
-				...(timingSummary ? { delivery_timing: timingSummary } : {}),
-				...(fundingSummary ? { funding_budget: fundingSummary } : {}),
-			}),
-		}).catch(() => {});
+		try {
+			await fetch('https://formspree.io/f/mgopozqe', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+				body: JSON.stringify({
+					email,
+					_subject: 'Room Planner — New Lead',
+					source: 'Room Planner (Step 1)',
+					rooms: roomSummary,
+					...(timingSummary ? { delivery_timing: timingSummary } : {}),
+					...(fundingSummary ? { funding_budget: fundingSummary } : {}),
+				}),
+			});
+		} catch {
+			/* still continue to design — planner state is in localStorage */
+		}
 
 		const payload = {
 			email,
