@@ -1,5 +1,5 @@
 /**
- * Sends a minimal test email via MailerSend (same API as api/send-room-plan.ts).
+ * Sends a minimal test email via MailerSend (same API as src/pages/api/send-room-plan.ts).
  *
  * Usage:
  *   node --env-file=.env scripts/test-mailersend.mjs you@example.com

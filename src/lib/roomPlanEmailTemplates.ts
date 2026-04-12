@@ -1,7 +1,7 @@
 /**
  * HTML bodies for MailerSend room-plan emails.
  * Line items match cart product rows: bold uppercase name + grey price, then smaller grey specs with · separator.
- * Preview: /dev/email-preview-room-plan (npm run dev only).
+ * Preview: /dev/email-preview-room-plan (npm run dev only). POST handler: /api/send-room-plan (Astro server route).
  */
 
 const FONT_LINK = `<link rel="preconnect" href="https://fonts.googleapis.com">
