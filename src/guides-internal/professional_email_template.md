@@ -25,7 +25,7 @@ Thank you for using our locker room planner and for your interest in PlayerStall
 We’re happy to walk through layout options, finishes, and lead times whenever it’s convenient.
 
 **Contact**  
-sales@playerstall.com · 1 888 584 1444  
+team@playerstall.com · 1 888 584 1444  
 
 Best regards,  
 [Your name]  
@@ -39,7 +39,7 @@ Hi [Name],
 
 Following up on your locker room plan — let us know if you’d like to adjust the layout or discuss pricing and production timing.  
 
-sales@playerstall.com · 1 888 584 1444  
+team@playerstall.com · 1 888 584 1444  
 
 Thanks,  
 [Your name]

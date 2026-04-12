@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const MAILERSEND_API = 'https://api.mailersend.com/v1/email';
-const FROM_EMAIL = process.env.MAILERSEND_FROM_EMAIL || 'sales@playerstall.com';
+const FROM_EMAIL = process.env.MAILERSEND_FROM_EMAIL || 'team@playerstall.com';
 const FROM_NAME = 'PlayerStall Room Planner';
-const SALES_EMAIL = 'sales@playerstall.com';
+const SALES_EMAIL = 'team@playerstall.com';
 
 interface RequestBody {
   email: string;
@@ -81,7 +81,7 @@ function buildCustomerHTML(email: string, orderSummary: string, grandTotal: stri
   <tr><td style="background:#1a1a1a;padding:30px 40px;text-align:center;">
     <p style="margin:0 0 8px;font-size:13px;color:#cccccc;font-family:'Helvetica Neue',Arial,sans-serif;">PlayerStall — Custom Sports Lockers Since 1996</p>
     <p style="margin:0 0 4px;font-size:12px;color:#888888;">2934 200 Street, Langley, BC V2Z 2C1 Canada</p>
-    <p style="margin:0;font-size:12px;color:#888888;">1-888-584-1444 · <a href="mailto:sales@playerstall.com" style="color:#fe5900;text-decoration:none;">sales@playerstall.com</a></p>
+    <p style="margin:0;font-size:12px;color:#888888;">1-888-584-1444 · <a href="mailto:team@playerstall.com" style="color:#fe5900;text-decoration:none;">team@playerstall.com</a></p>
   </td></tr>
 
 </table>

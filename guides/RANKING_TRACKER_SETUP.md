@@ -53,8 +53,8 @@ Use Google Search Console or manual SERP checks:
 # Install Python packages
 pip install requests pandas
 
-# Or use requirements.txt (create one if needed)
-pip install -r requirements.txt
+# Or use scripts/requirements-ranking-tracker.txt (kept out of repo root so Vercel does not treat the site as a Python app)
+pip install -r scripts/requirements-ranking-tracker.txt
 ```
 
 ### Step 2: Configure API Access

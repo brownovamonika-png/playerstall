@@ -151,7 +151,7 @@ export function generateLocalBusinessSchema() {
 		"logo": "https://playerstall.b-cdn.net/images/logoblack2.png",
 		"url": "https://playerstall.com",
 		"telephone": "+11231245678901",
-		"email": "info@playerstall.com",
+		"email": "team@playerstall.com",
 		"priceRange": "$$",
 		"address": {
 			"@type": "PostalAddress",

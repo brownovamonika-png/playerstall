@@ -12,7 +12,8 @@
     "supabase:start": "supabase start",
     "supabase:stop": "supabase stop",
     "supabase:status": "supabase status",
-    "supabase:db-reset": "supabase db reset"
+    "supabase:db-reset": "supabase db reset",
+    "test:email": "node --env-file=.env scripts/test-mailersend.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",

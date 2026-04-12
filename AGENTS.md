@@ -10,7 +10,7 @@ This document serves as a reference guide for AI agents working on the PlayerSta
 - **Business Type**: Custom sports locker manufacturer
 - **Target Market**: Collegiate and professional sports teams
 - **Location**: Langley, BC (2934 200 Street, Langley, BC V2Z 2C1 Canada)
-- **Contact Email**: sales@playerstall.com
+- **Contact Email**: team@playerstall.com
 - **Website**: PlayerStall (playerstall.com)
 
 ## Tech Stack
@@ -329,7 +329,7 @@ Based on existing code:
 
 **Key Fields**:
 - Address: 2934 200 Street, Langley, BC V2Z 2C1 Canada
-- Email: sales@playerstall.com
+- Email: team@playerstall.com
 - Phone: 1 888 584 1444
 
 ### Working with Images
@@ -518,7 +518,7 @@ npm run preview
   },
   "url": "https://playerstall.com",
   "telephone": "+18885841444",
-  "email": "sales@playerstall.com",
+  "email": "team@playerstall.com",
   "priceRange": "$$",
   "serviceArea": {
     "@type": "Country",
@@ -684,7 +684,7 @@ npm run preview
 - **Name**: PlayerStall (playerstall.com)
 - **Address**: 2934 200 Street, Langley, BC V2Z 2C1 Canada
 - **Phone**: 1 888 584 1444
-- **Email**: sales@playerstall.com
+- **Email**: team@playerstall.com
 
 **Local SEO Checklist**:
 - [ ] Google Business Profile created and optimized
@@ -812,7 +812,7 @@ npm run preview
 **Cart Storage Key**: `playerstall_cart`
 **Dev Server Port**: `4321`
 **Phone**: 1 888 584 1444
-**Email**: sales@playerstall.com
+**Email**: team@playerstall.com
 **Address**: 2934 200 Street, Langley, BC V2Z 2C1 Canada
 
 ## When Making Changes

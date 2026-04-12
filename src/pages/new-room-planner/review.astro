@@ -596,11 +596,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 				}
 			} else {
 				let detail = ''; try { const j = await res.json(); detail = j.error || ''; } catch {}
-				statusMsg.textContent = 'Something went wrong' + (detail ? ': ' + detail : '') + '. Please try again or email us directly at sales@playerstall.com.';
+				statusMsg.textContent = 'Something went wrong' + (detail ? ': ' + detail : '') + '. Please try again or email us directly at team@playerstall.com.';
 				statusMsg.style.color = '#fe5900'; btn.disabled = false; btn.textContent = 'Get In Touch With Us';
 			}
 		}).catch(() => {
-			statusMsg.textContent = 'Could not connect. Please check your internet and try again, or email us directly at sales@playerstall.com.';
+			statusMsg.textContent = 'Could not connect. Please check your internet and try again, or email us directly at team@playerstall.com.';
 			statusMsg.style.color = '#fe5900'; btn.disabled = false; btn.textContent = 'Get In Touch With Us';
 		});
 	};

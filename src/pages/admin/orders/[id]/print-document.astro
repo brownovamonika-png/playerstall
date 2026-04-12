@@ -33,7 +33,7 @@ if (!order) return Astro.redirect('/admin');
 const client = order.clients as Record<string, unknown> | null;
 /** Invoices/estimates always use PlayerStall letterhead regardless of lead source site. */
 const brandName = 'PlayerStall';
-const brandEmail = 'sales@playerstall.com';
+const brandEmail = 'team@playerstall.com';
 const docNumber = docType === 'invoice' ? order.invoice_number : order.estimate_number;
 const today = new Date().toLocaleDateString('en-CA', {
 	year: 'numeric',

@@ -95,7 +95,7 @@ export function getCrmMailerFromEmail(company: EmailSenderCompany | null | undef
   if (c === 'custom_sport_lockers') {
     return crmEnv('MAILERSEND_FROM_EMAIL_CUSTOM_SPORT_LOCKERS') || 'sales@customsportslockers.com';
   }
-  return crmEnv('MAILERSEND_FROM_EMAIL') || 'sales@playerstall.com';
+  return crmEnv('MAILERSEND_FROM_EMAIL') || 'team@playerstall.com';
 }
 
 export interface Client {

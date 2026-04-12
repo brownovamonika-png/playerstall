@@ -212,7 +212,7 @@ export function generateEstimatePdfBlob(
 		pdf.setTextColor(...GRAY);
 		pdf.text('PlayerStall · 2934 200 Street, Langley, BC V2Z 2C1 Canada', margin, y);
 		y += 12;
-		pdf.text('1-888-584-1444 · sales@playerstall.com · playerstall.com', margin, y);
+		pdf.text('1-888-584-1444 · team@playerstall.com · playerstall.com', margin, y);
 
 		return pdf.output('blob');
 	} catch (e) {
