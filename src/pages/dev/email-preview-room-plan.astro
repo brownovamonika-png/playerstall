@@ -1,0 +1,86 @@
+---
+/**
+ * Local preview of MailerSend HTML for room planner emails.
+ * Run: npm run dev → open http://localhost:4321/dev/email-preview-room-plan
+ * Not shown in production builds (redirects home).
+ */
+import {
+	buildCustomerHTML,
+	buildSalesHTML,
+	SAMPLE_ORDER_SUMMARY,
+} from '../../lib/roomPlanEmailTemplates';
+
+if (import.meta.env.PROD) {
+	return Astro.redirect('/');
+}
+
+const sampleEmail = 'you@example.com';
+const sampleTotal = '2596.00';
+const customerHtml = buildCustomerHTML(sampleEmail, SAMPLE_ORDER_SUMMARY, sampleTotal);
+const teamHtml = buildSalesHTML(sampleEmail, SAMPLE_ORDER_SUMMARY, sampleTotal);
+const customerSrc = `data:text/html;charset=utf-8,${encodeURIComponent(customerHtml)}`;
+const teamSrc = `data:text/html;charset=utf-8,${encodeURIComponent(teamHtml)}`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex,nofollow" />
+		<title>Room plan email preview (dev)</title>
+		<style>
+			body {
+				font-family: system-ui, sans-serif;
+				margin: 0;
+				padding: 24px;
+				background: #e8e8e8;
+				color: #333;
+			}
+			h1 {
+				font-size: 1rem;
+				margin: 0 0 8px;
+			}
+			p.hint {
+				font-size: 13px;
+				color: #666;
+				margin: 0 0 16px;
+				max-width: 720px;
+			}
+			section {
+				margin-bottom: 48px;
+			}
+			iframe {
+				width: 100%;
+				min-height: 920px;
+				border: 1px solid #ccc;
+				border-radius: 8px;
+				background: #fff;
+			}
+			code {
+				background: #ddd;
+				padding: 2px 6px;
+				border-radius: 4px;
+				font-size: 12px;
+			}
+		</style>
+	</head>
+	<body>
+		<p class="hint">
+			Edit copy and layout in <code>src/lib/roomPlanEmailTemplates.ts</code>, refresh this page. Subjects
+			are set in <code>api/send-room-plan.ts</code> (<code>sendEmail(…, subject, …)</code>).
+		</p>
+
+		<section>
+			<h1>Customer email (inbox of the address they typed in the planner)</h1>
+			<p class="hint">Subject: <strong>Your PlayerStall Room Plan is Ready!</strong></p>
+			<iframe title="Customer email preview" src={customerSrc}></iframe>
+		</section>
+
+		<section>
+			<h1>Team email (team@)</h1>
+			<p class="hint">Subject: <strong>Room Planner Layout Request from …</strong></p>
+			<iframe title="Team email preview" src={teamSrc}></iframe>
+		</section>
+	</body>
+</html>
