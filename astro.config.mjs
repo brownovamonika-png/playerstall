@@ -8,6 +8,12 @@ export default defineConfig({
   output: 'static',
   adapter: vercel(),
   integrations: [mdx()],
+  vite: {
+    build: {
+      // Room planner / 3D client bundles exceed Vite’s default 500 kB warning threshold.
+      chunkSizeWarningLimit: 900,
+    },
+  },
   redirects: {
     // Services page renamed to products; preserve old URL
     '/services': '/products',
