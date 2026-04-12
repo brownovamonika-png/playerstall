@@ -24,105 +24,27 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 		</div>
 	</section>
 
-	<!-- Journey Progress Bar -->
-	<section class="raq-journey">
-		<div class="container">
-			<div class="raq-journey-track">
-				<div class="raq-journey-step raq-done">
-					<div class="raq-journey-dot"></div>
-					<span>Explore</span>
-				</div>
-				<div class="raq-journey-connector raq-connector-done"></div>
-				<div class="raq-journey-step raq-active">
-					<div class="raq-journey-dot"></div>
-					<span>Consultation</span>
-				</div>
-				<div class="raq-journey-connector"></div>
-				<div class="raq-journey-step">
-					<div class="raq-journey-dot"></div>
-					<span>Design &amp; Quote</span>
-				</div>
-				<div class="raq-journey-connector"></div>
-				<div class="raq-journey-step">
-					<div class="raq-journey-dot"></div>
-					<span>Approval</span>
-				</div>
-				<div class="raq-journey-connector"></div>
-				<div class="raq-journey-step">
-					<div class="raq-journey-dot"></div>
-					<span>Production</span>
-				</div>
-				<div class="raq-journey-connector"></div>
-				<div class="raq-journey-step">
-					<div class="raq-journey-dot"></div>
-					<span>Shipping</span>
-				</div>
-				<div class="raq-journey-connector"></div>
-				<div class="raq-journey-step">
-					<div class="raq-journey-dot"></div>
-					<span>Installation</span>
-				</div>
-			</div>
-			<p class="raq-journey-note">Step 2 of 7 &middot; <a href="/how-it-works">See the full journey</a></p>
-		</div>
-	</section>
-
 	<section class="contact-section">
 		<div class="container container-center">
 			<div class="contact-header">
 				<h2>Request a Quote</h2>
-				<p>Have questions? Need a quote? Tell us about your locker room project and we'll get back to you within 24 hours.</p>
+				<p>Have questions? Need a quote? We're here to help. Tell us about your locker room project—we'll respond within 2–3 business days.</p>
 			</div>
 
-			<!-- Form + Sidebar Layout -->
-			<div class="raq-layout">
-
-			<!-- What to Expect Sidebar -->
-			<aside class="raq-sidebar">
-				<div class="raq-sidebar-card">
-					<h3>What to Expect</h3>
-					<div class="raq-expect-steps">
-						<div class="raq-expect-step">
-							<div class="raq-expect-num">1</div>
-							<div>
-								<strong>You submit this form</strong>
-								<p>Tell us about your project: sport, quantities, timeline, and budget.</p>
-							</div>
-						</div>
-						<div class="raq-expect-step">
-							<div class="raq-expect-num">2</div>
-							<div>
-								<strong>We review within 24 hours</strong>
-								<p>One of our team gets assigned to your project and reaches out.</p>
-							</div>
-						</div>
-						<div class="raq-expect-step">
-							<div class="raq-expect-num">3</div>
-							<div>
-								<strong>Custom quote in 2 to 3 days</strong>
-								<p>You get a detailed layout and itemized pricing built around your space.</p>
-							</div>
-						</div>
-						<div class="raq-expect-step">
-							<div class="raq-expect-num">4</div>
-							<div>
-								<strong>Refine until you love it</strong>
-								<p>Unlimited revisions at no cost. 50% deposit starts production.</p>
-							</div>
-						</div>
+			<div class="quote-process-section">
+				<div class="quote-process-center">
+					<h2 class="quote-process-title">How our quote process works</h2>
+					<p class="quote-process-intro">Share your project details in the form below. We'll prepare an accurate quote and walk you through options. <strong>50% deposit to begin production.</strong> Quick ship in one month or custom-built in three months.</p>
+					<div class="quote-process-steps">
+						<div class="quote-process-step"><strong>1.</strong> You tell us your sport, quantities, and requirements.</div>
+						<div class="quote-process-step"><strong>2.</strong> We send a detailed quote within 2–3 business days.</div>
+						<div class="quote-process-step"><strong>3.</strong> We review with you and refine until it's right.</div>
+					</div>
+					<div class="quote-process-support">
+						<strong>Need help now?</strong> Call <a href="tel:+18885841444">1 888 584 1444</a> or email <a href="mailto:team@playerstall.com">team@playerstall.com</a>.
 					</div>
 				</div>
-				<div class="raq-sidebar-support">
-					<strong>Need help now?</strong>
-					<p>Call <a href="tel:+18885841444">1 888 584 1444</a> or email <a href="mailto:team@playerstall.com">team@playerstall.com</a></p>
-				</div>
-				<div class="raq-sidebar-promise">
-					<div class="raq-promise-item">Free consultation, no obligation</div>
-					<div class="raq-promise-item">30+ years of experience</div>
-					<div class="raq-promise-item">5 year warranty on every locker</div>
-					<div class="raq-promise-item">Custom-built in 8 to 12 weeks</div>
-				</div>
-			</aside>
+			</div>
 
 			<div class="quote-form-wrapper" id="quote-form">
 				<h2>Tell us about your project</h2>
@@ -173,9 +95,19 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="budget">Estimated budget (optional)</label>
-								<input type="text" id="budget" name="budget" placeholder="Approximate budget range" />
+								<label for="funding-status">Fundraising status <span class="required">*</span></label>
+								<select id="funding-status" name="fundraising_status" required>
+									<option value="">Select an option</option>
+									<option value="have_funds">Have Funds</option>
+									<option value="need_funding">Need Funding</option>
+									<option value="fundraising">Currently Fundraising</option>
+									<option value="unsure">Unsure</option>
+								</select>
 							</div>
+						</div>
+						<div class="form-group">
+							<label for="budget">Estimated budget (optional)</label>
+							<input type="text" id="budget" name="budget" placeholder="Approximate budget range" />
 						</div>
 					</div>
 
@@ -286,8 +218,6 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 					</div>
 				</form>
 			</div>
-
-			</div><!-- .raq-layout -->
 		</div>
 	</section>
 </BaseLayout>
@@ -393,225 +323,6 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 		display: none;
 	}
 
-	/* Journey Progress Bar */
-	.raq-journey {
-		padding: 24px 0;
-		background: #f7f7f7;
-		border-bottom: 1px solid #e8e8e8;
-	}
-
-	.raq-journey-track {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0;
-		max-width: 800px;
-		margin: 0 auto 12px;
-		flex-wrap: wrap;
-	}
-
-	.raq-journey-step {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 6px;
-		flex-shrink: 0;
-	}
-
-	.raq-journey-dot {
-		width: 16px; height: 16px;
-		border-radius: 50%;
-		background: #e0e0e0;
-		border: 2px solid #e0e0e0;
-	}
-
-	.raq-done .raq-journey-dot {
-		background: #fe5900;
-		border-color: #fe5900;
-	}
-
-	.raq-active .raq-journey-dot {
-		background: #ffffff;
-		border-color: #fe5900;
-		box-shadow: 0 0 0 3px rgba(254, 89, 0, 0.2);
-	}
-
-	.raq-journey-step span {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 10px;
-		font-weight: 500;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: #8c8c8c;
-		white-space: nowrap;
-	}
-
-	.raq-done span,
-	.raq-active span {
-		color: #0d0d0d;
-		font-weight: 600;
-	}
-
-	.raq-journey-connector {
-		width: 32px;
-		height: 2px;
-		background: #e0e0e0;
-		margin: 0 3px;
-		margin-bottom: 20px;
-	}
-
-	.raq-connector-done {
-		background: #fe5900;
-	}
-
-	.raq-journey-note {
-		text-align: center;
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #8c8c8c;
-		margin: 0;
-	}
-
-	.raq-journey-note a {
-		color: #fe5900;
-		text-decoration: none;
-		font-weight: 500;
-	}
-
-	.raq-journey-note a:hover {
-		text-decoration: underline;
-	}
-
-	/* Layout with sidebar */
-	.raq-layout {
-		display: grid;
-		grid-template-columns: 280px 1fr;
-		gap: 40px;
-		max-width: 1060px;
-		width: 100%;
-		align-items: start;
-	}
-
-	.raq-sidebar {
-		position: sticky;
-		top: 100px;
-	}
-
-	.raq-sidebar-card {
-		background: #f7f7f7;
-		border: 1px solid #e8e8e8;
-		padding: 28px;
-		margin-bottom: 20px;
-	}
-
-	.raq-sidebar-card h3 {
-		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		margin: 0 0 20px;
-	}
-
-	.raq-expect-steps {
-		display: flex;
-		flex-direction: column;
-		gap: 16px;
-	}
-
-	.raq-expect-step {
-		display: flex;
-		gap: 12px;
-		align-items: flex-start;
-	}
-
-	.raq-expect-num {
-		width: 28px; height: 28px;
-		border-radius: 50%;
-		background: #fe5900;
-		color: #fff;
-		display: flex; align-items: center; justify-content: center;
-		font-family: 'Oswald', sans-serif;
-		font-size: 13px; font-weight: 700;
-		flex-shrink: 0;
-	}
-
-	.raq-expect-step strong {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #0d0d0d;
-		display: block;
-		margin-bottom: 2px;
-	}
-
-	.raq-expect-step p {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #666666;
-		line-height: 1.5;
-		margin: 0;
-	}
-
-	.raq-sidebar-support {
-		background: #ffffff;
-		border: 1px solid #e8e8e8;
-		border-left: 3px solid #fe5900;
-		padding: 20px;
-		margin-bottom: 20px;
-	}
-
-	.raq-sidebar-support strong {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		color: #0d0d0d;
-		display: block;
-		margin-bottom: 4px;
-	}
-
-	.raq-sidebar-support p {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #666666;
-		margin: 0;
-	}
-
-	.raq-sidebar-support a {
-		color: #fe5900;
-		text-decoration: none;
-	}
-
-	.raq-sidebar-support a:hover {
-		text-decoration: underline;
-	}
-
-	.raq-sidebar-promise {
-		display: flex;
-		flex-direction: column;
-		gap: 0;
-	}
-
-	.raq-promise-item {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #444444;
-		padding: 10px 0 10px 24px;
-		position: relative;
-		border-bottom: 1px solid #f0f0f0;
-	}
-
-	.raq-promise-item:last-child {
-		border-bottom: none;
-	}
-
-	.raq-promise-item::before {
-		content: '\2713';
-		position: absolute;
-		left: 0;
-		color: #fe5900;
-		font-weight: 700;
-		font-size: 13px;
-	}
-
 	.contact-section {
 		padding: 5rem 0;
 		background: #ffffff;
@@ -703,10 +414,9 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 		flex-direction: column;
 		align-items: center;
 	}
-
-	.raq-layout .quote-form-wrapper {
+	.container-center .quote-form-wrapper {
 		width: 100%;
-		max-width: none;
+		max-width: 720px;
 	}
 
 	.form-group {
@@ -909,15 +619,6 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 			width: 100%;
 			text-align: center;
 		}
-		.raq-layout {
-			grid-template-columns: 1fr;
-			gap: 32px;
-			max-width: 720px;
-		}
-		.raq-sidebar {
-			position: static;
-			order: -1;
-		}
 	}
 
 	@media (max-width: 768px) {
@@ -931,8 +632,6 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 		.quote-form-wrapper {
 			padding: 1.5rem;
 		}
-		.raq-journey-connector { width: 16px; }
-		.raq-journey-step span { font-size: 8px; }
 	}
 
 	@media (max-width: 640px) {
