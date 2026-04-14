@@ -78,9 +78,6 @@ const depthRaw = String(order.locker_width || '').trim();
 const colorRaw = String(order.locker_color || '').trim();
 const wPart = widthRaw ? `${widthRaw.replace(/"/g, '″')}W` : '';
 const dPart = depthRaw ? `${depthRaw.replace(/"/g, '″')}D` : '';
-const specLinePlanner =
-	[wPart, dPart].filter(Boolean).join(' × ') + (colorRaw ? ` · ${colorRaw}` : '');
-
 const catalogLineTotal = siteListLine?.total ?? null;
 const finalTotalUsd = amt ?? catalogLineTotal;
 const quoteDiffersFromCatalog =
@@ -380,18 +377,20 @@ const customerNoteTrimmed = String(
 			.order-table tbody td {
 				padding: 18px 24px;
 				border-bottom: 1px solid #ececec;
+				vertical-align: top;
+			}
+			.order-table tbody td:first-child {
 				font-family: 'Yantramanav', sans-serif;
 				font-size: 13px;
 				color: #111111;
-				vertical-align: top;
 			}
-			.ot-item-name {
-				font-family: 'Oswald', sans-serif;
-				font-size: 13px;
-				font-weight: 600;
-				text-transform: uppercase;
-				letter-spacing: 0.5px;
-				color: #0d0d0d;
+			.order-table tbody .ot-item-name {
+				font-family: 'Oswald', sans-serif !important;
+				font-size: 12px !important;
+				font-weight: 600 !important;
+				text-transform: uppercase !important;
+				letter-spacing: 1px !important;
+				color: #0d0d0d !important;
 			}
 			.ot-base-price {
 				font-weight: 400;
@@ -409,6 +408,19 @@ const customerNoteTrimmed = String(
 				margin-top: 3px;
 				line-height: 1.4;
 			}
+			.ot-item-spec-bullets {
+				list-style: disc;
+				margin: 2px 0 0;
+				padding-left: 1.15em;
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 11px;
+				color: #8c8c8c;
+				line-height: 1.4;
+			}
+			.ot-item-spec-bullets li {
+				margin: 0;
+				padding: 0;
+			}
 			.ot-item-desc {
 				display: block;
 				font-family: 'Yantramanav', sans-serif;
@@ -419,33 +431,51 @@ const customerNoteTrimmed = String(
 			}
 			.ot-acc-list {
 				list-style: none;
-				margin: 8px 0 0;
+				margin-top: 8px;
+				margin-left: 20px;
+				margin-right: 0;
+				margin-bottom: 0;
 				padding: 0;
+				display: grid;
+				grid-template-columns: auto minmax(4.5rem, max-content);
+				column-gap: 8px;
+				row-gap: 6px;
+				align-items: baseline;
+				justify-content: start;
+				width: fit-content;
+				max-width: 100%;
 			}
 			.ot-acc-list li {
+				display: contents;
+			}
+			.ot-acc-list .ot-acc-label {
 				font-family: 'Yantramanav', sans-serif;
 				font-size: 11px;
 				color: #555;
 				line-height: 1.7;
 			}
-			.ot-acc-price {
-				color: #999;
-				font-size: 10px;
+			.ot-acc-list .ot-acc-price {
+				font-family: 'Yantramanav', sans-serif;
+				font-size: 11px;
+				color: #8c8c8c;
+				text-align: right;
+				font-variant-numeric: tabular-nums;
+				white-space: nowrap;
 			}
-			.ot-item-qty {
+			.order-table tbody td.ot-item-qty {
 				text-align: center;
-				font-family: 'Oswald', sans-serif;
-				font-size: 13px;
-				font-weight: 600;
-				color: #0d0d0d;
+				font-family: 'Oswald', sans-serif !important;
+				font-size: 13px !important;
+				font-weight: 600 !important;
+				color: #0d0d0d !important;
 				font-variant-numeric: tabular-nums;
 			}
-			.ot-item-total {
+			.order-table tbody td.ot-item-total {
 				text-align: right;
-				font-family: 'Oswald', sans-serif;
-				font-size: 13px;
-				font-weight: 600;
-				color: #0d0d0d;
+				font-family: 'Oswald', sans-serif !important;
+				font-size: 13px !important;
+				font-weight: 600 !important;
+				color: #0d0d0d !important;
 				white-space: nowrap;
 				font-variant-numeric: tabular-nums;
 			}
@@ -827,12 +857,19 @@ const customerNoteTrimmed = String(
 										{displayName}{' '}
 										<span class="ot-base-price">{fmtUsd(siteListLine.basePerLocker)}</span>
 									</span>
-									{specLinePlanner && <span class="ot-item-spec">{specLinePlanner}</span>}
+									{(wPart || dPart) && (
+										<span class="ot-item-spec">{[wPart, dPart].filter(Boolean).join(' × ')}</span>
+									)}
+									{colorRaw && (
+										<ul class="ot-item-spec-bullets">
+											<li>{colorRaw}</li>
+										</ul>
+									)}
 									{accessoryDisplayLines.length > 0 && (
 										<ul class="ot-acc-list">
 											{accessoryDisplayLines.map((a) => (
 												<li>
-													{a.label}{' '}
+													<span class="ot-acc-label">{a.label}</span>
 													<span class="ot-acc-price">
 														+$
 														{a.addPerLocker.toLocaleString('en-US', {

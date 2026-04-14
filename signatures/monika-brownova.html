@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="https://fonts.googleapis.com/css?family=Yantramanav:400,500|Oswald:600,700&display=swap" rel="stylesheet" />
-<title>Email Signature – Monika Brownova</title>
+<link href="https://fonts.googleapis.com/css?family=Yantramanav:500,400|Oswald:600,700|Roboto:400&display=swap" rel="stylesheet" />
+<title>Email signature – Monika Brownova (Gmail)</title>
 <style>
 	body { margin: 0; padding: 40px; background: #f5f5f5; font-family: Arial, Helvetica, sans-serif; }
 	.sig-preview-wrapper { max-width: 620px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-	.sig-instructions { font-family: Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px dashed #ddd; }
-	.sig-instructions strong { color: #333; }
+	.sig-instructions { font-family: Arial, sans-serif; font-size: 13px; color: #666; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px dashed #ddd; line-height: 1.5; }
+	.sig-instructions strong { color: #222; }
+	.sig-instructions ol { margin: 10px 0 0 18px; padding: 0; }
+	.sig-instructions li { margin-bottom: 6px; }
 
 	.controls { background: #fafafa; border: 1px solid #e8e8e8; border-radius: 6px; padding: 16px 20px; margin-bottom: 24px; }
 	.controls h3 { margin: 0 0 12px 0; font-size: 13px; font-weight: 600; color: #333; text-transform: uppercase; letter-spacing: 1px; }
@@ -24,76 +26,93 @@
 
 <div class="sig-preview-wrapper">
 	<div class="sig-instructions">
-		<strong>How to use:</strong> Adjust the photo below, then select everything inside the signature box, copy it (Ctrl+C / Cmd+C), and paste into your email client's signature settings.
+		<strong>Add this to Gmail</strong>
+		<ol>
+			<li>Adjust the photo with the sliders if you want a different crop.</li>
+			<li>Click inside the white signature area below, then select <strong>only</strong> the signature (from the photo through the social icons) and copy (<kbd>Cmd+C</kbd> / <kbd>Ctrl+C</kbd>).</li>
+			<li>In Gmail: <strong>Settings</strong> → <strong>See all settings</strong> → <strong>General</strong> → <strong>Signature</strong>. Click in the big box, <kbd>Cmd+A</kbd> then Delete to clear it, then paste (<kbd>Cmd+V</kbd>) → <strong>Save changes</strong>.</li>
+		</ol>
+		<p style="margin: 12px 0 0 0; font-size: 12px; color: #c0392b;"><strong>Important:</strong> Do <strong>not</strong> use Gmail’s <strong>Insert image</strong> button to add the whole signature. That turns it into one picture and breaks the layout, links, and font styling. Only paste with <kbd>Cmd+V</kbd> after copying from this page.</p>
+		<p style="margin: 8px 0 0 0; font-size: 12px; color: #888;">Use <code>public/signatures/monika-brownova.html</code> when possible. Headshot: <code>https://www.playerstall.com/images/monika-brownova.png</code>. Gmail may show the name in Arial instead of Oswald.</p>
 	</div>
 
-	<!-- Photo position controls -->
 	<div class="controls">
-		<h3>Adjust Photo</h3>
+		<h3>Adjust photo crop</h3>
 		<div class="control-row">
 			<label>Horizontal</label>
-			<input type="range" id="posX" min="0" max="100" value="50" />
-			<span class="val" id="posXVal">50%</span>
+			<input type="range" id="posX" min="0" max="100" value="100" />
+			<span class="val" id="posXVal">100%</span>
 		</div>
 		<div class="control-row">
 			<label>Vertical</label>
-			<input type="range" id="posY" min="0" max="100" value="30" />
-			<span class="val" id="posYVal">30%</span>
+			<input type="range" id="posY" min="0" max="100" value="48" />
+			<span class="val" id="posYVal">48%</span>
 		</div>
 		<div class="control-row">
 			<label>Zoom</label>
-			<input type="range" id="zoom" min="100" max="250" value="140" />
-			<span class="val" id="zoomVal">140%</span>
+			<input type="range" id="zoom" min="100" max="250" value="145" />
+			<span class="val" id="zoomVal">145%</span>
 		</div>
 	</div>
 
-	<!-- ===================== EMAIL SIGNATURE START ===================== -->
-	<div id="signatureBlock" style="border: 1px dashed #e0e0e0; padding: 16px; border-radius: 4px;">
-	<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Yantramanav', Arial, Helvetica, sans-serif; max-width: 520px; width: 100%;">
+	<!-- ===================== EMAIL SIGNATURE START (copy from here) ===================== -->
+	<table id="emailSignatureRoot" cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation" style="width: 100%; font-family: Arial, Helvetica, sans-serif; background-color: #ffffff;">
 		<tr>
-			<td style="vertical-align: top; padding-right: 18px; width: 104px;">
-				<div id="photoFrame" style="width: 104px; height: 130px; overflow: hidden; border: 0;">
-					<img id="sigPhoto" src="../public/images/monika-brownova.png" alt="Monika Brownova" style="display: block; width: 146px; height: auto; margin-left: -21px; margin-top: -31px; border: 0;" />
-				</div>
-			</td>
-			<td style="vertical-align: top; padding-left: 0; text-align: center;">
-				<p style="margin: 0 0 2px 0; font-family: 'Oswald', Arial, Helvetica, sans-serif; font-size: 18px; font-weight: 600; color: #0d0d0d; text-transform: uppercase; letter-spacing: 3px; line-height: 1.2; text-align: center;">Monika Brownova</p>
-				<p style="margin: 0 0 12px 0; font-family: 'Yantramanav', Arial, Helvetica, sans-serif; font-size: 11px; font-weight: 400; color: #8c8c8c; text-transform: lowercase; letter-spacing: 2px; line-height: 1.4; text-align: center;">business development</p>
-				<p style="margin: 0 0 12px 0; font-family: 'Yantramanav', Arial, Helvetica, sans-serif; font-size: 12px; color: #666666; line-height: 1.9; text-align: center;">
-					<a href="tel:+18885841444" style="color: #444444; text-decoration: none;">+1 888 584 1444</a><br />
-					<a href="mailto:team@playerstall.com" style="color: #444444; text-decoration: none;">team@playerstall.com</a><br />
-					<a href="https://playerstall.com" target="_blank" rel="noopener noreferrer" style="color: #444444; text-decoration: none;">www.playerstall.com</a>
-				</p>
-				<table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
+			<td align="center" style="text-align: center; vertical-align: top;">
+				<table cellpadding="0" cellspacing="0" border="0" width="430" role="presentation" align="center" style="width: 430px; max-width: 430px; margin: 0 auto; border-collapse: collapse;">
 					<tr>
-						<td style="padding: 0 5px;">
-							<a href="https://instagram.com/playerstalllockers" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-								<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" width="13" height="13" style="display: block; width: 13px; height: 13px; border: 0; opacity: 0.45;" />
-							</a>
+						<td style="vertical-align: middle; padding-right: 26px; width: 104px;">
+							<table cellpadding="0" cellspacing="0" border="0" width="104" role="presentation" style="width: 104px; border-collapse: collapse;">
+								<tr>
+									<td width="104" height="142" style="width: 104px; height: 142px; padding: 0; margin: 0; vertical-align: top; line-height: 0; font-size: 0; overflow: hidden;">
+										<a href="https://www.playerstall.com/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; border: 0; display: block; line-height: 0;">
+											<img id="sigPhoto" src="https://www.playerstall.com/images/monika-brownova.png" width="104" height="142" alt="Monika Brownova" style="display: block; width: 146px; height: auto; margin-left: 0; margin-top: 0; border: 0;" />
+										</a>
+									</td>
+								</tr>
+							</table>
 						</td>
-						<td style="padding: 0 5px;">
-							<a href="https://www.linkedin.com/in/monika-brownova-5153823ba/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-								<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="13" height="13" style="display: block; width: 13px; height: 13px; border: 0; opacity: 0.45;" />
-							</a>
-						</td>
-						<td style="padding: 0 5px;">
-							<a href="https://x.com/PlayerStallGear" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-								<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" alt="X" width="13" height="13" style="display: block; width: 13px; height: 13px; border: 0; opacity: 0.45;" />
-							</a>
+						<td style="vertical-align: middle; width: 320px; min-width: 320px; text-align: center;">
+							<p style="margin: 6px 0 7px 0; text-align: center; white-space: nowrap;">
+								<a href="https://www.playerstall.com/" target="_blank" rel="noopener noreferrer" style="font-family: 'Oswald', Arial, Helvetica, sans-serif; font-size: 17px; font-weight: 600; color: #000000; text-transform: uppercase; letter-spacing: 2px; line-height: 1.1; text-decoration: none;">MONIKA BROWNOVA</a>
+							</p>
+							<p style="margin: 0 0 15px 0; font-family: Arial, Helvetica, sans-serif; font-size: 10px; font-weight: 400; color: #8c8c8c; text-transform: lowercase; letter-spacing: 2.75px; line-height: 1.4; text-align: center; white-space: nowrap;">account manager</p>
+							<p style="margin: -2px 0 11px 0; font-family: Arial, Helvetica, sans-serif; font-size: 9.9px; color: #333333; line-height: 1.67; text-align: center;">
+								<a href="tel:+18885841444" style="color: #1155cc; text-decoration: underline; font-size: 9.9px;">+1 888 584 1444</a><br />
+								<a href="mailto:team@playerstall.com" style="color: #1155cc; text-decoration: underline; font-size: 9.9px;">team@playerstall.com</a><br />
+								<a href="https://www.playerstall.com/" target="_blank" rel="noopener noreferrer" style="color: #1155cc; text-decoration: underline; font-size: 9.9px;">www.playerstall.com</a>
+							</p>
+							<table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto; border-collapse: collapse;" role="presentation">
+								<tr>
+									<td style="padding: 0 6px;">
+										<a href="https://instagram.com/playerstalllockers" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+											<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" width="13" height="13" style="display: block; width: 13px; height: 13px; border: 0; opacity: 1; filter: brightness(0);" />
+										</a>
+									</td>
+									<td style="padding: 0 6px;">
+										<a href="https://www.linkedin.com/in/monika-brownova-5153823ba/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+											<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="13" height="13" style="display: block; width: 13px; height: 13px; border: 0; opacity: 1; filter: brightness(0);" />
+										</a>
+									</td>
+									<td style="padding: 0 6px;">
+										<a href="https://x.com/PlayerStallGear" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+											<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" alt="X" width="13" height="13" style="display: block; width: 13px; height: 13px; border: 0; opacity: 1; filter: brightness(0);" />
+										</a>
+									</td>
+								</tr>
+							</table>
 						</td>
 					</tr>
 				</table>
 			</td>
 		</tr>
 	</table>
-	</div>
 	<!-- ===================== EMAIL SIGNATURE END ===================== -->
 
 </div>
 
 <script>
 const photo = document.getElementById('sigPhoto');
-const frame = document.getElementById('photoFrame');
 const posX = document.getElementById('posX');
 const posY = document.getElementById('posY');
 const zoom = document.getElementById('zoom');
@@ -102,18 +121,19 @@ const posYVal = document.getElementById('posYVal');
 const zoomVal = document.getElementById('zoomVal');
 
 const FRAME_W = 104;
-const FRAME_H = 130;
+const FRAME_H = 142;
 
 function updatePhoto() {
-	const z = parseInt(zoom.value) / 100;
+	if (!photo.naturalWidth) return;
+	const z = parseInt(zoom.value, 10) / 100;
 	const imgW = FRAME_W * z;
 	const imgH = photo.naturalHeight * (imgW / photo.naturalWidth);
 
-	const maxOffsetX = imgW - FRAME_W;
-	const maxOffsetY = imgH - FRAME_H;
+	const maxOffsetX = Math.max(0, imgW - FRAME_W);
+	const maxOffsetY = Math.max(0, imgH - FRAME_H);
 
-	const ox = -(parseInt(posX.value) / 100) * maxOffsetX;
-	const oy = -(parseInt(posY.value) / 100) * maxOffsetY;
+	const ox = -(parseInt(posX.value, 10) / 100) * maxOffsetX;
+	const oy = -(parseInt(posY.value, 10) / 100) * maxOffsetY;
 
 	photo.style.width = imgW + 'px';
 	photo.style.height = 'auto';
@@ -130,7 +150,7 @@ posY.addEventListener('input', updatePhoto);
 zoom.addEventListener('input', updatePhoto);
 
 photo.addEventListener('load', updatePhoto);
-updatePhoto();
+if (photo.complete) updatePhoto();
 </script>
 
 </body>

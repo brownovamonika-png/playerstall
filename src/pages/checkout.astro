@@ -638,12 +638,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.shop_table .ot-room-header td {
 		font-family: 'Oswald', sans-serif !important;
-		font-size: 16px !important;
-		font-weight: 700 !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
 		text-transform: uppercase !important;
-		letter-spacing: 2px !important;
+		letter-spacing: 0.5px !important;
 		color: #0d0d0d !important;
-		padding: 24px 0 10px !important;
+		padding: 24px 0 10px 28px !important;
 		border-bottom: 2px solid #fe5900 !important;
 	}
 
@@ -678,23 +678,60 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		font-weight: 400 !important;
 	}
 
+	.shop_table .ot-item-spec-bullets {
+		list-style: disc;
+		margin: 2px 0 0;
+		padding-left: 1.15em;
+		font-family: 'Yantramanav', sans-serif !important;
+		font-size: 11px !important;
+		color: #8c8c8c !important;
+		line-height: 1.4;
+		text-transform: none !important;
+		letter-spacing: normal !important;
+		font-weight: 400 !important;
+	}
+
+	.shop_table .ot-item-spec-bullets li {
+		margin: 0;
+		padding: 0;
+	}
+
 	.shop_table .ot-acc-list {
 		list-style: none;
-		margin: 6px 0 0;
-		padding: 0 0 0 10px;
+		margin-top: 6px;
+		margin-left: 20px;
+		margin-right: 0;
+		margin-bottom: 0;
+		padding: 0 0 0 6px;
 		border-left: 2px solid #e0e0e0;
+		display: grid;
+		grid-template-columns: auto minmax(4.5rem, max-content);
+		column-gap: 8px;
+		row-gap: 6px;
+		align-items: baseline;
+		justify-content: start;
+		width: fit-content;
+		max-width: 100%;
 	}
 
 	.shop_table .ot-acc-list li {
+		display: contents;
+	}
+
+	.shop_table .ot-acc-list .ot-acc-label {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 11px;
 		color: #555;
 		line-height: 1.7;
 	}
 
-	.shop_table .ot-acc-price {
+	.shop_table .ot-acc-list .ot-acc-price {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
 		color: #999;
-		font-size: 10px;
+		text-align: right;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
 	}
 
 	.shop_table tbody td.product-quantity {
@@ -1081,13 +1118,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						}
 						let accHtml = '';
 						if (item.accessories.length) {
-							accHtml = `<ul class="ot-acc-list">${item.accessories.map((a) => `<li>${a.label} <span class="ot-acc-price">+$${a.price}</span></li>`).join('')}</ul>`;
+							accHtml = `<ul class="ot-acc-list" style="margin-left:20px">${item.accessories.map((a) => `<li><span class="ot-acc-label">${a.label}</span><span class="ot-acc-price">+$${a.price}</span></li>`).join('')}</ul>`;
 						}
 						html += `
 							<tr class="cart_item">
 								<td class="product-name">
 									<span class="ot-item-name">${item.name} <span class="ot-base-price">$${(item.basePrice ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span></span>
-									<span class="ot-item-spec">${item.widthIn}\u2033W \u00d7 ${item.depthIn}\u2033D \u00b7 ${item.colorLabel}</span>
+									<span class="ot-item-spec">${item.widthIn}\u2033W \u00d7 ${item.depthIn}\u2033D</span><ul class="ot-item-spec-bullets"><li>${item.colorLabel}</li></ul>
 									${accHtml}
 								</td>
 								<td class="product-quantity">${item.quantity}</td>
@@ -1110,7 +1147,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						const specLine = dimParts.join(' \u00b7 ');
 						let accHtml = '';
 						if (accParts.length) {
-							accHtml = `<ul class="ot-acc-list">${accParts.map((a) => `<li>${a}</li>`).join('')}</ul>`;
+							accHtml = `<ul class="ot-acc-list" style="margin-left:20px">${accParts.map((a) => `<li>${a}</li>`).join('')}</ul>`;
 						}
 						if (roomPart !== currentRoom) {
 							currentRoom = roomPart;

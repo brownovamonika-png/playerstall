@@ -216,59 +216,109 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		text-align: left;
 	}
 	.order-table th.ot-qty { text-align: center; width: 40px; }
-	.order-table th.ot-total { text-align: right; width: 80px; }
-	.order-table tbody td {
+	.order-table th.ot-total {
+		text-align: right;
+		min-width: 108px;
+		width: 26%;
+		padding-right: 48px;
+		padding-left: 12px;
+	}
+	/*
+	 * Rows in #order-items-body are injected via innerHTML, so they do NOT get Astro’s scoped
+	 * data attribute. Use :global(...) under .order-panel so these rules actually apply.
+	 */
+	/* Layout on all body cells; Yantramanav only on product column — otherwise it beats .ot-item-qty / .ot-item-total (Oswald). */
+	.order-panel :global(.order-table tbody tr:not(.ot-room-header) td) {
 		padding: 12px 24px;
 		border-bottom: 1px solid #e0e0e0;
+		vertical-align: top;
+	}
+	.order-panel :global(.order-table tbody tr:not(.ot-room-header) td:first-child) {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
 		color: #0d0d0d;
-		vertical-align: top;
 	}
-	.order-table tbody td.ot-empty {
+	.order-panel :global(.order-table tbody td.ot-empty) {
 		color: #b6b6b6;
 		text-align: center;
 		padding: 30px 24px;
 	}
-	.ot-item-name {
-		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		color: #0d0d0d;
+	.order-panel :global(.order-table tbody .ot-item-name) {
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 12px !important;
+		font-weight: 600 !important;
+		text-transform: uppercase !important;
+		letter-spacing: 1px !important;
+		color: #0d0d0d !important;
 	}
-	.ot-item-spec {
+	.order-panel :global(.ot-item-spec) {
 		display: block;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 11px;
 		color: #8c8c8c;
 		margin-top: 3px;
 		line-height: 1.4;
+		padding-left: 0;
 	}
-	.ot-acc-line {
-		display: block;
+	.order-panel :global(.ot-item-spec-bullets) {
+		list-style: disc;
+		margin: 2px 0 0;
+		padding-left: 1.15em;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		color: #8c8c8c;
+		line-height: 1.4;
+	}
+	.order-panel :global(.ot-item-spec-bullets li) {
+		margin: 0;
+		padding: 0;
+	}
+	.order-panel :global(.ot-acc-lines) {
+		display: grid;
+		grid-template-columns: auto minmax(4.5rem, max-content);
+		column-gap: 8px;
+		row-gap: 6px;
+		align-items: baseline;
+		justify-content: start;
+		width: fit-content;
+		max-width: 100%;
+		margin-top: 4px;
+		margin-left: 20px;
+		margin-right: 0;
+		margin-bottom: 0;
+		padding-left: 0;
+	}
+	.order-panel :global(.ot-acc-lines .ot-acc-label) {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 11px;
 		color: #666;
 		line-height: 1.5;
-		padding-left: 2px;
 	}
-	.ot-acc-price { color: #8c8c8c; }
-	.ot-item-qty {
-		text-align: center;
-		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
-		font-weight: 600;
-		color: #0d0d0d;
-	}
-	.ot-item-total {
+	.order-panel :global(.ot-acc-lines .ot-acc-price) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		color: #8c8c8c;
 		text-align: right;
-		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
-		font-weight: 600;
-		color: #0d0d0d;
+		font-variant-numeric: tabular-nums;
 		white-space: nowrap;
+	}
+	.order-panel :global(.order-table tbody td.ot-item-qty) {
+		text-align: center;
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		color: #0d0d0d !important;
+		font-variant-numeric: tabular-nums;
+	}
+	.order-panel :global(.order-table tbody td.ot-item-total) {
+		text-align: right;
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 13px !important;
+		font-weight: 600 !important;
+		color: #0d0d0d !important;
+		white-space: nowrap;
+		font-variant-numeric: tabular-nums;
+		padding: 12px 48px 12px 12px !important;
 	}
 	.order-table tfoot th {
 		padding: 12px 24px;
@@ -289,6 +339,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		color: #0d0d0d;
 		text-align: right;
 		border: none;
+	}
+	.order-table tfoot td:last-child {
+		padding-right: 48px;
+		padding-left: 12px;
 	}
 	.ot-total-row th,
 	.ot-total-row td {
@@ -353,16 +407,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		padding: 0 24px 20px;
 		line-height: 1.5;
 	}
-	.ot-room-header td {
+	.order-panel :global(.order-table tbody tr.ot-room-header td) {
 		font-family: 'Oswald', sans-serif;
-		font-size: 12px;
+		font-size: 13px;
 		font-weight: 600;
 		text-transform: uppercase;
-		letter-spacing: 1.5px;
-		color: #8c8c8c;
-		padding: 16px 24px 6px !important;
+		letter-spacing: 0.5px;
+		color: #0d0d0d;
+		padding: 16px 48px 6px 40px !important;
 		border-bottom: none !important;
 		background: transparent;
+		vertical-align: top;
 	}
 
 	@media (max-width: 768px) {
@@ -426,20 +481,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	const emailInput = document.getElementById('customer-email') as HTMLInputElement;
 	if (emailInput && customerEmailDefault) emailInput.value = customerEmailDefault;
 
-	interface LineItem { roomName: string; templateId: string; displayName: string; widthIn: number; depthIn: number; colorCode: string; colorLabel: string; accessoryIds: string[]; accessories: { label: string; price: number }[]; unitPrice: number; qty: number; }
+	interface LineItem { roomName: string; templateId: string; displayName: string; widthIn: number; depthIn: number; colorCode: string; colorLabel: string; accessoryIds: string[]; accessories: { label: string; price: number }[]; basePrice: number; unitPrice: number; qty: number; }
 
 	function buildLinesForLockers(lockers: LockerInstance[], roomName: string): LineItem[] {
 		const lines: LineItem[] = [];
 		for (const locker of lockers) {
 			const t = getTemplate(locker.templateId); if (!t) continue;
 			const price = priceLocker(t, locker.config);
+			const base = (t.pricing.basePriceByWidthIn[String(locker.config.widthIn)] ?? 0) + (t.pricing.depthSurcharge[String(locker.config.depthIn)] ?? 0);
 			const color = resolveLockerColor(t, locker.config.colorCode);
 			const accs = locker.config.accessoryIds.map((id) => t.accessories.find((a) => a.id === id)).filter(Boolean) as { id: string; label: string; price: number }[];
 			const sortedAcc = [...locker.config.accessoryIds].sort();
 			const key = `${locker.templateId}|${locker.config.widthIn}|${locker.config.depthIn}|${locker.config.colorCode}|${sortedAcc.join(',')}`;
 			const existing = lines.find((l) => `${l.templateId}|${l.widthIn}|${l.depthIn}|${l.colorCode}|${[...l.accessoryIds].sort().join(',')}` === key && l.roomName === roomName);
 			if (existing) { existing.qty++; }
-			else { lines.push({ roomName, templateId: locker.templateId, displayName: t.displayName, widthIn: locker.config.widthIn, depthIn: locker.config.depthIn, colorCode: locker.config.colorCode, colorLabel: color?.label ?? locker.config.colorCode, accessoryIds: [...locker.config.accessoryIds], accessories: accs.map((a) => ({ label: a.label, price: a.price })), unitPrice: price, qty: 1 }); }
+			else { lines.push({ roomName, templateId: locker.templateId, displayName: t.displayName, widthIn: locker.config.widthIn, depthIn: locker.config.depthIn, colorCode: locker.config.colorCode, colorLabel: color?.label ?? locker.config.colorCode, accessoryIds: [...locker.config.accessoryIds], accessories: accs.map((a) => ({ label: a.label, price: a.price })), basePrice: base, unitPrice: price, qty: 1 }); }
 		}
 		return lines;
 	}
@@ -466,9 +522,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			const rLabel = line.roomName || 'Unnamed Room';
 			if (rLabel !== currentRoom) { currentRoom = rLabel; html += `<tr class="ot-room-header"><td colspan="3">${currentRoom}</td></tr>`; }
 			const lineTotal = line.unitPrice * line.qty; subtotal += lineTotal; totalLockers += line.qty;
-			let accHtml = '';
-			if (line.accessories.length) accHtml = line.accessories.map((a) => `<span class="ot-acc-line">+ ${a.label} <span class="ot-acc-price">+$${a.price}</span></span>`).join('');
-			html += `<tr><td><span class="ot-item-name">${line.displayName}</span><span class="ot-item-spec">${line.widthIn}\u2033W \u00d7 ${line.depthIn}\u2033D \u00b7 ${line.colorLabel}</span>${accHtml}</td><td class="ot-item-qty">${line.qty}</td><td class="ot-item-total">$${lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>`;
+			const accCells = [
+				`<span class="ot-acc-label">Locker base</span><span class="ot-acc-price">$${line.basePrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>`,
+				...line.accessories.map((a) => `<span class="ot-acc-label">${a.label}</span><span class="ot-acc-price">$${a.price}</span>`),
+			].join('');
+			const accBlock = `<div class="ot-acc-lines" style="margin-left:20px">${accCells}</div>`;
+			html += `<tr><td><span class="ot-item-name">${line.displayName}</span><span class="ot-item-spec">${line.widthIn}\u2033W \u00d7 ${line.depthIn}\u2033D</span><ul class="ot-item-spec-bullets"><li>${line.colorLabel}</li></ul>${accBlock}</td><td class="ot-item-qty">${line.qty}</td><td class="ot-item-total">$${lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>`;
 		}
 		tbody.innerHTML = html;
 		subtotalEl.textContent = `$${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
@@ -504,7 +563,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		for (const line of allLines) {
 			const roomLabel = line.roomName ? `Room: ${line.roomName}` : 'Room Planner';
 			const specParts = [`${line.widthIn}\u2033W \u00d7 ${line.depthIn}\u2033D`, line.colorLabel];
-			if (line.accessories.length) for (const a of line.accessories) specParts.push(`${a.label} (+$${a.price})`);
+			if (line.accessories.length) for (const a of line.accessories) specParts.push(`${a.label} ($${a.price})`);
 			const model = `${roomLabel} \u00b7 ${specParts.join(' \u00b7 ')}`;
 			const id = `planner-${line.roomName}-${line.templateId}-${line.widthIn}-${line.depthIn}-${line.colorLabel}-${line.accessories.map((a) => a.label).join('-')}`;
 			const existing = cart.find((item: any) => item.id === id);
@@ -521,7 +580,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		for (const line of allLines) {
 			const room = line.roomName || 'Unnamed Room';
 			if (room !== curRoom) { curRoom = room; orderSummary += `\n--- ${room} ---\n`; }
-			const accText = line.accessories.length ? ` + ${line.accessories.map((a: any) => a.label).join(', ')}` : '';
+			const accText = line.accessories.length ? ` · ${line.accessories.map((a: any) => a.label).join(', ')}` : '';
 			orderSummary += `${line.qty}x ${line.displayName} (${line.widthIn}"W x ${line.depthIn}"D, ${line.colorLabel}${accText}) - $${(line.unitPrice * line.qty).toFixed(2)}\n`;
 		}
 		const grandTotal = allLines.reduce((sum: number, l: any) => sum + l.unitPrice * l.qty, 0);

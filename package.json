@@ -13,7 +13,8 @@
     "supabase:stop": "supabase stop",
     "supabase:status": "supabase status",
     "supabase:db-reset": "supabase db reset",
-    "test:email": "node --env-file=.env scripts/test-mailersend.mjs"
+    "test:email": "node --env-file=.env scripts/test-mailersend.mjs",
+    "signature": "open public/signatures/monika-brownova.html"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",

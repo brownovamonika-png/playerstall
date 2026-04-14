@@ -1,4 +1,4 @@
-import{k as bl,g as Tl,i as Al,a as Nc,o as Fc,z as Oc,d as Ki,e as Xr,w as wl}from"./render.3bAAfnuv.js";function j_(i,t){const e=String(t.widthIn),n=i.pricing.basePriceByWidthIn[e]??0,s=String(t.depthIn),r=i.pricing.depthSurcharge[s]??0,a=t.accessoryIds.reduce((o,c)=>{const l=i.accessories.find(h=>h.id===c);return o+(l?.price??0)},0);return n+r+a}/**
+import{j as bl,g as Tl,e as Al,a as Nc,m as Fc,z as Oc,c as Ki,d as Xr,w as wl}from"./render.CDMB4YqQ.js";function j_(i,t){const e=String(t.widthIn),n=i.pricing.basePriceByWidthIn[e]??0,s=String(t.depthIn),r=i.pricing.depthSurcharge[s]??0,a=t.accessoryIds.reduce((o,c)=>{const l=i.accessories.find(h=>h.id===c);return o+(l?.price??0)},0);return n+r+a}/**
  * @license
  * Copyright 2010-2026 Three.js Authors
  * SPDX-License-Identifier: MIT

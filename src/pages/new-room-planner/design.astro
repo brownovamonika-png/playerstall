@@ -76,7 +76,7 @@ const plannerTemplates = getAllTemplates();
 					<div class="lt-config">
 						<div class="lt-row">
 							<div class="lt-field">
-								<label>Model</label>
+								<label for="lt-model">Model</label>
 								<select id="lt-model">
 									{plannerTemplates.map((t) => (
 										<option value={t.templateId}>{t.displayName}</option>
@@ -84,19 +84,19 @@ const plannerTemplates = getAllTemplates();
 								</select>
 							</div>
 							<div class="lt-field">
-								<label>Width</label>
+								<label for="lt-width">Width</label>
 								<select id="lt-width"></select>
 							</div>
 							<div class="lt-field" id="lt-depth-field">
-								<label>Depth</label>
+								<label for="lt-depth">Depth</label>
 								<select id="lt-depth"></select>
 							</div>
 							<div class="lt-field">
-								<label>Color</label>
+								<label for="lt-color">Color</label>
 								<select id="lt-color"></select>
 							</div>
 							<div class="lt-field lt-field-qty">
-								<label>Qty</label>
+								<label for="lt-qty">Qty</label>
 								<input type="number" id="lt-qty" value="1" min="1" max="100" step="1" />
 							</div>
 							<div class="lt-field lt-field-btn">
@@ -118,33 +118,35 @@ const plannerTemplates = getAllTemplates();
 	<section class="planner-app" id="planner-app">
 		<!-- Toolbar -->
 		<div class="planner-toolbar" id="planner-toolbar">
-			<div class="toolbar-left" style="display:none">
+			<div class="toolbar-left">
 				<button type="button" class="tb-btn" id="btn-edit-mode" title="Switch to Edit mode">
 					<span class="tb-icon">✎</span> Edit
 				</button>
-				<div class="tb-locker-group">
-					<select id="locker-model-select" class="tb-model-select" title="Locker model">
-						{plannerTemplates.map((t) => (
-							<option value={t.templateId}>{t.displayName}</option>
-						))}
-					</select>
-					<button type="button" class="tb-btn" id="btn-add-locker" title="Place locker(s) on the layout">
-						+ Locker
+				<div class="toolbar-edit-tools" id="toolbar-edit-tools">
+					<div class="tb-locker-group">
+						<select id="locker-model-select" class="tb-model-select" title="Locker model">
+							{plannerTemplates.map((t) => (
+								<option value={t.templateId}>{t.displayName}</option>
+							))}
+						</select>
+						<button type="button" class="tb-btn" id="btn-add-locker" title="Place locker(s) on the layout">
+							+ Locker
+						</button>
+						<input type="number" id="locker-qty" class="tb-qty" value="1" min="1" max="100" step="1" title="Quantity" />
+					</div>
+					<button type="button" class="tb-btn" id="btn-add-door" title="Add a door">
+						+ Door
 					</button>
-					<input type="number" id="locker-qty" class="tb-qty" value="1" min="1" max="100" step="1" title="Quantity" />
+					<button type="button" class="tb-btn" id="btn-add-window" title="Add a window">
+						+ Window
+					</button>
+					<button type="button" class="tb-btn tb-rotate" id="btn-rotate-locker" title="Rotate selected locker 90°">
+						↻ Rotate
+					</button>
+					<button type="button" class="tb-btn tb-reset" id="btn-reset-lockers" title="Remove all lockers">
+						Reset Lockers
+					</button>
 				</div>
-				<button type="button" class="tb-btn" id="btn-add-door" title="Add a door">
-					+ Door
-				</button>
-				<button type="button" class="tb-btn" id="btn-add-window" title="Add a window">
-					+ Window
-				</button>
-				<button type="button" class="tb-btn tb-rotate" id="btn-rotate-locker" title="Rotate selected locker 90°">
-					↻ Rotate
-				</button>
-				<button type="button" class="tb-btn tb-reset" id="btn-reset-lockers" title="Remove all lockers">
-					Reset Lockers
-				</button>
 			</div>
 			<div class="toolbar-center">
 				<button type="button" class="tb-btn tb-sm" id="btn-zoom-out" title="Zoom out">&minus;</button>
@@ -633,6 +635,12 @@ const plannerTemplates = getAllTemplates();
 		background: #ffffff;
 		color: #0d0d0d;
 		padding: 0 20px 20px;
+		position: relative;
+		z-index: 2;
+	}
+	.locker-type-section {
+		position: relative;
+		z-index: 1;
 	}
 	.room-setup-columns {
 		max-width: 1300px;
@@ -761,6 +769,7 @@ const plannerTemplates = getAllTemplates();
 		width: 100%;
 		font-family: 'Yantramanav', sans-serif;
 		transition: border-color 0.3s;
+		touch-action: manipulation;
 	}
 	.lt-field select:focus, .lt-field input:focus { border-color: #fe5900; outline: none; }
 	.lt-field input[type="number"] { text-align: center; }
@@ -836,6 +845,8 @@ const plannerTemplates = getAllTemplates();
 		height: calc(100vh - 90px);
 		min-height: 620px;
 		background: #f0f0f0;
+		position: relative;
+		z-index: 0;
 	}
 
 	/* Corner clearance guide */
@@ -906,6 +917,12 @@ const plannerTemplates = getAllTemplates();
 		display: flex;
 		align-items: center;
 		gap: 6px;
+	}
+	.toolbar-edit-tools {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		flex-wrap: wrap;
 	}
 	.toolbar-right { position: absolute; right: 16px; }
 	.tb-btn {
@@ -1151,7 +1168,15 @@ const plannerTemplates = getAllTemplates();
 		overflow: hidden;
 		background: #e9e9e9;
 	}
-	#planner-canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+	#planner-canvas {
+		display: block;
+		width: 100%;
+		height: 100%;
+		cursor: crosshair;
+		touch-action: none;
+		user-select: none;
+		-webkit-user-select: none;
+	}
 	.canvas-empty-hint {
 		position: absolute;
 		top: 50%;
@@ -2176,7 +2201,7 @@ const plannerTemplates = getAllTemplates();
 				cb.dataset.price = String(acc.price);
 				cb.onchange = updateLtPrice;
 				lbl.appendChild(cb);
-				lbl.appendChild(document.createTextNode(` ${acc.label} (+$${acc.price})`));
+				lbl.appendChild(document.createTextNode(` ${acc.label} ($${acc.price})`));
 				ltAccList.appendChild(lbl);
 			}
 		} else {
@@ -2942,11 +2967,32 @@ const plannerTemplates = getAllTemplates();
 	let isPanning = false;
 	let panStartX = 0, panStartY = 0, panCamStartX = 0, panCamStartY = 0;
 
-	canvas.addEventListener('pointerdown', (e) => {
+	/** Map pointer to world inches; scales for CSS layout vs backing store (fixes skewed hit-tests on some displays). */
+	function pointerEventToWorld(ev: PointerEvent | MouseEvent) {
+		const cw = canvas.clientWidth;
+		const ch = canvas.clientHeight;
+		if (cw <= 0 || ch <= 0) return { x: state.camera.centerX, y: state.camera.centerY };
 		const rect = canvas.getBoundingClientRect();
-		const sx = e.clientX - rect.left;
-		const sy = e.clientY - rect.top;
-		const world = screenToWorld(sx, sy, state.camera, canvas.clientWidth, canvas.clientHeight);
+		const rw = rect.width || 1;
+		const rh = rect.height || 1;
+		const sx = ((ev.clientX - rect.left) / rw) * cw;
+		const sy = ((ev.clientY - rect.top) / rh) * ch;
+		return screenToWorld(sx, sy, state.camera, cw, ch);
+	}
+
+	function releaseCanvasPointerCapture(ev: PointerEvent) {
+		try {
+			if (typeof canvas.releasePointerCapture === 'function' && canvas.hasPointerCapture(ev.pointerId)) {
+				canvas.releasePointerCapture(ev.pointerId);
+			}
+		} catch {
+			/* already released */
+		}
+	}
+
+	canvas.addEventListener('pointerdown', (e) => {
+		if (e.pointerType === 'mouse' && e.button !== 0) return;
+		const world = pointerEventToWorld(e);
 
 		if (placementMode) {
 			let targetWall = placementMode.wallId ? state.walls.find((w) => w.id === placementMode!.wallId) : null;
@@ -3049,16 +3095,14 @@ const plannerTemplates = getAllTemplates();
 		if (draggingOpening) {
 			const wall = state.walls.find((w) => w.id === draggingOpening!.wallId);
 			if (wall) {
-				const rect = canvas.getBoundingClientRect();
-				const world = screenToWorld(e.clientX - rect.left, e.clientY - rect.top, state.camera, canvas.clientWidth, canvas.clientHeight);
+				const world = pointerEventToWorld(e);
 				const along = projectOntoWall(world.x, world.y, wall);
 				const len = wallLength(wall);
 				draggingOpening.offsetAlongWall = Math.max(0, Math.min(along - draggingOpening.widthIn / 2, len - draggingOpening.widthIn));
 				redraw();
 			}
 		} else if (dragging) {
-			const rect = canvas.getBoundingClientRect();
-			const world = screenToWorld(e.clientX - rect.left, e.clientY - rect.top, state.camera, canvas.clientWidth, canvas.clientHeight);
+			const world = pointerEventToWorld(e);
 			const oldX = dragging.x, oldY = dragging.y;
 			dragging.x = world.x - dragOffsetX; dragging.y = world.y - dragOffsetY;
 			clampLockerToRoom(dragging, state.walls);
@@ -3072,10 +3116,17 @@ const plannerTemplates = getAllTemplates();
 			redraw();
 		}
 	});
-	canvas.addEventListener('pointerup', () => { if (draggingOpening) { canvas.style.cursor = ''; } dragging = null; draggingOpening = null; isPanning = false; });
+	function endCanvasPointer(ev: PointerEvent) {
+		releaseCanvasPointerCapture(ev);
+		if (draggingOpening) canvas.style.cursor = '';
+		dragging = null;
+		draggingOpening = null;
+		isPanning = false;
+	}
+	canvas.addEventListener('pointerup', (e) => endCanvasPointer(e));
+	canvas.addEventListener('pointercancel', (e) => endCanvasPointer(e));
 	canvas.addEventListener('dblclick', (e) => {
-		const rect = canvas.getBoundingClientRect();
-		const world = screenToWorld(e.clientX - rect.left, e.clientY - rect.top, state.camera, canvas.clientWidth, canvas.clientHeight);
+		const world = pointerEventToWorld(e);
 		for (let i = state.lockers.length - 1; i >= 0; i--) {
 			const l = state.lockers[i]; const box = lockerAABB(l);
 			if (world.x >= box.minX && world.x <= box.maxX && world.y >= box.minY && world.y <= box.maxY) {
@@ -3188,7 +3239,7 @@ const plannerTemplates = getAllTemplates();
 					rebuildLockerMesh3D(locker.instanceId);
 					redraw();
 				};
-				lbl.appendChild(cb); lbl.appendChild(document.createTextNode(` ${acc.label} (+$${acc.price})`)); accDiv.appendChild(lbl);
+				lbl.appendChild(cb); lbl.appendChild(document.createTextNode(` ${acc.label} ($${acc.price})`)); accDiv.appendChild(lbl);
 			}
 			document.getElementById('prop-price')!.textContent = `$${priceLocker(template, locker.config).toLocaleString()}`;
 			document.getElementById('prop-rotate-locker')!.onclick = () => { const oldRot = locker.rotationDeg; locker.rotationDeg = (locker.rotationDeg + 90) % 360; if (wouldOverlap(locker, state.lockers, state.openings, state.walls)) locker.rotationDeg = oldRot; redraw(); };
@@ -3288,8 +3339,8 @@ const plannerTemplates = getAllTemplates();
 	function updateToolbar() {
 		btnEdit.classList.toggle('active', state.editMode);
 		document.getElementById('zoom-label')!.textContent = `${Math.round(state.camera.pixelsPerInch / 2 * 100)}%`;
-		const tl = document.querySelector('.toolbar-left') as HTMLElement;
-		if (tl) tl.style.display = state.editMode ? 'flex' : 'none';
+		const editTools = document.getElementById('toolbar-edit-tools') as HTMLElement | null;
+		if (editTools) editTools.style.display = state.editMode ? 'flex' : 'none';
 	}
 
 	// ─── Mobile tabs ───

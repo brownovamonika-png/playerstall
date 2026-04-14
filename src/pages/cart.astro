@@ -330,7 +330,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	:global(.cart-section .shop_table th) {
 		padding: 20px 15px;
 		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
+		font-size: calc(18px * 0.8 * 1.1);
 		font-weight: 700;
 		color: #1c1c1c;
 		text-transform: uppercase;
@@ -345,11 +345,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		text-align: right;
 	}
 
+	:global(.cart-section .shop_table th.product-price),
+	:global(.cart-section .shop_table th.product-subtotal) {
+		font-weight: 400;
+	}
+
 	:global(.cart-section .shop_table td) {
 		padding: 20px 15px;
 		border-bottom: 1px solid #e0e0e0;
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 16px;
+		font-size: calc(16px * 1.1);
 		color: #0d0d0d;
 		vertical-align: middle;
 	}
@@ -399,7 +404,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	:global(.cart-section .product-remove a) {
 		color: #1c1c1c;
 		text-decoration: none;
-		font-size: 14px;
+		font-size: calc(14px * 1.1);
 		font-weight: 400;
 		font-family: 'Yantramanav', sans-serif;
 		line-height: 1;
@@ -457,12 +462,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding-right: 15px;
 	}
 
-	/* Product name: same font and size as table header "PRODUCT" above (Oswald, model site) */
+	/* Product / locker name: Oswald, ~20% smaller than former 18px (aligned with column header scale) */
 	:global(.cart-section .product-name),
 	:global(.cart-section .product-name a),
 	:global(.cart-section td.product-name) {
 		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
+		font-size: calc(18px * 0.8 * 1.1);
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.12em;
@@ -478,36 +483,73 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	:global(.cart-section .cart-item-description) {
 		display: block;
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
+		font-size: calc(14px * 1.1);
 		font-weight: 400;
 		text-transform: none;
 		letter-spacing: 0.02em;
 		color: #555;
 		margin-top: 4px;
+		padding-left: 10px;
 	}
 
-	:global(.cart-section .product-price),
-	:global(.cart-section .product-subtotal) {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 18px;
+	/* Price & subtotal: Oswald, regular weight; ~20% larger than quantity field text */
+	:global(.cart-section .product-price) {
+		font-family: 'Oswald', sans-serif;
+		font-size: calc(18px * 0.8 * 0.9 * 1.2 * 1.1 * 0.9);
 		font-weight: 400;
 		color: #8c8c8c;
 		letter-spacing: 0;
 		text-align: right;
 	}
 
-	:global(.cart-section .product-quantity) {
-		width: 120px;
+	:global(.cart-section .product-subtotal) {
+		font-family: 'Oswald', sans-serif;
+		font-size: calc(18px * 0.8 * 0.9 * 1.2 * 1.1 * 0.9);
+		font-weight: 400;
+		color: #000000;
+		letter-spacing: 0;
 		text-align: right;
 	}
 
-	/* Quantity control: model site – number left, spinner (up/down) right, thin grey borders */
+	:global(.cart-section .shop_table td.product-price .woocommerce-Price-amount),
+	:global(.cart-section .shop_table td.product-price .woocommerce-Price-currencySymbol),
+	:global(.cart-section .shop_table td.product-subtotal .woocommerce-Price-amount),
+	:global(.cart-section .shop_table td.product-subtotal .woocommerce-Price-currencySymbol) {
+		font-family: 'Oswald', sans-serif;
+		font-size: calc(18px * 0.8 * 0.9 * 1.2 * 1.1 * 0.9);
+		font-weight: 400;
+	}
+
+	/* Line subtotal: force normal weight on all nested price markup (no faux-bold) */
+	:global(.cart-section .shop_table td.product-subtotal),
+	:global(.cart-section .shop_table td.product-subtotal bdi),
+	:global(.cart-section .shop_table td.product-subtotal span) {
+		font-weight: 400;
+		font-synthesis: none;
+	}
+
+	:global(.cart-section .shop_table td.product-price .woocommerce-Price-amount),
+	:global(.cart-section .shop_table td.product-price .woocommerce-Price-currencySymbol) {
+		color: #8c8c8c;
+	}
+
+	:global(.cart-section .shop_table td.product-subtotal .woocommerce-Price-amount),
+	:global(.cart-section .shop_table td.product-subtotal .woocommerce-Price-currencySymbol) {
+		color: #000000;
+	}
+
+	:global(.cart-section .product-quantity) {
+		width: calc(120px * 0.8);
+		text-align: right;
+	}
+
+	/* Quantity control: number left, spinner (up/down) right – scaled 20% smaller than base */
 	:global(.cart-section .quantity-control) {
 		display: inline-flex;
 		align-items: stretch;
-		width: 96px;
-		min-width: 96px;
-		height: 40px;
+		width: calc(96px * 0.8);
+		min-width: calc(96px * 0.8);
+		height: calc(40px * 0.8);
 		border: 1px solid #e0e0e0;
 		background: #ffffff;
 		border-radius: 0;
@@ -517,17 +559,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	:global(.cart-section .quantity-control .quantity-input),
 	:global(.cart-section .quantity-control input.quantity-input[type="number"]) {
-		width: 60px;
+		width: calc(60px * 0.8);
 		min-width: 0;
 		height: 100%;
 		margin: 0;
-		padding: 0 6px;
+		padding: 0 calc(6px * 0.8);
 		border: none;
 		border-right: 1px solid #e0e0e0;
 		background: #ffffff;
 		box-sizing: border-box;
 		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
+		font-size: calc(18px * 0.8 * 0.9 * 1.1 * 0.9 * 0.8);
 		font-weight: 700;
 		color: #000000;
 		text-align: center;
@@ -545,8 +587,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	:global(.cart-section .quantity-spinner) {
 		display: flex;
 		flex-direction: column;
-		flex: 0 0 34px;
-		width: 34px;
+		flex: 0 0 calc(34px * 0.8);
+		width: calc(34px * 0.8);
 		background: #ffffff;
 	}
 
@@ -561,7 +603,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		border-bottom: 1px solid #e0e0e0;
 		background: #ffffff;
 		color: #1c1c1c;
-		font-size: 10px;
+		font-size: calc(10px * 1.1 * 0.8 * 0.8);
 		line-height: 1;
 		cursor: pointer;
 		transition: background 0.2s;
@@ -712,7 +754,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	:global(.cart-section .cart_totals h2.cart-totals-title) {
 		font-family: 'Oswald', sans-serif;
-		font-size: 28px;
+		font-size: calc(28px * 0.8);
 		font-weight: 700;
 		color: #000000;
 		text-transform: uppercase;
@@ -734,13 +776,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		border-top: 1px solid #e0e0e0;
 	}
 
+	/* Match cart line product title (Oswald size / weight / tracking) */
 	:global(.cart-section .cart_totals .shop_table.cart-totals-table th) {
 		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
+		font-size: calc(18px * 0.8 * 1.1);
 		font-weight: 700;
-		color: #000000;
+		color: #1c1c1c;
 		text-transform: uppercase;
-		letter-spacing: 0.08em;
+		letter-spacing: 0.12em;
 		text-align: left;
 		padding: 14px 0;
 		border: none;
@@ -748,9 +791,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		vertical-align: top;
 	}
 
+	/* TOTAL label: same as other summary labels (avoids lighter/smaller cascade) */
+	:global(.cart-section .cart_totals .shop_table.cart-totals-table tr.order-total th) {
+		font-family: 'Oswald', sans-serif;
+		font-size: calc(18px * 0.8 * 1.1);
+		font-weight: 700;
+		color: #1c1c1c;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+	}
+
+	/* Summary amounts: match main cart table Price column */
 	:global(.cart-section .cart_totals .shop_table.cart-totals-table td) {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 18px;
+		font-family: 'Oswald', sans-serif;
+		font-size: calc(18px * 0.8 * 0.9 * 1.2 * 1.1 * 0.9);
 		font-weight: 400;
 		color: #8c8c8c;
 		text-align: right;
@@ -759,11 +813,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		vertical-align: top;
 	}
 
-	:global(.cart-section .cart_totals .shop_table.cart-totals-table .woocommerce-Price-amount) {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 18px;
+	:global(.cart-section .cart_totals .shop_table.cart-totals-table .woocommerce-Price-amount),
+	:global(.cart-section .cart_totals .shop_table.cart-totals-table .woocommerce-Price-currencySymbol) {
+		font-family: 'Oswald', sans-serif;
+		font-size: calc(18px * 0.8 * 0.9 * 1.2 * 1.1 * 0.9);
 		font-weight: 400;
 		color: #8c8c8c;
+	}
+
+	:global(.cart-section .cart_totals tr.cart-subtotal td),
+	:global(.cart-section .cart_totals tr.cart-subtotal bdi),
+	:global(.cart-section .cart_totals tr.cart-subtotal span) {
+		font-weight: 400;
+		font-synthesis: none;
 	}
 
 	/* Shipping: one line like subtotal – label left, value right */
@@ -782,9 +844,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		white-space: nowrap;
 	}
 
-	:global(.cart-section .cart_totals .shipping-display .woocommerce-Price-amount) {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 18px;
+	:global(.cart-section .cart_totals .shipping-display .woocommerce-Price-amount),
+	:global(.cart-section .cart_totals .shipping-display .woocommerce-Price-currencySymbol) {
+		font-family: 'Oswald', sans-serif;
+		font-size: calc(18px * 0.8 * 0.9 * 1.2 * 1.1 * 0.9);
 		font-weight: 400;
 		color: #8c8c8c;
 	}
@@ -887,7 +950,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	:global(.cart-section .ot-item-name) {
 		display: block;
 		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
+		font-size: calc(18px * 0.8 * 1.1);
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
@@ -897,7 +960,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	:global(.cart-section .ot-base-price) {
 		font-weight: 400;
 		color: #888;
-		font-size: 11px;
+		font-size: calc(11px * 1.1);
 		margin-left: 4px;
 		letter-spacing: 0;
 		text-transform: none;
@@ -906,29 +969,64 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	:global(.cart-section .ot-item-spec) {
 		display: block;
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 11px;
+		font-size: calc(11px * 1.1);
 		color: #8c8c8c;
 		margin-top: 3px;
+		padding-left: 0;
 		line-height: 1.4;
+	}
+
+	:global(.cart-section .ot-item-spec-bullets) {
+		list-style: disc;
+		margin: 2px 0 0;
+		padding-left: 1.15em;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: calc(11px * 1.1);
+		color: #8c8c8c;
+		line-height: 1.4;
+	}
+
+	:global(.cart-section .ot-item-spec-bullets li) {
+		margin: 0;
+		padding: 0;
 	}
 
 	:global(.cart-section .ot-acc-list) {
 		list-style: none;
-		margin: 6px 0 0;
-		padding: 0 0 0 10px;
+		margin-top: 6px;
+		margin-left: 20px;
+		margin-right: 0;
+		margin-bottom: 0;
+		padding: 0 0 0 6px;
 		border-left: 2px solid #e0e0e0;
+		display: grid;
+		grid-template-columns: auto minmax(4.5rem, max-content);
+		column-gap: 8px;
+		row-gap: 6px;
+		align-items: baseline;
+		justify-content: start;
+		width: fit-content;
+		max-width: 100%;
 	}
 
 	:global(.cart-section .ot-acc-list li) {
+		display: contents;
+	}
+
+	:global(.cart-section .ot-acc-list .ot-acc-label) {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 11px;
+		font-size: calc(11px * 1.1);
 		color: #555;
 		line-height: 1.7;
 	}
 
-	:global(.cart-section .ot-acc-price) {
+	:global(.cart-section .ot-acc-list .ot-acc-price) {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: calc(11px * 1.1);
 		color: #999;
-		font-size: 10px;
+		text-align: right;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
 	}
 
 	/* Responsive */
@@ -1070,9 +1168,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				if (isPlanner && item.accessories) {
 					let accHtml = '';
 					if (item.accessories.length) {
-						accHtml = `<ul class="ot-acc-list">${item.accessories.map((a) => `<li>${a.label} <span class="ot-acc-price">+$${a.price}</span></li>`).join('')}</ul>`;
+						accHtml = `<ul class="ot-acc-list" style="margin-left:20px">${item.accessories.map((a) => `<li><span class="ot-acc-label">${a.label}</span><span class="ot-acc-price">+$${a.price}</span></li>`).join('')}</ul>`;
 					}
-					nameHtml = `<span class="ot-item-name">${item.name} <span class="ot-base-price">$${(item.basePrice ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span></span><span class="ot-item-spec">${item.widthIn}\u2033W \u00d7 ${item.depthIn}\u2033D \u00b7 ${item.colorLabel}</span>${accHtml}`;
+					nameHtml = `<span class="ot-item-name">${item.name} <span class="ot-base-price">$${(item.basePrice ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span></span><span class="ot-item-spec">${item.widthIn}\u2033W \u00d7 ${item.depthIn}\u2033D</span><ul class="ot-item-spec-bullets"><li>${item.colorLabel}</li></ul>${accHtml}`;
 				} else if (isPlanner && item.model) {
 					const parts = item.model.split(' \u00b7 ');
 					const dimParts: string[] = [];
@@ -1084,7 +1182,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					const specLine = dimParts.join(' \u00b7 ');
 					let accHtml = '';
 					if (accParts.length) {
-						accHtml = `<ul class="ot-acc-list">${accParts.map((a) => `<li>${a}</li>`).join('')}</ul>`;
+						accHtml = `<ul class="ot-acc-list" style="margin-left:20px">${accParts.map((a) => `<li>${a}</li>`).join('')}</ul>`;
 					}
 					nameHtml = `<span class="ot-item-name">${item.name}</span><span class="ot-item-spec">${specLine}</span>${accHtml}`;
 				} else {

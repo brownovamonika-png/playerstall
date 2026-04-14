@@ -3,154 +3,91 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-	title="Thank You | Quote Request Received | PlayerStall"
-	description="Thanks for contacting PlayerStall. We've received your quote request and will respond within 24 hours. Custom sports lockers, 30+ years experience."
+	title="Thank You — We Received Your Message | PlayerStall"
+	description="Thanks for reaching out to PlayerStall. Our team will review your request and follow up within 2–3 business days. Custom wood sports lockers, 30+ years experience."
 >
 	<section class="ty-hero">
 		<div class="ty-hero-bg">
-			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Thank you from PlayerStall" class="ty-hero-image" />
+			<img
+				src="https://playerstall.b-cdn.net/images/stadium-goalpost-playerstall-lockers.jpg"
+				alt=""
+				class="ty-hero-image"
+				role="presentation"
+			/>
 		</div>
 		<div class="ty-hero-overlay"></div>
-		<div class="ty-hero-container">
+		<div class="ty-hero-inner">
 			<div class="ty-breadcrumbs">
 				<a href="/">Home</a>
-				<span>Thank You</span>
+				<span>Consultation received</span>
 			</div>
-			<h1 class="ty-title">Thank You</h1>
+			<div class="ty-hero-focus">
+				<h1 class="ty-headline">Thank you</h1>
+				<p class="ty-hero-tagline">We’d love to help your team get a locker room they’re proud of.</p>
+			</div>
 		</div>
 	</section>
 
-	<!-- Confirmation Card -->
-	<section class="ty-section">
-		<div class="container">
-			<div class="ty-card">
-				<div class="ty-icon" aria-hidden="true">&#10003;</div>
-				<h2>We've Received Your Request</h2>
-				<p class="ty-lead">
-					Thank you for reaching out. Your project is already with our team. Here's what happens next:
+	<section class="ty-body-section">
+		<div class="ty-container">
+			<div class="ty-panel">
+				<p class="ty-panel-eyebrow">Next steps</p>
+				<h2 class="ty-section-label">What happens next</h2>
+				<p class="ty-copy ty-copy-tight">
+					We’re grateful you took the time to reach out. A member of our team will read your details and get back to you within <strong>two to three business days</strong>, often sooner.
 				</p>
 			</div>
 		</div>
 	</section>
 
-	<!-- What Happens Next -->
-	<section class="ty-next-steps">
-		<div class="container">
-			<h2 class="ty-next-heading">What Happens Next</h2>
-			<div class="ty-steps-grid">
-				<div class="ty-next-step">
-					<div class="ty-next-number">1</div>
-					<h4>We Review Your Project</h4>
-					<p>A team member reviews your details within <strong>24 hours</strong> and becomes your go to contact for the whole project.</p>
-					<span class="ty-next-timeline">Within 24 hours</span>
-				</div>
-				<div class="ty-next-step">
-					<div class="ty-next-number">2</div>
-					<h4>We Reach Out to You</h4>
-					<p>Your contact calls or emails to talk through your vision, answer questions, and nail down the details for your custom design.</p>
-					<span class="ty-next-timeline">1 to 2 business days</span>
-				</div>
-				<div class="ty-next-step">
-					<div class="ty-next-number">3</div>
-					<h4>You Receive Your Custom Quote</h4>
-					<p>We send a custom layout and itemized quote based on your space, sport, and budget, ready for you to look over.</p>
-					<span class="ty-next-timeline">2 to 3 business days</span>
-				</div>
-			</div>
+	<section class="ty-journey-section" aria-labelledby="ty-journey-title">
+		<div class="ty-container">
+			<header class="ty-journey-header">
+				<span class="ty-journey-section-label">YOUR JOURNEY WITH US</span>
+				<h2 class="ty-journey-section-title" id="ty-journey-title">You are here</h2>
+			</header>
+			<ol class="ty-journey-grid">
+				<li class="ty-journey-box ty-journey-done">
+					<span class="ty-journey-num">1</span>
+					<span class="ty-journey-label">Explore</span>
+				</li>
+				<li class="ty-journey-box ty-journey-active" aria-current="step">
+					<span class="ty-journey-num">2</span>
+					<span class="ty-journey-label">Consultation</span>
+				</li>
+				<li class="ty-journey-box">
+					<span class="ty-journey-num">3</span>
+					<span class="ty-journey-label">Design &amp; quote</span>
+				</li>
+				<li class="ty-journey-box">
+					<span class="ty-journey-num">4</span>
+					<span class="ty-journey-label">Approval</span>
+				</li>
+				<li class="ty-journey-box">
+					<span class="ty-journey-num">5</span>
+					<span class="ty-journey-label">Production</span>
+				</li>
+				<li class="ty-journey-box">
+					<span class="ty-journey-num">6</span>
+					<span class="ty-journey-label">Shipping</span>
+				</li>
+				<li class="ty-journey-box">
+					<span class="ty-journey-num">7</span>
+					<span class="ty-journey-label">Installation</span>
+				</li>
+			</ol>
+			<p class="ty-journey-note">
+				Want the full picture? <a href="/how-it-works">See how it works</a>
+			</p>
 		</div>
 	</section>
 
-	<!-- Journey Progress -->
-	<section class="ty-journey">
-		<div class="container">
-			<p class="ty-journey-label">your journey with us</p>
-			<h3 class="ty-journey-heading">You Are Here</h3>
-			<div class="ty-journey-track">
-				<div class="ty-journey-step ty-journey-done">
-					<div class="ty-journey-dot"></div>
-					<span>Explore</span>
-				</div>
-				<div class="ty-journey-connector ty-journey-connector-done"></div>
-				<div class="ty-journey-step ty-journey-active">
-					<div class="ty-journey-dot"></div>
-					<span>Consultation</span>
-				</div>
-				<div class="ty-journey-connector"></div>
-				<div class="ty-journey-step">
-					<div class="ty-journey-dot"></div>
-					<span>Design &amp; Quote</span>
-				</div>
-				<div class="ty-journey-connector"></div>
-				<div class="ty-journey-step">
-					<div class="ty-journey-dot"></div>
-					<span>Approval</span>
-				</div>
-				<div class="ty-journey-connector"></div>
-				<div class="ty-journey-step">
-					<div class="ty-journey-dot"></div>
-					<span>Production</span>
-				</div>
-				<div class="ty-journey-connector"></div>
-				<div class="ty-journey-step">
-					<div class="ty-journey-dot"></div>
-					<span>Shipping</span>
-				</div>
-				<div class="ty-journey-connector"></div>
-				<div class="ty-journey-step">
-					<div class="ty-journey-dot"></div>
-					<span>Installation</span>
-				</div>
-			</div>
-			<p class="ty-journey-note">Want to see the full process? <a href="/how-it-works">See how it works</a></p>
-		</div>
-	</section>
-
-	<!-- Social Proof -->
-	<section class="ty-social-proof">
-		<div class="container">
-			<div class="ty-testimonials">
-				<div class="ty-testimonial">
-					<p class="ty-quote">"The free custom design service made all the difference. They understood our space and created the perfect solution."</p>
-					<span class="ty-author">Facilities Manager, Collegiate Program</span>
-				</div>
-				<div class="ty-testimonial">
-					<p class="ty-quote">"These lockers aren't just furniture. They're an investment in our culture. Our recruits notice the difference immediately."</p>
-					<span class="ty-author">Head Coach, Football Program</span>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Helpful Links -->
-	<section class="ty-explore">
-		<div class="container">
-			<h3 class="ty-explore-heading">While You Wait</h3>
-			<p class="ty-explore-text">Take a look around while our team puts your quote together.</p>
-			<div class="ty-explore-grid">
-				<a href="/how-it-works" class="ty-explore-card">
-					<h4>How It Works</h4>
-					<p>See the full journey from consultation to installation</p>
-				</a>
-				<a href="/gallery" class="ty-explore-card">
-					<h4>Gallery</h4>
-					<p>Browse completed locker rooms across all sports</p>
-				</a>
-				<a href="/blog" class="ty-explore-card">
-					<h4>Blog</h4>
-					<p>Read guides on locker room design, materials, and more</p>
-				</a>
-				<a href="/room-planner" class="ty-explore-card">
-					<h4>Room Planner</h4>
-					<p>Try our interactive tool to layout your locker room</p>
-				</a>
-			</div>
-		</div>
-	</section>
-
-	<!-- Contact Fallback -->
-	<section class="ty-contact">
-		<div class="container">
-			<p>Need to reach us sooner? Call <a href="tel:+18885841444">1 888 584 1444</a> or email <a href="mailto:team@playerstall.com">team@playerstall.com</a></p>
+	<section class="ty-foot-section" aria-label="Email follow-up">
+		<div class="ty-container">
+			<p class="ty-foot">
+				Need to add something? Email us at{' '}
+				<a href="mailto:team@playerstall.com">team@playerstall.com</a>
+			</p>
 		</div>
 	</section>
 </BaseLayout>
@@ -158,62 +95,73 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <style>
 	:global(body) {
 		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
-		background: #f7f7f7;
+		background: #ffffff;
 		color: #0d0d0d;
 	}
 
-	.container {
+	.ty-container {
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
 	}
 
-	/* Hero */
+	/* Hero — aligned with homepage slider feel */
 	.ty-hero {
 		position: relative;
+		min-height: 42vh;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
-		padding: 0 0 80px;
+		padding: 0 0 72px;
 		overflow: hidden;
-		min-height: 320px;
 	}
 
 	.ty-hero-bg {
 		position: absolute;
-		top: 0; left: 0; width: 100%; height: 100%;
-		z-index: 0; overflow: hidden;
+		inset: 0;
+		z-index: 0;
+		overflow: hidden;
 	}
 
 	.ty-hero-image {
-		width: 100%; height: 100%;
+		width: 100%;
+		height: 100%;
 		object-fit: cover;
 		object-position: center center;
-		filter: grayscale(100%);
 	}
 
 	.ty-hero-overlay {
 		position: absolute;
-		top: 0; left: 0; right: 0; bottom: 0;
-		background: rgba(0, 0, 0, 0.2);
+		inset: 0;
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 45%, rgba(0, 0, 0, 0.2) 100%);
 		z-index: 1;
 	}
 
-	.ty-hero-container {
-		position: relative; z-index: 10;
+	.ty-hero-inner {
+		position: relative;
+		z-index: 2;
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
-		text-align: left; width: 100%;
+		width: 100%;
+	}
+
+	/* Breadcrumb row + hero tagline: same face; tagline +10% size vs crumbs; extra gap below headline (+15%) */
+	.ty-breadcrumbs,
+	.ty-hero-tagline {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		line-height: 1.35;
+		color: rgba(255, 255, 255, 0.85);
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 	}
 
 	.ty-breadcrumbs {
-		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
-		color: rgba(255, 255, 255, 0.85);
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		margin-bottom: 30px;
+		margin-bottom: 28px;
 	}
 
 	.ty-breadcrumbs a {
@@ -222,384 +170,315 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		transition: color 0.3s;
 	}
 
-	.ty-breadcrumbs a:hover { color: #fe5900; }
+	.ty-breadcrumbs a:hover {
+		color: #fe5900;
+	}
 
 	.ty-breadcrumbs span {
 		margin-left: 10px;
 		color: #ffffff;
 	}
 
-	.ty-title {
+	.ty-hero-focus {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		text-align: left;
+		width: 100%;
+	}
+
+	.ty-headline {
 		font-family: 'Oswald', sans-serif;
-		font-size: 72px;
-		font-weight: 600;
+		font-size: clamp(27px, 4.05vw, 49px);
+		font-weight: 700;
 		color: #ffffff;
 		text-transform: uppercase;
-		margin: 0; line-height: 1.1;
+		line-height: 1.05;
+		margin: 0 0 calc(14px * 1.15);
+		max-width: 18ch;
 	}
 
-	/* Confirmation Card */
-	.ty-section {
-		padding: 5rem 0 3rem;
-		background: #ffffff;
-	}
-
-	.ty-card {
-		max-width: 640px;
-		margin: 0 auto;
-		text-align: center;
-	}
-
-	.ty-icon {
-		width: 64px; height: 64px;
-		margin: 0 auto 1.5rem;
-		background: #fe5900;
-		color: #fff;
-		font-size: 32px; font-weight: 700;
-		display: flex; align-items: center; justify-content: center;
-		border-radius: 50%;
-	}
-
-	.ty-card h2 {
-		font-family: 'Oswald', sans-serif;
-		font-size: 28px; font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		margin: 0 0 1rem;
-	}
-
-	.ty-lead {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 18px;
-		color: #0d0d0d;
-		line-height: 1.7;
+	.ty-hero-tagline {
 		margin: 0;
+		max-width: 42rem;
+		font-size: calc(12px * 1.1);
+		/* Match .ty-breadcrumbs span (second segment), not the link tone */
+		color: #ffffff;
 	}
 
-	/* What Happens Next */
-	.ty-next-steps {
-		padding: 2rem 0 5rem;
+	@media (max-width: 480px) {
+		.ty-breadcrumbs {
+			font-size: 11px;
+			letter-spacing: 0.09em;
+		}
+
+		.ty-hero-tagline {
+			font-size: calc(11px * 1.1);
+			letter-spacing: 0.09em;
+		}
+	}
+
+	/* Content — open layout, no card frame */
+	.ty-body-section {
+		padding: 3rem 0 4rem;
 		background: #ffffff;
 	}
 
-	.ty-next-heading {
-		font-family: 'Oswald', sans-serif;
-		font-size: 36px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		text-align: center;
-		margin: 0 0 48px;
-	}
-
-	.ty-steps-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 40px;
-		max-width: 960px;
+	.ty-panel {
+		max-width: 520px;
 		margin: 0 auto;
-	}
-
-	.ty-next-step {
 		text-align: center;
-		padding: 32px 24px;
-		background: #f7f7f7;
-		border-top: 3px solid #fe5900;
+		padding: 0;
 	}
 
-	.ty-next-number {
-		width: 48px; height: 48px;
-		border-radius: 50%;
-		background: #fe5900;
-		color: #fff;
-		display: flex; align-items: center; justify-content: center;
-		font-family: 'Oswald', sans-serif;
-		font-size: 20px; font-weight: 700;
-		margin: 0 auto 16px;
+	.ty-panel-eyebrow {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		letter-spacing: 0.28em;
+		text-transform: uppercase;
+		color: #9a9a9a;
+		margin: 0 0 10px;
 	}
 
-	.ty-next-step h4 {
+	.ty-section-label {
 		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
+		font-size: clamp(24px, 3.2vw, 34px);
 		font-weight: 600;
-		color: #0d0d0d;
 		text-transform: uppercase;
-		margin: 0 0 12px;
+		color: #1a1a1a;
+		line-height: 1.15;
+		margin: 0 0 1.35rem;
+		letter-spacing: 0.02em;
 	}
 
-	.ty-next-step p {
+	.ty-copy {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 15px;
-		color: #666666;
-		line-height: 1.7;
-		margin: 0 0 16px;
+		font-size: 16px;
+		color: #5c5c5c;
+		line-height: 1.72;
+		margin: 0 0 1.25rem;
+		max-width: 46ch;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
-	.ty-next-timeline {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		font-weight: 500;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-		color: #fe5900;
+	.ty-copy strong {
+		color: #2a2a2a;
+		font-weight: 600;
 	}
 
-	/* Journey Progress */
-	.ty-journey {
-		padding: 5rem 0;
-		background: #f7f7f7;
-		text-align: center;
+	.ty-copy-tight {
+		margin-bottom: 0;
 	}
 
-	.ty-journey-label {
+	.ty-foot-section {
+		padding: 2rem 0 3.25rem;
+		background: #ffffff;
+	}
+
+	.ty-foot {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
 		color: #8c8c8c;
-		letter-spacing: 0.3em;
-		text-transform: uppercase;
-		margin: 0 0 8px;
+		line-height: 1.65;
+		margin: 0 auto;
+		max-width: 520px;
+		text-align: center;
 	}
 
-	.ty-journey-heading {
+	.ty-foot a {
+		color: #1a1a1a;
+		font-weight: 500;
+		text-decoration: none;
+		border-bottom: 1px solid #c5c5c5;
+		padding-bottom: 1px;
+		transition: color 0.2s ease, border-color 0.2s ease;
+	}
+
+	.ty-foot a:hover {
+		color: #fe5900;
+		border-bottom-color: #fe5900;
+	}
+
+	/* Journey — neutral palette; orange only on current step */
+	.ty-journey-section {
+		padding: 48px 0 56px;
+		background: linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%);
+	}
+
+	.ty-journey-header {
+		text-align: center;
+		margin-bottom: 28px;
+	}
+
+	.ty-journey-section-label {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		letter-spacing: 0.28em;
+		text-transform: uppercase;
+		color: #9a9a9a;
+		margin-bottom: 8px;
+	}
+
+	.ty-journey-section-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 28px;
+		font-size: clamp(22px, 3vw, 32px);
 		font-weight: 600;
-		color: #0d0d0d;
 		text-transform: uppercase;
-		margin: 0 0 40px;
+		color: #1a1a1a;
+		line-height: 1.12;
+		margin: 0;
+		letter-spacing: 0.02em;
 	}
 
-	.ty-journey-track {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0;
-		max-width: 900px;
-		margin: 0 auto 24px;
-		flex-wrap: wrap;
+	.ty-journey-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+		list-style: none;
+		margin: 0 auto 26px;
+		padding: 0;
+		max-width: 520px;
 	}
 
-	.ty-journey-step {
+	.ty-journey-box {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 8px;
+		text-align: center;
+		padding: 16px 10px 14px;
+		background: #ffffff;
+		border: 1px solid #e6e6e6;
+		border-top: 2px solid #dcdcdc;
+		border-radius: 3px;
+		box-sizing: border-box;
+		min-height: 0;
+		justify-content: flex-start;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+		transition: border-color 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.ty-journey-box.ty-journey-done {
+		border-top-color: #4a4a4a;
+	}
+
+	.ty-journey-box.ty-journey-active {
+		border-top-color: #4a4a4a;
+		border-color: #d8d8d8;
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+	}
+
+	.ty-journey-num {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 34px;
+		height: 34px;
+		margin: 0 0 10px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		line-height: 1;
+		color: #7a7a7a;
+		background: #f0f0f0;
+		border: 1px solid #e2e2e2;
+		border-radius: 2px;
 		flex-shrink: 0;
 	}
 
-	.ty-journey-dot {
-		width: 20px; height: 20px;
-		border-radius: 50%;
-		background: #e0e0e0;
-		border: 3px solid #e0e0e0;
-		transition: all 0.3s;
+	.ty-journey-done .ty-journey-num {
+		background: #2d2d2d;
+		border-color: #2d2d2d;
+		color: #ffffff;
 	}
 
-	.ty-journey-done .ty-journey-dot {
-		background: #fe5900;
-		border-color: #fe5900;
-	}
-
-	.ty-journey-active .ty-journey-dot {
+	.ty-journey-active .ty-journey-num {
 		background: #ffffff;
-		border-color: #fe5900;
-		box-shadow: 0 0 0 4px rgba(254, 89, 0, 0.2);
+		border: 1px solid #c8c8c8;
+		color: #1a1a1a;
+		box-shadow: inset 0 -2px 0 #fe5900;
 	}
 
-	.ty-journey-step span {
-		font-family: 'Yantramanav', sans-serif;
+	.ty-journey-label {
+		font-family: 'Oswald', sans-serif;
 		font-size: 11px;
-		font-weight: 500;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: #8c8c8c;
-		white-space: nowrap;
-	}
-
-	.ty-journey-done span,
-	.ty-journey-active span {
-		color: #0d0d0d;
 		font-weight: 600;
+		text-transform: uppercase;
+		color: #9a9a9a;
+		line-height: 1.35;
+		letter-spacing: 0.07em;
+		max-width: 11em;
 	}
 
-	.ty-journey-connector {
-		width: 40px;
-		height: 3px;
-		background: #e0e0e0;
-		margin: 0 4px;
-		margin-bottom: 24px;
-	}
-
-	.ty-journey-connector-done {
-		background: #fe5900;
+	.ty-journey-done .ty-journey-label,
+	.ty-journey-active .ty-journey-label {
+		color: #1a1a1a;
 	}
 
 	.ty-journey-note {
+		text-align: center;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 14px;
-		color: #8c8c8c;
+		line-height: 1.6;
+		color: #6b6b6b;
 		margin: 0;
 	}
 
 	.ty-journey-note a {
-		color: #fe5900;
+		color: #1a1a1a;
 		text-decoration: none;
 		font-weight: 500;
+		border-bottom: 1px solid #c5c5c5;
+		padding-bottom: 1px;
+		transition: color 0.2s ease, border-color 0.2s ease;
 	}
 
 	.ty-journey-note a:hover {
-		text-decoration: underline;
-	}
-
-	/* Social Proof */
-	.ty-social-proof {
-		padding: 5rem 0;
-		background: #ffffff;
-	}
-
-	.ty-testimonials {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 40px;
-		max-width: 900px;
-		margin: 0 auto;
-	}
-
-	.ty-testimonial {
-		padding: 32px;
-		background: #f7f7f7;
-		border-left: 3px solid #fe5900;
-	}
-
-	.ty-quote {
-		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
-		font-weight: 600;
-		color: #0d0d0d;
-		line-height: 1.5;
-		font-style: italic;
-		margin: 0 0 16px;
-	}
-
-	.ty-author {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #8c8c8c;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-	}
-
-	/* Explore Links */
-	.ty-explore {
-		padding: 5rem 0;
-		background: #f7f7f7;
-	}
-
-	.ty-explore-heading {
-		font-family: 'Oswald', sans-serif;
-		font-size: 28px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		text-align: center;
-		margin: 0 0 8px;
-	}
-
-	.ty-explore-text {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 16px;
-		color: #666666;
-		text-align: center;
-		margin: 0 0 40px;
-	}
-
-	.ty-explore-grid {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 24px;
-		max-width: 960px;
-		margin: 0 auto;
-	}
-
-	.ty-explore-card {
-		display: block;
-		padding: 28px 20px;
-		background: #ffffff;
-		border: 1px solid #e8e8e8;
-		text-decoration: none;
-		transition: all 0.3s;
-		text-align: center;
-	}
-
-	.ty-explore-card:hover {
-		border-color: #fe5900;
-		transform: translateY(-3px);
-		box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-	}
-
-	.ty-explore-card h4 {
-		font-family: 'Oswald', sans-serif;
-		font-size: 16px;
-		font-weight: 600;
-		color: #0d0d0d;
-		text-transform: uppercase;
-		margin: 0 0 8px;
-	}
-
-	.ty-explore-card p {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		color: #666666;
-		line-height: 1.5;
-		margin: 0;
-	}
-
-	.ty-explore-card:hover h4 {
 		color: #fe5900;
+		border-bottom-color: #fe5900;
 	}
 
-	/* Contact Fallback */
-	.ty-contact {
-		padding: 3rem 0;
-		background: #ffffff;
-		text-align: center;
-		border-top: 1px solid #e8e8e8;
+	@media (min-width: 640px) {
+		.ty-journey-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			max-width: 680px;
+			gap: 12px;
+		}
 	}
 
-	.ty-contact p {
-		font-family: 'Yantramanav', sans-serif;
-		font-size: 15px;
-		color: #666666;
-		margin: 0;
+	@media (min-width: 1024px) {
+		.ty-journey-grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			max-width: 760px;
+		}
 	}
 
-	.ty-contact a {
-		color: #fe5900;
-		text-decoration: none;
-		font-weight: 500;
+	@media (min-width: 1200px) {
+		.ty-journey-grid {
+			grid-template-columns: repeat(7, minmax(0, 1fr));
+			max-width: 900px;
+			gap: 11px;
+		}
+
+		.ty-journey-box {
+			padding: 14px 8px 12px;
+		}
+
+		.ty-journey-label {
+			font-size: 10px;
+			max-width: none;
+		}
 	}
 
-	.ty-contact a:hover {
-		text-decoration: underline;
-	}
-
-	/* Responsive */
 	@media (max-width: 768px) {
-		.ty-hero { min-height: 240px; padding-bottom: 50px; }
-		.ty-title { font-size: 42px; }
-		.ty-next-heading { font-size: 28px; }
-		.ty-steps-grid { grid-template-columns: 1fr; gap: 24px; }
-		.ty-testimonials { grid-template-columns: 1fr; gap: 24px; }
-		.ty-explore-grid { grid-template-columns: repeat(2, 1fr); }
-		.ty-journey-track { gap: 0; }
-		.ty-journey-connector { width: 20px; }
-		.ty-journey-step span { font-size: 9px; }
-	}
+		.ty-hero {
+			min-height: 38vh;
+			padding-bottom: 48px;
+		}
 
-	@media (max-width: 480px) {
-		.ty-title { font-size: 32px; }
-		.ty-explore-grid { grid-template-columns: 1fr; }
-		.ty-journey-track { flex-wrap: wrap; justify-content: center; gap: 8px; }
-		.ty-journey-connector { width: 16px; }
+		.ty-body-section {
+			padding: 2.25rem 0 2.75rem;
+		}
 	}
 </style>
