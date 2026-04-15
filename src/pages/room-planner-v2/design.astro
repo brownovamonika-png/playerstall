@@ -1,5 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+	ROOM_PLAN_INTRO,
+	ROOM_PLAN_SHIPPING_LINES,
+	ROOM_PLAN_SUBMIT_DISCLAIMER,
+} from '../../lib/roomPlanCustomerCopy';
 import { getAllTemplates } from '../../room-planner/catalog';
 
 const plannerTemplates = getAllTemplates();
@@ -390,7 +395,7 @@ const plannerTemplates = getAllTemplates();
 		<div class="order-section-header">
 			<span class="step-badge">Step 3</span>
 			<h2 class="room-setup-title" style="text-align:center;">Review Your Layout</h2>
-			<p class="room-setup-desc" style="text-align:center; margin-bottom:30px;">Here's everything you've configured across all your rooms. When you're happy with the layout, send it to your cart or email it to us and we'll help you bring it to life.</p>
+			<p class="order-desc">{ROOM_PLAN_INTRO}</p>
 		</div>
 		<div class="order-section-inner">
 			<div class="order-panel" id="order-panel">
@@ -419,12 +424,17 @@ const plannerTemplates = getAllTemplates();
 					</tfoot>
 				</table>
 				<div class="order-locker-count" id="order-locker-count">0 lockers</div>
+				<div class="order-shipping-note">
+					{ROOM_PLAN_SHIPPING_LINES.map((line) => (
+						<p class="order-shipping-line">{line}</p>
+					))}
+				</div>
 				<div class="order-email-row">
 					<label class="order-email-label" for="customer-email">Your email</label>
 					<input type="email" id="customer-email" class="order-email-input" placeholder="you@example.com" required />
 				</div>
 				<button type="button" class="order-request-btn" id="btn-request-quote">Get In Touch With Us</button>
-				<p class="order-disclaimer" id="order-status-msg">We'll send a copy of your layout to your email and to our team so we can help you execute on your dream locker room.</p>
+				<p class="order-disclaimer" id="order-status-msg">{ROOM_PLAN_SUBMIT_DISCLAIMER}</p>
 			</div>
 		</div>
 	</section>
@@ -1301,11 +1311,25 @@ const plannerTemplates = getAllTemplates();
 		color: #0d0d0d;
 	}
 	.order-locker-count {
-		padding: 10px 24px;
+		padding: 10px 24px 4px;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
 		color: #8c8c8c;
 		letter-spacing: 0.5px;
+	}
+	.order-shipping-note {
+		margin: 0;
+		padding: 0 24px 12px;
+	}
+	.order-shipping-line {
+		margin: 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		line-height: 1.55;
+	}
+	.order-shipping-line + .order-shipping-line {
+		margin-top: 6px;
 	}
 	.order-email-row { padding: 0 24px; margin-top: 16px; }
 	.order-email-label {
@@ -1369,6 +1393,17 @@ const plannerTemplates = getAllTemplates();
 	.order-section { background: #ffffff; padding: 60px 20px; }
 	.order-section-header { max-width: 1300px; margin: 0 auto; padding: 0 20px 0; }
 	.order-section-inner { max-width: 700px; margin: 0 auto; }
+	.order-section-header .order-desc {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #8c8c8c;
+		text-align: center;
+		line-height: 1.6;
+		margin: 0 auto 30px;
+		max-width: 700px;
+		padding: 0 20px;
+		box-sizing: border-box;
+	}
 
 	/* Mobile tabs */
 	.planner-mobile-tabs {

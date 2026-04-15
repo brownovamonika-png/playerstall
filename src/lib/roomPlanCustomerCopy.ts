@@ -1,6 +1,7 @@
 /**
- * Shared wording for the room-plan customer email and the estimate PDF
- * so both stay in sync (see roomPlanEmailTemplates + pdfEstimate).
+ * Shared wording for room-plan flows: single-page Locker Room Planner (/room-planner),
+ * step-by-step planner review (/new-room-planner/review), customer email, and estimate PDF.
+ * See roomPlanEmailTemplates + pdfEstimate + planner pages.
  */
 
 /** Hero intro under "Review your layout" */
@@ -12,6 +13,10 @@ export const ROOM_PLAN_SHIPPING_LINES = [
 	"Shipping isn't included in this estimate.",
 	"We'll add shipping to your final order once we've agreed on everything with you.",
 ] as const;
+
+/** Muted note under the primary submit CTA (all planner review UIs). */
+export const ROOM_PLAN_SUBMIT_DISCLAIMER =
+	"We'll send a copy of your layout to your email and to our team so we can help you execute on your dream locker room.";
 
 export const ROOM_PLAN_WHAT_NEXT_HEADING = 'What happens next?';
 
