@@ -80,9 +80,8 @@ function measureOrderPanelHeight(
 	innerPad: number,
 	colProductW: number,
 ): number {
-	// Mirrors the draw sequence below (customer → order title → thead → rows → tfoot → locker → ship → your email).
+	// Mirrors the draw sequence below (customer email: no “Customer” strip — Order Summary first).
 	let h = innerPad;
-	h += 10 + 8 + 12 + 16 + 18;
 	h += 14 + 16 + 14;
 	h += 10 + 10 + 14;
 	let curRoom = '';
@@ -102,8 +101,9 @@ function measureOrderPanelHeight(
 
 /**
  * Portrait project estimate — same white layout + hierarchy as the customer room-plan email
- * (`buildCustomerHTML`, /dev/email-preview-room-plan). Pass the same `orderSummary` you POST
- * to `/api/send-room-plan` so timing/funding appear in the “Your selections” panel.
+ * (`buildCustomerHTML`, /dev/email-preview-room-plan), including the order card (Order Summary
+ * first; no internal “Customer” strip — that is team-email-only). Pass the same `orderSummary` you
+ * POST to `/api/send-room-plan` so timing/funding appear in the “Your selections” panel.
  */
 export function generateEstimatePdfBlob(
 	lines: EstimatePdfLine[],
@@ -225,19 +225,8 @@ export function generateEstimatePdfBlob(
 		pdf.setLineWidth(0.5);
 		pdf.rect(xCard, orderPanelTop, contentW, orderPanelH, 'FD');
 
+		/* Match buildCustomerHTML order card: Order Summary row first (team email adds “Customer” above). */
 		y = orderPanelTop + innerPad;
-		pdf.setFont('helvetica', 'normal');
-		pdf.setFontSize(12);
-		pdf.setTextColor(...MUTED);
-		pdf.text('Customer', innerLeft, y + 10);
-		y += 10 + 8;
-		pdf.setFontSize(14);
-		pdf.setTextColor(...TEXT);
-		pdf.text(customerEmail, innerLeft, y + 12);
-		y += 12 + 16;
-		hRule(innerLeft, y, innerW);
-		y += 18;
-
 		pdf.setFont('helvetica', 'bold');
 		pdf.setFontSize(20);
 		pdf.setTextColor(...TEXT);
