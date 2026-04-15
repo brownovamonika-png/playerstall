@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
-import { drawPlayerStallPdfHeader } from './pdfBranding';
+import { ROOM_PLAN_FOOTER_LINES } from '../lib/roomPlanCustomerCopy';
+import { drawRoomPlanEmailStylePdfFooter, drawRoomPlanEmailStylePdfHero } from './pdfBranding';
 import { render } from './render';
 import { appendPlanner3DPreviewPage } from './pdfAppend3D';
 import { capturePlanner3DDataURL } from './render3d';
@@ -125,29 +126,21 @@ export async function generateLayoutPdfBlob(
 			render(offCtx, tempState);
 			const imgData = offCanvas.toDataURL('image/png');
 
-			const yBody = drawPlayerStallPdfHeader(pdf);
-			pdf.setFontSize(15);
-			pdf.setFont('helvetica', 'bold');
-			pdf.setTextColor(0);
-			pdf.text(roomLabel, margin, yBody);
-			pdf.setFontSize(9);
-			pdf.setFont('helvetica', 'normal');
-			pdf.setTextColor(100);
-			pdf.text('Floor plan (top view)', margin, yBody + 14);
-			pdf.setTextColor(0);
+			const yBody = drawRoomPlanEmailStylePdfHero(pdf, {
+				pageLabel: savedRooms.length > 1 ? `Room ${ri + 1} of ${savedRooms.length}` : undefined,
+				headline: roomLabel.toUpperCase(),
+				mutedCenter: 'Floor plan (top view)',
+				stackMaxWidth: Math.min(480, pageW - 96),
+			});
 
-			const imgTop = yBody + 22;
+			const imgTop = yBody + 12;
 			const imgW = pageW - margin * 2;
 			const imgH = (offCanvas.height / offCanvas.width) * imgW;
-			const maxImgH = pageH - imgTop - margin;
+			const maxImgH = pageH - imgTop - margin - 36;
 			const drawH = Math.min(imgH, maxImgH);
 			pdf.addImage(imgData, 'PNG', margin, imgTop, imgW, drawH, undefined, 'NONE');
 
-			pdf.setFontSize(8);
-			pdf.setFont('helvetica', 'italic');
-			pdf.setTextColor(180);
-			pdf.text('PlayerStall Room Planner - playerstall.com', pageW / 2, pageH - 20, { align: 'center' });
-			pdf.setTextColor(0);
+			drawRoomPlanEmailStylePdfFooter(pdf, ROOM_PLAN_FOOTER_LINES[0], ROOM_PLAN_FOOTER_LINES[1]);
 
 			await appendPlanner3DPreviewPage(pdf, roomLabel, tempState, room.customLogoDataUrl ?? null);
 		}

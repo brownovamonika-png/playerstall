@@ -1,5 +1,8 @@
 node_modules
 
+# Local exports (npm run email:export-preview)
+email-export/
+
 # Environment variables (API tokens, secrets)
 .env
 .env.local

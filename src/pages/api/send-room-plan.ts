@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { ROOM_PLAN_INTRO } from '../../lib/roomPlanCustomerCopy';
 import { buildCustomerHTML, buildSalesHTML } from '../../lib/roomPlanEmailTemplates';
 
 /** Server route — bundled with Astro on Vercel (root `api/` was missing traced deps → FUNCTION_INVOCATION_FAILED). */
@@ -6,8 +7,26 @@ export const prerender = false;
 
 const MAILERSEND_API = 'https://api.mailersend.com/v1/email';
 const FROM_EMAIL = process.env.MAILERSEND_FROM_EMAIL || 'team@playerstall.com';
-const FROM_NAME = 'PlayerStall Room Planner';
+const FROM_NAME = 'PlayerStall';
 const SALES_EMAIL = 'team@playerstall.com';
+
+function roomPlanEmailPlainText(email: string, grandTotal: string): string {
+	const intro = ROOM_PLAN_INTRO.replace(/\s+/g, ' ').trim();
+	return [
+		'PLAYERSTALL — Review your layout',
+		'',
+		intro,
+		'',
+		`Estimated total (from planner): $${grandTotal}`,
+		`Your email: ${email}`,
+		'',
+		'Attached when generated: PlayerStall-Room-Estimate.pdf and PlayerStall-Room-Layout.pdf.',
+		'',
+		'If this looks plain, open the HTML version — layout matches playerstall.com room planner.',
+		'',
+		'team@playerstall.com',
+	].join('\n');
+}
 
 interface RequestBody {
 	email: string;
@@ -26,6 +45,7 @@ async function sendEmail(
 	to: { email: string; name?: string },
 	subject: string,
 	html: string,
+	text: string,
 	replyTo?: { email: string },
 	attachments?: { filename: string; content: string }[],
 ) {
@@ -34,6 +54,7 @@ async function sendEmail(
 		to: [to],
 		subject,
 		html,
+		text,
 	};
 	if (replyTo) payload.reply_to = [replyTo];
 	if (attachments?.length) payload.attachments = attachments;
@@ -89,21 +110,31 @@ export const POST: APIRoute = async ({ request }) => {
 
 		const customerHTML = buildCustomerHTML(email, orderSummary, grandTotal, layoutPreviewDataUrl);
 		const salesHTML = buildSalesHTML(email, orderSummary, grandTotal, layoutPreviewDataUrl);
+		const customerText = roomPlanEmailPlainText(email, grandTotal);
+		const salesText = [
+			`New room planner submission from ${email}`,
+			'',
+			'Open the HTML version in MailerSend / your inbox for the full order table and optional 3D preview.',
+			'',
+			customerText,
+		].join('\n');
 
 		await Promise.all([
 			sendEmail(
 				token,
 				{ email, name: 'Room Planner Customer' },
-				'Your PlayerStall Room Plan is Ready!',
+				'Review your layout — PlayerStall (PDFs attached)',
 				customerHTML,
+				customerText,
 				{ email: SALES_EMAIL },
 				attachments,
 			),
 			sendEmail(
 				token,
 				{ email: SALES_EMAIL, name: 'PlayerStall Sales' },
-				`Room Planner Layout Request from ${email}`,
+				`New layout submission — ${email}`,
 				salesHTML,
+				salesText,
 				{ email },
 				attachments,
 			),

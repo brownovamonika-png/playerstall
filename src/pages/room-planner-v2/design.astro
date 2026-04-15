@@ -3186,7 +3186,7 @@ const plannerTemplates = getAllTemplates();
 			unitPrice: l.unitPrice,
 			qty: l.qty,
 		}));
-		const estimateBlob = generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal);
+		const estimateBlob = generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal, orderSummary);
 		let layoutBlob: Blob | null = null;
 		try {
 			layoutBlob = await generateLayoutPdfBlob(savedRooms, state.displayUnit);

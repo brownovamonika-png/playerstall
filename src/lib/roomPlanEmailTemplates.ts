@@ -20,6 +20,7 @@ import {
 	ROOM_PLAN_WHAT_NEXT_HEADING,
 	ROOM_PLAN_WHAT_NEXT_STEPS,
 } from './roomPlanCustomerCopy';
+import { extractPlannerMetaFromOrderSummary, parsePlannerProductLine } from './roomPlanOrderSummaryParse';
 
 const FONT_LINK = `<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +35,9 @@ const C_MUTED = '#8c8c8c';
 const C_PAGE = '#ffffff';
 const C_PANEL = '#f7f7f7';
 const C_FOOT = '#b6b6b6';
+
+/** Invisible to users in most clients; use “Show original” / raw HTML to confirm the live API sent this build. */
+export const ROOM_PLAN_EMAIL_HTML_MARKER = '<!-- playerstall-room-plan:v2-html -->';
 
 function escapeHtml(s: string): string {
 	return s
@@ -61,23 +65,6 @@ function layoutPreviewBlock(layoutPreviewDataUrl: string | undefined | null): st
     <p style="margin:0 auto 14px;max-width:520px;font-family:${FF_BODY};font-size:12px;line-height:1.55;color:${C_MUTED};text-align:center;">${escapeHtml(ROOM_PLAN_EMAIL_3D_PREVIEW_BLURB)}</p>
     <img src="${layoutPreviewDataUrl}" alt="${escapeHtml(ROOM_PLAN_EMAIL_3D_PREVIEW_ALT)}" width="560" style="max-width:100%;height:auto;display:block;margin:0 auto;border:1px solid ${C_RULE};" />
   </td></tr>`;
-}
-
-/**
- * Parse planner line: `4x Model S (24"W x 19"D, High Reflective White + acc) - $2596.00`
- */
-function parsePlannerProductLine(line: string): { qty: string; name: string; specLine: string; price: string } | null {
-	const re = /^(\d+)x\s+(.+?)\s+\((.+)\)\s+-\s+\$([\d,]+\.\d{2})\s*$/i;
-	const m = line.match(re);
-	if (!m) return null;
-	const qty = m[1];
-	const name = m[2].trim();
-	const inner = m[3].trim();
-	const price = m[4].replace(/,/g, '');
-	const innerRe = /^(\d+"\s*W\s+[x×]\s+\d+"\s*D)\s*,\s*(.+)$/i;
-	const im = inner.match(innerRe);
-	const specLine = im ? `${im[1].replace(/\s+/g, ' ').trim()} · ${im[2].trim()}` : inner;
-	return { qty, name, specLine, price: price };
 }
 
 /** Three-column body rows like review.astro order table (Product | Qty | Subtotal). */
@@ -125,6 +112,37 @@ function buildReviewStyleTableRows(orderSummary: string): { rows: string; locker
 	return { rows: chunks.join('\n'), lockerCount, roomCount: effectiveRooms };
 }
 
+function buildMetaSelectionsHtml(timingLines: string[], fundingLines: string[]): string {
+	if (!timingLines.length && !fundingLines.length) return '';
+	const cell = (lines: string[]) => lines.map((l) => escapeHtml(l)).join('<br />');
+	const rows: string[] = [];
+	if (timingLines.length) {
+		rows.push(`<tr>
+  <td style="padding:10px 16px;border-bottom:1px solid ${C_RULE};vertical-align:top;font-family:${FF_HEAD};font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:${C_MUTED};width:38%;">Preferred delivery timing</td>
+  <td style="padding:10px 16px;border-bottom:1px solid ${C_RULE};font-family:${FF_BODY};font-size:13px;color:${C_TEXT};line-height:1.45;">${cell(timingLines)}</td>
+</tr>`);
+	}
+	if (fundingLines.length) {
+		rows.push(`<tr>
+  <td style="padding:10px 16px;border-bottom:1px solid ${C_RULE};vertical-align:top;font-family:${FF_HEAD};font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:${C_MUTED};">Funding / budget</td>
+  <td style="padding:10px 16px;border-bottom:1px solid ${C_RULE};font-family:${FF_BODY};font-size:13px;color:${C_TEXT};line-height:1.45;">${cell(fundingLines)}</td>
+</tr>`);
+	}
+	return `
+  <tr><td style="padding:28px 8px 0;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:${C_PANEL};border:1px solid ${C_RULE};">
+      <tr><td style="padding:16px 20px;border-bottom:1px solid ${C_RULE};">
+        <h2 style="margin:0;font-family:${FF_HEAD};font-size:14px;font-weight:700;color:${C_TEXT};text-transform:uppercase;letter-spacing:1.5px;line-height:1.2;">Your selections</h2>
+      </td></tr>
+      <tr><td style="padding:0;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+          ${rows.join('\n')}
+        </table>
+      </td></tr>
+    </table>
+  </td></tr>`;
+}
+
 function reviewOrderTableTheadSubfoot(grandTotal: string): { thead: string; subfoot: string } {
 	const thead = `<tr>
     <th align="left" style="padding:12px 24px;font-family:${FF_HEAD};font-size:11px;font-weight:600;color:${C_MUTED};text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid ${C_RULE};">Product</th>
@@ -148,7 +166,9 @@ export function buildCustomerHTML(
 	grandTotal: string,
 	layoutPreviewDataUrl?: string | null,
 ): string {
-	const { rows, lockerCount, roomCount } = buildReviewStyleTableRows(orderSummary);
+	const { timingLines, fundingLines, rest } = extractPlannerMetaFromOrderSummary(orderSummary);
+	const { rows, lockerCount, roomCount } = buildReviewStyleTableRows(rest);
+	const metaRow = buildMetaSelectionsHtml(timingLines, fundingLines);
 	const footerLine2Parts = ROOM_PLAN_FOOTER_LINES[1].split(' · ');
 	const { thead, subfoot } = reviewOrderTableTheadSubfoot(grandTotal);
 	const previewRow = layoutPreviewBlock(layoutPreviewDataUrl);
@@ -167,6 +187,7 @@ export function buildCustomerHTML(
 ${FONT_LINK}
 </head>
 <body style="margin:0;padding:0;background:${C_PAGE};font-family:${FF_BODY};color:${C_TEXT};">
+${ROOM_PLAN_EMAIL_HTML_MARKER}
 <table width="100%" cellpadding="0" cellspacing="0" style="background:${C_PAGE};padding:32px 16px 48px;">
 <tr><td align="center">
 <table width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;border-collapse:collapse;">
@@ -182,6 +203,7 @@ ${FONT_LINK}
     </p>
   </td></tr>
 ${previewRow}
+${metaRow}
   <tr><td style="padding:28px 8px 0;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:${C_PANEL};border:1px solid ${C_RULE};">
       <tr><td style="padding:24px 24px 16px;border-bottom:1px solid ${C_RULE};">
@@ -255,7 +277,9 @@ export function buildSalesHTML(
 	grandTotal: string,
 	layoutPreviewDataUrl?: string | null,
 ): string {
-	const { rows, lockerCount, roomCount } = buildReviewStyleTableRows(orderSummary);
+	const { timingLines, fundingLines, rest } = extractPlannerMetaFromOrderSummary(orderSummary);
+	const { rows, lockerCount, roomCount } = buildReviewStyleTableRows(rest);
+	const metaRow = buildMetaSelectionsHtml(timingLines, fundingLines);
 	const footerLine2Parts = ROOM_PLAN_FOOTER_LINES[1].split(' · ');
 	const { thead, subfoot } = reviewOrderTableTheadSubfoot(grandTotal);
 	const previewRow = layoutPreviewBlock(layoutPreviewDataUrl);
@@ -274,6 +298,7 @@ export function buildSalesHTML(
 ${FONT_LINK}
 </head>
 <body style="margin:0;padding:0;background:${C_PAGE};font-family:${FF_BODY};color:${C_TEXT};">
+${ROOM_PLAN_EMAIL_HTML_MARKER}
 <table width="100%" cellpadding="0" cellspacing="0" style="background:${C_PAGE};padding:32px 16px 48px;">
 <tr><td align="center">
 <table width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;border-collapse:collapse;">
@@ -289,6 +314,7 @@ ${FONT_LINK}
     </p>
   </td></tr>
 ${previewRow}
+${metaRow}
   <tr><td style="padding:28px 8px 0;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:${C_PANEL};border:1px solid ${C_RULE};">
       <tr><td style="padding:24px 24px 16px;border-bottom:1px solid ${C_RULE};">
@@ -358,8 +384,12 @@ ${previewRow}
 </html>`;
 }
 
-/** Matches real planner payload so preview shows review-style table */
+/** Matches real planner payload so preview shows meta + review-style table */
 export const SAMPLE_ORDER_SUMMARY = [
+	'Preferred delivery timing:',
+	'DEAN: 1–3 months',
+	'Funding / budget:',
+	'DEAN: Have funds',
 	'--- DEAN ---',
 	'7x Model S (24"W x 19"D, Marigold) - $5908.00',
 	'Estimated Total: $5,908.00',

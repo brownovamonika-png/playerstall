@@ -67,19 +67,23 @@ const teamSrc = `data:text/html;charset=utf-8,${encodeURIComponent(teamHtml)}`;
 	</head>
 	<body>
 		<p class="hint">
-			Edit copy and layout in <code>src/lib/roomPlanEmailTemplates.ts</code>, refresh this page. Subjects
-			are set in <code>src/pages/api/send-room-plan.ts</code> (<code>sendEmail(…, subject, …)</code>).
+			This HTML is what <code>POST /api/send-room-plan</code> emails to customers (same <code>buildCustomerHTML</code>
+			call; optional 3D snapshot is omitted here). The estimate PDF uses the same intro, your selections
+			(timing/funding from <code>orderSummary</code>), order summary, and bands — see
+			<code>src/room-planner/pdfEstimate.ts</code>. Edit layout in <code>src/lib/roomPlanEmailTemplates.ts</code>.
+			Subjects are set in <code>src/pages/api/send-room-plan.ts</code>. To save the same HTML (and a sample estimate PDF) as files on disk, run
+			<code>npm run email:export-preview</code> — open the <code>email-export/</code> folder in Finder.
 		</p>
 
 		<section>
 			<h1>Customer email (inbox of the address they typed in the planner)</h1>
-			<p class="hint">Subject: <strong>Your PlayerStall Room Plan is Ready!</strong></p>
+			<p class="hint">Subject: <strong>Review your layout — PlayerStall (PDFs attached)</strong></p>
 			<iframe title="Customer email preview" src={customerSrc}></iframe>
 		</section>
 
 		<section>
 			<h1>Team email (team@)</h1>
-			<p class="hint">Subject: <strong>Room Planner Layout Request from …</strong></p>
+			<p class="hint">Subject: <strong>New layout submission — …</strong></p>
 			<iframe title="Team email preview" src={teamSrc}></iframe>
 		</section>
 	</body>

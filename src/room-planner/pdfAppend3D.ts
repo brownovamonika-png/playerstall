@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
-import { drawPlayerStallPdfHeader } from './pdfBranding';
+import { ROOM_PLAN_FOOTER_LINES } from '../lib/roomPlanCustomerCopy';
+import { drawRoomPlanEmailStylePdfFooter, drawRoomPlanEmailStylePdfHero } from './pdfBranding';
 import type { PlannerState } from './types';
 import { capturePlanner3DDataURL } from './render3d';
 
@@ -24,25 +25,16 @@ export async function appendPlanner3DPreviewPage(
 	const pageH = pdf.internal.pageSize.getHeight();
 	const margin = 48;
 
-	const yBody = drawPlayerStallPdfHeader(pdf);
-	pdf.setFontSize(14);
-	pdf.setFont('helvetica', 'bold');
-	pdf.setTextColor(0);
-	pdf.text(`${roomLabel} - 3D preview`, margin, yBody);
-	pdf.setFontSize(8);
-	pdf.setFont('helvetica', 'italic');
-	pdf.setTextColor(100);
-	pdf.text(
-		'Share with boosters, administrators, or donors for fundraising and approvals.',
-		margin,
-		yBody + 14,
-	);
-	pdf.setTextColor(0);
-	pdf.setFont('helvetica', 'normal');
+	const yBody = drawRoomPlanEmailStylePdfHero(pdf, {
+		headline: `${roomLabel.toUpperCase()} — 3D PREVIEW`,
+		mutedCenter:
+			'Share with boosters, administrators, or donors for fundraising and approvals.',
+		stackMaxWidth: Math.min(480, pageW - 96),
+	});
 
 	if (data3d) {
 		const maxImgW = pageW - margin * 2;
-		const maxImgH = pageH - (yBody + 22) - margin;
+		const maxImgH = pageH - (yBody + 22) - margin - 36;
 		const aspect = SNAP_H / SNAP_W;
 		let imgW = maxImgW;
 		let imgH = imgW * aspect;
@@ -63,9 +55,5 @@ export async function appendPlanner3DPreviewPage(
 		pdf.text(lines, margin, yBody + 28);
 	}
 
-	pdf.setFontSize(7);
-	pdf.setFont('helvetica', 'italic');
-	pdf.setTextColor(180);
-	pdf.text('PlayerStall Room Planner - playerstall.com', pageW / 2, pageH - 16, { align: 'center' });
-	pdf.setTextColor(0);
+	drawRoomPlanEmailStylePdfFooter(pdf, ROOM_PLAN_FOOTER_LINES[0], ROOM_PLAN_FOOTER_LINES[1]);
 }
