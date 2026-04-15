@@ -5,7 +5,13 @@
 
 /** Hero intro under "Review your layout" */
 export const ROOM_PLAN_INTRO =
-	"Here's everything you've configured across all your rooms. When you submit, you'll get two PDFs by email: a polished project estimate with pricing, and a layout pack with floor plans plus 3D views for fundraising or sharing. We'll help you bring it to life.";
+	"You've turned ideas into a real layout across your rooms. Submit and we'll email you two PDFs: a polished project estimate with pricing, and a share-ready layout pack with floor plans and 3D views for donors, leadership, or your next meeting. We're thrilled to pick up from here with you and help turn this plan into the locker room your team deserves.";
+
+/** Shown beside order totals (review page, emails, estimate PDF) — two lines. */
+export const ROOM_PLAN_SHIPPING_LINES = [
+	"Shipping isn't included in this estimate.",
+	"We'll add shipping to your final order once we've agreed on everything with you.",
+] as const;
 
 export const ROOM_PLAN_WHAT_NEXT_HEADING = 'What happens next?';
 

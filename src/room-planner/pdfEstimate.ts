@@ -5,6 +5,7 @@ import {
 	ROOM_PLAN_CTA_LABEL,
 	ROOM_PLAN_FOOTER_LINES,
 	ROOM_PLAN_INTRO,
+	ROOM_PLAN_SHIPPING_LINES,
 	ROOM_PLAN_WHAT_NEXT_HEADING,
 	ROOM_PLAN_WHAT_NEXT_STEPS,
 } from '../lib/roomPlanCustomerCopy';
@@ -121,7 +122,7 @@ export function generateEstimatePdfBlob(
 		const panelOuterTop = y;
 		const estPanelH = Math.min(
 			pageH - margin - panelOuterTop - 200,
-			innerPad + 56 + 36 + Math.max(1, lines.length) * 62 + 200,
+			innerPad + 56 + 36 + Math.max(1, lines.length) * 62 + 224,
 		);
 		pdf.setFillColor(...PANEL);
 		pdf.setDrawColor(...LINE);
@@ -238,6 +239,14 @@ export function generateEstimatePdfBlob(
 			);
 		}
 		y += 22;
+
+		pdf.setFontSize(9);
+		pdf.setTextColor(...MUTED);
+		for (let si = 0; si < ROOM_PLAN_SHIPPING_LINES.length; si++) {
+			const shipLines = pdf.splitTextToSize(ROOM_PLAN_SHIPPING_LINES[si], innerW) as string[];
+			pdf.text(shipLines, innerLeft, y);
+			y += shipLines.length * 12 + (si < ROOM_PLAN_SHIPPING_LINES.length - 1 ? 4 : 10);
+		}
 
 		pdf.setFontSize(9);
 		pdf.text('Your email', innerLeft, y);

@@ -11,6 +11,7 @@ import {
 	ROOM_PLAN_CTA_URL,
 	ROOM_PLAN_FOOTER_LINES,
 	ROOM_PLAN_INTRO,
+	ROOM_PLAN_SHIPPING_LINES,
 	ROOM_PLAN_TEAM_INTRO,
 	ROOM_PLAN_TEAM_NOTE,
 	ROOM_PLAN_WHAT_NEXT_HEADING,
@@ -164,7 +165,13 @@ ${FONT_LINK}
           <tfoot>${subfoot}</tfoot>
         </table>
       </td></tr>
-      <tr><td style="padding:10px 24px 20px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};letter-spacing:0.5px;">${escapeHtml(lockerLine)}</td></tr>
+      <tr><td style="padding:10px 24px 8px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};letter-spacing:0.5px;">${escapeHtml(lockerLine)}</td></tr>
+      <tr><td style="padding:0 24px 16px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};line-height:1.55;">
+        ${ROOM_PLAN_SHIPPING_LINES.map(
+					(line, i) =>
+						`<p style="margin:${i === 0 ? '0 0 6px' : '0'};font-family:${FF_BODY};font-size:12px;color:${C_MUTED};line-height:1.55;">${escapeHtml(line)}</p>`,
+				).join('')}
+      </td></tr>
       <tr><td style="padding:0 24px 20px;">
         <p style="margin:0 0 6px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};">Your email</p>
         <p style="margin:0;padding:10px 0 8px;font-family:${FF_BODY};font-size:14px;color:${C_TEXT};border-bottom:1px solid ${C_RULE};">${escapeHtml(email)}</p>
@@ -265,7 +272,13 @@ ${FONT_LINK}
           <tfoot>${subfoot}</tfoot>
         </table>
       </td></tr>
-      <tr><td style="padding:10px 24px 20px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};letter-spacing:0.5px;">${escapeHtml(lockerLine)}</td></tr>
+      <tr><td style="padding:10px 24px 8px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};letter-spacing:0.5px;">${escapeHtml(lockerLine)}</td></tr>
+      <tr><td style="padding:0 24px 20px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};line-height:1.55;">
+        ${ROOM_PLAN_SHIPPING_LINES.map(
+					(line, i) =>
+						`<p style="margin:${i === 0 ? '0 0 6px' : '0'};font-family:${FF_BODY};font-size:12px;color:${C_MUTED};line-height:1.55;">${escapeHtml(line)}</p>`,
+				).join('')}
+      </td></tr>
     </table>
   </td></tr>
 

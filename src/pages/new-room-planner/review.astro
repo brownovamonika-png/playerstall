@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ROOM_PLAN_INTRO, ROOM_PLAN_SHIPPING_LINES } from '../../lib/roomPlanCustomerCopy';
 ---
 
 <BaseLayout
@@ -33,7 +34,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 	<section class="order-section">
 		<div class="order-section-header">
-			<p class="order-desc">Here's everything you've configured across all your rooms. When you submit, you'll get <strong>two PDFs</strong> by email: a polished <strong>project estimate</strong> with pricing, and a <strong>layout pack</strong> with floor plans plus 3D views for fundraising or sharing. We'll help you bring it to life.</p>
+			<p class="order-desc">{ROOM_PLAN_INTRO}</p>
 		</div>
 		<div class="order-section-inner">
 			<div class="order-panel" id="order-panel">
@@ -62,6 +63,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 					</tfoot>
 				</table>
 				<div class="order-locker-count" id="order-locker-count">0 lockers</div>
+				<div class="order-shipping-note">
+					{ROOM_PLAN_SHIPPING_LINES.map((line) => (
+						<p class="order-shipping-line">{line}</p>
+					))}
+				</div>
 				<div class="order-email-row">
 					<label class="order-email-label" for="customer-email">Your email</label>
 					<input type="email" id="customer-email" class="order-email-input" placeholder="you@example.com" required />
@@ -356,11 +362,25 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		color: #0d0d0d;
 	}
 	.order-locker-count {
-		padding: 10px 24px;
+		padding: 10px 24px 4px;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
 		color: #8c8c8c;
 		letter-spacing: 0.5px;
+	}
+	.order-shipping-note {
+		margin: 0;
+		padding: 0 24px 12px;
+	}
+	.order-shipping-line {
+		margin: 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		line-height: 1.55;
+	}
+	.order-shipping-line + .order-shipping-line {
+		margin-top: 6px;
 	}
 	.order-email-row { padding: 0 24px; margin-top: 16px; }
 	.order-email-label {
