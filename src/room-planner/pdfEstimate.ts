@@ -113,6 +113,13 @@ export function generateEstimatePdfBlob(
 ): Blob | null {
 	try {
 		const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'letter' });
+		pdf.setProperties({
+			title: 'PlayerStall — Room plan estimate',
+			subject: 'Review your layout (email-style PDF from playerstall.com room planner)',
+			author: 'PlayerStall',
+			keywords: 'playerstall.com; room-planner; email-style-estimate-v2',
+			creator: 'PlayerStall Room Planner',
+		});
 		const pageW = pdf.internal.pageSize.getWidth();
 		const pageH = pdf.internal.pageSize.getHeight();
 		const margin = 48;
