@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@400;500&family=Oswald:wght@600;700&display=swap" rel="stylesheet" />
+	<title>Email signature — Monika Brownova (homepage style, text logo, Gmail)</title>
+	<style>
+		body { margin: 0; padding: 32px 20px; background: #ececec; font-family: Arial, Helvetica, sans-serif; }
+		.wrap { max-width: 640px; margin: 0 auto; background: #fff; padding: 28px 28px 36px; border-radius: 8px; box-shadow: 0 2px 14px rgba(0,0,0,0.07); }
+		.instructions { font-size: 14px; color: #444; line-height: 1.55; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px dashed #ccc; }
+		.instructions strong { color: #111; }
+		.instructions ol { margin: 10px 0 0 0; padding-left: 22px; }
+		.instructions li { margin-bottom: 8px; }
+		.note { margin-top: 14px; padding: 12px 14px; background: #f5f5f5; border-left: 4px solid #0d0d0d; font-size: 13px; color: #333; }
+		.btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 24px; }
+		button#copySigBtn {
+			font-family: 'Yantramanav', Arial, sans-serif;
+			font-size: 12px;
+			font-weight: 500;
+			letter-spacing: 0.15em;
+			text-transform: uppercase;
+			padding: 12px 22px;
+			background: #000000;
+			color: #ffffff;
+			border: 2px solid #000000;
+			border-radius: 0;
+			cursor: pointer;
+		}
+		button#copySigBtn:hover { opacity: 0.88; }
+		button#copySigBtn:disabled { opacity: 0.55; cursor: not-allowed; }
+		#copyStatus { font-size: 13px; color: #2e7d32; min-height: 1.2em; }
+		#copyStatus.err { color: #c62828; }
+		.preview-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #888; margin-bottom: 10px; }
+	</style>
+</head>
+<body>
+
+<div class="wrap">
+	<div class="instructions">
+		<strong>Add this signature to Gmail</strong>
+		<p style="margin: 0 0 10px 0;">Two columns: <strong>PLAYERSTALL</strong> (text wordmark, Oswald) on the left; name, title, contacts, and socials on the right. No logo image. No orange.</p>
+		<ol>
+			<li>Click <strong>Copy for Gmail</strong>, then in Gmail: <strong>Settings</strong> → <strong>See all settings</strong> → <strong>General</strong> → <strong>Signature</strong>, select all in the box, paste, <strong>Save changes</strong>.</li>
+			<li>If copy fails, click inside the dashed box, <kbd>Cmd</kbd>+<kbd>A</kbd> / <kbd>Ctrl</kbd>+<kbd>A</kbd>, copy, then paste into Gmail.</li>
+			<li>Do not use <strong>Insert image</strong> for the whole signature.</li>
+		</ol>
+		<p class="note"><strong>Fonts in email:</strong> The copied block includes embedded <code>@font-face</code> for Oswald and Yantramanav. Gmail may still substitute Arial on some clients. For a pixel-perfect match, export a PNG from the browser or design tool.</p>
+	</div>
+
+	<div class="btn-row">
+		<button type="button" id="copySigBtn">Copy for Gmail</button>
+		<span id="copyStatus" aria-live="polite"></span>
+	</div>
+
+	<p class="preview-label">Preview (what you paste)</p>
+	<div style="border: 1px dashed #bbb; padding: 20px; background: #fafafa;">
+	<div id="signatureClipboardPayload">
+	<style type="text/css">
+@font-face{font-family:'Oswald';font-style:normal;font-weight:600;font-display:swap;src:url(https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1y9osUZiZSSUhiCXAA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Oswald';font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZosUZiZSSUhiCXAA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Yantramanav';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/yantramanav/v15/flU8Rqu5zY00QEpyWJYWN6f0.ttf) format('truetype');}
+@font-face{font-family:'Yantramanav';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/yantramanav/v15/flUhRqu5zY00QEpyWJYWN58AfsNZ.ttf) format('truetype');}
+	</style>
+	<table id="emailSignatureRoot" cellpadding="0" cellspacing="0" border="0" width="640" role="presentation" style="border-collapse: collapse; width: 640px; max-width: 100%; background-color: #ffffff;">
+		<tr>
+			<td style="vertical-align: middle; padding: 18px 14px 14px 22px; text-align: left; font-family: 'Yantramanav', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+				<a href="https://www.playerstall.com/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #000000; display: inline-block;">
+					<span style="font-family: 'Oswald', 'Arial Narrow', 'Franklin Gothic Medium', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 34px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #000000; line-height: 1.05;">PLAYERSTALL</span>
+				</a>
+			</td>
+			<td width="2" style="width: 2px; min-width: 2px; background-color: #bdbdbd; padding: 0; font-size: 1px; line-height: 1px;">&nbsp;</td>
+			<td width="300" style="vertical-align: middle; width: 300px; padding: 18px 22px 14px 18px; text-align: right; font-family: 'Yantramanav', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+				<table cellpadding="0" cellspacing="0" border="0" align="right" role="presentation" style="border-collapse: collapse;">
+					<tr>
+						<td align="right" style="padding: 0 0 0 0; text-align: right;">
+							<span style="font-family: 'Oswald', 'Arial Narrow', 'Franklin Gothic Medium', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 700; color: #000000; line-height: 1.1; letter-spacing: 0.12em;">Monika Brownova</span>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" style="padding: 2px 0 10px 0; text-align: right;">
+							<span style="font-family: 'Yantramanav', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #1a1a1a; line-height: 1.3;">ACCOUNT MANAGER</span>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" style="padding: 0 0 8px 0; text-align: right;">
+							<table cellpadding="0" cellspacing="0" border="0" align="right" role="presentation" style="border-collapse: collapse;">
+								<tr>
+									<td align="right" style="padding: 0 0 3px 0; font-family: 'Yantramanav', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.45; font-weight: 700; color: #000000;">
+										<a href="tel:+18885841444" style="color: #000000; text-decoration: none; font-weight: 700;">1 888 584 1444</a>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" style="padding: 0 0 3px 0; font-family: 'Yantramanav', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.45; font-weight: 700;">
+										<a href="mailto:team@playerstall.com" style="color: #000000; text-decoration: underline; font-weight: 700;">team@playerstall.com</a>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" style="padding: 0; font-family: 'Yantramanav', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.45; font-weight: 700;">
+										<a href="https://www.playerstall.com/" target="_blank" rel="noopener noreferrer" style="color: #000000; text-decoration: underline; font-weight: 700;">www.playerstall.com</a>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" style="padding: 4px 0 0 0; text-align: right;">
+							<table cellpadding="0" cellspacing="0" border="0" align="right" role="presentation" style="border-collapse: collapse;">
+								<tr>
+									<td style="padding: 0 6px 0 0;">
+										<a href="https://instagram.com/playerstalllockers" target="_blank" rel="noopener noreferrer" title="Instagram" style="display: inline-block; text-decoration: none; width: 26px; height: 26px; background-color: #000000; border-radius: 13px; text-align: center; line-height: 26px;">
+											<img src="https://cdn.simpleicons.org/instagram/ffffff" alt="Instagram" width="11" height="11" style="display: inline-block; vertical-align: middle; width: 11px; height: 11px; border: 0;" />
+										</a>
+									</td>
+									<td style="padding: 0 6px 0 0;">
+										<a href="https://www.linkedin.com/company/playerstall/" target="_blank" rel="noopener noreferrer" title="LinkedIn" style="display: inline-block; text-decoration: none; width: 26px; height: 26px; background-color: #000000; border-radius: 13px; text-align: center; line-height: 26px;">
+											<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="11" height="11" style="display: inline-block; vertical-align: middle; width: 11px; height: 11px; border: 0; filter: invert(1);" />
+										</a>
+									</td>
+									<td style="padding: 0;">
+										<a href="https://x.com/PlayerStallGear" target="_blank" rel="noopener noreferrer" title="X" style="display: inline-block; text-decoration: none; width: 26px; height: 26px; background-color: #000000; border-radius: 13px; text-align: center; line-height: 26px;">
+											<img src="https://cdn.simpleicons.org/x/ffffff" alt="X" width="10" height="10" style="display: inline-block; vertical-align: middle; width: 10px; height: 10px; border: 0;" />
+										</a>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	</div>
+	</div>
+</div>
+
+<script>
+(function () {
+	var btn = document.getElementById('copySigBtn');
+	var statusEl = document.getElementById('copyStatus');
+	var root = document.getElementById('emailSignatureRoot');
+	var clipPayload = document.getElementById('signatureClipboardPayload');
+
+	var plainText =
+		'PLAYERSTALL\n' +
+		'Monika Brownova\n' +
+		'Account Manager\n' +
+		'1 888 584 1444\n' +
+		'team@playerstall.com\n' +
+		'https://www.playerstall.com/\n' +
+		'Instagram: https://instagram.com/playerstalllockers\n' +
+		'LinkedIn: https://www.linkedin.com/company/playerstall/\n' +
+		'X: https://x.com/PlayerStallGear';
+
+	function setStatus(msg, isErr) {
+		statusEl.textContent = msg;
+		statusEl.className = isErr ? 'err' : '';
+	}
+
+	btn.addEventListener('click', function () {
+		if (!root) return;
+		var html = clipPayload ? clipPayload.innerHTML : root.outerHTML;
+
+		if (navigator.clipboard && typeof ClipboardItem !== 'undefined') {
+			btn.disabled = true;
+			var htmlBlob = new Blob([html], { type: 'text/html' });
+			var plainBlob = new Blob([plainText], { type: 'text/plain' });
+			var item = new ClipboardItem({
+				'text/html': htmlBlob,
+				'text/plain': plainBlob
+			});
+			navigator.clipboard.write([item]).then(function () {
+				setStatus('Copied — paste into Gmail signature box.');
+				btn.disabled = false;
+			}).catch(function () {
+				setStatus('Could not copy automatically — select all in the dashed box and copy.', true);
+				btn.disabled = false;
+			});
+			return;
+		}
+
+		setStatus('Select all in the dashed box and copy manually.', true);
+	});
+})();
+</script>
+
+</body>
+</html>

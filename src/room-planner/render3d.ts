@@ -1341,11 +1341,18 @@ function addSnapshotFloorLogo(scene: THREE.Scene, state: PlannerState, dataUrl: 
  */
 export async function capturePlanner3DDataURL(
   state: PlannerState,
-  options?: { width?: number; height?: number; customLogoDataUrl?: string | null },
+  options?: {
+    width?: number;
+    height?: number;
+    customLogoDataUrl?: string | null;
+    /** >1 sharpens PDF/email snapshots on HiDPI displays (default 1). */
+    pixelRatio?: number;
+  },
 ): Promise<string | null> {
   const prevWallMaterial = _wallMaterial;
   const width = options?.width ?? 1600;
   const height = options?.height ?? 1000;
+  const pixelRatio = Math.min(2, Math.max(1, options?.pixelRatio ?? 1));
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(SKY_HEX);
   let renderer: THREE.WebGLRenderer | null = null;
@@ -1375,8 +1382,8 @@ export async function capturePlanner3DDataURL(
       preserveDrawingBuffer: true,
       alpha: false,
     });
+    renderer.setPixelRatio(pixelRatio);
     renderer.setSize(width, height, false);
-    renderer.setPixelRatio(1);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.toneMapping = THREE.LinearToneMapping;

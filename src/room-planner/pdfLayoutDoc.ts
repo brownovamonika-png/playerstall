@@ -1,4 +1,5 @@
 import { jsPDF } from 'jspdf';
+import { drawPlayerStallPdfHeader } from './pdfBranding';
 import { render } from './render';
 import { appendPlanner3DPreviewPage } from './pdfAppend3D';
 import type { DisplayUnit, PlannerState } from './types';
@@ -36,10 +37,10 @@ export async function generateLayoutPdfBlob(
 		const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'letter' });
 		const pageW = pdf.internal.pageSize.getWidth();
 		const pageH = pdf.internal.pageSize.getHeight();
-		const margin = 40;
+		const margin = 48;
 		const offCanvas = document.createElement('canvas');
-		offCanvas.width = 1200;
-		offCanvas.height = 800;
+		offCanvas.width = 2400;
+		offCanvas.height = 1600;
 		const offCtx = offCanvas.getContext('2d')!;
 
 		for (let ri = 0; ri < savedRooms.length; ri++) {
@@ -91,19 +92,24 @@ export async function generateLayoutPdfBlob(
 			offCtx.fillRect(0, 0, offCanvas.width, offCanvas.height);
 			render(offCtx, tempState);
 			const imgData = offCanvas.toDataURL('image/png');
-			const imgW = pageW - margin * 2;
-			const imgH = (offCanvas.height / offCanvas.width) * imgW;
 
-			pdf.setFontSize(16);
+			const yBody = drawPlayerStallPdfHeader(pdf);
+			pdf.setFontSize(15);
 			pdf.setFont('helvetica', 'bold');
 			pdf.setTextColor(0);
-			pdf.text(roomLabel, margin, margin);
+			pdf.text(roomLabel, margin, yBody);
 			pdf.setFontSize(9);
 			pdf.setFont('helvetica', 'normal');
 			pdf.setTextColor(100);
-			pdf.text('Floor plan (top view)', margin, margin + 14);
+			pdf.text('Floor plan (top view)', margin, yBody + 14);
 			pdf.setTextColor(0);
-			pdf.addImage(imgData, 'PNG', margin, margin + 20, imgW, Math.min(imgH, pageH - margin * 2 - 90));
+
+			const imgTop = yBody + 22;
+			const imgW = pageW - margin * 2;
+			const imgH = (offCanvas.height / offCanvas.width) * imgW;
+			const maxImgH = pageH - imgTop - margin;
+			const drawH = Math.min(imgH, maxImgH);
+			pdf.addImage(imgData, 'PNG', margin, imgTop, imgW, drawH, undefined, 'NONE');
 
 			pdf.setFontSize(8);
 			pdf.setFont('helvetica', 'italic');

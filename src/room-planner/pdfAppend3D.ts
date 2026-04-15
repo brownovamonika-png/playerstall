@@ -1,9 +1,10 @@
 import { jsPDF } from 'jspdf';
+import { drawPlayerStallPdfHeader } from './pdfBranding';
 import type { PlannerState } from './types';
 import { capturePlanner3DDataURL } from './render3d';
 
-const SNAP_W = 1600;
-const SNAP_H = 1000;
+const SNAP_W = 1920;
+const SNAP_H = 1200;
 
 /** Adds a landscape page with a 3D render (for fundraising / sharing). */
 export async function appendPlanner3DPreviewPage(
@@ -16,31 +17,33 @@ export async function appendPlanner3DPreviewPage(
 		width: SNAP_W,
 		height: SNAP_H,
 		customLogoDataUrl: customLogoDataUrl ?? undefined,
+		pixelRatio: 2,
 	});
 	if (!data3d) return;
 
 	pdf.addPage('letter', 'landscape');
 	const pageW = pdf.internal.pageSize.getWidth();
 	const pageH = pdf.internal.pageSize.getHeight();
-	const margin = 40;
+	const margin = 48;
 
+	const yBody = drawPlayerStallPdfHeader(pdf);
 	pdf.setFontSize(14);
 	pdf.setFont('helvetica', 'bold');
 	pdf.setTextColor(0);
-	pdf.text(`${roomLabel} - 3D preview`, margin, margin);
+	pdf.text(`${roomLabel} - 3D preview`, margin, yBody);
 	pdf.setFontSize(8);
 	pdf.setFont('helvetica', 'italic');
 	pdf.setTextColor(100);
 	pdf.text(
 		'Share with boosters, administrators, or donors for fundraising and approvals.',
 		margin,
-		margin + 14,
+		yBody + 14,
 	);
 	pdf.setTextColor(0);
 	pdf.setFont('helvetica', 'normal');
 
 	const maxImgW = pageW - margin * 2;
-	const maxImgH = pageH - margin * 2 - 52;
+	const maxImgH = pageH - (yBody + 22) - margin;
 	const aspect = SNAP_H / SNAP_W;
 	let imgW = maxImgW;
 	let imgH = imgW * aspect;
@@ -49,7 +52,8 @@ export async function appendPlanner3DPreviewPage(
 		imgW = imgH / aspect;
 	}
 	const xCentered = margin + (maxImgW - imgW) / 2;
-	pdf.addImage(data3d, 'PNG', xCentered, margin + 22, imgW, imgH);
+	const imgTop = yBody + 22;
+	pdf.addImage(data3d, 'PNG', xCentered, imgTop, imgW, imgH, undefined, 'NONE');
 
 	pdf.setFontSize(7);
 	pdf.setFont('helvetica', 'italic');

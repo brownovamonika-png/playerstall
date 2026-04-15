@@ -15,7 +15,7 @@ if (import.meta.env.PROD) {
 }
 
 const sampleEmail = 'you@example.com';
-const sampleTotal = '4495.00';
+const sampleTotal = '5908.00';
 const customerHtml = buildCustomerHTML(sampleEmail, SAMPLE_ORDER_SUMMARY, sampleTotal);
 const teamHtml = buildSalesHTML(sampleEmail, SAMPLE_ORDER_SUMMARY, sampleTotal);
 const customerSrc = `data:text/html;charset=utf-8,${encodeURIComponent(customerHtml)}`;

@@ -1,4 +1,13 @@
 import { jsPDF } from 'jspdf';
+import {
+	ROOM_PLAN_ATTACHMENT_FILES_DESC,
+	ROOM_PLAN_ATTACHMENTS_NOTE_PDF,
+	ROOM_PLAN_CTA_LABEL,
+	ROOM_PLAN_FOOTER_LINES,
+	ROOM_PLAN_INTRO,
+	ROOM_PLAN_WHAT_NEXT_HEADING,
+	ROOM_PLAN_WHAT_NEXT_STEPS,
+} from '../lib/roomPlanCustomerCopy';
 
 /** Line shape used for the estimate PDF (matches room planner LineItem). */
 export interface EstimatePdfLine {
@@ -8,16 +17,40 @@ export interface EstimatePdfLine {
 	depthIn: number;
 	colorLabel: string;
 	accessories: { label: string; price: number }[];
+	/** Locker base (width + depth); omit on legacy callers. */
+	basePrice?: number;
 	unitPrice: number;
 	qty: number;
 }
 
-const ORANGE: [number, number, number] = [254, 89, 0];
-const BLACK: [number, number, number] = [0, 0, 0];
-const GRAY: [number, number, number] = [100, 100, 100];
+/** Match room-plan customer email + review.astro */
+const TEXT: [number, number, number] = [13, 13, 13];
+const MUTED: [number, number, number] = [140, 140, 140];
+const LINE: [number, number, number] = [224, 224, 224];
+const PANEL: [number, number, number] = [247, 247, 247];
+const BAND: [number, number, number] = [250, 250, 250];
+const BORDER_STRONG: [number, number, number] = [204, 204, 204];
+const FOOTNOTE: [number, number, number] = [182, 182, 182];
+
+function money(n: number): string {
+	return `$${n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+function productTitle(line: EstimatePdfLine): string {
+	const raw = line.displayName.trim();
+	const u = raw.toUpperCase();
+	return u.includes('LOCKER') ? u : `${u} LOCKER`;
+}
+
+/** One spec line like email HTML (uppercase). */
+function productSpecLine(line: EstimatePdfLine): string {
+	const acc = line.accessories.map((a) => a.label).join(', ');
+	const mid = `${line.widthIn}"W x ${line.depthIn}"D · ${line.colorLabel}${acc ? ` + ${acc}` : ''}`;
+	return mid.toUpperCase();
+}
 
 /**
- * Portrait, branded project estimate (pricing only) — separate from layout / 3D PDF.
+ * Portrait project estimate — same structure and copy as the customer room-plan email.
  */
 export function generateEstimatePdfBlob(
 	lines: EstimatePdfLine[],
@@ -30,189 +63,262 @@ export function generateEstimatePdfBlob(
 		const pageH = pdf.internal.pageSize.getHeight();
 		const margin = 48;
 		const contentW = pageW - margin * 2;
+		const innerPad = 24;
+		const innerLeft = margin + innerPad;
+		const innerRight = pageW - margin - innerPad;
+		const innerW = innerRight - innerLeft;
+		const colQtyW = 44;
+		const colTotalW = 108;
+		const colProductW = innerW - colQtyW - colTotalW - 18;
 
-		const dateStr = new Date().toLocaleDateString('en-US', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric',
-		});
-
-		function drawPageHeader(pageNum: number, isFirst: boolean) {
-			pdf.setFillColor(...BLACK);
-			pdf.rect(0, 0, pageW, 52, 'F');
-			pdf.setFillColor(...ORANGE);
-			pdf.rect(0, 52, pageW, 3, 'F');
-			pdf.setTextColor(255, 255, 255);
-			pdf.setFontSize(18);
-			pdf.setFont('helvetica', 'bold');
-			pdf.text('PLAYERSTALL', margin, 32);
-			pdf.setFontSize(9);
-			pdf.setTextColor(254, 89, 0);
-			pdf.text('CUSTOM SPORTS LOCKERS', margin + 118, 32);
-			pdf.setTextColor(200, 200, 200);
-			pdf.setFont('helvetica', 'normal');
-			pdf.setFontSize(8);
-			pdf.text(`Page ${pageNum}`, pageW - margin, 32, { align: 'right' });
-			pdf.setTextColor(0, 0, 0);
-
-			let y = 72;
-			if (isFirst) {
-				pdf.setFontSize(22);
-				pdf.setFont('helvetica', 'bold');
-				pdf.text('Project estimate', margin, y);
-				y += 28;
-				pdf.setFontSize(10);
-				pdf.setFont('helvetica', 'normal');
-				pdf.setTextColor(...GRAY);
-				pdf.text(`Prepared ${dateStr}`, margin, y);
-				y += 16;
-				pdf.text(`Prepared for: ${customerEmail}`, margin, y);
-				y += 28;
-				pdf.setTextColor(0, 0, 0);
-				pdf.setFontSize(9);
-				pdf.setFont('helvetica', 'italic');
-				pdf.text(
-					'This document summarizes your room planner selections and estimated pricing. A separate PDF includes your floor plans and 3D previews.',
-					margin,
-					y,
-					{ maxWidth: contentW },
-				);
-				y += 36;
-			}
-			return y;
-		}
+		const introW = Math.min(468, contentW);
+		const introX = (pageW - introW) / 2;
 
 		let pageNum = 1;
-		let y = drawPageHeader(pageNum, true);
-		const bottomSafe = pageH - 100;
-		const rowBlock = 40;
-
-		// Column layout (pt)
-		const colRoom = margin;
-		const colProduct = margin + 72;
-		const colSpec = margin + 168;
-		const colQty = pageW - margin - 130;
-		const colUnit = pageW - margin - 90;
-		const colLine = pageW - margin;
+		let y = 40;
+		const bottomSafe = pageH - 72;
 
 		function ensureSpace(need: number) {
 			if (y + need > bottomSafe) {
 				pdf.addPage('letter', 'portrait');
 				pageNum++;
-				y = drawPageHeader(pageNum, false);
+				y = 48;
+				pdf.setFontSize(22);
+				pdf.setFont('helvetica', 'bold');
+				pdf.setTextColor(...TEXT);
+				pdf.text('PLAYERSTALL', pageW / 2, y, { align: 'center' });
+				pdf.setFont('helvetica', 'normal');
+				pdf.setTextColor(...MUTED);
+				pdf.text(`Order summary (page ${pageNum})`, pageW - margin, y, { align: 'right' });
+				y += 28;
+				pdf.setTextColor(...TEXT);
 			}
 		}
 
-		// Table header row
-		ensureSpace(50);
-		pdf.setFillColor(245, 245, 245);
-		pdf.roundedRect(margin, y - 4, contentW, 22, 2, 2, 'F');
-		pdf.setFontSize(8);
+		function hRule(xx: number, yy: number, ww: number) {
+			pdf.setDrawColor(...LINE);
+			pdf.setLineWidth(0.35);
+			pdf.line(xx, yy, xx + ww, yy);
+		}
+
+		// --- Hero (same as email)
+		pdf.setFontSize(43);
 		pdf.setFont('helvetica', 'bold');
-		pdf.setTextColor(...GRAY);
-		pdf.text('ROOM', colRoom, y + 10);
-		pdf.text('PRODUCT', colProduct, y + 10);
-		pdf.text('CONFIGURATION', colSpec, y + 10);
-		pdf.text('QTY', colQty, y + 10, { align: 'right' });
-		pdf.text('EACH', colUnit, y + 10, { align: 'right' });
-		pdf.text('LINE', colLine, y + 10, { align: 'right' });
-		pdf.setTextColor(0, 0, 0);
-		y += 32;
+		pdf.setTextColor(...TEXT);
+		pdf.text('PLAYERSTALL', pageW / 2, y, { align: 'center', charSpace: 0.4 });
+		y += 76;
+		pdf.setFontSize(11);
+		pdf.text('REVIEW YOUR LAYOUT', pageW / 2, y, { align: 'center' });
+		y += 20;
+		pdf.setFontSize(10);
+		pdf.setFont('helvetica', 'normal');
+		pdf.setTextColor(...MUTED);
+		const introLines = pdf.splitTextToSize(ROOM_PLAN_INTRO, introW) as string[];
+		pdf.text(introLines, introX, y);
+		y += introLines.length * 12 + 24;
+		pdf.setTextColor(...TEXT);
+
+		const panelOuterTop = y;
+		const estPanelH = Math.min(
+			pageH - margin - panelOuterTop - 200,
+			innerPad + 56 + 36 + Math.max(1, lines.length) * 62 + 200,
+		);
+		pdf.setFillColor(...PANEL);
+		pdf.setDrawColor(...LINE);
+		pdf.setLineWidth(0.5);
+		pdf.rect(margin, panelOuterTop, contentW, estPanelH, 'FD');
+
+		y = panelOuterTop + innerPad;
+		pdf.setFontSize(14);
+		pdf.setFont('helvetica', 'bold');
+		pdf.text('ORDER SUMMARY', innerLeft, y);
+		y += 22;
+		hRule(innerLeft, y, innerW);
+		y += 16;
+
+		pdf.setFontSize(11);
+		pdf.setFont('helvetica', 'bold');
+		pdf.setTextColor(...MUTED);
+		const headY = y;
+		pdf.text('Product', innerLeft, headY);
+		pdf.text('Qty', innerLeft + colProductW + colQtyW / 2, headY, { align: 'center' });
+		pdf.text('Subtotal', innerRight, headY, { align: 'right' });
+		y += 10;
+		hRule(innerLeft, y, innerW);
+		y += 14;
 
 		let curRoom = '';
+		let totalLockers = 0;
+		const roomNames = new Set<string>();
+
 		for (const line of lines) {
-			const room = line.roomName || 'Room';
-			const accPart =
-				line.accessories.length > 0
-					? ` · ${line.accessories.map((a) => a.label).join(', ')}`
-					: '';
-			const spec = `${line.widthIn}"W x ${line.depthIn}"D · ${line.colorLabel}${accPart}`;
+			const room = line.roomName || 'Unnamed Room';
+			roomNames.add(room);
+			totalLockers += line.qty;
 			const lineTotal = line.unitPrice * line.qty;
 
 			if (room !== curRoom) {
-				ensureSpace(24);
 				curRoom = room;
+				ensureSpace(28);
 				pdf.setFont('helvetica', 'bold');
 				pdf.setFontSize(9);
-				pdf.setTextColor(...ORANGE);
-				pdf.text(room.toUpperCase(), colRoom, y + 10);
-				pdf.setTextColor(0, 0, 0);
-				y += 18;
+				pdf.setTextColor(...TEXT);
+				pdf.text(room.toUpperCase(), innerLeft + 8, y + 10);
+				y += 26;
 			}
 
-			ensureSpace(rowBlock + 10);
+			const title = productTitle(line);
+			const specU = productSpecLine(line);
+			const nameLines = pdf.splitTextToSize(title, colProductW - 4) as string[];
+			const specLines = pdf.splitTextToSize(specU, colProductW - 4) as string[];
+			const nameH = nameLines.length * 12;
+			const specH = specLines.length * 10;
+			const rowH = Math.max(48, 12 + nameH + 6 + specH + 14);
+			ensureSpace(rowH + 6);
 
-			pdf.setFont('helvetica', 'normal');
+			const rowTop = y;
+			let ty = rowTop + 12;
+			pdf.setFont('helvetica', 'bold');
 			pdf.setFontSize(9);
-			pdf.text(line.displayName, colProduct, y + 8, { maxWidth: colSpec - colProduct - 6 });
-			pdf.setFontSize(8);
-			pdf.setTextColor(...GRAY);
-			pdf.text(spec, colSpec, y + 8, { maxWidth: colQty - colSpec - 8 });
-			pdf.setTextColor(0, 0, 0);
-			pdf.setFont('helvetica', 'bold');
-			pdf.text(String(line.qty), colQty, y + 8, { align: 'right' });
+			pdf.setTextColor(...TEXT);
+			pdf.text(nameLines, innerLeft, ty);
+			ty += nameH + 4;
 			pdf.setFont('helvetica', 'normal');
-			pdf.text(`$${line.unitPrice.toFixed(2)}`, colUnit, y + 8, { align: 'right' });
+			pdf.setFontSize(8);
+			pdf.setTextColor(...MUTED);
+			pdf.text(specLines, innerLeft, ty);
+
+			const qtyY = rowTop + 20;
 			pdf.setFont('helvetica', 'bold');
-			pdf.text(`$${lineTotal.toFixed(2)}`, colLine, y + 8, { align: 'right' });
+			pdf.setFontSize(9);
+			pdf.setTextColor(...TEXT);
+			pdf.text(String(line.qty), innerLeft + colProductW + colQtyW / 2, qtyY, { align: 'center' });
+			pdf.text(money(lineTotal), innerRight, qtyY, { align: 'right' });
 
-			y += rowBlock;
-			pdf.setDrawColor(230);
-			pdf.line(margin, y, pageW - margin, y);
-			y += 6;
+			y = rowTop + rowH;
+			hRule(innerLeft, y, innerW);
+			y += 4;
 		}
 
-		// Total band
-		ensureSpace(120);
-		y += 12;
-		pdf.setFillColor(...ORANGE);
-		pdf.roundedRect(margin, y, contentW, 44, 4, 4, 'F');
-		pdf.setTextColor(255, 255, 255);
-		pdf.setFontSize(12);
-		pdf.setFont('helvetica', 'bold');
-		pdf.text('Estimated total (USD)', margin + 16, y + 28);
-		pdf.setFontSize(16);
-		pdf.text(`$${grandTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, pageW - margin - 16, y + 28, {
-			align: 'right',
-		});
-		pdf.setTextColor(0, 0, 0);
-		y += 64;
-
-		pdf.setFontSize(9);
-		pdf.setFont('helvetica', 'bold');
-		pdf.text('Why teams choose PlayerStall', margin, y);
-		y += 14;
-		pdf.setFont('helvetica', 'normal');
-		pdf.setFontSize(9);
-		pdf.setTextColor(...GRAY);
-		const bullets = [
-			'30+ years building custom wood sports lockers for collegiate and pro programs',
-			'Five year guarantee and free design consultation',
-			'Canadian-owned and operated since 1996 · Serving teams across North America',
-		];
-		for (const b of bullets) {
-			ensureSpace(20);
-			pdf.text(`• ${b}`, margin, y, { maxWidth: contentW });
-			y += pdf.getTextDimensions(b, { maxWidth: contentW - 10 }).h + 10;
-		}
+		ensureSpace(72);
 		y += 8;
-		pdf.setTextColor(0, 0, 0);
-		ensureSpace(40);
+		pdf.setFont('helvetica', 'bold');
 		pdf.setFontSize(8);
-		pdf.setFont('helvetica', 'italic');
-		pdf.setTextColor(120, 120, 120);
-		pdf.text(
-			'This estimate is based on your online planner configuration. Final pricing may vary with site conditions, shipping, installation scope, and final engineering approval.',
-			margin,
-			y,
-			{ maxWidth: contentW },
-		);
-		y += 36;
+		pdf.setTextColor(...MUTED);
+		pdf.text('Subtotal', innerLeft, y);
+		pdf.setFontSize(9);
+		pdf.setTextColor(...TEXT);
+		pdf.text(money(grandTotal), innerRight, y, { align: 'right' });
+		y += 18;
+		pdf.setDrawColor(...BORDER_STRONG);
+		pdf.setLineWidth(0.5);
+		pdf.line(innerLeft, y, innerRight, y);
+		y += 16;
+		const totalRowY = y;
+		pdf.setFontSize(8);
+		pdf.setTextColor(...MUTED);
+		pdf.text('Estimated Total', innerLeft, totalRowY);
+		pdf.setFontSize(20);
+		pdf.setFont('helvetica', 'bold');
+		pdf.setTextColor(...TEXT);
+		pdf.text(money(grandTotal), innerRight, totalRowY + 5, { align: 'right' });
+		y += 28;
+
+		const roomCount = lines.length ? roomNames.size : 0;
 		pdf.setFont('helvetica', 'normal');
-		pdf.setTextColor(...GRAY);
-		pdf.text('PlayerStall · 2934 200 Street, Langley, BC V2Z 2C1 Canada', margin, y);
+		pdf.setFontSize(9);
+		pdf.setTextColor(...MUTED);
+		if (lines.length === 0) {
+			pdf.text('No lockers in this summary.', innerLeft, y);
+		} else {
+			pdf.text(
+				`${totalLockers} locker${totalLockers !== 1 ? 's' : ''} across ${roomCount} room${roomCount !== 1 ? 's' : ''}`,
+				innerLeft,
+				y,
+			);
+		}
+		y += 22;
+
+		pdf.setFontSize(9);
+		pdf.text('Your email', innerLeft, y);
+		y += 14;
+		pdf.setTextColor(...TEXT);
+		pdf.setFontSize(10);
+		pdf.text(customerEmail, innerLeft, y);
+		y += 16;
+		hRule(innerLeft, y, innerW);
+		y += innerPad;
+
+		// --- What happens next (same copy as email; #fafafa band)
+		ensureSpace(100);
+		const wnStart = y;
+		let wnH = 22 + 16;
+		for (const step of ROOM_PLAN_WHAT_NEXT_STEPS) {
+			const sl = pdf.splitTextToSize(step, innerW - 18) as string[];
+			wnH += sl.length * 12 + 6;
+		}
+		wnH += 20;
+		pdf.setFillColor(...BAND);
+		pdf.setDrawColor(...LINE);
+		pdf.rect(margin, wnStart, contentW, wnH, 'FD');
+		let wy = wnStart + 18;
+		pdf.setFont('helvetica', 'bold');
+		pdf.setFontSize(12);
+		pdf.setTextColor(42, 42, 42);
+		pdf.text(ROOM_PLAN_WHAT_NEXT_HEADING.toUpperCase(), innerLeft, wy);
+		wy += 18;
+		pdf.setFont('helvetica', 'normal');
+		pdf.setFontSize(10);
+		pdf.setTextColor(85, 85, 85);
+		let n = 1;
+		for (const step of ROOM_PLAN_WHAT_NEXT_STEPS) {
+			const sl = pdf.splitTextToSize(`${n}. ${step}`, innerW - 18) as string[];
+			pdf.text(sl, innerLeft + 8, wy);
+			wy += sl.length * 12 + 4;
+			n += 1;
+		}
+		y = wnStart + wnH + 16;
+
+		// --- Attachments band
+		const attStart = y;
+		const attLead = `Attachments: ${ROOM_PLAN_ATTACHMENT_FILES_DESC}`;
+		const att1 = pdf.splitTextToSize(attLead, innerW) as string[];
+		const att2 = pdf.splitTextToSize(ROOM_PLAN_ATTACHMENTS_NOTE_PDF, innerW) as string[];
+		const attH = 18 + att1.length * 12 + 8 + att2.length * 11 + 18;
+		pdf.setFillColor(...BAND);
+		pdf.setDrawColor(...LINE);
+		pdf.rect(margin, attStart, contentW, attH, 'FD');
+		let ay = attStart + 16;
+		pdf.setFontSize(10);
+		pdf.setTextColor(85, 85, 85);
+		pdf.text(att1, innerLeft, ay);
+		ay += att1.length * 12 + 6;
+		pdf.setFontSize(9);
+		pdf.setTextColor(119, 119, 119);
+		pdf.text(att2, innerLeft, ay);
+		y = attStart + attH + 20;
+
+		// --- CTA strip (same label as email button)
+		ensureSpace(36);
+		pdf.setFillColor(...TEXT);
+		pdf.rect(margin, y, contentW, 36, 'F');
+		pdf.setTextColor(255, 255, 255);
+		pdf.setFont('helvetica', 'bold');
+		pdf.setFontSize(9);
+		pdf.text(ROOM_PLAN_CTA_LABEL.toUpperCase(), pageW / 2, y + 23, { align: 'center' });
+		y += 44;
+
+		// --- Footer (same lines as email)
+		pdf.setDrawColor(...LINE);
+		pdf.setLineWidth(0.35);
+		hRule(margin, y, contentW);
+		y += 16;
+		pdf.setFont('helvetica', 'normal');
+		pdf.setFontSize(9);
+		pdf.setTextColor(...FOOTNOTE);
+		pdf.text(ROOM_PLAN_FOOTER_LINES[0], pageW / 2, y, { align: 'center' });
 		y += 12;
-		pdf.text('1-888-584-1444 · team@playerstall.com · playerstall.com', margin, y);
+		pdf.text(ROOM_PLAN_FOOTER_LINES[1], pageW / 2, y, { align: 'center' });
 
 		return pdf.output('blob');
 	} catch (e) {
