@@ -19,8 +19,6 @@ export async function appendPlanner3DPreviewPage(
 		customLogoDataUrl: customLogoDataUrl ?? undefined,
 		pixelRatio: 2,
 	});
-	if (!data3d) return;
-
 	pdf.addPage('letter', 'landscape');
 	const pageW = pdf.internal.pageSize.getWidth();
 	const pageH = pdf.internal.pageSize.getHeight();
@@ -42,18 +40,28 @@ export async function appendPlanner3DPreviewPage(
 	pdf.setTextColor(0);
 	pdf.setFont('helvetica', 'normal');
 
-	const maxImgW = pageW - margin * 2;
-	const maxImgH = pageH - (yBody + 22) - margin;
-	const aspect = SNAP_H / SNAP_W;
-	let imgW = maxImgW;
-	let imgH = imgW * aspect;
-	if (imgH > maxImgH) {
-		imgH = maxImgH;
-		imgW = imgH / aspect;
+	if (data3d) {
+		const maxImgW = pageW - margin * 2;
+		const maxImgH = pageH - (yBody + 22) - margin;
+		const aspect = SNAP_H / SNAP_W;
+		let imgW = maxImgW;
+		let imgH = imgW * aspect;
+		if (imgH > maxImgH) {
+			imgH = maxImgH;
+			imgW = imgH / aspect;
+		}
+		const xCentered = margin + (maxImgW - imgW) / 2;
+		const imgTop = yBody + 22;
+		pdf.addImage(data3d, 'PNG', xCentered, imgTop, imgW, imgH, undefined, 'NONE');
+	} else {
+		pdf.setFontSize(10);
+		pdf.setFont('helvetica', 'normal');
+		pdf.setTextColor(80);
+		const msg =
+			'We could not render a 3D snapshot in this browser session. Open the PlayerStall room planner, use 3D View for this room, and use Save — or contact team@playerstall.com and we will send layout images.';
+		const lines = pdf.splitTextToSize(msg, pageW - margin * 2) as string[];
+		pdf.text(lines, margin, yBody + 28);
 	}
-	const xCentered = margin + (maxImgW - imgW) / 2;
-	const imgTop = yBody + 22;
-	pdf.addImage(data3d, 'PNG', xCentered, imgTop, imgW, imgH, undefined, 'NONE');
 
 	pdf.setFontSize(7);
 	pdf.setFont('helvetica', 'italic');

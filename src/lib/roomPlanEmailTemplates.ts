@@ -10,6 +10,9 @@ import {
 	ROOM_PLAN_CTA_LABEL,
 	ROOM_PLAN_CTA_URL,
 	ROOM_PLAN_FOOTER_LINES,
+	ROOM_PLAN_EMAIL_3D_PREVIEW_ALT,
+	ROOM_PLAN_EMAIL_3D_PREVIEW_BLURB,
+	ROOM_PLAN_EMAIL_3D_PREVIEW_TITLE,
 	ROOM_PLAN_INTRO,
 	ROOM_PLAN_SHIPPING_LINES,
 	ROOM_PLAN_TEAM_INTRO,
@@ -38,6 +41,26 @@ function escapeHtml(s: string): string {
 		.replace(/</g, '&lt;')
 		.replace(/>/g, '&gt;')
 		.replace(/"/g, '&quot;');
+}
+
+/** Only allow our client-generated PNG data URLs in email HTML (no escaping of payload). */
+function isSafeLayoutPreviewDataUrl(url: string | undefined | null): url is string {
+	return (
+		typeof url === 'string' &&
+		url.startsWith('data:image/png;base64,') &&
+		url.length > 28 &&
+		url.length < 1_400_000
+	);
+}
+
+function layoutPreviewBlock(layoutPreviewDataUrl: string | undefined | null): string {
+	if (!isSafeLayoutPreviewDataUrl(layoutPreviewDataUrl)) return '';
+	return `
+  <tr><td style="padding:24px 8px 0;text-align:center;">
+    <p style="margin:0 0 8px;font-family:${FF_HEAD};font-size:11px;font-weight:600;color:${C_MUTED};text-transform:uppercase;letter-spacing:1px;">${escapeHtml(ROOM_PLAN_EMAIL_3D_PREVIEW_TITLE)}</p>
+    <p style="margin:0 auto 14px;max-width:520px;font-family:${FF_BODY};font-size:12px;line-height:1.55;color:${C_MUTED};text-align:center;">${escapeHtml(ROOM_PLAN_EMAIL_3D_PREVIEW_BLURB)}</p>
+    <img src="${layoutPreviewDataUrl}" alt="${escapeHtml(ROOM_PLAN_EMAIL_3D_PREVIEW_ALT)}" width="560" style="max-width:100%;height:auto;display:block;margin:0 auto;border:1px solid ${C_RULE};" />
+  </td></tr>`;
 }
 
 /**
@@ -119,10 +142,16 @@ function reviewOrderTableTheadSubfoot(grandTotal: string): { thead: string; subf
 	return { thead, subfoot };
 }
 
-export function buildCustomerHTML(email: string, orderSummary: string, grandTotal: string): string {
+export function buildCustomerHTML(
+	email: string,
+	orderSummary: string,
+	grandTotal: string,
+	layoutPreviewDataUrl?: string | null,
+): string {
 	const { rows, lockerCount, roomCount } = buildReviewStyleTableRows(orderSummary);
 	const footerLine2Parts = ROOM_PLAN_FOOTER_LINES[1].split(' · ');
 	const { thead, subfoot } = reviewOrderTableTheadSubfoot(grandTotal);
+	const previewRow = layoutPreviewBlock(layoutPreviewDataUrl);
 
 	const lockerLine =
 		lockerCount > 0
@@ -152,7 +181,7 @@ ${FONT_LINK}
       ${escapeHtml(ROOM_PLAN_INTRO)}
     </p>
   </td></tr>
-
+${previewRow}
   <tr><td style="padding:28px 8px 0;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:${C_PANEL};border:1px solid ${C_RULE};">
       <tr><td style="padding:24px 24px 16px;border-bottom:1px solid ${C_RULE};">
@@ -220,10 +249,16 @@ ${FONT_LINK}
 </html>`;
 }
 
-export function buildSalesHTML(email: string, orderSummary: string, grandTotal: string): string {
+export function buildSalesHTML(
+	email: string,
+	orderSummary: string,
+	grandTotal: string,
+	layoutPreviewDataUrl?: string | null,
+): string {
 	const { rows, lockerCount, roomCount } = buildReviewStyleTableRows(orderSummary);
 	const footerLine2Parts = ROOM_PLAN_FOOTER_LINES[1].split(' · ');
 	const { thead, subfoot } = reviewOrderTableTheadSubfoot(grandTotal);
+	const previewRow = layoutPreviewBlock(layoutPreviewDataUrl);
 
 	const lockerLine =
 		lockerCount > 0
@@ -253,7 +288,7 @@ ${FONT_LINK}
       ${escapeHtml(ROOM_PLAN_TEAM_INTRO)}
     </p>
   </td></tr>
-
+${previewRow}
   <tr><td style="padding:28px 8px 0;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:${C_PANEL};border:1px solid ${C_RULE};">
       <tr><td style="padding:24px 24px 16px;border-bottom:1px solid ${C_RULE};">

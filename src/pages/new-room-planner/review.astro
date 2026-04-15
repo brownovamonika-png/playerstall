@@ -456,7 +456,7 @@ import {
 	import { buildWalls, needByTimelineLabel, fundingStatusLabel } from '../../room-planner/state';
 	import type { PlannerState, LockerInstance } from '../../room-planner/types';
 	import { generateEstimatePdfBlob } from '../../room-planner/pdfEstimate';
-	import { generateLayoutPdfBlob } from '../../room-planner/pdfLayoutDoc';
+	import { captureFirstRoom3DEmailPreviewDataUrl, generateLayoutPdfBlob } from '../../room-planner/pdfLayoutDoc';
 
 	const ROOMS_STORAGE_KEY = 'playerstall_rooms_design';
 
@@ -649,6 +649,13 @@ import {
 		}));
 		const estimateBlob = generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal);
 		const layoutBlob = await generateLayoutPdfBlob(savedRooms, 'in');
+		let layoutPreviewDataUrl: string | undefined;
+		try {
+			const thumb = await captureFirstRoom3DEmailPreviewDataUrl(savedRooms, 'in');
+			if (thumb) layoutPreviewDataUrl = thumb;
+		} catch {
+			/* optional email hero image */
+		}
 		btn.textContent = 'Sending...';
 
 		let estimatePdfBase64: string | undefined;
@@ -666,6 +673,7 @@ import {
 				grandTotal: grandTotal.toFixed(2),
 				estimatePdfBase64,
 				layoutPdfBase64,
+				layoutPreviewDataUrl,
 			}),
 		}).then(async (res) => {
 			if (res.ok) {

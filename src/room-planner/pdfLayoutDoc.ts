@@ -2,6 +2,7 @@ import { jsPDF } from 'jspdf';
 import { drawPlayerStallPdfHeader } from './pdfBranding';
 import { render } from './render';
 import { appendPlanner3DPreviewPage } from './pdfAppend3D';
+import { capturePlanner3DDataURL } from './render3d';
 import type { DisplayUnit, PlannerState } from './types';
 import type { LockerInstance } from './types';
 
@@ -26,6 +27,75 @@ function defaultFloorWall(): { floor: string; wall: string } {
 	return { floor: '#8B7355', wall: '#ffffff' };
 }
 
+/** Planner state from saved room JSON (2D camera optional — not used by 3D snapshot). */
+function buildPlannerStateFromSavedRoom(
+	room: PdfLayoutSavedRoom,
+	displayUnit: DisplayUnit,
+	offCanvas?: { width: number; height: number },
+): PlannerState {
+	const { floor, wall } = defaultFloorWall();
+	const tempState: PlannerState = {
+		roomName: room.roomName,
+		needByTimeline: room.needByTimeline || '',
+		fundingStatus: room.fundingStatus || '',
+		sportType: (room.sportType || '') as PlannerState['sportType'],
+		displayUnit,
+		editMode: false,
+		camera: { centerX: 0, centerY: 0, pixelsPerInch: 2 },
+		walls: JSON.parse(JSON.stringify(room.walls)),
+		openings: JSON.parse(JSON.stringify(room.openings)),
+		lockers: JSON.parse(JSON.stringify(room.lockers)),
+		selection: null,
+		floorColor: room.floorColor || floor,
+		wallColor: room.wallColor || wall,
+		showBase: room.showBase ?? false,
+		baseColor: room.baseColor || '#1A1A1A',
+		edgebandColor: room.edgebandColor || '',
+	};
+
+	if (offCanvas) {
+		let minX = Infinity,
+			minY = Infinity,
+			maxX = -Infinity,
+			maxY = -Infinity;
+		for (const w of tempState.walls) {
+			minX = Math.min(minX, w.start.x, w.end.x);
+			minY = Math.min(minY, w.start.y, w.end.y);
+			maxX = Math.max(maxX, w.start.x, w.end.x);
+			maxY = Math.max(maxY, w.start.y, w.end.y);
+		}
+		if (isFinite(minX)) {
+			tempState.camera.pixelsPerInch = Math.min(
+				(offCanvas.width - 60) / (maxX - minX || 100),
+				(offCanvas.height - 60) / (maxY - minY || 100),
+			);
+			tempState.camera.centerX = (minX + maxX) / 2;
+			tempState.camera.centerY = (minY + maxY) / 2;
+		}
+	}
+
+	return tempState;
+}
+
+/**
+ * Small 3D render of the first saved room for email HTML (matches layout PDF engine).
+ * Returns a PNG data URL, or null if WebGL capture fails (email still sends without image).
+ */
+export async function captureFirstRoom3DEmailPreviewDataUrl(
+	savedRooms: PdfLayoutSavedRoom[],
+	displayUnit: DisplayUnit,
+): Promise<string | null> {
+	if (!savedRooms.length) return null;
+	const room = savedRooms[0];
+	const tempState = buildPlannerStateFromSavedRoom(room, displayUnit);
+	return capturePlanner3DDataURL(tempState, {
+		width: 560,
+		height: 350,
+		pixelRatio: 1,
+		customLogoDataUrl: room.customLogoDataUrl ?? undefined,
+	});
+}
+
 /**
  * Landscape pages: per room, top-view floor plan then 3D preview. No pricing tables.
  */
@@ -48,45 +118,7 @@ export async function generateLayoutPdfBlob(
 
 			const room = savedRooms[ri];
 			const roomLabel = room.roomName || `Room ${ri + 1}`;
-			const { floor, wall } = defaultFloorWall();
-
-			const tempState: PlannerState = {
-				roomName: room.roomName,
-				needByTimeline: room.needByTimeline || '',
-				fundingStatus: room.fundingStatus || '',
-				sportType: (room.sportType || '') as PlannerState['sportType'],
-				displayUnit,
-				editMode: false,
-				camera: { centerX: 0, centerY: 0, pixelsPerInch: 2 },
-				walls: JSON.parse(JSON.stringify(room.walls)),
-				openings: JSON.parse(JSON.stringify(room.openings)),
-				lockers: JSON.parse(JSON.stringify(room.lockers)),
-				selection: null,
-				floorColor: room.floorColor || floor,
-				wallColor: room.wallColor || wall,
-				showBase: room.showBase ?? false,
-				baseColor: room.baseColor || '#1A1A1A',
-				edgebandColor: room.edgebandColor || '',
-			};
-
-			let minX = Infinity,
-				minY = Infinity,
-				maxX = -Infinity,
-				maxY = -Infinity;
-			for (const w of tempState.walls) {
-				minX = Math.min(minX, w.start.x, w.end.x);
-				minY = Math.min(minY, w.start.y, w.end.y);
-				maxX = Math.max(maxX, w.start.x, w.end.x);
-				maxY = Math.max(maxY, w.start.y, w.end.y);
-			}
-			if (isFinite(minX)) {
-				tempState.camera.pixelsPerInch = Math.min(
-					(offCanvas.width - 60) / (maxX - minX || 100),
-					(offCanvas.height - 60) / (maxY - minY || 100),
-				);
-				tempState.camera.centerX = (minX + maxX) / 2;
-				tempState.camera.centerY = (minY + maxY) / 2;
-			}
+			const tempState = buildPlannerStateFromSavedRoom(room, displayUnit, offCanvas);
 
 			offCtx.fillStyle = '#fff';
 			offCtx.fillRect(0, 0, offCanvas.width, offCanvas.height);

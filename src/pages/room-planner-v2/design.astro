@@ -1762,7 +1762,7 @@ const plannerTemplates = getAllTemplates();
 	import { CUSHION_COLORS } from '../../room-planner/types';
 	import type { PlannerState, LockerInstance, Opening, Selection, DisplayUnit } from '../../room-planner/types';
 	import { generateEstimatePdfBlob } from '../../room-planner/pdfEstimate';
-	import { generateLayoutPdfBlob } from '../../room-planner/pdfLayoutDoc';
+	import { captureFirstRoom3DEmailPreviewDataUrl, generateLayoutPdfBlob } from '../../room-planner/pdfLayoutDoc';
 	import { launch3DPreview, dispose3DPreview, resetCamera, rotateSelected3D, hasSelection3D, updateFloorColor3D, updateWallColor3D, setFloorLogo, removeFloorLogo, rebuildLockerMesh3D, highlightAllLockers3D, clearSelection3D } from '../../room-planner/render3d';
 
 	// ─── Load setup data from localStorage ───
@@ -3193,6 +3193,13 @@ const plannerTemplates = getAllTemplates();
 		} catch (e) {
 			console.error('Layout PDF failed:', e);
 		}
+		let layoutPreviewDataUrl: string | undefined;
+		try {
+			const thumb = await captureFirstRoom3DEmailPreviewDataUrl(savedRooms, state.displayUnit);
+			if (thumb) layoutPreviewDataUrl = thumb;
+		} catch {
+			/* optional email hero image */
+		}
 		try {
 			loadRoom(origIndex);
 		} catch (_) {}
@@ -3214,6 +3221,7 @@ const plannerTemplates = getAllTemplates();
 				grandTotal: grandTotal.toFixed(2),
 				estimatePdfBase64,
 				layoutPdfBase64,
+				layoutPreviewDataUrl,
 			}),
 		}).then(async (res) => {
 			if (res.ok) {

@@ -18,6 +18,15 @@ export const ROOM_PLAN_SHIPPING_LINES = [
 export const ROOM_PLAN_SUBMIT_DISCLAIMER =
 	"We'll send a copy of your layout to your email and to our team so we can help you execute on your dream locker room.";
 
+/** Email-only: heading above optional inline 3D snapshot (first room). */
+export const ROOM_PLAN_EMAIL_3D_PREVIEW_TITLE = 'Your 3D preview';
+
+/** Email-only: explains snapshot vs layout PDF. */
+export const ROOM_PLAN_EMAIL_3D_PREVIEW_BLURB =
+	'First room at a snapshot angle — your attached layout PDF includes a full-size 3D page per room (same renderer as the planner).';
+
+export const ROOM_PLAN_EMAIL_3D_PREVIEW_ALT = '3D preview of your locker room';
+
 export const ROOM_PLAN_WHAT_NEXT_HEADING = 'What happens next?';
 
 export const ROOM_PLAN_WHAT_NEXT_STEPS = [

@@ -17,6 +17,8 @@ interface RequestBody {
 	pdfBase64?: string;
 	estimatePdfBase64?: string;
 	layoutPdfBase64?: string;
+	/** Optional PNG data URL from `captureFirstRoom3DEmailPreviewDataUrl` (embedded in HTML emails). */
+	layoutPreviewDataUrl?: string;
 }
 
 async function sendEmail(
@@ -64,7 +66,8 @@ export const POST: APIRoute = async ({ request }) => {
 
 	try {
 		const body = (await request.json()) as RequestBody;
-		const { email, orderSummary, grandTotal, pdfBase64, estimatePdfBase64, layoutPdfBase64 } = body;
+		const { email, orderSummary, grandTotal, pdfBase64, estimatePdfBase64, layoutPdfBase64, layoutPreviewDataUrl } =
+			body;
 
 		if (!email || !orderSummary) {
 			return new Response(JSON.stringify({ error: 'Missing required fields (email, orderSummary)' }), {
@@ -84,8 +87,8 @@ export const POST: APIRoute = async ({ request }) => {
 			attachments.push({ filename: 'room-planner-layout.pdf', content: pdfBase64 });
 		}
 
-		const customerHTML = buildCustomerHTML(email, orderSummary, grandTotal);
-		const salesHTML = buildSalesHTML(email, orderSummary, grandTotal);
+		const customerHTML = buildCustomerHTML(email, orderSummary, grandTotal, layoutPreviewDataUrl);
+		const salesHTML = buildSalesHTML(email, orderSummary, grandTotal, layoutPreviewDataUrl);
 
 		await Promise.all([
 			sendEmail(
