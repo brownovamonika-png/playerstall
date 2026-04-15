@@ -10,21 +10,32 @@ const FROM_EMAIL = process.env.MAILERSEND_FROM_EMAIL || 'team@playerstall.com';
 const FROM_NAME = 'PlayerStall';
 const SALES_EMAIL = 'team@playerstall.com';
 
-function roomPlanEmailPlainText(email: string, grandTotal: string): string {
+/** Plain-text part must carry the same planner data as HTML/PDFs — many clients show this snippet first. */
+function roomPlanEmailPlainText(email: string, grandTotal: string, orderSummary: string): string {
 	const intro = ROOM_PLAN_INTRO.replace(/\s+/g, ' ').trim();
+	const raw = orderSummary.trim();
+	const maxLen = 56000;
+	const summary = raw.length > maxLen ? `${raw.slice(0, maxLen)}\n\n[… message truncated …]` : raw;
 	return [
 		'PLAYERSTALL — Review your layout',
 		'',
+		'This email includes a full HTML version (PLAYERSTALL header, your selections, and order table). Use your app’s HTML / rich view to see that layout; the section below is the same data in plain text.',
+		'',
 		intro,
 		'',
-		`Estimated total (from planner): $${grandTotal}`,
+		'YOUR PLANNER SUMMARY (same as HTML + estimate PDF)',
+		'----------------------------------------',
+		summary,
+		'----------------------------------------',
+		'',
+		`Estimated total: $${grandTotal}`,
 		`Your email: ${email}`,
 		'',
-		'Attached when generated: PlayerStall-Room-Estimate.pdf and PlayerStall-Room-Layout.pdf.',
+		'Attachments when generated from the planner:',
+		'  • PlayerStall-Room-Estimate.pdf — pricing and selections',
+		'  • PlayerStall-Room-Layout.pdf — floor plan and 3D',
 		'',
-		'If this looks plain, open the HTML version — layout matches playerstall.com room planner.',
-		'',
-		'team@playerstall.com',
+		'Questions: team@playerstall.com',
 	].join('\n');
 }
 
@@ -110,11 +121,11 @@ export const POST: APIRoute = async ({ request }) => {
 
 		const customerHTML = buildCustomerHTML(email, orderSummary, grandTotal, layoutPreviewDataUrl);
 		const salesHTML = buildSalesHTML(email, orderSummary, grandTotal, layoutPreviewDataUrl);
-		const customerText = roomPlanEmailPlainText(email, grandTotal);
+		const customerText = roomPlanEmailPlainText(email, grandTotal, orderSummary);
 		const salesText = [
 			`New room planner submission from ${email}`,
 			'',
-			'Open the HTML version in MailerSend / your inbox for the full order table and optional 3D preview.',
+			'Use the HTML view in your inbox for the designed layout (same data as below).',
 			'',
 			customerText,
 		].join('\n');
