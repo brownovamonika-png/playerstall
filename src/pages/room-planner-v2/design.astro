@@ -1764,6 +1764,7 @@ const plannerTemplates = getAllTemplates();
 	import { generateEstimatePdfBlob } from '../../room-planner/pdfEstimate';
 	import { captureFirstRoom3DEmailPreviewDataUrl, generateLayoutPdfBlob } from '../../room-planner/pdfLayoutDoc';
 	import { launch3DPreview, dispose3DPreview, resetCamera, rotateSelected3D, hasSelection3D, updateFloorColor3D, updateWallColor3D, setFloorLogo, removeFloorLogo, rebuildLockerMesh3D, highlightAllLockers3D, clearSelection3D } from '../../room-planner/render3d';
+	import { sendRoomPlanApiUrl } from '../../lib/sendRoomPlanApiUrl';
 
 	// ─── Load setup data from localStorage ───
 	const raw = localStorage.getItem('ps_planner_setup');
@@ -3213,7 +3214,7 @@ const plannerTemplates = getAllTemplates();
 			if (layoutBlob) layoutPdfBase64 = await blobToBase64(layoutBlob);
 		} catch (_) {}
 
-		fetch('/api/send-room-plan', {
+		fetch(sendRoomPlanApiUrl(), {
 			method: 'POST', headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
 				email: customerEmail,

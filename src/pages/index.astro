@@ -119,11 +119,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</p>
 		</div>
 		<div class="home-shop-main">
-			<div class="home-shop-products-grid">
+			<div class="home-shop-products-grid home-shop-products-grid-premium">
 				<!-- Model L (formerly Pro) -->
-				<div class="home-shop-product-item">
+				<div class="home-shop-product-item home-shop-product-item-model-l">
 					<div class="home-shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model L Locker" loading="lazy" />
+						<img src="/images/type1-L-darkgrey-front.jpg" alt="Model L premium athletic locker in dark grey, front view" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-model-l" class="home-shop-details-btn-overlay">Details</a>
 						</div>
@@ -2786,10 +2786,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	grid-template-columns: repeat(4, 1fr);
 }
 
-.home-shop-products-grid-four .home-shop-product-image {
+.home-shop-products-grid-four .home-shop-product-image,
+.home-shop-products-grid-premium .home-shop-product-image {
 	height: 400px;
 	min-height: 400px;
 	aspect-ratio: auto;
+}
+
+/* Model L front photo has extra margin in-frame; cover fills the card like side-view PNGs */
+.home-shop-product-item-model-l .home-shop-product-image img {
+	object-fit: cover;
+	object-position: 40% 88%;
 }
 
 /* Pro Locker and Stadium cards: image 20% smaller (same size) */
@@ -2986,7 +2993,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.home-shop-products-grid-four {
 		grid-template-columns: repeat(2, 1fr);
 	}
-	.home-shop-products-grid-four .home-shop-product-image {
+	.home-shop-products-grid-four .home-shop-product-image,
+	.home-shop-products-grid-premium .home-shop-product-image {
 		height: 360px;
 		min-height: 360px;
 	}
@@ -3005,7 +3013,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		height: 320px;
 		min-height: 320px;
 	}
-	.home-shop-products-grid-four .home-shop-product-image {
+	.home-shop-products-grid-four .home-shop-product-image,
+	.home-shop-products-grid-premium .home-shop-product-image {
 		height: 320px;
 		min-height: 320px;
 	}

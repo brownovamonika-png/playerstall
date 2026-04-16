@@ -67,12 +67,12 @@ const teamSrc = `data:text/html;charset=utf-8,${encodeURIComponent(teamHtml)}`;
 	</head>
 	<body>
 		<p class="hint">
-			This HTML is what <code>POST /api/send-room-plan</code> emails to customers (same <code>buildCustomerHTML</code>
-			call; optional 3D snapshot is omitted here). The estimate PDF uses the same intro, your selections
-			(timing/funding from <code>orderSummary</code>), order summary, and bands — see
-			<code>src/room-planner/pdfEstimate.ts</code>. Edit layout in <code>src/lib/roomPlanEmailTemplates.ts</code>.
-			Subjects are set in <code>src/pages/api/send-room-plan.ts</code>. To save the same HTML (and a sample estimate PDF) as files on disk, run
-			<code>npm run email:export-preview</code> — open the <code>email-export/</code> folder in Finder.
+			Customer and team emails both use the same compact HTML pattern (<code>buildCustomerHTML</code> /
+			<code>buildSalesHTML</code>): totals + pointer to PDFs; team adds a Customer mailto row on the card. The estimate
+			PDF has the full table + your selections — see <code>src/room-planner/pdfEstimate.ts</code>. Edit copy in
+			<code>src/lib/roomPlanCustomerCopy.ts</code> and layout in <code>src/lib/roomPlanEmailTemplates.ts</code>. Subjects
+			are in <code>src/pages/api/send-room-plan.ts</code>. Run <code>npm run email:export-preview</code> to write HTML +
+			sample PDF to <code>email-export/</code>.
 		</p>
 
 		<section>

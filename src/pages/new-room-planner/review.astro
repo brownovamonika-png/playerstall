@@ -457,6 +457,7 @@ import {
 	import type { PlannerState, LockerInstance } from '../../room-planner/types';
 	import { generateEstimatePdfBlob } from '../../room-planner/pdfEstimate';
 	import { captureFirstRoom3DEmailPreviewDataUrl, generateLayoutPdfBlob } from '../../room-planner/pdfLayoutDoc';
+	import { sendRoomPlanApiUrl } from '../../lib/sendRoomPlanApiUrl';
 
 	const ROOMS_STORAGE_KEY = 'playerstall_rooms_design';
 
@@ -665,7 +666,7 @@ import {
 			if (layoutBlob) layoutPdfBase64 = await blobToBase64(layoutBlob);
 		} catch (_) { /* continue without attachment */ }
 
-		fetch('/api/send-room-plan', {
+		fetch(sendRoomPlanApiUrl(), {
 			method: 'POST', headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
 				email: customerEmail,

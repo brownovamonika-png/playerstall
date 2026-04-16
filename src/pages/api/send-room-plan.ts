@@ -1,42 +1,81 @@
 import type { APIRoute } from 'astro';
-import { ROOM_PLAN_INTRO } from '../../lib/roomPlanCustomerCopy';
+import {
+	ROOM_PLAN_ATTACHMENTS_NOTE,
+	ROOM_PLAN_ATTACHMENT_FILES_DESC,
+	ROOM_PLAN_INTRO,
+	ROOM_PLAN_SHIPPING_LINES,
+	ROOM_PLAN_TEAM_INTRO,
+	ROOM_PLAN_TEAM_NOTE,
+} from '../../lib/roomPlanCustomerCopy';
 import { buildCustomerHTML, buildSalesHTML } from '../../lib/roomPlanEmailTemplates';
+import { extractPlannerMetaFromOrderSummary } from '../../lib/roomPlanOrderSummaryParse';
 
 /** Server route — bundled with Astro on Vercel (root `api/` was missing traced deps → FUNCTION_INVOCATION_FAILED). */
 export const prerender = false;
+
+const CORS_ALLOW_ORIGINS = new Set([
+	'https://playerstall.com',
+	'https://www.playerstall.com',
+	'http://localhost:4321',
+	'http://127.0.0.1:4321',
+]);
+
+function applyCors(request: Request, headers: Headers): void {
+	const origin = request.headers.get('Origin');
+	if (origin && CORS_ALLOW_ORIGINS.has(origin)) {
+		headers.set('Access-Control-Allow-Origin', origin);
+		headers.append('Vary', 'Origin');
+		headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+		headers.set('Access-Control-Allow-Headers', 'Content-Type');
+		headers.set('Access-Control-Max-Age', '86400');
+	}
+}
+
+export const OPTIONS: APIRoute = async ({ request }) => {
+	const headers = new Headers();
+	applyCors(request, headers);
+	return new Response(null, { status: 204, headers });
+};
 
 const MAILERSEND_API = 'https://api.mailersend.com/v1/email';
 const FROM_EMAIL = process.env.MAILERSEND_FROM_EMAIL || 'team@playerstall.com';
 const FROM_NAME = 'PlayerStall';
 const SALES_EMAIL = 'team@playerstall.com';
 
-/** Plain-text part must carry the same planner data as HTML/PDFs — many clients show this snippet first. */
-function roomPlanEmailPlainText(email: string, grandTotal: string, orderSummary: string): string {
-	const intro = ROOM_PLAN_INTRO.replace(/\s+/g, ' ').trim();
-	const raw = orderSummary.trim();
-	const maxLen = 56000;
-	const summary = raw.length > maxLen ? `${raw.slice(0, maxLen)}\n\n[… message truncated …]` : raw;
-	return [
-		'PLAYERSTALL — Review your layout',
+/** Plain text for customer and team — short; line-by-line detail is in the PDFs (same as HTML). */
+function roomPlanCompactPlainText(forTeam: boolean, email: string, grandTotal: string, orderSummary: string): string {
+	const intro = (forTeam ? ROOM_PLAN_TEAM_INTRO : ROOM_PLAN_INTRO).replace(/\s+/g, ' ').trim();
+	const title = forTeam ? 'PLAYERSTALL — New room planner submission' : 'PLAYERSTALL — Review your layout';
+	const htmlHint = forTeam
+		? 'The HTML version is a short summary; the attached PDFs have the full breakdown (same files the customer received).'
+		: 'The HTML version is a short summary; your attached PDFs have the full breakdown.';
+	const { timingLines, fundingLines } = extractPlannerMetaFromOrderSummary(orderSummary);
+	const lines: string[] = [
+		title,
 		'',
-		'This email includes a full HTML version (PLAYERSTALL header, your selections, and order table). Use your app’s HTML / rich view to see that layout; the section below is the same data in plain text.',
+		htmlHint,
 		'',
 		intro,
 		'',
-		'YOUR PLANNER SUMMARY (same as HTML + estimate PDF)',
-		'----------------------------------------',
-		summary,
-		'----------------------------------------',
-		'',
 		`Estimated total: $${grandTotal}`,
-		`Your email: ${email}`,
+		forTeam ? `Customer email: ${email}` : `Your email: ${email}`,
 		'',
-		'Attachments when generated from the planner:',
-		'  • PlayerStall-Room-Estimate.pdf — pricing and selections',
-		'  • PlayerStall-Room-Layout.pdf — floor plan and 3D',
+	];
+	if (timingLines.length) {
+		lines.push('Preferred delivery timing:', ...timingLines.map((l) => `  • ${l}`), '');
+	}
+	if (fundingLines.length) {
+		lines.push('Funding / budget:', ...fundingLines.map((l) => `  • ${l}`), '');
+	}
+	lines.push(
+		`Attachments: ${ROOM_PLAN_ATTACHMENT_FILES_DESC}`,
+		forTeam ? ROOM_PLAN_TEAM_NOTE : ROOM_PLAN_ATTACHMENTS_NOTE,
+		'',
+		...ROOM_PLAN_SHIPPING_LINES.map((l) => `• ${l}`),
 		'',
 		'Questions: team@playerstall.com',
-	].join('\n');
+	);
+	return lines.join('\n');
 }
 
 interface RequestBody {
@@ -90,9 +129,11 @@ export const POST: APIRoute = async ({ request }) => {
 	const token = process.env.MAILERSEND_API_TOKEN;
 	if (!token) {
 		console.error('MAILERSEND_API_TOKEN not configured');
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		applyCors(request, headers);
 		return new Response(JSON.stringify({ error: 'Email service not configured' }), {
 			status: 500,
-			headers: { 'Content-Type': 'application/json' },
+			headers,
 		});
 	}
 
@@ -102,9 +143,11 @@ export const POST: APIRoute = async ({ request }) => {
 			body;
 
 		if (!email || !orderSummary) {
+			const headers = new Headers({ 'Content-Type': 'application/json' });
+			applyCors(request, headers);
 			return new Response(JSON.stringify({ error: 'Missing required fields (email, orderSummary)' }), {
 				status: 400,
-				headers: { 'Content-Type': 'application/json' },
+				headers,
 			});
 		}
 
@@ -121,13 +164,13 @@ export const POST: APIRoute = async ({ request }) => {
 
 		const customerHTML = buildCustomerHTML(email, orderSummary, grandTotal, layoutPreviewDataUrl);
 		const salesHTML = buildSalesHTML(email, orderSummary, grandTotal, layoutPreviewDataUrl);
-		const customerText = roomPlanEmailPlainText(email, grandTotal, orderSummary);
+		const customerText = roomPlanCompactPlainText(false, email, grandTotal, orderSummary);
 		const salesText = [
 			`New room planner submission from ${email}`,
 			'',
-			'Use the HTML view in your inbox for the designed layout (same data as below).',
+			'Use the HTML view in your inbox — same compact layout as the customer; full detail is in the PDFs below.',
 			'',
-			customerText,
+			roomPlanCompactPlainText(true, email, grandTotal, orderSummary),
 		].join('\n');
 
 		await Promise.all([
@@ -151,19 +194,23 @@ export const POST: APIRoute = async ({ request }) => {
 			),
 		]);
 
-		return new Response(JSON.stringify({ ok: true, roomPlanEmailVersion: 'v2-html' }), {
+		const okHeaders = new Headers({
+			'Content-Type': 'application/json',
+			'X-PlayerStall-Room-Plan-Email': 'v2-html-compact',
+		});
+		applyCors(request, okHeaders);
+		return new Response(JSON.stringify({ ok: true, roomPlanEmailVersion: 'v2-html-compact' }), {
 			status: 200,
-			headers: {
-				'Content-Type': 'application/json',
-				'X-PlayerStall-Room-Plan-Email': 'v2-html',
-			},
+			headers: okHeaders,
 		});
 	} catch (err: unknown) {
 		const message = err instanceof Error ? err.message : 'Unknown error';
 		console.error('send-room-plan error:', message);
+		const errHeaders = new Headers({ 'Content-Type': 'application/json' });
+		applyCors(request, errHeaders);
 		return new Response(JSON.stringify({ error: message }), {
 			status: 500,
-			headers: { 'Content-Type': 'application/json' },
+			headers: errHeaders,
 		});
 	}
 };

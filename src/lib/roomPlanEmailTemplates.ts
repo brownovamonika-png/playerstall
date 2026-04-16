@@ -1,12 +1,16 @@
 /**
  * HTML bodies for MailerSend room-plan emails.
- * Customer and team (sales) emails share the same white layout and order table as the Review Your Layout page; copy is centralized in roomPlanCustomerCopy.
+ * Customer email: white layout, compact totals, 3D snapshot — line-by-line order is in the estimate PDF only.
+ * Team (sales) email: same compact panel as the customer email, plus customer mailto at the top of the card. Copy: roomPlanCustomerCopy.
  * Preview: /dev/email-preview-room-plan (npm run dev only). POST handler: /api/send-room-plan (Astro server route).
  */
 
 import {
 	ROOM_PLAN_ATTACHMENT_FILES_DESC,
 	ROOM_PLAN_ATTACHMENTS_NOTE,
+	ROOM_PLAN_EMAIL_COMPACT_PANEL_HEADING,
+	ROOM_PLAN_EMAIL_COMPACT_PDF_NOTE,
+	ROOM_PLAN_EMAIL_COMPACT_PDF_NOTE_TEAM,
 	ROOM_PLAN_CTA_LABEL,
 	ROOM_PLAN_CTA_URL,
 	ROOM_PLAN_FOOTER_LINES,
@@ -37,7 +41,7 @@ const C_PANEL = '#f7f7f7';
 const C_FOOT = '#b6b6b6';
 
 /** Invisible to users in most clients; use “Show original” / raw HTML to confirm the live API sent this build. */
-export const ROOM_PLAN_EMAIL_HTML_MARKER = '<!-- playerstall-room-plan:v2-html -->';
+export const ROOM_PLAN_EMAIL_HTML_MARKER = '<!-- playerstall-room-plan:v2-html-compact -->';
 
 function escapeHtml(s: string): string {
 	return s
@@ -112,52 +116,63 @@ function buildReviewStyleTableRows(orderSummary: string): { rows: string; locker
 	return { rows: chunks.join('\n'), lockerCount, roomCount: effectiveRooms };
 }
 
-function buildMetaSelectionsHtml(timingLines: string[], fundingLines: string[]): string {
-	if (!timingLines.length && !fundingLines.length) return '';
-	const cell = (lines: string[]) => lines.map((l) => escapeHtml(l)).join('<br />');
-	const rows: string[] = [];
-	if (timingLines.length) {
-		rows.push(`<tr>
-  <td style="padding:10px 16px;border-bottom:1px solid ${C_RULE};vertical-align:top;font-family:${FF_HEAD};font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:${C_MUTED};width:38%;">Preferred delivery timing</td>
-  <td style="padding:10px 16px;border-bottom:1px solid ${C_RULE};font-family:${FF_BODY};font-size:13px;color:${C_TEXT};line-height:1.45;">${cell(timingLines)}</td>
-</tr>`);
-	}
-	if (fundingLines.length) {
-		rows.push(`<tr>
-  <td style="padding:10px 16px;border-bottom:1px solid ${C_RULE};vertical-align:top;font-family:${FF_HEAD};font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:${C_MUTED};">Funding / budget</td>
-  <td style="padding:10px 16px;border-bottom:1px solid ${C_RULE};font-family:${FF_BODY};font-size:13px;color:${C_TEXT};line-height:1.45;">${cell(fundingLines)}</td>
-</tr>`);
-	}
+type CompactOrderRole = 'customer' | 'team';
+
+/** Compact totals panel — customer (your email) or team (customer mailto first, no duplicate table). */
+function buildCompactOrderSection(
+	role: CompactOrderRole,
+	customerEmail: string,
+	grandTotal: string,
+	lockerLine: string,
+): string {
+	const shippingRows = ROOM_PLAN_SHIPPING_LINES.map(
+		(line, i) =>
+			`<p style="margin:${i === 0 ? '0 0 6px' : '0'};font-family:${FF_BODY};font-size:12px;color:${C_MUTED};line-height:1.55;">${escapeHtml(line)}</p>`,
+	).join('');
+	const pdfNote =
+		role === 'team' ? ROOM_PLAN_EMAIL_COMPACT_PDF_NOTE_TEAM : ROOM_PLAN_EMAIL_COMPACT_PDF_NOTE;
+
+	const teamCustomerRow =
+		role === 'team'
+			? `<tr><td style="padding:24px 24px 16px;border-bottom:1px solid ${C_RULE};">
+        <p style="margin:0 0 6px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};">Customer</p>
+        <p style="margin:0;font-family:${FF_BODY};font-size:14px;line-height:1.5;">
+          <a href="mailto:${escapeHtml(customerEmail)}" style="color:${C_TEXT};text-decoration:underline;">${escapeHtml(customerEmail)}</a>
+        </p>
+      </td></tr>`
+			: '';
+
+	const customerEmailRow =
+		role === 'customer'
+			? `<tr><td style="padding:0 24px 14px;border-top:1px solid ${C_RULE};">
+        <p style="margin:0 0 6px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};">Your email</p>
+        <p style="margin:0;padding:10px 0 8px;font-family:${FF_BODY};font-size:14px;color:${C_TEXT};border-bottom:1px solid ${C_RULE};">${escapeHtml(customerEmail)}</p>
+      </td></tr>`
+			: '';
+
+	const pdfNoteTopBorder = role === 'team' ? `border-top:1px solid ${C_RULE};` : '';
+
 	return `
   <tr><td style="padding:28px 8px 0;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:${C_PANEL};border:1px solid ${C_RULE};">
-      <tr><td style="padding:16px 20px;border-bottom:1px solid ${C_RULE};">
-        <h2 style="margin:0;font-family:${FF_HEAD};font-size:14px;font-weight:700;color:${C_TEXT};text-transform:uppercase;letter-spacing:1.5px;line-height:1.2;">Your selections</h2>
+      ${teamCustomerRow}
+      <tr><td style="padding:24px 24px 16px;border-bottom:1px solid ${C_RULE};">
+        <h2 style="margin:0;font-family:${FF_HEAD};font-size:20px;font-weight:700;color:${C_TEXT};text-transform:uppercase;letter-spacing:2px;line-height:1.2;">${escapeHtml(ROOM_PLAN_EMAIL_COMPACT_PANEL_HEADING)}</h2>
       </td></tr>
-      <tr><td style="padding:0;">
-        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
-          ${rows.join('\n')}
-        </table>
+      <tr><td style="padding:24px 20px 12px;text-align:center;border-bottom:1px solid ${C_RULE};">
+        <p style="margin:0;font-family:${FF_HEAD};font-size:11px;font-weight:600;color:${C_MUTED};text-transform:uppercase;letter-spacing:1px;">Estimated total</p>
+        <p style="margin:10px 0 0;font-family:${FF_HEAD};font-size:32px;font-weight:700;color:${C_TEXT};letter-spacing:0.02em;">$${escapeHtml(grandTotal)}</p>
+      </td></tr>
+      <tr><td style="padding:14px 24px 10px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};letter-spacing:0.5px;text-align:center;">${escapeHtml(lockerLine)}</td></tr>
+      <tr><td style="padding:0 24px 14px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};line-height:1.55;">
+        ${shippingRows}
+      </td></tr>
+      ${customerEmailRow}
+      <tr><td style="padding:16px 24px 20px;${pdfNoteTopBorder}">
+        <p style="margin:0;font-family:${FF_BODY};font-size:13px;line-height:1.65;color:${C_TEXT};">${escapeHtml(pdfNote)}</p>
       </td></tr>
     </table>
   </td></tr>`;
-}
-
-function reviewOrderTableTheadSubfoot(grandTotal: string): { thead: string; subfoot: string } {
-	const thead = `<tr>
-    <th align="left" style="padding:12px 24px;font-family:${FF_HEAD};font-size:11px;font-weight:600;color:${C_MUTED};text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid ${C_RULE};">Product</th>
-    <th align="center" style="padding:12px 16px;font-family:${FF_HEAD};font-size:11px;font-weight:600;color:${C_MUTED};text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid ${C_RULE};width:48px;">Qty</th>
-    <th align="right" style="padding:12px 24px 12px 12px;font-family:${FF_HEAD};font-size:11px;font-weight:600;color:${C_MUTED};text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid ${C_RULE};">Subtotal</th>
-  </tr>`;
-	const subfoot = `<tr>
-    <th colspan="2" align="left" style="padding:12px 24px;font-family:${FF_HEAD};font-size:12px;font-weight:600;color:${C_MUTED};text-transform:uppercase;letter-spacing:1px;border:none;">Subtotal</th>
-    <td align="right" style="padding:12px 24px 12px 12px;font-family:${FF_HEAD};font-size:13px;font-weight:600;color:${C_TEXT};border:none;">$${escapeHtml(grandTotal)}</td>
-  </tr>
-  <tr>
-    <th colspan="2" align="left" style="padding:14px 24px 12px;font-family:${FF_HEAD};font-size:12px;font-weight:600;color:${C_MUTED};text-transform:uppercase;letter-spacing:1px;border-top:1px solid #cccccc;">Estimated Total</th>
-    <td align="right" style="padding:14px 24px 12px 12px;font-family:${FF_HEAD};font-size:20px;font-weight:700;color:${C_TEXT};border-top:1px solid #cccccc;">$${escapeHtml(grandTotal)}</td>
-  </tr>`;
-	return { thead, subfoot };
 }
 
 export function buildCustomerHTML(
@@ -166,17 +181,16 @@ export function buildCustomerHTML(
 	grandTotal: string,
 	layoutPreviewDataUrl?: string | null,
 ): string {
-	const { timingLines, fundingLines, rest } = extractPlannerMetaFromOrderSummary(orderSummary);
-	const { rows, lockerCount, roomCount } = buildReviewStyleTableRows(rest);
-	const metaRow = buildMetaSelectionsHtml(timingLines, fundingLines);
+	const { rest } = extractPlannerMetaFromOrderSummary(orderSummary);
+	const { lockerCount, roomCount } = buildReviewStyleTableRows(rest);
 	const footerLine2Parts = ROOM_PLAN_FOOTER_LINES[1].split(' · ');
-	const { thead, subfoot } = reviewOrderTableTheadSubfoot(grandTotal);
 	const previewRow = layoutPreviewBlock(layoutPreviewDataUrl);
 
 	const lockerLine =
 		lockerCount > 0
 			? `${lockerCount} locker${lockerCount !== 1 ? 's' : ''} across ${roomCount} room${roomCount !== 1 ? 's' : ''}`
 			: 'No lockers in this summary.';
+	const compactOrderSection = buildCompactOrderSection('customer', email, grandTotal, lockerLine);
 
 	return `
 <!DOCTYPE html>
@@ -203,32 +217,7 @@ ${ROOM_PLAN_EMAIL_HTML_MARKER}
     </p>
   </td></tr>
 ${previewRow}
-${metaRow}
-  <tr><td style="padding:28px 8px 0;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:${C_PANEL};border:1px solid ${C_RULE};">
-      <tr><td style="padding:24px 24px 16px;border-bottom:1px solid ${C_RULE};">
-        <h2 style="margin:0;font-family:${FF_HEAD};font-size:20px;font-weight:700;color:${C_TEXT};text-transform:uppercase;letter-spacing:2px;line-height:1.2;">Order Summary</h2>
-      </td></tr>
-      <tr><td style="padding:0;">
-        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
-          <thead>${thead}</thead>
-          <tbody>${rows}</tbody>
-          <tfoot>${subfoot}</tfoot>
-        </table>
-      </td></tr>
-      <tr><td style="padding:10px 24px 8px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};letter-spacing:0.5px;">${escapeHtml(lockerLine)}</td></tr>
-      <tr><td style="padding:0 24px 16px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};line-height:1.55;">
-        ${ROOM_PLAN_SHIPPING_LINES.map(
-					(line, i) =>
-						`<p style="margin:${i === 0 ? '0 0 6px' : '0'};font-family:${FF_BODY};font-size:12px;color:${C_MUTED};line-height:1.55;">${escapeHtml(line)}</p>`,
-				).join('')}
-      </td></tr>
-      <tr><td style="padding:0 24px 20px;">
-        <p style="margin:0 0 6px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};">Your email</p>
-        <p style="margin:0;padding:10px 0 8px;font-family:${FF_BODY};font-size:14px;color:${C_TEXT};border-bottom:1px solid ${C_RULE};">${escapeHtml(email)}</p>
-      </td></tr>
-    </table>
-  </td></tr>
+${compactOrderSection}
 
   <tr><td style="padding:24px 8px 0;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#fafafa;border:1px solid ${C_RULE};">
@@ -277,17 +266,16 @@ export function buildSalesHTML(
 	grandTotal: string,
 	layoutPreviewDataUrl?: string | null,
 ): string {
-	const { timingLines, fundingLines, rest } = extractPlannerMetaFromOrderSummary(orderSummary);
-	const { rows, lockerCount, roomCount } = buildReviewStyleTableRows(rest);
-	const metaRow = buildMetaSelectionsHtml(timingLines, fundingLines);
+	const { rest } = extractPlannerMetaFromOrderSummary(orderSummary);
+	const { lockerCount, roomCount } = buildReviewStyleTableRows(rest);
 	const footerLine2Parts = ROOM_PLAN_FOOTER_LINES[1].split(' · ');
-	const { thead, subfoot } = reviewOrderTableTheadSubfoot(grandTotal);
 	const previewRow = layoutPreviewBlock(layoutPreviewDataUrl);
 
 	const lockerLine =
 		lockerCount > 0
 			? `${lockerCount} locker${lockerCount !== 1 ? 's' : ''} across ${roomCount} room${roomCount !== 1 ? 's' : ''}`
 			: 'No lockers in this summary.';
+	const compactOrderSection = buildCompactOrderSection('team', email, grandTotal, lockerLine);
 
 	return `
 <!DOCTYPE html>
@@ -314,34 +302,7 @@ ${ROOM_PLAN_EMAIL_HTML_MARKER}
     </p>
   </td></tr>
 ${previewRow}
-${metaRow}
-  <tr><td style="padding:28px 8px 0;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:${C_PANEL};border:1px solid ${C_RULE};">
-      <tr><td style="padding:24px 24px 16px;border-bottom:1px solid ${C_RULE};">
-        <p style="margin:0 0 6px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};">Customer</p>
-        <p style="margin:0;font-family:${FF_BODY};font-size:14px;line-height:1.5;">
-          <a href="mailto:${escapeHtml(email)}" style="color:${C_TEXT};text-decoration:underline;">${escapeHtml(email)}</a>
-        </p>
-      </td></tr>
-      <tr><td style="padding:24px 24px 16px;border-bottom:1px solid ${C_RULE};">
-        <h2 style="margin:0;font-family:${FF_HEAD};font-size:20px;font-weight:700;color:${C_TEXT};text-transform:uppercase;letter-spacing:2px;line-height:1.2;">Order Summary</h2>
-      </td></tr>
-      <tr><td style="padding:0;">
-        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
-          <thead>${thead}</thead>
-          <tbody>${rows}</tbody>
-          <tfoot>${subfoot}</tfoot>
-        </table>
-      </td></tr>
-      <tr><td style="padding:10px 24px 8px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};letter-spacing:0.5px;">${escapeHtml(lockerLine)}</td></tr>
-      <tr><td style="padding:0 24px 20px;font-family:${FF_BODY};font-size:12px;color:${C_MUTED};line-height:1.55;">
-        ${ROOM_PLAN_SHIPPING_LINES.map(
-					(line, i) =>
-						`<p style="margin:${i === 0 ? '0 0 6px' : '0'};font-family:${FF_BODY};font-size:12px;color:${C_MUTED};line-height:1.55;">${escapeHtml(line)}</p>`,
-				).join('')}
-      </td></tr>
-    </table>
-  </td></tr>
+${compactOrderSection}
 
   <tr><td style="padding:24px 8px 0;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#fafafa;border:1px solid ${C_RULE};">
