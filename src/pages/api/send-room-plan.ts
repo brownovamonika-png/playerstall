@@ -151,9 +151,12 @@ export const POST: APIRoute = async ({ request }) => {
 			),
 		]);
 
-		return new Response(JSON.stringify({ ok: true }), {
+		return new Response(JSON.stringify({ ok: true, roomPlanEmailVersion: 'v2-html' }), {
 			status: 200,
-			headers: { 'Content-Type': 'application/json' },
+			headers: {
+				'Content-Type': 'application/json',
+				'X-PlayerStall-Room-Plan-Email': 'v2-html',
+			},
 		});
 	} catch (err: unknown) {
 		const message = err instanceof Error ? err.message : 'Unknown error';

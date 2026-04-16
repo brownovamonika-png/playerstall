@@ -1,8 +1,23 @@
 import type { MiddlewareHandler } from 'astro';
 import { isAdminPasswordWallEnabled, isPreviewModeMissingPassword, verifyCrmGateCookie } from './lib/crm-gate';
 
+function isRoomPlannerPath(pathname: string): boolean {
+  return (
+    pathname === '/room-planner' ||
+    pathname.startsWith('/room-planner/') ||
+    pathname.startsWith('/new-room-planner') ||
+    pathname.startsWith('/room-planner-v2')
+  );
+}
+
 export const onRequest: MiddlewareHandler = async (context, next) => {
   const path = context.url.pathname;
+
+  if (isRoomPlannerPath(path)) {
+    const response = await next();
+    response.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
+    return response;
+  }
 
   if (!path.startsWith('/admin')) {
     return next();
