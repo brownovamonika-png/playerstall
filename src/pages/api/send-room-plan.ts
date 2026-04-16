@@ -13,17 +13,27 @@ import { extractPlannerMetaFromOrderSummary } from '../../lib/roomPlanOrderSumma
 /** Server route — bundled with Astro on Vercel (root `api/` was missing traced deps → FUNCTION_INVOCATION_FAILED). */
 export const prerender = false;
 
-const CORS_ALLOW_ORIGINS = new Set([
-	'https://playerstall.com',
-	'https://www.playerstall.com',
-	'http://localhost:4321',
-	'http://127.0.0.1:4321',
-]);
+/** Allow browser POST from dev, any https playerstall.com host, and Vercel previews. */
+function allowedCorsOrigin(origin: string | null): string | null {
+	if (!origin) return null;
+	try {
+		const u = new URL(origin);
+		const { protocol, hostname } = u;
+		if (protocol === 'http:' && (hostname === 'localhost' || hostname === '127.0.0.1')) return origin;
+		if (protocol !== 'https:') return null;
+		if (hostname === 'playerstall.com' || hostname.endsWith('.playerstall.com')) return origin;
+		if (hostname.endsWith('.vercel.app')) return origin;
+		return null;
+	} catch {
+		return null;
+	}
+}
 
 function applyCors(request: Request, headers: Headers): void {
 	const origin = request.headers.get('Origin');
-	if (origin && CORS_ALLOW_ORIGINS.has(origin)) {
-		headers.set('Access-Control-Allow-Origin', origin);
+	const allowed = allowedCorsOrigin(origin);
+	if (allowed) {
+		headers.set('Access-Control-Allow-Origin', allowed);
 		headers.append('Vary', 'Origin');
 		headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
 		headers.set('Access-Control-Allow-Headers', 'Content-Type');
@@ -31,9 +41,15 @@ function applyCors(request: Request, headers: Headers): void {
 	}
 }
 
+function finalizeApiHeaders(request: Request, headers: Headers): void {
+	applyCors(request, headers);
+	headers.set('Cache-Control', 'no-store, must-revalidate');
+	headers.set('Pragma', 'no-cache');
+}
+
 export const OPTIONS: APIRoute = async ({ request }) => {
 	const headers = new Headers();
-	applyCors(request, headers);
+	finalizeApiHeaders(request, headers);
 	return new Response(null, { status: 204, headers });
 };
 
@@ -130,7 +146,7 @@ export const POST: APIRoute = async ({ request }) => {
 	if (!token) {
 		console.error('MAILERSEND_API_TOKEN not configured');
 		const headers = new Headers({ 'Content-Type': 'application/json' });
-		applyCors(request, headers);
+		finalizeApiHeaders(request, headers);
 		return new Response(JSON.stringify({ error: 'Email service not configured' }), {
 			status: 500,
 			headers,
@@ -144,7 +160,7 @@ export const POST: APIRoute = async ({ request }) => {
 
 		if (!email || !orderSummary) {
 			const headers = new Headers({ 'Content-Type': 'application/json' });
-			applyCors(request, headers);
+			finalizeApiHeaders(request, headers);
 			return new Response(JSON.stringify({ error: 'Missing required fields (email, orderSummary)' }), {
 				status: 400,
 				headers,
@@ -194,11 +210,13 @@ export const POST: APIRoute = async ({ request }) => {
 			),
 		]);
 
+		console.info('[send-room-plan] MailerSend ok', { roomPlanEmailVersion: 'v2-html-compact' });
+
 		const okHeaders = new Headers({
 			'Content-Type': 'application/json',
 			'X-PlayerStall-Room-Plan-Email': 'v2-html-compact',
 		});
-		applyCors(request, okHeaders);
+		finalizeApiHeaders(request, okHeaders);
 		return new Response(JSON.stringify({ ok: true, roomPlanEmailVersion: 'v2-html-compact' }), {
 			status: 200,
 			headers: okHeaders,
@@ -207,7 +225,7 @@ export const POST: APIRoute = async ({ request }) => {
 		const message = err instanceof Error ? err.message : 'Unknown error';
 		console.error('send-room-plan error:', message);
 		const errHeaders = new Headers({ 'Content-Type': 'application/json' });
-		applyCors(request, errHeaders);
+		finalizeApiHeaders(request, errHeaders);
 		return new Response(JSON.stringify({ error: message }), {
 			status: 500,
 			headers: errHeaders,

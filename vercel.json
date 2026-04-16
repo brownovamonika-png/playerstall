@@ -11,6 +11,15 @@
   ],
   "headers": [
     {
+      "source": "/api/send-room-plan",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, must-revalidate"
+        }
+      ]
+    },
+    {
       "source": "/new-room-planner(.*)",
       "headers": [
         {
