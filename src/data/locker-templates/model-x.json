@@ -2,7 +2,7 @@
   "templateId": "model-x",
   "displayName": "Model X Locker",
   "pdpUrl": "/product-legendary-locker",
-  "heroImage": "/images/model-x-website-images/model-x-locker.png",
+  "heroImage": "https://playerstall.b-cdn.net/images/X%20dark%20grey%20left%20side.jpg",
   "geometry": {
     "heightIn": 76,
     "widthOptionsIn": [

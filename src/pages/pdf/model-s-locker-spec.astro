@@ -2,9 +2,10 @@
 // PREMIUM — Model S only. 19" or 24", melamine. Linked from product-model-s. Do not use for Stadium Locker.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductSpecSheet from '../../components/ProductSpecSheet.astro';
+import { MODEL_S_HERO_IMAGE } from '../../data/model-s-assets';
 import { ADORNUS_DESIGNER_PAINT_LABELS_CSV } from '../../data/adornus-designer-paint-colors';
 import { TEXTURED_WOODGRAIN_LABELS_CSV } from '../../data/textured-woodgrain-colors';
-const dimensionsSheetSrc = '/images/model-x-locker-dimensions-sheet.png';
+const dimensionsSheetSrc = '/images/stadium-locker-dimensions-sheet.png';
 
 const modelSSpecs = [
 	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
@@ -26,12 +27,8 @@ const modelSSpecs = [
 	description="Model S wood locker spec sheet: premium melamine. 76&quot; H x 19&quot; or 24&quot; D, widths 18&quot;–32&quot;. From $649. Custom-built in 8–12 weeks. 5 year warranty."
 >
 	<main class="pdf-spec-page no-downloads no-accessories">
-		<section class="product-hero-section pdf-hero">
+		<section class="product-hero-section pdf-hero product-hero-section--plain">
 			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model S Locker" class="hero-image-print-only" />
-			<div class="product-hero-background">
-				<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model S Locker" class="product-hero-bg-image" />
-			</div>
-			<div class="product-hero-background-overlay"></div>
 			<div class="product-hero-container">
 				<div class="product-breadcrumbs">
 					<a href="/">Home</a>
@@ -47,8 +44,8 @@ const modelSSpecs = [
 		<div class="product-container top-locker-block">
 			<div class="top-locker-image-wrap">
 				<img
-					src="/images/model-x-website-images/model-x-locker-side.png"
-					alt="Model S wood athletic locker for locker rooms"
+					src={MODEL_S_HERO_IMAGE}
+					alt="Model S wood athletic locker in black, three-quarter view"
 					class="top-locker-image"
 				/>
 			</div>
@@ -319,6 +316,32 @@ const modelSSpecs = [
 		text-transform: uppercase;
 		margin: 0;
 		line-height: 1.1;
+	}
+
+	.product-hero-section.product-hero-section--plain {
+		background: #ffffff;
+		min-height: 0;
+		padding: 28px 0 32px;
+		justify-content: flex-start;
+		overflow: visible;
+	}
+	.product-hero-section.product-hero-section--plain .product-breadcrumbs {
+		color: #8c8c8c;
+	}
+	.product-hero-section.product-hero-section--plain .product-breadcrumbs a {
+		color: #8c8c8c;
+	}
+	.product-hero-section.product-hero-section--plain .product-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+	.product-hero-section.product-hero-section--plain .breadcrumbs-sep {
+		color: #cccccc;
+	}
+	.product-hero-section.product-hero-section--plain .breadcrumbs-current {
+		color: #0d0d0d;
+	}
+	.product-hero-section.product-hero-section--plain .product-page-title {
+		color: #0d0d0d;
 	}
 
 	.product-main-section {
@@ -821,11 +844,6 @@ const modelSSpecs = [
 			overflow: visible;
 			-webkit-print-color-adjust: exact;
 			print-color-adjust: exact;
-		}
-
-		.product-hero-background,
-		.product-hero-background-overlay {
-			display: none !important;
 		}
 
 		.hero-image-print-only {

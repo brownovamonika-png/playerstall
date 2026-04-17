@@ -1,5 +1,7 @@
  ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { MODEL_X_HERO_IMAGE } from '../data/model-x-assets';
+import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 ---
 
 <BaseLayout 
@@ -137,7 +139,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<!-- Model S (formerly Stadium) -->
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
-						<img src="/images/stadium-locker-side.png" alt="Model S Locker" loading="lazy" />
+						<img src={MODEL_S_HERO_IMAGE} alt="Model S wood athletic locker in black, three-quarter view" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-model-s" class="home-shop-details-btn-overlay">Details</a>
 						</div>
@@ -167,7 +169,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
 						<span class="home-shop-badge new">New</span>
-						<img src="/images/model-x-website-images/model-x-locker-side.png" alt="Model X Locker" loading="lazy" />
+						<img src={MODEL_X_HERO_IMAGE} alt="Model X wood locker in dark grey, three-quarter view" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-legendary-locker" class="home-shop-details-btn-overlay">Details</a>
 						</div>

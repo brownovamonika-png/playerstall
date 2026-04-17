@@ -4,6 +4,7 @@
  * Used by shop.astro and product (spec sheet) pages. Binds to .shop-accessory-trigger inside .shop-accessory-item.
  * Exposes addToCart and updateCartCount on window for other scripts (e.g. shop locker overlay).
  */
+import { CUSHION_CART_IMAGE } from '../data/shop-accessories';
 ---
 <div id="shop-accessory-modal" class="acc-modal" role="dialog" aria-modal="true" aria-labelledby="acc-modal-title" hidden>
 	<div class="acc-modal-backdrop"></div>
@@ -152,8 +153,14 @@
 	.acc-modal-slider { position: relative; width: 100%; height: 100%; min-height: 240px; overflow: hidden; background: #fff; }
 	.acc-modal-slides { display: flex; width: 100%; height: 100%; transition: transform 0.35s ease-in-out; background: #fff; }
 	.acc-modal-slide { flex: 0 0 100%; min-width: 0; display: flex; align-items: center; justify-content: center; background: #fff; }
-	.acc-modal-slide img { max-width: 83%; max-height: 265px; object-fit: contain; display: block; }
-	.acc-modal.acc-modal-is-lock-box .acc-modal-slide img { max-width: 115px; max-height: 115px; }
+	.acc-modal-slide img { max-width: 100%; max-height: 345px; object-fit: contain; display: block; }
+	.acc-modal.acc-modal-is-lock-box .acc-modal-slide img { max-width: 100%; max-height: 286px; width: auto; height: auto; object-fit: contain; display: block; }
+	.acc-modal.acc-modal-is-lock-box #acc-modal-slide-3 img,
+	.acc-modal.acc-modal-is-lock-box #acc-modal-image-3 { transform: scale(1.366); transform-origin: center center; }
+	.acc-modal.acc-modal-is-lock-box #acc-modal-slide-4 img,
+	.acc-modal.acc-modal-is-lock-box #acc-modal-image-4 { transform: scale(0.7); transform-origin: center center; }
+	.acc-modal.acc-modal-is-cushions .acc-modal-slide img { max-width: 100%; max-height: 322px; object-fit: contain; transform: scale(1.404); }
+	.acc-modal.acc-modal-is-cushions #acc-modal-image { transform: scale(1.123); }
 	.acc-modal-slider-dots { position: absolute; bottom: 12px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; pointer-events: none; }
 	.acc-modal-slider-dots .acc-modal-slider-dot { pointer-events: auto; width: 8px; height: 8px; padding: 0; border: none; border-radius: 50%; background: rgba(0,0,0,0.25); cursor: pointer; transition: background 0.2s, transform 0.2s; }
 	.acc-modal-slider-dots .acc-modal-slider-dot:hover { background: rgba(0,0,0,0.45); }
@@ -193,7 +200,7 @@
 	@media (max-width: 768px) { .acc-modal-layout { grid-template-columns: 1fr; } .acc-modal-detail { padding: 24px 20px; } .acc-modal-title { font-size: 22px; } }
 </style>
 
-<script>
+<script define:vars={{ CUSHION_CART_IMAGE }}>
 	document.addEventListener('DOMContentLoaded', function() {
 		function getCart() {
 			const cart = localStorage.getItem('playerstall_cart');
@@ -268,14 +275,26 @@
 			const desc = item.getAttribute('data-acc-desc');
 			if (!img || !title) return;
 			accModalImage.src = img;
-			accModalImage.alt = title;
+			accModalImage.alt = title === 'Cushions' ? 'Black upholstered locker cushion, front view' : title;
 			const slideCount = img4 ? 4 : (img3 ? 3 : (img2 ? 2 : 1));
 			if (accModalSlide2) accModalSlide2.style.display = slideCount >= 2 ? '' : 'none';
 			if (accModalSlide3) accModalSlide3.style.display = slideCount >= 3 ? '' : 'none';
 			if (accModalSlide4) accModalSlide4.style.display = slideCount >= 4 ? '' : 'none';
-			if (accModalImage2 && img2) { accModalImage2.src = img2; accModalImage2.alt = title + ' (2)'; }
-			if (accModalImage3 && img3) { accModalImage3.src = img3; accModalImage3.alt = title + ' (3)'; }
+			if (accModalImage2 && img2) {
+				accModalImage2.src = img2;
+				accModalImage2.alt = title === 'Cushions' ? 'Black upholstered locker cushion, side view' : title + ' (2)';
+			}
+			if (accModalImage3 && img3) {
+				accModalImage3.src = img3;
+				accModalImage3.alt = title === 'Cushions' ? 'Black upholstered locker cushion, seam and stitching detail' : title + ' (3)';
+			}
 			if (accModalImage4 && img4) { accModalImage4.src = img4; accModalImage4.alt = title + ' (4)'; }
+			if (title === 'Lock Box with Digital Key Lock') {
+				accModalImage.alt = 'Blue lock box with digital keypad and RFID lock';
+				if (accModalImage2) accModalImage2.alt = 'Light grey lock box with digital keypad and RFID lock';
+				if (accModalImage3) accModalImage3.alt = 'Black lock box with digital keypad and RFID lock';
+				if (accModalImage4) accModalImage4.alt = 'Lock box with digital key lock dimensions and specifications';
+			}
 			if (accModalSliderNav && accModalSliderDots.length) {
 				accModalSliderNav.hidden = slideCount <= 1;
 				accModalSliderDots.forEach(function(dot, i) { dot.style.display = i < slideCount ? '' : 'none'; });
@@ -306,8 +325,15 @@
 			if (skateHooks) skateHooks.hidden = title !== 'Skate Hooks';
 			if (namePlate) namePlate.hidden = title !== 'Name Plate';
 			if (lockBox) lockBox.hidden = title !== 'Lock Box with Digital Key Lock';
-			if (title === 'Lock Box with Digital Key Lock') accModal.classList.add('acc-modal-is-lock-box');
-			else accModal.classList.remove('acc-modal-is-lock-box');
+			if (title === 'Lock Box with Digital Key Lock') {
+				accModal.classList.add('acc-modal-is-lock-box');
+				accModal.classList.remove('acc-modal-is-cushions');
+			} else if (title === 'Cushions') {
+				accModal.classList.remove('acc-modal-is-lock-box');
+				accModal.classList.add('acc-modal-is-cushions');
+			} else {
+				accModal.classList.remove('acc-modal-is-lock-box', 'acc-modal-is-cushions');
+			}
 			accModal.hidden = false;
 			document.body.style.overflow = 'hidden';
 		}
@@ -319,7 +345,6 @@
 			});
 		});
 
-		const CUSHION_IMAGE = 'https://playerstall.b-cdn.net/images/cushion-logo.png';
 		const COAT_ROD_IMAGE = 'https://playerstall.b-cdn.net/images/lock-box.png';
 		const LOCK_BOX_IMAGE = '/images/lock-box.png';
 		function setupAddToCart(btnId, colorSelectId, qtyId, productFn, done) {
@@ -343,7 +368,7 @@
 			const price = placement === 'both' ? 150 : 75;
 			const colorLabel = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : 'White';
 			const placementLabel = placement === 'both' ? 'Top & bottom' : 'Bottom';
-			return { id: 'cushions-' + (sel ? sel.value : 'white') + '-' + placement, name: 'Cushions (' + colorLabel + ') – ' + placementLabel, price: price, image: CUSHION_IMAGE };
+			return { id: 'cushions-' + (sel ? sel.value : 'white') + '-' + placement, name: 'Cushions (' + colorLabel + ') – ' + placementLabel, price: price, image: CUSHION_CART_IMAGE };
 		});
 		setupAddToCart('acc-hooks-add-to-cart-btn', 'acc-hooks-color-select', 'acc-hooks-qty', function(sel) {
 			const colorLabel = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : 'Black';

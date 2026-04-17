@@ -5,6 +5,8 @@ import {
 	ROOM_PLAN_SHIPPING_LINES,
 	ROOM_PLAN_SUBMIT_DISCLAIMER,
 } from '../../lib/roomPlanCustomerCopy';
+import { MODEL_X_HERO_IMAGE } from '../../data/model-x-assets';
+import { MODEL_S_HERO_IMAGE } from '../../data/model-s-assets';
 import { getAllTemplates } from '../../room-planner/catalog';
 
 const plannerTemplates = getAllTemplates();
@@ -1750,7 +1752,7 @@ const plannerTemplates = getAllTemplates();
 	}
 </style>
 
-<script>
+<script define:vars={{ MODEL_X_HERO_IMAGE, MODEL_S_HERO_IMAGE }}>
 	import { createInitialState, nextInstanceId, buildWalls, defaultDimensions } from '../../room-planner/state';
 	import type { RoomDimensions } from '../../room-planner/state';
 	import { render, screenToWorld, setFloorLogo2D, removeFloorLogo2D } from '../../room-planner/render';
@@ -2027,10 +2029,10 @@ const plannerTemplates = getAllTemplates();
 	const ltPrice = document.getElementById('lt-price')!;
 
 	const lockerImages: Record<string, string> = {
-		'model-s': '/images/stadium-locker-side.png',
+		'model-s': MODEL_S_HERO_IMAGE,
 		'model-l': '/images/elite-locker-side.png',
 		'model-z': '/images/elite-locker-side.png',
-		'model-x': '/images/model-x-website-images/model-x-locker-side.png',
+		'model-x': MODEL_X_HERO_IMAGE,
 		'varsity': '/images/varsity-locker.png',
 		'semi-pro': '/images/semi-pro-locker-third.png',
 		'pro': '/images/pro-locker-quick-ship.png',

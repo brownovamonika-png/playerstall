@@ -3,8 +3,19 @@
  * Each item has modal data (data-acc-*) so opening a card shows the same PDP-style modal with sliding images.
  */
 const LOCK_BOX_IMG = 'https://playerstall.b-cdn.net/images/lock-box.png';
-const LOCK_BOX_DIGITAL_IMG = '/images/lock-box.png'; // Lock Box with Digital Key Lock only
-const CUSHION_IMG = 'https://playerstall.b-cdn.net/images/cushion-logo.png';
+/** Original digital lock box product shot (4th gallery slide, cart thumbnail) */
+const LOCK_BOX_DIGITAL_IMG = '/images/lock-box.png';
+const LOCK_BOX_BLUE = 'https://playerstall.b-cdn.net/images/lock%20box%20blue.jpg';
+const LOCK_BOX_LIGHT_GREY = 'https://playerstall.b-cdn.net/images/lock%20box%20light%20grey.jpg';
+const LOCK_BOX_BLACK = 'https://playerstall.b-cdn.net/images/lock%20box%20black.jpg';
+
+/** Black cushion gallery (CDN); front = card + cart thumbnail */
+const CUSHION_FRONT = 'https://playerstall.b-cdn.net/images/black%20cushion%20front%20view.jpg';
+const CUSHION_SIDE = 'https://playerstall.b-cdn.net/images/black%20cushion%20side%20view.jpg';
+const CUSHION_SEAM = 'https://playerstall.b-cdn.net/images/black%20cushion%20seam%20view.jpg';
+
+/** Cart / checkout thumbnail for cushion line items */
+export const CUSHION_CART_IMAGE = CUSHION_FRONT;
 
 export interface ShopAccessoryModalItem {
 	accImage: string;
@@ -33,13 +44,14 @@ export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 		title: 'Vented Panel',
 	},
 	{
-		accImage: LOCK_BOX_IMG,
-		accImage2: CUSHION_IMG,
+		accImage: CUSHION_FRONT,
+		accImage2: CUSHION_SIDE,
+		accImage3: CUSHION_SEAM,
 		accTitle: 'Cushions',
 		accPrice: '$75.00 (top or bottom) / $150.00 (both)',
 		accDesc: 'High-density foam cushions upholstered for comfort and durability – available on the top, bottom, or both.',
-		image: LOCK_BOX_IMG,
-		alt: 'Locker cushion with team logo',
+		image: CUSHION_FRONT,
+		alt: 'Black upholstered locker cushion, front view',
 		title: 'Cushions',
 	},
 	{
@@ -92,15 +104,15 @@ export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 		title: 'Stick Rack',
 	},
 	{
-		accImage: LOCK_BOX_DIGITAL_IMG,
-		accImage2: LOCK_BOX_DIGITAL_IMG,
-		accImage3: LOCK_BOX_DIGITAL_IMG,
+		accImage: LOCK_BOX_BLUE,
+		accImage2: LOCK_BOX_LIGHT_GREY,
+		accImage3: LOCK_BOX_BLACK,
 		accImage4: '/images/lock-box-spec-sheet.png',
 		accTitle: 'Lock Box with Digital Key Lock',
 		accPrice: '$80.00',
 		accDesc: 'Lock box with slow-closing hinge that closes gently and securely. Fitted with an electronic touchable keypad and RFID card lock: password or card entry, programmable master and user codes, battery-powered with emergency external power.',
-		image: LOCK_BOX_DIGITAL_IMG,
-		alt: 'Lock box with digital keypad and RFID lock',
+		image: LOCK_BOX_BLUE,
+		alt: 'Blue lock box with digital keypad and RFID lock',
 		title: 'Lock Box with Digital Key Lock',
 	},
 ];

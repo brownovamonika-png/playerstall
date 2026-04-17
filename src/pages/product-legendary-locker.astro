@@ -11,6 +11,7 @@ import {
 	DEFAULT_ADORNUS_PAINT_LABEL,
 } from '../data/adornus-designer-paint-colors';
 import { TEXTURED_WOODGRAIN_OPTIONS, texturedWoodgrainSwatchUrl } from '../data/textured-woodgrain-colors';
+import { MODEL_X_HERO_IMAGE } from '../data/model-x-assets';
 import modelXLockerDimensionsSheet from '../assets/model-x-locker-dimensions-sheet.png';
 import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
@@ -33,12 +34,8 @@ const legendarySpecs = [
 	title="Model X Wood Locker | PlayerStall"
 	description="Model X wood locker: premium tier, curved design, maximum customization. 76&quot; H x 19&quot; or 24&quot; D, widths 18&quot;–32&quot;. From $649. Full color options. Custom-built in three months. 5 year warranty."
 >
-	<!-- Hero Section -->
-	<section class="product-hero-section">
-		<div class="product-hero-background">
-			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model X Locker" class="product-hero-bg-image" />
-		</div>
-		<div class="product-hero-background-overlay"></div>
+	<!-- Hero Section (no banner photo — title on white) -->
+	<section class="product-hero-section product-hero-section--plain">
 		<div class="product-hero-container">
 			<div class="product-breadcrumbs">
 				<a href="/">Home</a>
@@ -59,15 +56,18 @@ const legendarySpecs = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="/images/model-x-website-images/model-x-locker.png"
-							alt="Model X wood athletic locker for locker rooms"
+							src={MODEL_X_HERO_IMAGE}
+							alt="Model X wood locker in dark grey, three-quarter view"
 							class="product-main-image"
 						/>
 						</div>
-					<p class="product-gallery-caption">Displayed in graphite color</p>
+					<p class="product-gallery-caption">Displayed in dark grey</p>
 					<div class="product-gallery-thumbs">
-						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="/images/model-x-website-images/model-x-locker.png" alt="Model X locker view 1" />
+						<button type="button" class="thumb active" aria-label="Model X dark grey three-quarter view">
+							<img src={MODEL_X_HERO_IMAGE} alt="Model X wood locker in dark grey, three-quarter view" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model X front view">
+							<img src="/images/model-x-website-images/model-x-locker.png" alt="Model X locker front view" />
 						</button>
 						<button type="button" class="thumb" aria-label="Model X side view">
 							<img src="/images/model-x-website-images/model-x-locker-side.png" alt="Model X side view" />
@@ -362,6 +362,33 @@ const legendarySpecs = [
 		z-index: 10;
 	}
 
+	/* Model X: no hero banner photo — breadcrumbs & title on white */
+	.product-hero-section.product-hero-section--plain {
+		background: #ffffff;
+		min-height: 0;
+		padding: 32px 0 40px;
+		justify-content: flex-start;
+		overflow: visible;
+	}
+	.product-hero-section.product-hero-section--plain .product-breadcrumbs {
+		color: #8c8c8c;
+	}
+	.product-hero-section.product-hero-section--plain .product-breadcrumbs a {
+		color: #8c8c8c;
+	}
+	.product-hero-section.product-hero-section--plain .product-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+	.product-hero-section.product-hero-section--plain .breadcrumbs-sep {
+		color: #cccccc;
+	}
+	.product-hero-section.product-hero-section--plain .breadcrumbs-current {
+		color: #0d0d0d;
+	}
+	.product-hero-section.product-hero-section--plain .product-page-title {
+		color: #0d0d0d;
+	}
+
 	.product-background-text {
 		position: absolute;
 		font-family: 'Oswald', sans-serif;
@@ -390,22 +417,27 @@ const legendarySpecs = [
 		margin-bottom: 80px;
 	}
 
+	/* Same gallery frame as Model S PDP — consistent hero size */
 	.product-gallery-main {
 		position: relative;
-		background: #f7f7f7;
-		aspect-ratio: 1;
-		overflow: hidden;
+		background: transparent;
+		width: 100%;
+		min-height: 420px;
 		margin-bottom: 20px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		overflow: visible;
 	}
 
 	.product-main-image {
-		width: 96%;
-		height: 96%;
+		width: auto;
+		max-width: min(100%, 720px);
+		max-height: 640px;
+		height: auto;
 		object-fit: contain;
 		display: block;
+		margin: 0 auto;
 	}
 
 	.product-gallery-caption {
@@ -433,7 +465,7 @@ const legendarySpecs = [
 		height: 80px;
 		padding: 0;
 		border: 2px solid transparent;
-		background: #f0f0f0;
+		background: transparent;
 		cursor: pointer;
 		overflow: hidden;
 		transition: border-color 0.2s, box-shadow 0.2s;
@@ -983,7 +1015,7 @@ const legendarySpecs = [
 	}
 </style>
 
-<script>
+<script define:vars={{ MODEL_X_HERO_IMAGE }}>
 	const thumbs = document.querySelectorAll('.product-gallery-thumbs .thumb');
 	const captionEl = document.querySelector('.product-gallery-caption');
 	thumbs.forEach((thumb, index) => {
@@ -1161,7 +1193,7 @@ const legendarySpecs = [
 			const id = 'model-x-locker-' + width + '-' + deep + '-' + colorCode;
 			const modelEl = document.querySelector('.product-model[data-model-letter]');
 			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;
-			const image = '/images/model-x-website-images/model-x-locker.png';
+			const image = MODEL_X_HERO_IMAGE;
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) {

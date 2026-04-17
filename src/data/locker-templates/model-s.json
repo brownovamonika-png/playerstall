@@ -2,7 +2,7 @@
   "templateId": "model-s",
   "displayName": "Model S Locker",
   "pdpUrl": "/product-model-s",
-  "heroImage": "/images/stadium-locker.png",
+  "heroImage": "https://playerstall.b-cdn.net/images/S%20black%20left%20side.jpg",
   "geometry": {
     "heightIn": 76,
     "widthOptionsIn": [

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { MODEL_X_HERO_IMAGE } from '../data/model-x-assets';
 ---
 
 <BaseLayout 
@@ -121,7 +122,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<div class="home-shop-product-item">
 						<div class="home-shop-product-image">
 							<span class="home-shop-badge new">New</span>
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model X Locker" loading="lazy" />
+							<img src={MODEL_X_HERO_IMAGE} alt="Model X wood locker in dark grey, three-quarter view" loading="lazy" />
 						</div>
 						<div class="home-shop-product-content">
 							<div class="home-shop-product-categories">Lockers - Sports Equipment</div>

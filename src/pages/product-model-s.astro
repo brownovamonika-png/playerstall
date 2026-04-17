@@ -11,6 +11,7 @@ import {
 	DEFAULT_ADORNUS_PAINT_LABEL,
 } from '../data/adornus-designer-paint-colors';
 import { TEXTURED_WOODGRAIN_OPTIONS, texturedWoodgrainSwatchUrl } from '../data/textured-woodgrain-colors';
+import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 import stadiumLockerDimensionsSheet from '../assets/stadium-locker-dimensions-sheet.png';
 import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
@@ -33,12 +34,8 @@ const modelSSpecs = [
 	title="Model S Wood Locker | PlayerStall"
 	description="Model S wood locker: premium melamine, 76&quot; H x 19&quot; or 24&quot; D, widths 18&quot;–32&quot;. From $649. Full color options. Custom-built in 8–12 weeks. 5 year warranty."
 >
-	<!-- Hero Section -->
-	<section class="product-hero-section">
-		<div class="product-hero-background">
-			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model S Locker" class="product-hero-bg-image" />
-		</div>
-		<div class="product-hero-background-overlay"></div>
+	<!-- Hero Section (no banner photo — title on white) -->
+	<section class="product-hero-section product-hero-section--plain">
 		<div class="product-hero-container">
 			<div class="product-breadcrumbs">
 				<a href="/">Home</a>
@@ -59,15 +56,18 @@ const modelSSpecs = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="/images/stadium-locker.png"
-							alt="Model S wood athletic locker for locker rooms"
+							src={MODEL_S_HERO_IMAGE}
+							alt="Model S wood athletic locker in black, three-quarter view"
 							class="product-main-image"
 						/>
 						</div>
-					<p class="product-gallery-caption">Displayed in graphite color</p>
+					<p class="product-gallery-caption">Displayed in black</p>
 					<div class="product-gallery-thumbs">
-						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="/images/stadium-locker.png" alt="Model S locker view 1" />
+						<button type="button" class="thumb active" aria-label="Model S black three-quarter view">
+							<img src={MODEL_S_HERO_IMAGE} alt="Model S wood athletic locker in black, three-quarter view" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model S locker front view">
+							<img src="/images/stadium-locker.png" alt="Model S locker front view" />
 						</button>
 						<button type="button" class="thumb" aria-label="Model S locker side view">
 							<img src="/images/stadium-locker-side.png" alt="Model S locker side view" />
@@ -362,6 +362,33 @@ const modelSSpecs = [
 		z-index: 10;
 	}
 
+	/* Model S: no hero banner photo — breadcrumbs & title on white */
+	.product-hero-section.product-hero-section--plain {
+		background: #ffffff;
+		min-height: 0;
+		padding: 32px 0 40px;
+		justify-content: flex-start;
+		overflow: visible;
+	}
+	.product-hero-section.product-hero-section--plain .product-breadcrumbs {
+		color: #8c8c8c;
+	}
+	.product-hero-section.product-hero-section--plain .product-breadcrumbs a {
+		color: #8c8c8c;
+	}
+	.product-hero-section.product-hero-section--plain .product-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+	.product-hero-section.product-hero-section--plain .breadcrumbs-sep {
+		color: #cccccc;
+	}
+	.product-hero-section.product-hero-section--plain .breadcrumbs-current {
+		color: #0d0d0d;
+	}
+	.product-hero-section.product-hero-section--plain .product-page-title {
+		color: #0d0d0d;
+	}
+
 	.product-background-text {
 		position: absolute;
 		font-family: 'Oswald', sans-serif;
@@ -390,22 +417,27 @@ const modelSSpecs = [
 		margin-bottom: 80px;
 	}
 
+	/* Same gallery frame as Model X PDP — consistent hero size */
 	.product-gallery-main {
 		position: relative;
-		background: #f7f7f7;
-		aspect-ratio: 1;
-		overflow: hidden;
+		background: transparent;
+		width: 100%;
+		min-height: 420px;
 		margin-bottom: 20px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		overflow: visible;
 	}
 
 	.product-main-image {
-		width: 96%;
-		height: 96%;
+		width: auto;
+		max-width: min(100%, 720px);
+		max-height: 640px;
+		height: auto;
 		object-fit: contain;
 		display: block;
+		margin: 0 auto;
 	}
 
 	.product-gallery-thumbs {
@@ -419,7 +451,7 @@ const modelSSpecs = [
 		height: 80px;
 		padding: 0;
 		border: 2px solid transparent;
-		background: #f0f0f0;
+		background: transparent;
 		cursor: pointer;
 		overflow: hidden;
 		transition: border-color 0.2s, box-shadow 0.2s;
@@ -973,7 +1005,7 @@ const modelSSpecs = [
 	}
 </style>
 
-<script>
+<script define:vars={{ MODEL_S_HERO_IMAGE }}>
 	document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((thumb) => {
 		thumb.addEventListener('click', () => {
 			document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((t) => t.classList.remove('active'));
@@ -1135,7 +1167,7 @@ const modelSSpecs = [
 			const id = 'model-s-locker-' + width + '-' + deep + '-' + colorCode;
 			const modelEl = document.querySelector('.product-model[data-model-letter]');
 			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;
-			const image = '/images/stadium-locker.png';
+			const image = MODEL_S_HERO_IMAGE;
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) {

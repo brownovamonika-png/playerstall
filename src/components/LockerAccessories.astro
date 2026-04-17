@@ -243,6 +243,10 @@ function isModalItem(item: LockerAccessoryItem | LockerAccessoryModalItem): item
 		object-position: center center;
 		display: block;
 	}
+	.locker-accessories--modal [data-acc-title="Cushions"] .shop-product-image img {
+		transform: scale(1.435);
+		transform-origin: center center;
+	}
 	/* Hooks: 97px max (match shop) */
 	.locker-accessories--modal [data-acc-title="Hooks"] .shop-product-image {
 		padding-top: 20%;
@@ -275,12 +279,16 @@ function isModalItem(item: LockerAccessoryItem | LockerAccessoryModalItem): item
 		object-fit: contain;
 		transform: scale(0.8);
 	}
-	/* Lock Box: 115px max (match shop) */
+	/* Lock Box card: match shop (full contain in 200×200) */
 	.locker-accessories--modal [data-acc-title="Lock Box with Digital Key Lock"] .shop-product-image img {
-		width: auto;
-		height: auto;
-		max-width: 115px;
-		max-height: 115px;
+		width: 100%;
+		height: 100%;
+		max-width: none;
+		max-height: none;
+		object-fit: contain;
+		object-position: center center;
+		transform: scale(1.3);
+		transform-origin: center center;
 	}
 	.locker-accessories--modal .shop-product-content {
 		padding: 16px;

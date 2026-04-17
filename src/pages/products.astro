@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { MODEL_X_HERO_IMAGE } from '../data/model-x-assets';
+import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 
 // Product Schema for all locker models
 const productsSchema = {
@@ -99,10 +101,10 @@ const productsSchema = {
 				"@type": "Brand",
 				"name": "PlayerStall"
 			},
-			"image": "/images/stadium-locker.png",
+			"image": MODEL_S_HERO_IMAGE,
 			"offers": {
 				"@type": "Offer",
-				"url": "https://playerstall.com/product-stadium-locker",
+				"url": "https://playerstall.com/product-model-s",
 				"priceCurrency": "USD",
 				"price": "649",
 				"priceValidUntil": "2026-12-31",
@@ -189,7 +191,7 @@ const productsSchema = {
 				"@type": "Brand",
 				"name": "PlayerStall"
 			},
-			"image": "https://playerstall.b-cdn.net/images/legendary-locker.png",
+			"image": MODEL_X_HERO_IMAGE,
 			"offers": {
 				"@type": "Offer",
 				"url": "https://playerstall.com/product-legendary-locker",
@@ -317,9 +319,9 @@ const breadcrumbSchema = {
 
 				<!-- Stadium -->
 				<div class="product-card" id="stadium">
-					<a href="/product-stadium-locker" class="product-link product-card-trigger-link">
+					<a href="/product-model-s" class="product-link product-card-trigger-link">
 						<div class="product-image">
-							<img src="/images/stadium-locker.png" alt="Model S Locker" loading="lazy" />
+							<img src={MODEL_S_HERO_IMAGE} alt="Model S wood athletic locker in black, three-quarter view" loading="lazy" />
 						</div>
 						<div class="product-details">
 							<div class="product-position">Model S</div>
@@ -361,7 +363,7 @@ const breadcrumbSchema = {
 				<div class="product-card product-card-with-spec" id="model-x">
 					<button type="button" class="product-card-trigger" aria-expanded="false" aria-controls="spec-model-x" data-spec-target="spec-model-x">
 						<div class="product-image">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model X Locker" loading="lazy" />
+							<img src={MODEL_X_HERO_IMAGE} alt="Model X wood locker in dark grey, three-quarter view" loading="lazy" />
 						</div>
 						<div class="product-details">
 							<div class="product-position">Model X</div>
