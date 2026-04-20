@@ -59,27 +59,45 @@ const eliteSpecs = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="/images/elite-locker.png"
-							alt="Model Z wood athletic locker with curved design for locker rooms"
+							src="/images/model-z-blue-left-side.png"
+							alt="Model Z wood athletic locker in blue, left-side view"
 							class="product-main-image"
 						/>
 						</div>
-					<p class="product-gallery-caption">Displayed in north sea color</p>
+					<p class="product-gallery-caption">Displayed in blue</p>
 					<div class="product-gallery-thumbs">
-						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="/images/elite-locker.png" alt="Model Z locker view 1" />
+						<button type="button" class="thumb active" aria-label="Model Z in blue, left-side view">
+							<img src="/images/model-z-blue-left-side.png" alt="Model Z wood athletic locker in blue, left-side view" />
 						</button>
-						<button type="button" class="thumb" aria-label="Model Z locker side view">
-							<img src="/images/elite-locker-side.png" alt="Model Z locker side view" />
+						<button type="button" class="thumb" aria-label="Model Z in blue, front view with base">
+							<img src="/images/model-z-blue-front-base.png" alt="Model Z wood athletic locker in blue, front view with solid base" />
 						</button>
-						<button type="button" class="thumb" aria-label="Model Z locker graphite view">
-							<img src="/images/elite-locker-graphite.png" alt="Model Z locker in graphite" />
+						<button type="button" class="thumb" aria-label="Model Z in blue, side profile view">
+							<img src="/images/model-z-blue-side.png" alt="Model Z wood athletic locker in blue, side profile silhouette" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model Z in blue, right-side view">
+							<img src="/images/model-z-blue-right-side.png" alt="Model Z wood athletic locker in blue, right-side view" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model Z in dark grey, front view with base">
+							<img src="/images/model-z-dark-grey-front-base.png" alt="Model Z wood athletic locker in dark grey, front view with solid base" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model Z in dark grey, front view with cushion seat">
+							<img src="/images/model-z-dark-grey-front-cushion.png" alt="Model Z wood athletic locker in dark grey, front view with cushion seat" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model Z in dark grey, side profile view">
+							<img src="/images/model-z-dark-grey-side.png" alt="Model Z wood athletic locker in dark grey, side profile silhouette" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model Z in dark grey, front view with open seat compartment">
+							<img src="/images/model-z-dark-grey-front-open-seat.png" alt="Model Z wood athletic locker in dark grey, front view with open seat storage compartment" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model Z in dark grey, left-side view">
+							<img src="/images/model-z-dark-grey-left-side.png" alt="Model Z wood athletic locker in dark grey, left-side view" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model Z in dark grey, right-side view">
+							<img src="/images/model-z-dark-grey-right-side.png" alt="Model Z wood athletic locker in dark grey, right-side view" />
 						</button>
 						<button type="button" class="thumb" aria-label="Model Z locker dimensions sheet">
 							<img src={eliteLockerDimensionsSheet.src} alt="Model Z locker dimensions sheet – front and side views with measurements in inches" />
-						</button>
-						<button type="button" class="thumb" aria-label="Model Z locker vented front panel detail">
-							<img src="/images/elite-locker-vent-panel.png" alt="Model Z locker vented front panel with horizontal slots" />
 						</button>
 						<button type="button" class="thumb thumb--lock-box" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
@@ -1001,10 +1019,12 @@ const eliteSpecs = [
 					galleryMain.classList.toggle('product-gallery-main--lock-box', thumb.classList.contains('thumb--lock-box'));
 				}
 			}
-			// Show "Displayed in north sea color" for images 1–3, hide for dimensions (4th)
 			if (captionEl) {
-				if (index === 0 || index === 1 || index === 2) {
-					captionEl.textContent = 'Displayed in north sea color';
+				if (index <= 3) {
+					captionEl.textContent = 'Displayed in blue';
+					captionEl.classList.remove('is-hidden');
+				} else if (index <= 9) {
+					captionEl.textContent = 'Displayed in dark grey';
 					captionEl.classList.remove('is-hidden');
 				} else {
 					captionEl.classList.add('is-hidden');
@@ -1158,7 +1178,7 @@ const eliteSpecs = [
 			const id = 'elite-locker-' + width + '-' + deep + '-' + colorCode;
 			const modelEl = document.querySelector('.product-model[data-model-letter]');
 			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;
-			const image = '/images/elite-locker.png';
+			const image = '/images/model-z-blue-left-side.png';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) {

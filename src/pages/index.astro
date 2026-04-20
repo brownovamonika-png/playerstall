@@ -125,7 +125,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 				<!-- Model L (formerly Pro) -->
 				<div class="home-shop-product-item home-shop-product-item-model-l">
 					<div class="home-shop-product-image">
-						<img src="/images/type1-L-darkgrey-front.jpg" alt="Model L premium athletic locker in dark grey, front view" loading="lazy" />
+						<img src="/images/model-l-oak-left-side.png" alt="Model L premium athletic locker in oak, left-side view" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-model-l" class="home-shop-details-btn-overlay">Details</a>
 						</div>
@@ -137,9 +137,9 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 					</div>
 				</div>
 				<!-- Model S (formerly Stadium) -->
-				<div class="home-shop-product-item">
+				<div class="home-shop-product-item home-shop-product-item-model-s">
 					<div class="home-shop-product-image">
-						<img src={MODEL_S_HERO_IMAGE} alt="Model S wood athletic locker in black, three-quarter view" loading="lazy" />
+						<img src={MODEL_S_HERO_IMAGE} alt="Model S wood athletic locker in black, left-side view" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-model-s" class="home-shop-details-btn-overlay">Details</a>
 						</div>
@@ -154,7 +154,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
 						<span class="home-shop-badge new">New</span>
-						<img src="/images/elite-locker-side.png" alt="Model Z Locker" loading="lazy" />
+						<img src="/images/model-z-blue-left-side.png" alt="Model Z wood locker in blue, left-side view" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-elite-locker" class="home-shop-details-btn-overlay">Details</a>
 						</div>
@@ -166,7 +166,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 					</div>
 				</div>
 				<!-- Model X -->
-				<div class="home-shop-product-item">
+				<div class="home-shop-product-item home-shop-product-item-model-x">
 					<div class="home-shop-product-image">
 						<span class="home-shop-badge new">New</span>
 						<img src={MODEL_X_HERO_IMAGE} alt="Model X wood locker in dark grey, three-quarter view" loading="lazy" />
@@ -224,7 +224,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 				<!-- Pro Locker $599 -->
 				<div class="home-shop-product-item home-shop-product-item-pro-locker">
 					<div class="home-shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Pro Locker" loading="lazy" />
+						<img src="/images/essential-locker-oak-left-side.png" alt="Pro Locker in oak, left-side view" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-pro-locker" class="home-shop-details-btn-overlay">Details</a>
 						</div>
@@ -238,7 +238,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 				<!-- Stadium Locker $599 -->
 				<div class="home-shop-product-item home-shop-product-item-stadium">
 					<div class="home-shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Stadium Locker" loading="lazy" />
+						<img src="/images/stadium-locker-oak-left-side.png" alt="Stadium Locker in oak, left-side view" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-stadium-locker" class="home-shop-details-btn-overlay">Details</a>
 						</div>
@@ -2795,16 +2795,33 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	aspect-ratio: auto;
 }
 
-/* Model L front photo has extra margin in-frame; cover fills the card like side-view PNGs */
-.home-shop-product-item-model-l .home-shop-product-image img {
-	object-fit: cover;
-	object-position: 40% 88%;
+
+/* Pro Locker uses the same L-shape oak PNG as Model L — match its transform. */
+.home-shop-products-grid-four .home-shop-product-item-pro-locker .home-shop-product-image img {
+	transform: translateY(-3%) scale(1.03);
 }
 
-/* Pro Locker and Stadium cards: image 20% smaller (same size) */
-.home-shop-products-grid-four .home-shop-product-item-pro-locker .home-shop-product-image img,
+/* Stadium uses the S-shape oak PNG — match the Model S transform. */
 .home-shop-products-grid-four .home-shop-product-item-stadium .home-shop-product-image img {
-	transform: scale(0.8);
+	transform: translateY(-1%) scale(1.03);
+}
+
+/* Model S PNG fills more of its canvas than Model Z/X PNGs;
+   scale it down so the locker subject matches Model Z visually, and nudge 5% lower. */
+.home-shop-products-grid-premium .home-shop-product-item-model-s .home-shop-product-image img {
+	transform: translateY(5%) scale(0.92);
+}
+
+/* Model L oak locker fills even more of its canvas than Model S;
+   scale down further so its subject matches Model S's visual size. */
+.home-shop-products-grid-premium .home-shop-product-item-model-l .home-shop-product-image img {
+	transform: translateY(2%) scale(0.94);
+}
+
+/* Model X subject sits high in its PNG canvas; nudge it 2% lower
+   to align vertically with Model Z. */
+.home-shop-products-grid-premium .home-shop-product-item-model-x .home-shop-product-image img {
+	transform: translateY(2%);
 }
 
 .home-shop-essential-pdf,

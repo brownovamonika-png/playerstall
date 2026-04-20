@@ -41,10 +41,10 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 
 					<!-- Lockers: top row Pro, Stadium, Elite, Model X; bottom row Semi Pro, Varsity (centered) -->
 					<div class="shop-products-grid shop-lockers-grid">
-					<!-- Pro -->
-					<div class="shop-product-item" data-price="649" data-category="lockers">
+					<!-- Model L (formerly Pro) -->
+					<div class="shop-product-item shop-product-item--model-l" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model L Locker" />
+							<img src="/images/model-l-oak-left-side.png" alt="Model L premium athletic locker in oak, left-side view" loading="lazy" />
 							<div class="shop-product-overlay">
 								<a href="/product-model-l" class="shop-see-details-btn-overlay">Details</a>
 							</div>
@@ -72,10 +72,10 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 					</div>
 
 					<!-- Model Z (formerly Elite) -->
-					<div class="shop-product-item" data-price="649" data-category="lockers">
+					<div class="shop-product-item shop-product-item--model-z" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
 							<span class="shop-badge new">New</span>
-							<img src="/images/elite-locker-side.png" alt="Model Z Locker" loading="lazy" />
+							<img src="/images/model-z-blue-left-side.png" alt="Model Z wood locker in blue, left-side view" loading="lazy" />
 							<div class="shop-product-overlay">
 								<a href="/product-elite-locker" class="shop-see-details-btn-overlay">Details</a>
 							</div>
@@ -149,7 +149,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 						<!-- Pro Locker $599 -->
 						<div class="shop-product-item shop-locker-bottom-item shop-product-item-pro-locker" data-price="599" data-category="lockers">
 							<div class="shop-product-image shop-locker-image">
-								<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Pro Locker" />
+								<img src="/images/essential-locker-oak-left-side.png" alt="Pro Locker in oak, left-side view" loading="lazy" />
 								<div class="shop-product-overlay">
 									<a href="/product-pro-locker" class="shop-see-details-btn-overlay">Details</a>
 								</div>
@@ -164,7 +164,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 						<!-- Stadium Locker $599 -->
 						<div class="shop-product-item shop-locker-bottom-item shop-product-item-stadium" data-price="599" data-category="lockers">
 							<div class="shop-product-image shop-locker-image">
-								<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Stadium Locker" />
+								<img src="/images/stadium-locker-oak-left-side.png" alt="Stadium Locker in oak, left-side view" loading="lazy" />
 								<div class="shop-product-overlay">
 									<a href="/product-stadium-locker" class="shop-see-details-btn-overlay">Details</a>
 								</div>
@@ -274,7 +274,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 					</button>
 				</div>
 				<!-- Lock Box (blue, light grey, black, then original product shot) -->
-				<div class="shop-product-item shop-accessory-item shop-accessory-item--lock-box" data-acc-image="https://playerstall.b-cdn.net/images/lock%20box%20blue.jpg" data-acc-image-2="https://playerstall.b-cdn.net/images/lock%20box%20light%20grey.jpg" data-acc-image-3="https://playerstall.b-cdn.net/images/lock%20box%20black.jpg" data-acc-image-4="/images/lock-box-spec-sheet.png" data-acc-title="Lock Box with Digital Key Lock" data-acc-price="$80.00" data-acc-desc="Lock box with slow-closing hinge that closes gently and securely. Fitted with an electronic touchable keypad and RFID card lock: password or card entry, programmable master and user codes, battery-powered with emergency external power." data-acc-view-href="/accessories#lock-box">
+				<div class="shop-product-item shop-accessory-item shop-accessory-item--lock-box" data-acc-image="https://playerstall.b-cdn.net/images/lock%20box%20blue.jpg" data-acc-image-2="https://playerstall.b-cdn.net/images/lock%20box%20light%20grey.jpg" data-acc-image-3="/images/lock-box-oak.png" data-acc-image-4="/images/lock-box-spec-sheet.png" data-acc-title="Lock Box with Digital Key Lock" data-acc-price="$80.00" data-acc-desc="Lock box with slow-closing hinge that closes gently and securely. Fitted with an electronic touchable keypad and RFID card lock: password or card entry, programmable master and user codes, battery-powered with emergency external power." data-acc-view-href="/accessories#lock-box">
 					<div class="shop-product-image">
 						<img src="https://playerstall.b-cdn.net/images/lock%20box%20blue.jpg" alt="Blue lock box with digital keypad and RFID lock" loading="lazy" />
 					</div>
@@ -282,6 +282,18 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Accessories</div>
 							<h5 class="shop-product-title">Lock Box with Digital Key Lock</h5>
+						</div>
+					</button>
+				</div>
+				<!-- Bench (single image) -->
+				<div class="shop-product-item shop-accessory-item shop-accessory-item--bench" data-acc-image="/images/bench-side-view.png" data-acc-title="Bench" data-acc-price="$299.00" data-acc-desc="Free-standing wood locker bench with solid wood seat on black steel pedestals. Available 36&quot;–96&quot; wide, 9.5&quot; or 14&quot; deep, in light or dark finish. Perfect complement to any locker setup." data-acc-view-href="/product-wood-locker-bench">
+					<div class="shop-product-image">
+						<img src="/images/bench-side-view.png" alt="Free-standing wood locker bench with black steel pedestals" loading="lazy" />
+					</div>
+					<button type="button" class="shop-accessory-trigger">
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Accessories</div>
+							<h5 class="shop-product-title">Bench</h5>
 						</div>
 					</button>
 				</div>
@@ -845,8 +857,37 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	}
 
 	.shop-product-item--model-x .shop-product-image.shop-locker-image,
-	.shop-product-item--model-s .shop-product-image.shop-locker-image {
+	.shop-product-item--model-s .shop-product-image.shop-locker-image,
+	.shop-product-item--model-l .shop-product-image.shop-locker-image,
+	.shop-product-item--model-z .shop-product-image.shop-locker-image {
 		background: transparent;
+	}
+
+	/* Model S PNG fills more of its canvas than Model Z/X PNGs;
+	   scale it down and nudge slightly lower so subject matches Model Z visually. */
+	.shop-product-item--model-s .shop-product-image.shop-locker-image img {
+		transform: translateY(5%) scale(0.92);
+	}
+
+	/* Model L oak locker fills even more of its canvas than Model S;
+	   scale & translate to match Model S's visual size and vertical position. */
+	.shop-product-item--model-l .shop-product-image.shop-locker-image img {
+		transform: translateY(2%) scale(0.94);
+	}
+
+	/* Model X: bump subject up by 2% and nudge 1% lower to align with the other premium lockers. */
+	.shop-product-item--model-x .shop-product-image.shop-locker-image img {
+		transform: translateY(1%) scale(1.02);
+	}
+
+	/* Pro Locker uses the same L-shape oak PNG as Model L — match its transform. */
+	.shop-product-item-pro-locker .shop-product-image.shop-locker-image img {
+		transform: translateY(-3%) scale(1.03);
+	}
+
+	/* Stadium uses the S-shape oak PNG — match the Model S transform. */
+	.shop-product-item-stadium .shop-product-image.shop-locker-image img {
+		transform: translateY(-1%) scale(1.03);
 	}
 
 	.shop-product-item:hover .shop-product-image img {

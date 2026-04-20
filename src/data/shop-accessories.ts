@@ -7,7 +7,7 @@ const LOCK_BOX_IMG = 'https://playerstall.b-cdn.net/images/lock-box.png';
 const LOCK_BOX_DIGITAL_IMG = '/images/lock-box.png';
 const LOCK_BOX_BLUE = 'https://playerstall.b-cdn.net/images/lock%20box%20blue.jpg';
 const LOCK_BOX_LIGHT_GREY = 'https://playerstall.b-cdn.net/images/lock%20box%20light%20grey.jpg';
-const LOCK_BOX_BLACK = 'https://playerstall.b-cdn.net/images/lock%20box%20black.jpg';
+const LOCK_BOX_OAK = '/images/lock-box-oak.png';
 
 /** Black cushion gallery (CDN); front = card + cart thumbnail */
 const CUSHION_FRONT = 'https://playerstall.b-cdn.net/images/black%20cushion%20front%20view.jpg';
@@ -106,7 +106,7 @@ export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 	{
 		accImage: LOCK_BOX_BLUE,
 		accImage2: LOCK_BOX_LIGHT_GREY,
-		accImage3: LOCK_BOX_BLACK,
+		accImage3: LOCK_BOX_OAK,
 		accImage4: '/images/lock-box-spec-sheet.png',
 		accTitle: 'Lock Box with Digital Key Lock',
 		accPrice: '$80.00',
@@ -114,5 +114,14 @@ export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 		image: LOCK_BOX_BLUE,
 		alt: 'Blue lock box with digital keypad and RFID lock',
 		title: 'Lock Box with Digital Key Lock',
+	},
+	{
+		accImage: '/images/bench-side-view.png',
+		accTitle: 'Bench',
+		accPrice: '$299.00',
+		accDesc: 'Free-standing wood locker bench with solid wood seat on black steel pedestals. Available 36"–96" wide, 9.5" or 14" deep, in light or dark finish. Perfect complement to any locker setup.',
+		image: '/images/bench-side-view.png',
+		alt: 'Free-standing wood locker bench with black steel pedestals',
+		title: 'Bench',
 	},
 ];

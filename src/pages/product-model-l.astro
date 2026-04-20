@@ -59,21 +59,30 @@ const modelLSpecs = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="https://playerstall.b-cdn.net/images/legendary-locker.png"
-							alt="Model L wood athletic locker for locker rooms"
+							src="/images/model-l-oak-left-side.png"
+							alt="Model L wood athletic locker in oak, left-side view"
 							class="product-main-image"
 						/>
 						</div>
-					<p class="product-gallery-caption">Displayed in graphite color</p>
+					<p class="product-gallery-caption">Displayed in oak finish</p>
 					<div class="product-gallery-thumbs">
-						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model L view 1" />
+						<button type="button" class="thumb active" aria-label="Model L in oak, left-side view">
+							<img src="/images/model-l-oak-left-side.png" alt="Model L wood locker in oak, left-side view" />
 						</button>
-						<button type="button" class="thumb" aria-label="View image 2">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model L view 2" />
+						<button type="button" class="thumb" aria-label="Model L in dark oak, front view with base">
+							<img src="/images/model-l-dark-oak-front-base.png" alt="Model L wood locker in dark oak, front view with solid base" />
 						</button>
-						<button type="button" class="thumb" aria-label="View image 3">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Model L view 3" />
+						<button type="button" class="thumb" aria-label="Model L in dark oak, front view with bench cushion">
+							<img src="/images/model-l-dark-oak-front-cushion.png" alt="Model L wood locker in dark oak, front view with black bench cushion" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model L in dark oak, top and bottom compartments open">
+							<img src="/images/model-l-dark-oak-top-bottom-open.png" alt="Model L wood locker in dark oak with top and bottom storage compartments open" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model L in oak, alternate left-side view">
+							<img src="/images/model-l-oak-left-side-alt.png" alt="Model L wood locker in oak, alternate left-side angle" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model L in dark oak, right-side view">
+							<img src="/images/model-l-dark-oak-right-side.png" alt="Model L wood locker in dark oak, right-side view" />
 						</button>
 						<button type="button" class="thumb" aria-label="Model L dimensions sheet">
 							<img src={proLockerDimensionsSheet.src} alt="Model L locker dimensions sheet – front and side views with measurements in inches" />
@@ -1134,7 +1143,7 @@ const modelLSpecs = [
 			const id = 'model-l-locker-' + width + '-' + deep + '-' + colorCode;
 			const modelEl = document.querySelector('.product-model[data-model-letter]');
 			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;
-			const image = 'https://playerstall.b-cdn.net/images/legendary-locker.png';
+			const image = '/images/model-l-oak-left-side.png';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) {

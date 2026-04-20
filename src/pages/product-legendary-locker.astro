@@ -12,7 +12,6 @@ import {
 } from '../data/adornus-designer-paint-colors';
 import { TEXTURED_WOODGRAIN_OPTIONS, texturedWoodgrainSwatchUrl } from '../data/textured-woodgrain-colors';
 import { MODEL_X_HERO_IMAGE } from '../data/model-x-assets';
-import modelXLockerDimensionsSheet from '../assets/model-x-locker-dimensions-sheet.png';
 import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
 const legendarySpecs = [
@@ -63,23 +62,32 @@ const legendarySpecs = [
 						</div>
 					<p class="product-gallery-caption">Displayed in dark grey</p>
 					<div class="product-gallery-thumbs">
-						<button type="button" class="thumb active" aria-label="Model X dark grey three-quarter view">
-							<img src={MODEL_X_HERO_IMAGE} alt="Model X wood locker in dark grey, three-quarter view" />
+						<button type="button" class="thumb active" aria-label="Model X in dark grey, left-side view">
+							<img src={MODEL_X_HERO_IMAGE} alt="Model X wood athletic locker in dark grey, left-side view" />
 						</button>
-						<button type="button" class="thumb" aria-label="Model X front view">
-							<img src="/images/model-x-website-images/model-x-locker.png" alt="Model X locker front view" />
+						<button type="button" class="thumb" aria-label="Model X in dark grey, front view with base">
+							<img src="/images/model-x-dark-grey-front-base.png" alt="Model X wood athletic locker in dark grey, front view with solid base" />
 						</button>
-						<button type="button" class="thumb" aria-label="Model X side view">
-							<img src="/images/model-x-website-images/model-x-locker-side.png" alt="Model X side view" />
+						<button type="button" class="thumb" aria-label="Model X in dark grey, side profile view">
+							<img src="/images/model-x-dark-grey-side-view.png" alt="Model X wood athletic locker in dark grey, side profile silhouette" />
 						</button>
-						<button type="button" class="thumb" aria-label="Model X black locker">
-							<img src="/images/model-x-website-images/model-x-locker-black.png" alt="Model X black locker" />
+						<button type="button" class="thumb" aria-label="Model X in dark grey, right-side view">
+							<img src="/images/model-x-dark-grey-right-side.png" alt="Model X wood athletic locker in dark grey, right-side view" />
 						</button>
-						<button type="button" class="thumb" aria-label="Model X locker dimensions sheet">
-							<img src={modelXLockerDimensionsSheet.src} alt="Model X locker dimensions sheet – front and side views with measurements in inches" />
+						<button type="button" class="thumb" aria-label="Model X in light grey, front view with base">
+							<img src="/images/model-x-light-grey-front-base.png" alt="Model X wood athletic locker in light grey, front view with solid base" />
 						</button>
-						<button type="button" class="thumb" aria-label="Model X locker vented front panel detail">
-							<img src="/images/model-x-website-images/model-x-locker-vent-panel.png" alt="Model X locker vented front panel with horizontal slots" />
+						<button type="button" class="thumb" aria-label="Model X in light grey, front view with cushion seat">
+							<img src="/images/model-x-light-grey-front-cushion.png" alt="Model X wood athletic locker in light grey, front view with cushion seat" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model X in light grey, front view with open seat compartment">
+							<img src="/images/model-x-light-grey-front-open-seat.png" alt="Model X wood athletic locker in light grey, front view with open seat storage compartment" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model X in light grey, left-side view">
+							<img src="/images/model-x-light-grey-left-side.png" alt="Model X wood athletic locker in light grey, left-side view" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model X in light grey, side profile view">
+							<img src="/images/model-x-light-grey-side-view.png" alt="Model X wood athletic locker in light grey, side profile silhouette" />
 						</button>
 						<button type="button" class="thumb thumb--lock-box" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
@@ -1033,13 +1041,12 @@ const legendarySpecs = [
 					galleryMain.classList.toggle('product-gallery-main--lock-box', thumb.classList.contains('thumb--lock-box'));
 				}
 			}
-			// Caption by image: 1st & 3rd = graphite, 2nd = black, 4th = none
 			if (captionEl) {
-				if (index === 0 || index === 2) {
-					captionEl.textContent = 'Displayed in graphite color';
+				if (index <= 3) {
+					captionEl.textContent = 'Displayed in dark grey';
 					captionEl.classList.remove('is-hidden');
-				} else if (index === 1) {
-					captionEl.textContent = 'Displayed in black color';
+				} else if (index <= 8) {
+					captionEl.textContent = 'Displayed in light grey';
 					captionEl.classList.remove('is-hidden');
 				} else {
 					captionEl.classList.add('is-hidden');

@@ -156,7 +156,7 @@ import { CUSHION_CART_IMAGE } from '../data/shop-accessories';
 	.acc-modal-slide img { max-width: 100%; max-height: 345px; object-fit: contain; display: block; }
 	.acc-modal.acc-modal-is-lock-box .acc-modal-slide img { max-width: 100%; max-height: 286px; width: auto; height: auto; object-fit: contain; display: block; }
 	.acc-modal.acc-modal-is-lock-box #acc-modal-slide-3 img,
-	.acc-modal.acc-modal-is-lock-box #acc-modal-image-3 { transform: scale(1.366); transform-origin: center center; }
+	.acc-modal.acc-modal-is-lock-box #acc-modal-image-3 { max-height: 229px !important; }
 	.acc-modal.acc-modal-is-lock-box #acc-modal-slide-4 img,
 	.acc-modal.acc-modal-is-lock-box #acc-modal-image-4 { transform: scale(0.7); transform-origin: center center; }
 	.acc-modal.acc-modal-is-cushions .acc-modal-slide img { max-width: 100%; max-height: 322px; object-fit: contain; transform: scale(1.404); }
@@ -292,7 +292,7 @@ import { CUSHION_CART_IMAGE } from '../data/shop-accessories';
 			if (title === 'Lock Box with Digital Key Lock') {
 				accModalImage.alt = 'Blue lock box with digital keypad and RFID lock';
 				if (accModalImage2) accModalImage2.alt = 'Light grey lock box with digital keypad and RFID lock';
-				if (accModalImage3) accModalImage3.alt = 'Black lock box with digital keypad and RFID lock';
+				if (accModalImage3) accModalImage3.alt = 'Digital lock box with keypad mounted on oak locker panel';
 				if (accModalImage4) accModalImage4.alt = 'Lock box with digital key lock dimensions and specifications';
 			}
 			if (accModalSliderNav && accModalSliderDots.length) {

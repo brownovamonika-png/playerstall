@@ -54,24 +54,36 @@ const proSpecs = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="https://playerstall.b-cdn.net/images/legendary-locker.png"
-							alt="Pro Locker wood athletic locker for locker rooms"
+							src="/images/essential-locker-oak-left-side.png"
+							alt="Pro Locker wood athletic locker in oak finish, left-side view"
 							class="product-main-image"
 						/>
 						</div>
-					<p class="product-gallery-caption">Pre-Finished Birch Plywood</p>
+					<p class="product-gallery-caption">Displayed in oak finish</p>
 					<div class="product-gallery-thumbs">
-						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Pro Locker view 1" />
+						<button type="button" class="thumb active" aria-label="Pro Locker in oak finish, left-side view">
+							<img src="/images/essential-locker-oak-left-side.png" alt="Pro Locker wood athletic locker in oak finish, left-side view" />
 						</button>
-						<button type="button" class="thumb" aria-label="View image 2">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Pro Locker view 2" />
+						<button type="button" class="thumb" aria-label="Pro Locker in oak finish, front view with base">
+							<img src="/images/pro-locker-oak-front-base.png" alt="Pro Locker wood athletic locker in oak finish, front view with solid base" />
 						</button>
-						<button type="button" class="thumb" aria-label="View image 3">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Pro Locker view 3" />
+						<button type="button" class="thumb" aria-label="Pro Locker in oak finish, front view with cushion seat">
+							<img src="/images/pro-locker-oak-front-cushion.png" alt="Pro Locker wood athletic locker in oak finish, front view with cushion seat" />
+						</button>
+						<button type="button" class="thumb" aria-label="Pro Locker in oak finish, front view with open seat compartment">
+							<img src="/images/pro-locker-oak-front-open-seat.png" alt="Pro Locker wood athletic locker in oak finish, front view with open seat storage compartment" />
+						</button>
+						<button type="button" class="thumb" aria-label="Pro Locker in oak finish, side profile view">
+							<img src="/images/pro-locker-oak-side-view.png" alt="Pro Locker wood athletic locker in oak finish, side profile silhouette" />
+						</button>
+						<button type="button" class="thumb" aria-label="Pro Locker in oak finish, right-side view">
+							<img src="/images/pro-locker-oak-right-side.png" alt="Pro Locker wood athletic locker in oak finish, right-side view" />
+						</button>
+						<button type="button" class="thumb" aria-label="Digital lock box on oak panel detail">
+							<img src="/images/lock-box-oak.png" alt="Digital lock box with keypad mounted on Pro Locker oak panel" />
 						</button>
 						<button type="button" class="thumb" aria-label="Pro Locker dimensions sheet">
-							<img src={proLockerDimensionsSheet.src} alt="Pro Locker locker dimensions sheet – front and side views with measurements in inches" />
+							<img src={proLockerDimensionsSheet.src} alt="Pro Locker dimensions sheet – front and side views with measurements in inches" />
 						</button>
 						<button type="button" class="thumb thumb--lock-box" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
@@ -805,6 +817,10 @@ const proSpecs = [
 		font-style: italic;
 	}
 
+	.product-gallery-caption.is-hidden {
+		visibility: hidden;
+	}
+
 	.color-select-wrapper {
 		display: flex;
 		align-items: center;
@@ -938,7 +954,8 @@ const proSpecs = [
 </style>
 
 <script>
-	document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((thumb) => {
+	const captionEl = document.querySelector('.product-gallery-caption');
+	document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((thumb, index) => {
 		thumb.addEventListener('click', () => {
 			document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((t) => t.classList.remove('active'));
 			thumb.classList.add('active');
@@ -951,6 +968,14 @@ const proSpecs = [
 				const galleryMain = document.querySelector('.product-gallery-main');
 				if (galleryMain) {
 					galleryMain.classList.toggle('product-gallery-main--lock-box', thumb.classList.contains('thumb--lock-box'));
+				}
+			}
+			if (captionEl) {
+				if (index <= 6) {
+					captionEl.textContent = 'Displayed in oak finish';
+					captionEl.classList.remove('is-hidden');
+				} else {
+					captionEl.classList.add('is-hidden');
 				}
 			}
 		});
@@ -1070,7 +1095,7 @@ const proSpecs = [
 			const id = 'pro-locker-' + width + '-19';
 			const modelEl = document.querySelector('.product-model[data-model-prefix]');
 			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;
-			const image = 'https://playerstall.b-cdn.net/images/legendary-locker.png';
+			const image = '/images/essential-locker-oak-left-side.png';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) {

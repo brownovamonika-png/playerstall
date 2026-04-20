@@ -1,1 +1,0 @@
-const e=[{code:"CW",label:"White",hex:"#F5F5F5"},{code:"CB",label:"Black",hex:"#1A1A1A"},{code:"CC",label:"Charcoal",hex:"#4D4D4D"},{code:"CG",label:"Grey",hex:"#A8A8A8"},{code:"CR",label:"Red",hex:"#C41E3A"},{code:"CN",label:"Navy",hex:"#1F4E8C"},{code:"CU",label:"Blue",hex:"#2E5090"},{code:"CE",label:"Green",hex:"#2D5A27"}];export{e as C};

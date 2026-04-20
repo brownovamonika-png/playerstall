@@ -1,3 +1,2 @@
-/** Primary hero / listing image for Model X (CDN, dark grey three-quarter) */
-export const MODEL_X_HERO_IMAGE =
-	'https://playerstall.b-cdn.net/images/X%20dark%20grey%20left%20side.jpg';
+/** Primary hero / listing image for Model X (local, dark grey left-side view) */
+export const MODEL_X_HERO_IMAGE = '/images/model-x-dark-grey-left-side.png';

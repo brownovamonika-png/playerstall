@@ -54,27 +54,33 @@ const stadiumSpecs = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="/images/stadium-locker.png"
-							alt="Stadium Locker wood athletic locker for locker rooms"
+							src="/images/stadium-locker-oak-left-side.png"
+							alt="Stadium Locker wood athletic locker in oak finish, left-side view"
 							class="product-main-image"
 						/>
 						</div>
-					<p class="product-gallery-caption">Pre-Finished Birch Plywood</p>
+					<p class="product-gallery-caption">Displayed in oak finish</p>
 					<div class="product-gallery-thumbs">
-						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="/images/stadium-locker.png" alt="Stadium Locker locker view 1" />
+						<button type="button" class="thumb active" aria-label="Stadium Locker in oak finish, left-side view">
+							<img src="/images/stadium-locker-oak-left-side.png" alt="Stadium Locker wood athletic locker in oak finish, left-side view" />
 						</button>
-						<button type="button" class="thumb" aria-label="Stadium Locker locker side view">
-							<img src="/images/stadium-locker-side.png" alt="Stadium Locker locker side view" />
+						<button type="button" class="thumb" aria-label="Stadium Locker in oak finish, front view with base">
+							<img src="/images/stadium-locker-oak-front-base.png" alt="Stadium Locker wood athletic locker in oak finish, front view with solid base" />
 						</button>
-						<button type="button" class="thumb" aria-label="Stadium Locker locker dark view">
-							<img src="/images/stadium-locker-third.png" alt="Stadium Locker locker dark view" />
+						<button type="button" class="thumb" aria-label="Stadium Locker in oak finish, front view with cushion seat">
+							<img src="/images/stadium-locker-oak-front-cushion.png" alt="Stadium Locker wood athletic locker in oak finish, front view with cushion seat" />
 						</button>
-						<button type="button" class="thumb" aria-label="Stadium Locker locker dimensions sheet">
-							<img src={stadiumLockerDimensionsSheet.src} alt="Stadium Locker locker dimensions sheet – front and side views with measurements in inches" />
+						<button type="button" class="thumb" aria-label="Stadium Locker in oak finish, side profile view">
+							<img src="/images/stadium-locker-oak-side-view.png" alt="Stadium Locker wood athletic locker in oak finish, side profile silhouette" />
 						</button>
-						<button type="button" class="thumb" aria-label="Stadium Locker locker vented front panel detail">
-							<img src="/images/stadium-locker-vent-panel.png" alt="Stadium Locker locker vented front panel with horizontal slots" />
+						<button type="button" class="thumb" aria-label="Stadium Locker in oak finish, right-side view">
+							<img src="/images/stadium-locker-oak-right-side.png" alt="Stadium Locker wood athletic locker in oak finish, right-side view" />
+						</button>
+						<button type="button" class="thumb" aria-label="Digital lock box on oak panel detail">
+							<img src="/images/lock-box-oak.png" alt="Digital lock box with keypad mounted on Stadium Locker oak panel" />
+						</button>
+						<button type="button" class="thumb" aria-label="Stadium Locker dimensions sheet">
+							<img src={stadiumLockerDimensionsSheet.src} alt="Stadium Locker dimensions sheet – front and side views with measurements in inches" />
 						</button>
 						<button type="button" class="thumb thumb--lock-box" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
@@ -808,6 +814,10 @@ const stadiumSpecs = [
 		font-style: italic;
 	}
 
+	.product-gallery-caption.is-hidden {
+		visibility: hidden;
+	}
+
 	.color-select-wrapper {
 		display: flex;
 		align-items: center;
@@ -939,7 +949,8 @@ const stadiumSpecs = [
 </style>
 
 <script>
-	document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((thumb) => {
+	const captionEl = document.querySelector('.product-gallery-caption');
+	document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((thumb, index) => {
 		thumb.addEventListener('click', () => {
 			document.querySelectorAll('.product-gallery-thumbs .thumb').forEach((t) => t.classList.remove('active'));
 			thumb.classList.add('active');
@@ -952,6 +963,14 @@ const stadiumSpecs = [
 				const galleryMain = document.querySelector('.product-gallery-main');
 				if (galleryMain) {
 					galleryMain.classList.toggle('product-gallery-main--lock-box', thumb.classList.contains('thumb--lock-box'));
+				}
+			}
+			if (captionEl) {
+				if (index <= 5) {
+					captionEl.textContent = 'Displayed in oak finish';
+					captionEl.classList.remove('is-hidden');
+				} else {
+					captionEl.classList.add('is-hidden');
 				}
 			}
 		});
@@ -1071,7 +1090,7 @@ const stadiumSpecs = [
 			const id = 'stadium-locker-' + width + '-19';
 			const modelEl = document.querySelector('.product-model[data-model-prefix]');
 			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;
-			const image = '/images/stadium-locker.png';
+			const image = '/images/stadium-locker-oak-left-side.png';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) {
