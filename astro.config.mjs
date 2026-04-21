@@ -2,6 +2,12 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import vercel from '@astrojs/vercel';
 
+// CRM pages (/admin/*, /my-project/*) are SSR (prerender: false), so they ship
+// as Vercel serverless functions. When DEPLOY_TARGET=public the postbuild
+// script `scripts/purge-crm-from-public-build.mjs` strips those functions and
+// routes from .vercel/output so the public playerstall.com project does not
+// expose the CRM.
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://playerstall.com',

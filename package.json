@@ -7,6 +7,7 @@
     "dev:clean": "rm -rf .astro dist node_modules/.astro && astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "postbuild": "node scripts/purge-crm-from-public-build.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "supabase:start": "supabase start",
