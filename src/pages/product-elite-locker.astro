@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
+import ProductGalleryControls from '../components/ProductGalleryControls.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 import {
 	ADORNUS_DESIGNER_PAINT_FINISHES,
@@ -11,7 +12,8 @@ import {
 	DEFAULT_ADORNUS_PAINT_LABEL,
 } from '../data/adornus-designer-paint-colors';
 import { TEXTURED_WOODGRAIN_OPTIONS, texturedWoodgrainSwatchUrl } from '../data/textured-woodgrain-colors';
-import eliteLockerDimensionsSheet from '../assets/elite-locker-dimensions-sheet.png';
+const modelZDimensions19Src = 'https://playerstall.b-cdn.net/images/Model%20Z%2019%20inches.png';
+const modelZDimensions24Src = 'https://playerstall.b-cdn.net/images/Model%20Z%2024%20inches.png';
 import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
 const eliteSpecs = [
@@ -63,6 +65,7 @@ const eliteSpecs = [
 							alt="Model Z wood athletic locker in blue, left-side view"
 							class="product-main-image"
 						/>
+						<ProductGalleryControls />
 						</div>
 					<p class="product-gallery-caption">Displayed in blue</p>
 					<div class="product-gallery-thumbs">
@@ -96,8 +99,11 @@ const eliteSpecs = [
 						<button type="button" class="thumb" aria-label="Model Z in dark grey, right-side view">
 							<img src="/images/model-z-dark-grey-right-side.png" alt="Model Z wood athletic locker in dark grey, right-side view" />
 						</button>
-						<button type="button" class="thumb" aria-label="Model Z locker dimensions sheet">
-							<img src={eliteLockerDimensionsSheet.src} alt="Model Z locker dimensions sheet – front and side views with measurements in inches" />
+						<button type="button" class="thumb" aria-label="Model Z dimensions sheet – 19 inch depth">
+							<img src={modelZDimensions19Src} alt="Model Z locker dimensions sheet – 19 inch depth, front and side views with measurements in inches" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model Z dimensions sheet – 24 inch depth">
+							<img src={modelZDimensions24Src} alt="Model Z locker dimensions sheet – 24 inch depth, front and side views with measurements in inches" />
 						</button>
 						<button type="button" class="thumb thumb--lock-box" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />

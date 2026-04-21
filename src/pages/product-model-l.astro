@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
+import ProductGalleryControls from '../components/ProductGalleryControls.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 import {
 	ADORNUS_DESIGNER_PAINT_FINISHES,
@@ -11,7 +12,8 @@ import {
 	DEFAULT_ADORNUS_PAINT_LABEL,
 } from '../data/adornus-designer-paint-colors';
 import { TEXTURED_WOODGRAIN_OPTIONS, texturedWoodgrainSwatchUrl } from '../data/textured-woodgrain-colors';
-import proLockerDimensionsSheet from '../assets/pro-locker-dimensions-sheet.png';
+const modelLDimensions19Src = 'https://playerstall.b-cdn.net/images/Model%20L%2019%20inches%20wide%20spec.png';
+const modelLDimensions24Src = 'https://playerstall.b-cdn.net/images/Model%20L%2024%20inches.png';
 import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
 const modelLSpecs = [
@@ -63,6 +65,7 @@ const modelLSpecs = [
 							alt="Model L wood athletic locker in oak, left-side view"
 							class="product-main-image"
 						/>
+						<ProductGalleryControls />
 						</div>
 					<p class="product-gallery-caption">Displayed in oak finish</p>
 					<div class="product-gallery-thumbs">
@@ -84,8 +87,11 @@ const modelLSpecs = [
 						<button type="button" class="thumb" aria-label="Model L in dark oak, right-side view">
 							<img src="/images/model-l-dark-oak-right-side.png" alt="Model L wood locker in dark oak, right-side view" />
 						</button>
-						<button type="button" class="thumb" aria-label="Model L dimensions sheet">
-							<img src={proLockerDimensionsSheet.src} alt="Model L locker dimensions sheet – front and side views with measurements in inches" />
+						<button type="button" class="thumb" aria-label="Model L dimensions sheet – 19 inch depth">
+							<img src={modelLDimensions19Src} alt="Model L locker dimensions sheet – 19 inch depth, front and side views with measurements in inches" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model L dimensions sheet – 24 inch depth">
+							<img src={modelLDimensions24Src} alt="Model L locker dimensions sheet – 24 inch depth, front and side views with measurements in inches" />
 						</button>
 						<button type="button" class="thumb thumb--lock-box" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />

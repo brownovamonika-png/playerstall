@@ -1,0 +1,189 @@
+---
+/**
+ * ProductGalleryControls
+ *
+ * Adds orange dot indicators + prev/next arrows on top of a product gallery
+ * that follows the existing pattern:
+ *   <div class="product-gallery-main">
+ *     <img class="product-main-image" ... />
+ *   </div>
+ *   <div class="product-gallery-thumbs">
+ *     <button class="thumb active">...</button>
+ *     <button class="thumb">...</button>
+ *     ...
+ *   </div>
+ *
+ * Drop this component inside `.product-gallery-main` (after the `<img>`).
+ * It auto-wires the arrows/dots to drive the existing thumbnail click handlers,
+ * so all existing per-page gallery behavior keeps working.
+ */
+---
+
+<button
+	type="button"
+	class="product-slider-arrow product-slider-arrow-prev"
+	data-product-slider-prev
+	aria-label="Previous image"
+>&#10094;</button>
+<button
+	type="button"
+	class="product-slider-arrow product-slider-arrow-next"
+	data-product-slider-next
+	aria-label="Next image"
+>&#10095;</button>
+<div class="product-slider-dots" data-product-slider-dots></div>
+
+<style is:global>
+	.product-gallery-main {
+		position: relative;
+	}
+
+	.product-slider-arrow {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 40px;
+		height: 40px;
+		border: none;
+		background: rgba(255, 255, 255, 0.85);
+		color: #0d0d0d;
+		font-size: 18px;
+		line-height: 1;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background 0.2s, color 0.2s;
+		z-index: 3;
+	}
+
+	.product-slider-arrow:hover {
+		background: #fe5900;
+		color: #ffffff;
+	}
+
+	.product-slider-arrow-prev {
+		left: 10px;
+	}
+
+	.product-slider-arrow-next {
+		right: 10px;
+	}
+
+	.product-slider-dots {
+		position: absolute;
+		bottom: 12px;
+		left: 0;
+		right: 0;
+		display: flex;
+		justify-content: center;
+		gap: 8px;
+		pointer-events: none;
+		z-index: 3;
+	}
+
+	.product-slider-dot {
+		pointer-events: auto;
+		width: 10px;
+		height: 10px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: rgba(0, 0, 0, 0.25);
+		cursor: pointer;
+		transition: background 0.2s, transform 0.2s;
+	}
+
+	.product-slider-dot:hover {
+		background: rgba(0, 0, 0, 0.45);
+	}
+
+	.product-slider-dot.active {
+		background: #fe5900;
+		transform: scale(1.15);
+	}
+
+	@media (max-width: 768px) {
+		.product-slider-arrow {
+			width: 34px;
+			height: 34px;
+			font-size: 16px;
+		}
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		document.querySelectorAll('.product-gallery-main').forEach(function (galleryMain) {
+			const dotsEl = galleryMain.querySelector('[data-product-slider-dots]');
+			const prevBtn = galleryMain.querySelector('[data-product-slider-prev]');
+			const nextBtn = galleryMain.querySelector('[data-product-slider-next]');
+			if (!dotsEl || !prevBtn || !nextBtn) return;
+
+			// Find the matching thumbs set (first .product-gallery-thumbs after this gallery-main)
+			let thumbsContainer = galleryMain.parentElement
+				? galleryMain.parentElement.querySelector('.product-gallery-thumbs')
+				: null;
+			if (!thumbsContainer) {
+				thumbsContainer = document.querySelector('.product-gallery-thumbs');
+			}
+			if (!thumbsContainer) return;
+
+			const thumbs = Array.from(thumbsContainer.querySelectorAll('.thumb'));
+			if (thumbs.length < 2) {
+				prevBtn.remove();
+				nextBtn.remove();
+				dotsEl.remove();
+				return;
+			}
+
+			// Build dots
+			thumbs.forEach(function (_, i) {
+				const dot = document.createElement('button');
+				dot.type = 'button';
+				dot.className = 'product-slider-dot' + (thumbs[i].classList.contains('active') ? ' active' : '');
+				dot.setAttribute('data-dot-index', String(i));
+				dot.setAttribute('aria-label', 'View image ' + (i + 1));
+				dot.addEventListener('click', function () {
+					(thumbs[i] as HTMLElement).click();
+				});
+				dotsEl.appendChild(dot);
+			});
+
+			function activeIndex() {
+				const idx = thumbs.findIndex(function (t) {
+					return t.classList.contains('active');
+				});
+				return idx < 0 ? 0 : idx;
+			}
+
+			function syncDots() {
+				const active = activeIndex();
+				dotsEl.querySelectorAll('.product-slider-dot').forEach(function (d, i) {
+					d.classList.toggle('active', i === active);
+					d.setAttribute('aria-current', i === active ? 'true' : 'false');
+				});
+			}
+
+			prevBtn.addEventListener('click', function () {
+				const i = activeIndex();
+				const target = i <= 0 ? thumbs.length - 1 : i - 1;
+				(thumbs[target] as HTMLElement).click();
+				setTimeout(syncDots, 0);
+			});
+
+			nextBtn.addEventListener('click', function () {
+				const i = activeIndex();
+				const target = i >= thumbs.length - 1 ? 0 : i + 1;
+				(thumbs[target] as HTMLElement).click();
+				setTimeout(syncDots, 0);
+			});
+
+			thumbs.forEach(function (thumb) {
+				thumb.addEventListener('click', function () {
+					setTimeout(syncDots, 0);
+				});
+			});
+		});
+	});
+</script>

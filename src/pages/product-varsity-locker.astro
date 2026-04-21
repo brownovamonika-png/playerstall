@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
+import ProductGalleryControls from '../components/ProductGalleryControls.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 
 const varsitySpecs = [
@@ -56,6 +57,7 @@ const varsitySpecs = [
 							alt="Varsity wood athletic locker for locker rooms"
 							class="product-main-image"
 						/>
+						<ProductGalleryControls />
 						</div>
 					<div class="product-gallery-thumbs">
 						<button type="button" class="thumb active" aria-label="View image 1">

@@ -4,9 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
+import ProductGalleryControls from '../components/ProductGalleryControls.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
-import stadiumLockerDimensionsSheet from '../assets/stadium-locker-dimensions-sheet.png';
 import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
+
+const stadiumLockerDimensionsSheetSrc = 'https://playerstall.b-cdn.net/images/Model%20S%2019%20inches.png';
 
 const stadiumSpecs = [
 	{ label: 'Standard dimensions', value: '18" W × 76" H × 19" D' },
@@ -58,6 +60,7 @@ const stadiumSpecs = [
 							alt="Stadium Locker wood athletic locker in oak finish, left-side view"
 							class="product-main-image"
 						/>
+						<ProductGalleryControls />
 						</div>
 					<p class="product-gallery-caption">Displayed in oak finish</p>
 					<div class="product-gallery-thumbs">
@@ -80,7 +83,7 @@ const stadiumSpecs = [
 							<img src="/images/lock-box-oak.png" alt="Digital lock box with keypad mounted on Stadium Locker oak panel" />
 						</button>
 						<button type="button" class="thumb" aria-label="Stadium Locker dimensions sheet">
-							<img src={stadiumLockerDimensionsSheet.src} alt="Stadium Locker dimensions sheet – front and side views with measurements in inches" />
+							<img src={stadiumLockerDimensionsSheetSrc} alt="Stadium Locker dimensions sheet – front and side views with measurements in inches" />
 						</button>
 						<button type="button" class="thumb thumb--lock-box" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />

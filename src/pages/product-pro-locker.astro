@@ -4,8 +4,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
+import ProductGalleryControls from '../components/ProductGalleryControls.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
-import proLockerDimensionsSheet from '../assets/pro-locker-dimensions-sheet.png';
+const proLockerDimensionsSheetSrc = 'https://playerstall.b-cdn.net/images/Model%20L%2019%20inches%20wide%20spec.png';
 import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
 const proSpecs = [
@@ -58,6 +59,7 @@ const proSpecs = [
 							alt="Pro Locker wood athletic locker in oak finish, left-side view"
 							class="product-main-image"
 						/>
+						<ProductGalleryControls />
 						</div>
 					<p class="product-gallery-caption">Displayed in oak finish</p>
 					<div class="product-gallery-thumbs">
@@ -83,7 +85,7 @@ const proSpecs = [
 							<img src="/images/lock-box-oak.png" alt="Digital lock box with keypad mounted on Pro Locker oak panel" />
 						</button>
 						<button type="button" class="thumb" aria-label="Pro Locker dimensions sheet">
-							<img src={proLockerDimensionsSheet.src} alt="Pro Locker dimensions sheet – front and side views with measurements in inches" />
+							<img src={proLockerDimensionsSheetSrc} alt="Pro Locker dimensions sheet – front and side views with measurements in inches" />
 						</button>
 						<button type="button" class="thumb thumb--lock-box" aria-label="Digital lock box option">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />

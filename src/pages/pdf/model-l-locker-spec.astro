@@ -4,7 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductSpecSheet from '../../components/ProductSpecSheet.astro';
 import { ADORNUS_DESIGNER_PAINT_LABELS_CSV } from '../../data/adornus-designer-paint-colors';
 import { TEXTURED_WOODGRAIN_LABELS_CSV } from '../../data/textured-woodgrain-colors';
-const dimensionsSheetSrc = '/images/model-x-locker-dimensions-sheet.png';
+const dimensionsSheet19Src = 'https://playerstall.b-cdn.net/images/Model%20L%2019%20inches%20wide%20spec.png';
+const dimensionsSheet24Src = 'https://playerstall.b-cdn.net/images/Model%20L%2024%20inches.png';
 
 const modelLSpecs = [
 	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
@@ -68,8 +69,12 @@ const modelLSpecs = [
 						<figcaption>Black finish</figcaption>
 					</figure>
 					<figure class="option-image-fig">
-						<img src={dimensionsSheetSrc} alt="Model L locker dimensions" />
-						<figcaption>Dimensions</figcaption>
+						<img src={dimensionsSheet19Src} alt="Model L locker dimensions – 19 inch depth, front and side views" />
+						<figcaption>Dimensions (19" depth)</figcaption>
+					</figure>
+					<figure class="option-image-fig">
+						<img src={dimensionsSheet24Src} alt="Model L locker dimensions – 24 inch depth, front and side views" />
+						<figcaption>Dimensions (24" depth)</figcaption>
 					</figure>
 					<figure class="option-image-fig">
 						<img src="/images/model-x-website-images/model-x-locker-vent-panel.png" alt="Model L vented front panel" />
@@ -142,8 +147,12 @@ const modelLSpecs = [
 						<div class="product-info-col product-info-col-specs">
 							<ProductSpecSheet productName="Model L Locker" specs={modelLSpecs} />
 							<div class="product-dimensions-sheet-figure">
-								<img src={dimensionsSheetSrc} alt="Model L locker dimensions – front and side views with measurements in inches" class="product-dimensions-sheet-image" />
-								<p class="product-dimensions-sheet-caption">Model L Locker dimensions (front and side)</p>
+								<img src={dimensionsSheet19Src} alt="Model L locker dimensions – 19 inch depth, front and side views with measurements in inches" class="product-dimensions-sheet-image" />
+								<p class="product-dimensions-sheet-caption">Model L Locker dimensions — 19" depth (front and side)</p>
+							</div>
+							<div class="product-dimensions-sheet-figure">
+								<img src={dimensionsSheet24Src} alt="Model L locker dimensions – 24 inch depth, front and side views with measurements in inches" class="product-dimensions-sheet-image" />
+								<p class="product-dimensions-sheet-caption">Model L Locker dimensions — 24" depth (front and side)</p>
 							</div>
 						</div>
 						<div class="product-info-col product-info-col-features">

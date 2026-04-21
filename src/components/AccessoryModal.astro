@@ -152,15 +152,17 @@ import { CUSHION_CART_IMAGE } from '../data/shop-accessories';
 	.acc-modal-gallery { background: #fff; display: flex; align-items: center; justify-content: center; padding: 40px; min-height: 280px; }
 	.acc-modal-slider { position: relative; width: 100%; height: 100%; min-height: 240px; overflow: hidden; background: #fff; }
 	.acc-modal-slides { display: flex; width: 100%; height: 100%; transition: transform 0.35s ease-in-out; background: #fff; }
-	.acc-modal-slide { flex: 0 0 100%; min-width: 0; display: flex; align-items: center; justify-content: center; background: #fff; }
+	.acc-modal-slide { flex: 0 0 100%; min-width: 0; display: flex; align-items: center; justify-content: center; background: #fff; overflow: hidden; position: relative; }
 	.acc-modal-slide img { max-width: 100%; max-height: 345px; object-fit: contain; display: block; }
 	.acc-modal.acc-modal-is-lock-box .acc-modal-slide img { max-width: 100%; max-height: 286px; width: auto; height: auto; object-fit: contain; display: block; }
 	.acc-modal.acc-modal-is-lock-box #acc-modal-slide-3 img,
 	.acc-modal.acc-modal-is-lock-box #acc-modal-image-3 { max-height: 229px !important; }
 	.acc-modal.acc-modal-is-lock-box #acc-modal-slide-4 img,
 	.acc-modal.acc-modal-is-lock-box #acc-modal-image-4 { transform: scale(0.7); transform-origin: center center; }
-	.acc-modal.acc-modal-is-cushions .acc-modal-slide img { max-width: 100%; max-height: 322px; object-fit: contain; transform: scale(1.404); }
-	.acc-modal.acc-modal-is-cushions #acc-modal-image { transform: scale(1.123); }
+	.acc-modal.acc-modal-is-cushions .acc-modal-slide img { max-width: 100%; max-height: 452px; width: 100%; object-fit: contain; transform: none; }
+	.acc-modal.acc-modal-is-cushions #acc-modal-image { transform: none; }
+	.acc-modal.acc-modal-is-cushions #acc-modal-image-2 { object-position: 85% center; }
+	.acc-modal.acc-modal-is-cushions #acc-modal-image-3 { object-position: center 5%; transform: scale(0.8); transform-origin: center center; }
 	.acc-modal-slider-dots { position: absolute; bottom: 12px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; pointer-events: none; }
 	.acc-modal-slider-dots .acc-modal-slider-dot { pointer-events: auto; width: 8px; height: 8px; padding: 0; border: none; border-radius: 50%; background: rgba(0,0,0,0.25); cursor: pointer; transition: background 0.2s, transform 0.2s; }
 	.acc-modal-slider-dots .acc-modal-slider-dot:hover { background: rgba(0,0,0,0.45); }

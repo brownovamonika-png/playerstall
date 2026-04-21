@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
+import ProductGalleryControls from '../components/ProductGalleryControls.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 import {
 	ADORNUS_DESIGNER_PAINT_FINISHES,
@@ -12,7 +13,8 @@ import {
 } from '../data/adornus-designer-paint-colors';
 import { TEXTURED_WOODGRAIN_OPTIONS, texturedWoodgrainSwatchUrl } from '../data/textured-woodgrain-colors';
 import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
-import stadiumLockerDimensionsSheet from '../assets/stadium-locker-dimensions-sheet.png';
+const modelSDimensions19Src = 'https://playerstall.b-cdn.net/images/Model%20S%2019%20inches.png';
+const modelSDimensions24Src = 'https://playerstall.b-cdn.net/images/Model%20S%2024%20inches.png';
 import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
 const modelSSpecs = [
@@ -60,6 +62,7 @@ const modelSSpecs = [
 							alt="Model S wood athletic locker in black, three-quarter view"
 							class="product-main-image"
 						/>
+						<ProductGalleryControls />
 						</div>
 					<p class="product-gallery-caption">Displayed in black</p>
 					<div class="product-gallery-thumbs">
@@ -78,8 +81,11 @@ const modelSSpecs = [
 						<button type="button" class="thumb" aria-label="Model S digital lock box in black">
 							<img src="/images/lock-box-black.jpg" alt="Model S digital lock box in black finish with keypad" />
 						</button>
-						<button type="button" class="thumb" aria-label="Model S locker dimensions sheet">
-							<img src={stadiumLockerDimensionsSheet.src} alt="Model S locker dimensions sheet – front and side views with measurements in inches" />
+						<button type="button" class="thumb" aria-label="Model S dimensions sheet – 19 inch depth">
+							<img src={modelSDimensions19Src} alt="Model S locker dimensions sheet – 19 inch depth, front and side views with measurements in inches" />
+						</button>
+						<button type="button" class="thumb" aria-label="Model S dimensions sheet – 24 inch depth">
+							<img src={modelSDimensions24Src} alt="Model S locker dimensions sheet – 24 inch depth, front and side views with measurements in inches" />
 						</button>
 						<button type="button" class="thumb thumb--lock-box" aria-label="Digital lock box dimensions and spec">
 							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
