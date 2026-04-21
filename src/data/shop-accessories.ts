@@ -95,15 +95,6 @@ export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 		title: 'Custom Logo',
 	},
 	{
-		accImage: '/images/stick-rack.png',
-		accTitle: 'Stick Rack',
-		accPrice: 'Starting at $299',
-		accDesc: 'Dedicated stick storage that keeps sticks organized, off the floor, and easy to grab on the way to the ice.',
-		image: '/images/stick-rack.png',
-		alt: 'Wood stick rack for locker rooms',
-		title: 'Stick Rack',
-	},
-	{
 		accImage: LOCK_BOX_BLUE,
 		accImage2: LOCK_BOX_LIGHT_GREY,
 		accImage3: LOCK_BOX_OAK,
@@ -114,14 +105,5 @@ export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 		image: LOCK_BOX_BLUE,
 		alt: 'Blue lock box with digital keypad and RFID lock',
 		title: 'Lock Box with Digital Key Lock',
-	},
-	{
-		accImage: '/images/bench-side-view.png',
-		accTitle: 'Bench',
-		accPrice: '$299.00',
-		accDesc: 'Free-standing wood locker bench with solid wood seat on black steel pedestals. Available 36"–96" wide, 9.5" or 14" deep, in light or dark finish. Perfect complement to any locker setup.',
-		image: '/images/bench-side-view.png',
-		alt: 'Free-standing wood locker bench with black steel pedestals',
-		title: 'Bench',
 	},
 ];

@@ -4,26 +4,50 @@ import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
+import {
+	ADORNUS_DESIGNER_PAINT_FINISHES,
+	DEFAULT_ADORNUS_PAINT_CODE,
+	DEFAULT_ADORNUS_PAINT_LABEL,
+} from '../data/adornus-designer-paint-colors';
+import { TEXTURED_WOODGRAIN_OPTIONS, texturedWoodgrainSwatchUrl } from '../data/textured-woodgrain-colors';
+
+const benchSlides = [
+	{
+		src: 'https://playerstall.b-cdn.net/images/bench%20top%20above.png',
+		alt: 'Wood locker bench – front elevation view, light oak top with black powder-coated pedestal legs',
+	},
+	{
+		src: 'https://playerstall.b-cdn.net/images/bench%20side.png',
+		alt: 'Wood locker bench – end/side profile view showing seat thickness and pedestal frame',
+	},
+	{
+		src: 'https://playerstall.b-cdn.net/images/bench%20top.png',
+		alt: 'Wood locker bench – three-quarter top view showing wood grain seating surface',
+	},
+];
 
 const benchSpecs = [
-	{ label: 'Size (36" W example)', value: '36" W × 18" H × 9.5" D' },
-	{ label: 'Widths', value: '36", 48", 60", 72", 84", 96" (1-foot increments)' },
+	{ label: 'Size (72" L example)', value: '72" L × 18" D × 18" H' },
+	{ label: 'Length', value: '72" – 96" (depending on number of users)' },
+	{ label: 'Depth', value: '18"' },
 	{ label: 'Height', value: '18"' },
-	{ label: 'Depth options', value: '9.5" or 14"' },
-	{ label: 'Weight', value: 'Approx. 20 lbs (36" width); varies by size' },
+	{ label: 'Weight', value: 'Approx. 40 lbs (72" length); varies by size' },
 	{ label: 'Construction', value: 'Solid butcher block wood, 1¼" thick seating' },
-	{ label: 'Base', value: 'Black powder-coated pedestals (2 for 36"–72", 3 for 84"–96")' },
-	{ label: 'Finish', value: 'Light or dark' },
+	{ label: 'Base', value: 'Black powder-coated pedestals' },
+	{ label: 'Finish', value: 'Any locker color — full Sherwin-Williams paint palette or textured woodgrain' },
 	{ label: 'Assembly', value: 'Delivered unassembled — minor assembly required' },
 ];
 ---
 
 <BaseLayout
-	title='Bench - Free Standing 36" to 96" Wide | PlayerStall'
-	description='Custom wood locker bench, free standing. Available 36" to 96" wide, 9.5" or 14" deep, light or dark finish. Solid wood, black pedestals. Request a quote.'
+	title='Bench - Free Standing 72" to 96" Long | PlayerStall'
+	description='Custom wood locker bench, free standing. 18" H × 18" D, 72" to 96" long depending on number of users. Available in any locker color – Sherwin-Williams paint palette or textured woodgrain. Solid wood, black pedestals. Request a quote.'
 >
-	<!-- Hero Section (same as Stadium) -->
+	<!-- Hero Section (same as lockers) -->
 	<section class="product-hero-section">
+		<div class="product-hero-background">
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Wood Locker Bench" class="product-hero-bg-image" />
+		</div>
 		<div class="product-hero-background-overlay"></div>
 		<div class="product-hero-container">
 			<div class="product-breadcrumbs">
@@ -33,6 +57,7 @@ const benchSpecs = [
 				<span class="breadcrumbs-sep">/</span>
 				<span class="breadcrumbs-current">Bench</span>
 			</div>
+			<h1 class="product-page-title">Bench</h1>
 		</div>
 	</section>
 
@@ -40,76 +65,93 @@ const benchSpecs = [
 	<section class="product-main-section">
 		<div class="product-container">
 			<div class="product-layout">
-				<!-- Left: Gallery -->
+				<!-- Left: Gallery (3-way slider, same pattern as cushion modal) -->
 				<div class="product-gallery">
 					<div class="product-gallery-main">
-						<img src="/images/bench-side-view.png" alt="Bench free standing for athletic locker rooms" class="product-main-image" />
+						<div class="bench-slider" id="bench-slider" role="region" aria-label="Bench image slider">
+							<div class="bench-slides" id="bench-slides">
+								{benchSlides.map((slide) => (
+									<div class="bench-slide">
+										<img src={slide.src} alt={slide.alt} />
+									</div>
+								))}
+							</div>
+							<button type="button" class="bench-slider-arrow bench-slider-arrow-prev" id="bench-slider-prev" aria-label="Previous image">&#10094;</button>
+							<button type="button" class="bench-slider-arrow bench-slider-arrow-next" id="bench-slider-next" aria-label="Next image">&#10095;</button>
+							<div class="bench-slider-dots" id="bench-slider-dots">
+								{benchSlides.map((_, i) => (
+									<button
+										type="button"
+										class={`bench-slider-dot${i === 0 ? ' active' : ''}`}
+										data-slide={i}
+										aria-label={`View image ${i + 1}`}
+										aria-current={i === 0 ? 'true' : 'false'}
+									></button>
+								))}
+							</div>
 						</div>
+					</div>
 					<div class="product-gallery-thumbs">
-						<button type="button" class="thumb active" aria-label="View image 1"><img src="/images/bench-side-view.png" alt="Bench view 1" /></button>
-						<button type="button" class="thumb" aria-label="View image 2"><img src="https://playerstall.b-cdn.net/images/wood-lockers-team-discount.jpg" alt="Bench view 2" /></button>
-						<button type="button" class="thumb" aria-label="View image 3"><img src="https://playerstall.b-cdn.net/images/wood-locer-room-front-2.png" alt="Locker room with bench" /></button>
+						{benchSlides.map((slide, i) => (
+							<button type="button" class={`thumb${i === 0 ? ' active' : ''}`} data-slide={i} aria-label={`View image ${i + 1}`}>
+								<img src={slide.src} alt={slide.alt} />
+							</button>
+						))}
 					</div>
 				</div>
 
 				<!-- Right: Details -->
 				<div class="product-detail">
-					<h1 class="product-title">Bench – Free Standing 36&quot; to 96&quot; Wide</h1>
-					<p class="product-model" data-model-prefix="BENCH">Model # BENCH-36-L</p>
+					<h1 class="product-title">Bench – Free Standing 72&quot; to 96&quot; Long</h1>
+					<p class="product-model" data-model-prefix="BENCH">Model # BENCH-72-HRW</p>
 					<p class="product-lead-time">Lead time: usually ships within 1–2 weeks</p>
 					<div class="product-price-block">
-						<span class="product-price" data-base-price="225">From $225.00</span>
+						<span class="product-price" data-base-price="269">$269.00</span>
 					</div>
 
 					<div class="product-options">
 						<div class="product-option">
-							<label class="option-label">Width:</label>
-							<span class="option-value">36&quot;</span>
+							<label class="option-label">Length:</label>
+							<span class="option-value">72&quot;</span>
 							<div class="option-swatches">
-								<button type="button" class="swatch width-swatch active" data-width="36" title="36 inch" aria-pressed="true">36&quot;</button>
-								<button type="button" class="swatch width-swatch" data-width="48" title="48 inch">48&quot;</button>
-								<button type="button" class="swatch width-swatch" data-width="60" title="60 inch">60&quot;</button>
-								<button type="button" class="swatch width-swatch" data-width="72" title="72 inch">72&quot;</button>
-								<button type="button" class="swatch width-swatch" data-width="84" title="84 inch">84&quot;</button>
-								<button type="button" class="swatch width-swatch" data-width="96" title="96 inch">96&quot;</button>
+								<button type="button" class="swatch width-swatch active" data-width="72" data-price="269" title="72 inch" aria-pressed="true">72&quot;</button>
+								<button type="button" class="swatch width-swatch" data-width="84" data-price="299" title="84 inch">84&quot;</button>
+								<button type="button" class="swatch width-swatch" data-width="96" data-price="349" title="96 inch">96&quot;</button>
 							</div>
+							<p class="option-note">Length depends on number of users (72&quot;–96&quot;).</p>
 						</div>
 						<div class="product-option">
-							<label class="option-label">Color:</label>
-							<span class="option-value">Light</span>
-							<div class="option-swatches">
-								<button type="button" class="swatch active" data-color="light" title="Light" aria-pressed="true">Light</button>
-								<button type="button" class="swatch" data-color="dark" title="Dark">Dark</button>
+							<label class="option-label" for="bench-color-select">Color:</label>
+							<div class="color-select-wrapper">
+								<span class="color-preview" id="bench-color-preview" style="background-color: #f4f4f0;"></span>
+								<select id="bench-color-select" class="color-dropdown">
+									<optgroup label="Solid colors (Sherwin-Williams)">
+										{ADORNUS_DESIGNER_PAINT_FINISHES.map((o) => (
+											<option value={o.code} data-color={o.approxHex} selected={o.code === DEFAULT_ADORNUS_PAINT_CODE}>
+												{o.label}
+											</option>
+										))}
+									</optgroup>
+									<optgroup label="Textured woodgrain">
+										{TEXTURED_WOODGRAIN_OPTIONS.map((o) => (
+											<option
+												value={o.code}
+												data-color={o.fallbackHex}
+												data-swatch-image={texturedWoodgrainSwatchUrl(o.fileSlug)}
+											>
+												{o.label}
+											</option>
+										))}
+									</optgroup>
+								</select>
 							</div>
-						</div>
-						<div class="product-option">
-							<label class="option-label">Depth:</label>
-							<span class="option-value">9.5&quot;</span>
-							<div class="option-swatches">
-								<button type="button" class="swatch depth-swatch active" data-depth="9.5" title="9.5 inch" aria-pressed="true">9.5&quot;</button>
-								<button type="button" class="swatch depth-swatch" data-depth="14" title="14 inch">14&quot;</button>
-							</div>
+							<p class="option-note"><a href="/colors/all-color-options-pdf.html" target="_blank" rel="noopener noreferrer" class="color-pdf-link">View Color Option PDF</a></p>
 						</div>
 						<p class="option-note">Pair with lockers for a complete installation. <a href="/shop">View lockers</a>.</p>
 						<div class="product-specs-inline">
-							<p><strong>Size (36&quot; W example):</strong> 36&quot; W × 18&quot; H × 9.5&quot; D</p>
-							<p><strong>Weight:</strong> approx. 20 lbs (36&quot; width)</p>
+							<p><strong>Size (72&quot; L example):</strong> 72&quot; L × 18&quot; D × 18&quot; H</p>
+							<p><strong>Weight:</strong> approx. 40 lbs (72&quot; length)</p>
 						</div>
-					</div>
-
-					<div class="product-volume-discounts">
-						<h3 class="volume-title">Volume Discounts</h3>
-						<table class="volume-table">
-							<thead>
-								<tr><th>Quantity</th><th>Price</th></tr>
-							</thead>
-							<tbody>
-								<tr><td>1</td><td>$225.00</td></tr>
-								<tr><td>2 – 5</td><td>$190.00</td></tr>
-								<tr><td>6+</td><td>$180.00</td></tr>
-								<tr><td>Bulk</td><td><a href="/contact" class="volume-contact-link">Contact us</a> for pricing</td></tr>
-							</tbody>
-						</table>
 					</div>
 
 					<div class="product-actions">
@@ -144,18 +186,19 @@ const benchSpecs = [
 							<li>Constructed of solid butcher block wood</li>
 							<li>Ideal for industrial, office, or recreational locker room facilities</li>
 							<li>Classic look with strength and durability</li>
-							<li>Available in light or dark finish</li>
-							<li>Widths from 36&quot; to 96&quot; in 1-foot increments; easy to assemble</li>
-							<li>18&quot; high; 9.5&quot; or 14&quot; deep</li>
+							<li>Available in any locker color — full Sherwin-Williams paint palette or textured woodgrain finish to match your lockers</li>
+							<li>Lengths from 72&quot; to 96&quot;, chosen based on the number of users</li>
+							<li>18&quot; high × 18&quot; deep</li>
 							<li>Wood seating area 1¼&quot; thick</li>
-							<li>Free-standing benches include black powder-coated pedestals (2 for 36&quot;–72&quot; wide, 3 for 84&quot; and 96&quot;)</li>
+							<li>Free-standing benches include black powder-coated pedestals</li>
 							<li>Delivered unassembled – minor assembly required</li>
 						</ul>
 						<h3 class="product-info-subheading">Options</h3>
 						<ul class="product-options-list">
-							<li>Widths: 36&quot;, 48&quot;, 60&quot;, 72&quot;, 84&quot;, 96&quot;</li>
-							<li>Depth: 9.5&quot; or 14&quot;</li>
-							<li>Light or dark finish</li>
+							<li>Length: 72&quot;, 84&quot;, or 96&quot; (depending on number of users)</li>
+							<li>Depth: 18&quot;</li>
+							<li>Height: 18&quot;</li>
+							<li>Color: any locker color — Sherwin-Williams paint palette or textured woodgrain</li>
 							<li>Pair with our wood lockers for a complete locker room</li>
 						</ul>
 					</div>
@@ -184,34 +227,63 @@ const benchSpecs = [
 
 	.product-hero-section {
 		position: relative;
-		background: #f7f7f7;
-		padding: 80px 0 50px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
 		overflow: hidden;
+		min-height: 320px;
+	}
+
+	.product-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.product-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
 	}
 
 	.product-hero-background-overlay {
 		position: absolute;
-		inset: 0;
-		background: linear-gradient(135deg, rgba(13, 13, 13, 0.04) 0%, transparent 100%);
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
 	}
 
 	.product-hero-container {
 		position: relative;
-		z-index: 2;
+		z-index: 10;
 		max-width: 1300px;
 		margin: 0 auto;
 		padding: 0 20px;
+		text-align: left;
+		width: 100%;
 	}
 
 	.product-breadcrumbs {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
 		margin-bottom: 20px;
 	}
 
 	.product-breadcrumbs a {
-		color: #8c8c8c;
+		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
 		transition: color 0.3s;
 	}
@@ -222,11 +294,23 @@ const benchSpecs = [
 
 	.breadcrumbs-sep {
 		margin: 0 8px;
-		color: #b6b6b6;
+		color: rgba(255, 255, 255, 0.6);
 	}
 
 	.breadcrumbs-current {
-		color: #0d0d0d;
+		color: #ffffff;
+	}
+
+	.product-page-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 52px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
 	}
 
 	.product-background-text {
@@ -273,6 +357,113 @@ const benchSpecs = [
 		height: 96%;
 		object-fit: contain;
 		display: block;
+	}
+
+	/* Bench slider (3-way sliding gallery, same pattern as cushion modal) */
+	.bench-slider {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background: #fff;
+	}
+
+	.bench-slides {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		transition: transform 0.35s ease-in-out;
+	}
+
+	.bench-slide {
+		flex: 0 0 100%;
+		min-width: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #fff;
+		padding: 4%;
+	}
+
+	.bench-slide img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+		display: block;
+	}
+
+	/* Front (top-above) view — rendered 20% smaller so it doesn't overfill the slide. */
+	.bench-slide:nth-child(1) img {
+		transform: scale(0.8);
+	}
+
+	.bench-slide:nth-child(3) img {
+		transform: translateX(-20%);
+	}
+
+	.bench-slider-arrow {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 40px;
+		height: 40px;
+		border: none;
+		background: rgba(255, 255, 255, 0.85);
+		color: #0d0d0d;
+		font-size: 18px;
+		line-height: 1;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background 0.2s, color 0.2s;
+		z-index: 2;
+	}
+
+	.bench-slider-arrow:hover {
+		background: #fe5900;
+		color: #fff;
+	}
+
+	.bench-slider-arrow-prev {
+		left: 10px;
+	}
+
+	.bench-slider-arrow-next {
+		right: 10px;
+	}
+
+	.bench-slider-dots {
+		position: absolute;
+		bottom: 12px;
+		left: 0;
+		right: 0;
+		display: flex;
+		justify-content: center;
+		gap: 8px;
+		pointer-events: none;
+		z-index: 2;
+	}
+
+	.bench-slider-dot {
+		pointer-events: auto;
+		width: 10px;
+		height: 10px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: rgba(0, 0, 0, 0.25);
+		cursor: pointer;
+		transition: background 0.2s, transform 0.2s;
+	}
+
+	.bench-slider-dot:hover {
+		background: rgba(0, 0, 0, 0.45);
+	}
+
+	.bench-slider-dot.active {
+		background: #fe5900;
+		transform: scale(1.15);
 	}
 
 	.product-gallery-thumbs {
@@ -402,6 +593,63 @@ const benchSpecs = [
 		color: #8c8c8c;
 		margin: 6px 0 0;
 		font-style: italic;
+	}
+
+	.color-select-wrapper {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.color-preview {
+		width: 30px;
+		height: 30px;
+		border: 2px solid #ddd;
+		border-radius: 2px;
+		flex-shrink: 0;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+		background-size: cover;
+		background-position: center;
+	}
+
+	.color-dropdown {
+		width: auto;
+		max-width: 100%;
+		padding: 8px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+		background: #f0f0f0;
+		border: 2px solid transparent;
+		cursor: pointer;
+		transition: border-color 0.2s, background 0.2s;
+	}
+
+	.color-dropdown:hover {
+		background: #e8e8e8;
+		border-color: #ccc;
+	}
+
+	.color-dropdown:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 1px #fe5900;
+	}
+
+	.color-pdf-link {
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 500;
+		font-style: normal;
+		text-transform: none;
+		transition: color 0.2s;
+	}
+
+	.color-pdf-link:hover {
+		color: #e04d00;
+		text-decoration: underline;
 	}
 
 	.product-specs-inline {
@@ -1063,18 +1311,107 @@ const benchSpecs = [
 
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
-		// Gallery thumbs: click to change main image
-		document.querySelectorAll('.product-gallery-thumbs .thumb').forEach(function(thumb) {
-			thumb.addEventListener('click', function() {
-				document.querySelectorAll('.product-gallery-thumbs .thumb').forEach(function(t) { t.classList.remove('active'); });
-				thumb.classList.add('active');
-				var img = thumb.querySelector('img');
-				if (img && img.src) {
-					var main = document.querySelector('.product-main-image');
-					if (main && main.tagName === 'IMG') main.src = img.src;
-				}
+		// Bench gallery slider (3-way sliding, same pattern as cushion modal)
+		var benchSlidesEl = document.getElementById('bench-slides');
+		var benchDots = document.querySelectorAll('.bench-slider-dot');
+		var benchThumbs = document.querySelectorAll('.product-gallery-thumbs .thumb');
+		var benchPrev = document.getElementById('bench-slider-prev');
+		var benchNext = document.getElementById('bench-slider-next');
+		var benchSlideIndex = 0;
+		var benchSlideCount = benchDots.length || benchThumbs.length || 1;
+
+		function setBenchSlide(index) {
+			if (!benchSlidesEl) return;
+			if (index < 0) index = benchSlideCount - 1;
+			if (index >= benchSlideCount) index = 0;
+			benchSlideIndex = index;
+			benchSlidesEl.style.transform = 'translateX(-' + (index * 100) + '%)';
+			benchDots.forEach(function(dot, i) {
+				dot.classList.toggle('active', i === index);
+				dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+			});
+			benchThumbs.forEach(function(t, i) {
+				t.classList.toggle('active', i === index);
+			});
+		}
+
+		benchDots.forEach(function(dot) {
+			dot.addEventListener('click', function() {
+				var i = parseInt(dot.getAttribute('data-slide') || '0', 10);
+				setBenchSlide(i);
 			});
 		});
+
+		benchThumbs.forEach(function(thumb, idx) {
+			thumb.addEventListener('click', function() {
+				var attr = thumb.getAttribute('data-slide');
+				var i = attr !== null ? parseInt(attr, 10) : idx;
+				setBenchSlide(i);
+			});
+		});
+
+		if (benchPrev) benchPrev.addEventListener('click', function() { setBenchSlide(benchSlideIndex - 1); });
+		if (benchNext) benchNext.addEventListener('click', function() { setBenchSlide(benchSlideIndex + 1); });
+
+		// Color dropdown (solid paint + textured woodgrain, same pattern as lockers)
+		var colorDropdown = document.getElementById('bench-color-select');
+		var colorPreview = document.getElementById('bench-color-preview');
+
+		function slugifyColorLabel(label) {
+			return (label || '')
+				.trim()
+				.toLowerCase()
+				.replace(/[^a-z0-9]+/g, '-')
+				.replace(/^-+|-+$/g, '');
+		}
+
+		function updateColorPreview() {
+			if (!colorDropdown || !colorPreview) return;
+			var opt = colorDropdown.options[colorDropdown.selectedIndex];
+			if (!opt) return;
+			var swatchImage = opt.getAttribute('data-swatch-image');
+			var color = opt.getAttribute('data-color') || '#f4f4f0';
+			if (swatchImage) {
+				colorPreview.style.backgroundImage = 'url(' + swatchImage + ')';
+				colorPreview.style.backgroundColor = color;
+			} else {
+				colorPreview.style.backgroundImage = '';
+				colorPreview.style.backgroundColor = color;
+			}
+		}
+
+		function updateBenchModelNumber() {
+			var modelEl = document.querySelector('.product-model[data-model-prefix]');
+			if (!modelEl) return;
+			var widthBtn = document.querySelector('.width-swatch.active');
+			var length = (widthBtn && widthBtn.getAttribute('data-width')) ? widthBtn.getAttribute('data-width') : '72';
+			var colorCode = colorDropdown ? (colorDropdown.value || 'HRW') : 'HRW';
+			modelEl.textContent = 'Model # BENCH-' + length + '-' + colorCode;
+		}
+
+		function getActiveBenchPrice() {
+			var widthBtn = document.querySelector('.width-swatch.active');
+			var priceAttr = widthBtn ? widthBtn.getAttribute('data-price') : null;
+			var priceEl = document.querySelector('.product-price');
+			var basePrice = priceEl ? parseFloat(priceEl.getAttribute('data-base-price') || '269') : 269;
+			var price = priceAttr ? parseFloat(priceAttr) : basePrice;
+			return Number.isFinite(price) ? price : 269;
+		}
+
+		function updateBenchPrice() {
+			var priceEl = document.querySelector('.product-price');
+			if (!priceEl) return;
+			var price = getActiveBenchPrice();
+			priceEl.textContent = '$' + price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+		}
+
+		if (colorDropdown) {
+			colorDropdown.addEventListener('change', function() {
+				updateColorPreview();
+				updateBenchModelNumber();
+			});
+			updateColorPreview();
+		}
 
 		// Width swatches
 		document.querySelectorAll('.width-swatch').forEach(function(btn) {
@@ -1088,52 +1425,12 @@ const benchSpecs = [
 				var option = btn.closest('.product-option');
 				var valueEl = option ? option.querySelector('.option-value') : null;
 				if (valueEl) valueEl.textContent = (btn.textContent || '').trim();
-				var modelEl = document.querySelector('.product-model[data-model-prefix]');
-				if (modelEl) {
-					var colorBtn = document.querySelector('.swatch[data-color].active');
-					var color = (colorBtn && colorBtn.getAttribute('data-color')) ? colorBtn.getAttribute('data-color').charAt(0).toUpperCase() : 'L';
-					modelEl.textContent = 'Model # BENCH-' + (btn.getAttribute('data-width') || '36') + '-' + color;
-				}
+				updateBenchModelNumber();
+				updateBenchPrice();
 			});
 		});
 
-		// Color swatches (Light/Dark)
-		document.querySelectorAll('.swatch[data-color]').forEach(function(btn) {
-			btn.addEventListener('click', function() {
-				var option = btn.closest('.product-option');
-				if (!option) return;
-				option.querySelectorAll('.swatch[data-color]').forEach(function(b) {
-					b.classList.remove('active');
-					b.setAttribute('aria-pressed', 'false');
-				});
-				btn.classList.add('active');
-				btn.setAttribute('aria-pressed', 'true');
-				var valueEl = option.querySelector('.option-value');
-				if (valueEl) valueEl.textContent = btn.getAttribute('title') || btn.textContent || '';
-				var modelEl = document.querySelector('.product-model[data-model-prefix]');
-				if (modelEl) {
-					var widthBtn = document.querySelector('.width-swatch.active');
-					var width = (widthBtn && widthBtn.getAttribute('data-width')) ? widthBtn.getAttribute('data-width') : '36';
-					var color = (btn.getAttribute('data-color') || 'light').charAt(0).toUpperCase();
-					modelEl.textContent = 'Model # BENCH-' + width + '-' + color;
-				}
-			});
-		});
-
-		// Depth swatches
-		document.querySelectorAll('.depth-swatch').forEach(function(btn) {
-			btn.addEventListener('click', function() {
-				document.querySelectorAll('.depth-swatch').forEach(function(b) {
-					b.classList.remove('active');
-					b.setAttribute('aria-pressed', 'false');
-				});
-				btn.classList.add('active');
-				btn.setAttribute('aria-pressed', 'true');
-				var option = btn.closest('.product-option');
-				var valueEl = option ? option.querySelector('.option-value') : null;
-				if (valueEl) valueEl.textContent = (btn.textContent || '').trim();
-			});
-		});
+		updateBenchPrice();
 
 		// Add to cart
 		var addCartBtn = document.getElementById('bench-add-cart');
@@ -1150,18 +1447,22 @@ const benchSpecs = [
 
 		addCartBtn.addEventListener('click', function() {
 			var widthBtn = document.querySelector('.width-swatch.active');
-			var width = (widthBtn && widthBtn.getAttribute('data-width')) ? widthBtn.getAttribute('data-width') : '36';
-			var colorBtn = document.querySelector('.swatch[data-color].active');
-			var color = (colorBtn && colorBtn.getAttribute('data-color')) ? colorBtn.getAttribute('data-color') : 'light';
-			var depthBtn = document.querySelector('.depth-swatch.active');
-			var depth = (depthBtn && depthBtn.getAttribute('data-depth')) ? depthBtn.getAttribute('data-depth') : '9.5';
+			var length = (widthBtn && widthBtn.getAttribute('data-width')) ? widthBtn.getAttribute('data-width') : '72';
+			var colorCode = colorDropdown ? (colorDropdown.value || 'HRW') : 'HRW';
+			var colorLabel = 'High Reflective White';
+			if (colorDropdown) {
+				var selectedOpt = colorDropdown.options[colorDropdown.selectedIndex];
+				if (selectedOpt) colorLabel = (selectedOpt.textContent || '').trim() || colorLabel;
+			}
+			var colorSlug = slugifyColorLabel(colorLabel);
+			var depth = '18';
 			var qtyEl = document.getElementById('product-qty');
 			var qty = parseInt((qtyEl && qtyEl.value) ? qtyEl.value : '1', 10) || 1;
 
-			var id = 'wood-bench-' + width + '-' + depth + '-' + color;
-			var name = 'Bench ' + width + '" × ' + depth + '" (' + color + ')';
-			var price = 225;
-			var image = '/images/bench-side-view.png';
+			var id = 'wood-bench-' + length + '-' + depth + '-' + colorSlug;
+			var name = 'Bench ' + length + '"L × ' + depth + '"D (' + colorLabel + ')';
+			var price = getActiveBenchPrice();
+			var image = 'https://playerstall.b-cdn.net/images/bench%20top%20above.png';
 
 			var cart = getCart();
 			var existing = cart.find(function(item) { return item.id === id; });

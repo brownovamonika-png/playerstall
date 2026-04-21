@@ -177,6 +177,43 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 						</div>
 					</div>
 
+					<!-- Locker Room Furniture: Bench + Stick Rack (same section as Essential Lockers, matching home page) -->
+					<div class="shop-section-header shop-section-header-furniture" id="furniture">
+						<p class="shop-section-subtitle">COMPLETE THE LOCKER ROOM</p>
+						<h2 class="shop-section-title">LOCKER ROOM FURNITURE</h2>
+					</div>
+					<div class="shop-products-grid shop-lockers-grid shop-furniture-grid">
+						<!-- Bench from $269 (72") -->
+						<div class="shop-product-item shop-locker-bottom-item shop-furniture-item" data-price="269" data-category="furniture">
+							<div class="shop-product-image shop-locker-image">
+								<img src="https://playerstall.b-cdn.net/images/bench%20top%20above.png" alt="Free-standing wood locker bench with black steel pedestals" loading="lazy" />
+								<div class="shop-product-overlay">
+									<a href="/product-wood-locker-bench" class="shop-see-details-btn-overlay">Details</a>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Locker Room Furniture</div>
+								<h5 class="shop-product-title"><a href="/product-wood-locker-bench">Bench</a></h5>
+								<span class="shop-product-price">From $269.00</span>
+							</div>
+						</div>
+
+						<!-- Stick Rack $299 -->
+						<div class="shop-product-item shop-locker-bottom-item shop-furniture-item shop-furniture-item--stick-rack" data-price="299" data-category="furniture">
+							<div class="shop-product-image shop-locker-image">
+								<img src="/images/stick-rack.png" alt="Wood stick rack for locker rooms" loading="lazy" />
+								<div class="shop-product-overlay">
+									<a href="/product-stick-rack" class="shop-see-details-btn-overlay">Details</a>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Locker Room Furniture</div>
+								<h5 class="shop-product-title"><a href="/product-stick-rack">Stick Rack</a></h5>
+								<span class="shop-product-price">$299.00</span>
+							</div>
+						</div>
+					</div>
+
 			</div>
 		</div>
 	</section>
@@ -261,18 +298,6 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 						</div>
 					</button>
 				</div>
-				<!-- Stick Rack (same front/popup treatment as Hooks) -->
-				<div class="shop-product-item shop-accessory-item shop-accessory-stick-rack" data-acc-image="/images/stick-rack.png" data-acc-title="Stick Rack" data-acc-price="Starting at $299" data-acc-desc="Dedicated stick storage that keeps sticks organized, off the floor, and easy to grab on the way to the ice." data-acc-view-href="/accessories#stick-rack">
-					<div class="shop-product-image">
-						<img src="/images/stick-rack.png" alt="Wood stick rack for locker rooms" loading="lazy" />
-					</div>
-					<button type="button" class="shop-accessory-trigger">
-						<div class="shop-product-content">
-							<div class="shop-product-categories">Accessories</div>
-							<h5 class="shop-product-title">Stick Rack</h5>
-						</div>
-					</button>
-				</div>
 				<!-- Lock Box (blue, light grey, black, then original product shot) -->
 				<div class="shop-product-item shop-accessory-item shop-accessory-item--lock-box" data-acc-image="https://playerstall.b-cdn.net/images/lock%20box%20blue.jpg" data-acc-image-2="https://playerstall.b-cdn.net/images/lock%20box%20light%20grey.jpg" data-acc-image-3="/images/lock-box-oak.png" data-acc-image-4="/images/lock-box-spec-sheet.png" data-acc-title="Lock Box with Digital Key Lock" data-acc-price="$80.00" data-acc-desc="Lock box with slow-closing hinge that closes gently and securely. Fitted with an electronic touchable keypad and RFID card lock: password or card entry, programmable master and user codes, battery-powered with emergency external power." data-acc-view-href="/accessories#lock-box">
 					<div class="shop-product-image">
@@ -282,18 +307,6 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Accessories</div>
 							<h5 class="shop-product-title">Lock Box with Digital Key Lock</h5>
-						</div>
-					</button>
-				</div>
-				<!-- Bench (single image) -->
-				<div class="shop-product-item shop-accessory-item shop-accessory-item--bench" data-acc-image="/images/bench-side-view.png" data-acc-title="Bench" data-acc-price="$299.00" data-acc-desc="Free-standing wood locker bench with solid wood seat on black steel pedestals. Available 36&quot;–96&quot; wide, 9.5&quot; or 14&quot; deep, in light or dark finish. Perfect complement to any locker setup." data-acc-view-href="/product-wood-locker-bench">
-					<div class="shop-product-image">
-						<img src="/images/bench-side-view.png" alt="Free-standing wood locker bench with black steel pedestals" loading="lazy" />
-					</div>
-					<button type="button" class="shop-accessory-trigger">
-						<div class="shop-product-content">
-							<div class="shop-product-categories">Accessories</div>
-							<h5 class="shop-product-title">Bench</h5>
 						</div>
 					</button>
 				</div>
@@ -718,6 +731,29 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 		grid-template-columns: repeat(4, 1fr);
 	}
 
+	/* Locker Room Furniture: 2 items, same card size as Essential Lockers (matches home page).
+	   Double-class selector (.shop-products-grid.shop-furniture-grid) bumps specificity so the
+	   generic .shop-products-grid media-query rules (which come later in the file) can't turn
+	   this into a 3-column grid on laptop viewports. */
+	.shop-products-grid.shop-furniture-grid {
+		grid-template-columns: repeat(2, 1fr);
+		max-width: 640px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	/* Furniture images get a fixed height like the home page (overrides default aspect-ratio). */
+	.shop-products-grid.shop-furniture-grid .shop-product-image {
+		height: 400px;
+		min-height: 400px;
+		aspect-ratio: auto;
+	}
+
+	/* Section header above Locker Room Furniture – match home page's spaced header. */
+	.shop-section-header-furniture {
+		margin-top: 140px;
+	}
+
 	.shop-section-subtitle {
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 13px;
@@ -888,6 +924,15 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	/* Stadium uses the S-shape oak PNG — match the Model S transform. */
 	.shop-product-item-stadium .shop-product-image.shop-locker-image img {
 		transform: translateY(-1%) scale(1.03);
+	}
+
+	/* Bench: wide/short front/top-above PNG — scaled 20% smaller than before (1.35 × 0.8 = 1.08). */
+	.shop-furniture-item .shop-product-image.shop-locker-image img {
+		transform: scale(1.08);
+	}
+	/* Stick Rack: tall, doesn't need scaling — reset. */
+	.shop-furniture-item--stick-rack .shop-product-image.shop-locker-image img {
+		transform: none;
 	}
 
 	.shop-product-item:hover .shop-product-image img {
@@ -1427,6 +1472,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 		align-items: center;
 		justify-content: center;
 		background: #fff;
+		overflow: hidden;
 	}
 
 	.acc-modal-slide img {
@@ -1464,15 +1510,24 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 		transform: scale(1.56);
 	}
 
-	/* Cushions popup: portrait product shots, slightly larger to match other accessories */
+	/* Cushions popup: portrait product shots, sized naturally so adjacent slides don't bleed into view */
 	.acc-modal.acc-modal-is-cushions .acc-modal-slide img {
 		max-width: 100%;
-		max-height: 322px;
+		max-height: 452px;
+		width: 100%;
 		object-fit: contain;
-		transform: scale(1.404);
+		transform: none;
 	}
 	.acc-modal.acc-modal-is-cushions #acc-modal-image {
-		transform: scale(1.123);
+		transform: none;
+	}
+	.acc-modal.acc-modal-is-cushions #acc-modal-image-2 {
+		object-position: 85% center;
+	}
+	.acc-modal.acc-modal-is-cushions #acc-modal-image-3 {
+		object-position: center 5%;
+		transform: scale(0.8);
+		transform-origin: center center;
 	}
 
 	/* Lock box gallery: uniform frame across color variants + legacy product shot */
@@ -1778,6 +1833,13 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 		}
 	}
 
+	@media (max-width: 1024px) {
+		.shop-products-grid.shop-furniture-grid .shop-product-image {
+			height: 360px;
+			min-height: 360px;
+		}
+	}
+
 	@media (max-width: 768px) {
 		.shop-page-title {
 			font-size: 42px;
@@ -1795,6 +1857,17 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 		}
 		.shop-accessories-grid {
 			grid-template-columns: 1fr;
+		}
+		.shop-products-grid.shop-furniture-grid {
+			grid-template-columns: 1fr;
+			max-width: 320px;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.shop-products-grid.shop-furniture-grid .shop-product-image {
+			height: 320px;
+			min-height: 320px;
 		}
 	}
 	@media (max-width: 640px) {

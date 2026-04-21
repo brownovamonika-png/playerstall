@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Locker Accessories | Lock Box & Stick Rack | PlayerStall" description="Lock box with digital key lock (+$80) and stick rack (from $299). Secure valuables and organize sticks. 30+ years experience. Request a quote.">
+<BaseLayout title="Locker Accessories | Lock Box with Digital Key Lock | PlayerStall" description="Lock box with digital key lock (+$80) – secure valuables inside every locker. 30+ years experience. Request a quote.">
 	<!-- Hero -->
 	<section class="accessories-hero">
 		<div class="accessories-hero-bg">
@@ -17,14 +17,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<span class="breadcrumbs-current">Accessories</span>
 			</nav>
 			<h1 class="accessories-hero-title">Accessories</h1>
-			<p class="accessories-hero-subtitle">Lock box and stick rack – secure valuables and keep sticks organized.</p>
+			<p class="accessories-hero-subtitle">Lock box with digital key lock – secure valuables inside every locker.</p>
 		</div>
 	</section>
 
-	<!-- Lock Box & Stick Rack -->
+	<!-- Lock Box -->
 	<section class="accessories-main">
 		<div class="container">
-			<div class="accessories-grid">
+			<div class="accessories-grid accessories-grid-single">
 				<!-- Lock Box -->
 				<article class="accessory-block" id="lock-box">
 					<div class="accessory-block-image accessory-block-image--lock-box">
@@ -34,19 +34,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<h2 class="accessory-block-title">Lock Box with Digital Key Lock</h2>
 						<p class="accessory-block-price">+ $80.00</p>
 						<p class="accessory-block-copy">Secure lock box with a digital key lock for phones, wallets, and other valuables inside each locker.</p>
-						<a href="/contact" class="accessory-cta">Request a quote</a>
-					</div>
-				</article>
-
-				<!-- Stick Rack -->
-				<article class="accessory-block" id="stick-rack">
-					<div class="accessory-block-image">
-						<img src="https://playerstall.b-cdn.net/images/stick-rack.png" alt="Hockey stick rack for locker rooms" loading="lazy" />
-					</div>
-					<div class="accessory-block-content">
-						<h2 class="accessory-block-title">Stick Rack</h2>
-						<p class="accessory-block-price">Starting at $299</p>
-						<p class="accessory-block-copy">Dedicated stick storage that keeps sticks organized, off the floor, and easy to grab on the way to the ice.</p>
 						<a href="/contact" class="accessory-cta">Request a quote</a>
 					</div>
 				</article>
@@ -154,6 +141,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		gap: 40px;
 		max-width: 900px;
 		margin: 0 auto;
+	}
+
+	/* Only one card (Lock Box) – render a single centered column. */
+	.accessories-grid-single {
+		grid-template-columns: 1fr;
+		max-width: 560px;
 	}
 
 	.accessory-block {

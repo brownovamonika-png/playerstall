@@ -251,6 +251,44 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 				</div>
 			</div>
 		</div>
+
+		<!-- Locker Room Furniture: Bench + Stick Rack (same style as Essential Lockers) -->
+		<div class="home-shop-section-header home-shop-section-header-spaced">
+			<p class="home-shop-section-subtitle">COMPLETE THE LOCKER ROOM</p>
+			<h2 class="home-shop-section-title">LOCKER ROOM FURNITURE</h2>
+		</div>
+		<div class="home-shop-main">
+			<div class="home-shop-products-grid home-shop-products-grid-furniture">
+				<!-- Bench from $269 (72") -->
+				<div class="home-shop-product-item home-shop-product-item-bench">
+					<div class="home-shop-product-image">
+						<img src="https://playerstall.b-cdn.net/images/bench%20top%20above.png" alt="Free-standing wood locker bench with black steel pedestals" loading="lazy" />
+						<div class="home-shop-product-overlay">
+							<a href="/product-wood-locker-bench" class="home-shop-details-btn-overlay">Details</a>
+						</div>
+					</div>
+					<div class="home-shop-product-content">
+						<div class="home-shop-product-categories">Locker Room Furniture</div>
+						<h5 class="home-shop-product-title"><a href="/product-wood-locker-bench">Bench</a></h5>
+						<span class="home-shop-product-price">From $269.00</span>
+					</div>
+				</div>
+				<!-- Stick Rack $299 -->
+				<div class="home-shop-product-item home-shop-product-item-stick-rack">
+					<div class="home-shop-product-image">
+						<img src="/images/stick-rack.png" alt="Wood stick rack for locker rooms" loading="lazy" />
+						<div class="home-shop-product-overlay">
+							<a href="/product-stick-rack" class="home-shop-details-btn-overlay">Details</a>
+						</div>
+					</div>
+					<div class="home-shop-product-content">
+						<div class="home-shop-product-categories">Locker Room Furniture</div>
+						<h5 class="home-shop-product-title"><a href="/product-stick-rack">Stick Rack</a></h5>
+						<span class="home-shop-product-price">$299.00</span>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
 
@@ -2788,8 +2826,17 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	grid-template-columns: repeat(4, 1fr);
 }
 
+/* Locker Room Furniture: 2 items, same card size as Essential Lockers */
+.home-shop-products-grid-furniture {
+	grid-template-columns: repeat(2, 1fr);
+	max-width: 640px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .home-shop-products-grid-four .home-shop-product-image,
-.home-shop-products-grid-premium .home-shop-product-image {
+.home-shop-products-grid-premium .home-shop-product-image,
+.home-shop-products-grid-furniture .home-shop-product-image {
 	height: 400px;
 	min-height: 400px;
 	aspect-ratio: auto;
@@ -2804,6 +2851,11 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 /* Stadium uses the S-shape oak PNG — match the Model S transform. */
 .home-shop-products-grid-four .home-shop-product-item-stadium .home-shop-product-image img {
 	transform: translateY(-1%) scale(1.03);
+}
+
+/* Bench: wide/short front/top-above PNG — scaled 20% smaller than before (1.35 × 0.8 = 1.08). */
+.home-shop-products-grid-furniture .home-shop-product-item-bench .home-shop-product-image img {
+	transform: scale(1.08);
 }
 
 /* Model S PNG fills more of its canvas than Model Z/X PNGs;
@@ -3013,7 +3065,8 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 		grid-template-columns: repeat(2, 1fr);
 	}
 	.home-shop-products-grid-four .home-shop-product-image,
-	.home-shop-products-grid-premium .home-shop-product-image {
+	.home-shop-products-grid-premium .home-shop-product-image,
+	.home-shop-products-grid-furniture .home-shop-product-image {
 		height: 360px;
 		min-height: 360px;
 	}
@@ -3033,7 +3086,8 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 		min-height: 320px;
 	}
 	.home-shop-products-grid-four .home-shop-product-image,
-	.home-shop-products-grid-premium .home-shop-product-image {
+	.home-shop-products-grid-premium .home-shop-product-image,
+	.home-shop-products-grid-furniture .home-shop-product-image {
 		height: 320px;
 		min-height: 320px;
 	}
@@ -3045,6 +3099,10 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	}
 	.home-shop-products-grid-four {
 		grid-template-columns: 1fr;
+	}
+	.home-shop-products-grid-furniture {
+		grid-template-columns: 1fr;
+		max-width: 320px;
 	}
 }
 </style>

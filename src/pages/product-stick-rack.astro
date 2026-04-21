@@ -1,0 +1,918 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LockerAccessories from '../components/LockerAccessories.astro';
+import AccessoryModal from '../components/AccessoryModal.astro';
+import ProductSpecSheet from '../components/ProductSpecSheet.astro';
+import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
+import {
+	ADORNUS_DESIGNER_PAINT_FINISHES,
+	DEFAULT_ADORNUS_PAINT_CODE,
+} from '../data/adornus-designer-paint-colors';
+import { TEXTURED_WOODGRAIN_OPTIONS, texturedWoodgrainSwatchUrl } from '../data/textured-woodgrain-colors';
+
+const stickRackSlides = [
+	{
+		src: 'https://playerstall.b-cdn.net/images/stick-rack.png',
+		alt: 'Wood stick rack for locker rooms – front view',
+	},
+];
+
+const stickRackSpecs = [
+	{ label: 'Purpose', value: 'Dedicated hockey / lacrosse / baseball stick storage' },
+	{ label: 'Construction', value: 'Solid wood frame with black powder-coated hardware' },
+	{ label: 'Mounting', value: 'Wall-mounted or integrated into locker bay' },
+	{ label: 'Finish', value: 'Any locker color — Sherwin-Williams paint palette or textured woodgrain' },
+	{ label: 'Length', value: '36", 48", 60" or 72" — other sizes available on request' },
+	{ label: 'Lead time', value: 'Custom build — typically ships within 1–2 weeks' },
+	{ label: 'Warranty', value: '5 year warranty' },
+];
+---
+
+<BaseLayout
+	title='Stick Rack | Hockey & Lacrosse Stick Storage | PlayerStall'
+	description='Dedicated wood stick rack for hockey, lacrosse and baseball — keeps sticks organized, off the floor, and easy to grab. Starting at $299. Custom built, 5 year warranty. Available in any locker color.'
+>
+	<!-- Hero Section (same as lockers / bench) -->
+	<section class="product-hero-section">
+		<div class="product-hero-background">
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Stick Rack" class="product-hero-bg-image" />
+		</div>
+		<div class="product-hero-background-overlay"></div>
+		<div class="product-hero-container">
+			<div class="product-breadcrumbs">
+				<a href="/">Home</a>
+				<span class="breadcrumbs-sep">/</span>
+				<a href="/shop">Shop</a>
+				<span class="breadcrumbs-sep">/</span>
+				<span class="breadcrumbs-current">Stick Rack</span>
+			</div>
+			<h1 class="product-page-title">Stick Rack</h1>
+		</div>
+	</section>
+
+	<!-- Product Main (same layout as Bench) -->
+	<section class="product-main-section">
+		<div class="product-container">
+			<div class="product-layout">
+				<!-- Left: Gallery (same slider pattern as bench) -->
+				<div class="product-gallery">
+					<div class="product-gallery-main">
+						<div class="bench-slider" id="bench-slider" role="region" aria-label="Stick rack image slider">
+							<div class="bench-slides" id="bench-slides">
+								{stickRackSlides.map((slide) => (
+									<div class="bench-slide">
+										<img src={slide.src} alt={slide.alt} />
+									</div>
+								))}
+							</div>
+							{stickRackSlides.length > 1 && (
+								<>
+									<button type="button" class="bench-slider-arrow bench-slider-arrow-prev" id="bench-slider-prev" aria-label="Previous image">&#10094;</button>
+									<button type="button" class="bench-slider-arrow bench-slider-arrow-next" id="bench-slider-next" aria-label="Next image">&#10095;</button>
+									<div class="bench-slider-dots" id="bench-slider-dots">
+										{stickRackSlides.map((_, i) => (
+											<button
+												type="button"
+												class={`bench-slider-dot${i === 0 ? ' active' : ''}`}
+												data-slide={i}
+												aria-label={`View image ${i + 1}`}
+												aria-current={i === 0 ? 'true' : 'false'}
+											></button>
+										))}
+									</div>
+								</>
+							)}
+						</div>
+					</div>
+					<div class="product-gallery-thumbs">
+						{stickRackSlides.map((slide, i) => (
+							<button type="button" class={`thumb${i === 0 ? ' active' : ''}`} data-slide={i} aria-label={`View image ${i + 1}`}>
+								<img src={slide.src} alt={slide.alt} />
+							</button>
+						))}
+					</div>
+				</div>
+
+				<!-- Right: Details (same structure as bench) -->
+				<div class="product-detail">
+					<h1 class="product-title">Stick Rack</h1>
+					<p class="product-model" data-model-prefix="STICK">Model # STICK-48-HRW</p>
+					<div class="product-price-block">
+						<span class="product-price" data-base-price="299">$299.00</span>
+					</div>
+
+					<div class="product-options">
+						<div class="product-option">
+							<label class="option-label">Length:</label>
+							<span class="option-value">48&quot;</span>
+							<div class="option-swatches">
+								<button type="button" class="swatch width-swatch" data-width="36" data-price="279" title="36 inch">36&quot;</button>
+								<button type="button" class="swatch width-swatch active" data-width="48" data-price="299" title="48 inch" aria-pressed="true">48&quot;</button>
+								<button type="button" class="swatch width-swatch" data-width="60" data-price="319" title="60 inch">60&quot;</button>
+								<button type="button" class="swatch width-swatch" data-width="72" data-price="349" title="72 inch">72&quot;</button>
+							</div>
+							<p class="option-note">Pick the length that fits your locker room. Other sizes available on request.</p>
+						</div>
+						<div class="product-option">
+							<label class="option-label" for="stick-color-select">Color:</label>
+							<div class="color-select-wrapper">
+								<span class="color-preview" id="bench-color-preview" style="background-color: #f4f4f0;"></span>
+								<select id="bench-color-select" class="color-dropdown">
+									<optgroup label="Solid colors (Sherwin-Williams)">
+										{ADORNUS_DESIGNER_PAINT_FINISHES.map((o) => (
+											<option value={o.code} data-color={o.approxHex} selected={o.code === DEFAULT_ADORNUS_PAINT_CODE}>
+												{o.label}
+											</option>
+										))}
+									</optgroup>
+									<optgroup label="Textured woodgrain">
+										{TEXTURED_WOODGRAIN_OPTIONS.map((o) => (
+											<option
+												value={o.code}
+												data-color={o.fallbackHex}
+												data-swatch-image={texturedWoodgrainSwatchUrl(o.fileSlug)}
+											>
+												{o.label}
+											</option>
+										))}
+									</optgroup>
+								</select>
+							</div>
+							<p class="option-note"><a href="/colors/all-color-options-pdf.html" target="_blank" rel="noopener noreferrer" class="color-pdf-link">View Color Option PDF</a></p>
+						</div>
+						<p class="option-note">Pair with lockers and benches for a complete installation. <a href="/shop">View lockers</a>.</p>
+					</div>
+
+					<div class="product-actions">
+						<label class="quantity-label" for="product-qty">Quantity:</label>
+						<input type="number" id="product-qty" class="product-qty-input" value="1" min="1" max="999" />
+						<button type="button" class="btn btn-primary product-add-cart" id="bench-add-cart">Add to Cart</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- More Information (same structure as Bench) -->
+			<div class="product-info-section" id="moreinfo">
+				<h2 class="product-info-heading">Stick Rack – Features &amp; Options</h2>
+
+				<div class="product-info-grid">
+					<div class="product-info-col product-info-col-specs">
+						<ProductSpecSheet productName="Stick Rack" specs={stickRackSpecs} />
+						<h3 class="product-info-subheading">Downloads</h3>
+						<ul class="product-downloads-list">
+							<li><a href="/pdf/installation-instructions/" target="_blank" rel="noopener noreferrer">Shipping and Assembly Instruction PDF</a></li>
+							<li><a href="/colors/all-color-options-pdf.html" target="_blank">Color Option PDF</a></li>
+							<li><a href="/colors/laminate-colors-pdf.html" target="_blank">Laminate Colors PDF</a></li>
+							<li><a href="/colors/woodgrain-colors-pdf.html" target="_blank">Woodgrain Colors PDF</a></li>
+							<li><a href="#specs">View spec sheet</a></li>
+						</ul>
+					</div>
+					<div class="product-info-col product-info-col-features">
+						<h3 class="product-info-subheading">Features</h3>
+						<ul class="product-features-list">
+							<li>Solid wood frame — durable, attractive, and built to last</li>
+							<li>Keeps sticks vertical, off the floor, and out of the walkway</li>
+							<li>Works for hockey, lacrosse, and baseball stick storage</li>
+							<li>Available in any locker color</li>
+							<li>Wall-mounted or integrated directly into locker bays</li>
+							<li>Available in 36", 48", 60" and 72" lengths</li>
+							<li>Black powder-coated hardware for a clean, pro look</li>
+							<li>Custom built alongside our wood lockers</li>
+						</ul>
+						<h3 class="product-info-subheading">Options</h3>
+						<ul class="product-options-list">
+							<li>Length: 36", 48", 60" or 72" (other sizes available on request)</li>
+							<li>Color: any locker color — Sherwin-Williams paint palette or textured woodgrain</li>
+							<li>Mounting: wall-mounted or integrated into locker bay</li>
+							<li>Pair with our wood lockers and benches for a complete locker room</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<LockerAccessories title="LOCKER ACCESSORIES" items={SHOP_ACCESSORIES_MODAL} useModal={true} />
+		</div>
+	</section>
+	<AccessoryModal />
+</BaseLayout>
+
+
+<style is:global>
+	body {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		background: #ffffff;
+		color: #0d0d0d;
+	}
+
+	.product-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.product-hero-section {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0 0 80px;
+		overflow: hidden;
+		min-height: 320px;
+	}
+
+	.product-hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.product-hero-bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: grayscale(100%);
+	}
+
+	.product-hero-background-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	.product-hero-container {
+		position: relative;
+		z-index: 10;
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+		text-align: left;
+		width: 100%;
+	}
+
+	.product-breadcrumbs {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: rgba(255, 255, 255, 0.85);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 20px;
+	}
+
+	.product-breadcrumbs a {
+		color: rgba(255, 255, 255, 0.85);
+		text-decoration: none;
+		transition: color 0.3s;
+	}
+
+	.product-breadcrumbs a:hover {
+		color: #fe5900;
+	}
+
+	.breadcrumbs-sep {
+		margin: 0 8px;
+		color: rgba(255, 255, 255, 0.6);
+	}
+
+	.breadcrumbs-current {
+		color: #ffffff;
+	}
+
+	.product-page-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 52px;
+		font-weight: 600;
+		color: #ffffff;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 1.1;
+		position: relative;
+		z-index: 10;
+	}
+
+	.product-main-section {
+		padding: 60px 0 100px;
+		background: #ffffff;
+	}
+
+	.product-layout {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 60px;
+		align-items: start;
+		margin-bottom: 80px;
+	}
+
+	.product-gallery-main {
+		position: relative;
+		background: #f7f7f7;
+		aspect-ratio: 1;
+		overflow: hidden;
+		margin-bottom: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.product-main-image {
+		width: 96%;
+		height: 96%;
+		object-fit: contain;
+		display: block;
+	}
+
+	/* Slider (same as bench) */
+	.bench-slider {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background: #fff;
+	}
+
+	.bench-slides {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		transition: transform 0.35s ease-in-out;
+	}
+
+	.bench-slide {
+		flex: 0 0 100%;
+		min-width: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #fff;
+		padding: 4%;
+	}
+
+	.bench-slide img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+		display: block;
+	}
+
+	.bench-slider-arrow {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 40px;
+		height: 40px;
+		border: none;
+		background: rgba(255, 255, 255, 0.85);
+		color: #0d0d0d;
+		font-size: 18px;
+		line-height: 1;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background 0.2s, color 0.2s;
+		z-index: 2;
+	}
+
+	.bench-slider-arrow:hover {
+		background: #fe5900;
+		color: #fff;
+	}
+
+	.bench-slider-arrow-prev { left: 10px; }
+	.bench-slider-arrow-next { right: 10px; }
+
+	.bench-slider-dots {
+		position: absolute;
+		bottom: 12px;
+		left: 0;
+		right: 0;
+		display: flex;
+		justify-content: center;
+		gap: 8px;
+		pointer-events: none;
+		z-index: 2;
+	}
+
+	.bench-slider-dot {
+		pointer-events: auto;
+		width: 10px;
+		height: 10px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: rgba(0, 0, 0, 0.25);
+		cursor: pointer;
+		transition: background 0.2s, transform 0.2s;
+	}
+
+	.bench-slider-dot:hover { background: rgba(0, 0, 0, 0.45); }
+	.bench-slider-dot.active { background: #fe5900; transform: scale(1.15); }
+
+	.product-gallery-thumbs {
+		display: flex;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+
+	.thumb {
+		width: 80px;
+		height: 80px;
+		padding: 0;
+		border: 2px solid transparent;
+		background: #f0f0f0;
+		cursor: pointer;
+		overflow: hidden;
+		transition: border-color 0.2s, box-shadow 0.2s;
+	}
+
+	.thumb:hover,
+	.thumb.active {
+		border-color: #fe5900;
+		box-shadow: 0 0 0 1px #fe5900;
+	}
+
+	.thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		display: block;
+	}
+
+	.product-detail {
+		position: sticky;
+		top: 120px;
+	}
+
+	.product-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 28px;
+		font-weight: 600;
+		color: #0d0d0d;
+		line-height: 1.25;
+		margin: 0 0 12px;
+		text-transform: none;
+	}
+
+	.product-model {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin: 0 0 8px;
+	}
+
+	.product-lead-time {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		margin: 0 0 24px;
+		text-transform: lowercase;
+	}
+
+	.product-price-block {
+		margin-bottom: 28px;
+		padding-bottom: 24px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.product-price {
+		font-family: 'Oswald', sans-serif;
+		font-size: 36px;
+		font-weight: 600;
+		color: #0d0d0d;
+	}
+
+	.option-label {
+		display: block;
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 8px;
+	}
+
+	.option-value {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+		margin-bottom: 8px;
+		display: block;
+	}
+
+	.option-swatches {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.swatch {
+		padding: 8px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		background: #f0f0f0;
+		border: 2px solid transparent;
+		color: #0d0d0d;
+		cursor: pointer;
+		transition: border-color 0.2s, background 0.2s;
+	}
+
+	.swatch:hover { background: #e8e8e8; }
+
+	.swatch.active {
+		border-color: #fe5900;
+		background: #fff;
+		color: #0d0d0d;
+	}
+
+	.option-note {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		margin: 6px 0 0;
+		font-style: italic;
+	}
+
+	.color-select-wrapper {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.color-preview {
+		width: 30px;
+		height: 30px;
+		border: 2px solid #ddd;
+		border-radius: 2px;
+		flex-shrink: 0;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+		background-size: cover;
+		background-position: center;
+	}
+
+	.color-dropdown {
+		width: auto;
+		max-width: 100%;
+		padding: 8px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+		background: #f0f0f0;
+		border: 2px solid transparent;
+		cursor: pointer;
+		transition: border-color 0.2s, background 0.2s;
+	}
+
+	.color-dropdown:hover {
+		background: #e8e8e8;
+		border-color: #ccc;
+	}
+
+	.color-dropdown:focus {
+		outline: none;
+		border-color: #fe5900;
+		box-shadow: 0 0 0 1px #fe5900;
+	}
+
+	.color-pdf-link {
+		color: #fe5900;
+		text-decoration: none;
+		font-weight: 500;
+		font-style: normal;
+		text-transform: none;
+		transition: color 0.2s;
+	}
+
+	.color-pdf-link:hover {
+		color: #e04d00;
+		text-decoration: underline;
+	}
+
+	.product-specs-inline {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		margin-top: 16px;
+	}
+
+	.product-specs-inline p { margin: 0 0 6px; }
+
+	.product-actions {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		flex-wrap: wrap;
+	}
+
+	.quantity-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #0d0d0d;
+	}
+
+	.product-qty-input {
+		width: 80px;
+		padding: 12px 14px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		background: #fff;
+		color: #0d0d0d;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 15px 40px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		font-size: 16px;
+		transition: all 0.3s;
+		font-family: 'Yantramanav', sans-serif;
+		border: none;
+		cursor: pointer;
+	}
+
+	.btn-primary {
+		background: #fe5900;
+		color: #ffffff;
+		border: 2px solid #fe5900;
+	}
+
+	.btn-primary:hover {
+		background: #e04d00;
+		border-color: #e04d00;
+	}
+
+	.product-add-cart { padding: 16px 36px; }
+
+	.product-info-section {
+		padding: 60px 0 0;
+		border-top: 1px solid #e0e0e0;
+		margin-top: 40px;
+	}
+
+	.product-info-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5rem 3rem;
+		align-items: start;
+	}
+
+	.product-info-col-specs {
+		position: sticky;
+		top: 100px;
+	}
+
+	.product-info-heading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 32px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 0 0 32px;
+	}
+
+	.product-info-subheading {
+		font-family: 'Oswald', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-transform: uppercase;
+		margin: 32px 0 16px;
+	}
+
+	.product-info-subheading:first-of-type { margin-top: 0; }
+
+	.product-features-list,
+	.product-options-list,
+	.product-downloads-list {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 16px;
+		line-height: 1.7;
+		color: #0d0d0d;
+		margin: 0 0 24px;
+		padding-left: 24px;
+	}
+
+	.product-options-list li,
+	.product-downloads-list li {
+		margin-bottom: 10px;
+	}
+
+	.product-downloads-list {
+		list-style: none;
+		padding-left: 0;
+	}
+
+	.product-downloads-list a {
+		color: #fe5900;
+		text-decoration: none;
+	}
+
+	@media (max-width: 1024px) {
+		.product-layout {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+		.product-detail { position: static; }
+	}
+
+	@media (max-width: 900px) {
+		.product-info-grid { grid-template-columns: 1fr; }
+		.product-info-col-specs { position: static; }
+	}
+
+	@media (max-width: 768px) {
+		.product-title { font-size: 22px; }
+		.product-price { font-size: 28px; }
+		.product-actions {
+			flex-direction: column;
+			align-items: stretch;
+		}
+		.product-qty-input { width: 100%; }
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// Gallery slider (same pattern as bench — no-op gracefully when there's only 1 slide)
+		var slidesEl = document.getElementById('bench-slides');
+		var dots = document.querySelectorAll('.bench-slider-dot');
+		var thumbs = document.querySelectorAll('.product-gallery-thumbs .thumb');
+		var prev = document.getElementById('bench-slider-prev');
+		var next = document.getElementById('bench-slider-next');
+		var slideIndex = 0;
+		var slideCount = (slidesEl ? slidesEl.children.length : 0) || 1;
+
+		function setSlide(index) {
+			if (!slidesEl) return;
+			if (index < 0) index = slideCount - 1;
+			if (index >= slideCount) index = 0;
+			slideIndex = index;
+			slidesEl.style.transform = 'translateX(-' + (index * 100) + '%)';
+			dots.forEach(function(dot, i) {
+				dot.classList.toggle('active', i === index);
+				dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+			});
+			thumbs.forEach(function(t, i) {
+				t.classList.toggle('active', i === index);
+			});
+		}
+
+		dots.forEach(function(dot) {
+			dot.addEventListener('click', function() {
+				var i = parseInt(dot.getAttribute('data-slide') || '0', 10);
+				setSlide(i);
+			});
+		});
+
+		thumbs.forEach(function(thumb, idx) {
+			thumb.addEventListener('click', function() {
+				var attr = thumb.getAttribute('data-slide');
+				var i = attr !== null ? parseInt(attr, 10) : idx;
+				setSlide(i);
+			});
+		});
+
+		if (prev) prev.addEventListener('click', function() { setSlide(slideIndex - 1); });
+		if (next) next.addEventListener('click', function() { setSlide(slideIndex + 1); });
+
+		// Color dropdown (solid paint + textured woodgrain, same as bench)
+		var colorDropdown = document.getElementById('bench-color-select') as HTMLSelectElement | null;
+		var colorPreview = document.getElementById('bench-color-preview');
+
+		function slugifyColorLabel(label) {
+			return (label || '')
+				.trim()
+				.toLowerCase()
+				.replace(/[^a-z0-9]+/g, '-')
+				.replace(/^-+|-+$/g, '');
+		}
+
+		function updateColorPreview() {
+			if (!colorDropdown || !colorPreview) return;
+			var opt = colorDropdown.options[colorDropdown.selectedIndex];
+			if (!opt) return;
+			var swatchImage = opt.getAttribute('data-swatch-image');
+			var color = opt.getAttribute('data-color') || '#f4f4f0';
+			if (swatchImage) {
+				colorPreview.style.backgroundImage = 'url(' + swatchImage + ')';
+				colorPreview.style.backgroundColor = color;
+			} else {
+				colorPreview.style.backgroundImage = '';
+				colorPreview.style.backgroundColor = color;
+			}
+		}
+
+		function updateModelNumber() {
+			var modelEl = document.querySelector('.product-model[data-model-prefix]');
+			if (!modelEl) return;
+			var lenBtn = document.querySelector('.width-swatch.active');
+			var len = (lenBtn && lenBtn.getAttribute('data-width')) ? lenBtn.getAttribute('data-width') : '48';
+			var colorCode = colorDropdown ? (colorDropdown.value || 'HRW') : 'HRW';
+			modelEl.textContent = 'Model # STICK-' + len + '-' + colorCode;
+		}
+
+		function getActivePrice() {
+			var capBtn = document.querySelector('.width-swatch.active');
+			var priceAttr = capBtn ? capBtn.getAttribute('data-price') : null;
+			var priceEl = document.querySelector('.product-price');
+			var basePrice = priceEl ? parseFloat(priceEl.getAttribute('data-base-price') || '299') : 299;
+			var price = priceAttr ? parseFloat(priceAttr) : basePrice;
+			return Number.isFinite(price) ? price : 299;
+		}
+
+		function updatePrice() {
+			var priceEl = document.querySelector('.product-price');
+			if (!priceEl) return;
+			var price = getActivePrice();
+			priceEl.textContent = '$' + price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+		}
+
+		if (colorDropdown) {
+			colorDropdown.addEventListener('change', function() {
+				updateColorPreview();
+				updateModelNumber();
+			});
+			updateColorPreview();
+		}
+
+		// Capacity swatches
+		document.querySelectorAll('.width-swatch').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				document.querySelectorAll('.width-swatch').forEach(function(b) {
+					b.classList.remove('active');
+					b.setAttribute('aria-pressed', 'false');
+				});
+				btn.classList.add('active');
+				btn.setAttribute('aria-pressed', 'true');
+				var option = btn.closest('.product-option');
+				var valueEl = option ? option.querySelector('.option-value') : null;
+				if (valueEl) valueEl.textContent = (btn.textContent || '').trim();
+				updateModelNumber();
+				updatePrice();
+			});
+		});
+
+		updatePrice();
+
+		// Add to cart (same pattern as bench)
+		var addCartBtn = document.getElementById('bench-add-cart');
+		if (!addCartBtn) return;
+
+		function getCart() {
+			var cart = localStorage.getItem('playerstall_cart');
+			return cart ? JSON.parse(cart) : [];
+		}
+		function saveCart(cart) {
+			localStorage.setItem('playerstall_cart', JSON.stringify(cart));
+			window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { count: cart.reduce(function(s, i) { return s + i.quantity; }, 0) } }));
+		}
+
+		addCartBtn.addEventListener('click', function() {
+			var lenBtn = document.querySelector('.width-swatch.active');
+			var len = (lenBtn && lenBtn.getAttribute('data-width')) ? lenBtn.getAttribute('data-width') : '48';
+			var lenLabel = lenBtn ? (lenBtn.textContent || '').trim() : '48"';
+			var colorCode = colorDropdown ? (colorDropdown.value || 'HRW') : 'HRW';
+			var colorLabel = 'High Reflective White';
+			if (colorDropdown) {
+				var selectedOpt = colorDropdown.options[colorDropdown.selectedIndex];
+				if (selectedOpt) colorLabel = (selectedOpt.textContent || '').trim() || colorLabel;
+			}
+			var colorSlug = slugifyColorLabel(colorLabel);
+			var qtyEl = document.getElementById('product-qty') as HTMLInputElement | null;
+			var qty = parseInt((qtyEl && qtyEl.value) ? qtyEl.value : '1', 10) || 1;
+
+			var id = 'stick-rack-' + len + '-' + colorSlug;
+			var name = 'Stick Rack ' + lenLabel + ' (' + colorLabel + ')';
+			var price = getActivePrice();
+			var image = 'https://playerstall.b-cdn.net/images/stick-rack.png';
+
+			var cart = getCart();
+			var existing = cart.find(function(item) { return item.id === id; });
+			if (existing) existing.quantity += qty;
+			else cart.push({ id: id, name: name, price: price, image: image, quantity: qty });
+			saveCart(cart);
+
+			var originalText = addCartBtn.textContent;
+			addCartBtn.textContent = 'Added to cart';
+			setTimeout(function() { addCartBtn.textContent = originalText; }, 1500);
+		});
+	});
+</script>
