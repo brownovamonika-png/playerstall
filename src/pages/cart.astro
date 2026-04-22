@@ -443,7 +443,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		min-height: 45px !important;
 		max-width: 45px !important;
 		max-height: 45px !important;
-		object-fit: cover;
+		object-fit: contain;
+		object-position: center center;
 		border-radius: 0;
 		display: block !important;
 		flex-shrink: 0;
@@ -1099,7 +1100,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		}
 	}
 	
-	/* Final override to ensure product images are exactly 32px - match model site */
+	/* Final override to ensure product images are exactly 32px - match model site
+	   Uses object-fit: contain so tall locker side-profile renders fit fully
+	   inside the square thumbnail without cropping. */
 	:global(.cart-section .woocommerce-cart-form table.shop_table tbody td.product-thumbnail img),
 	:global(.cart-section .woocommerce-cart-form .shop_table .product-thumbnail img),
 	:global(#cart-items-container .product-thumbnail img),
@@ -1111,7 +1114,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		min-width: 32px !important;
 		min-height: 32px !important;
 		display: block !important;
-		object-fit: cover !important;
+		object-fit: contain !important;
+		object-position: center center !important;
 		background: #ffffff !important;
 	}
 </style>
@@ -1138,6 +1142,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				cartCount.textContent = totalItems;
 			}
 			window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { count: totalItems } }));
+		}
+
+		// Map a cart line's locker name to the 4th (side-profile) image from the By Sport page
+		// so the cart always shows the full locker silhouette, regardless of which
+		// configuration/color was added. Matching is case-insensitive and tolerant of
+		// names like "Pro Locker", "Stadium Locker", "Legendary (Model X)", etc.
+		const LOCKER_SIDE_IMAGES: { match: RegExp; image: string }[] = [
+			{ match: /\b(semi[\s-]?pro)\b/i, image: 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png' },
+			{ match: /\bmodel\s*l\b/i, image: 'https://playerstall.b-cdn.net/images/L%20dark%20oak%20side.png' },
+			{ match: /\bmodel\s*s\b/i, image: 'https://playerstall.b-cdn.net/images/S%20black%20side.png' },
+			{ match: /\b(model\s*x|legendary)\b/i, image: '/images/model-x-dark-grey-side-view.png' },
+			{ match: /\b(model\s*z|elite)\b/i, image: '/images/model-z-blue-side.png' },
+			{ match: /\bvarsity\b/i, image: '/images/varsity-locker.png' },
+			{ match: /\bstadium\b/i, image: '/images/stadium-locker-oak-side-view.png' },
+			{ match: /\bpro\b/i, image: '/images/pro-locker-oak-side-view.png' },
+		];
+
+		function getCartThumbnail(item: { name?: string; model?: string; image?: string }) {
+			const haystack = `${item.name ?? ''} ${item.model ?? ''}`;
+			for (const entry of LOCKER_SIDE_IMAGES) {
+				if (entry.match.test(haystack)) return entry.image;
+			}
+			return item.image ?? '';
 		}
 
 		function renderCart() {
@@ -1194,7 +1221,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<a href="#" class="remove" data-index="${index}" aria-label="Remove this item">×</a>
 						</td>
 						<td class="product-thumbnail">
-							<img src="${item.image}" alt="${item.name}" width="32" height="32" style="width: 32px !important; height: 32px !important; max-width: 32px !important; max-height: 32px !important; min-width: 32px !important; min-height: 32px !important; object-fit: cover; display: block; margin: 0; padding: 0; background: #ffffff;" />
+							<img src="${getCartThumbnail(item)}" alt="${item.name}" width="32" height="32" style="width: 32px !important; height: 32px !important; max-width: 32px !important; max-height: 32px !important; min-width: 32px !important; min-height: 32px !important; object-fit: contain; object-position: center center; display: block; margin: 0; padding: 0; background: #ffffff;" />
 						</td>
 						<td class="product-name" data-title="Product">
 							${nameHtml}
