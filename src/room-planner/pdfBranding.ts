@@ -1,4 +1,5 @@
 import type { jsPDF } from 'jspdf';
+import { BRAND_FONT, setBrandFont } from './pdfFonts';
 
 const ORANGE: [number, number, number] = [254, 89, 0];
 const BLACK: [number, number, number] = [0, 0, 0];
@@ -6,30 +7,57 @@ const TEXT: [number, number, number] = [13, 13, 13];
 const MUTED: [number, number, number] = [140, 140, 140];
 const FOOT_GRAY: [number, number, number] = [182, 182, 182];
 
+/*
+ * Typography helpers: every PDF text call routes through these so Oswald +
+ * Yantramanav are used when registerBrandFonts() has already attached them to
+ * the doc, and Helvetica fallbacks take over otherwise (rare — only when the
+ * /fonts-pdf asset fetch fails). Pass { brandFonts: false } to force Helvetica
+ * (e.g. during tests or when intentionally matching a legacy PDF).
+ */
+export interface BrandFontAware {
+	brandFonts?: boolean;
+}
+
+function fontDisplay(pdf: jsPDF, useBrand: boolean): void {
+	if (useBrand) setBrandFont(pdf, BRAND_FONT.display);
+	else pdf.setFont('helvetica', 'bold');
+}
+
+function fontBold(pdf: jsPDF, useBrand: boolean): void {
+	if (useBrand) setBrandFont(pdf, BRAND_FONT.bold);
+	else pdf.setFont('helvetica', 'bold');
+}
+
+function fontBody(pdf: jsPDF, useBrand: boolean): void {
+	if (useBrand) setBrandFont(pdf, BRAND_FONT.body);
+	else pdf.setFont('helvetica', 'normal');
+}
+
 /** Black bar + orange accent strip. Returns Y for first line of page body. */
-export function drawPlayerStallPdfHeader(pdf: jsPDF, options?: { pageNum?: number }): number {
+export function drawPlayerStallPdfHeader(pdf: jsPDF, options?: { pageNum?: number } & BrandFontAware): number {
 	const pageW = pdf.internal.pageSize.getWidth();
 	const margin = 48;
+	const useBrand = options?.brandFonts !== false;
 	pdf.setFillColor(...BLACK);
 	pdf.rect(0, 0, pageW, 52, 'F');
 	pdf.setFillColor(...ORANGE);
 	pdf.rect(0, 52, pageW, 3, 'F');
 	pdf.setTextColor(255, 255, 255);
 	pdf.setFontSize(18);
-	pdf.setFont('helvetica', 'bold');
+	fontDisplay(pdf, useBrand);
 	pdf.text('PLAYERSTALL', margin, 32);
 	pdf.setFontSize(9);
 	pdf.setTextColor(254, 89, 0);
-	pdf.setFont('helvetica', 'bold');
+	fontBold(pdf, useBrand);
 	pdf.text('CUSTOM SPORTS LOCKERS', margin + 118, 32);
 	if (options?.pageNum != null) {
 		pdf.setTextColor(200, 200, 200);
-		pdf.setFont('helvetica', 'normal');
+		fontBody(pdf, useBrand);
 		pdf.setFontSize(8);
 		pdf.text(`Page ${options.pageNum}`, pageW - margin, 32, { align: 'right' });
 	}
 	pdf.setTextColor(0, 0, 0);
-	pdf.setFont('helvetica', 'normal');
+	fontBody(pdf, useBrand);
 	return 72;
 }
 
@@ -48,7 +76,7 @@ export type RoomPlanEmailStyleHeroOptions = {
 	 * When set, blocks are centered at that width like the HTML preview.
 	 */
 	stackMaxWidth?: number;
-};
+} & BrandFontAware;
 
 function stackWidth(pageW: number, margin: number, o: RoomPlanEmailStyleHeroOptions): number {
 	const cap = o.stackMaxWidth ?? pageW - margin * 2;
@@ -58,6 +86,7 @@ function stackWidth(pageW: number, margin: number, o: RoomPlanEmailStyleHeroOpti
 export function drawRoomPlanEmailStylePdfHero(pdf: jsPDF, o: RoomPlanEmailStyleHeroOptions = {}): number {
 	const pageW = pdf.internal.pageSize.getWidth();
 	const margin = 48;
+	const useBrand = o.brandFonts !== false;
 	const sw = stackWidth(pageW, margin, o);
 	const sx = (pageW - sw) / 2;
 	const introW = o.introMaxWidth ?? Math.min(520, sw);
@@ -66,13 +95,18 @@ export function drawRoomPlanEmailStylePdfHero(pdf: jsPDF, o: RoomPlanEmailStyleH
 
 	if (o.pageLabel) {
 		pdf.setFontSize(8);
-		pdf.setFont('helvetica', 'normal');
+		fontBody(pdf, useBrand);
 		pdf.setTextColor(...MUTED);
 		pdf.text(o.pageLabel, pageW - margin, y, { align: 'right' });
 	}
 
-	/* Email: 43px PLAYERSTALL, letter-spacing ~0.05em, ~48px gap before h1 */
-	pdf.setFont('helvetica', 'bold');
+	/*
+	 * PLAYERSTALL wordmark — Oswald 600 at 42pt mimics the <strong>
+	 * `font-family: Oswald` heading on the site (1.6–1.8× tracking). The
+	 * charSpace value stays at 0.35 so total glyph width lines up with the
+	 * HTML hero rendered in /dev/email-preview-room-plan.
+	 */
+	fontDisplay(pdf, useBrand);
 	pdf.setFontSize(42);
 	pdf.setTextColor(...TEXT);
 	pdf.text('PLAYERSTALL', pageW / 2, y + 30, { align: 'center', charSpace: 0.35 });
@@ -80,7 +114,7 @@ export function drawRoomPlanEmailStylePdfHero(pdf: jsPDF, o: RoomPlanEmailStyleH
 
 	if (o.headline) {
 		pdf.setFontSize(14);
-		pdf.setFont('helvetica', 'bold');
+		fontDisplay(pdf, useBrand);
 		pdf.setTextColor(...TEXT);
 		const hl = pdf.splitTextToSize(o.headline, sw) as string[];
 		pdf.text(hl, pageW / 2, y, { align: 'center' });
@@ -88,7 +122,7 @@ export function drawRoomPlanEmailStylePdfHero(pdf: jsPDF, o: RoomPlanEmailStyleH
 	}
 
 	if (o.mutedCenter) {
-		pdf.setFont('helvetica', 'normal');
+		fontBody(pdf, useBrand);
 		pdf.setFontSize(9);
 		pdf.setTextColor(...MUTED);
 		const lines = pdf.splitTextToSize(o.mutedCenter, sw) as string[];
@@ -103,7 +137,7 @@ export function drawRoomPlanEmailStylePdfHero(pdf: jsPDF, o: RoomPlanEmailStyleH
 	if (o.introParagraph) {
 		/* Email body intro: ~15px, line-height 1.65 */
 		pdf.setFontSize(11);
-		pdf.setFont('helvetica', 'normal');
+		fontBody(pdf, useBrand);
 		pdf.setTextColor(...MUTED);
 		const lines = pdf.splitTextToSize(o.introParagraph, introW) as string[];
 		let iy = y;
@@ -116,15 +150,21 @@ export function drawRoomPlanEmailStylePdfHero(pdf: jsPDF, o: RoomPlanEmailStyleH
 	}
 
 	pdf.setTextColor(...TEXT);
-	pdf.setFont('helvetica', 'normal');
+	fontBody(pdf, useBrand);
 	return y;
 }
 
 /** Two-line footer like customer room-plan email HTML. */
-export function drawRoomPlanEmailStylePdfFooter(pdf: jsPDF, line1: string, line2: string): void {
+export function drawRoomPlanEmailStylePdfFooter(
+	pdf: jsPDF,
+	line1: string,
+	line2: string,
+	options?: BrandFontAware,
+): void {
 	const pageW = pdf.internal.pageSize.getWidth();
 	const pageH = pdf.internal.pageSize.getHeight();
-	pdf.setFont('helvetica', 'normal');
+	const useBrand = options?.brandFonts !== false;
+	fontBody(pdf, useBrand);
 	pdf.setFontSize(8);
 	pdf.setTextColor(...FOOT_GRAY);
 	pdf.text(line1, pageW / 2, pageH - 28, { align: 'center' });

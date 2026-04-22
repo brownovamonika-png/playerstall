@@ -1,11 +1,17 @@
 import { jsPDF } from 'jspdf';
 import { ROOM_PLAN_FOOTER_LINES } from '../lib/roomPlanCustomerCopy';
 import { drawRoomPlanEmailStylePdfFooter, drawRoomPlanEmailStylePdfHero } from './pdfBranding';
+import { BRAND_FONT, setBrandFont } from './pdfFonts';
 import type { PlannerState } from './types';
 import { capturePlanner3DDataURL } from './render3d';
 
 const SNAP_W = 1920;
 const SNAP_H = 1200;
+
+export interface Append3DOptions {
+	/** Use Oswald + Yantramanav (only when parent doc has registerBrandFonts()). */
+	brandFonts?: boolean;
+}
 
 /** Adds a landscape page with a 3D render (for fundraising / sharing). */
 export async function appendPlanner3DPreviewPage(
@@ -13,7 +19,9 @@ export async function appendPlanner3DPreviewPage(
 	roomLabel: string,
 	tempState: PlannerState,
 	customLogoDataUrl: string | null | undefined,
+	options: Append3DOptions = {},
 ): Promise<void> {
+	const useBrand = options.brandFonts !== false;
 	const data3d = await capturePlanner3DDataURL(tempState, {
 		width: SNAP_W,
 		height: SNAP_H,
@@ -30,6 +38,7 @@ export async function appendPlanner3DPreviewPage(
 		mutedCenter:
 			'Share with boosters, administrators, or donors for fundraising and approvals.',
 		stackMaxWidth: Math.min(480, pageW - 96),
+		brandFonts: useBrand,
 	});
 
 	if (data3d) {
@@ -47,7 +56,8 @@ export async function appendPlanner3DPreviewPage(
 		pdf.addImage(data3d, 'PNG', xCentered, imgTop, imgW, imgH, undefined, 'NONE');
 	} else {
 		pdf.setFontSize(10);
-		pdf.setFont('helvetica', 'normal');
+		if (useBrand) setBrandFont(pdf, BRAND_FONT.body);
+		else pdf.setFont('helvetica', 'normal');
 		pdf.setTextColor(80);
 		const msg =
 			'We could not render a 3D snapshot in this browser session. Open the PlayerStall room planner, use 3D View for this room, and use Save — or contact team@playerstall.com and we will send layout images.';
@@ -55,5 +65,7 @@ export async function appendPlanner3DPreviewPage(
 		pdf.text(lines, margin, yBody + 28);
 	}
 
-	drawRoomPlanEmailStylePdfFooter(pdf, ROOM_PLAN_FOOTER_LINES[0], ROOM_PLAN_FOOTER_LINES[1]);
+	drawRoomPlanEmailStylePdfFooter(pdf, ROOM_PLAN_FOOTER_LINES[0], ROOM_PLAN_FOOTER_LINES[1], {
+		brandFonts: useBrand,
+	});
 }

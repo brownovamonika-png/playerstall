@@ -54,7 +54,33 @@ export const OPTIONS: APIRoute = async ({ request }) => {
 };
 
 const MAILERSEND_API = 'https://api.mailersend.com/v1/email';
-const FROM_EMAIL = process.env.MAILERSEND_FROM_EMAIL || 'team@playerstall.com';
+
+/**
+ * Read an env var from both `import.meta.env` (populated by Astro/Vite in dev)
+ * and `process.env` (populated by the Vercel adapter in production). Using just
+ * one fails on the other surface — dev never sees `process.env`, and bundled
+ * serverless functions don't always resolve `import.meta.env`.
+ */
+/** Vite replaces `import.meta.env.FOO` statically at transform time — the keys
+ *  must be written as literals, not a dynamic index, or the replacement is skipped. */
+function getMailerSendToken(): string {
+	const fromImport = import.meta.env.MAILERSEND_API_TOKEN;
+	if (fromImport) return String(fromImport).trim();
+	if (typeof process !== 'undefined' && process.env?.MAILERSEND_API_TOKEN) {
+		return String(process.env.MAILERSEND_API_TOKEN).trim();
+	}
+	return '';
+}
+function getMailerSendFromEmail(): string {
+	const fromImport = import.meta.env.MAILERSEND_FROM_EMAIL;
+	if (fromImport) return String(fromImport).trim();
+	if (typeof process !== 'undefined' && process.env?.MAILERSEND_FROM_EMAIL) {
+		return String(process.env.MAILERSEND_FROM_EMAIL).trim();
+	}
+	return '';
+}
+
+const FROM_EMAIL = getMailerSendFromEmail() || 'team@playerstall.com';
 const FROM_NAME = 'PlayerStall';
 const SALES_EMAIL = 'team@playerstall.com';
 
@@ -142,7 +168,7 @@ async function sendEmail(
 }
 
 export const POST: APIRoute = async ({ request }) => {
-	const token = process.env.MAILERSEND_API_TOKEN;
+	const token = getMailerSendToken();
 	if (!token) {
 		console.error('MAILERSEND_API_TOKEN not configured');
 		const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -210,14 +236,14 @@ export const POST: APIRoute = async ({ request }) => {
 			),
 		]);
 
-		console.info('[send-room-plan] MailerSend ok', { roomPlanEmailVersion: 'v2-html-compact' });
+		console.info('[send-room-plan] MailerSend ok', { roomPlanEmailVersion: 'v5-brand-fonts' });
 
 		const okHeaders = new Headers({
 			'Content-Type': 'application/json',
-			'X-PlayerStall-Room-Plan-Email': 'v2-html-compact',
+			'X-PlayerStall-Room-Plan-Email': 'v5-brand-fonts',
 		});
 		finalizeApiHeaders(request, okHeaders);
-		return new Response(JSON.stringify({ ok: true, roomPlanEmailVersion: 'v2-html-compact' }), {
+		return new Response(JSON.stringify({ ok: true, roomPlanEmailVersion: 'v5-brand-fonts' }), {
 			status: 200,
 			headers: okHeaders,
 		});

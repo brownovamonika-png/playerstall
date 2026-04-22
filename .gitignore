@@ -7,14 +7,24 @@ email-export/
 .env
 .env.local
 .env.production
-.venv-bg# Estimates from various companies
+# Local Python venv used for font tooling (fontTools, brotli)
+.venv-bg/
+
+# Scratch/reference folders that should never be committed
+tmp-email-references/
+
+# Estimates from various companies
 estimate from varies companies/
 *estimate*.txt
 locker-estimates-comparison.txt
-grid-estimate.txt# Jason Vietnam Production Request - colored lockers
+grid-estimate.txt
+
+# Jason Vietnam Production Request - colored lockers
 *Jason*Vietnam*
 *colored*locker*
-*Production*Request*# Guides directory (private strategy docs — tracked exceptions below)
+*Production*Request*
+
+# Guides directory (private strategy docs — tracked exceptions below)
 guides/
 !guides/CONTENT_CALENDAR_2026.md
 

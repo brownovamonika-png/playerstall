@@ -53,7 +53,7 @@ const semiProSpecs = [
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="https://playerstall.b-cdn.net/images/legendary-locker.png"
+							src="/images/semi-pro-locker-third.png"
 							alt="Semi Pro wood athletic locker for locker rooms"
 							class="product-main-image"
 						/>
@@ -61,12 +61,6 @@ const semiProSpecs = [
 						</div>
 					<div class="product-gallery-thumbs">
 						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="https://playerstall.b-cdn.net/images/legendary-locker.png" alt="Semi Pro locker view 1" />
-						</button>
-						<button type="button" class="thumb" aria-label="View image 2">
-							<img src="/images/semi-pro-locker-side.png" alt="Semi Pro locker side view" />
-						</button>
-						<button type="button" class="thumb" aria-label="View image 3">
 							<img src="/images/semi-pro-locker-third.png" alt="Semi Pro locker natural wood view" />
 						</button>
 					</div>
@@ -340,8 +334,8 @@ const semiProSpecs = [
 	}
 
 	.product-main-image {
-		width: 96%;
-		height: 96%;
+		width: 76.8%;
+		height: 76.8%;
 		object-fit: contain;
 		display: block;
 	}
@@ -972,7 +966,7 @@ const semiProSpecs = [
 			const id = 'semi-pro-locker-' + width + '-' + deep;
 			const modelEl = document.querySelector('.product-model[data-model-prefix]');
 			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;
-			const image = 'https://playerstall.b-cdn.net/images/legendary-locker.png';
+			const image = '/images/semi-pro-locker-third.png';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) {

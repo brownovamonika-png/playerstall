@@ -1,0 +1,15 @@
+---
+/**
+ * Dev-only raw preview: renders ONLY the customer room-plan email as a standalone
+ * HTML document (no Astro shell), so visual/screenshot QA matches what MailerSend
+ * sends. Prod build short-circuits to `/`.
+ */
+import { buildCustomerHTML, SAMPLE_ORDER_SUMMARY } from '../../lib/roomPlanEmailTemplates';
+
+if (import.meta.env.PROD) {
+	return Astro.redirect('/');
+}
+
+const html = buildCustomerHTML('brownovamonika@gmail.com', SAMPLE_ORDER_SUMMARY, '5908.00');
+return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+---

@@ -66,9 +66,21 @@ export const ROOM_PLAN_FOOTER_LINES = [
 	'1-888-584-1444 · team@playerstall.com · playerstall.com',
 ] as const;
 
+/** Centered bold sub-headline under the PLAYERSTALL wordmark. Customer + team variants share the same visual treatment. */
+export const ROOM_PLAN_CUSTOMER_HEADLINE = 'Review your layout';
+export const ROOM_PLAN_TEAM_HEADLINE = 'New room planner submission';
+
 /** Team email hero (under main title). */
 export const ROOM_PLAN_TEAM_INTRO =
-	'Same compact layout as the customer email — totals below; full breakdown is in the attached PDFs. Use Reply to reach the customer.';
+	'Internal copy for the team — same layout as the customer email. Use the customer address and order summary below to follow up; both PDFs are attached to this message.';
+
+/** Section heading above the timing + funding rows in both email and PDF. */
+export const ROOM_PLAN_SELECTIONS_HEADING = 'Your selections';
+export const ROOM_PLAN_SELECTIONS_TIMING_LABEL = 'Preferred delivery timing';
+export const ROOM_PLAN_SELECTIONS_FUNDING_LABEL = 'Funding / budget';
+
+/** Team-email "Customer" strip (between Your Selections and Order Summary). */
+export const ROOM_PLAN_TEAM_CUSTOMER_HEADING = 'Customer';
 
 /** Team email note box (attachments strip). */
 export const ROOM_PLAN_TEAM_NOTE =

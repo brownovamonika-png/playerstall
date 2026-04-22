@@ -1,6 +1,7 @@
 import { jsPDF } from 'jspdf';
 import { ROOM_PLAN_FOOTER_LINES } from '../lib/roomPlanCustomerCopy';
 import { drawRoomPlanEmailStylePdfFooter, drawRoomPlanEmailStylePdfHero } from './pdfBranding';
+import { ensureBrandFontsLoaded, registerBrandFonts } from './pdfFonts';
 import { render } from './render';
 import { appendPlanner3DPreviewPage } from './pdfAppend3D';
 import { capturePlanner3DDataURL } from './render3d';
@@ -105,7 +106,22 @@ export async function generateLayoutPdfBlob(
 	displayUnit: DisplayUnit,
 ): Promise<Blob | null> {
 	try {
+		/*
+		 * Preload Oswald + Yantramanav so the layout PDF matches the live site
+		 * typography (same treatment as generateEstimatePdfBlob). If the fetch
+		 * fails jsPDF falls back to Helvetica and the PDF still completes —
+		 * better than blocking the "send plan" flow on a font asset error.
+		 */
+		let brandFontsReady = false;
+		try {
+			await ensureBrandFontsLoaded();
+			brandFontsReady = true;
+		} catch (err) {
+			console.warn('[pdfLayoutDoc] brand fonts unavailable, falling back to Helvetica:', err);
+		}
+
 		const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'letter' });
+		if (brandFontsReady) registerBrandFonts(pdf);
 		const pageW = pdf.internal.pageSize.getWidth();
 		const pageH = pdf.internal.pageSize.getHeight();
 		const margin = 48;
@@ -131,6 +147,7 @@ export async function generateLayoutPdfBlob(
 				headline: roomLabel.toUpperCase(),
 				mutedCenter: 'Floor plan (top view)',
 				stackMaxWidth: Math.min(480, pageW - 96),
+				brandFonts: brandFontsReady,
 			});
 
 			const imgTop = yBody + 12;
@@ -140,9 +157,13 @@ export async function generateLayoutPdfBlob(
 			const drawH = Math.min(imgH, maxImgH);
 			pdf.addImage(imgData, 'PNG', margin, imgTop, imgW, drawH, undefined, 'NONE');
 
-			drawRoomPlanEmailStylePdfFooter(pdf, ROOM_PLAN_FOOTER_LINES[0], ROOM_PLAN_FOOTER_LINES[1]);
+			drawRoomPlanEmailStylePdfFooter(pdf, ROOM_PLAN_FOOTER_LINES[0], ROOM_PLAN_FOOTER_LINES[1], {
+				brandFonts: brandFontsReady,
+			});
 
-			await appendPlanner3DPreviewPage(pdf, roomLabel, tempState, room.customLogoDataUrl ?? null);
+			await appendPlanner3DPreviewPage(pdf, roomLabel, tempState, room.customLogoDataUrl ?? null, {
+				brandFonts: brandFontsReady,
+			});
 		}
 
 		return pdf.output('blob');

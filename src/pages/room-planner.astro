@@ -2635,7 +2635,9 @@ const plannerTemplates = getAllTemplates();
 	}
 </style>
 
-<script define:vars={{ MODEL_X_HERO_IMAGE, MODEL_S_HERO_IMAGE }}>
+<script>
+	import { MODEL_X_HERO_IMAGE } from '../data/model-x-assets';
+	import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	import { createInitialState, nextInstanceId, buildWalls, defaultDimensions, needByTimelineLabel, fundingStatusLabel } from '../room-planner/state';
 	import type { RoomDimensions } from '../room-planner/state';
 	import { render, screenToWorld, setFloorLogo2D, removeFloorLogo2D } from '../room-planner/render';
@@ -4906,7 +4908,7 @@ const plannerTemplates = getAllTemplates();
 			unitPrice: l.unitPrice,
 			qty: l.qty,
 		}));
-		const estimateBlob = generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal, orderSummary);
+		const estimateBlob = await generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal, orderSummary);
 		let layoutBlob: Blob | null = null;
 		try {
 			layoutBlob = await generateLayoutPdfBlob(savedRooms, state.displayUnit);

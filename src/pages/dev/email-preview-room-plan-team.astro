@@ -1,0 +1,14 @@
+---
+/**
+ * Dev-only raw preview: renders ONLY the team room-plan email as a standalone
+ * HTML document (no Astro shell). Prod build short-circuits to `/`.
+ */
+import { buildSalesHTML, SAMPLE_ORDER_SUMMARY } from '../../lib/roomPlanEmailTemplates';
+
+if (import.meta.env.PROD) {
+	return Astro.redirect('/');
+}
+
+const html = buildSalesHTML('you@example.com', SAMPLE_ORDER_SUMMARY, '5908.00');
+return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+---

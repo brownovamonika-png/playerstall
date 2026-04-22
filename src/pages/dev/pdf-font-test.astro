@@ -1,0 +1,104 @@
+---
+/**
+ * Brand-font smoke test for the jsPDF attachments.
+ *
+ * Generates a sample PDF (two pages) using the real generateEstimatePdfBlob
+ * pipeline — same code path the room planner uses when sending the
+ * estimate attachment — so we can eyeball Oswald + Yantramanav rendering
+ * without running through the full room planner → send-room-plan flow.
+ *
+ * Run: npm run dev → http://localhost:4321/dev/pdf-font-test.
+ * Open the console; the font loader logs success (see pdfFonts.ts) and
+ * clicking "Download test PDF" writes PlayerStall-Font-Test.pdf.
+ * Not available in production builds (redirects home).
+ */
+
+if (import.meta.env.PROD) {
+	return Astro.redirect('/');
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>PDF font test (dev)</title>
+		<style>
+			body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; background: #fafafa; color: #111; }
+			h1 { font-size: 18px; margin: 0 0 8px; }
+			p { font-size: 14px; color: #555; max-width: 640px; }
+			button { display: inline-block; margin-top: 12px; padding: 10px 16px; border: 1px solid #111; background: #fff; font-size: 14px; cursor: pointer; border-radius: 6px; }
+			button:hover { background: #111; color: #fff; }
+			#status { margin-top: 16px; font-family: ui-monospace, Menlo, monospace; white-space: pre-wrap; background: #fff; border: 1px solid #e0e0e0; padding: 12px; border-radius: 6px; font-size: 12px; max-width: 640px; }
+			iframe { margin-top: 16px; width: 100%; max-width: 720px; min-height: 80vh; border: 1px solid #ccc; border-radius: 6px; background: #fff; }
+		</style>
+	</head>
+	<body>
+		<h1>PDF font test — Oswald + Yantramanav</h1>
+		<p>
+			Click the button to generate a sample estimate PDF using the real <code>generateEstimatePdfBlob</code> pipeline.
+			If the headline and body text render in condensed Oswald / Yantramanav (matching <a href="/dev/email-preview-room-plan-customer" target="_blank">the email preview</a>), the font registration works. If it falls back to Helvetica, the console will show <code>Oswald: MISSING</code> or similar.
+		</p>
+		<button id="run">Generate test PDF</button>
+		<pre id="status">idle — click the button</pre>
+		<iframe id="out" title="Generated PDF"></iframe>
+
+		<script type="module">
+			import { generateEstimatePdfBlob } from '/src/room-planner/pdfEstimate.ts';
+
+			const status = document.getElementById('status');
+			const out = document.getElementById('out');
+			document.getElementById('run').addEventListener('click', async () => {
+				status.textContent = 'generating...';
+				try {
+					const blob = await generateEstimatePdfBlob(
+						[
+							{ roomName: 'Dean', displayName: 'Model S', widthIn: 24, depthIn: 19, colorLabel: 'Marigold',
+								accessories: [{ label: 'Bracing Blue + Vented Front', price: 0 }, { label: 'Bottom Cushion', price: 0 }, { label: 'Top & Bottom Cushions', price: 0 }, { label: 'Name Plate', price: 0 }],
+								basePrice: 1024, unitPrice: 1024, qty: 7 },
+						],
+						'you@example.com',
+						7168,
+						'Preferred delivery timing: 1-3 months\nFunding / budget: Have funds',
+					);
+					if (!blob) throw new Error('generateEstimatePdfBlob returned null');
+					const url = URL.createObjectURL(blob);
+					out.src = url;
+					/*
+					 * Scan the raw PDF bytes for font-name strings. jsPDF embeds every
+					 * font we call setFont() with — so if Oswald + Yantramanav show up
+					 * here we know the attachment is actually using brand fonts rather
+					 * than falling back silently to Helvetica.
+					 */
+					const bytes = new Uint8Array(await blob.arrayBuffer());
+					const ascii = new TextDecoder('latin1').decode(bytes);
+					/*
+					 * jsPDF's default font catalog always includes the 14 standard
+					 * PostScript fonts (Helvetica, Times, Courier, …) whether they're
+					 * used on the page or not — so a naive string-contains check for
+					 * "Helvetica" would always come back true. Count /BaseFont entries
+					 * to see which fonts are actually referenced by font objects in
+					 * the PDF.
+					 */
+					const baseFontMatches = ascii.match(/\/BaseFont \/([A-Za-z0-9+#]+)/g) || [];
+					const found = {
+						Oswald: ascii.includes('Oswald'),
+						Yantramanav: ascii.includes('Yantramanav'),
+						baseFonts: baseFontMatches,
+					};
+					status.textContent = 'ok — size: ' + blob.size + ' bytes\nembedded fonts detected: ' + JSON.stringify(found, null, 2);
+					/*
+					 * Objects render as "[object Object]" when piped through console →
+					 * browser-use, so stringify everything we actually want to inspect.
+					 */
+					console.info('[pdf-font-test] embedded font scan:', JSON.stringify(found));
+					document.title = 'scan: ' + JSON.stringify(found);
+				} catch (err) {
+					status.textContent = 'error: ' + (err && err.message ? err.message : String(err));
+					console.error(err);
+				}
+			});
+		</script>
+	</body>
+</html>

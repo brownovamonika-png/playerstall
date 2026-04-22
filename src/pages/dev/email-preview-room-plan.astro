@@ -4,22 +4,22 @@
  * Run: npm run dev → open http://localhost:4321/dev/email-preview-room-plan
  * Not shown in production builds (redirects home).
  */
-import {
-	buildCustomerHTML,
-	buildSalesHTML,
-	SAMPLE_ORDER_SUMMARY,
-} from '../../lib/roomPlanEmailTemplates';
-
 if (import.meta.env.PROD) {
 	return Astro.redirect('/');
 }
 
-const sampleEmail = 'you@example.com';
-const sampleTotal = '5908.00';
-const customerHtml = buildCustomerHTML(sampleEmail, SAMPLE_ORDER_SUMMARY, sampleTotal);
-const teamHtml = buildSalesHTML(sampleEmail, SAMPLE_ORDER_SUMMARY, sampleTotal);
-const customerSrc = `data:text/html;charset=utf-8,${encodeURIComponent(customerHtml)}`;
-const teamSrc = `data:text/html;charset=utf-8,${encodeURIComponent(teamHtml)}`;
+/*
+ * Point iframes at the standalone preview routes instead of stuffing the
+ * entire HTML into a `data:text/html,…` URL. Data URLs have an opaque origin,
+ * making Google Fonts / clamp() rendering unreliable and — at these payload
+ * sizes — some browsers (Chrome in particular) silently show a blank frame
+ * because the encoded URL exceeds the data: length budget, which is exactly
+ * the "static / empty iframe" bug we hit after wiring Oswald + Yantramanav
+ * into the email HTML. `src=/dev/…` always works, keeps DevTools inspectable,
+ * and gives us a direct URL the team can open when QA'ing the exact payload.
+ */
+const customerSrc = '/dev/email-preview-room-plan-customer';
+const teamSrc = '/dev/email-preview-room-plan-team';
 ---
 
 <!DOCTYPE html>

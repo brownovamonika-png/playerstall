@@ -3,14 +3,19 @@ import {
 	ROOM_PLAN_ATTACHMENT_FILES_DESC,
 	ROOM_PLAN_ATTACHMENTS_NOTE_PDF,
 	ROOM_PLAN_CTA_LABEL,
+	ROOM_PLAN_CUSTOMER_HEADLINE,
 	ROOM_PLAN_FOOTER_LINES,
 	ROOM_PLAN_INTRO,
+	ROOM_PLAN_SELECTIONS_FUNDING_LABEL,
+	ROOM_PLAN_SELECTIONS_HEADING,
+	ROOM_PLAN_SELECTIONS_TIMING_LABEL,
 	ROOM_PLAN_SHIPPING_LINES,
 	ROOM_PLAN_WHAT_NEXT_HEADING,
 	ROOM_PLAN_WHAT_NEXT_STEPS,
 } from '../lib/roomPlanCustomerCopy';
 import { extractPlannerMetaFromOrderSummary } from '../lib/roomPlanOrderSummaryParse';
 import { drawRoomPlanEmailStylePdfHero } from './pdfBranding';
+import { BRAND_FONT, ensureBrandFontsLoaded, registerBrandFonts, setBrandFont } from './pdfFonts';
 
 /** Line shape used for the estimate PDF (matches room planner LineItem). */
 export interface EstimatePdfLine {
@@ -104,20 +109,46 @@ function measureOrderPanelHeight(
  * (`buildCustomerHTML`, /dev/email-preview-room-plan), including the order card (Order Summary
  * first; no internal “Customer” strip — that is team-email-only). Pass the same `orderSummary` you
  * POST to `/api/send-room-plan` so timing/funding appear in the “Your selections” panel.
+ *
+ * Async because we preload Oswald + Yantramanav TTFs from `/public/fonts-pdf/` so the PDF
+ * renders in the same brand typography as playerstall.com + the MailerSend HTML (see
+ * src/room-planner/pdfFonts.ts). If the fetch fails the function still completes — jsPDF
+ * falls back to Helvetica and callers get a usable document.
  */
-export function generateEstimatePdfBlob(
+export async function generateEstimatePdfBlob(
 	lines: EstimatePdfLine[],
 	customerEmail: string,
 	grandTotal: number,
 	orderSummaryForSelections?: string,
-): Blob | null {
+): Promise<Blob | null> {
 	try {
+		/*
+		 * Preload Oswald + Yantramanav once per page load; the second time this
+		 * runs the cache returns instantly. We deliberately swallow load errors
+		 * here so PDF generation still succeeds (with Helvetica) if the /public
+		 * asset is unreachable — the user ends up with a plainer-looking PDF,
+		 * which is a better failure mode than a missing attachment.
+		 */
+		let brandFontsReady = false;
+		try {
+			await ensureBrandFontsLoaded();
+			brandFontsReady = true;
+		} catch (err) {
+			console.warn('[pdfEstimate] brand fonts unavailable, falling back to Helvetica:', err);
+		}
+
 		const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'letter' });
+		if (brandFontsReady) registerBrandFonts(pdf);
+		const setDisplay = () => (brandFontsReady ? setBrandFont(pdf, BRAND_FONT.display) : pdf.setFont('helvetica', 'bold'));
+		const setBold = () => (brandFontsReady ? setBrandFont(pdf, BRAND_FONT.bold) : pdf.setFont('helvetica', 'bold'));
+		const setBody = () => (brandFontsReady ? setBrandFont(pdf, BRAND_FONT.body) : pdf.setFont('helvetica', 'normal'));
+		const setLabel = () => (brandFontsReady ? setBrandFont(pdf, BRAND_FONT.label) : pdf.setFont('helvetica', 'bold'));
+
 		pdf.setProperties({
 			title: 'PlayerStall — Room plan estimate',
 			subject: 'Review your layout (email-style PDF from playerstall.com room planner)',
 			author: 'PlayerStall',
-			keywords: 'playerstall.com; room-planner; email-style-estimate-v2',
+			keywords: 'playerstall.com; room-planner; email-style-estimate-v4-static-brand-fonts',
 			creator: 'PlayerStall Room Planner',
 		});
 		const pageW = pdf.internal.pageSize.getWidth();
@@ -139,10 +170,11 @@ export function generateEstimatePdfBlob(
 
 		let pageNum = 1;
 		let y = drawRoomPlanEmailStylePdfHero(pdf, {
-			headline: 'REVIEW YOUR LAYOUT',
+			headline: ROOM_PLAN_CUSTOMER_HEADLINE.toUpperCase(),
 			introParagraph: ROOM_PLAN_INTRO,
 			introMaxWidth: introW,
 			stackMaxWidth: cardW - 16,
+			brandFonts: brandFontsReady,
 		});
 		const bottomSafe = pageH - 88;
 
@@ -154,6 +186,7 @@ export function generateEstimatePdfBlob(
 					pageLabel: `Page ${pageNum}`,
 					mutedCenter: `Order summary · page ${pageNum}`,
 					stackMaxWidth: cardW - 16,
+					brandFonts: brandFontsReady,
 				});
 			}
 		}
@@ -164,8 +197,6 @@ export function generateEstimatePdfBlob(
 			pdf.line(xx, yy, xx + ww, yy);
 		}
 
-		const labelColWMeta = Math.floor(innerW * 0.38);
-		const valueWMeta = innerW - labelColWMeta - 16;
 		let metaTiming: string[] = [];
 		let metaFunding: string[] = [];
 		if (orderSummaryForSelections?.trim()) {
@@ -175,18 +206,27 @@ export function generateEstimatePdfBlob(
 		}
 
 		if (metaTiming.length || metaFunding.length) {
-			pdf.setFont('helvetica', 'normal');
-			pdf.setFontSize(9);
+			/*
+			 * Stacked label + value layout (label on top, value below), so long labels
+			 * like "PREFERRED DELIVERY TIMING" can never collide with the value — the
+			 * two-column version overran at card widths <520pt and produced the
+			 * "PREFERRED DELIVERY TIMINGMonika: 1–3 months" bug.
+			 */
+			const valueW = innerW;
+			setBody();
+			pdf.setFontSize(11);
 			const measureVal = (rows: string[]) =>
-				pdf.splitTextToSize(rows.join('\n'), valueWMeta) as string[];
+				pdf.splitTextToSize(rows.join('\n'), valueW) as string[];
 			const timingValLines = metaTiming.length ? measureVal(metaTiming) : [];
 			const fundingValLines = metaFunding.length ? measureVal(metaFunding) : [];
 
-			const titleRowH = 46;
+			const titleRowH = 40;
+			const labelH = 14;
+			const gapBetweenRows = 14;
 			let contentH = 0;
-			if (metaTiming.length) contentH += 10 + timingValLines.length * 13 + 8;
-			if (metaFunding.length) contentH += 10 + fundingValLines.length * 13 + 4;
-			const blockH = innerPad + titleRowH + contentH + innerPad;
+			if (metaTiming.length) contentH += labelH + timingValLines.length * 13 + gapBetweenRows;
+			if (metaFunding.length) contentH += labelH + fundingValLines.length * 13 + gapBetweenRows;
+			const blockH = innerPad + titleRowH + contentH + innerPad - 4;
 
 			ensureSpace(blockH + 14);
 			const selTop = y;
@@ -195,28 +235,28 @@ export function generateEstimatePdfBlob(
 			pdf.setLineWidth(0.5);
 			pdf.rect(xCard, selTop, contentW, blockH, 'FD');
 
-			const titleBaseline = selTop + innerPad + 16 + 10;
-			pdf.setFont('helvetica', 'bold');
-			pdf.setFontSize(14);
+			const titleBaseline = selTop + innerPad + 14;
+			setDisplay();
+			pdf.setFontSize(13);
 			pdf.setTextColor(...TEXT);
-			pdf.text('YOUR SELECTIONS', innerLeft, titleBaseline);
-			const ruleUnderTitle = selTop + innerPad + titleRowH;
+			pdf.text(ROOM_PLAN_SELECTIONS_HEADING.toUpperCase(), innerLeft, titleBaseline);
+			const ruleUnderTitle = selTop + innerPad + titleRowH - 8;
 			hRule(innerLeft, ruleUnderTitle, innerW);
-			let sy = ruleUnderTitle + 12;
+			let sy = ruleUnderTitle + 14;
 
 			const drawRow = (label: string, valLines: string[]) => {
-				pdf.setFont('helvetica', 'bold');
-				pdf.setFontSize(11);
+				setLabel();
+				pdf.setFontSize(9);
 				pdf.setTextColor(...MUTED);
-				pdf.text(label, innerLeft, sy + 9);
-				pdf.setFont('helvetica', 'normal');
-				pdf.setFontSize(13);
+				pdf.text(label, innerLeft, sy, { charSpace: 0.4 });
+				setBody();
+				pdf.setFontSize(11);
 				pdf.setTextColor(...TEXT);
-				pdf.text(valLines, innerLeft + labelColWMeta, sy + 9);
-				sy += Math.max(14, valLines.length * 13) + 8;
+				pdf.text(valLines, innerLeft, sy + labelH);
+				sy += labelH + valLines.length * 13 + gapBetweenRows;
 			};
-			if (metaTiming.length) drawRow('PREFERRED DELIVERY TIMING', timingValLines);
-			if (metaFunding.length) drawRow('FUNDING / BUDGET', fundingValLines);
+			if (metaTiming.length) drawRow(ROOM_PLAN_SELECTIONS_TIMING_LABEL.toUpperCase(), timingValLines);
+			if (metaFunding.length) drawRow(ROOM_PLAN_SELECTIONS_FUNDING_LABEL.toUpperCase(), fundingValLines);
 
 			y = selTop + blockH + 14;
 		}
@@ -234,7 +274,7 @@ export function generateEstimatePdfBlob(
 
 		/* Match buildCustomerHTML order card: Order Summary row first (team email adds “Customer” above). */
 		y = orderPanelTop + innerPad;
-		pdf.setFont('helvetica', 'bold');
+		setDisplay();
 		pdf.setFontSize(20);
 		pdf.setTextColor(...TEXT);
 		pdf.text('ORDER SUMMARY', innerLeft, y + 14);
@@ -243,7 +283,7 @@ export function generateEstimatePdfBlob(
 		y += 14;
 
 		pdf.setFontSize(11);
-		pdf.setFont('helvetica', 'bold');
+		setLabel();
 		pdf.setTextColor(...MUTED);
 		const headY = y;
 		pdf.text('Product', innerLeft, headY);
@@ -266,7 +306,7 @@ export function generateEstimatePdfBlob(
 			if (room !== curRoom) {
 				curRoom = room;
 				ensureSpace(28);
-				pdf.setFont('helvetica', 'bold');
+				setBold();
 				pdf.setFontSize(11);
 				pdf.setTextColor(...TEXT);
 				pdf.text(room.toUpperCase(), innerLeft + 8, y + 10);
@@ -278,18 +318,18 @@ export function generateEstimatePdfBlob(
 
 			const rowTop = y;
 			let ty = rowTop + 14;
-			pdf.setFont('helvetica', 'bold');
+			setBold();
 			pdf.setFontSize(13);
 			pdf.setTextColor(...TEXT);
 			pdf.text(nameLines, innerLeft, ty);
 			ty += nameH + 4;
-			pdf.setFont('helvetica', 'normal');
+			setBody();
 			pdf.setFontSize(11);
 			pdf.setTextColor(...MUTED);
 			pdf.text(specLines, innerLeft, ty);
 
 			const qtyY = rowTop + 22;
-			pdf.setFont('helvetica', 'bold');
+			setBold();
 			pdf.setFontSize(13);
 			pdf.setTextColor(...TEXT);
 			pdf.text(String(line.qty), innerLeft + colProductW + colQtyW / 2, qtyY, { align: 'center' });
@@ -302,7 +342,7 @@ export function generateEstimatePdfBlob(
 
 		ensureSpace(72);
 		y += 8;
-		pdf.setFont('helvetica', 'bold');
+		setBold();
 		pdf.setFontSize(12);
 		pdf.setTextColor(...MUTED);
 		pdf.text('Subtotal', innerLeft, y);
@@ -319,13 +359,13 @@ export function generateEstimatePdfBlob(
 		pdf.setTextColor(...MUTED);
 		pdf.text('Estimated Total', innerLeft, totalRowY);
 		pdf.setFontSize(20);
-		pdf.setFont('helvetica', 'bold');
+		setDisplay();
 		pdf.setTextColor(...TEXT);
 		pdf.text(money(grandTotal), innerRight, totalRowY + 5, { align: 'right' });
 		y += 28;
 
 		const roomCount = lines.length ? roomNames.size : 0;
-		pdf.setFont('helvetica', 'normal');
+		setBody();
 		pdf.setFontSize(12);
 		pdf.setTextColor(...MUTED);
 		if (lines.length === 0) {
@@ -370,12 +410,12 @@ export function generateEstimatePdfBlob(
 		pdf.setDrawColor(...LINE);
 		pdf.rect(xCard, wnStart, contentW, wnH, 'FD');
 		let wy = wnStart + 18;
-		pdf.setFont('helvetica', 'bold');
+		setDisplay();
 		pdf.setFontSize(14);
 		pdf.setTextColor(42, 42, 42);
 		pdf.text(ROOM_PLAN_WHAT_NEXT_HEADING.toUpperCase(), innerLeft, wy);
 		wy += 18;
-		pdf.setFont('helvetica', 'normal');
+		setBody();
 		pdf.setFontSize(12);
 		pdf.setTextColor(85, 85, 85);
 		let n = 1;
@@ -397,6 +437,7 @@ export function generateEstimatePdfBlob(
 		pdf.setDrawColor(...LINE);
 		pdf.rect(xCard, attStart, contentW, attH, 'FD');
 		let ay = attStart + 16;
+		setBody();
 		pdf.setFontSize(11);
 		pdf.setTextColor(85, 85, 85);
 		pdf.text(att1, innerLeft, ay);
@@ -411,7 +452,7 @@ export function generateEstimatePdfBlob(
 		pdf.setFillColor(...TEXT);
 		pdf.rect(xCard, y, contentW, 36, 'F');
 		pdf.setTextColor(255, 255, 255);
-		pdf.setFont('helvetica', 'bold');
+		setDisplay();
 		pdf.setFontSize(10);
 		pdf.text(ROOM_PLAN_CTA_LABEL.toUpperCase(), pageW / 2, y + 23, { align: 'center' });
 		y += 44;
@@ -421,7 +462,7 @@ export function generateEstimatePdfBlob(
 		pdf.setLineWidth(0.35);
 		hRule(xCard, y, contentW);
 		y += 16;
-		pdf.setFont('helvetica', 'normal');
+		setBody();
 		pdf.setFontSize(9);
 		pdf.setTextColor(...FOOTNOTE);
 		pdf.text(ROOM_PLAN_FOOTER_LINES[0], pageW / 2, y, { align: 'center' });

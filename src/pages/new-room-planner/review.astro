@@ -648,7 +648,7 @@ import {
 			unitPrice: l.unitPrice,
 			qty: l.qty,
 		}));
-		const estimateBlob = generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal, orderSummary);
+		const estimateBlob = await generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal, orderSummary);
 		const layoutBlob = await generateLayoutPdfBlob(savedRooms, 'in');
 		let layoutPreviewDataUrl: string | undefined;
 		try {
