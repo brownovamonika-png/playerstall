@@ -297,10 +297,10 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 						<div class="sp-locker-angle">
 							<img src={locker.images[0]} alt={`${locker.name} Locker - Front View`} loading="lazy" />
 						</div>
-						<div class="sp-locker-angle">
+						<div class="sp-locker-angle sp-locker-angle--mobile-hide">
 							<img src={locker.images[1]} alt={`${locker.name} Locker - Side View`} loading="lazy" />
 						</div>
-						<div class="sp-locker-angle">
+						<div class="sp-locker-angle sp-locker-angle--mobile-hide">
 							<img src={locker.images[2]} alt={`${locker.name} Locker - Detail View`} loading="lazy" />
 						</div>
 						<div class="sp-locker-angle">
@@ -1181,22 +1181,58 @@ const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | Pl
 		.sp-lockers-hero-titles .sp-locker-name { font-size: 31.5px; }
 
 		.sp-locker-featured {
-			padding: 30px 24px;
-			gap: 24px;
-			row-gap: 24px;
-			column-gap: 24px;
+			grid-template-columns: auto auto auto auto;
+			grid-template-areas: "name img1 img2 btn";
+			justify-content: center;
+			align-items: center;
+			padding: 18px 10px;
+			gap: 8px;
+			row-gap: 8px;
+			column-gap: 8px;
 			margin-bottom: 24px;
 		}
+		.sp-locker-featured-nameblock {
+			grid-area: name;
+			min-width: 0;
+			align-items: flex-start;
+			text-align: left;
+			gap: 2px;
+		}
+		.sp-locker-featured-nameblock .sp-locker-name {
+			font-size: 14px !important;
+			line-height: 1.15;
+		}
+		.sp-locker-featured-nameblock .sp-locker-price {
+			margin: 0;
+			font-size: 13px;
+			text-align: left;
+		}
 		.sp-locker-angles {
-			display: grid;
-			grid-template-columns: 1fr;
-			gap: 24px;
-			row-gap: 24px;
-			column-gap: 24px;
+			display: contents;
+		}
+		.sp-locker-angles > :nth-child(1) {
+			grid-area: img1;
+		}
+		.sp-locker-angles > :nth-child(4) {
+			grid-area: img2;
 		}
 		.sp-locker-angle {
-			width: 140px;
-			height: 200px;
+			width: 72px;
+			height: auto;
+			aspect-ratio: 140 / 200;
+		}
+		.sp-locker-angle--mobile-hide {
+			display: none;
+		}
+		.sp-locker-featured-action {
+			grid-area: btn;
+			justify-content: center;
+		}
+		.sp-btn-featured {
+			padding: 8px 10px;
+			font-size: 10px;
+			letter-spacing: 0.05em;
+			white-space: nowrap;
 		}
 
 		.sp-locker-row {
