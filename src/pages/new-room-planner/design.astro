@@ -395,6 +395,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 					</tfoot>
 				</table>
 				<div class="order-locker-count" id="order-locker-count">0 lockers</div>
+				<div class="order-shipping-note">
+					<p>Shipping isn't included in this estimate.</p>
+					<p>We'll add shipping to your final order once we've agreed on everything with you.</p>
+				</div>
 				<div class="order-select-row">
 					<label class="order-select-label" for="delivery-timing">Preferred delivery timing</label>
 					<select id="delivery-timing" class="order-select-input">
@@ -436,7 +440,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	.planner-hero h1 {
 		font-family: 'Oswald', sans-serif;
 		font-size: clamp(28px, 3.5vw, 44px);
-		font-weight: 700;
+		font-weight: 600;
 		margin: 0;
 		text-transform: uppercase;
 		color: #0d0d0d;
@@ -567,7 +571,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	.room-setup-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: clamp(24px, 3vw, 36px);
-		font-weight: 700;
+		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 2px;
 		margin: 0 0 10px;
@@ -1118,7 +1122,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	.order-panel-title {
 		font-family: 'Oswald', sans-serif;
 		font-size: 20px;
-		font-weight: 700;
+		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
 		letter-spacing: 2px;
@@ -1186,6 +1190,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		padding-left: 2px;
 	}
 	.ot-acc-price { color: #8c8c8c; }
+	.ot-pricing-breakdown {
+		margin-top: 6px;
+		border-left: 2px solid #d0d0d0;
+		padding-left: 10px;
+	}
 	.ot-item-qty {
 		text-align: center;
 		font-family: 'Oswald', sans-serif;
@@ -1233,12 +1242,20 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		color: #0d0d0d;
 	}
 	.order-locker-count {
-		padding: 4px 24px;
+		padding: 4px 24px 2px;
 		font-family: 'Yantramanav', sans-serif;
 		font-size: 12px;
 		color: #8c8c8c;
 		letter-spacing: 0.5px;
 	}
+	.order-shipping-note {
+		padding: 0 24px 8px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		line-height: 1.6;
+	}
+	.order-shipping-note p { margin: 0; }
 	.order-select-row { padding: 0 24px; margin-top: 8px; }
 	.order-select-label {
 		display: block;
@@ -2785,9 +2802,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 			const rLabel = line.roomName || 'Unnamed Room';
 			if (rLabel !== currentRoom) { currentRoom = rLabel; html += `<tr class="ot-room-header"><td colspan="3">${currentRoom}</td></tr>`; }
 			const lineTotal = line.unitPrice * line.qty; subtotal += lineTotal; totalLockers += line.qty;
-			let accHtml = '';
-			if (line.accessories.length) accHtml = line.accessories.map((a) => `<span class="ot-acc-line">+ ${a.label} <span class="ot-acc-price">+$${a.price}</span></span>`).join('');
-			html += `<tr><td><span class="ot-item-name">${line.displayName}</span><span class="ot-item-spec">${line.widthIn}\u2033W \u00d7 ${line.depthIn}\u2033D \u00b7 ${line.colorLabel}</span>${accHtml}</td><td class="ot-item-qty">${line.qty}</td><td class="ot-item-total">$${lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>`;
+			const basePrice = line.unitPrice - line.accessories.reduce((s, a) => s + a.price, 0);
+			const accLines = line.accessories.map((a) => `<span class="ot-acc-line">${a.label} <span class="ot-acc-price">$${a.price}</span></span>`).join('');
+			const pricingHtml = `<div class="ot-pricing-breakdown"><span class="ot-acc-line">Locker base <span class="ot-acc-price">$${basePrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span></span>${accLines}</div>`;
+			html += `<tr><td><span class="ot-item-name">${line.displayName}</span><span class="ot-item-spec">${line.widthIn}\u2033W \u00d7 ${line.depthIn}\u2033D</span><span class="ot-item-spec">\u2022 ${line.colorLabel}</span>${pricingHtml}</td><td class="ot-item-qty">${line.qty}</td><td class="ot-item-total">$${lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>`;
 		}
 		tbody.innerHTML = html;
 		subtotalEl.textContent = `$${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
