@@ -975,3 +975,127 @@ export function removeFloorLogo(): void {
     _logoTexture = null;
   }
 }
+
+/**
+ * Render a one-shot 3D snapshot of the given room state and return it as a PNG data URL.
+ * Safe to call while the live 3D preview is active — uses its own isolated renderer
+ * and does not touch any module-level state.
+ */
+export function render3DSnapshot(state: PlannerState, width = 1200, height = 750): string {
+  const snapCanvas = document.createElement('canvas');
+  snapCanvas.width = width;
+  snapCanvas.height = height;
+
+  const snapScene = new THREE.Scene();
+  snapScene.background = new THREE.Color(SKY_HEX);
+
+  const snapRenderer = new THREE.WebGLRenderer({
+    canvas: snapCanvas,
+    antialias: true,
+    preserveDrawingBuffer: true,
+  });
+  snapRenderer.setPixelRatio(1);
+  snapRenderer.shadowMap.enabled = true;
+  snapRenderer.shadowMap.type = THREE.PCFShadowMap;
+  snapRenderer.toneMapping = THREE.LinearToneMapping;
+  snapRenderer.toneMappingExposure = 1.0;
+  snapRenderer.setSize(width, height, false);
+
+  // Bounds
+  let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+  for (const w of state.walls) {
+    minX = Math.min(minX, w.start.x, w.end.x);
+    maxX = Math.max(maxX, w.start.x, w.end.x);
+    minZ = Math.min(minZ, w.start.y, w.end.y);
+    maxZ = Math.max(maxZ, w.start.y, w.end.y);
+  }
+  if (!isFinite(minX)) { minX = 0; maxX = 120; minZ = 0; maxZ = 120; }
+  const cx = (minX + maxX) / 2;
+  const cz = (minZ + maxZ) / 2;
+  const span = Math.max(maxX - minX, maxZ - minZ, 120);
+
+  // Camera
+  const snapCamera = new THREE.PerspectiveCamera(50, width / height, 1, span * 10);
+  const dist = span * 1.2;
+  snapCamera.position.set(cx + dist * 0.6, dist * 0.8, cz + dist * 0.6);
+  snapCamera.lookAt(new THREE.Vector3(cx, WALL_HEIGHT * 0.3, cz));
+
+  // Lights (all inline — no module state touched)
+  snapScene.add(new THREE.AmbientLight(0xffffff, 0.7));
+  snapScene.add(new THREE.HemisphereLight(0xffffff, 0xf5efe6, 0.45));
+  const sun = new THREE.DirectionalLight(0xffffff, 1.0);
+  sun.position.set(cx + span * 0.4, WALL_HEIGHT * 2.5, cz - span * 0.3);
+  sun.target.position.set(cx, 0, cz);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(1024, 1024);
+  const se = span * 0.8;
+  Object.assign(sun.shadow.camera, { left: -se, right: se, top: se, bottom: -se, near: 1, far: span * 4 });
+  sun.shadow.bias = -0.001;
+  snapScene.add(sun);
+  snapScene.add(sun.target);
+  const fill = new THREE.DirectionalLight(0xfff4e5, 0.3);
+  fill.position.set(cx - span * 0.3, WALL_HEIGHT * 1.5, cz + span * 0.4);
+  snapScene.add(fill);
+
+  // Floor (inline — no module state touched)
+  const bW = maxX - minX;
+  const bD = maxZ - minZ;
+  const pad = Math.max(bW, bD) * 0.5;
+  const ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(bW + pad * 2, bD + pad * 2),
+    new THREE.MeshStandardMaterial({ color: FLOOR_HEX, roughness: 0.85 }),
+  );
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.set(cx, -0.1, cz);
+  ground.receiveShadow = true;
+  snapScene.add(ground);
+  const floorHex = state.floorColor ? parseInt(state.floorColor.replace('#', ''), 16) : ROOM_FLOOR_HEX;
+  const snapRoomFloor = new THREE.Mesh(
+    new THREE.PlaneGeometry(bW, bD),
+    new THREE.MeshStandardMaterial({ color: floorHex, roughness: 0.7 }),
+  );
+  snapRoomFloor.rotation.x = -Math.PI / 2;
+  snapRoomFloor.position.set(cx, 0, cz);
+  snapRoomFloor.receiveShadow = true;
+  snapScene.add(snapRoomFloor);
+
+  // Walls (reuses wallSegments + placeWallBlock — they only write to the passed scene)
+  const wallHex = state.wallColor ? parseInt(state.wallColor.replace('#', ''), 16) : WALL_HEX;
+  const snapWallMat = new THREE.MeshStandardMaterial({
+    color: wallHex, roughness: 0.3, metalness: 0.0,
+    emissive: wallHex, emissiveIntensity: 0.15,
+  });
+  for (const wall of state.walls) {
+    const len = wallLength(wall);
+    if (len === 0) continue;
+    const ops = state.openings.filter((o) => o.wallId === wall.id);
+    const segs = wallSegments(len, ops);
+    for (const seg of segs) placeWallBlock(snapScene, wall, len, seg, snapWallMat);
+  }
+
+  // Lockers (buildLockerGroup has no module-state side-effects)
+  const snapEdgeMat = new THREE.LineBasicMaterial({ color: EDGE_HEX, transparent: true, opacity: 0.25 });
+  for (const locker of state.lockers) {
+    const group = buildLockerGroup(locker, snapEdgeMat);
+    if (group) snapScene.add(group);
+  }
+
+  // Render once and capture
+  snapRenderer.render(snapScene, snapCamera);
+  const dataUrl = snapRenderer.domElement.toDataURL('image/png');
+
+  // Clean up to avoid WebGL context leaks
+  snapScene.traverse((o) => {
+    if (o instanceof THREE.Mesh) {
+      o.geometry.dispose();
+      (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => (m as THREE.Material).dispose());
+    }
+    if (o instanceof THREE.LineSegments) {
+      o.geometry.dispose();
+      (o.material as THREE.Material).dispose();
+    }
+  });
+  snapRenderer.dispose();
+
+  return dataUrl;
+}

@@ -395,6 +395,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 					</tfoot>
 				</table>
 				<div class="order-locker-count" id="order-locker-count">0 lockers</div>
+				<div class="order-select-row">
+					<label class="order-select-label" for="delivery-timing">Preferred delivery timing</label>
+					<select id="delivery-timing" class="order-select-input">
+						<option value="">Select timing...</option>
+						<option value="1–3 months">1–3 months</option>
+						<option value="3–6 months">3–6 months</option>
+						<option value="6–12 months">6–12 months</option>
+						<option value="Flexible / Not sure">Flexible / Not sure</option>
+					</select>
+				</div>
+				<div class="order-select-row">
+					<label class="order-select-label" for="budget-status">Funding / Budget</label>
+					<select id="budget-status" class="order-select-input">
+						<option value="">Select status...</option>
+						<option value="Have funds">Have funds</option>
+						<option value="Pending approval">Pending approval</option>
+						<option value="Exploring options">Exploring options</option>
+						<option value="Not sure yet">Not sure yet</option>
+					</select>
+				</div>
 				<div class="order-email-row">
 					<label class="order-email-label" for="customer-email">Your email</label>
 					<input type="email" id="customer-email" class="order-email-input" placeholder="you@example.com" required />
@@ -1219,6 +1239,29 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		color: #8c8c8c;
 		letter-spacing: 0.5px;
 	}
+	.order-select-row { padding: 0 24px; margin-top: 16px; }
+	.order-select-label {
+		display: block;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		margin-bottom: 6px;
+	}
+	.order-select-input {
+		width: 100%;
+		padding: 10px 36px 10px 14px;
+		border: 1px solid #e0e0e0;
+		border-radius: 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+		background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238c8c8c'/%3E%3C/svg%3E") no-repeat right 14px center;
+		box-sizing: border-box;
+		appearance: none;
+		-webkit-appearance: none;
+		cursor: pointer;
+	}
+	.order-select-input:focus { border-color: #fe5900; outline: none; }
 	.order-email-row { padding: 0 24px; margin-top: 16px; }
 	.order-email-label {
 		display: block;
@@ -1509,7 +1552,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	import { CUSHION_COLORS } from '../../room-planner/types';
 	import type { PlannerState, LockerInstance, Opening, Selection, DisplayUnit } from '../../room-planner/types';
 	import { jsPDF } from 'jspdf';
-	import { launch3DPreview, dispose3DPreview, resetCamera, rotateSelected3D, hasSelection3D, updateFloorColor3D, updateWallColor3D, setFloorLogo, removeFloorLogo, rebuildLockerMesh3D } from '../../room-planner/render3d';
+	import { launch3DPreview, dispose3DPreview, resetCamera, rotateSelected3D, hasSelection3D, updateFloorColor3D, updateWallColor3D, setFloorLogo, removeFloorLogo, rebuildLockerMesh3D, render3DSnapshot } from '../../room-planner/render3d';
 
 	// ─── Load setup data from localStorage ───
 	const raw = localStorage.getItem('ps_planner_setup');
@@ -2753,52 +2796,178 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	}
 
 	// ─── PDF Generation ───
-	async function generateLayoutPDF(allLines: LineItem[], orderSummary: string, grandTotal: number, customerEmail: string): Promise<Blob | null> {
+	async function generateLayoutPDF(
+		allLines: LineItem[],
+		grandTotal: number,
+		customerEmail: string,
+		deliveryTiming: string,
+		budget: string,
+	): Promise<Blob | null> {
 		const origIndex = activeRoomIndex;
 		try {
 			saveCurrentRoom();
 			const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'letter' });
-			const pageW = pdf.internal.pageSize.getWidth();
-			const pageH = pdf.internal.pageSize.getHeight();
-			const margin = 40;
-			const offCanvas = document.createElement('canvas'); offCanvas.width = 1200; offCanvas.height = 800;
-			const offCtx = offCanvas.getContext('2d')!;
+			const margin = 36;
+
+			// ── Per-room pages (landscape, 3D snapshot) ──
 			for (let ri = 0; ri < savedRooms.length; ri++) {
 				if (ri > 0) pdf.addPage('letter', 'landscape');
-				const room = savedRooms[ri]; const roomLabel = room.roomName || `Room ${ri + 1}`;
-				const tempState: PlannerState = { roomName: room.roomName, sportType: (room.sportType || '') as any, displayUnit: state.displayUnit, editMode: false, camera: { centerX: 0, centerY: 0, pixelsPerInch: 2 }, walls: JSON.parse(JSON.stringify(room.walls)), openings: JSON.parse(JSON.stringify(room.openings)), lockers: JSON.parse(JSON.stringify(room.lockers)), selection: null, floorColor: room.floorColor || '#8B7355', wallColor: room.wallColor || '#ffffff' };
-				let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-				for (const w of tempState.walls) { minX = Math.min(minX, w.start.x, w.end.x); minY = Math.min(minY, w.start.y, w.end.y); maxX = Math.max(maxX, w.start.x, w.end.x); maxY = Math.max(maxY, w.start.y, w.end.y); }
-				if (isFinite(minX)) { tempState.camera.pixelsPerInch = Math.min((offCanvas.width - 60) / (maxX - minX || 100), (offCanvas.height - 60) / (maxY - minY || 100)); tempState.camera.centerX = (minX + maxX) / 2; tempState.camera.centerY = (minY + maxY) / 2; }
-				offCtx.fillStyle = '#fff'; offCtx.fillRect(0, 0, offCanvas.width, offCanvas.height); render(offCtx, tempState);
-				const imgData = offCanvas.toDataURL('image/png');
-				const imgW = pageW - margin * 2; const imgH = (offCanvas.height / offCanvas.width) * imgW;
-				pdf.setFontSize(16); pdf.setFont('helvetica', 'bold'); pdf.text(roomLabel, margin, margin);
-				pdf.addImage(imgData, 'PNG', margin, margin + 10, imgW, Math.min(imgH, pageH - margin * 2 - 80));
-				pdf.setFontSize(8); pdf.setFont('helvetica', 'italic'); pdf.setTextColor(180);
-				pdf.text('PlayerStall Room Planner \u2014 playerstall.com', pageW / 2, pageH - 20, { align: 'center' }); pdf.setTextColor(0);
+				const lW = pdf.internal.pageSize.getWidth();
+				const lH = pdf.internal.pageSize.getHeight();
+				const room = savedRooms[ri];
+				const roomLabel = room.roomName || `Room ${ri + 1}`;
+
+				const tempState: PlannerState = {
+					roomName: room.roomName, sportType: (room.sportType || '') as any,
+					displayUnit: state.displayUnit, editMode: false,
+					camera: { centerX: 0, centerY: 0, pixelsPerInch: 2 },
+					walls: JSON.parse(JSON.stringify(room.walls)),
+					openings: JSON.parse(JSON.stringify(room.openings)),
+					lockers: JSON.parse(JSON.stringify(room.lockers)),
+					selection: null, floorColor: room.floorColor || '#8B7355', wallColor: room.wallColor || '#ffffff',
+				};
+
+				// White background
+				pdf.setFillColor(255, 255, 255);
+				pdf.rect(0, 0, lW, lH, 'F');
+
+				// PLAYERSTALL wordmark
+				pdf.setFontSize(26); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(13, 13, 13);
+				pdf.text('PLAYERSTALL', lW / 2, margin + 18, { align: 'center', charSpace: 3 });
+
+				// Room name subtitle
+				pdf.setFontSize(9); pdf.setFont('helvetica', 'normal'); pdf.setTextColor(136, 136, 136);
+				pdf.text(roomLabel.toUpperCase(), lW / 2, margin + 32, { align: 'center', charSpace: 1.5 });
+
+				// 3D snapshot image
+				const snapDataUrl = render3DSnapshot(tempState, 1200, 750);
+				const snapY = margin + 44;
+				const snapH = lH - snapY - margin - 18;
+				const snapW = lW - margin * 2;
+				pdf.addImage(snapDataUrl, 'PNG', margin, snapY, snapW, snapH);
+
+				// Footer
+				pdf.setFontSize(7); pdf.setFont('helvetica', 'italic'); pdf.setTextColor(180, 180, 180);
+				pdf.text('playerstall.com \u00b7 1-888-584-1444 \u00b7 team@playerstall.com', lW / 2, lH - 10, { align: 'center' });
+				pdf.setTextColor(13, 13, 13);
 			}
+
+			// ── Order summary page (portrait) ──
 			pdf.addPage('letter', 'portrait');
-			const pW = pdf.internal.pageSize.getWidth(); let y = margin;
-			pdf.setFontSize(18); pdf.setFont('helvetica', 'bold'); pdf.text('Order Summary', margin, y); y += 28;
-			pdf.setFontSize(10); pdf.setFont('helvetica', 'normal'); pdf.text(`Customer: ${customerEmail}`, margin, y); y += 20;
+			const pW = pdf.internal.pageSize.getWidth();
+			const pH = pdf.internal.pageSize.getHeight();
+			let y = margin;
+
+			pdf.setFillColor(255, 255, 255); pdf.rect(0, 0, pW, pH, 'F');
+
+			// PLAYERSTALL wordmark
+			pdf.setFontSize(22); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(13, 13, 13);
+			pdf.text('PLAYERSTALL', pW / 2, y + 14, { align: 'center', charSpace: 3 }); y += 28;
+
+			// REVIEW YOUR LAYOUT
+			pdf.setFontSize(8); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(100, 100, 100);
+			pdf.text('REVIEW YOUR LAYOUT', pW / 2, y + 7, { align: 'center', charSpace: 1.5 }); y += 18;
+
+			// Divider
+			pdf.setDrawColor(224, 224, 224); pdf.line(margin, y, pW - margin, y); y += 14;
+
+			// YOUR SELECTIONS card
+			const cardX = margin, cardW = pW - margin * 2;
+			const selStartY = y;
+			pdf.setFillColor(248, 248, 248); pdf.rect(cardX, y, cardW, 18, 'F');
+			pdf.setFontSize(7); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(80, 80, 80);
+			pdf.text('YOUR SELECTIONS', cardX + 10, y + 12, { charSpace: 1.5 }); y += 18;
+
+			const halfW = cardW / 2;
+			for (const [label, value] of [
+				['PREFERRED DELIVERY TIMING', deliveryTiming || '\u2014'],
+				['FUNDING / BUDGET', budget || '\u2014'],
+				['EMAIL', customerEmail],
+			]) {
+				pdf.setDrawColor(235, 235, 235); pdf.line(cardX, y, cardX + cardW, y);
+				pdf.setFontSize(7); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(136, 136, 136);
+				pdf.text(label, cardX + 10, y + 13, { charSpace: 0.5 });
+				pdf.setFontSize(9); pdf.setFont('helvetica', 'normal'); pdf.setTextColor(13, 13, 13);
+				pdf.text(value, cardX + halfW, y + 13);
+				y += 22;
+			}
+			pdf.setDrawColor(224, 224, 224); pdf.rect(cardX, selStartY, cardW, y - selStartY, 'S');
+			y += 14;
+
+			// ORDER SUMMARY card
+			const sumStartY = y;
+			const colProd = cardX + 10;
+			const colQty = cardX + cardW * 0.70;
+			const colTotal = cardX + cardW - 10;
+
+			pdf.setFillColor(248, 248, 248); pdf.rect(cardX, y, cardW, 18, 'F');
+			pdf.setFontSize(7); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(80, 80, 80);
+			pdf.text('ORDER SUMMARY', colProd, y + 12, { charSpace: 1.5 }); y += 18;
+
+			// Column headers
+			pdf.setDrawColor(235, 235, 235); pdf.line(cardX, y, cardX + cardW, y);
+			pdf.setFontSize(7); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(150, 150, 150);
+			pdf.text('PRODUCT', colProd, y + 11, { charSpace: 0.5 });
+			pdf.text('QTY', colQty, y + 11, { align: 'center', charSpace: 0.5 });
+			pdf.text('SUBTOTAL', colTotal, y + 11, { align: 'right', charSpace: 0.5 });
+			y += 18;
+
+			// Line items
 			let curRoom = '';
 			for (const line of allLines) {
+				if (y > pH - 80) { pdf.addPage('letter', 'portrait'); y = margin; }
 				const room = line.roomName || 'Unnamed Room';
-				if (room !== curRoom) { curRoom = room; y += 8; pdf.setFont('helvetica', 'bold'); pdf.setFontSize(11); pdf.text(room, margin, y); y += 16; pdf.setFont('helvetica', 'normal'); pdf.setFontSize(10); }
-				const accText = line.accessories.length ? ` + ${line.accessories.map((a) => a.label).join(', ')}` : '';
-				pdf.text(`${line.qty}x ${line.displayName} (${line.widthIn}"W x ${line.depthIn}"D, ${line.colorLabel}${accText})`, margin, y);
-				pdf.text(`$${(line.unitPrice * line.qty).toFixed(2)}`, pW - margin, y, { align: 'right' }); y += 14;
-				if (y > pdf.internal.pageSize.getHeight() - 60) { pdf.addPage('letter', 'portrait'); y = margin; }
+				if (room !== curRoom) {
+					curRoom = room;
+					pdf.setDrawColor(235, 235, 235); pdf.line(cardX, y, cardX + cardW, y);
+					pdf.setFillColor(250, 250, 250); pdf.rect(cardX, y, cardW, 15, 'F');
+					pdf.setFontSize(7); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(136, 136, 136);
+					pdf.text(room.toUpperCase(), colProd, y + 10, { charSpace: 1 }); y += 15;
+				}
+				pdf.setDrawColor(235, 235, 235); pdf.line(cardX, y, cardX + cardW, y);
+				const lineTotal = line.unitPrice * line.qty;
+				pdf.setFontSize(9); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(13, 13, 13);
+				pdf.text(line.displayName, colProd, y + 11);
+				const specParts = [`${line.widthIn}"W \u00d7 ${line.depthIn}"D`, line.colorLabel];
+				if (line.accessories.length) specParts.push(...line.accessories.map((a) => a.label));
+				pdf.setFontSize(7); pdf.setFont('helvetica', 'normal'); pdf.setTextColor(136, 136, 136);
+				pdf.text(specParts.join(' \u00b7 '), colProd, y + 20);
+				pdf.setFontSize(9); pdf.setFont('helvetica', 'normal'); pdf.setTextColor(13, 13, 13);
+				pdf.text(String(line.qty), colQty, y + 14, { align: 'center' });
+				pdf.text(`$${lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, colTotal, y + 14, { align: 'right' });
+				y += 26;
 			}
-			y += 12; pdf.setDrawColor(200); pdf.line(margin, y, pW - margin, y); y += 18;
-			pdf.setFontSize(13); pdf.setFont('helvetica', 'bold');
-			pdf.text('Estimated Total', margin, y); pdf.text(`$${grandTotal.toFixed(2)}`, pW - margin, y, { align: 'right' });
-			y += 30; pdf.setFontSize(8); pdf.setFont('helvetica', 'italic'); pdf.setTextColor(150);
-			pdf.text('This layout is an estimate. Final pricing may vary based on customization and installation requirements.', margin, y, { maxWidth: pW - margin * 2 }); pdf.setTextColor(0);
+
+			// Subtotal + Total rows
+			pdf.setDrawColor(200, 200, 200); pdf.line(cardX, y, cardX + cardW, y);
+			pdf.setFontSize(9); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(100, 100, 100);
+			pdf.text('SUBTOTAL', colProd, y + 13);
+			pdf.setFont('helvetica', 'normal'); pdf.setTextColor(13, 13, 13);
+			pdf.text(`$${grandTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, colTotal, y + 13, { align: 'right' });
+			y += 20;
+
+			pdf.setFillColor(248, 248, 248); pdf.rect(cardX, y, cardW, 20, 'F');
+			pdf.setDrawColor(200, 200, 200); pdf.line(cardX, y, cardX + cardW, y);
+			pdf.setFontSize(10); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(13, 13, 13);
+			pdf.text('ESTIMATED TOTAL', colProd, y + 14);
+			pdf.text(`$${grandTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, colTotal, y + 14, { align: 'right' });
+			y += 20;
+
+			pdf.setDrawColor(224, 224, 224); pdf.rect(cardX, sumStartY, cardW, y - sumStartY, 'S');
+			y += 18;
+
+			// Disclaimer + footer
+			pdf.setFontSize(7); pdf.setFont('helvetica', 'italic'); pdf.setTextColor(180, 180, 180);
+			pdf.text('This layout is an estimate. Final pricing may vary based on customization and installation requirements.', pW / 2, y, { align: 'center', maxWidth: pW - margin * 2 }); y += 12;
+			pdf.text('playerstall.com \u00b7 1-888-584-1444 \u00b7 team@playerstall.com', pW / 2, y, { align: 'center' });
+
 			loadRoom(origIndex);
 			return pdf.output('blob');
-		} catch (e) { console.error('PDF generation failed:', e); try { loadRoom(origIndex); } catch (_) {} return null; }
+		} catch (e) {
+			console.error('PDF generation failed:', e);
+			try { loadRoom(origIndex); } catch (_) {}
+			return null;
+		}
 	}
 
 	// ─── Request Quote ───
@@ -2821,6 +2990,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 		const customerEmail = (document.getElementById('customer-email') as HTMLInputElement).value.trim();
 		if (!customerEmail) { alert('Please enter your email address so we can get in touch with you.'); return; }
+		const deliveryTiming = (document.getElementById('delivery-timing') as HTMLSelectElement).value;
+		const budget = (document.getElementById('budget-status') as HTMLSelectElement).value;
 
 		let orderSummary = ''; let curRoom = '';
 		for (const line of allLines) {
@@ -2832,10 +3003,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 		const grandTotal = allLines.reduce((sum: number, l: any) => sum + l.unitPrice * l.qty, 0);
 		orderSummary += `\nEstimated Total: $${grandTotal.toFixed(2)}`;
 
+		const lineItems = allLines.map((line) => ({
+			roomName: line.roomName,
+			displayName: line.displayName,
+			widthIn: line.widthIn,
+			depthIn: line.depthIn,
+			colorLabel: line.colorLabel,
+			accessoryLabels: line.accessories.map((a: any) => a.label),
+			qty: line.qty,
+			lineTotal: `$${(line.unitPrice * line.qty).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+		}));
+
 		const statusMsg = document.getElementById('order-status-msg')!;
 		const btn = document.getElementById('btn-request-quote') as HTMLButtonElement;
 		btn.disabled = true; btn.textContent = 'Generating PDF...';
-		const pdfBlob = await generateLayoutPDF(allLines, orderSummary, grandTotal, customerEmail);
+		const pdfBlob = await generateLayoutPDF(allLines, grandTotal, customerEmail, deliveryTiming, budget);
 		btn.textContent = 'Sending...';
 
 		let pdfBase64: string | undefined;
@@ -2849,7 +3031,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 		fetch('/api/send-room-plan', {
 			method: 'POST', headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email: customerEmail, orderSummary, grandTotal: grandTotal.toFixed(2), pdfBase64 }),
+			body: JSON.stringify({ email: customerEmail, orderSummary, grandTotal: grandTotal.toFixed(2), pdfBase64, deliveryTiming, budget, lineItems }),
 		}).then(async (res) => {
 			if (res.ok) {
 				statusMsg.textContent = 'Thank you! We just emailed your room plan to ' + customerEmail + '. Our team received a copy too and will be in touch shortly.';
@@ -2860,11 +3042,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 				}
 			} else {
 				let detail = ''; try { const j = await res.json(); detail = j.error || ''; } catch {}
-				statusMsg.textContent = 'Something went wrong' + (detail ? ': ' + detail : '') + '. Please try again or email us directly at sales@playerstall.com.';
+				statusMsg.textContent = 'Something went wrong' + (detail ? ': ' + detail : '') + '. Please try again or email us directly at team@playerstall.com.';
 				statusMsg.style.color = '#fe5900'; btn.disabled = false; btn.textContent = 'Get In Touch With Us';
 			}
 		}).catch(() => {
-			statusMsg.textContent = 'Could not connect. Please check your internet and try again, or email us directly at sales@playerstall.com.';
+			statusMsg.textContent = 'Could not connect. Please check your internet and try again, or email us directly at team@playerstall.com.';
 			statusMsg.style.color = '#fe5900'; btn.disabled = false; btn.textContent = 'Get In Touch With Us';
 		});
 	};
