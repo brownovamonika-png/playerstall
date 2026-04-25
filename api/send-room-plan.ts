@@ -89,11 +89,12 @@ function buildCustomerHTML(
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
 @media (prefers-color-scheme:dark){
   .em-wrap{background-color:#1a1a1a!important}
   .em-body{background-color:#0d0d0d!important}
-  .em-wordmark{color:#ffffff!important}
   .em-title{color:#cccccc!important}
   .em-desc{color:#888888!important}
   .em-card{border-color:#2a2a2a!important}
@@ -119,8 +120,8 @@ function buildCustomerHTML(
 <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;width:100%;max-width:600px;" class="em-body">
 
   <!-- Wordmark -->
-  <tr><td style="padding:48px 40px 0;text-align:center;">
-    <p style="margin:0;font-family:${FONT};font-size:32px;font-weight:900;color:#0d0d0d;letter-spacing:5px;text-transform:uppercase;line-height:1;" class="em-wordmark">PLAYERSTALL</p>
+  <tr><td style="padding:48px 40px 36px;text-align:center;background-color:#0d0d0d;">
+    <p style="margin:0;font-family:'Oswald',sans-serif;font-size:43px;font-weight:600;color:#ffffff;letter-spacing:.05em;text-transform:uppercase;line-height:1;">PLAYERSTALL</p>
   </td></tr>
 
   <!-- Section heading -->
