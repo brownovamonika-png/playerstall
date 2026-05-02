@@ -4861,7 +4861,7 @@ const plannerTemplates = getAllTemplates();
 				currentRoom = room;
 				orderSummary += `\n--- ${room} ---\n`;
 			}
-			const accText = line.accessories.length ? ` · ${line.accessories.map((a: any) => a.label).join(', ')}` : '';
+			const accText = line.accessories.length ? ` · ${line.accessories.map((a: any) => `${a.label} ($${a.price.toFixed(2)})`).join(', ')}` : '';
 			orderSummary += `${line.qty}x ${line.displayName} (${line.widthIn}"W x ${line.depthIn}"D, ${line.colorLabel}${accText}) - $${(line.unitPrice * line.qty).toFixed(2)}\n`;
 		}
 		const grandTotal = allLines.reduce((sum: number, l: any) => sum + l.unitPrice * l.qty, 0);
@@ -4908,19 +4908,19 @@ const plannerTemplates = getAllTemplates();
 			unitPrice: l.unitPrice,
 			qty: l.qty,
 		}));
-		const estimateBlob = await generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal, orderSummary);
-		let layoutBlob: Blob | null = null;
-		try {
-			layoutBlob = await generateLayoutPdfBlob(savedRooms, state.displayUnit);
-		} catch (e) {
-			console.error('Layout PDF failed:', e);
-		}
 		let layoutPreviewDataUrl: string | undefined;
 		try {
 			const thumb = await captureFirstRoom3DEmailPreviewDataUrl(savedRooms, state.displayUnit);
 			if (thumb) layoutPreviewDataUrl = thumb;
 		} catch {
 			/* optional email hero image */
+		}
+		const estimateBlob = await generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal, orderSummary);
+		let layoutBlob: Blob | null = null;
+		try {
+			layoutBlob = await generateLayoutPdfBlob(savedRooms, state.displayUnit);
+		} catch (e) {
+			console.error('Layout PDF failed:', e);
 		}
 		try {
 			loadRoom(origIndex);

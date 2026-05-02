@@ -99,7 +99,21 @@ function layoutPreviewBlock(layoutPreviewDataUrl: string | undefined | null): st
   </td></tr>`;
 }
 
-/** Three-column review-style rows (Product | Qty | Subtotal) + counts. Mirrors /new-room-planner/review. */
+/**
+ * Split a parsed specLine into the base dimensions+color and individual
+ * accessory items (each with optional price). Handles formats like:
+ *   `24"W x 19"D · Marigold · Shelf ($45.00), Hook ($24.00)`
+ */
+function splitSpecAccessories(specLine: string): { basePart: string; accParts: string[] } {
+	const parts = specLine.split(' · ');
+	if (parts.length <= 2) return { basePart: specLine, accParts: [] };
+	const basePart = parts.slice(0, 2).join(' · ');
+	const accRaw = parts.slice(2).join(' · ');
+	const accParts = accRaw.split(/,\s*/).map((s) => s.trim()).filter(Boolean);
+	return { basePart, accParts };
+}
+
+/** Three-column review-style rows (Product | Qty | Subtotal) + counts. */
 function buildReviewStyleTableRows(orderSummary: string): {
 	rows: string;
 	lockerCount: number;
@@ -128,10 +142,20 @@ function buildReviewStyleTableRows(orderSummary: string): {
 			lockerCount += parseInt(p.qty, 10) || 0;
 			const nameU = p.name.toUpperCase();
 			const title = nameU.includes('LOCKER') ? nameU : `${nameU} LOCKER`;
+			const { basePart, accParts } = splitSpecAccessories(p.specLine);
+			const accHtml = accParts.length
+				? accParts
+						.map(
+							(a) =>
+								`<div style="margin-top:2px;font-family:${FF_BODY};font-size:10px;font-weight:400;color:${C_MUTED};letter-spacing:0.2px;line-height:1.35;padding-left:8px;">+ ${escapeHtml(a)}</div>`,
+						)
+						.join('')
+				: '';
 			chunks.push(`<tr>
   <td style="padding:14px 24px;border-bottom:1px solid ${C_RULE};vertical-align:top;">
     <div style="font-family:${FF_HEAD};font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:${C_TEXT};line-height:1.25;">${escapeHtml(title)}</div>
-    <div style="margin-top:4px;font-family:${FF_BODY};font-size:11px;font-weight:400;color:${C_MUTED};letter-spacing:0.3px;line-height:1.45;">${escapeHtml(p.specLine)}</div>
+    <div style="margin-top:4px;font-family:${FF_BODY};font-size:11px;font-weight:400;color:${C_MUTED};letter-spacing:0.3px;line-height:1.45;">${escapeHtml(basePart)}</div>
+    ${accHtml}
   </td>
   <td style="padding:14px 16px;border-bottom:1px solid ${C_RULE};text-align:center;vertical-align:top;font-family:${FF_HEAD};font-size:13px;font-weight:600;color:${C_TEXT};width:48px;">${escapeHtml(p.qty)}</td>
   <td style="padding:14px 24px 14px 12px;border-bottom:1px solid ${C_RULE};text-align:right;vertical-align:top;font-family:${FF_HEAD};font-size:13px;font-weight:600;color:${C_TEXT};white-space:nowrap;">$${escapeHtml(p.price)}</td>
@@ -198,7 +222,7 @@ function buildCustomerStripCard(customerEmail: string): string {
 }
 
 /**
- * Full `ORDER SUMMARY` card — mirrors the `/new-room-planner/review` panel.
+ * Full `ORDER SUMMARY` card — mirrors the planner review panel.
  * For customer role: ends with "Your email" row + black LAYOUT SENT bar +
  * thank-you line. For team role: ends with locker count + shipping (the
  * customer mailto lives in the Customer strip above this card).

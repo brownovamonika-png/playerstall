@@ -50,22 +50,28 @@ function productTitle(line: EstimatePdfLine): string {
 	return u.includes('LOCKER') ? u : `${u} LOCKER`;
 }
 
-/** One spec line like email HTML (uppercase). */
+/** Dimensions + color spec (uppercase). */
 function productSpecLine(line: EstimatePdfLine): string {
-	const acc = line.accessories.map((a) => a.label).join(', ');
-	const mid = `${line.widthIn}"W x ${line.depthIn}"D · ${line.colorLabel}${acc ? ` + ${acc}` : ''}`;
+	const mid = `${line.widthIn}"W x ${line.depthIn}"D · ${line.colorLabel}`;
 	return mid.toUpperCase();
+}
+
+/** Individual accessory detail lines for the per-locker pricing breakdown. */
+function productAccessoryLines(line: EstimatePdfLine): string[] {
+	return line.accessories.map((a) => `+ ${a.label}: $${a.price.toFixed(2)}`);
 }
 
 function productRowMetrics(pdf: jsPDF, line: EstimatePdfLine, colProductW: number) {
 	const title = productTitle(line);
 	const specU = productSpecLine(line);
+	const accLines = productAccessoryLines(line);
 	const nameLines = pdf.splitTextToSize(title, colProductW - 4) as string[];
 	const specLines = pdf.splitTextToSize(specU, colProductW - 4) as string[];
 	const nameH = nameLines.length * 14;
 	const specH = specLines.length * 11;
-	const rowH = Math.max(52, 14 + nameH + 6 + specH + 14);
-	return { nameLines, specLines, nameH, specH, rowH };
+	const accH = accLines.length * 11;
+	const rowH = Math.max(52, 14 + nameH + 6 + specH + (accH > 0 ? 4 + accH : 0) + 14);
+	return { nameLines, specLines, accLines, nameH, specH, accH, rowH };
 }
 
 function shippingLinesHeight(pdf: jsPDF, innerW: number): number {
@@ -313,7 +319,7 @@ export async function generateEstimatePdfBlob(
 				y += 26;
 			}
 
-			const { nameLines, specLines, nameH, specH, rowH } = productRowMetrics(pdf, line, colProductW);
+			const { nameLines, specLines, accLines, nameH, specH, rowH } = productRowMetrics(pdf, line, colProductW);
 			ensureSpace(rowH + 6);
 
 			const rowTop = y;
@@ -327,6 +333,15 @@ export async function generateEstimatePdfBlob(
 			pdf.setFontSize(11);
 			pdf.setTextColor(...MUTED);
 			pdf.text(specLines, innerLeft, ty);
+			if (accLines.length) {
+				ty += specH + 3;
+				pdf.setFontSize(9);
+				pdf.setTextColor(...MUTED);
+				for (const al of accLines) {
+					pdf.text(al, innerLeft + 4, ty);
+					ty += 11;
+				}
+			}
 
 			const qtyY = rowTop + 22;
 			setBold();

@@ -1,6 +1,6 @@
 /**
  * Shared wording for room-plan flows: single-page Locker Room Planner (/room-planner),
- * step-by-step planner review (/new-room-planner/review), customer email, and estimate PDF.
+ * planner review (/room-planner), customer email, and estimate PDF.
  * See roomPlanEmailTemplates + pdfEstimate + planner pages.
  */
 
@@ -59,7 +59,7 @@ export const ROOM_PLAN_ATTACHMENTS_NOTE_PDF =
 
 export const ROOM_PLAN_CTA_LABEL = 'Back to room planner';
 
-export const ROOM_PLAN_CTA_URL = 'https://playerstall.com/new-room-planner/review';
+export const ROOM_PLAN_CTA_URL = 'https://playerstall.com/room-planner';
 
 export const ROOM_PLAN_FOOTER_LINES = [
 	'PlayerStall · 2934 200 Street, Langley, BC V2Z 2C1 Canada',

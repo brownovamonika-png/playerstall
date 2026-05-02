@@ -4,9 +4,7 @@ import { isAdminPasswordWallEnabled, isPreviewModeMissingPassword, verifyCrmGate
 function isRoomPlannerPath(pathname: string): boolean {
   return (
     pathname === '/room-planner' ||
-    pathname.startsWith('/room-planner/') ||
-    pathname.startsWith('/new-room-planner') ||
-    pathname.startsWith('/room-planner-v2')
+    pathname.startsWith('/room-planner/')
   );
 }
 
