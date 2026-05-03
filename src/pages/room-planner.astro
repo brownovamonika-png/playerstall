@@ -4918,7 +4918,11 @@ const plannerTemplates = getAllTemplates();
 		const estimateBlob = await generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal, orderSummary);
 		let layoutBlob: Blob | null = null;
 		try {
-			layoutBlob = await generateLayoutPdfBlob(savedRooms, state.displayUnit);
+			layoutBlob = await generateLayoutPdfBlob(savedRooms, state.displayUnit, {
+				customerEmail,
+				grandTotal,
+				lines: estimateLines,
+			});
 		} catch (e) {
 			console.error('Layout PDF failed:', e);
 		}

@@ -171,3 +171,67 @@ export function drawRoomPlanEmailStylePdfFooter(
 	pdf.text(line2, pageW / 2, pageH - 16, { align: 'center' });
 	pdf.setTextColor(0, 0, 0);
 }
+
+/**
+ * Compact centered header used by the per-room layout pages and the layout-PDF
+ * summary page (matches the abandoned `feature/email-pdf-redesign` reference
+ * `room-planner-layout.pdf`). Renders a small "PLAYERSTALL" wordmark with a
+ * tiny gray subtitle underneath. Returns the Y coordinate where body content
+ * should start (just below the subtitle).
+ */
+export interface LayoutPdfHeaderOptions extends BrandFontAware {
+	/** Big black wordmark — defaults to "PLAYERSTALL". */
+	wordmark?: string;
+	/** Tiny gray subtitle below the wordmark (e.g. "YOUR LOCKER ROOM LAYOUT"). */
+	subtitle?: string;
+	/** Y offset to place the wordmark baseline at (defaults to 48). */
+	topY?: number;
+	/** Wordmark font size in points (defaults to 22). */
+	wordmarkSize?: number;
+}
+
+export function drawLayoutPdfCenteredHeader(
+	pdf: jsPDF,
+	options: LayoutPdfHeaderOptions = {},
+): number {
+	const pageW = pdf.internal.pageSize.getWidth();
+	const useBrand = options.brandFonts !== false;
+	const wordmark = options.wordmark ?? 'PLAYERSTALL';
+	const subtitle = options.subtitle ?? '';
+	const topY = options.topY ?? 48;
+	const wordmarkSize = options.wordmarkSize ?? 22;
+
+	fontDisplay(pdf, useBrand);
+	pdf.setFontSize(wordmarkSize);
+	pdf.setTextColor(...TEXT);
+	pdf.text(wordmark, pageW / 2, topY, { align: 'center', charSpace: 0.35 });
+	let y = topY + 14;
+	if (subtitle) {
+		fontBody(pdf, useBrand);
+		pdf.setFontSize(8);
+		pdf.setTextColor(...MUTED);
+		pdf.text(subtitle, pageW / 2, y, { align: 'center', charSpace: 1.6 });
+		y += 8;
+	}
+	pdf.setTextColor(0, 0, 0);
+	return y + 4;
+}
+
+/**
+ * Single-line centered footer (e.g. "playerstall.com · team@playerstall.com")
+ * used by the redesigned layout PDF. Sits low on the page, light gray.
+ */
+export function drawLayoutPdfFooterLine(
+	pdf: jsPDF,
+	line: string,
+	options?: BrandFontAware,
+): void {
+	const pageW = pdf.internal.pageSize.getWidth();
+	const pageH = pdf.internal.pageSize.getHeight();
+	const useBrand = options?.brandFonts !== false;
+	fontBody(pdf, useBrand);
+	pdf.setFontSize(8);
+	pdf.setTextColor(...FOOT_GRAY);
+	pdf.text(line, pageW / 2, pageH - 22, { align: 'center' });
+	pdf.setTextColor(0, 0, 0);
+}
