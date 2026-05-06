@@ -91,6 +91,10 @@ Preferred location. All new images should be added here.
 | https://playerstall.b-cdn.net/images/h3-img-1.jpg | Description TBD | src/pages/homepage-archived.astro; src/pages/index.astro |
 | https://playerstall.b-cdn.net/images/p4-img.jpg | Description TBD | src/pages/homepage-archived.astro |
 | https://playerstall.b-cdn.net/images/p4-title-img.jpg | Description TBD | src/pages/homepage-archived.astro; src/pages/index.astro |
+| https://playerstall.b-cdn.net/images/shop-img-6-300x420.jpg | Sports equipment – homepage quote strip | src/pages/index.astro |
+| https://playerstall.b-cdn.net/images/shop-img-8-300x420.jpg | Hockey stick – homepage quote strip | src/pages/index.astro |
+| https://playerstall.b-cdn.net/images/romans-helmet.png | Hockey player – homepage quote strip | src/pages/index.astro |
+| https://playerstall.b-cdn.net/images/baseball-glove-close.png | Baseball glove – homepage quote strip | src/pages/index.astro |
 | https://playerstall.b-cdn.net/images/stadium-goalpost-playerstall-lockers.jpg | Description TBD | src/pages/index.astro |
 | https://playerstall.b-cdn.net/images/h2-rev-slide-4.jpg | Description TBD | src/pages/index.astro |
 | https://playerstall.b-cdn.net/images/h2-img-2.jpg | Description TBD | src/pages/index.astro |
@@ -250,10 +254,10 @@ External theme assets. **Migration:** consider copying to CDN.
 
 | URL | Description | Used in | Migration |
 |-----|-------------|---------|-----------|
-| https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-6-300x420.jpg | Description TBD | src/pages/index.astro | Migrate to CDN |
-| https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-8-300x420.jpg | Description TBD | src/pages/index.astro | Migrate to CDN |
-| https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/romans-img.png | Description TBD | src/pages/index.astro | Migrate to CDN |
-| https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-4-300x420.jpg | Description TBD | src/pages/index.astro | Migrate to CDN |
+| https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-6-300x420.jpg | Sports equipment photo (theme placeholder) | Removed from src/pages/index.astro | **Migrated to CDN**: `https://playerstall.b-cdn.net/images/shop-img-6-300x420.jpg` |
+| https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-8-300x420.jpg | Hockey stick photo (theme placeholder) | Removed from src/pages/index.astro | **Migrated to CDN**: `https://playerstall.b-cdn.net/images/shop-img-8-300x420.jpg` |
+| https://topscorer.qodeinteractive.com/wp-content/uploads/2019/11/romans-img.png | Hockey player PNG (theme placeholder) | Removed from src/pages/index.astro | **Migrated to CDN**: `https://playerstall.b-cdn.net/images/romans-helmet.png` |
+| https://topscorer.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-4-300x420.jpg | Baseball glove photo (theme placeholder) | Removed from src/pages/index.astro | **Migrated to CDN**: `https://playerstall.b-cdn.net/images/baseball-glove-close.png` |
 
 ---
 
