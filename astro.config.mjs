@@ -33,6 +33,7 @@ export default defineConfig({
     '/full.html': '/products',
     '/football_stalls.html': '/sport/football',
     '/hockey_stalls.html': '/sport/hockey',
+    '/hockey': '/sport/hockey',
     '/basketball_stalls.html': '/sport/basketball',
     '/baseball_stalls.html': '/sport/baseball',
     '/soccer_stalls.html': '/sport/soccer',

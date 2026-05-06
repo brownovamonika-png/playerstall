@@ -58,6 +58,11 @@
       "permanent": true
     },
     {
+      "source": "/hockey",
+      "destination": "https://www.playerstall.com/sport/hockey",
+      "permanent": true
+    },
+    {
       "source": "/basketball_stalls.html",
       "destination": "https://www.playerstall.com/sport/basketball",
       "permanent": true
