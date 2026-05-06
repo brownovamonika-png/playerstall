@@ -20,12 +20,10 @@ export default defineConfig({
       chunkSizeWarningLimit: 900,
     },
   },
+  // Production redirects live in vercel.json (single-hop, no chain).
+  // These duplicates are kept ONLY so `npm run dev` handles legacy URLs locally.
   redirects: {
-    // Services page renamed to products; preserve old URL
     '/services': '/products',
-    // Legacy .html routes → current Astro routes
-    // Note: /index.html → / is omitted; it conflicts with the built root index.
-    // Most hosts already serve /index.html as /. Configure /index.html→/ in your host (e.g. _redirects, vercel.json) if needed.
     '/sports_locker.html': '/products',
     '/staff.html': '/contact',
     '/other.html': '/products',

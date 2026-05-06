@@ -3,6 +3,116 @@
   "framework": "astro",
   "redirects": [
     {
+      "source": "/index.html",
+      "destination": "https://www.playerstall.com/",
+      "permanent": true
+    },
+    {
+      "source": "/locker-budget-planner.html",
+      "destination": "https://www.playerstall.com/locker-budget-planner",
+      "permanent": true
+    },
+    {
+      "source": "/sports_locker.html",
+      "destination": "https://www.playerstall.com/products",
+      "permanent": true
+    },
+    {
+      "source": "/staff.html",
+      "destination": "https://www.playerstall.com/contact",
+      "permanent": true
+    },
+    {
+      "source": "/other.html",
+      "destination": "https://www.playerstall.com/products",
+      "permanent": true
+    },
+    {
+      "source": "/custom.html",
+      "destination": "https://www.playerstall.com/products",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "https://www.playerstall.com/contact",
+      "permanent": true
+    },
+    {
+      "source": "/wall_locker.html",
+      "destination": "https://www.playerstall.com/products",
+      "permanent": true
+    },
+    {
+      "source": "/full.html",
+      "destination": "https://www.playerstall.com/products",
+      "permanent": true
+    },
+    {
+      "source": "/football_stalls.html",
+      "destination": "https://www.playerstall.com/sport/football",
+      "permanent": true
+    },
+    {
+      "source": "/hockey_stalls.html",
+      "destination": "https://www.playerstall.com/sport/hockey",
+      "permanent": true
+    },
+    {
+      "source": "/basketball_stalls.html",
+      "destination": "https://www.playerstall.com/sport/basketball",
+      "permanent": true
+    },
+    {
+      "source": "/baseball_stalls.html",
+      "destination": "https://www.playerstall.com/sport/baseball",
+      "permanent": true
+    },
+    {
+      "source": "/soccer_stalls.html",
+      "destination": "https://www.playerstall.com/sport/soccer",
+      "permanent": true
+    },
+    {
+      "source": "/semi_pro.html",
+      "destination": "https://www.playerstall.com/product-semi-pro-locker",
+      "permanent": true
+    },
+    {
+      "source": "/pro.html",
+      "destination": "https://www.playerstall.com/product-pro-locker",
+      "permanent": true
+    },
+    {
+      "source": "/stadium.html",
+      "destination": "https://www.playerstall.com/product-stadium-locker",
+      "permanent": true
+    },
+    {
+      "source": "/varsity.html",
+      "destination": "https://www.playerstall.com/product-varsity-locker",
+      "permanent": true
+    },
+    {
+      "source": "/quote.html",
+      "destination": "https://www.playerstall.com/request-a-quote",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "https://www.playerstall.com/products",
+      "permanent": true
+    },
+    {
+      "source": "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:slug",
+      "destination": "https://www.playerstall.com/blog/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:slug/",
+      "destination": "https://www.playerstall.com/blog/:slug",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "playerstall.com" }],
       "destination": "https://www.playerstall.com/:path*",
