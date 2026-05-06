@@ -32,6 +32,37 @@ const stickRackSpecs = [
 	title='Stick Rack | Hockey & Lacrosse Stick Storage | PlayerStall'
 	description='Dedicated wood stick rack for hockey, lacrosse and baseball — keeps sticks organized, off the floor, and easy to grab. Starting at $299. Custom built, 5 year warranty. Available in any locker color.'
 >
+	<Fragment slot="head">
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "Product",
+					"name": "Stick Rack",
+					"description": "Dedicated wood stick rack for hockey, lacrosse and baseball — keeps sticks organized, off the floor, and easy to grab. Custom built, 5 year warranty. Available in any locker color. Sizes: 36\", 48\", 60\", or 72\".",
+					"url": "https://playerstall.com/product-stick-rack/",
+					"image": "https://playerstall.b-cdn.net/images/stick-rack.png",
+					"brand": { "@type": "Brand", "name": "PlayerStall" },
+					"offers": {
+						"@type": "Offer",
+						"price": 299,
+						"priceCurrency": "USD",
+						"availability": "https://schema.org/InStock",
+						"priceValidUntil": "2026-12-31",
+						"url": "https://playerstall.com/product-stick-rack/"
+					}
+				},
+				{
+					"@type": "BreadcrumbList",
+					"itemListElement": [
+						{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://playerstall.com" },
+						{ "@type": "ListItem", "position": 2, "name": "Shop", "item": "https://playerstall.com/shop/" },
+						{ "@type": "ListItem", "position": 3, "name": "Stick Rack", "item": "https://playerstall.com/product-stick-rack/" }
+					]
+				}
+			]
+		})}></script>
+	</Fragment>
 	<!-- Hero Section (same as lockers / bench) -->
 	<section class="product-hero-section">
 		<div class="product-hero-background">

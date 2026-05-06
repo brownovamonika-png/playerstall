@@ -35,6 +35,38 @@ const eliteSpecs = [
 	title="Model Z Wood Locker | PlayerStall"
 	description="Model Z wood locker: curved design, 76&quot; H x 19&quot; or 24&quot; D, widths 18&quot;–32&quot;. From $649. Full color options. Custom-built in three months. 5 year warranty."
 >
+	<Fragment slot="head">
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "Product",
+					"name": "Model Z Wood Locker",
+					"description": "Model Z wood locker: curved design, 76\" H x 19\" or 24\" D, widths 18\"–32\". Custom-built in three months. 5 year warranty. MPW-6C plywood core with premium melamine surface.",
+					"url": "https://playerstall.com/product-elite-locker/",
+					"image": "https://playerstall.com/images/model-z-blue-left-side.png",
+					"brand": { "@type": "Brand", "name": "PlayerStall" },
+					"offers": {
+						"@type": "AggregateOffer",
+						"lowPrice": 649,
+						"highPrice": 749,
+						"priceCurrency": "USD",
+						"availability": "https://schema.org/InStock",
+						"priceValidUntil": "2026-12-31"
+					}
+				},
+				{
+					"@type": "BreadcrumbList",
+					"itemListElement": [
+						{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://playerstall.com" },
+						{ "@type": "ListItem", "position": 2, "name": "Shop", "item": "https://playerstall.com/shop/" },
+						{ "@type": "ListItem", "position": 3, "name": "Model Z Locker", "item": "https://playerstall.com/product-elite-locker/" }
+					]
+				}
+			]
+		})}></script>
+	</Fragment>
+
 	<!-- Hero Section -->
 	<section class="product-hero-section">
 		<div class="product-hero-background">

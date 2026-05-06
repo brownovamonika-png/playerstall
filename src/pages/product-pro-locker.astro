@@ -29,6 +29,37 @@ const proSpecs = [
 	title="Pro Locker | PlayerStall"
 	description="Pro Locker wood locker: 19&quot; D only, Pre-Finished Birch Plywood, 76&quot; H, widths 18&quot;–32&quot;. From $599. Essential line. Custom-built in 8–12 weeks. 5 year warranty."
 >
+	<Fragment slot="head">
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "Product",
+					"name": "Pro Locker",
+					"description": "Pro Locker wood locker: 19\" D, Pre-Finished Birch Plywood, 76\" H, widths 18\"–32\". Essential line. Custom-built in 8–12 weeks. 5 year warranty.",
+					"url": "https://playerstall.com/product-pro-locker/",
+					"image": "https://playerstall.com/images/essential-locker-oak-left-side.png",
+					"brand": { "@type": "Brand", "name": "PlayerStall" },
+					"offers": {
+						"@type": "AggregateOffer",
+						"lowPrice": 599,
+						"highPrice": 649,
+						"priceCurrency": "USD",
+						"availability": "https://schema.org/InStock",
+						"priceValidUntil": "2026-12-31"
+					}
+				},
+				{
+					"@type": "BreadcrumbList",
+					"itemListElement": [
+						{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://playerstall.com" },
+						{ "@type": "ListItem", "position": 2, "name": "Shop", "item": "https://playerstall.com/shop/" },
+						{ "@type": "ListItem", "position": 3, "name": "Pro Locker", "item": "https://playerstall.com/product-pro-locker/" }
+					]
+				}
+			]
+		})}></script>
+	</Fragment>
 	<!-- Hero Section -->
 	<section class="product-hero-section">
 		<div class="product-hero-background">

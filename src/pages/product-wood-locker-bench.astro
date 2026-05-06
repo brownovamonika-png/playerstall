@@ -43,6 +43,37 @@ const benchSpecs = [
 	title='Bench - Free Standing 72" to 96" Long | PlayerStall'
 	description='Custom wood locker bench, free standing. 18" H × 18" D, 72" to 96" long depending on number of users. Available in any locker color – Sherwin-Williams paint palette or textured woodgrain. Solid wood, black pedestals. Request a quote.'
 >
+	<Fragment slot="head">
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "Product",
+					"name": "Wood Locker Bench",
+					"description": "Custom wood locker bench, free standing. 18\" H × 18\" D, 72\" to 96\" long. Solid butcher block wood top, black powder-coated pedestal legs. Available in any locker color. 5 year warranty.",
+					"url": "https://playerstall.com/product-wood-locker-bench/",
+					"image": "https://playerstall.b-cdn.net/images/bench%20top%20above.png",
+					"brand": { "@type": "Brand", "name": "PlayerStall" },
+					"offers": {
+						"@type": "Offer",
+						"price": 269,
+						"priceCurrency": "USD",
+						"availability": "https://schema.org/InStock",
+						"priceValidUntil": "2026-12-31",
+						"url": "https://playerstall.com/product-wood-locker-bench/"
+					}
+				},
+				{
+					"@type": "BreadcrumbList",
+					"itemListElement": [
+						{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://playerstall.com" },
+						{ "@type": "ListItem", "position": 2, "name": "Shop", "item": "https://playerstall.com/shop/" },
+						{ "@type": "ListItem", "position": 3, "name": "Wood Locker Bench", "item": "https://playerstall.com/product-wood-locker-bench/" }
+					]
+				}
+			]
+		})}></script>
+	</Fragment>
 	<!-- Hero Section (same as lockers) -->
 	<section class="product-hero-section">
 		<div class="product-hero-background">

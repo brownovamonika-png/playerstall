@@ -10,8 +10,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 >
 
 <Fragment slot="head">
-	<script type="application/ld+json">
-	{JSON.stringify({
+	<script type="application/ld+json" set:html={JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "LocalBusiness",
 		"name": "PlayerStall",
@@ -36,8 +35,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 		"areaServed": "US",
 		"priceRange": "$$",
 		"description": "Custom wood sports lockers for collegiate and professional teams. 30+ years experience. Ships nationwide. Free design consultation."
-	})}
-	</script>
+	})}></script>
 </Fragment>
 
 <!-- Hero Slider Section -->
