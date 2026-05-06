@@ -27,6 +27,37 @@ const semiProSpecs = [
 	title="Semi Pro Wood Locker | PlayerStall"
 	description="Semi Pro wood locker: 3/4&quot; solid wood, 76&quot; H x 19&quot; D, widths 18&quot;–32&quot;. $349 base. Full color options. Custom-built in three months. 5 year warranty."
 >
+	<Fragment slot="head">
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "Product",
+					"name": "Semi Pro Wood Locker",
+					"description": "Semi Pro wood locker: 3/4\" solid wood, 76\" H x 19\" D, widths 18\"–32\". Full color options. Custom-built in three months. 5 year warranty.",
+					"url": "https://playerstall.com/product-semi-pro-locker/",
+					"image": "https://playerstall.com/images/semi-pro-locker-third.png",
+					"brand": { "@type": "Brand", "name": "PlayerStall" },
+					"offers": {
+						"@type": "AggregateOffer",
+						"lowPrice": 349,
+						"highPrice": 429,
+						"priceCurrency": "USD",
+						"availability": "https://schema.org/InStock",
+						"priceValidUntil": "2026-12-31"
+					}
+				},
+				{
+					"@type": "BreadcrumbList",
+					"itemListElement": [
+						{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://playerstall.com" },
+						{ "@type": "ListItem", "position": 2, "name": "Shop", "item": "https://playerstall.com/shop/" },
+						{ "@type": "ListItem", "position": 3, "name": "Semi Pro Locker", "item": "https://playerstall.com/product-semi-pro-locker/" }
+					]
+				}
+			]
+		})}></script>
+	</Fragment>
 	<!-- Hero Section -->
 	<section class="product-hero-section">
 		<div class="product-hero-background">
