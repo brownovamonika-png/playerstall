@@ -3,12 +3,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { CUSHION_CART_IMAGE } from '../data/shop-accessories';
 import { MODEL_X_HERO_IMAGE } from '../data/model-x-assets';
 import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
+import { LOCKERS_CATALOG_SORTED } from '../data/lockers-catalog';
+import { buildLockersItemList } from '../utils/locker-jsonld';
+
+const shopLockersItemList = buildLockersItemList(
+	LOCKERS_CATALOG_SORTED,
+	'https://playerstall.com/shop/',
+);
 ---
 
 <BaseLayout 
 	title="Shop - Custom Sports Lockers | PlayerStall"
 	description="Shop luxury custom-built wood sports lockers and accessories. Custom orders built to your specifications with full color options. 5 year warranty."
 >
+	<Fragment slot="head">
+		<script type="application/ld+json" set:html={JSON.stringify(shopLockersItemList)} />
+	</Fragment>
 	<!-- Hero Section (same image as contact page) -->
 	<section class="shop-hero-section">
 		<div class="shop-hero-background">

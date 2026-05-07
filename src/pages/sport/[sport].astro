@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { MODEL_X_HERO_IMAGE } from '../../data/model-x-assets';
-import { MODEL_S_HERO_IMAGE } from '../../data/model-s-assets';
+import { lockersForSportUi, LOCKERS_CATALOG_SORTED } from '../../data/lockers-catalog';
+import { buildLockersItemList } from '../../utils/locker-jsonld';
 
 /* ───── Sport Data ───── */
 interface HighlightItem {
@@ -241,18 +241,8 @@ const SPORT_DATA: Record<string, SportInfo> = {
 	},
 };
 
-// All 8 lockers: displayed by sport, sorted by price (highest at top, lowest at bottom). priceSort used for ordering.
-const LOCKERS_RAW = [
-	{ name: 'Model X', priceSort: 649, image: MODEL_X_HERO_IMAGE, images: ['/images/model-x-dark-grey-front-base-cushion.png', '/images/model-x-dark-grey-right-side.png', '/images/model-x-dark-grey-left-side.png', '/images/model-x-dark-grey-side-view.png'], price: '$649', info: 'Top-tier locker. Curved design, maximum durability and customization. Custom-built in three months with full color options.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-legendary-locker' },
-	{ name: 'Model Z', priceSort: 649, image: '/images/model-z-blue-left-side.png', images: ['/images/model-z-blue-front-base.png', '/images/model-z-blue-right-side.png', '/images/model-z-blue-left-side.png', '/images/model-z-blue-side.png'], price: '$649', info: 'Top-tier locker. Curved design, premium materials. Custom-built to your specifications.', dimensions: '24" W × 76" H × 24" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-elite-locker' },
-	{ name: 'Model L', priceSort: 649, image: '/images/model-l-dark-oak-front-base.png', images: ['/images/model-l-dark-oak-front-base.png', '/images/model-l-dark-oak-right-side.png', '/images/model-l-oak-left-side.png', 'https://playerstall.b-cdn.net/images/L%20dark%20oak%20side.png'], price: '$649', info: 'Premium melamine, 19" or 24" depth. Reliable workhorse for team locker rooms. Custom-built to your specifications.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-model-l' },
-	{ name: 'Model S', priceSort: 649, image: '/images/model-s-black-front-base.png', images: ['/images/model-s-black-front-base.png', '/images/model-s-black-right-side.png', '/images/model-s-black-left-side.png', 'https://playerstall.b-cdn.net/images/S%20black%20side.png'], price: '$649', info: 'Premium melamine, stadium-grade. Heavy-duty build for high-traffic facilities. Custom-built to your specifications.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-model-s' },
-	{ name: 'Pro', priceSort: 599, image: '/images/pro-locker-oak-front-base.png', images: ['/images/pro-locker-oak-front-base.png', '/images/pro-locker-oak-right-side.png', '/images/essential-locker-oak-left-side.png', '/images/pro-locker-oak-side-view.png'], price: '$599', info: 'Essential line. 19" depth only, Pre-Finished Birch Plywood. Ideal for schools and rec teams.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-pro-locker' },
-	{ name: 'Stadium', priceSort: 599, image: '/images/stadium-locker-oak-front-base-cushion.png', images: ['/images/stadium-locker-oak-front-base-cushion.png', '/images/stadium-locker-oak-right-side.png', '/images/stadium-locker-oak-left-side.png', '/images/stadium-locker-oak-side-view.png'], price: '$599', info: 'Essential line. 19" depth only, Pre-Finished Birch Plywood. Stadium-style layout.', dimensions: '18" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-stadium-locker' },
-	{ name: 'Varsity', priceSort: 449, image: '/images/varsity-locker.png', images: ['/images/varsity-locker.png', '/images/varsity-locker.png', '/images/varsity-locker.png', '/images/varsity-locker.png'], price: '$449', info: 'Essential line. 3/4" solid wood premium finish. Great for varsity and competitive programs.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"; optional 4" base', href: '/product-varsity-locker' },
-	{ name: 'Semi Pro', priceSort: 349, image: 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png', images: ['https://playerstall.b-cdn.net/images/semi-pro-locker-new.png', 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png', 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png', 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png'], price: '$349', info: 'Essential line. 3/4" solid wood, 19" depth only. Durable and ideal for schools and rec teams.', dimensions: '24" W × 76" H × 19" D', dimensionsNote: 'Widths 18"–32"', href: '/product-semi-pro-locker' },
-];
-const LOCKERS = LOCKERS_RAW.sort((a, b) => b.priceSort - a.priceSort);
+// All 8 lockers (canonical lineup from `src/data/lockers-catalog.ts`).
+const LOCKERS = lockersForSportUi();
 
 /* ───── Route ───── */
 export function getStaticPaths() {
@@ -285,12 +275,20 @@ const pageTitles: Record<string, string> = {
 	lacrosse: 'Custom Lacrosse Lockers | Wood Athletic Storage for Teams | PlayerStall',
 };
 const pageTitle = pageTitles[sport] || `${data.title} | Custom Wood Lockers | PlayerStall`;
+
+const sportLockersItemList = buildLockersItemList(
+	LOCKERS_CATALOG_SORTED,
+	`https://playerstall.com/sport/${sport}/`,
+);
 ---
 
 <BaseLayout
 	title={pageTitle}
 	description={data.description}
 >
+	<Fragment slot="head">
+		<script type="application/ld+json" set:html={JSON.stringify(sportLockersItemList)} />
+	</Fragment>
 <div class={isDark ? 'sp-page sp-page-dark' : 'sp-page'}>
 	<!-- ═══════ HERO BANNER ═══════ -->
 	<section class={`sp-hero sp-hero-${sport}`}>

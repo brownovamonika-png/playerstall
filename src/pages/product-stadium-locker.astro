@@ -6,6 +6,8 @@ import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import ProductGalleryControls from '../components/ProductGalleryControls.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
+import { getLockerCatalogBySlugPath } from '../data/lockers-catalog';
+import { buildLockerProductGraphNode } from '../utils/locker-jsonld';
 import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
 const stadiumLockerDimensionsSheetSrc = 'https://playerstall.b-cdn.net/images/Model%20S%2019%20inches.png';
@@ -24,6 +26,8 @@ const stadiumSpecs = [
 	{ label: 'Custom build', value: '8–12 weeks — any size, options' },
 	{ label: 'Warranty', value: '5 year warranty' },
 ];
+const lockerSchemaEntry = getLockerCatalogBySlugPath('/product-stadium-locker');
+if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Stadium Locker');
 ---
 
 <BaseLayout
@@ -34,22 +38,7 @@ const stadiumSpecs = [
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
 			"@graph": [
-				{
-					"@type": "Product",
-					"name": "Stadium Locker",
-					"description": "Stadium Locker wood locker: 19\" D, Pre-Finished Birch Plywood, 76\" H, widths 18\"–32\". Essential line. Custom-built in 8–12 weeks. 5 year warranty.",
-					"url": "https://playerstall.com/product-stadium-locker/",
-					"image": "https://playerstall.com/images/stadium-locker-oak-left-side.png",
-					"brand": { "@type": "Brand", "name": "PlayerStall" },
-					"offers": {
-						"@type": "AggregateOffer",
-						"lowPrice": 599,
-						"highPrice": 649,
-						"priceCurrency": "USD",
-						"availability": "https://schema.org/InStock",
-						"priceValidUntil": "2026-12-31"
-					}
-				},
+				buildLockerProductGraphNode(lockerSchemaEntry),
 				{
 					"@type": "BreadcrumbList",
 					"itemListElement": [

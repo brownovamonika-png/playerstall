@@ -6,6 +6,8 @@ import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import ProductGalleryControls from '../components/ProductGalleryControls.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
+import { getLockerCatalogBySlugPath } from '../data/lockers-catalog';
+import { buildLockerProductGraphNode } from '../utils/locker-jsonld';
 import {
 	ADORNUS_DESIGNER_PAINT_FINISHES,
 	DEFAULT_ADORNUS_PAINT_CODE,
@@ -31,6 +33,8 @@ const legendarySpecs = [
 	{ label: 'Custom build', value: '8–12 weeks — any size, wood, or materials' },
 	{ label: 'Warranty', value: '5 year warranty' },
 ];
+const lockerSchemaEntry = getLockerCatalogBySlugPath('/product-legendary-locker');
+if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model X');
 ---
 
 <BaseLayout
@@ -41,22 +45,7 @@ const legendarySpecs = [
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
 			"@graph": [
-				{
-					"@type": "Product",
-					"name": "Model X Wood Locker",
-					"description": "Model X wood locker: premium tier, curved design, maximum customization. 76\" H x 19\" or 24\" D, widths 18\"–32\". Custom-built in three months. 5 year warranty.",
-					"url": "https://playerstall.com/product-legendary-locker/",
-					"image": "https://playerstall.com/images/model-x-dark-grey-left-side.png",
-					"brand": { "@type": "Brand", "name": "PlayerStall" },
-					"offers": {
-						"@type": "AggregateOffer",
-						"lowPrice": 649,
-						"highPrice": 749,
-						"priceCurrency": "USD",
-						"availability": "https://schema.org/InStock",
-						"priceValidUntil": "2026-12-31"
-					}
-				},
+				buildLockerProductGraphNode(lockerSchemaEntry),
 				{
 					"@type": "BreadcrumbList",
 					"itemListElement": [
