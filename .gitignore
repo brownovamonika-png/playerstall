@@ -27,6 +27,7 @@ grid-estimate.txt
 # Guides directory (private strategy docs — tracked exceptions below)
 guides/
 !guides/CONTENT_CALENDAR_2026.md
+!guides/SOCIAL_MEDIA_CALENDAR.md
 
 # Cursor agent skills (local only)
 .cursor/skills/
