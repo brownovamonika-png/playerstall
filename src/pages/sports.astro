@@ -1,5 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { LOCKERS_CATALOG_SORTED } from '../data/lockers-catalog';
+import { buildLockersItemList } from '../utils/locker-jsonld';
+
+const sportsLockersItemList = buildLockersItemList(
+	LOCKERS_CATALOG_SORTED,
+	'https://playerstall.com/sports/',
+);
 ---
 
 <BaseLayout 
@@ -17,6 +24,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			]
 		})}
 		</script>
+		<script type="application/ld+json" set:html={JSON.stringify(sportsLockersItemList)} />
 	</Fragment>
 
 	<!-- Hero: Match Schedule style – full-width title image + breadcrumb & title overlay -->

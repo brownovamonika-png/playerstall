@@ -6,6 +6,8 @@ import AccessoryModal from '../components/AccessoryModal.astro';
 import ProductSpecSheet from '../components/ProductSpecSheet.astro';
 import ProductGalleryControls from '../components/ProductGalleryControls.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
+import { getLockerCatalogBySlugPath } from '../data/lockers-catalog';
+import { buildLockerProductGraphNode } from '../utils/locker-jsonld';
 
 const semiProSpecs = [
 	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
@@ -21,6 +23,8 @@ const semiProSpecs = [
 	{ label: 'Custom build', value: '8–12 weeks — any size, options' },
 	{ label: 'Warranty', value: '5 year warranty' },
 ];
+const lockerSchemaEntry = getLockerCatalogBySlugPath('/product-semi-pro-locker');
+if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Semi Pro Locker');
 ---
 
 <BaseLayout
@@ -31,22 +35,7 @@ const semiProSpecs = [
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
 			"@graph": [
-				{
-					"@type": "Product",
-					"name": "Semi Pro Wood Locker",
-					"description": "Semi Pro wood locker: 3/4\" solid wood, 76\" H x 19\" D, widths 18\"–32\". Full color options. Custom-built in three months. 5 year warranty.",
-					"url": "https://playerstall.com/product-semi-pro-locker/",
-					"image": "https://playerstall.com/images/semi-pro-locker-third.png",
-					"brand": { "@type": "Brand", "name": "PlayerStall" },
-					"offers": {
-						"@type": "AggregateOffer",
-						"lowPrice": 349,
-						"highPrice": 429,
-						"priceCurrency": "USD",
-						"availability": "https://schema.org/InStock",
-						"priceValidUntil": "2026-12-31"
-					}
-				},
+				buildLockerProductGraphNode(lockerSchemaEntry),
 				{
 					"@type": "BreadcrumbList",
 					"itemListElement": [
