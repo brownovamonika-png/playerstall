@@ -49,6 +49,31 @@ import { extractPlannerMetaFromOrderSummary, parsePlannerProductLine } from './r
  */
 const FONT_LINK = `<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Yantramanav:wght@400;500;700&display=swap" rel="stylesheet">`;
 
+const LOGO_URL =
+	'https://playerstall.b-cdn.net/images/logos/logo-playerstall-oswald-black.png';
+
+/**
+ * Dark-mode CSS injected into every email <head>.
+ * Uses @media (prefers-color-scheme: dark) which Apple Mail, iOS Mail, and
+ * Samsung Mail honour. Gmail / Outlook ignore <style> blocks and apply their
+ * own auto-dark logic; adding the color-scheme meta tag below tells those
+ * clients the email is dark-mode aware.
+ *
+ * Only the logo inversion and outer-page background are forced here — most
+ * clients that support this media query also auto-adapt panel colours.
+ */
+const DARK_MODE_STYLE = `<style type="text/css">
+  @media (prefers-color-scheme: dark) {
+    body, .ps-outer { background-color: #121212 !important; }
+    .ps-card  { background-color: #1a1a1a !important; }
+    .ps-panel { background-color: #232323 !important; border-color: #333333 !important; }
+    .ps-logo  { filter: invert(1) !important; }
+    .ps-text  { color: #e0e0e0 !important; }
+    .ps-muted { color: #999999 !important; }
+    .ps-rule  { border-color: #333333 !important; }
+  }
+</style>`;
+
 const FF_BODY = `'Yantramanav', 'Helvetica Neue', Helvetica, Arial, sans-serif`;
 const FF_HEAD = `'Oswald', 'Helvetica Neue', Helvetica, Arial, sans-serif`;
 
@@ -278,13 +303,14 @@ function buildReviewOrderSection(
   </td></tr>`;
 }
 
-/** Big centered PLAYERSTALL wordmark + centered bold sub-headline + centered intro paragraph. */
+/** Logo image + centered bold sub-headline + centered intro paragraph. */
 function buildHeroBlock(headline: string, intro: string): string {
 	return `
   <tr><td style="padding:8px 8px 0;text-align:center;">
-    <p style="margin:0 0 36px;font-family:${FF_HEAD};font-size:clamp(34px,5vw,48px);font-weight:700;color:${C_TEXT};letter-spacing:0.08em;text-transform:uppercase;line-height:1;">PLAYERSTALL</p>
-    <h1 style="margin:0;font-family:${FF_HEAD};font-size:clamp(16px,2.2vw,18px);font-weight:700;color:${C_TEXT};text-transform:uppercase;letter-spacing:3px;line-height:1.2;">${escapeHtml(headline)}</h1>
-    <p style="margin:18px auto 28px;max-width:560px;font-family:${FF_BODY};font-size:14px;line-height:1.65;color:${C_MUTED};text-align:center;">
+    <img class="ps-logo" src="${LOGO_URL}" alt="PlayerStall" width="220" height="auto"
+         style="display:block;margin:0 auto 28px;width:220px;max-width:100%;height:auto;border:0;" />
+    <h1 class="ps-text" style="margin:0;font-family:${FF_HEAD};font-size:clamp(16px,2.2vw,18px);font-weight:700;color:${C_TEXT};text-transform:uppercase;letter-spacing:3px;line-height:1.2;">${escapeHtml(headline)}</h1>
+    <p class="ps-muted" style="margin:18px auto 28px;max-width:560px;font-family:${FF_BODY};font-size:14px;line-height:1.65;color:${C_MUTED};text-align:center;">
       ${escapeHtml(intro)}
     </p>
   </td></tr>`;
@@ -360,13 +386,16 @@ function buildEmailShell(
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
 ${FONT_LINK}
+${DARK_MODE_STYLE}
 </head>
-<body style="margin:0;padding:0;background:${C_PAGE};font-family:${FF_BODY};color:${C_TEXT};">
+<body class="ps-card" style="margin:0;padding:0;background:${C_PAGE};font-family:${FF_BODY};color:${C_TEXT};">
 ${ROOM_PLAN_EMAIL_HTML_MARKER}
-<table width="100%" cellpadding="0" cellspacing="0" style="background:${C_PAGE};padding:48px 16px;">
+<table class="ps-outer" width="100%" cellpadding="0" cellspacing="0" style="background:${C_PAGE};padding:48px 16px;">
 <tr><td align="center">
-<table width="100%" cellpadding="0" cellspacing="0" style="max-width:720px;border-collapse:collapse;">
+<table class="ps-card" width="100%" cellpadding="0" cellspacing="0" style="max-width:720px;border-collapse:collapse;">
 
 ${buildHeroBlock(headline, intro)}
 ${previewRow}

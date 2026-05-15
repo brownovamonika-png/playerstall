@@ -14,7 +14,7 @@ import {
 	ROOM_PLAN_WHAT_NEXT_STEPS,
 } from '../lib/roomPlanCustomerCopy';
 import { extractPlannerMetaFromOrderSummary } from '../lib/roomPlanOrderSummaryParse';
-import { drawRoomPlanEmailStylePdfHero } from './pdfBranding';
+import { drawRoomPlanEmailStylePdfHero, fetchBrandLogoDataUrl } from './pdfBranding';
 import { BRAND_FONT, ensureBrandFontsLoaded, registerBrandFonts, setBrandFont } from './pdfFonts';
 
 /** Line shape used for the estimate PDF (matches room planner LineItem). */
@@ -137,6 +137,9 @@ export async function generateEstimatePdfBlob(
 			console.warn('[pdfEstimate] brand fonts unavailable, falling back to Helvetica:', err);
 		}
 
+		// Fetch logo in parallel with font loading (already cached after first call)
+		const logoDataUrl = await fetchBrandLogoDataUrl();
+
 		const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'letter' });
 		if (brandFontsReady) registerBrandFonts(pdf);
 		const setDisplay = () => (brandFontsReady ? setBrandFont(pdf, BRAND_FONT.display) : pdf.setFont('helvetica', 'bold'));
@@ -175,6 +178,7 @@ export async function generateEstimatePdfBlob(
 			introMaxWidth: introW,
 			stackMaxWidth: cardW - 16,
 			brandFonts: brandFontsReady,
+			logoDataUrl,
 		});
 		const bottomSafe = pageH - 88;
 
@@ -187,6 +191,7 @@ export async function generateEstimatePdfBlob(
 					mutedCenter: `Order summary · page ${pageNum}`,
 					stackMaxWidth: cardW - 16,
 					brandFonts: brandFontsReady,
+					logoDataUrl,
 				});
 			}
 		}
