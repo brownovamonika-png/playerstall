@@ -61,39 +61,53 @@ export function drawPlayerStallPdfHeader(pdf: jsPDF, options?: { pageNum?: numbe
 	return 72;
 }
 
-const LOGO_URL =
+/**
+ * Logo sources — try the same-origin `/public` copy first (no CORS needed),
+ * then the BunnyCDN URL as a fallback.
+ */
+const LOCAL_LOGO_PATH = '/logos/PLAYERSTALL-OSWALD/logo-playerstall-oswald-black.png';
+const CDN_LOGO_URL =
 	'https://playerstall.b-cdn.net/images/logos/logo-playerstall-oswald-black.png';
 
 /**
  * Pre-fetches the PlayerStall logo as a PNG data URL so it can be embedded in
- * jsPDF documents via `pdf.addImage()`. Returns `null` if the fetch fails —
+ * jsPDF documents via `pdf.addImage()`. Returns `null` if every source fails —
  * callers should fall back to the text wordmark in that case.
  *
- * Uses an off-screen canvas so the image can be serialised in a browser
- * context (jsPDF requires a data URL, HTMLImageElement, or HTMLCanvasElement).
+ * Tries the local `/public` asset first (same-origin — no CORS headers
+ * required, works on every Vercel preview and localhost). Falls back to the
+ * BunnyCDN URL with `crossOrigin='anonymous'`; if the CDN doesn't send
+ * `Access-Control-Allow-Origin` the canvas will be tainted and we return null.
  */
 export async function fetchBrandLogoDataUrl(): Promise<string | null> {
-	try {
-		return await new Promise<string | null>((resolve) => {
-			const img = new Image();
-			img.crossOrigin = 'anonymous';
-			img.onload = () => {
-				try {
-					const c = document.createElement('canvas');
-					c.width = img.naturalWidth || 440;
-					c.height = img.naturalHeight || 80;
-					c.getContext('2d')!.drawImage(img, 0, 0);
-					resolve(c.toDataURL('image/png'));
-				} catch {
-					resolve(null);
-				}
-			};
-			img.onerror = () => resolve(null);
-			img.src = LOGO_URL;
-		});
-	} catch {
-		return null;
+	const sources = [LOCAL_LOGO_PATH, CDN_LOGO_URL];
+	for (const src of sources) {
+		try {
+			const result = await new Promise<string | null>((resolve) => {
+				const img = new Image();
+				// Only set crossOrigin for external URLs; same-origin doesn't need it
+				// and setting it can trigger unnecessary CORS preflight on some CDNs.
+				if (src.startsWith('http')) img.crossOrigin = 'anonymous';
+				img.onload = () => {
+					try {
+						const c = document.createElement('canvas');
+						c.width = img.naturalWidth || 440;
+						c.height = img.naturalHeight || 80;
+						c.getContext('2d')!.drawImage(img, 0, 0);
+						resolve(c.toDataURL('image/png'));
+					} catch {
+						resolve(null);
+					}
+				};
+				img.onerror = () => resolve(null);
+				img.src = src;
+			});
+			if (result) return result;
+		} catch {
+			continue;
+		}
 	}
+	return null;
 }
 
 /** Matches /dev/email-preview-room-plan: white page, large centered PLAYERSTALL + optional stack. */

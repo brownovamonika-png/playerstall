@@ -1,8 +1,5 @@
 import { jsPDF } from 'jspdf';
 import {
-	ROOM_PLAN_ATTACHMENT_FILES_DESC,
-	ROOM_PLAN_ATTACHMENTS_NOTE_PDF,
-	ROOM_PLAN_CTA_LABEL,
 	ROOM_PLAN_CUSTOMER_HEADLINE,
 	ROOM_PLAN_FOOTER_LINES,
 	ROOM_PLAN_INTRO,
@@ -431,36 +428,6 @@ export async function generateEstimatePdfBlob(
 			n += 1;
 		}
 		y = wnStart + wnH + 16;
-
-		// --- Attachments band
-		const attStart = y;
-		const attLead = `Attachments: ${ROOM_PLAN_ATTACHMENT_FILES_DESC}`;
-		const att1 = pdf.splitTextToSize(attLead, innerW) as string[];
-		const att2 = pdf.splitTextToSize(ROOM_PLAN_ATTACHMENTS_NOTE_PDF, innerW) as string[];
-		const attH = 18 + att1.length * 12 + 8 + att2.length * 11 + 18;
-		pdf.setFillColor(...BAND);
-		pdf.setDrawColor(...LINE);
-		pdf.rect(xCard, attStart, contentW, attH, 'FD');
-		let ay = attStart + 16;
-		setBody();
-		pdf.setFontSize(11);
-		pdf.setTextColor(85, 85, 85);
-		pdf.text(att1, innerLeft, ay);
-		ay += att1.length * 12 + 6;
-		pdf.setFontSize(9);
-		pdf.setTextColor(119, 119, 119);
-		pdf.text(att2, innerLeft, ay);
-		y = attStart + attH + 20;
-
-		// --- CTA strip (same label as email button)
-		ensureSpace(36);
-		pdf.setFillColor(...TEXT);
-		pdf.rect(xCard, y, contentW, 36, 'F');
-		pdf.setTextColor(255, 255, 255);
-		setDisplay();
-		pdf.setFontSize(10);
-		pdf.text(ROOM_PLAN_CTA_LABEL.toUpperCase(), pageW / 2, y + 23, { align: 'center' });
-		y += 44;
 
 		// --- Footer (same lines as email)
 		pdf.setDrawColor(...LINE);
