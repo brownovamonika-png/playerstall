@@ -4,14 +4,16 @@ import { isAdminPasswordWallEnabled, isPreviewModeMissingPassword, verifyCrmGate
 function isRoomPlannerPath(pathname: string): boolean {
   return (
     pathname === '/room-planner' ||
-    pathname.startsWith('/room-planner/') ||
-    pathname.startsWith('/new-room-planner') ||
-    pathname.startsWith('/room-planner-v2')
+    pathname.startsWith('/room-planner/')
   );
 }
 
 export const onRequest: MiddlewareHandler = async (context, next) => {
   const path = context.url.pathname;
+
+  if (path.startsWith('/new-room-planner') || path.startsWith('/room-planner-v2')) {
+    return context.redirect('/room-planner', 301);
+  }
 
   if (isRoomPlannerPath(path)) {
     const response = await next();

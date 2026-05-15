@@ -118,6 +118,26 @@
       "permanent": true
     },
     {
+      "source": "/new-room-planner",
+      "destination": "https://www.playerstall.com/room-planner",
+      "permanent": true
+    },
+    {
+      "source": "/new-room-planner/:path*",
+      "destination": "https://www.playerstall.com/room-planner",
+      "permanent": true
+    },
+    {
+      "source": "/room-planner-v2",
+      "destination": "https://www.playerstall.com/room-planner",
+      "permanent": true
+    },
+    {
+      "source": "/room-planner-v2/:path*",
+      "destination": "https://www.playerstall.com/room-planner",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "playerstall.com" }],
       "destination": "https://www.playerstall.com/:path*",
@@ -135,15 +155,6 @@
       ]
     },
     {
-      "source": "/new-room-planner(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
       "source": "/room-planner",
       "headers": [
         {
@@ -154,15 +165,6 @@
     },
     {
       "source": "/room-planner/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/room-planner-v2(.*)",
       "headers": [
         {
           "key": "Cache-Control",

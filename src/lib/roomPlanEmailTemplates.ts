@@ -124,7 +124,7 @@ function layoutPreviewBlock(layoutPreviewDataUrl: string | undefined | null): st
   </td></tr>`;
 }
 
-/** Three-column review-style rows (Product | Qty | Subtotal) + counts. Mirrors /new-room-planner/review. */
+/** Three-column review-style rows (Product | Qty | Subtotal) + counts. Mirrors the planner review UI. */
 function buildReviewStyleTableRows(orderSummary: string): {
 	rows: string;
 	lockerCount: number;
@@ -223,7 +223,7 @@ function buildCustomerStripCard(customerEmail: string): string {
 }
 
 /**
- * Full `ORDER SUMMARY` card — mirrors the `/new-room-planner/review` panel.
+ * Full `ORDER SUMMARY` card — mirrors the planner review panel.
  * For customer role: ends with "Your email" row + black LAYOUT SENT bar +
  * thank-you line. For team role: ends with locker count + shipping (the
  * customer mailto lives in the Customer strip above this card).
