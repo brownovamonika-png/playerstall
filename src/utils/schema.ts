@@ -86,7 +86,7 @@ export function generateArticleSchema(article: Article) {
 			"name": "PlayerStall",
 			"logo": {
 				"@type": "ImageObject",
-				"url": "https://playerstall.b-cdn.net/images/logoblack2.png"
+				"url": "https://playerstall.b-cdn.net/images/logos/logo-playerstall-oswald-black.png"
 			}
 		},
 		"mainEntityOfPage": {
@@ -147,8 +147,8 @@ export function generateLocalBusinessSchema() {
 		"name": "PlayerStall",
 		"alternateName": "playerstall.com",
 		"description": "Premium wood sports lockers manufacturer specializing in custom athletic lockers for collegiate and professional teams. 30+ years experience with five year guarantee.",
-		"image": "https://playerstall.b-cdn.net/images/logoblack2.png",
-		"logo": "https://playerstall.b-cdn.net/images/logoblack2.png",
+		"image": "https://playerstall.b-cdn.net/images/logos/logo-playerstall-oswald-black.png",
+		"logo": "https://playerstall.b-cdn.net/images/logos/logo-playerstall-oswald-black.png",
 		"url": "https://playerstall.com",
 		"telephone": "+11231245678901",
 		"email": "team@playerstall.com",

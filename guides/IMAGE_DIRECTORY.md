@@ -159,6 +159,13 @@ Preferred location. All new images should be added here.
 | https://playerstall.b-cdn.net/images/IMG_4360.jpg | General locker room | src/content/blog/psychology-of-locker-room-design.mdx (heroImage) |
 | https://playerstall.b-cdn.net/images/hockeyville-hockey-lockers.jpg | Hockeyville hockey lockers | src/content/blog/psychology-of-locker-room-design.mdx (body) |
 
+### images/logos/
+
+| URL / Path | Description | Used in |
+|------------|-------------|---------|
+| https://playerstall.b-cdn.net/images/logos/logo-playerstall-oswald-black.png | PlayerStall Oswald black logo used in navigation, schema metadata, author cards, and social previews | src/layouts/BaseLayout.astro; src/pages/blog/[slug].astro; src/components/AuthorBio.astro; src/layouts/BlogPostLayout.astro; src/pages/index.astro; src/pages/contact.astro; src/utils/schema.ts |
+| https://playerstall.b-cdn.net/images/logos/playerstall-black-white-favicon.png | PlayerStall black and white PS favicon | src/layouts/BaseLayout.astro; src/layouts/AdminLayout.astro; src/pages/admin/login.astro; src/pages/my-project/[token].astro |
+
 ### images/customer-lockers/
 
 | URL / Path | Description | Used in |
