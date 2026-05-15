@@ -61,6 +61,35 @@ export function drawPlayerStallPdfHeader(pdf: jsPDF, options?: { pageNum?: numbe
 	return 72;
 }
 
+const LOGO_URL =
+	'https://playerstall.b-cdn.net/images/logos/logo-playerstall-oswald-black.png';
+
+/**
+ * Pre-fetches the PlayerStall logo as a PNG data URL so it can be embedded in
+ * jsPDF documents via `pdf.addImage()`. Returns `null` if the fetch fails —
+ * callers should fall back to the text wordmark in that case.
+ *
+ * Uses `fetch()` to download the image as a blob, then converts to a data URL
+ * via FileReader. This avoids the canvas taint / CORS issue that blocked the
+ * previous `Image` + `crossOrigin='anonymous'` + `canvas.toDataURL()` approach
+ * (BunnyCDN doesn't always send Access-Control-Allow-Origin).
+ */
+export async function fetchBrandLogoDataUrl(): Promise<string | null> {
+	try {
+		const res = await fetch(LOGO_URL);
+		if (!res.ok) return null;
+		const blob = await res.blob();
+		return await new Promise<string | null>((resolve) => {
+			const reader = new FileReader();
+			reader.onload = () => resolve(reader.result as string);
+			reader.onerror = () => resolve(null);
+			reader.readAsDataURL(blob);
+		});
+	} catch {
+		return null;
+	}
+}
+
 /** Matches /dev/email-preview-room-plan: white page, large centered PLAYERSTALL + optional stack. */
 export type RoomPlanEmailStyleHeroOptions = {
 	pageLabel?: string;
@@ -76,6 +105,12 @@ export type RoomPlanEmailStyleHeroOptions = {
 	 * When set, blocks are centered at that width like the HTML preview.
 	 */
 	stackMaxWidth?: number;
+	/**
+	 * PNG data URL of the PlayerStall logo (from `fetchBrandLogoDataUrl()`).
+	 * When provided, replaces the text wordmark with the actual logo image.
+	 * Falls back to text when null / undefined.
+	 */
+	logoDataUrl?: string | null;
 } & BrandFontAware;
 
 function stackWidth(pageW: number, margin: number, o: RoomPlanEmailStyleHeroOptions): number {
@@ -101,16 +136,36 @@ export function drawRoomPlanEmailStylePdfHero(pdf: jsPDF, o: RoomPlanEmailStyleH
 	}
 
 	/*
-	 * PLAYERSTALL wordmark — Oswald 600 at 42pt mimics the <strong>
-	 * `font-family: Oswald` heading on the site (1.6–1.8× tracking). The
-	 * charSpace value stays at 0.35 so total glyph width lines up with the
-	 * HTML hero rendered in /dev/email-preview-room-plan.
+	 * PLAYERSTALL wordmark — prefer the real logo PNG when a data URL is
+	 * supplied (fetchBrandLogoDataUrl), else fall back to the Oswald text
+	 * treatment so the PDF always has something recognisable.
 	 */
-	fontDisplay(pdf, useBrand);
-	pdf.setFontSize(42);
-	pdf.setTextColor(...TEXT);
-	pdf.text('PLAYERSTALL', pageW / 2, y + 30, { align: 'center', charSpace: 0.35 });
-	y += 30 + 46;
+	if (o.logoDataUrl) {
+		// Target ~180pt wide × proportional height, centred on the page
+		const logoW = 180;
+		// Estimate aspect from the actual PNG (440×80 ≈ 5.5:1); fall back to that ratio
+		let logoH = Math.round(logoW / 5.5);
+		try {
+			// jsPDF can read naturalWidth/Height from a data URL via getImageProperties
+			const props = pdf.getImageProperties(o.logoDataUrl);
+			if (props.width && props.height) {
+				logoH = Math.round(logoW * (props.height / props.width));
+			}
+		} catch { /* use default ratio */ }
+		const logoX = (pageW - logoW) / 2;
+		pdf.addImage(o.logoDataUrl, 'PNG', logoX, y, logoW, logoH, undefined, 'NONE');
+		y += logoH + 28;
+	} else {
+		/*
+		 * Text fallback — Oswald 600 at 42pt mimics the site heading (1.6–1.8× tracking).
+		 * charSpace 0.35 keeps total glyph width aligned with the HTML preview.
+		 */
+		fontDisplay(pdf, useBrand);
+		pdf.setFontSize(42);
+		pdf.setTextColor(...TEXT);
+		pdf.text('PLAYERSTALL', pageW / 2, y + 30, { align: 'center', charSpace: 0.35 });
+		y += 30 + 46;
+	}
 
 	if (o.headline) {
 		pdf.setFontSize(14);

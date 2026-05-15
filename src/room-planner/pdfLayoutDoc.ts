@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { ROOM_PLAN_FOOTER_LINES } from '../lib/roomPlanCustomerCopy';
-import { drawRoomPlanEmailStylePdfFooter, drawRoomPlanEmailStylePdfHero } from './pdfBranding';
+import { drawRoomPlanEmailStylePdfFooter, drawRoomPlanEmailStylePdfHero, fetchBrandLogoDataUrl } from './pdfBranding';
 import { ensureBrandFontsLoaded, registerBrandFonts } from './pdfFonts';
 import { render } from './render';
 import { appendPlanner3DPreviewPage } from './pdfAppend3D';
@@ -120,6 +120,9 @@ export async function generateLayoutPdfBlob(
 			console.warn('[pdfLayoutDoc] brand fonts unavailable, falling back to Helvetica:', err);
 		}
 
+		// Fetch brand logo in parallel with PDF setup (gracefully degrades to text wordmark)
+		const logoDataUrl = await fetchBrandLogoDataUrl();
+
 		const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'letter' });
 		if (brandFontsReady) registerBrandFonts(pdf);
 		const pageW = pdf.internal.pageSize.getWidth();
@@ -148,6 +151,7 @@ export async function generateLayoutPdfBlob(
 				mutedCenter: 'Floor plan (top view)',
 				stackMaxWidth: Math.min(480, pageW - 96),
 				brandFonts: brandFontsReady,
+				logoDataUrl,
 			});
 
 			const imgTop = yBody + 12;

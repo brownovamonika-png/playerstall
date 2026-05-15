@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PDF Estimate Preview — PlayerStall</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Yantramanav:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #e0e0e0;
+    font-family: 'Yantramanav', 'Helvetica Neue', Arial, sans-serif;
+    color: #0d0d0d;
+  }
+  /* Simulate a letter-size PDF page (portrait: 612 × 792pt) */
+  .page {
+    width: 612px;
+    min-height: 792px;
+    margin: 32px auto;
+    background: #ffffff;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-inner {
+    /* 48px margin on each side → 516px usable; card is centered at ~480px */
+    width: 480px;
+    margin: 0 auto;
+    padding-top: 36px;
+  }
+
+  /* ─── Hero ─── */
+  .hero { text-align: center; margin-bottom: 0; }
+  .hero img.logo {
+    display: block;
+    margin: 0 auto 28px;
+    width: 180px;
+    height: auto;
+  }
+  .hero h1 {
+    font-family: 'Oswald', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #0d0d0d;
+    margin: 0 0 10px;
+  }
+  .hero .intro {
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.65;
+    color: #8c8c8c;
+    text-align: left;
+    max-width: 460px;
+    margin: 0 auto 18px;
+  }
+
+  /* ─── Panels (YOUR SELECTIONS + ORDER SUMMARY) ─── */
+  .panel {
+    background: #f7f7f7;
+    border: 0.5px solid #e0e0e0;
+    margin-bottom: 14px;
+    padding: 24px;
+  }
+  .panel-title {
+    font-family: 'Oswald', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #0d0d0d;
+    margin-bottom: 8px;
+  }
+  .panel-title.large {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  .rule { border: none; border-top: 0.35px solid #e0e0e0; margin: 0; }
+  .rule-strong { border: none; border-top: 0.5px solid #cccccc; margin: 0; }
+
+  /* ─── YOUR SELECTIONS ─── */
+  .sel-label {
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #8c8c8c;
+    margin-top: 14px;
+  }
+  .sel-value {
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 11px;
+    color: #0d0d0d;
+    margin-top: 2px;
+  }
+
+  /* ─── ORDER SUMMARY table ─── */
+  .order-head {
+    display: flex;
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: #8c8c8c;
+    padding: 10px 0;
+  }
+  .order-head .col-product { flex: 1; }
+  .order-head .col-qty { width: 44px; text-align: center; }
+  .order-head .col-total { width: 108px; text-align: right; }
+
+  .room-header {
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #0d0d0d;
+    padding: 10px 0 6px 8px;
+  }
+
+  .product-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 0.35px solid #e0e0e0;
+  }
+  .product-row .col-product { flex: 1; }
+  .product-row .product-name {
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #0d0d0d;
+    line-height: 1.25;
+  }
+  .product-row .product-spec {
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: #8c8c8c;
+    text-transform: uppercase;
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+    line-height: 1.45;
+  }
+  .product-row .col-qty {
+    width: 44px;
+    text-align: center;
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0d0d0d;
+    padding-top: 8px;
+  }
+  .product-row .col-total {
+    width: 108px;
+    text-align: right;
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0d0d0d;
+    padding-top: 8px;
+    white-space: nowrap;
+  }
+
+  /* Totals */
+  .totals-row {
+    display: flex;
+    padding: 8px 0;
+  }
+  .totals-row .label {
+    flex: 1;
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #8c8c8c;
+  }
+  .totals-row .value {
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0d0d0d;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .totals-row.grand .label {
+    font-size: 12px;
+  }
+  .totals-row.grand .value {
+    font-family: 'Oswald', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .meta-line {
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 12px;
+    color: #8c8c8c;
+    margin-top: 10px;
+    line-height: 1.55;
+  }
+  .email-label {
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 12px;
+    color: #8c8c8c;
+    margin-top: 12px;
+  }
+  .email-value {
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 14px;
+    color: #0d0d0d;
+    margin-top: 2px;
+    margin-bottom: 16px;
+  }
+
+  /* ─── What Happens Next ─── */
+  .what-next {
+    background: #fafafa;
+    border: 0.5px solid #e0e0e0;
+    padding: 18px 24px 20px;
+    margin-top: 16px;
+  }
+  .what-next h3 {
+    font-family: 'Oswald', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #2a2a2a;
+    margin-bottom: 12px;
+  }
+  .what-next ol {
+    padding-left: 20px;
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #555555;
+  }
+  .what-next li { margin-bottom: 4px; }
+
+  /* ─── Footer ─── */
+  .footer {
+    border-top: 0.35px solid #e0e0e0;
+    margin-top: 16px;
+    padding-top: 16px;
+    text-align: center;
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 9px;
+    color: #b6b6b6;
+    line-height: 1.6;
+    padding-bottom: 36px;
+  }
+
+  /* ─── Demo label ─── */
+  .demo-banner {
+    text-align: center;
+    padding: 16px;
+    font-family: 'Yantramanav', Arial, sans-serif;
+    font-size: 13px;
+    color: #8c8c8c;
+  }
+  .demo-banner strong { color: #0d0d0d; }
+</style>
+</head>
+<body>
+
+<div class="demo-banner">
+  <strong>PDF ESTIMATE PREVIEW</strong> — This is what the generated PDF will look like.<br>
+  Attachments band and CTA button have been removed. Logo loads from local /public/ asset.
+</div>
+
+<!-- ═══════════════ PAGE 1 ═══════════════ -->
+<div class="page">
+<div class="page-inner">
+
+  <!-- Hero -->
+  <div class="hero">
+    <img class="logo" src="https://playerstall.b-cdn.net/images/logos/logo-playerstall-oswald-black.png"
+         alt="PlayerStall" />
+    <h1>REVIEW YOUR LAYOUT</h1>
+    <p class="intro">
+      You've turned ideas into a real layout across your rooms. We've attached two PDFs: a polished
+      project estimate with full line-by-line pricing, and a share-ready layout pack with floor plans
+      and 3D views for donors, leadership, or your next meeting. We're thrilled to pick up from here
+      with you and help turn this plan into the locker room your team deserves.
+    </p>
+  </div>
+
+  <!-- YOUR SELECTIONS panel -->
+  <div class="panel">
+    <div class="panel-title">YOUR SELECTIONS</div>
+    <hr class="rule">
+    <div class="sel-label">PREFERRED DELIVERY TIMING</div>
+    <div class="sel-value">Testing: 3–6 months</div>
+  </div>
+
+  <!-- ORDER SUMMARY panel -->
+  <div class="panel">
+    <div class="panel-title large">ORDER SUMMARY</div>
+    <hr class="rule">
+
+    <!-- Column headers -->
+    <div class="order-head">
+      <div class="col-product">Product</div>
+      <div class="col-qty">Qty</div>
+      <div class="col-total">Subtotal</div>
+    </div>
+    <hr class="rule">
+
+    <!-- Room header -->
+    <div class="room-header">TESTING</div>
+
+    <!-- Line item 1 -->
+    <div class="product-row">
+      <div class="col-product">
+        <div class="product-name">MODEL L LOCKER</div>
+        <div class="product-spec">24"W X 19"D · HIGH REFLECTIVE WHITE</div>
+      </div>
+      <div class="col-qty">7</div>
+      <div class="col-total">$4,193.00</div>
+    </div>
+
+    <!-- Line item 2 -->
+    <div class="product-row">
+      <div class="col-product">
+        <div class="product-name">MODEL S LOCKER</div>
+        <div class="product-spec">24"W X 19"D · HIGH REFLECTIVE WHITE + VENTED FRONT, LOCK BOX</div>
+      </div>
+      <div class="col-qty">7</div>
+      <div class="col-total">$5,383.00</div>
+    </div>
+
+    <!-- Subtotal -->
+    <div class="totals-row" style="margin-top:8px;">
+      <div class="label">Subtotal</div>
+      <div class="value">$9,576.00</div>
+    </div>
+    <hr class="rule-strong" style="margin:4px 0;">
+
+    <!-- Estimated Total -->
+    <div class="totals-row grand" style="margin-top:4px;">
+      <div class="label" style="padding-top:6px;">Estimated Total</div>
+      <div class="value">$9,576.00</div>
+    </div>
+
+    <!-- Meta -->
+    <div class="meta-line">14 lockers across 1 room</div>
+    <div class="meta-line" style="margin-top:6px;">
+      Shipping isn't included in this estimate.<br>
+      We'll add shipping to your final order once we've agreed on everything with you.
+    </div>
+
+    <!-- Your email -->
+    <div class="email-label">Your email</div>
+    <div class="email-value">melissa@melissawiringi.com</div>
+    <hr class="rule">
+  </div>
+
+  <!-- What Happens Next -->
+  <div class="what-next">
+    <h3>WHAT HAPPENS NEXT?</h3>
+    <ol>
+      <li>Our design team reviews your layout and measurements</li>
+      <li>We'll reach out within 1-2 business days with a detailed quote</li>
+      <li>We'll work with you to finalize colors, accessories, and specs</li>
+    </ol>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    PlayerStall · 2934 200 Street, Langley, BC V2Z 2C1 Canada<br>
+    1-888-584-1444 · team@playerstall.com · playerstall.com
+  </div>
+
+</div><!-- .page-inner -->
+</div><!-- .page -->
+
+</body>
+</html>
