@@ -175,7 +175,12 @@ Preferred location. All new images should be added here.
 | https://playerstall.b-cdn.net/images/customer-lockers/garage-lockers.jpg | Residential garage hockey locker setup – equipment storage | src/content/blog/sport-equipment-storage.mdx (inline body) |
 | https://playerstall.b-cdn.net/images/customer-lockers/moose-locker-room-2.jpg | Moose team locker room – custom wood hockey lockers | src/content/blog/why-choose-wood-lockers-for-your-sports-team.mdx (heroImage); src/pages/gallery.astro |
 | https://playerstall.b-cdn.net/images/customer-lockers/concord-spiders-locker-room.jpg | Concord Spiders locker room – custom wood athletic lockers | src/content/blog/sports-lockers-selection-guide-what-matters.mdx (inline body) |
-| https://playerstall.b-cdn.net/images/customer-lockers/quality-wood.jpg | Cabinet-grade plywood sample / quality wood construction | src/content/blog/sports-lockers-to-upgrade-your-locker-room.mdx (heroImage); src/content/blog/plywood-vs-mdf-which-one-is-better-for-sports-lockers.mdx (inline body) |
+
+### images/process/
+
+| URL / Path | Description | Used in |
+|------------|-------------|---------|
+| https://playerstall.b-cdn.net/images/process/quality-wood.jpg | Cabinet-grade plywood sample / quality wood construction | src/content/blog/sports-lockers-to-upgrade-your-locker-room.mdx (heroImage); src/content/blog/plywood-vs-mdf-which-one-is-better-for-sports-lockers.mdx (inline body); src/content/blog/sports-lockers-whats-the-difference-between-plywood-and-mdf.mdx (inline body) |
 
 ### images/topscorer/
 
