@@ -167,6 +167,44 @@ async function sendEmail(
 	return res;
 }
 
+function arrayBufferToBase64(buf: ArrayBuffer): string {
+	const bytes = new Uint8Array(buf);
+	const CHUNK = 0x8000;
+	let binary = '';
+	for (let i = 0; i < bytes.length; i += CHUNK) {
+		binary += String.fromCharCode(...bytes.subarray(i, i + CHUNK));
+	}
+	return btoa(binary);
+}
+
+async function parseRequestBody(request: Request): Promise<RequestBody> {
+	const contentType = request.headers.get('Content-Type') || '';
+
+	if (contentType.includes('multipart/form-data')) {
+		const form = await request.formData();
+		const email = form.get('email') as string || '';
+		const orderSummary = form.get('orderSummary') as string || '';
+		const grandTotal = form.get('grandTotal') as string || '';
+		const layoutPreviewDataUrl = (form.get('layoutPreviewDataUrl') as string) || undefined;
+
+		let estimatePdfBase64: string | undefined;
+		let layoutPdfBase64: string | undefined;
+
+		const estimateFile = form.get('estimatePdf') as File | null;
+		if (estimateFile && estimateFile.size > 0) {
+			estimatePdfBase64 = arrayBufferToBase64(await estimateFile.arrayBuffer());
+		}
+		const layoutFile = form.get('layoutPdf') as File | null;
+		if (layoutFile && layoutFile.size > 0) {
+			layoutPdfBase64 = arrayBufferToBase64(await layoutFile.arrayBuffer());
+		}
+
+		return { email, orderSummary, grandTotal, estimatePdfBase64, layoutPdfBase64, layoutPreviewDataUrl };
+	}
+
+	return (await request.json()) as RequestBody;
+}
+
 export const POST: APIRoute = async ({ request }) => {
 	const token = getMailerSendToken();
 	if (!token) {
@@ -180,7 +218,7 @@ export const POST: APIRoute = async ({ request }) => {
 	}
 
 	try {
-		const body = (await request.json()) as RequestBody;
+		const body = await parseRequestBody(request);
 		const { email, orderSummary, grandTotal, pdfBase64, estimatePdfBase64, layoutPdfBase64, layoutPreviewDataUrl } =
 			body;
 
@@ -236,7 +274,11 @@ export const POST: APIRoute = async ({ request }) => {
 			),
 		]);
 
-		console.info('[send-room-plan] MailerSend ok', { roomPlanEmailVersion: 'v5-brand-fonts' });
+		console.info('[send-room-plan] MailerSend ok', {
+			roomPlanEmailVersion: 'v5-brand-fonts',
+			attachmentCount: attachments.length,
+			attachmentSizes: attachments.map((a) => `${a.filename}: ${Math.round(a.content.length / 1024)}KB`),
+		});
 
 		const okHeaders = new Headers({
 			'Content-Type': 'application/json',
