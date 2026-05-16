@@ -6,7 +6,7 @@
 
 /** Hero intro under "Review your layout" */
 export const ROOM_PLAN_INTRO =
-	"You've turned ideas into a real layout across your rooms. We've attached two PDFs: a polished project estimate with full line-by-line pricing, and a share-ready layout pack with floor plans and 3D views for donors, leadership, or your next meeting. We're thrilled to pick up from here with you and help turn this plan into the locker room your team deserves.";
+	"You've turned ideas into a real layout across your rooms. Your project estimate PDF — with the 3D view and full line-by-line pricing — was saved to your device when you submitted, ready to share with donors, leadership, or your next meeting. We're thrilled to pick up from here with you and help turn this plan into the locker room your team deserves.";
 
 /** Shown beside order totals (review page, emails, estimate PDF) — two lines. */
 export const ROOM_PLAN_SHIPPING_LINES = [
@@ -21,22 +21,22 @@ export const ROOM_PLAN_SUBMIT_DISCLAIMER =
 /** Email-only: heading above optional inline 3D snapshot (first room). */
 export const ROOM_PLAN_EMAIL_3D_PREVIEW_TITLE = 'Your 3D preview';
 
-/** Email-only: explains snapshot vs layout PDF. */
+/** Email-only: explains snapshot below the heading. */
 export const ROOM_PLAN_EMAIL_3D_PREVIEW_BLURB =
-	'First room at a snapshot angle — your attached layout PDF includes a full-size 3D page per room (same renderer as the planner).';
+	'First room at a snapshot angle, captured from the planner. The same image is at the top of the estimate PDF saved to your device.';
 
 export const ROOM_PLAN_EMAIL_3D_PREVIEW_ALT = '3D preview of your locker room';
 
-/** Customer email only — full product table lives in PlayerStall-Room-Estimate.pdf (avoids duplicating the PDF in HTML). */
+/** Customer email only — full product table lives in PlayerStall-Room-Estimate.pdf (saved to the customer's device on submit). */
 export const ROOM_PLAN_EMAIL_COMPACT_PANEL_HEADING = 'Your estimate at a glance';
 
-/** Customer email — under totals; tells them the PDFs are the canonical detail. */
+/** Customer email — under totals; tells them the PDF saved on submit is the canonical detail. */
 export const ROOM_PLAN_EMAIL_COMPACT_PDF_NOTE =
-	'Line-by-line lockers, options, shipping notes, and any delivery timing or funding details you entered are in the attached PlayerStall-Room-Estimate.pdf. Floor plans and 3D views for each room are in PlayerStall-Room-Layout.pdf.';
+	'Line-by-line lockers, options, shipping notes, and any delivery timing or funding details you entered are in PlayerStall-Room-Estimate.pdf, which was downloaded to your device when you submitted. Reply to this email if you need us to send it again.';
 
-/** Team email — same compact panel; PDFs match what the customer received. */
+/** Team email — same compact panel; customer keeps their own copy. */
 export const ROOM_PLAN_EMAIL_COMPACT_PDF_NOTE_TEAM =
-	'Full line-by-line lockers, options, timing, funding, and totals are in the attached PlayerStall-Room-Estimate.pdf (same file sent to the customer). Floor plans and 3D views are in PlayerStall-Room-Layout.pdf.';
+	'Full line-by-line lockers, options, timing, funding, and totals live in PlayerStall-Room-Estimate.pdf, which downloaded to the customer’s device on submit. Reply directly to this email if you need them to send it back to you.';
 
 export const ROOM_PLAN_WHAT_NEXT_HEADING = 'What happens next?';
 
@@ -46,12 +46,12 @@ export const ROOM_PLAN_WHAT_NEXT_STEPS = [
 	"We'll work with you to finalize colors, accessories, and specs",
 ] as const;
 
-/** File names + roles (used in PDF plain text and email HTML). */
+/** File name (downloaded to the customer's device on submit — not emailed). */
 export const ROOM_PLAN_ATTACHMENT_FILES_DESC =
-	'PlayerStall-Room-Estimate.pdf (pricing) and PlayerStall-Room-Layout.pdf (plans + 3D).';
+	'PlayerStall-Room-Estimate.pdf (3D view, pricing, and your selections) was saved to your device when you submitted.';
 
 export const ROOM_PLAN_ATTACHMENTS_NOTE =
-	"If an attachment didn't come through, reply to this email and we'll resend it.";
+	"If you can't find the PDF on your device, reply to this email and we'll send another copy.";
 
 /** PDF variant (no “this email”); same intent */
 export const ROOM_PLAN_ATTACHMENTS_NOTE_PDF =
@@ -72,7 +72,7 @@ export const ROOM_PLAN_TEAM_HEADLINE = 'New room planner submission';
 
 /** Team email hero (under main title). */
 export const ROOM_PLAN_TEAM_INTRO =
-	'Internal copy for the team — same layout as the customer email. Use the customer address and order summary below to follow up; both PDFs are attached to this message.';
+	"Internal copy for the team — same layout as the customer email. Use the customer address and order summary below to follow up. The customer's PDF estimate downloaded to their device on submit; ask them to send it back if you need a copy.";
 
 /** Section heading above the timing + funding rows in both email and PDF. */
 export const ROOM_PLAN_SELECTIONS_HEADING = 'Your selections';
@@ -82,6 +82,6 @@ export const ROOM_PLAN_SELECTIONS_FUNDING_LABEL = 'Funding / budget';
 /** Team-email "Customer" strip (between Your Selections and Order Summary). */
 export const ROOM_PLAN_TEAM_CUSTOMER_HEADING = 'Customer';
 
-/** Team email note box (attachments strip). */
+/** Team email note box (downloaded-on-submit strip). */
 export const ROOM_PLAN_TEAM_NOTE =
-	"Both PDFs match the customer's attachments (estimate + layout). Reply directly to this email to reach the customer.";
+	"The customer's PlayerStall-Room-Estimate.pdf was downloaded to their device on submit (not emailed). Reply directly to this email to reach them.";

@@ -22,14 +22,25 @@ export async function appendPlanner3DPreviewPage(
 	options: Append3DOptions = {},
 ): Promise<void> {
 	const useBrand = options.brandFonts !== false;
-	const data3d = await capturePlanner3DDataURL(tempState, {
-		width: SNAP_W,
-		height: SNAP_H,
-		customLogoDataUrl: customLogoDataUrl ?? undefined,
-		pixelRatio: 1,
-		format: 'image/jpeg',
-		quality: 0.82,
-	});
+	// PNG is the only format `toDataURL` reliably produces from a WebGL canvas
+	// across browsers/GPU drivers. Requesting JPEG can silently return a PNG
+	// (or `data:,`) on some Safari/ANGLE configurations, which then causes
+	// jsPDF.addImage(..., 'JPEG', ...) to embed nothing. FormData transport
+	// (PR #27) removed the size pressure that previously forced JPEG here.
+	let data3d: string | null = null;
+	try {
+		data3d = await capturePlanner3DDataURL(tempState, {
+			width: SNAP_W,
+			height: SNAP_H,
+			customLogoDataUrl: customLogoDataUrl ?? undefined,
+			pixelRatio: 1,
+		});
+		if (data3d && !data3d.startsWith('data:image/png')) {
+			console.warn('[pdfAppend3D] unexpected data URL prefix', data3d.slice(0, 32));
+		}
+	} catch (e) {
+		console.error('[pdfAppend3D] 3D capture threw, falling back to text page:', e);
+	}
 	pdf.addPage('letter', 'landscape');
 	const pageW = pdf.internal.pageSize.getWidth();
 	const pageH = pdf.internal.pageSize.getHeight();
@@ -55,7 +66,11 @@ export async function appendPlanner3DPreviewPage(
 		}
 		const xCentered = margin + (maxImgW - imgW) / 2;
 		const imgTop = yBody + 22;
-		pdf.addImage(data3d, 'JPEG', xCentered, imgTop, imgW, imgH, undefined, 'FAST');
+		try {
+			pdf.addImage(data3d, 'PNG', xCentered, imgTop, imgW, imgH, undefined, 'FAST');
+		} catch (e) {
+			console.error('[pdfAppend3D] addImage failed; leaving page without 3D render:', e);
+		}
 	} else {
 		pdf.setFontSize(10);
 		if (useBrand) setBrandFont(pdf, BRAND_FONT.body);

@@ -257,7 +257,7 @@ export const POST: APIRoute = async ({ request }) => {
 			sendEmail(
 				token,
 				{ email, name: 'Room Planner Customer' },
-				'Review your layout — PlayerStall (PDFs attached)',
+				'Review your layout — PlayerStall',
 				customerHTML,
 				customerText,
 				{ email: SALES_EMAIL },

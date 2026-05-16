@@ -258,11 +258,11 @@ function buildReviewOrderSection(
     <div style="display:block;padding:16px 24px;background:${C_TEXT};color:#ffffff;text-align:center;font-family:${FF_HEAD};font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;border:1px solid ${C_TEXT};">Layout sent</div>
   </td></tr>
   <tr><td style="padding:14px 24px 24px;">
-    <p style="margin:0;font-family:${FF_BODY};font-size:12px;line-height:1.6;color:${C_MUTED};text-align:center;">Thank you! We emailed two PDFs to ${escapeHtml(customerEmail)}: your project estimate and your layout (floor plans + 3D). Our team received copies too.</p>
+    <p style="margin:0;font-family:${FF_BODY};font-size:12px;line-height:1.6;color:${C_MUTED};text-align:center;">Thank you! Your project estimate PDF (with the 3D view above) was saved to your device when you submitted, and our team has the same summary. Reply if you need us to resend the PDF.</p>
   </td></tr>`
 			: `
   <tr><td style="padding:14px 24px 24px;">
-    <p style="margin:0;font-family:${FF_BODY};font-size:12px;line-height:1.6;color:${C_MUTED};">The customer received the same two PDFs (project estimate and layout with floor plans + 3D). Reply directly to this email to reach them.</p>
+    <p style="margin:0;font-family:${FF_BODY};font-size:12px;line-height:1.6;color:${C_MUTED};">The customer's project estimate PDF downloaded to their device on submit (not emailed). The summary below mirrors what they saw. Reply directly to reach them.</p>
   </td></tr>`;
 
 	return `
