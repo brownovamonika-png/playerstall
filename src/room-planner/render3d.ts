@@ -1347,6 +1347,10 @@ export async function capturePlanner3DDataURL(
     customLogoDataUrl?: string | null;
     /** >1 sharpens PDF/email snapshots on HiDPI displays (default 1). */
     pixelRatio?: number;
+    /** Output format: 'image/png' (default) or 'image/jpeg'. JPEG is much smaller for PDF embedding. */
+    format?: 'image/png' | 'image/jpeg';
+    /** JPEG quality 0–1 (default 0.82). Ignored for PNG. */
+    quality?: number;
   },
 ): Promise<string | null> {
   const prevWallMaterial = _wallMaterial;
@@ -1390,7 +1394,9 @@ export async function capturePlanner3DDataURL(
     renderer.toneMappingExposure = 1.0;
 
     renderer.render(scene, camera);
-    return renderer.domElement.toDataURL('image/png');
+    const fmt = options?.format ?? 'image/png';
+    const quality = options?.quality ?? 0.82;
+    return renderer.domElement.toDataURL(fmt, quality);
   } catch (e) {
     console.error('capturePlanner3DDataURL failed:', e);
     return null;
