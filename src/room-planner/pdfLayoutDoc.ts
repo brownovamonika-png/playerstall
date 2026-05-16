@@ -90,13 +90,13 @@ export async function captureFirstRoom3DEmailPreviewDataUrl(
 	if (!savedRooms.length) return null;
 	const room = savedRooms[0];
 	const tempState = buildPlannerStateFromSavedRoom(room, displayUnit);
+	// PNG is the only reliable WebGL→toDataURL format; FormData transport (PR #27)
+	// already handles the larger payload, so we no longer need JPEG here either.
 	return capturePlanner3DDataURL(tempState, {
 		width: 560,
 		height: 350,
 		pixelRatio: 1,
 		customLogoDataUrl: room.customLogoDataUrl ?? undefined,
-		format: 'image/jpeg',
-		quality: 0.80,
 	});
 }
 
@@ -167,9 +167,15 @@ export async function generateLayoutPdfBlob(
 				brandFonts: brandFontsReady,
 			});
 
-			await appendPlanner3DPreviewPage(pdf, roomLabel, tempState, room.customLogoDataUrl ?? null, {
-				brandFonts: brandFontsReady,
-			});
+			try {
+				await appendPlanner3DPreviewPage(pdf, roomLabel, tempState, room.customLogoDataUrl ?? null, {
+					brandFonts: brandFontsReady,
+				});
+			} catch (e) {
+				// Don't let a single room's 3D failure abort the whole layout PDF —
+				// the floor-plan pages already added remain valid.
+				console.error(`[pdfLayoutDoc] 3D preview append failed for room ${ri + 1}:`, e);
+			}
 		}
 
 		return pdf.output('blob');
