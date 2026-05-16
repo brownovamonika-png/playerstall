@@ -193,6 +193,20 @@ export async function generateEstimatePdfBlob(
 				const xImg = xCard;
 				pdf.addImage(previewImage3DDataUrl, 'PNG', xImg, y, imgW, imgH, undefined, 'FAST');
 				y += imgH + 18;
+
+				// Force everything after the 3D layout (selections, order summary,
+				// what's next, footer) onto page 2 so page 1 is a clean cover with
+				// the logo + 3D image only. Uses the same hero treatment that
+				// ensureSpace uses when content naturally overflows.
+				pdf.addPage('letter', 'portrait');
+				pageNum++;
+				y = drawRoomPlanEmailStylePdfHero(pdf, {
+					pageLabel: `Page ${pageNum}`,
+					mutedCenter: `Order summary · page ${pageNum}`,
+					stackMaxWidth: cardW - 16,
+					brandFonts: brandFontsReady,
+					logoDataUrl,
+				});
 			} catch (e) {
 				console.error('[pdfEstimate] addImage failed for 3D hero; continuing without it:', e);
 			}
@@ -421,32 +435,49 @@ export async function generateEstimatePdfBlob(
 		y += innerPad;
 
 		// --- What happens next (same copy as email; #fafafa band)
-		ensureSpace(100);
-		const wnStart = y;
-		let wnH = 22 + 16;
-		for (const step of ROOM_PLAN_WHAT_NEXT_STEPS) {
-			const sl = pdf.splitTextToSize(step, innerW - 18) as string[];
-			wnH += sl.length * 12 + 6;
+		// Measure content using the same per-step spacing the render loop uses
+		// so the box height matches what is actually drawn, then add equal top
+		// and bottom padding so the heading + list sit vertically centered.
+		const stepLineH = 12;
+		const gapBetweenSteps = 4;
+		const headingBlockH = 14 + 18; // heading font + gap to first step
+		let stepsBlockH = 0;
+		const stepLineCounts: number[] = [];
+		for (let i = 0; i < ROOM_PLAN_WHAT_NEXT_STEPS.length; i++) {
+			const sl = pdf.splitTextToSize(
+				`${i + 1}. ${ROOM_PLAN_WHAT_NEXT_STEPS[i]}`,
+				innerW - 18,
+			) as string[];
+			stepLineCounts.push(sl.length);
+			stepsBlockH += sl.length * stepLineH + gapBetweenSteps;
 		}
-		wnH += 20;
+		stepsBlockH -= gapBetweenSteps; // no trailing gap after last step
+		const vPad = 22;
+		const wnH = vPad + headingBlockH + stepsBlockH + vPad;
+
+		ensureSpace(wnH + 16);
+		const wnStart = y;
 		pdf.setFillColor(...BAND);
 		pdf.setDrawColor(...LINE);
 		pdf.rect(xCard, wnStart, contentW, wnH, 'FD');
-		let wy = wnStart + 18;
+
+		let wy = wnStart + vPad + 14; // first text baseline inside the box
 		setDisplay();
 		pdf.setFontSize(14);
 		pdf.setTextColor(42, 42, 42);
 		pdf.text(ROOM_PLAN_WHAT_NEXT_HEADING.toUpperCase(), innerLeft, wy);
 		wy += 18;
+
 		setBody();
 		pdf.setFontSize(12);
 		pdf.setTextColor(85, 85, 85);
-		let n = 1;
-		for (const step of ROOM_PLAN_WHAT_NEXT_STEPS) {
-			const sl = pdf.splitTextToSize(`${n}. ${step}`, innerW - 18) as string[];
+		for (let i = 0; i < ROOM_PLAN_WHAT_NEXT_STEPS.length; i++) {
+			const sl = pdf.splitTextToSize(
+				`${i + 1}. ${ROOM_PLAN_WHAT_NEXT_STEPS[i]}`,
+				innerW - 18,
+			) as string[];
 			pdf.text(sl, innerLeft + 8, wy);
-			wy += sl.length * 12 + 4;
-			n += 1;
+			wy += sl.length * stepLineH + gapBetweenSteps;
 		}
 		y = wnStart + wnH + 16;
 
