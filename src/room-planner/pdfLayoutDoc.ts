@@ -92,9 +92,11 @@ export async function captureFirstRoom3DEmailPreviewDataUrl(
 	const tempState = buildPlannerStateFromSavedRoom(room, displayUnit);
 	// PNG is the only reliable WebGL→toDataURL format; FormData transport (PR #27)
 	// already handles the larger payload, so we no longer need JPEG here either.
+	// 1120×700 keeps the same 16:10 aspect but is sharp enough to also embed
+	// into the estimate PDF hero (the email displays it at 560px wide).
 	return capturePlanner3DDataURL(tempState, {
-		width: 560,
-		height: 350,
+		width: 1120,
+		height: 700,
 		pixelRatio: 1,
 		customLogoDataUrl: room.customLogoDataUrl ?? undefined,
 	});

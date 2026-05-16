@@ -4873,19 +4873,28 @@ const plannerTemplates = getAllTemplates();
 			unitPrice: l.unitPrice,
 			qty: l.qty,
 		}));
-		const estimateBlob = await generateEstimatePdfBlob(estimateLines, customerEmail, grandTotal, orderSummary);
-		let layoutBlob: Blob | null = null;
-		try {
-			layoutBlob = await generateLayoutPdfBlob(savedRooms, state.displayUnit);
-		} catch (e) {
-			console.error('Layout PDF failed:', e);
-		}
+		// Capture the 3D snapshot first so it can be embedded as a hero in the
+		// estimate PDF (the customer's primary downloaded document) and as the
+		// inline hero image in the email body.
 		let layoutPreviewDataUrl: string | undefined;
 		try {
 			const thumb = await captureFirstRoom3DEmailPreviewDataUrl(savedRooms, state.displayUnit);
 			if (thumb) layoutPreviewDataUrl = thumb;
 		} catch {
-			/* optional email hero image */
+			/* optional 3D hero image — estimate + email still generate without it */
+		}
+		const estimateBlob = await generateEstimatePdfBlob(
+			estimateLines,
+			customerEmail,
+			grandTotal,
+			orderSummary,
+			layoutPreviewDataUrl ?? null,
+		);
+		let layoutBlob: Blob | null = null;
+		try {
+			layoutBlob = await generateLayoutPdfBlob(savedRooms, state.displayUnit);
+		} catch (e) {
+			console.error('Layout PDF failed:', e);
 		}
 		try {
 			loadRoom(origIndex);
@@ -4913,7 +4922,7 @@ const plannerTemplates = getAllTemplates();
 		}).then(async (res) => {
 			if (res.ok) {
 				statusMsg.textContent =
-					'Thank you! We emailed your room plan details to ' +
+					'Thank you! Your estimate PDF has been saved to your device, and we sent a summary to ' +
 					customerEmail +
 					'. Our team received a copy too — we\'ll be in touch!';
 				statusMsg.style.color = '#0d0d0d';

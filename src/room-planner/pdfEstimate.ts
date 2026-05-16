@@ -117,6 +117,13 @@ export async function generateEstimatePdfBlob(
 	customerEmail: string,
 	grandTotal: number,
 	orderSummaryForSelections?: string,
+	/**
+	 * Optional 3D snapshot data URL (PNG). When provided, rendered as a hero
+	 * image directly under the title block so the customer's downloaded PDF
+	 * carries the same visual the planner showed them on submit. PNG only
+	 * (jsPDF embeds JPEG unreliably from WebGL-derived data URLs).
+	 */
+	previewImage3DDataUrl?: string | null,
 ): Promise<Blob | null> {
 	try {
 		/*
@@ -177,6 +184,20 @@ export async function generateEstimatePdfBlob(
 			brandFonts: brandFontsReady,
 			logoDataUrl,
 		});
+
+		if (previewImage3DDataUrl) {
+			try {
+				// Embed at 16:10 aspect to match capturePlanner3DDataURL output.
+				const imgW = cardW;
+				const imgH = imgW * (10 / 16);
+				const xImg = xCard;
+				pdf.addImage(previewImage3DDataUrl, 'PNG', xImg, y, imgW, imgH, undefined, 'FAST');
+				y += imgH + 18;
+			} catch (e) {
+				console.error('[pdfEstimate] addImage failed for 3D hero; continuing without it:', e);
+			}
+		}
+
 		const bottomSafe = pageH - 88;
 
 		function ensureSpace(need: number) {
