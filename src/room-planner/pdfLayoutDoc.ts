@@ -95,6 +95,8 @@ export async function captureFirstRoom3DEmailPreviewDataUrl(
 		height: 350,
 		pixelRatio: 1,
 		customLogoDataUrl: room.customLogoDataUrl ?? undefined,
+		format: 'image/jpeg',
+		quality: 0.80,
 	});
 }
 
@@ -129,8 +131,8 @@ export async function generateLayoutPdfBlob(
 		const pageH = pdf.internal.pageSize.getHeight();
 		const margin = 48;
 		const offCanvas = document.createElement('canvas');
-		offCanvas.width = 2400;
-		offCanvas.height = 1600;
+		offCanvas.width = 1600;
+		offCanvas.height = 1067;
 		const offCtx = offCanvas.getContext('2d')!;
 
 		for (let ri = 0; ri < savedRooms.length; ri++) {
@@ -143,7 +145,7 @@ export async function generateLayoutPdfBlob(
 			offCtx.fillStyle = '#fff';
 			offCtx.fillRect(0, 0, offCanvas.width, offCanvas.height);
 			render(offCtx, tempState);
-			const imgData = offCanvas.toDataURL('image/png');
+			const imgData = offCanvas.toDataURL('image/jpeg', 0.85);
 
 			const yBody = drawRoomPlanEmailStylePdfHero(pdf, {
 				pageLabel: savedRooms.length > 1 ? `Room ${ri + 1} of ${savedRooms.length}` : undefined,
@@ -159,7 +161,7 @@ export async function generateLayoutPdfBlob(
 			const imgH = (offCanvas.height / offCanvas.width) * imgW;
 			const maxImgH = pageH - imgTop - margin - 36;
 			const drawH = Math.min(imgH, maxImgH);
-			pdf.addImage(imgData, 'PNG', margin, imgTop, imgW, drawH, undefined, 'NONE');
+			pdf.addImage(imgData, 'JPEG', margin, imgTop, imgW, drawH, undefined, 'FAST');
 
 			drawRoomPlanEmailStylePdfFooter(pdf, ROOM_PLAN_FOOTER_LINES[0], ROOM_PLAN_FOOTER_LINES[1], {
 				brandFonts: brandFontsReady,

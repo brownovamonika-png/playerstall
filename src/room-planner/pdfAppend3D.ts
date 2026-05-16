@@ -5,8 +5,8 @@ import { BRAND_FONT, setBrandFont } from './pdfFonts';
 import type { PlannerState } from './types';
 import { capturePlanner3DDataURL } from './render3d';
 
-const SNAP_W = 1920;
-const SNAP_H = 1200;
+const SNAP_W = 1280;
+const SNAP_H = 800;
 
 export interface Append3DOptions {
 	/** Use Oswald + Yantramanav (only when parent doc has registerBrandFonts()). */
@@ -26,7 +26,9 @@ export async function appendPlanner3DPreviewPage(
 		width: SNAP_W,
 		height: SNAP_H,
 		customLogoDataUrl: customLogoDataUrl ?? undefined,
-		pixelRatio: 2,
+		pixelRatio: 1,
+		format: 'image/jpeg',
+		quality: 0.82,
 	});
 	pdf.addPage('letter', 'landscape');
 	const pageW = pdf.internal.pageSize.getWidth();
@@ -53,7 +55,7 @@ export async function appendPlanner3DPreviewPage(
 		}
 		const xCentered = margin + (maxImgW - imgW) / 2;
 		const imgTop = yBody + 22;
-		pdf.addImage(data3d, 'PNG', xCentered, imgTop, imgW, imgH, undefined, 'NONE');
+		pdf.addImage(data3d, 'JPEG', xCentered, imgTop, imgW, imgH, undefined, 'FAST');
 	} else {
 		pdf.setFontSize(10);
 		if (useBrand) setBrandFont(pdf, BRAND_FONT.body);

@@ -4909,30 +4909,49 @@ const plannerTemplates = getAllTemplates();
 			if (layoutBlob) layoutPdfBase64 = await blobToBase64(layoutBlob);
 		} catch (_) {}
 
+		const MAX_PAYLOAD_BYTES = 4_200_000;
+		let payload: Record<string, unknown> = {
+			email: customerEmail,
+			orderSummary,
+			grandTotal: grandTotal.toFixed(2),
+			estimatePdfBase64,
+			layoutPdfBase64,
+			layoutPreviewDataUrl,
+		};
+		let bodyStr = JSON.stringify(payload);
+
+		if (bodyStr.length > MAX_PAYLOAD_BYTES) {
+			delete payload.layoutPreviewDataUrl;
+			bodyStr = JSON.stringify(payload);
+		}
+		if (bodyStr.length > MAX_PAYLOAD_BYTES) {
+			delete payload.layoutPdfBase64;
+			bodyStr = JSON.stringify(payload);
+		}
+		if (bodyStr.length > MAX_PAYLOAD_BYTES) {
+			delete payload.estimatePdfBase64;
+			bodyStr = JSON.stringify(payload);
+		}
+
 		fetch(sendRoomPlanApiUrl(), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				email: customerEmail,
-				orderSummary,
-				grandTotal: grandTotal.toFixed(2),
-				estimatePdfBase64,
-				layoutPdfBase64,
-				layoutPreviewDataUrl,
-			}),
+			body: bodyStr,
 		}).then(async (res) => {
 			if (res.ok) {
 				statusMsg.textContent =
-					'Thank you! We emailed two PDFs to ' +
+					'Thank you! We emailed your room plan details to ' +
 					customerEmail +
-					': your project estimate and your layout (floor plans + 3D). Our team received copies too.';
+					'. Our team received a copy too — we\'ll be in touch!';
 				statusMsg.style.color = '#0d0d0d';
 				btn.textContent = 'Sent!';
 				if (estimateBlob) downloadBlob(estimateBlob, 'PlayerStall-Room-Estimate.pdf');
-				if (layoutBlob) setTimeout(() => downloadBlob(layoutBlob, 'PlayerStall-Room-Layout.pdf'), 400);
+				if (layoutBlob) setTimeout(() => downloadBlob(layoutBlob!, 'PlayerStall-Room-Layout.pdf'), 400);
 			} else {
 				let detail = '';
-				try { const j = await res.json(); detail = j.error || ''; } catch {}
+				try { const j = await res.json(); detail = j.error || ''; } catch {
+					if (res.status === 413) detail = 'File too large';
+				}
 				statusMsg.textContent = 'Something went wrong' + (detail ? ': ' + detail : '') + '. Please try again or email us directly at team@playerstall.com.';
 				statusMsg.style.color = '#fe5900';
 				btn.disabled = false;
