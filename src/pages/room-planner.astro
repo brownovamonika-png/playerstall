@@ -4920,16 +4920,21 @@ const plannerTemplates = getAllTemplates();
 		};
 		let bodyStr = JSON.stringify(payload);
 
+		// Drop order favors keeping the 3D view (layout PDF + email hero) since
+		// estimate pricing is already rendered into the email HTML body.
 		if (bodyStr.length > MAX_PAYLOAD_BYTES) {
+			console.warn('[room-planner] payload over limit, dropping estimatePdfBase64', { bytes: bodyStr.length });
+			delete payload.estimatePdfBase64;
+			bodyStr = JSON.stringify(payload);
+		}
+		if (bodyStr.length > MAX_PAYLOAD_BYTES) {
+			console.warn('[room-planner] still over limit, dropping layoutPreviewDataUrl', { bytes: bodyStr.length });
 			delete payload.layoutPreviewDataUrl;
 			bodyStr = JSON.stringify(payload);
 		}
 		if (bodyStr.length > MAX_PAYLOAD_BYTES) {
+			console.warn('[room-planner] still over limit, dropping layoutPdfBase64 (3D will be missing)', { bytes: bodyStr.length });
 			delete payload.layoutPdfBase64;
-			bodyStr = JSON.stringify(payload);
-		}
-		if (bodyStr.length > MAX_PAYLOAD_BYTES) {
-			delete payload.estimatePdfBase64;
 			bodyStr = JSON.stringify(payload);
 		}
 
