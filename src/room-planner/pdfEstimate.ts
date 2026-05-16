@@ -69,7 +69,9 @@ function shippingLinesHeight(pdf: jsPDF, innerW: number): number {
 	let h = 0;
 	for (let si = 0; si < ROOM_PLAN_SHIPPING_LINES.length; si++) {
 		const shipLines = pdf.splitTextToSize(ROOM_PLAN_SHIPPING_LINES[si], innerW) as string[];
-		h += shipLines.length * 12 + (si < ROOM_PLAN_SHIPPING_LINES.length - 1 ? 4 : 10);
+		// Trailing gap of 24pt must match the render loop in generateEstimatePdfBlob
+		// so the gray panel rect fully encloses the "Your email" section.
+		h += shipLines.length * 12 + (si < ROOM_PLAN_SHIPPING_LINES.length - 1 ? 4 : 24);
 	}
 	return h;
 }
@@ -299,10 +301,10 @@ export async function generateEstimatePdfBlob(
 		}
 
 		const orderPanelTop = y;
-		const orderPanelH = Math.min(
-			pageH - margin - orderPanelTop - 180,
-			measureOrderPanelHeight(pdf, lines, innerW, innerPad, colProductW),
-		);
+		// Use the natural measured height — the previous Math.min cap clipped the
+		// gray panel short of its content, so the rect ended on the shipping line
+		// while "Your email" rendered visually outside the box.
+		const orderPanelH = measureOrderPanelHeight(pdf, lines, innerW, innerPad, colProductW);
 		ensureSpace(orderPanelH + 28);
 		pdf.setFillColor(...PANEL);
 		pdf.setDrawColor(...LINE);
@@ -421,7 +423,9 @@ export async function generateEstimatePdfBlob(
 		for (let si = 0; si < ROOM_PLAN_SHIPPING_LINES.length; si++) {
 			const shipLines = pdf.splitTextToSize(ROOM_PLAN_SHIPPING_LINES[si], innerW) as string[];
 			pdf.text(shipLines, innerLeft, y);
-			y += shipLines.length * 12 + (si < ROOM_PLAN_SHIPPING_LINES.length - 1 ? 4 : 10);
+			// Extra breathing room after the last shipping line so "Your email"
+			// has visible space inside the gray panel.
+			y += shipLines.length * 12 + (si < ROOM_PLAN_SHIPPING_LINES.length - 1 ? 4 : 24);
 		}
 
 		pdf.setFontSize(12);
