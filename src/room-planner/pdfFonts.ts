@@ -22,6 +22,7 @@
  */
 
 import type { jsPDF } from 'jspdf';
+import './pdfPatch';
 
 const FONT_BASE_PATH = '/fonts-pdf';
 
