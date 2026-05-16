@@ -25,8 +25,11 @@ grid-estimate.txt
 *Production*Request*
 
 # Guides directory (private strategy docs — tracked exceptions below)
-guides/
+guides/*
+!guides/
 !guides/CONTENT_CALENDAR_2026.md
+!guides/SOCIAL_MEDIA_CALENDAR.md
+!guides/bunny-images-root-checklist.md
 
 # Cursor agent skills (local only)
 .cursor/skills/
