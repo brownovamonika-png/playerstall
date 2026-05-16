@@ -2700,30 +2700,6 @@ const plannerTemplates = getAllTemplates();
 
 	function saveCurrentRoom() {
 		savedRooms[activeRoomIndex] = snapshotCurrentRoom();
-		persistRooms();
-	}
-
-	const ROOMS_STORAGE_KEY = 'playerstall_rooms';
-
-	function persistRooms() {
-		try {
-			const data = { activeRoomIndex, rooms: savedRooms };
-			localStorage.setItem(ROOMS_STORAGE_KEY, JSON.stringify(data));
-		} catch (_) { /* quota exceeded or private browsing */ }
-	}
-
-	function restoreRooms(): boolean {
-		try {
-			const raw = localStorage.getItem(ROOMS_STORAGE_KEY);
-			if (!raw) return false;
-			const data = JSON.parse(raw);
-			if (!Array.isArray(data.rooms) || data.rooms.length === 0) return false;
-			savedRooms.length = 0;
-			for (const r of data.rooms) savedRooms.push(r);
-			activeRoomIndex = Math.min(data.activeRoomIndex || 0, savedRooms.length - 1);
-			loadRoom(activeRoomIndex);
-			return true;
-		} catch (_) { return false; }
 	}
 
 	function loadRoom(index: number) {
@@ -2788,7 +2764,6 @@ const plannerTemplates = getAllTemplates();
 			activeRoomIndex = Math.min(index, savedRooms.length - 1);
 		}
 		loadRoom(activeRoomIndex);
-		persistRooms();
 		renderRoomTabs();
 	}
 
@@ -2868,7 +2843,6 @@ const plannerTemplates = getAllTemplates();
 		});
 		activeRoomIndex = newIndex;
 		loadRoom(newIndex);
-		persistRooms();
 		renderCarouselNav();
 	};
 
@@ -4993,12 +4967,9 @@ const plannerTemplates = getAllTemplates();
 	});
 
 	// ─── Init ───
-	if (!restoreRooms()) {
-		savedRooms.push(snapshotCurrentRoom());
-	}
+	savedRooms.push(snapshotCurrentRoom());
 	renderRoomTabs();
 	window.addEventListener('resize', () => redraw());
-	window.addEventListener('beforeunload', () => { saveCurrentRoom(); });
 	requestAnimationFrame(() => {
 		zoomFit();
 		redraw();
