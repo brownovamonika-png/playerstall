@@ -17,7 +17,9 @@
     "test:email": "node --env-file=.env scripts/test-mailersend.mjs",
     "email:export-preview": "npx --yes tsx scripts/export-room-plan-email-preview.ts",
     "signature": "open public/signatures/monika-brownova.html",
-    "signature:name": "open public/signatures/monika-brownova-name-only.html"
+    "signature:name": "open public/signatures/monika-brownova-name-only.html",
+    "bunny:list-images-root": "node --env-file=.env scripts/list-bunny-images-root.mjs",
+    "bunny:list-images-root:write": "node --env-file=.env scripts/list-bunny-images-root.mjs > guides/bunny-images-root-checklist.md"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
