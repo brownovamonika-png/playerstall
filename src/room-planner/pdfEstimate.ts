@@ -74,7 +74,7 @@ function shippingLinesHeight(pdf: jsPDF, innerW: number): number {
 	return h;
 }
 
-/** Vertical space for the gray order card (team email structure + customer “Your email” row). */
+/** Vertical space for the gray order card; customer email is measured in "Your selections". */
 function measureOrderPanelHeight(
 	pdf: jsPDF,
 	lines: EstimatePdfLine[],
@@ -82,7 +82,7 @@ function measureOrderPanelHeight(
 	innerPad: number,
 	colProductW: number,
 ): number {
-	// Mirrors the draw sequence below (customer email: no “Customer” strip — Order Summary first).
+	// Mirrors the draw sequence below (Order Summary first; no customer metadata inside this panel).
 	let h = innerPad;
 	h += 14 + 16 + 14;
 	h += 10 + 10 + 14;
@@ -94,11 +94,11 @@ function measureOrderPanelHeight(
 			h += 26;
 		}
 		const { rowH } = productRowMetrics(pdf, line, colProductW);
-		h += rowH + 6;
+		h += rowH + 4;
 	}
 	h += 8 + 18 + 16 + 28 + 22 + shippingLinesHeight(pdf, innerW);
-	h += 12 + 14 + 10 + 16 + 4 + innerPad;
-	return h + 32;
+	h += innerPad;
+	return h;
 }
 
 /**
@@ -211,20 +211,23 @@ export async function generateEstimatePdfBlob(
 				console.error('[pdfEstimate] addImage failed for 3D hero; continuing without it:', e);
 			}
 		}
-
 		const bottomSafe = pageH - 88;
+
+		function addFlowPage() {
+			pdf.addPage('letter', 'portrait');
+			pageNum++;
+			y = drawRoomPlanEmailStylePdfHero(pdf, {
+				pageLabel: `Page ${pageNum}`,
+				mutedCenter: `Order summary · page ${pageNum}`,
+				stackMaxWidth: cardW - 16,
+				brandFonts: brandFontsReady,
+				logoDataUrl,
+			});
+		}
 
 		function ensureSpace(need: number) {
 			if (y + need > bottomSafe) {
-				pdf.addPage('letter', 'portrait');
-				pageNum++;
-				y = drawRoomPlanEmailStylePdfHero(pdf, {
-					pageLabel: `Page ${pageNum}`,
-					mutedCenter: `Order summary · page ${pageNum}`,
-					stackMaxWidth: cardW - 16,
-					brandFonts: brandFontsReady,
-					logoDataUrl,
-				});
+				addFlowPage();
 			}
 		}
 
@@ -242,7 +245,10 @@ export async function generateEstimatePdfBlob(
 			metaFunding = ex.fundingLines;
 		}
 
-		if (metaTiming.length || metaFunding.length) {
+		const emailLines = customerEmail.trim()
+			? (pdf.splitTextToSize(customerEmail.trim(), innerW) as string[])
+			: [];
+		if (metaTiming.length || metaFunding.length || emailLines.length) {
 			/*
 			 * Stacked label + value layout (label on top, value below), so long labels
 			 * like "PREFERRED DELIVERY TIMING" can never collide with the value — the
@@ -256,14 +262,32 @@ export async function generateEstimatePdfBlob(
 				pdf.splitTextToSize(rows.join('\n'), valueW) as string[];
 			const timingValLines = metaTiming.length ? measureVal(metaTiming) : [];
 			const fundingValLines = metaFunding.length ? measureVal(metaFunding) : [];
+			const selectionRows: { label: string; lines: string[] }[] = [];
+			if (timingValLines.length) {
+				selectionRows.push({
+					label: ROOM_PLAN_SELECTIONS_TIMING_LABEL.toUpperCase(),
+					lines: timingValLines,
+				});
+			}
+			if (fundingValLines.length) {
+				selectionRows.push({
+					label: ROOM_PLAN_SELECTIONS_FUNDING_LABEL.toUpperCase(),
+					lines: fundingValLines,
+				});
+			}
+			if (emailLines.length) {
+				selectionRows.push({ label: 'YOUR EMAIL', lines: emailLines });
+			}
 
 			const titleRowH = 40;
 			const labelH = 14;
 			const gapBetweenRows = 14;
-			let contentH = 0;
-			if (metaTiming.length) contentH += labelH + timingValLines.length * 13 + gapBetweenRows;
-			if (metaFunding.length) contentH += labelH + fundingValLines.length * 13 + gapBetweenRows;
-			const blockH = innerPad + titleRowH + contentH + innerPad - 4;
+			const contentH = selectionRows.reduce(
+				(sum, row, idx) =>
+					sum + labelH + row.lines.length * 13 + (idx < selectionRows.length - 1 ? gapBetweenRows : 0),
+				0,
+			);
+			const blockH = innerPad + titleRowH + contentH + innerPad;
 
 			ensureSpace(blockH + 14);
 			const selTop = y;
@@ -281,7 +305,7 @@ export async function generateEstimatePdfBlob(
 			hRule(innerLeft, ruleUnderTitle, innerW);
 			let sy = ruleUnderTitle + 14;
 
-			const drawRow = (label: string, valLines: string[]) => {
+			const drawRow = (label: string, valLines: string[], isLast: boolean) => {
 				setLabel();
 				pdf.setFontSize(9);
 				pdf.setTextColor(...MUTED);
@@ -290,149 +314,205 @@ export async function generateEstimatePdfBlob(
 				pdf.setFontSize(11);
 				pdf.setTextColor(...TEXT);
 				pdf.text(valLines, innerLeft, sy + labelH);
-				sy += labelH + valLines.length * 13 + gapBetweenRows;
+				sy += labelH + valLines.length * 13 + (isLast ? 0 : gapBetweenRows);
 			};
-			if (metaTiming.length) drawRow(ROOM_PLAN_SELECTIONS_TIMING_LABEL.toUpperCase(), timingValLines);
-			if (metaFunding.length) drawRow(ROOM_PLAN_SELECTIONS_FUNDING_LABEL.toUpperCase(), fundingValLines);
+			selectionRows.forEach((row, idx) => drawRow(row.label, row.lines, idx === selectionRows.length - 1));
 
 			y = selTop + blockH + 14;
 		}
 
-		const orderPanelTop = y;
-		const orderPanelH = Math.min(
-			pageH - margin - orderPanelTop - 180,
-			measureOrderPanelHeight(pdf, lines, innerW, innerPad, colProductW),
-		);
-		ensureSpace(orderPanelH + 28);
-		pdf.setFillColor(...PANEL);
-		pdf.setDrawColor(...LINE);
-		pdf.setLineWidth(0.5);
-		pdf.rect(xCard, orderPanelTop, contentW, orderPanelH, 'FD');
-
-		/* Match buildCustomerHTML order card: Order Summary row first (team email adds “Customer” above). */
-		y = orderPanelTop + innerPad;
-		setDisplay();
-		pdf.setFontSize(20);
-		pdf.setTextColor(...TEXT);
-		pdf.text('ORDER SUMMARY', innerLeft, y + 14);
-		y += 14 + 16;
-		hRule(innerLeft, y, innerW);
-		y += 14;
-
-		pdf.setFontSize(11);
-		setLabel();
-		pdf.setTextColor(...MUTED);
-		const headY = y;
-		pdf.text('Product', innerLeft, headY);
-		pdf.text('Qty', innerLeft + colProductW + colQtyW / 2, headY, { align: 'center' });
-		pdf.text('Subtotal', innerRight, headY, { align: 'right' });
-		y += 10;
-		hRule(innerLeft, y, innerW);
-		y += 14;
-
-		let curRoom = '';
 		let totalLockers = 0;
 		const roomNames = new Set<string>();
+		for (const line of lines) {
+			roomNames.add(line.roomName || 'Unnamed Room');
+			totalLockers += line.qty;
+		}
+
+		type OrderBlock = {
+			height: number;
+			keepWithNext?: boolean;
+			draw: () => void;
+		};
+
+		const orderHeaderH = innerPad + 30 + 14 + 10 + 14;
+		const orderBlocks: OrderBlock[] = [];
+		let curRoom = '';
 
 		for (const line of lines) {
 			const room = line.roomName || 'Unnamed Room';
-			roomNames.add(room);
-			totalLockers += line.qty;
 			const lineTotal = line.unitPrice * line.qty;
 
 			if (room !== curRoom) {
 				curRoom = room;
-				ensureSpace(28);
-				setBold();
-				pdf.setFontSize(11);
-				pdf.setTextColor(...TEXT);
-				pdf.text(room.toUpperCase(), innerLeft + 8, y + 10);
-				y += 26;
+				orderBlocks.push({
+					height: 26,
+					keepWithNext: true,
+					draw: () => {
+						setBold();
+						pdf.setFontSize(11);
+						pdf.setTextColor(...TEXT);
+						pdf.text(room.toUpperCase(), innerLeft + 8, y + 10);
+						y += 26;
+					},
+				});
 			}
 
 			const { nameLines, specLines, nameH, specH, rowH } = productRowMetrics(pdf, line, colProductW);
-			ensureSpace(rowH + 6);
+			orderBlocks.push({
+				height: rowH + 4,
+				draw: () => {
+					const rowTop = y;
+					let ty = rowTop + 14;
+					setBold();
+					pdf.setFontSize(13);
+					pdf.setTextColor(...TEXT);
+					pdf.text(nameLines, innerLeft, ty);
+					ty += nameH + 4;
+					setBody();
+					pdf.setFontSize(11);
+					pdf.setTextColor(...MUTED);
+					pdf.text(specLines, innerLeft, ty);
 
-			const rowTop = y;
-			let ty = rowTop + 14;
-			setBold();
-			pdf.setFontSize(13);
+					const qtyY = rowTop + 22;
+					setBold();
+					pdf.setFontSize(13);
+					pdf.setTextColor(...TEXT);
+					pdf.text(String(line.qty), innerLeft + colProductW + colQtyW / 2, qtyY, { align: 'center' });
+					pdf.text(money(lineTotal), innerRight, qtyY, { align: 'right' });
+
+					y = rowTop + rowH;
+					hRule(innerLeft, y, innerW);
+					y += 4;
+				},
+			});
+		}
+
+		orderBlocks.push({
+			height: 8 + 18 + 16 + 28 + 22 + shippingLinesHeight(pdf, innerW) + innerPad,
+			draw: () => {
+				y += 8;
+				setBold();
+				pdf.setFontSize(12);
+				pdf.setTextColor(...MUTED);
+				pdf.text('Subtotal', innerLeft, y);
+				pdf.setFontSize(13);
+				pdf.setTextColor(...TEXT);
+				pdf.text(money(grandTotal), innerRight, y, { align: 'right' });
+				y += 18;
+				pdf.setDrawColor(...BORDER_STRONG);
+				pdf.setLineWidth(0.5);
+				pdf.line(innerLeft, y, innerRight, y);
+				y += 16;
+				const totalRowY = y;
+				pdf.setFontSize(12);
+				pdf.setTextColor(...MUTED);
+				pdf.text('Estimated Total', innerLeft, totalRowY);
+				pdf.setFontSize(20);
+				setDisplay();
+				pdf.setTextColor(...TEXT);
+				pdf.text(money(grandTotal), innerRight, totalRowY + 5, { align: 'right' });
+				y += 28;
+
+				const roomCount = lines.length ? roomNames.size : 0;
+				setBody();
+				pdf.setFontSize(12);
+				pdf.setTextColor(...MUTED);
+				if (lines.length === 0) {
+					pdf.text('No lockers in this summary.', innerLeft, y);
+				} else {
+					pdf.text(
+						`${totalLockers} locker${totalLockers !== 1 ? 's' : ''} across ${roomCount} room${roomCount !== 1 ? 's' : ''}`,
+						innerLeft,
+						y,
+					);
+				}
+				y += 22;
+
+				pdf.setFontSize(12);
+				pdf.setTextColor(...MUTED);
+				for (let si = 0; si < ROOM_PLAN_SHIPPING_LINES.length; si++) {
+					const shipLines = pdf.splitTextToSize(ROOM_PLAN_SHIPPING_LINES[si], innerW) as string[];
+					pdf.text(shipLines, innerLeft, y);
+					y += shipLines.length * 12 + (si < ROOM_PLAN_SHIPPING_LINES.length - 1 ? 4 : 10);
+				}
+				y += innerPad;
+			},
+		});
+
+		function drawOrderHeader(title: string) {
+			y += innerPad;
+			/* Match buildCustomerHTML order card: Order Summary row first. */
+			setDisplay();
+			pdf.setFontSize(20);
 			pdf.setTextColor(...TEXT);
-			pdf.text(nameLines, innerLeft, ty);
-			ty += nameH + 4;
-			setBody();
-			pdf.setFontSize(11);
-			pdf.setTextColor(...MUTED);
-			pdf.text(specLines, innerLeft, ty);
-
-			const qtyY = rowTop + 22;
-			setBold();
-			pdf.setFontSize(13);
-			pdf.setTextColor(...TEXT);
-			pdf.text(String(line.qty), innerLeft + colProductW + colQtyW / 2, qtyY, { align: 'center' });
-			pdf.text(money(lineTotal), innerRight, qtyY, { align: 'right' });
-
-			y = rowTop + rowH;
+			pdf.text(title, innerLeft, y + 14);
+			y += 14 + 16;
 			hRule(innerLeft, y, innerW);
-			y += 4;
+			y += 14;
+
+			pdf.setFontSize(11);
+			setLabel();
+			pdf.setTextColor(...MUTED);
+			const headY = y;
+			pdf.text('Product', innerLeft, headY);
+			pdf.text('Qty', innerLeft + colProductW + colQtyW / 2, headY, { align: 'center' });
+			pdf.text('Subtotal', innerRight, headY, { align: 'right' });
+			y += 10;
+			hRule(innerLeft, y, innerW);
+			y += 14;
 		}
 
-		ensureSpace(72);
-		y += 8;
-		setBold();
-		pdf.setFontSize(12);
-		pdf.setTextColor(...MUTED);
-		pdf.text('Subtotal', innerLeft, y);
-		pdf.setFontSize(13);
-		pdf.setTextColor(...TEXT);
-		pdf.text(money(grandTotal), innerRight, y, { align: 'right' });
-		y += 18;
-		pdf.setDrawColor(...BORDER_STRONG);
-		pdf.setLineWidth(0.5);
-		pdf.line(innerLeft, y, innerRight, y);
-		y += 16;
-		const totalRowY = y;
-		pdf.setFontSize(12);
-		pdf.setTextColor(...MUTED);
-		pdf.text('Estimated Total', innerLeft, totalRowY);
-		pdf.setFontSize(20);
-		setDisplay();
-		pdf.setTextColor(...TEXT);
-		pdf.text(money(grandTotal), innerRight, totalRowY + 5, { align: 'right' });
+		const naturalOrderPanelH = measureOrderPanelHeight(pdf, lines, innerW, innerPad, colProductW);
+		const firstBlockH = orderBlocks[0]?.height ?? 0;
+		ensureSpace(Math.min(naturalOrderPanelH + 28, orderHeaderH + firstBlockH + innerPad + 28));
+
+		let orderBlockIdx = 0;
+		let orderSegment = 0;
+		while (orderBlockIdx < orderBlocks.length) {
+			const firstRemainingBlock = orderBlocks[orderBlockIdx];
+			const firstRemainingH =
+				firstRemainingBlock?.keepWithNext && orderBlocks[orderBlockIdx + 1]
+					? firstRemainingBlock.height + orderBlocks[orderBlockIdx + 1].height
+					: (firstRemainingBlock?.height ?? 0);
+			if (y + orderHeaderH + firstRemainingH + innerPad > bottomSafe) {
+				addFlowPage();
+			}
+
+			const segmentTop = y;
+			let segmentH = orderHeaderH;
+			const segmentBlocks: OrderBlock[] = [];
+			while (orderBlockIdx < orderBlocks.length) {
+				const block = orderBlocks[orderBlockIdx];
+				const keepWithNextH =
+					block.keepWithNext && orderBlocks[orderBlockIdx + 1]
+						? block.height + orderBlocks[orderBlockIdx + 1].height
+						: block.height;
+				const needsBottomPad = orderBlockIdx < orderBlocks.length - 1 ? innerPad : 0;
+				const candidateH = segmentH + keepWithNextH + needsBottomPad;
+				if (segmentBlocks.length > 0 && segmentTop + candidateH > bottomSafe) break;
+				segmentBlocks.push(block);
+				segmentH += block.height;
+				orderBlockIdx++;
+			}
+
+			const isFinalSegment = orderBlockIdx >= orderBlocks.length;
+			const panelH = segmentH + (isFinalSegment ? 0 : innerPad);
+			pdf.setFillColor(...PANEL);
+			pdf.setDrawColor(...LINE);
+			pdf.setLineWidth(0.5);
+			pdf.rect(xCard, segmentTop, contentW, panelH, 'FD');
+
+			y = segmentTop;
+			drawOrderHeader(orderSegment === 0 ? 'ORDER SUMMARY' : 'ORDER SUMMARY (CONT.)');
+			for (const block of segmentBlocks) block.draw();
+			y = segmentTop + panelH;
+
+			if (!isFinalSegment) {
+				addFlowPage();
+			}
+			orderSegment++;
+		}
 		y += 28;
-
-		const roomCount = lines.length ? roomNames.size : 0;
-		setBody();
-		pdf.setFontSize(12);
-		pdf.setTextColor(...MUTED);
-		if (lines.length === 0) {
-			pdf.text('No lockers in this summary.', innerLeft, y);
-		} else {
-			pdf.text(
-				`${totalLockers} locker${totalLockers !== 1 ? 's' : ''} across ${roomCount} room${roomCount !== 1 ? 's' : ''}`,
-				innerLeft,
-				y,
-			);
-		}
-		y += 22;
-
-		pdf.setFontSize(12);
-		pdf.setTextColor(...MUTED);
-		for (let si = 0; si < ROOM_PLAN_SHIPPING_LINES.length; si++) {
-			const shipLines = pdf.splitTextToSize(ROOM_PLAN_SHIPPING_LINES[si], innerW) as string[];
-			pdf.text(shipLines, innerLeft, y);
-			y += shipLines.length * 12 + (si < ROOM_PLAN_SHIPPING_LINES.length - 1 ? 4 : 10);
-		}
-
-		pdf.setFontSize(12);
-		pdf.text('Your email', innerLeft, y);
-		y += 14;
-		pdf.setTextColor(...TEXT);
-		pdf.setFontSize(14);
-		pdf.text(customerEmail, innerLeft, y);
-		y += 16;
-		hRule(innerLeft, y, innerW);
-		y += innerPad;
 
 		// --- What happens next (same copy as email; #fafafa band)
 		// Measure content using the same per-step spacing the render loop uses
@@ -442,20 +522,18 @@ export async function generateEstimatePdfBlob(
 		const gapBetweenSteps = 4;
 		const headingBlockH = 14 + 18; // heading font + gap to first step
 		let stepsBlockH = 0;
-		const stepLineCounts: number[] = [];
 		for (let i = 0; i < ROOM_PLAN_WHAT_NEXT_STEPS.length; i++) {
 			const sl = pdf.splitTextToSize(
 				`${i + 1}. ${ROOM_PLAN_WHAT_NEXT_STEPS[i]}`,
 				innerW - 18,
 			) as string[];
-			stepLineCounts.push(sl.length);
 			stepsBlockH += sl.length * stepLineH + gapBetweenSteps;
 		}
 		stepsBlockH -= gapBetweenSteps; // no trailing gap after last step
 		const vPad = 22;
 		const wnH = vPad + headingBlockH + stepsBlockH + vPad;
 
-		ensureSpace(wnH + 16);
+		ensureSpace(wnH + 48);
 		const wnStart = y;
 		pdf.setFillColor(...BAND);
 		pdf.setDrawColor(...LINE);
