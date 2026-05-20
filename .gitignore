@@ -16,6 +16,19 @@ email-export/
 
 # Scratch/reference folders that should never be committed
 tmp-email-references/
+.rebuild-spec/
+
+# Cursor debug logs (local agent output)
+.cursor/debug-*.log
+
+# Local test exports and screenshots
+room-planner-layout.pdf
+Screenshot*.png
+
+# Unpacked logo packaging (keep SVG assets in public/logos/)
+public/logos/*.zip
+public/logos/PLAYERSTALL-OSWALD/
+public/logos/playerstall-oswald-favicon/
 
 # Estimates from various companies
 estimate from varies companies/
