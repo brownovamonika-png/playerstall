@@ -1,5 +1,0 @@
-# Legacy /index.html → / (cannot be done in Astro: conflicts with root index)
-/index.html    /    301
-
-# Locker Budget Planner (standalone HTML → Astro page)
-/locker-budget-planner.html    /locker-budget-planner    301
