@@ -710,8 +710,14 @@ const shopLockersItemList = buildLockersItemList(
 		margin-top: 80px;
 	}
 
-	.shop-lockers-grid-essential {
-		grid-template-columns: repeat(4, 1fr);
+	/* Essential Lockers: 3 items in one row, equal columns (matches home page). */
+	.shop-products-grid.shop-lockers-grid-essential {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	.shop-products-grid.shop-lockers-grid-essential .shop-product-image {
+		height: 400px;
+		min-height: 400px;
+		aspect-ratio: auto;
 	}
 
 	/* Locker Room Furniture: 2 items, same card size as Essential Lockers (matches home page).
@@ -1794,6 +1800,9 @@ const shopLockersItemList = buildLockersItemList(
 		.shop-products-grid {
 			grid-template-columns: repeat(3, 1fr);
 		}
+		.shop-products-grid.shop-lockers-grid-essential {
+			grid-template-columns: repeat(3, 1fr);
+		}
 	}
 
 	@media (max-width: 968px) {
@@ -1808,6 +1817,13 @@ const shopLockersItemList = buildLockersItemList(
 		}
 		.shop-accessories-grid {
 			grid-template-columns: repeat(2, 1fr);
+		}
+		.shop-products-grid.shop-lockers-grid-essential {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.shop-products-grid.shop-lockers-grid-essential .shop-product-image {
+			height: 360px;
+			min-height: 360px;
 		}
 	}
 
@@ -1836,9 +1852,19 @@ const shopLockersItemList = buildLockersItemList(
 		.shop-accessories-grid {
 			grid-template-columns: 1fr;
 		}
+		.shop-products-grid.shop-lockers-grid-essential {
+			grid-template-columns: 1fr;
+		}
 		.shop-products-grid.shop-furniture-grid {
 			grid-template-columns: 1fr;
 			max-width: 320px;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.shop-products-grid.shop-lockers-grid-essential .shop-product-image {
+			height: 320px;
+			min-height: 320px;
 		}
 	}
 
