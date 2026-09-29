@@ -29,7 +29,7 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Semi P
 
 <BaseLayout
 	title="Semi Pro Wood Locker | PlayerStall"
-	description="Semi Pro wood locker: 3/4&quot; solid wood, 76&quot; H x 19&quot; D, widths 18&quot;–32&quot;. $349 base. Full color options. Custom-built in three months. 5 year warranty."
+	description="Semi Pro wood locker: 3/4&quot; solid wood, 76&quot; H x 19&quot; D, widths 18&quot;–32&quot;. $399 base. Full color options. Custom-built in three months. 5 year warranty."
 >
 	<Fragment slot="head">
 		<script type="application/ld+json" set:html={JSON.stringify({
@@ -93,7 +93,7 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Semi P
 					<p class="product-model" data-model-prefix="SP-PF">Model # SP-PF-24</p>
 
 					<div class="product-price-block">
-						<span class="product-price" data-base-price="349">$349.00</span>
+						<span class="product-price" data-base-price="399">$399.00</span>
 					</div>
 
 					<div class="product-options">
@@ -108,14 +108,14 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Semi P
 							<label class="option-label">Width:</label>
 							<span class="option-value">24&quot; (standard)</span>
 							<div class="option-swatches">
-								<button type="button" class="swatch width-swatch" data-base-price="349" title="18 inch width">18&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="349" title="20 inch width">20&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="349" title="22 inch width">22&quot;</button>
-								<button type="button" class="swatch width-swatch active" data-base-price="349" title="24 inch width" aria-pressed="true">24&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="399" title="26 inch width">26&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="399" title="28 inch width">28&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="429" title="30 inch width">30&quot;</button>
-								<button type="button" class="swatch width-swatch" data-base-price="429" title="32 inch width">32&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="399" title="18 inch width">18&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="399" title="20 inch width">20&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="399" title="22 inch width">22&quot;</button>
+								<button type="button" class="swatch width-swatch active" data-base-price="399" title="24 inch width" aria-pressed="true">24&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="449" title="26 inch width">26&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="449" title="28 inch width">28&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="479" title="30 inch width">30&quot;</button>
+								<button type="button" class="swatch width-swatch" data-base-price="479" title="32 inch width">32&quot;</button>
 							</div>
 						</div>
 						<div class="product-option">
@@ -973,8 +973,8 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Semi P
 		}
 		addCartBtn.addEventListener('click', () => {
 			const priceEl = document.querySelector('.product-price');
-			const priceText = priceEl?.textContent?.replace(/[$,]/g, '') ?? '349';
-			const price = parseFloat(priceText) || 349;
+			const priceText = priceEl?.textContent?.replace(/[$,]/g, '') ?? '399';
+			const price = parseFloat(priceText) || 399;
 			const qtyEl = document.getElementById('product-qty');
 			const qty = Math.max(1, parseInt(qtyEl?.value ?? '1', 10) || 1);
 			const titleEl = document.querySelector('.product-title');

@@ -50,25 +50,25 @@ const L599: Readonly<Record<number, number>> = {
 };
 
 const SEMI: Readonly<Record<number, number>> = {
-	18: 349,
-	20: 349,
-	22: 349,
-	24: 349,
-	26: 399,
-	28: 399,
-	30: 429,
-	32: 429,
+	18: 399,
+	20: 399,
+	22: 399,
+	24: 399,
+	26: 449,
+	28: 449,
+	30: 479,
+	32: 479,
 };
 
 const VARSITY: Readonly<Record<number, number>> = {
-	18: 449,
-	20: 449,
-	22: 449,
-	24: 449,
-	26: 499,
-	28: 499,
-	30: 529,
-	32: 529,
+	18: 499,
+	20: 499,
+	22: 499,
+	24: 499,
+	26: 549,
+	28: 549,
+	30: 579,
+	32: 579,
 };
 
 const PRO_STADIUM: Readonly<Record<number, number>> = {

@@ -137,29 +137,6 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		],
 	},
 	{
-		id: 'pro',
-		listName: 'Pro',
-		schemaName: 'Pro Locker',
-		slugPath: '/product-pro-locker',
-		description:
-			'Pro Locker wood locker: 19" D, Pre-Finished Birch Plywood, 76" H, widths 18"–32". Essential line. Custom-built in 8–12 weeks. 5 year warranty.',
-		priceSort: 599,
-		listPriceUsd: 599,
-		aggregateLowUsd: 599,
-		aggregateHighUsd: 649,
-		uiInfo:
-			'Essential line. 19" depth only, Pre-Finished Birch Plywood. Ideal for schools and rec teams.',
-		dimensions: '24" W × 76" H × 19" D',
-		dimensionsNote: 'Widths 18"–32"; optional 4" base',
-		listingImage: '/images/pro-locker-oak-front-base.png',
-		images: [
-			'/images/pro-locker-oak-front-base.png',
-			'/images/pro-locker-oak-right-side.png',
-			'/images/essential-locker-oak-left-side.png',
-			'/images/pro-locker-oak-side-view.png',
-		],
-	},
-	{
 		id: 'stadium',
 		listName: 'Stadium',
 		schemaName: 'Stadium Locker',
@@ -189,10 +166,10 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		slugPath: '/product-varsity-locker',
 		description:
 			'Varsity wood locker: 3/4" solid wood premium finish, 76" H x 19" D, widths 18"–32". Full color options. Custom-built in three months. 5 year warranty.',
-		priceSort: 449,
-		listPriceUsd: 449,
-		aggregateLowUsd: 449,
-		aggregateHighUsd: 529,
+		priceSort: 499,
+		listPriceUsd: 499,
+		aggregateLowUsd: 499,
+		aggregateHighUsd: 579,
 		uiInfo:
 			'Essential line. 3/4" solid wood premium finish. Great for varsity and competitive programs.',
 		dimensions: '24" W × 76" H × 19" D',
@@ -212,10 +189,10 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		slugPath: '/product-semi-pro-locker',
 		description:
 			'Semi Pro wood locker: 3/4" solid wood, 76" H x 19" D, widths 18"–32". Full color options. Custom-built in three months. 5 year warranty.',
-		priceSort: 349,
-		listPriceUsd: 349,
-		aggregateLowUsd: 349,
-		aggregateHighUsd: 429,
+		priceSort: 399,
+		listPriceUsd: 399,
+		aggregateLowUsd: 399,
+		aggregateHighUsd: 479,
 		uiInfo:
 			'Essential line. 3/4" solid wood, 19" depth only. Durable and ideal for schools and rec teams.',
 		dimensions: '24" W × 76" H × 19" D',

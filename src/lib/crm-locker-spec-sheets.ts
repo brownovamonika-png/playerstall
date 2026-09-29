@@ -90,7 +90,7 @@ const ESSENTIAL_FEATURES: readonly string[] = [
 	'19mm cabinet-grade pre-finished birch plywood — the only wood type used for Essential lockers',
 	'Smooth face, stable veneer core, durable UV-coated finish on both sides',
 	'Professional-grade construction for demanding locker room settings',
-	'Available in Semi Pro (from $349) and Varsity (from $449) configurations',
+	'Available in Semi Pro (from $399) and Varsity (from $499) configurations',
 	'18" to 32" widths; standard 24" W × 76" H × 19" D with optional 4" base',
 	'5 year warranty',
 ];

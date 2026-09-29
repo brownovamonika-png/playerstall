@@ -6,7 +6,6 @@ import modelZ from '../data/locker-templates/model-z.json';
 import modelX from '../data/locker-templates/model-x.json';
 import varsity from '../data/locker-templates/varsity.json';
 import semiPro from '../data/locker-templates/semi-pro.json';
-import pro from '../data/locker-templates/pro.json';
 import stadium from '../data/locker-templates/stadium.json';
 
 import {
@@ -23,7 +22,6 @@ const rawTemplates: LockerTemplate[] = [
 	modelX as LockerTemplate,
 	varsity as LockerTemplate,
 	semiPro as LockerTemplate,
-	pro as LockerTemplate,
 	stadium as LockerTemplate,
 ];
 

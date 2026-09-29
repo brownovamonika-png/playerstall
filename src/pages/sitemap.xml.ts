@@ -22,7 +22,6 @@ const staticPages = [
 	{ url: '/accessories', priority: '0.7', changefreq: 'monthly' },
 	{ url: '/locker-budget-planner', priority: '0.6', changefreq: 'monthly' },
 	// Product pages
-	{ url: '/product-pro-locker', priority: '0.8', changefreq: 'monthly' },
 	{ url: '/product-stadium-locker', priority: '0.8', changefreq: 'monthly' },
 	{ url: '/product-elite-locker', priority: '0.8', changefreq: 'monthly' },
 	{ url: '/product-legendary-locker', priority: '0.8', changefreq: 'monthly' },
