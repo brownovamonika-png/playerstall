@@ -56,8 +56,12 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model 
 			]
 		})}></script>
 	</Fragment>
-	<!-- Hero Section (no banner photo — title on white) -->
-	<section class="product-hero-section product-hero-section--plain">
+	<!-- Hero Section -->
+	<section class="product-hero-section">
+		<div class="product-hero-background">
+			<img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="Model S Locker" class="product-hero-bg-image" />
+		</div>
+		<div class="product-hero-background-overlay"></div>
 		<div class="product-hero-container">
 			<div class="product-breadcrumbs">
 				<a href="/">Home</a>
@@ -386,33 +390,6 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model 
 		line-height: 1.1;
 		position: relative;
 		z-index: 10;
-	}
-
-	/* Model S: no hero banner photo — breadcrumbs & title on white */
-	.product-hero-section.product-hero-section--plain {
-		background: #ffffff;
-		min-height: 0;
-		padding: 32px 0 40px;
-		justify-content: flex-start;
-		overflow: visible;
-	}
-	.product-hero-section.product-hero-section--plain .product-breadcrumbs {
-		color: #8c8c8c;
-	}
-	.product-hero-section.product-hero-section--plain .product-breadcrumbs a {
-		color: #8c8c8c;
-	}
-	.product-hero-section.product-hero-section--plain .product-breadcrumbs a:hover {
-		color: #fe5900;
-	}
-	.product-hero-section.product-hero-section--plain .breadcrumbs-sep {
-		color: #cccccc;
-	}
-	.product-hero-section.product-hero-section--plain .breadcrumbs-current {
-		color: #0d0d0d;
-	}
-	.product-hero-section.product-hero-section--plain .product-page-title {
-		color: #0d0d0d;
 	}
 
 	.product-background-text {
