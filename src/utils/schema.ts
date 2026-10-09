@@ -187,8 +187,11 @@ export function generateLocalBusinessSchema() {
 		"areaServed": "US",
 		"sameAs": [
 			"https://instagram.com/playerstalllockers",
+			"https://www.facebook.com/profile.php?id=61595350106232",
+			"https://www.tiktok.com/@playerstallsportslockers",
+			"https://www.linkedin.com/company/playerstall/",
 			"https://www.pinterest.com/playerstall/",
-			"https://x.com/PlayerStallGear"
+			"https://x.com/playerstallsl"
 		]
 	};
 }
