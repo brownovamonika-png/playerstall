@@ -73,15 +73,24 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Semi P
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="/images/semi-pro-locker-third.png"
-							alt="Semi Pro wood athletic locker for locker rooms"
+							src="/images/essential/semi-pro-birch-01.jpg"
+							alt="Semi Pro Locker wood athletic locker in birch, angled view"
 							class="product-main-image"
 						/>
 						<ProductGalleryControls />
 						</div>
 					<div class="product-gallery-thumbs">
-						<button type="button" class="thumb active" aria-label="View image 1">
-							<img src="/images/semi-pro-locker-third.png" alt="Semi Pro locker natural wood view" />
+						<button type="button" class="thumb active" aria-label="Semi Pro Locker in birch, angled view">
+							<img src="/images/essential/semi-pro-birch-01.jpg" alt="Semi Pro Locker wood athletic locker in birch, angled view" />
+						</button>
+						<button type="button" class="thumb" aria-label="Semi Pro Locker in birch, angled view from the other side">
+							<img src="/images/essential/semi-pro-birch-02.jpg" alt="Semi Pro Locker wood athletic locker in birch, angled view from the other side" />
+						</button>
+						<button type="button" class="thumb" aria-label="Semi Pro Locker in birch, front view">
+							<img src="/images/essential/semi-pro-birch-03.jpg" alt="Semi Pro Locker wood athletic locker in birch, front view" />
+						</button>
+						<button type="button" class="thumb" aria-label="Semi Pro Locker in birch, side profile">
+							<img src="/images/essential/semi-pro-birch-04.jpg" alt="Semi Pro Locker wood athletic locker in birch, side profile" />
 						</button>
 					</div>
 				</div>
@@ -982,7 +991,7 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Semi P
 			const id = 'semi-pro-locker-' + width + '-' + deep;
 			const modelEl = document.querySelector('.product-model[data-model-prefix]');
 			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;
-			const image = '/images/semi-pro-locker-third.png';
+			const image = '/images/essential/semi-pro-birch-01.jpg';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) {

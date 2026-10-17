@@ -1149,13 +1149,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		// configuration/color was added. Matching is case-insensitive and tolerant of
 		// names like "Pro Locker", "Stadium Locker", "Legendary (Model X)", etc.
 		const LOCKER_SIDE_IMAGES: { match: RegExp; image: string }[] = [
-			{ match: /\b(semi[\s-]?pro)\b/i, image: 'https://playerstall.b-cdn.net/images/semi-pro-locker-new.png' },
+			{ match: /\b(semi[\s-]?pro)\b/i, image: '/images/essential/semi-pro-birch-01.jpg' },
 			{ match: /\bmodel\s*l\b/i, image: 'https://playerstall.b-cdn.net/images/L%20dark%20oak%20side.png' },
 			{ match: /\bmodel\s*s\b/i, image: 'https://playerstall.b-cdn.net/images/S%20black%20side.png' },
 			{ match: /\b(model\s*x|legendary)\b/i, image: '/images/model-x-dark-grey-side-view.png' },
 			{ match: /\b(model\s*z|elite)\b/i, image: '/images/model-z-blue-side.png' },
-			{ match: /\bvarsity\b/i, image: '/images/varsity-locker.png' },
-			{ match: /\bstadium\b/i, image: '/images/stadium-locker-oak-side-view.png' },
+			{ match: /\bvarsity\b/i, image: '/images/essential/varsity-birch-01.jpg' },
+			{ match: /\bstadium\b/i, image: '/images/essential/stadium-birch-01.jpg' },
 			{ match: /\bpro\b/i, image: '/images/pro-locker-oak-side-view.png' },
 		];
 

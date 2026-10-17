@@ -76,28 +76,25 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Stadiu
 				<div class="product-gallery">
 					<div class="product-gallery-main">
 						<img
-							src="/images/stadium-locker-oak-left-side.png"
-							alt="Stadium Locker wood athletic locker in oak finish, left-side view"
+							src="/images/essential/stadium-birch-01.jpg"
+							alt="Stadium Locker wood athletic locker in birch, angled view"
 							class="product-main-image"
 						/>
 						<ProductGalleryControls />
 						</div>
-					<p class="product-gallery-caption">Displayed in oak finish</p>
+					<p class="product-gallery-caption">Displayed in birch finish</p>
 					<div class="product-gallery-thumbs">
-						<button type="button" class="thumb active" aria-label="Stadium Locker in oak finish, left-side view">
-							<img src="/images/stadium-locker-oak-left-side.png" alt="Stadium Locker wood athletic locker in oak finish, left-side view" />
+						<button type="button" class="thumb active" aria-label="Stadium Locker in birch, angled view">
+							<img src="/images/essential/stadium-birch-01.jpg" alt="Stadium Locker wood athletic locker in birch, angled view" />
 						</button>
-						<button type="button" class="thumb" aria-label="Stadium Locker in oak finish, front view with base">
-							<img src="/images/stadium-locker-oak-front-base.png" alt="Stadium Locker wood athletic locker in oak finish, front view with solid base" />
+						<button type="button" class="thumb" aria-label="Stadium Locker in birch, angled view from the other side">
+							<img src="/images/essential/stadium-birch-02.jpg" alt="Stadium Locker wood athletic locker in birch, angled view from the other side" />
 						</button>
-						<button type="button" class="thumb" aria-label="Stadium Locker in oak finish, front view with cushion seat">
-							<img src="/images/stadium-locker-oak-front-cushion.png" alt="Stadium Locker wood athletic locker in oak finish, front view with cushion seat" />
+						<button type="button" class="thumb" aria-label="Stadium Locker in birch, front view">
+							<img src="/images/essential/stadium-birch-03.jpg" alt="Stadium Locker wood athletic locker in birch, front view" />
 						</button>
-						<button type="button" class="thumb" aria-label="Stadium Locker in oak finish, side profile view">
-							<img src="/images/stadium-locker-oak-side-view.png" alt="Stadium Locker wood athletic locker in oak finish, side profile silhouette" />
-						</button>
-						<button type="button" class="thumb" aria-label="Stadium Locker in oak finish, right-side view">
-							<img src="/images/stadium-locker-oak-right-side.png" alt="Stadium Locker wood athletic locker in oak finish, right-side view" />
+						<button type="button" class="thumb" aria-label="Stadium Locker in birch, side profile">
+							<img src="/images/essential/stadium-birch-04.jpg" alt="Stadium Locker wood athletic locker in birch, side profile" />
 						</button>
 						<button type="button" class="thumb" aria-label="Digital lock box on oak panel detail">
 							<img src="/images/lock-box-oak.png" alt="Digital lock box with keypad mounted on Stadium Locker oak panel" />
@@ -982,7 +979,7 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Stadiu
 			}
 			if (captionEl) {
 				if (index <= 5) {
-					captionEl.textContent = 'Displayed in oak finish';
+					captionEl.textContent = 'Displayed in birch finish';
 					captionEl.classList.remove('is-hidden');
 				} else {
 					captionEl.classList.add('is-hidden');
@@ -1105,7 +1102,7 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Stadiu
 			const id = 'stadium-locker-' + width + '-19';
 			const modelEl = document.querySelector('.product-model[data-model-prefix]');
 			const model = (modelEl?.textContent ?? '').trim().replace(/^Model #\s*/i, '') || null;
-			const image = '/images/stadium-locker-oak-left-side.png';
+			const image = '/images/essential/stadium-birch-01.jpg';
 			const cart = getCart();
 			const existing = cart.find((item) => item.id === id);
 			if (existing) {
