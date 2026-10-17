@@ -832,8 +832,26 @@ const sportLockersItemList = buildLockersItemList(
 		flex-shrink: 0;
 		overflow: hidden;
 	}
-	.sp-locker-angle:hover {
+	/* Fade the photo, not the box: fading the box hides the white photo backdrop blend and shows a white square */
+	.sp-locker-angle:hover img {
 		opacity: 0.85;
+	}
+
+	/* Desktop: name column a fixed width and the four photos always on one line — they shrink a little instead of wrapping */
+	@media (min-width: 1025px) {
+		.sp-locker-featured {
+			grid-template-columns: 220px 1fr auto;
+		}
+		.sp-locker-angles {
+			flex-wrap: nowrap;
+		}
+		.sp-locker-angle {
+			flex: 0 1 180px;
+			width: auto;
+			min-width: 0;
+			height: auto;
+			aspect-ratio: 180 / 260;
+		}
 	}
 	.sp-locker-angle img {
 		width: 100%;
