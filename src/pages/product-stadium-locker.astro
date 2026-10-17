@@ -8,9 +8,6 @@ import ProductGalleryControls from '../components/ProductGalleryControls.astro';
 import { SHOP_ACCESSORIES_MODAL } from '../data/shop-accessories';
 import { getLockerCatalogBySlugPath } from '../data/lockers-catalog';
 import { buildLockerProductGraphNode } from '../utils/locker-jsonld';
-import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
-
-const stadiumLockerDimensionsSheetSrc = 'https://playerstall.b-cdn.net/images/Model%20S%2019%20inches.png';
 
 const stadiumSpecs = [
 	{ label: 'Standard dimensions', value: '18" W × 76" H × 19" D' },
@@ -95,15 +92,6 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Stadiu
 						</button>
 						<button type="button" class="thumb" aria-label="Stadium Locker in birch, side profile">
 							<img src="/images/essential/stadium-birch-04.jpg" alt="Stadium Locker wood athletic locker in birch, side profile" />
-						</button>
-						<button type="button" class="thumb" aria-label="Digital lock box on oak panel detail">
-							<img src="/images/lock-box-oak.png" alt="Digital lock box with keypad mounted on Stadium Locker oak panel" />
-						</button>
-						<button type="button" class="thumb" aria-label="Stadium Locker dimensions sheet">
-							<img src={stadiumLockerDimensionsSheetSrc} alt="Stadium Locker dimensions sheet – front and side views with measurements in inches" />
-						</button>
-						<button type="button" class="thumb thumb--lock-box" aria-label="Digital lock box option">
-							<img src={lockBoxSpecSheet.src} alt="Lock box with digital key lock – keypad, latch and lock body with dimensions" />
 						</button>
 					</div>
 				</div>
