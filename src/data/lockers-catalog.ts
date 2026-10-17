@@ -114,6 +114,29 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		],
 	},
 	{
+		id: 'model-s-drawer',
+		listName: 'Model S with Drawer',
+		schemaName: 'Model S with Drawer Wood Locker',
+		slugPath: '/product-model-s-drawer',
+		description:
+			'Model S with a pull-out drawer under the seat and an upper cubby. 76" H x 23" D, widths 20"–32". 5 year warranty.',
+		priceSort: 649,
+		listPriceUsd: 649,
+		aggregateLowUsd: 649,
+		aggregateHighUsd: 749,
+		uiInfo:
+			'Model S with a pull-out drawer under the seat. Upper cubby with lock box option.',
+		dimensions: '24" W × 76" H × 23" D',
+		dimensionsNote: 'Widths 20"–32"; optional 4" base',
+		listingImage: '/images/premium/model-s-drawer-birch-01-front.jpg',
+		images: [
+			'/images/premium/model-s-drawer-birch-01-front.jpg',
+			'/images/premium/model-s-drawer-birch-02-right-side.jpg',
+			'/images/premium/model-s-drawer-birch-03-left-side.jpg',
+			'/images/premium/model-s-drawer-birch-04-side.jpg',
+		],
+	},
+	{
 		id: 'model-l',
 		listName: 'Model L',
 		schemaName: 'Model L Wood Locker',
