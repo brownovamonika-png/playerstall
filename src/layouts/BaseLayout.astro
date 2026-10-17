@@ -85,6 +85,10 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 
 		<!-- Schema Slot for Page-Specific Structured Data -->
 		<slot name="head" />
+		<style is:global>
+			/* Essential photo-shoot images have a white backdrop; blend into gray tiles */
+			img[src*="/images/essential/"] { mix-blend-mode: multiply; }
+		</style>
 	</head>
 	<body class={headerBlack ? 'header-black' : ''}>
 		<!-- Google Tag Manager (noscript) -->
