@@ -54,7 +54,7 @@ const shopLockersItemList = buildLockersItemList(
 					<!-- Model S (formerly Stadium) -->
 					<div class="shop-product-item shop-product-item--model-s" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
-							<img src={MODEL_S_HERO_IMAGE} alt="Model S wood athletic locker in black, three-quarter view" loading="lazy" />
+							<img src="/images/premium/cards/model-s-black-left-side.jpg" alt="Model S wood athletic locker in black, three-quarter view" loading="lazy" />
 							<div class="shop-product-overlay">
 								<a href="/product-model-s" class="shop-see-details-btn-overlay">Details</a>
 							</div>
@@ -69,7 +69,6 @@ const shopLockersItemList = buildLockersItemList(
 					<!-- Model S Two Upper Cubbies -->
 					<div class="shop-product-item shop-product-item--model-s-two-upper-cubbies" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
-							<span class="shop-badge new">New</span>
 							<img src="/images/premium/model-s-two-upper-cubbies-light-grey-03-left-side.jpg" alt="Model S Two Upper Cubbies locker in light grey, angled view" loading="lazy" />
 							<div class="shop-product-overlay">
 								<a href="/product-model-s-two-upper-cubbies" class="shop-see-details-btn-overlay">Details</a>
@@ -85,7 +84,6 @@ const shopLockersItemList = buildLockersItemList(
 					<!-- Model S Open Cubby -->
 					<div class="shop-product-item shop-product-item--model-s-open-cubby" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
-							<span class="shop-badge new">New</span>
 							<img src="/images/premium/model-s-open-cubby-birch-03-left-side.jpg" alt="Model S Open Cubby locker in birch, angled view" loading="lazy" />
 							<div class="shop-product-overlay">
 								<a href="/product-model-s-open-cubby" class="shop-see-details-btn-overlay">Details</a>
@@ -101,7 +99,7 @@ const shopLockersItemList = buildLockersItemList(
 					<!-- Model L -->
 					<div class="shop-product-item shop-product-item--model-l" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
-							<img src="/images/model-l-oak-left-side.png" alt="Model L premium athletic locker in oak, left-side view" loading="lazy" />
+							<img src="/images/premium/cards/model-l-oak-left-side.jpg" alt="Model L premium athletic locker in oak, left-side view" loading="lazy" />
 							<div class="shop-product-overlay">
 								<a href="/product-model-l" class="shop-see-details-btn-overlay">Details</a>
 							</div>
@@ -116,8 +114,7 @@ const shopLockersItemList = buildLockersItemList(
 					<!-- Model Z (formerly Elite) -->
 					<div class="shop-product-item shop-product-item--model-z" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
-							<span class="shop-badge new">New</span>
-							<img src="/images/model-z-blue-left-side.png" alt="Model Z wood locker in blue, left-side view" loading="lazy" />
+							<img src="/images/premium/cards/model-z-blue-left-side.jpg" alt="Model Z wood locker in blue, left-side view" loading="lazy" />
 							<div class="shop-product-overlay">
 								<a href="/product-elite-locker" class="shop-see-details-btn-overlay">Details</a>
 							</div>
@@ -132,8 +129,7 @@ const shopLockersItemList = buildLockersItemList(
 					<!-- Model X -->
 					<div class="shop-product-item shop-product-item--model-x" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
-							<span class="shop-badge new">New</span>
-							<img src={MODEL_X_HERO_IMAGE} alt="Model X wood locker in dark grey, three-quarter view" loading="lazy" />
+							<img src="/images/premium/cards/model-x-dark-grey-left-side.jpg" alt="Model X wood locker in dark grey, three-quarter view" loading="lazy" />
 							<div class="shop-product-overlay">
 								<a href="/product-legendary-locker" class="shop-see-details-btn-overlay">Details</a>
 							</div>
@@ -148,7 +144,6 @@ const shopLockersItemList = buildLockersItemList(
 					<!-- Model B -->
 					<div class="shop-product-item shop-product-item--model-b" data-price="649" data-category="lockers">
 						<div class="shop-product-image shop-locker-image">
-							<span class="shop-badge new">New</span>
 							<img src="/images/premium/model-b-light-grey-03-left-side.jpg" alt="Model B locker in light grey, angled view" loading="lazy" />
 							<div class="shop-product-overlay">
 								<a href="/product-model-b" class="shop-see-details-btn-overlay">Details</a>
@@ -229,7 +224,6 @@ const shopLockersItemList = buildLockersItemList(
 						<!-- Corner Locker Unit $1,200 -->
 						<div class="shop-product-item shop-locker-bottom-item shop-furniture-item" data-price="1200" data-category="furniture">
 							<div class="shop-product-image shop-locker-image">
-								<span class="shop-badge new">New</span>
 								<img src="/images/premium/corner-locker-walnut-01.jpg" alt="Corner locker unit in walnut" loading="lazy" />
 								<div class="shop-product-overlay">
 									<a href="/product-corner-locker" class="shop-see-details-btn-overlay">Details</a>
@@ -803,6 +797,11 @@ const shopLockersItemList = buildLockersItemList(
 		margin-right: auto;
 	}
 
+	/* Model S and its two variants on the first row; Model L starts the next row */
+	@media (min-width: 1201px) {
+		.shop-product-item--model-l { grid-column-start: 1; }
+	}
+
 	/* Corner unit, stick rack and bench on one line */
 	.shop-products-grid.shop-furniture-grid.shop-furniture-grid--three {
 		grid-template-columns: repeat(3, 1fr);
@@ -968,30 +967,11 @@ const shopLockersItemList = buildLockersItemList(
 	.shop-product-item--model-x .shop-product-image.shop-locker-image,
 	.shop-product-item--model-s .shop-product-image.shop-locker-image,
 	.shop-product-item--model-l .shop-product-image.shop-locker-image,
-	.shop-product-item--model-z .shop-product-image.shop-locker-image {
+	.shop-product-item--model-z .shop-product-image.shop-locker-image,
+	.shop-product-item--model-b .shop-product-image.shop-locker-image,
+	.shop-product-item--model-s-two-upper-cubbies .shop-product-image.shop-locker-image,
+	.shop-product-item--model-s-open-cubby .shop-product-image.shop-locker-image {
 		background: transparent;
-	}
-
-	/* Model S PNG fills more of its canvas than Model Z/X PNGs;
-	   scale it down and nudge slightly lower so subject matches Model Z visually. */
-	.shop-product-item--model-s .shop-product-image.shop-locker-image img {
-		transform: translateY(5%) scale(0.92);
-	}
-
-	/* Model L oak locker fills even more of its canvas than Model S;
-	   scale & translate to match Model S's visual size and vertical position. */
-	.shop-product-item--model-l .shop-product-image.shop-locker-image img {
-		transform: translateY(2%) scale(0.94);
-	}
-
-	/* Model X: bump subject up by 2% and nudge 1% lower to align with the other premium lockers. */
-	.shop-product-item--model-x .shop-product-image.shop-locker-image img {
-		transform: translateY(1%) scale(1.02);
-	}
-
-	/* Stadium uses the S-shape oak PNG — match the Model S transform. */
-	.shop-product-item-stadium .shop-product-image.shop-locker-image img {
-		transform: translateY(-1%) scale(1.03);
 	}
 
 	/* Bench: wide/short front/top-above PNG — scaled 20% smaller than before (1.35 × 0.8 = 1.08). */

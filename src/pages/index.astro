@@ -110,7 +110,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
      ============================================ -->
 <section class="home-shop-section">
 	<div class="home-shop-container">
-		<!-- Premium Lockers: Model L, Model S, Model Z, Model X -->
+		<!-- Premium Lockers: Model S, its two variants, then Model L, Z, X, B -->
 		<div class="home-shop-section-header">
 			<p class="home-shop-section-subtitle">THE LOCKER ROOM</p>
 			<h2 class="home-shop-section-title">PREMIUM LOCKERS</h2>
@@ -120,24 +120,9 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 		</div>
 		<div class="home-shop-main">
 			<div class="home-shop-products-grid home-shop-products-grid-premium">
-				<!-- Model L (formerly Pro) -->
-				<div class="home-shop-product-item home-shop-product-item-model-l">
-					<div class="home-shop-product-image">
-						<img src="/images/model-l-oak-left-side.png" alt="Model L premium athletic locker in oak, left-side view" loading="lazy" />
-						<div class="home-shop-product-overlay">
-							<a href="/product-model-l" class="home-shop-details-btn-overlay">Details</a>
-						</div>
-					</div>
-					<div class="home-shop-product-content">
-						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
-						<h5 class="home-shop-product-title"><a href="/product-model-l">Model L</a></h5>
-						<span class="home-shop-product-price">$649.00</span>
-					</div>
-				</div>
-				<!-- Model S (formerly Stadium) -->
 				<div class="home-shop-product-item home-shop-product-item-model-s">
 					<div class="home-shop-product-image">
-						<img src={MODEL_S_HERO_IMAGE} alt="Model S wood athletic locker in black, left-side view" loading="lazy" />
+						<img src="/images/premium/cards/model-s-black-left-side.jpg" alt="Model S wood athletic locker in black, left-side view" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-model-s" class="home-shop-details-btn-overlay">Details</a>
 						</div>
@@ -148,11 +133,48 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 						<span class="home-shop-product-price">$649.00</span>
 					</div>
 				</div>
-				<!-- Model Z (formerly Elite) -->
 				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
-						<span class="home-shop-badge new">New</span>
-						<img src="/images/model-z-blue-left-side.png" alt="Model Z wood locker in blue, left-side view" loading="lazy" />
+						<img src="/images/premium/model-s-two-upper-cubbies-light-grey-03-left-side.jpg" alt="Model S Two Upper Cubbies locker in light grey, angled view" loading="lazy" />
+						<div class="home-shop-product-overlay">
+							<a href="/product-model-s-two-upper-cubbies" class="home-shop-details-btn-overlay">Details</a>
+						</div>
+					</div>
+					<div class="home-shop-product-content">
+						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
+						<h5 class="home-shop-product-title"><a href="/product-model-s-two-upper-cubbies">Model S Two Upper Cubbies</a></h5>
+						<span class="home-shop-product-price">$649.00</span>
+					</div>
+				</div>
+				<div class="home-shop-product-item">
+					<div class="home-shop-product-image">
+						<img src="/images/premium/model-s-open-cubby-birch-03-left-side.jpg" alt="Model S Open Cubby locker in birch, angled view" loading="lazy" />
+						<div class="home-shop-product-overlay">
+							<a href="/product-model-s-open-cubby" class="home-shop-details-btn-overlay">Details</a>
+						</div>
+					</div>
+					<div class="home-shop-product-content">
+						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
+						<h5 class="home-shop-product-title"><a href="/product-model-s-open-cubby">Model S Open Cubby</a></h5>
+						<span class="home-shop-product-price">$649.00</span>
+					</div>
+				</div>
+				<div class="home-shop-product-item home-shop-product-item-model-l">
+					<div class="home-shop-product-image">
+						<img src="/images/premium/cards/model-l-oak-left-side.jpg" alt="Model L premium athletic locker in oak, left-side view" loading="lazy" />
+						<div class="home-shop-product-overlay">
+							<a href="/product-model-l" class="home-shop-details-btn-overlay">Details</a>
+						</div>
+					</div>
+					<div class="home-shop-product-content">
+						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
+						<h5 class="home-shop-product-title"><a href="/product-model-l">Model L</a></h5>
+						<span class="home-shop-product-price">$649.00</span>
+					</div>
+				</div>
+				<div class="home-shop-product-item">
+					<div class="home-shop-product-image">
+						<img src="/images/premium/cards/model-z-blue-left-side.jpg" alt="Model Z wood locker in blue, left-side view" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-elite-locker" class="home-shop-details-btn-overlay">Details</a>
 						</div>
@@ -163,11 +185,9 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 						<span class="home-shop-product-price">$649.00</span>
 					</div>
 				</div>
-				<!-- Model X -->
 				<div class="home-shop-product-item home-shop-product-item-model-x">
 					<div class="home-shop-product-image">
-						<span class="home-shop-badge new">New</span>
-						<img src={MODEL_X_HERO_IMAGE} alt="Model X wood locker in dark grey, three-quarter view" loading="lazy" />
+						<img src="/images/premium/cards/model-x-dark-grey-left-side.jpg" alt="Model X wood locker in dark grey, three-quarter view" loading="lazy" />
 						<div class="home-shop-product-overlay">
 							<a href="/product-legendary-locker" class="home-shop-details-btn-overlay">Details</a>
 						</div>
@@ -175,6 +195,19 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 					<div class="home-shop-product-content">
 						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
 						<h5 class="home-shop-product-title"><a href="/product-legendary-locker">Model X</a></h5>
+						<span class="home-shop-product-price">$649.00</span>
+					</div>
+				</div>
+				<div class="home-shop-product-item">
+					<div class="home-shop-product-image">
+						<img src="/images/premium/model-b-light-grey-03-left-side.jpg" alt="Model B locker in light grey, angled view" loading="lazy" />
+						<div class="home-shop-product-overlay">
+							<a href="/product-model-b" class="home-shop-details-btn-overlay">Details</a>
+						</div>
+					</div>
+					<div class="home-shop-product-content">
+						<div class="home-shop-product-categories">Lockers - Sports Equipment</div>
+						<h5 class="home-shop-product-title"><a href="/product-model-b">Model B</a></h5>
 						<span class="home-shop-product-price">$649.00</span>
 					</div>
 				</div>
@@ -236,28 +269,26 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 			</div>
 		</div>
 
-		<!-- Locker Room Furniture: Bench + Stick Rack (same style as Essential Lockers) -->
+		<!-- Locker Room Furniture: Corner Locker Unit, Stick Rack, Bench in one row -->
 		<div class="home-shop-section-header home-shop-section-header-spaced">
 			<p class="home-shop-section-subtitle">COMPLETE THE LOCKER ROOM</p>
 			<h2 class="home-shop-section-title">LOCKER ROOM FURNITURE</h2>
 		</div>
 		<div class="home-shop-main">
-			<div class="home-shop-products-grid home-shop-products-grid-furniture">
-				<!-- Bench from $269 (72") -->
-				<div class="home-shop-product-item home-shop-product-item-bench">
+			<div class="home-shop-products-grid home-shop-products-grid-furniture home-shop-products-grid-furniture--three">
+				<div class="home-shop-product-item">
 					<div class="home-shop-product-image">
-						<img src="https://playerstall.b-cdn.net/images/bench%20top%20above.png" alt="Free-standing wood locker bench with black steel pedestals" loading="lazy" />
+						<img src="/images/premium/corner-locker-walnut-01.jpg" alt="Corner locker unit in walnut" loading="lazy" />
 						<div class="home-shop-product-overlay">
-							<a href="/product-wood-locker-bench" class="home-shop-details-btn-overlay">Details</a>
+							<a href="/product-corner-locker" class="home-shop-details-btn-overlay">Details</a>
 						</div>
 					</div>
 					<div class="home-shop-product-content">
 						<div class="home-shop-product-categories">Locker Room Furniture</div>
-						<h5 class="home-shop-product-title"><a href="/product-wood-locker-bench">Bench</a></h5>
-						<span class="home-shop-product-price">$269.00</span>
+						<h5 class="home-shop-product-title"><a href="/product-corner-locker">Corner Locker Unit</a></h5>
+						<span class="home-shop-product-price">$1,200.00</span>
 					</div>
 				</div>
-				<!-- Stick Rack $299 -->
 				<div class="home-shop-product-item home-shop-product-item-stick-rack">
 					<div class="home-shop-product-image">
 						<img src="/images/essential/stick-rack-walnut-01.jpg" alt="Wood stick rack for locker rooms in walnut" loading="lazy" />
@@ -269,6 +300,19 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 						<div class="home-shop-product-categories">Locker Room Furniture</div>
 						<h5 class="home-shop-product-title"><a href="/product-stick-rack">Stick Rack</a></h5>
 						<span class="home-shop-product-price">$299.00</span>
+					</div>
+				</div>
+				<div class="home-shop-product-item home-shop-product-item-bench">
+					<div class="home-shop-product-image">
+						<img src="https://playerstall.b-cdn.net/images/bench%20top%20above.png" alt="Free-standing wood locker bench with black steel pedestals" loading="lazy" />
+						<div class="home-shop-product-overlay">
+							<a href="/product-wood-locker-bench" class="home-shop-details-btn-overlay">Details</a>
+						</div>
+					</div>
+					<div class="home-shop-product-content">
+						<div class="home-shop-product-categories">Locker Room Furniture</div>
+						<h5 class="home-shop-product-title"><a href="/product-wood-locker-bench">Bench</a></h5>
+						<span class="home-shop-product-price">$269.00</span>
 					</div>
 				</div>
 			</div>
@@ -2810,6 +2854,23 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	grid-template-columns: repeat(3, 1fr);
 }
 
+/* Model S and its two variants on the first row; Model L starts the next row */
+@media (min-width: 1201px) {
+	.home-shop-products-grid-premium .home-shop-product-item-model-l { grid-column-start: 1; }
+}
+
+/* Locker Room Furniture: Corner Locker Unit, Stick Rack, Bench on one line */
+.home-shop-products-grid.home-shop-products-grid-furniture.home-shop-products-grid-furniture--three {
+	grid-template-columns: repeat(3, 1fr);
+	max-width: 960px;
+}
+@media (max-width: 768px) {
+	.home-shop-products-grid.home-shop-products-grid-furniture.home-shop-products-grid-furniture--three {
+		grid-template-columns: 1fr;
+		max-width: 320px;
+	}
+}
+
 /* Locker Room Furniture: 2 items, same card size as Essential Lockers */
 .home-shop-products-grid-furniture {
 	grid-template-columns: repeat(2, 1fr);
@@ -2827,32 +2888,9 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 
 
-/* Stadium uses the S-shape oak PNG — match the Model S transform. */
-.home-shop-products-grid-four .home-shop-product-item-stadium .home-shop-product-image img {
-	transform: translateY(-1%) scale(1.03);
-}
-
 /* Bench: wide/short front/top-above PNG — scaled 20% smaller than before (1.35 × 0.8 = 1.08). */
 .home-shop-products-grid-furniture .home-shop-product-item-bench .home-shop-product-image img {
 	transform: scale(1.08);
-}
-
-/* Model S PNG fills more of its canvas than Model Z/X PNGs;
-   scale it down so the locker subject matches Model Z visually, and nudge 5% lower. */
-.home-shop-products-grid-premium .home-shop-product-item-model-s .home-shop-product-image img {
-	transform: translateY(5%) scale(0.92);
-}
-
-/* Model L oak locker fills even more of its canvas than Model S;
-   scale down further so its subject matches Model S's visual size. */
-.home-shop-products-grid-premium .home-shop-product-item-model-l .home-shop-product-image img {
-	transform: translateY(2%) scale(0.94);
-}
-
-/* Model X subject sits high in its PNG canvas; nudge it 2% lower
-   to align vertically with Model Z. */
-.home-shop-products-grid-premium .home-shop-product-item-model-x .home-shop-product-image img {
-	transform: translateY(2%);
 }
 
 .home-shop-essential-pdf,
