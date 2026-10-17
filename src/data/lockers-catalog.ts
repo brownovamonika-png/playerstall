@@ -61,10 +61,10 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		dimensionsNote: 'Widths 18"–32"; optional 4" base',
 		listingImage: '/images/model-s-black-front-base.png',
 		images: [
-			'/images/model-s-black-front-base.png',
-			'/images/model-s-black-right-side.png',
-			'/images/model-s-black-left-side.png',
-			'https://playerstall.b-cdn.net/images/S%20black%20side.png',
+			'/images/premium/rows/model-s-01-front.jpg',
+			'/images/premium/rows/model-s-02-right-side.jpg',
+			'/images/premium/rows/model-s-03-left-side.jpg',
+			'/images/premium/rows/model-s-04-side.jpg',
 		],
 	},
 	{
@@ -128,12 +128,12 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 			'Model S with a pull-out drawer under the seat. Upper cubby with lock box option.',
 		dimensions: '24" W × 76" H × 23" D',
 		dimensionsNote: 'Widths 20"–32"; optional 4" base',
-		listingImage: '/images/premium/model-s-drawer-birch-01-front.jpg',
+		listingImage: '/images/premium/model-s-drawer-black-01-front.jpg',
 		images: [
-			'/images/premium/model-s-drawer-birch-01-front.jpg',
-			'/images/premium/model-s-drawer-birch-02-right-side.jpg',
-			'/images/premium/model-s-drawer-birch-03-left-side.jpg',
-			'/images/premium/model-s-drawer-birch-04-side.jpg',
+			'/images/premium/model-s-drawer-black-01-front.jpg',
+			'/images/premium/model-s-drawer-black-02-right-side.jpg',
+			'/images/premium/model-s-drawer-black-03-left-side.jpg',
+			'/images/premium/model-s-drawer-black-04-side.jpg',
 		],
 	},
 	{
@@ -153,10 +153,10 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		dimensionsNote: 'Widths 18"–32"; optional 4" base',
 		listingImage: '/images/model-l-dark-oak-front-base.png',
 		images: [
-			'/images/model-l-dark-oak-front-base.png',
-			'/images/model-l-dark-oak-right-side.png',
-			'/images/model-l-oak-left-side.png',
-			'https://playerstall.b-cdn.net/images/L%20dark%20oak%20side.png',
+			'/images/premium/rows/model-l-01-front.jpg',
+			'/images/premium/rows/model-l-02-right-side.jpg',
+			'/images/premium/rows/model-l-03-left-side.jpg',
+			'/images/premium/rows/model-l-04-side.jpg',
 		],
 	},
 	{
@@ -176,10 +176,10 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		dimensionsNote: 'Widths 18"–32"; optional 4" base',
 		listingImage: '/images/model-z-blue-left-side.png',
 		images: [
-			'/images/model-z-blue-front-base.png',
-			'/images/model-z-blue-right-side.png',
-			'/images/model-z-blue-left-side.png',
-			'/images/model-z-blue-side.png',
+			'/images/premium/rows/model-z-01-front.jpg',
+			'/images/premium/rows/model-z-02-right-side.jpg',
+			'/images/premium/rows/model-z-03-left-side.jpg',
+			'/images/premium/rows/model-z-04-side.jpg',
 		],
 	},
 	{
@@ -199,10 +199,10 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		dimensionsNote: 'Widths 18"–32"; optional 4" base',
 		listingImage: MODEL_X_HERO_IMAGE,
 		images: [
-			'/images/model-x-dark-grey-front-base-cushion.png',
-			'/images/model-x-dark-grey-right-side.png',
-			'/images/model-x-dark-grey-left-side.png',
-			'/images/model-x-dark-grey-side-view.png',
+			'/images/premium/rows/model-x-01-front.jpg',
+			'/images/premium/rows/model-x-02-right-side.jpg',
+			'/images/premium/rows/model-x-03-left-side.jpg',
+			'/images/premium/rows/model-x-04-side.jpg',
 		],
 	},
 	{
