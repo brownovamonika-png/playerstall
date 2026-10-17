@@ -75,9 +75,9 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		description:
 			'Model S with two stacked upper cubbies beside an open cubby and a lift-up bench seat. 76" H x 23" D, widths 20"–32". 5 year warranty.',
 		priceSort: 649,
-		listPriceUsd: 649,
-		aggregateLowUsd: 649,
-		aggregateHighUsd: 749,
+		listPriceUsd: 679,
+		aggregateLowUsd: 679,
+		aggregateHighUsd: 779,
 		uiInfo:
 			'Model S with two stacked upper cubbies beside an open cubby. Lift-up bench seat with storage underneath.',
 		dimensions: '24" W × 76" H × 23" D',
