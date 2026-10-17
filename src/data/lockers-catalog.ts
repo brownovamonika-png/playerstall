@@ -121,9 +121,9 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		description:
 			'Model S with a pull-out drawer under the seat and an upper cubby. 76" H x 23" D, widths 20"–32". 5 year warranty.',
 		priceSort: 649,
-		listPriceUsd: 649,
-		aggregateLowUsd: 649,
-		aggregateHighUsd: 749,
+		listPriceUsd: 699,
+		aggregateLowUsd: 699,
+		aggregateHighUsd: 799,
 		uiInfo:
 			'Model S with a pull-out drawer under the seat. Upper cubby with lock box option.',
 		dimensions: '24" W × 76" H × 23" D',
