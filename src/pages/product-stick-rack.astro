@@ -12,8 +12,16 @@ import { TEXTURED_WOODGRAIN_OPTIONS, texturedWoodgrainSwatchUrl } from '../data/
 
 const stickRackSlides = [
 	{
-		src: 'https://playerstall.b-cdn.net/images/stick-rack.png',
-		alt: 'Wood stick rack for locker rooms – front view',
+		src: '/images/essential/stick-rack-walnut-01.jpg',
+		alt: 'Wood stick rack for locker rooms in walnut – front view',
+	},
+	{
+		src: '/images/essential/stick-rack-walnut-02.jpg',
+		alt: 'Wood stick rack for locker rooms in walnut – angled view',
+	},
+	{
+		src: '/images/essential/stick-rack-walnut-03.jpg',
+		alt: 'Wood stick rack for locker rooms in walnut – side view',
 	},
 ];
 
@@ -41,7 +49,7 @@ const stickRackSpecs = [
 					"name": "Stick Rack",
 					"description": "Dedicated wood stick rack for hockey, lacrosse and baseball — keeps sticks organized, off the floor, and easy to grab. Custom built, 5 year warranty. Available in any locker color. Sizes: 36\", 48\", 60\", or 72\".",
 					"url": "https://playerstall.com/product-stick-rack/",
-					"image": "https://playerstall.b-cdn.net/images/stick-rack.png",
+					"image": "https://playerstall.com/images/essential/stick-rack-walnut-01.jpg",
 					"brand": { "@type": "Brand", "name": "PlayerStall" },
 					"offers": {
 						"@type": "Offer",
@@ -933,7 +941,7 @@ const stickRackSpecs = [
 			var id = 'stick-rack-' + len + '-' + colorSlug;
 			var name = 'Stick Rack ' + lenLabel + ' (' + colorLabel + ')';
 			var price = getActivePrice();
-			var image = 'https://playerstall.b-cdn.net/images/stick-rack.png';
+			var image = '/images/essential/stick-rack-walnut-01.jpg';
 
 			var cart = getCart();
 			var existing = cart.find(function(item) { return item.id === id; });
