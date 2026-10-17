@@ -114,6 +114,29 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		],
 	},
 	{
+		id: 'model-b',
+		listName: 'Model B',
+		schemaName: 'Model B Wood Locker',
+		slugPath: '/product-model-b',
+		description:
+			'Model B locker: upper cubby, curved side panel and a metal-vented bench with a lift-up seat. 76" H x 23" D, widths 20"–32". 5 year warranty.',
+		priceSort: 649,
+		listPriceUsd: 649,
+		aggregateLowUsd: 649,
+		aggregateHighUsd: 749,
+		uiInfo:
+			'Premium melamine with a metal-vented bench and lift-up seat. Upper cubby with a curved side panel. Custom-built to your specifications.',
+		dimensions: '24" W × 76" H × 23" D',
+		dimensionsNote: 'Widths 20"–32"; optional 4" base',
+		listingImage: '/images/premium/model-b-light-grey-01-front.jpg',
+		images: [
+			'/images/premium/model-b-light-grey-01-front.jpg',
+			'/images/premium/model-b-light-grey-02-right-side.jpg',
+			'/images/premium/model-b-light-grey-03-left-side.jpg',
+			'/images/premium/model-b-light-grey-04-side.jpg',
+		],
+	},
+	{
 		id: 'model-s',
 		listName: 'Model S',
 		schemaName: 'Model S Wood Locker',

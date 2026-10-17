@@ -69,6 +69,14 @@ import { CUSHION_CART_IMAGE } from '../data/shop-accessories';
 								<input type="radio" name="acc-cushion-placement" value="both" class="acc-modal-cushion-radio" />
 								<span>Both top &amp; bottom ($150)</span>
 							</label>
+							<label class="acc-modal-cushion-radio-label">
+								<input type="radio" name="acc-cushion-placement" value="model-b" class="acc-modal-cushion-radio" />
+								<span>Model B seat &amp; back rest set ($125)</span>
+							</label>
+							<label class="acc-modal-cushion-radio-label">
+								<input type="radio" name="acc-cushion-placement" value="corner" class="acc-modal-cushion-radio" />
+								<span>Corner locker unit cushion, five-sided ($125)</span>
+							</label>
 						</div>
 					</div>
 					<div class="acc-modal-cushion-options acc-modal-cushion-qty">
@@ -367,9 +375,9 @@ import { CUSHION_CART_IMAGE } from '../data/shop-accessories';
 		setupAddToCart('acc-cushion-add-to-cart-btn', 'acc-cushion-color-select', 'acc-cushion-qty', function(sel, qty) {
 			const placementRadio = document.querySelector('input[name="acc-cushion-placement"]:checked');
 			const placement = placementRadio ? placementRadio.value : 'bottom';
-			const price = placement === 'both' ? 150 : 75;
+			const price = placement === 'both' ? 150 : (placement === 'model-b' || placement === 'corner') ? 125 : 75;
 			const colorLabel = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : 'White';
-			const placementLabel = placement === 'both' ? 'Top & bottom' : 'Bottom';
+			const placementLabel = placement === 'both' ? 'Top & bottom' : placement === 'model-b' ? 'Model B seat & back rest set' : placement === 'corner' ? 'Corner locker unit (five-sided)' : 'Bottom';
 			return { id: 'cushions-' + (sel ? sel.value : 'white') + '-' + placement, name: 'Cushions (' + colorLabel + ') – ' + placementLabel, price: price, image: CUSHION_CART_IMAGE };
 		});
 		setupAddToCart('acc-hooks-add-to-cart-btn', 'acc-hooks-color-select', 'acc-hooks-qty', function(sel) {

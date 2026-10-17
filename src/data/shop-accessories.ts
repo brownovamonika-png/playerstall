@@ -48,7 +48,7 @@ export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 		accImage2: CUSHION_SIDE,
 		accImage3: CUSHION_SEAM,
 		accTitle: 'Cushions',
-		accPrice: '$75.00 (top or bottom) / $150.00 (both)',
+		accPrice: '$75.00 (top or bottom) / $150.00 (both) / $125.00 (Model B set or corner unit)',
 		accDesc: 'High-density foam cushions upholstered for comfort and durability – available on the top, bottom, or both.',
 		image: CUSHION_FRONT,
 		alt: 'Black upholstered locker cushion, front view',

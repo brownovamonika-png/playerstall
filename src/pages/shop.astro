@@ -49,7 +49,7 @@ const shopLockersItemList = buildLockersItemList(
 			<!-- Main Content -->
 			<div class="shop-main">
 
-					<!-- Premium Lockers: Model L, Model S, Model Z, Model X -->
+					<!-- Premium Lockers: Model L, Model S, Model Z, Model X, Model B -->
 					<div class="shop-products-grid shop-lockers-grid">
 					<!-- Model L -->
 					<div class="shop-product-item shop-product-item--model-l" data-price="649" data-category="lockers">
@@ -109,6 +109,22 @@ const shopLockersItemList = buildLockersItemList(
 						<div class="shop-product-content">
 							<div class="shop-product-categories">Lockers - Sports Equipment</div>
 							<h5 class="shop-product-title"><a href="/product-legendary-locker">Model X</a></h5>
+							<span class="shop-product-price">$649</span>
+						</div>
+					</div>
+
+					<!-- Model B -->
+					<div class="shop-product-item shop-product-item--model-b" data-price="649" data-category="lockers">
+						<div class="shop-product-image shop-locker-image">
+							<span class="shop-badge new">New</span>
+							<img src="/images/premium/model-b-light-grey-03-left-side.jpg" alt="Model B locker in light grey, angled view" loading="lazy" />
+							<div class="shop-product-overlay">
+								<a href="/product-model-b" class="shop-see-details-btn-overlay">Details</a>
+							</div>
+						</div>
+						<div class="shop-product-content">
+							<div class="shop-product-categories">Lockers - Sports Equipment</div>
+							<h5 class="shop-product-title"><a href="/product-model-b">Model B</a></h5>
 							<span class="shop-product-price">$649</span>
 						</div>
 					</div>
@@ -207,6 +223,21 @@ const shopLockersItemList = buildLockersItemList(
 								<span class="shop-product-price">$299.00</span>
 							</div>
 						</div>
+						<!-- Corner Locker Unit $1,250 -->
+						<div class="shop-product-item shop-locker-bottom-item shop-furniture-item" data-price="1250" data-category="furniture">
+							<div class="shop-product-image shop-locker-image">
+								<span class="shop-badge new">New</span>
+								<img src="/images/premium/corner-locker-walnut-01.jpg" alt="Corner locker unit in walnut" loading="lazy" />
+								<div class="shop-product-overlay">
+									<a href="/product-corner-locker" class="shop-see-details-btn-overlay">Details</a>
+								</div>
+							</div>
+							<div class="shop-product-content">
+								<div class="shop-product-categories">Locker Room Furniture</div>
+								<h5 class="shop-product-title"><a href="/product-corner-locker">Corner Locker Unit</a></h5>
+								<span class="shop-product-price">$1,250.00</span>
+							</div>
+						</div>
 					</div>
 
 			</div>
@@ -234,7 +265,7 @@ const shopLockersItemList = buildLockersItemList(
 					</button>
 				</div>
 				<!-- Cushions (front + side + seam in modal slider) -->
-				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/black%20cushion%20front%20view.jpg" data-acc-image-2="https://playerstall.b-cdn.net/images/black%20cushion%20side%20view.jpg" data-acc-image-3="https://playerstall.b-cdn.net/images/black%20cushion%20seam%20view.jpg" data-acc-title="Cushions" data-acc-price="$75.00 (top or bottom) / $150.00 (both)" data-acc-desc="High-density foam cushions upholstered for comfort and durability – available on the top, bottom, or both.">
+				<div class="shop-product-item shop-accessory-item" data-acc-image="https://playerstall.b-cdn.net/images/black%20cushion%20front%20view.jpg" data-acc-image-2="https://playerstall.b-cdn.net/images/black%20cushion%20side%20view.jpg" data-acc-image-3="https://playerstall.b-cdn.net/images/black%20cushion%20seam%20view.jpg" data-acc-title="Cushions" data-acc-price="$75.00 (top or bottom) / $150.00 (both) / $125.00 (Model B set or corner unit)" data-acc-desc="High-density foam cushions upholstered for comfort and durability – available on the top, bottom, or both.">
 					<div class="shop-product-image">
 						<img src="https://playerstall.b-cdn.net/images/black%20cushion%20front%20view.jpg" alt="Black upholstered locker cushion, front view" loading="lazy" />
 					</div>
@@ -514,6 +545,14 @@ const shopLockersItemList = buildLockersItemList(
 								<label class="acc-modal-cushion-radio-label">
 									<input type="radio" name="acc-cushion-placement" value="both" class="acc-modal-cushion-radio" />
 									<span>Both top &amp; bottom ($150)</span>
+								</label>
+								<label class="acc-modal-cushion-radio-label">
+									<input type="radio" name="acc-cushion-placement" value="model-b" class="acc-modal-cushion-radio" />
+									<span>Model B seat &amp; back rest set ($125)</span>
+								</label>
+								<label class="acc-modal-cushion-radio-label">
+									<input type="radio" name="acc-cushion-placement" value="corner" class="acc-modal-cushion-radio" />
+									<span>Corner locker unit cushion, five-sided ($125)</span>
 								</label>
 							</div>
 						</div>
@@ -2167,8 +2206,8 @@ const shopLockersItemList = buildLockersItemList(
 				const colorLabel = accCushionColorSelect.options[accCushionColorSelect.selectedIndex].text;
 				const placementRadio = document.querySelector('input[name="acc-cushion-placement"]:checked');
 				const placement = placementRadio ? placementRadio.value : 'bottom';
-				const price = placement === 'both' ? 150 : 75;
-				const placementLabel = placement === 'both' ? 'Top & bottom' : 'Bottom';
+				const price = placement === 'both' ? 150 : (placement === 'model-b' || placement === 'corner') ? 125 : 75;
+				const placementLabel = placement === 'both' ? 'Top & bottom' : placement === 'model-b' ? 'Model B seat & back rest set' : placement === 'corner' ? 'Corner locker unit (five-sided)' : 'Bottom';
 				const product = {
 					id: 'cushions-' + colorValue + '-' + placement,
 					name: 'Cushions (' + colorLabel + ') – ' + placementLabel,

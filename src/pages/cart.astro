@@ -1154,6 +1154,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			{ match: /\bmodel\s*s\b/i, image: 'https://playerstall.b-cdn.net/images/S%20black%20side.png' },
 			{ match: /\b(model\s*x|legendary)\b/i, image: '/images/model-x-dark-grey-side-view.png' },
 			{ match: /\b(model\s*z|elite)\b/i, image: '/images/model-z-blue-side.png' },
+			{ match: /\bmodel[\s-]?b\b/i, image: '/images/premium/model-b-light-grey-01-front.jpg' },
+			{ match: /\bcorner\b/i, image: '/images/premium/corner-locker-walnut-01.jpg' },
 			{ match: /\bvarsity\b/i, image: '/images/essential/varsity-birch-01.jpg' },
 			{ match: /\bstadium\b/i, image: '/images/essential/stadium-birch-01.jpg' },
 			{ match: /\bpro\b/i, image: '/images/pro-locker-oak-side-view.png' },
@@ -1161,6 +1163,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 		function getCartThumbnail(item: { name?: string; model?: string; image?: string }) {
 			const haystack = `${item.name ?? ''} ${item.model ?? ''}`;
+			if (/^cushions\b/i.test(item.name ?? '')) return item.image ?? '';
 			for (const entry of LOCKER_SIDE_IMAGES) {
 				if (entry.match.test(haystack)) return entry.image;
 			}
