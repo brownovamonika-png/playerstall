@@ -88,6 +88,8 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		<style is:global>
 			/* Essential photo-shoot images have a white backdrop; blend into gray tiles */
 			img[src*="/images/essential/"], img[src*="/images/premium/"] { mix-blend-mode: multiply; }
+			/* Model S variant names (Two Upper Cubbies, Open Cubby, with Drawer) at half size */
+			.name-variant { font-size: 0.5em; }
 		</style>
 	</head>
 	<body class={headerBlack ? 'header-black' : ''}>

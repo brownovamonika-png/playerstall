@@ -323,7 +323,7 @@ const sportLockersItemList = buildLockersItemList(
 			{LOCKERS.map((locker) => (
 				<article class="sp-locker-featured">
 					<div class="sp-locker-featured-nameblock">
-						<h3 class="sp-locker-name">{locker.name}</h3>
+						<h3 class="sp-locker-name">{locker.name.startsWith('Model S ') ? <>Model S <span class="name-variant">{locker.name.slice(8)}</span></> : locker.name}</h3>
 						<p class="sp-locker-price">{locker.price}</p>
 					</div>
 					<div class="sp-locker-angles">
