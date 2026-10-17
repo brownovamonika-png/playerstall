@@ -90,6 +90,21 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 			img[src*="/images/essential/"], img[src*="/images/premium/"] { mix-blend-mode: multiply; }
 			/* Model S variant names (Two Upper Cubbies, Open Cubby, with Drawer): 3/8 size, on their own line under "Model S" */
 			.name-variant { font-size: 0.375em; display: block; margin-top: 2px; }
+			/* "Cushion sold separately" label on locker photos that show a cushion (added by the script at the end of <body>) */
+			.cushion-note {
+				position: absolute;
+				left: 50%;
+				bottom: 6px;
+				transform: translateX(-50%);
+				font-family: 'Yantramanav', Arial, sans-serif;
+				font-size: 11px;
+				line-height: 1.2;
+				letter-spacing: 0.02em;
+				color: #8c8c8c;
+				white-space: nowrap;
+				pointer-events: none;
+				z-index: 2;
+			}
 		</style>
 	</head>
 	<body class={headerBlack ? 'header-black' : ''}>
@@ -290,6 +305,51 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		</footer>
 		<Analytics />
 		<SpeedInsights />
+		<script is:inline>
+			// Photos that show a cushion get a small "Cushion sold separately" label, so buyers don't expect one included.
+			(function () {
+				var CUSHION_PHOTOS = [
+					'/images/essential/semi-pro-birch-',
+					'/images/premium/model-b-light-grey-',
+					'/images/premium/corner-locker-walnut-',
+					'/images/premium/model-s-two-upper-cubbies-',
+					'/images/premium/model-s-open-cubby-',
+					'/images/premium/model-s-drawer-black-',
+					'/images/premium/option-pull-out-drawer',
+					'/images/premium/rows/model-x-01-front',
+					'front-cushion',
+					'front-base-cushion',
+				];
+				var BOXES = '.product-gallery-main, .bench-slide, .shop-product-image, .home-shop-product-image, .sp-locker-angle';
+				function hasCushion(img) {
+					var src = img.getAttribute('src') || '';
+					return CUSHION_PHOTOS.some(function (p) { return src.indexOf(p) !== -1; });
+				}
+				function tag(img) {
+					var box = img.closest(BOXES);
+					if (!box) return;
+					var note = box.querySelector(':scope > .cushion-note');
+					var show = hasCushion(img);
+					if (show && !note) {
+						note = document.createElement('span');
+						note.className = 'cushion-note';
+						note.textContent = 'Cushion sold separately';
+						if (getComputedStyle(box).position === 'static') box.style.position = 'relative';
+						box.appendChild(note);
+					}
+					if (note) note.hidden = !show;
+				}
+				function run() {
+					document.querySelectorAll('.product-gallery-main img.product-main-image, .bench-slide img, .shop-product-image img, .home-shop-product-image img, .sp-locker-angle img').forEach(function (img) {
+						tag(img);
+						if (img.classList.contains('product-main-image')) {
+							new MutationObserver(function () { tag(img); }).observe(img, { attributes: true, attributeFilter: ['src'] });
+						}
+					});
+				}
+				if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+			})();
+		</script>
 	</body>
 </html>
 
