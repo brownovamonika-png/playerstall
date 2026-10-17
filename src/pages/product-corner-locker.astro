@@ -40,7 +40,7 @@ const cornerSpecs = [
 
 <BaseLayout
 	title='Corner Locker Unit | PlayerStall'
-	description='Corner locker unit that fits a 90° room corner: upper cubby, hanging area and a five-sided bench with a drawer. 34.6" × 34.6" × 76" H. $1,250. Optional cushion. 5 year warranty.'
+	description='Corner locker unit that fits a 90° room corner: upper cubby, hanging area and a five-sided bench with a drawer. 34.6" × 34.6" × 76" H. $1,200. Optional cushion. 5 year warranty.'
 >
 	<Fragment slot="head">
 		<script type="application/ld+json" set:html={JSON.stringify({
@@ -55,7 +55,7 @@ const cornerSpecs = [
 					"brand": { "@type": "Brand", "name": "PlayerStall" },
 					"offers": {
 						"@type": "Offer",
-						"price": 1250,
+						"price": 1200,
 						"priceCurrency": "USD",
 						"availability": "https://schema.org/InStock",
 						"priceValidUntil": "2026-12-31",
@@ -139,7 +139,7 @@ const cornerSpecs = [
 					<h1 class="product-title">Corner Locker Unit</h1>
 					<p class="product-model" data-model-prefix="CORNER">Model # CORNER-AD-HRW</p>
 					<div class="product-price-block">
-						<span class="product-price" data-base-price="1250">$1,250.00</span>
+						<span class="product-price" data-base-price="1200">$1,200.00</span>
 					</div>
 
 					<div class="product-options">
@@ -147,8 +147,8 @@ const cornerSpecs = [
 							<label class="option-label">Cushion:</label>
 							<span class="option-value">No cushion</span>
 							<div class="option-swatches">
-								<button type="button" class="swatch width-swatch active" data-width="" data-price="1250" title="No cushion" aria-pressed="true">No cushion</button>
-								<button type="button" class="swatch width-swatch" data-width="C" data-price="1375" title="Add five-sided cushion">Add cushion +$125</button>
+								<button type="button" class="swatch width-swatch active" data-width="" data-price="1200" title="No cushion" aria-pressed="true">No cushion</button>
+								<button type="button" class="swatch width-swatch" data-width="C" data-price="1325" title="Add five-sided cushion">Add cushion +$125</button>
 							</div>
 							<p class="option-note">Firm foam five-sided cushion, sized to the bench.</p>
 						</div>
@@ -870,9 +870,9 @@ const cornerSpecs = [
 			var capBtn = document.querySelector('.width-swatch.active');
 			var priceAttr = capBtn ? capBtn.getAttribute('data-price') : null;
 			var priceEl = document.querySelector('.product-price');
-			var basePrice = priceEl ? parseFloat(priceEl.getAttribute('data-base-price') || '1250') : 1250;
+			var basePrice = priceEl ? parseFloat(priceEl.getAttribute('data-base-price') || '1200') : 1200;
 			var price = priceAttr ? parseFloat(priceAttr) : basePrice;
-			return Number.isFinite(price) ? price : 1250;
+			return Number.isFinite(price) ? price : 1200;
 		}
 
 		function updatePrice() {

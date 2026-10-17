@@ -45,49 +45,72 @@ export interface LockerCatalogEntry {
 
 const ENTRIES_RAW: LockerCatalogEntry[] = [
 	{
-		id: 'model-x',
-		listName: 'Model X',
-		schemaName: 'Model X Wood Locker',
-		slugPath: '/product-legendary-locker',
+		id: 'model-s',
+		listName: 'Model S',
+		schemaName: 'Model S Wood Locker',
+		slugPath: '/product-model-s',
 		description:
-			'Model X wood locker: premium tier, curved design, maximum customization. 76" H x 19" or 24" D, widths 18"–32". Custom-built in three months. 5 year warranty.',
+			'Model S wood locker: premium melamine, 76" H x 19" or 24" D, widths 18"–32". Custom-built in 8–12 weeks. 5 year warranty.',
 		priceSort: 649,
 		listPriceUsd: 649,
 		aggregateLowUsd: 649,
 		aggregateHighUsd: 749,
 		uiInfo:
-			'Top-tier locker. Curved design, maximum durability and customization. Custom-built in three months with full color options.',
-		dimensions: '24" W × 76" H × 24" D',
+			'Premium melamine, stadium-grade. Heavy-duty build for high-traffic facilities. Custom-built to your specifications.',
+		dimensions: '24" W × 76" H × 19" D',
 		dimensionsNote: 'Widths 18"–32"; optional 4" base',
-		listingImage: MODEL_X_HERO_IMAGE,
+		listingImage: '/images/model-s-black-front-base.png',
 		images: [
-			'/images/model-x-dark-grey-front-base-cushion.png',
-			'/images/model-x-dark-grey-right-side.png',
-			'/images/model-x-dark-grey-left-side.png',
-			'/images/model-x-dark-grey-side-view.png',
+			'/images/model-s-black-front-base.png',
+			'/images/model-s-black-right-side.png',
+			'/images/model-s-black-left-side.png',
+			'https://playerstall.b-cdn.net/images/S%20black%20side.png',
 		],
 	},
 	{
-		id: 'model-z',
-		listName: 'Model Z',
-		schemaName: 'Model Z Wood Locker',
-		slugPath: '/product-elite-locker',
+		id: 'model-s-two-upper-cubbies',
+		listName: 'Model S Two Upper Cubbies',
+		schemaName: 'Model S Two Upper Cubbies Wood Locker',
+		slugPath: '/product-model-s-two-upper-cubbies',
 		description:
-			'Model Z wood locker: curved design, 76" H x 19" or 24" D, widths 18"–32". Custom-built in three months. 5 year warranty. MPW-6C plywood core with premium melamine surface.',
+			'Model S with two stacked upper cubbies beside an open cubby and a lift-up bench seat. 76" H x 23" D, widths 20"–32". 5 year warranty.',
 		priceSort: 649,
 		listPriceUsd: 649,
 		aggregateLowUsd: 649,
 		aggregateHighUsd: 749,
 		uiInfo:
-			'Top-tier locker. Curved design, premium materials. Custom-built to your specifications.',
-		dimensions: '24" W × 76" H × 24" D',
-		dimensionsNote: 'Widths 18"–32"; optional 4" base',
-		listingImage: '/images/model-z-blue-left-side.png',
+			'Model S with two stacked upper cubbies beside an open cubby. Lift-up bench seat with storage underneath.',
+		dimensions: '24" W × 76" H × 23" D',
+		dimensionsNote: 'Widths 20"–32"; optional 4" base',
+		listingImage: '/images/premium/model-s-two-upper-cubbies-light-grey-01-front.jpg',
 		images: [
-			'/images/model-z-blue-front-base.png',
-			'/images/model-z-blue-right-side.png',
-			'/images/model-z-blue-left-side.png',
-			'/images/model-z-blue-side.png',
+			'/images/premium/model-s-two-upper-cubbies-light-grey-01-front.jpg',
+			'/images/premium/model-s-two-upper-cubbies-light-grey-02-right-side.jpg',
+			'/images/premium/model-s-two-upper-cubbies-light-grey-03-left-side.jpg',
+			'/images/premium/model-s-two-upper-cubbies-light-grey-04-side.jpg',
+		],
+	},
+	{
+		id: 'model-s-open-cubby',
+		listName: 'Model S Open Cubby',
+		schemaName: 'Model S Open Cubby Wood Locker',
+		slugPath: '/product-model-s-open-cubby',
+		description:
+			'Model S with an open cubby at the top, a lift-up bench seat and a pull-out drawer. 76" H x 23" D, widths 20"–32". 5 year warranty.',
+		priceSort: 649,
+		listPriceUsd: 649,
+		aggregateLowUsd: 649,
+		aggregateHighUsd: 749,
+		uiInfo:
+			'Model S with an open cubby at the top. Lift-up bench seat with a pull-out drawer underneath.',
+		dimensions: '24" W × 76" H × 23" D',
+		dimensionsNote: 'Widths 20"–32"; optional 4" base',
+		listingImage: '/images/premium/model-s-open-cubby-birch-01-front.jpg',
+		images: [
+			'/images/premium/model-s-open-cubby-birch-01-front.jpg',
+			'/images/premium/model-s-open-cubby-birch-02-right-side.jpg',
+			'/images/premium/model-s-open-cubby-birch-03-left-side.jpg',
+			'/images/premium/model-s-open-cubby-birch-04-side.jpg',
 		],
 	},
 	{
@@ -114,6 +137,52 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		],
 	},
 	{
+		id: 'model-z',
+		listName: 'Model Z',
+		schemaName: 'Model Z Wood Locker',
+		slugPath: '/product-elite-locker',
+		description:
+			'Model Z wood locker: curved design, 76" H x 19" or 24" D, widths 18"–32". Custom-built in three months. 5 year warranty. MPW-6C plywood core with premium melamine surface.',
+		priceSort: 649,
+		listPriceUsd: 649,
+		aggregateLowUsd: 649,
+		aggregateHighUsd: 749,
+		uiInfo:
+			'Top-tier locker. Curved design, premium materials. Custom-built to your specifications.',
+		dimensions: '24" W × 76" H × 24" D',
+		dimensionsNote: 'Widths 18"–32"; optional 4" base',
+		listingImage: '/images/model-z-blue-left-side.png',
+		images: [
+			'/images/model-z-blue-front-base.png',
+			'/images/model-z-blue-right-side.png',
+			'/images/model-z-blue-left-side.png',
+			'/images/model-z-blue-side.png',
+		],
+	},
+	{
+		id: 'model-x',
+		listName: 'Model X',
+		schemaName: 'Model X Wood Locker',
+		slugPath: '/product-legendary-locker',
+		description:
+			'Model X wood locker: premium tier, curved design, maximum customization. 76" H x 19" or 24" D, widths 18"–32". Custom-built in three months. 5 year warranty.',
+		priceSort: 649,
+		listPriceUsd: 649,
+		aggregateLowUsd: 649,
+		aggregateHighUsd: 749,
+		uiInfo:
+			'Top-tier locker. Curved design, maximum durability and customization. Custom-built in three months with full color options.',
+		dimensions: '24" W × 76" H × 24" D',
+		dimensionsNote: 'Widths 18"–32"; optional 4" base',
+		listingImage: MODEL_X_HERO_IMAGE,
+		images: [
+			'/images/model-x-dark-grey-front-base-cushion.png',
+			'/images/model-x-dark-grey-right-side.png',
+			'/images/model-x-dark-grey-left-side.png',
+			'/images/model-x-dark-grey-side-view.png',
+		],
+	},
+	{
 		id: 'model-b',
 		listName: 'Model B',
 		schemaName: 'Model B Wood Locker',
@@ -134,29 +203,6 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 			'/images/premium/model-b-light-grey-02-right-side.jpg',
 			'/images/premium/model-b-light-grey-03-left-side.jpg',
 			'/images/premium/model-b-light-grey-04-side.jpg',
-		],
-	},
-	{
-		id: 'model-s',
-		listName: 'Model S',
-		schemaName: 'Model S Wood Locker',
-		slugPath: '/product-model-s',
-		description:
-			'Model S wood locker: premium melamine, 76" H x 19" or 24" D, widths 18"–32". Custom-built in 8–12 weeks. 5 year warranty.',
-		priceSort: 649,
-		listPriceUsd: 649,
-		aggregateLowUsd: 649,
-		aggregateHighUsd: 749,
-		uiInfo:
-			'Premium melamine, stadium-grade. Heavy-duty build for high-traffic facilities. Custom-built to your specifications.',
-		dimensions: '24" W × 76" H × 19" D',
-		dimensionsNote: 'Widths 18"–32"; optional 4" base',
-		listingImage: '/images/model-s-black-front-base.png',
-		images: [
-			'/images/model-s-black-front-base.png',
-			'/images/model-s-black-right-side.png',
-			'/images/model-s-black-left-side.png',
-			'https://playerstall.b-cdn.net/images/S%20black%20side.png',
 		],
 	},
 	{
@@ -232,7 +278,7 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 
 /** Eight models, premium first (matches sport hub locker order). */
 export function getLockersCatalogSorted(): LockerCatalogEntry[] {
-	return [...ENTRIES_RAW].sort((a, b) => b.priceSort - a.priceSort || a.listName.localeCompare(b.listName));
+	return [...ENTRIES_RAW].sort((a, b) => b.priceSort - a.priceSort); // same price: keep list order above
 }
 
 export const LOCKERS_CATALOG_SORTED: LockerCatalogEntry[] = getLockersCatalogSorted();
