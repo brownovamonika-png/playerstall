@@ -319,7 +319,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 					'front-cushion',
 					'front-base-cushion',
 				];
-				var BOXES = '.product-gallery-main, .bench-slide, .shop-product-image, .home-shop-product-image, .sp-locker-angle';
+				var BOXES = '.product-gallery-main, .bench-slide, .shop-product-image, .home-shop-product-image'; // not on the by-sport rows (Monika)
 				function hasCushion(img) {
 					var src = img.getAttribute('src') || '';
 					return CUSHION_PHOTOS.some(function (p) { return src.indexOf(p) !== -1; });
@@ -339,7 +339,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 					if (note) note.hidden = !show;
 				}
 				function run() {
-					document.querySelectorAll('.product-gallery-main img.product-main-image, .bench-slide img, .shop-product-image img, .home-shop-product-image img, .sp-locker-angle img').forEach(function (img) {
+					document.querySelectorAll('.product-gallery-main img.product-main-image, .bench-slide img, .shop-product-image img, .home-shop-product-image img').forEach(function (img) {
 						tag(img);
 						if (img.classList.contains('product-main-image')) {
 							new MutationObserver(function () { tag(img); }).observe(img, { attributes: true, attributeFilter: ['src'] });
