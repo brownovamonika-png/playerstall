@@ -234,13 +234,13 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		schemaName: 'Stadium Locker',
 		slugPath: '/product-stadium-locker',
 		description:
-			'Stadium Locker wood locker: 19" D, Pre-Finished Birch Plywood, 76" H, widths 18"–32". Essential line. Custom-built in 8–12 weeks. 5 year warranty.',
+			'Stadium Locker wood locker: 19" D, UV Grade A Birch Plywood, 76" H, widths 18"–32". Essential line. Custom-built in 8–12 weeks. 5 year warranty.',
 		priceSort: 599,
 		listPriceUsd: 599,
 		aggregateLowUsd: 599,
 		aggregateHighUsd: 649,
 		uiInfo:
-			'Essential line. 19" depth only, Pre-Finished Birch Plywood. Stadium-style layout.',
+			'Essential line. 19" depth only, UV Grade A Birch Plywood. Stadium-style layout.',
 		dimensions: '18" W × 76" H × 19" D',
 		dimensionsNote: 'Widths 18"–32"; optional 4" base',
 		listingImage: '/images/essential/stadium-birch-01.jpg',
