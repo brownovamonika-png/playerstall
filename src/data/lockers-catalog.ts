@@ -213,9 +213,9 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		description:
 			'Model B locker: upper cubby, curved side panel and a metal-vented bench with a lift-up seat. 76" H x 23" D, widths 20"–32". 5 year warranty.',
 		priceSort: 649,
-		listPriceUsd: 649,
-		aggregateLowUsd: 649,
-		aggregateHighUsd: 749,
+		listPriceUsd: 679,
+		aggregateLowUsd: 679,
+		aggregateHighUsd: 779,
 		uiInfo:
 			'Premium melamine with a metal-vented bench and lift-up seat. Upper cubby with a curved side panel. Custom-built to your specifications.',
 		dimensions: '24" W × 76" H × 23" D',
