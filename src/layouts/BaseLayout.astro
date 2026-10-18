@@ -1,6 +1,7 @@
 ---
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
+import { LOCKERS_CATALOG_SORTED } from '../data/lockers-catalog';
 
 interface Props {
 	title: string;
@@ -25,6 +26,17 @@ const {
 	isArticle = false,
 	articlePublishedTime,
 } = Astro.props;
+
+// Card slide shows (shop + home): every photo of a product, keyed by its page link.
+// Lockers start with the angled view (the card photo), then front, other angle, side.
+const CARD_PHOTOS: Record<string, string[]> = Object.fromEntries(
+	LOCKERS_CATALOG_SORTED.map((e) => {
+		const i = e.images;
+		return [e.slugPath, i.length === 4 ? [i[2], i[0], i[1], i[3]] : [...i]];
+	}),
+);
+CARD_PHOTOS['/product-corner-locker'] = ['/images/premium/corner-locker-walnut-01.jpg', '/images/premium/corner-locker-cushion-01.jpg'];
+CARD_PHOTOS['/product-stick-rack'] = ['/images/essential/stick-rack-walnut-01.jpg', '/images/essential/stick-rack-walnut-02.jpg', '/images/essential/stick-rack-walnut-03.jpg'];
 
 // Ensure canonical URL doesn't have trailing slash (except for homepage)
 const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playerstall.com" 
@@ -104,6 +116,49 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				pointer-events: none;
 				z-index: 2;
 			}
+			/* Card slide shows: arrows + dots on shop/home cards (added by the script at the end of <body>) */
+			.card-slide-arrow {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				z-index: 3;
+				width: 30px;
+				height: 30px;
+				border: none;
+				border-radius: 50%;
+				background: rgba(255, 255, 255, 0.9);
+				color: #0d0d0d;
+				font-size: 14px;
+				line-height: 30px;
+				text-align: center;
+				cursor: pointer;
+				padding: 0;
+				opacity: 0;
+				transition: opacity 0.2s;
+			}
+			.card-slide-arrow--prev { left: 8px; }
+			.card-slide-arrow--next { right: 8px; }
+			.card-slide-box:hover .card-slide-arrow,
+			.card-slide-arrow:focus-visible { opacity: 1; }
+			@media (hover: none) { .card-slide-arrow { opacity: 1; } }
+			.card-slide-dots {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 22px;
+				display: flex;
+				justify-content: center;
+				gap: 5px;
+				z-index: 3;
+				pointer-events: none;
+			}
+			.card-slide-dots span {
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: #d0d0d0;
+			}
+			.card-slide-dots span.active { background: #fe5900; }
 		</style>
 	</head>
 	<body class={headerBlack ? 'header-black' : ''}>
@@ -338,6 +393,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 					}
 					if (note) note.hidden = !show;
 				}
+				window.psTagCushion = tag;
 				function run() {
 					document.querySelectorAll('.product-gallery-main img.product-main-image, .bench-slide img, .shop-product-image img, .home-shop-product-image img').forEach(function (img) {
 						tag(img);
@@ -347,6 +403,45 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 					});
 				}
 				if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+			})();
+		</script>
+		<script is:inline define:vars={{ CARD_PHOTOS }}>
+			// Shop + home cards: click the arrows to see every photo of that locker without opening its page.
+			(function () {
+				function setup() {
+					document.querySelectorAll('.shop-product-image, .home-shop-product-image').forEach(function (box) {
+						var link = box.querySelector('a[href]');
+						var img = box.querySelector('img');
+						if (!link || !img) return;
+						var href = link.getAttribute('href').replace(/\/$/, '');
+						var photos = CARD_PHOTOS[href];
+						if (!photos || photos.length < 2) return;
+						var i = 0;
+						box.classList.add('card-slide-box');
+						if (getComputedStyle(box).position === 'static') box.style.position = 'relative';
+						var dots = document.createElement('div');
+						dots.className = 'card-slide-dots';
+						photos.forEach(function (_, k) { var d = document.createElement('span'); if (k === 0) d.className = 'active'; dots.appendChild(d); });
+						function show(k) {
+							i = (k + photos.length) % photos.length;
+							img.setAttribute('src', photos[i]);
+							dots.querySelectorAll('span').forEach(function (d, n) { d.classList.toggle('active', n === i); });
+							if (window.psTagCushion) window.psTagCushion(img);
+						}
+						[['prev', '\u2039', -1], ['next', '\u203A', 1]].forEach(function (a) {
+							var b = document.createElement('button');
+							b.type = 'button';
+							b.className = 'card-slide-arrow card-slide-arrow--' + a[0];
+							b.setAttribute('aria-label', a[0] === 'prev' ? 'Previous photo' : 'Next photo');
+							b.textContent = a[1];
+							b.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); show(i + a[2]); });
+							box.appendChild(b);
+						});
+						box.appendChild(dots);
+						photos.slice(1).forEach(function (src) { var p = new Image(); p.src = src; });
+					});
+				}
+				if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup); else setup();
 			})();
 		</script>
 	</body>
