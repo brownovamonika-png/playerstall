@@ -89,6 +89,7 @@ export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 		accImage: '/images/custom-logo-example.png',
 		accImage2: '/images/premium/custom-logo-spartan.png',
 		accImage3: '/images/premium/custom-logo-walnut-locker.jpg',
+		accImage4: '/images/premium/custom-logo-reivers.png',
 		accTitle: 'Custom Logo',
 		accPrice: '+ $75.00',
 		accDesc: 'Team or program branding applied to the locker face – reinforce your identity every time players walk in. Custom orders only.',
