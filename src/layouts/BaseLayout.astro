@@ -160,10 +160,16 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				background: #d0d0d0;
 			}
 			.card-slide-dots span.active { background: #fe5900; }
+			.card-slide-title-row {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 10px;
+			}
 			.card-slide-dots.card-slide-dots--below {
 				position: static;
-				justify-content: flex-start;
-				margin-top: 6px;
+				justify-content: flex-end;
+				flex-shrink: 0;
 			}
 			/* On slide-show cards: no dark tint, Details button small in the top-right corner so the locker stays visible */
 			.card-slide-box.card-slide-box .shop-product-overlay,
@@ -479,7 +485,14 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 						if (content) {
 							dots.classList.add('card-slide-dots--below');
 							var title = content.querySelector('.shop-product-title');
-							if (title) title.insertAdjacentElement('afterend', dots); else content.appendChild(dots);
+							if (title) {
+								// Name on the left, dots on the right, on one line
+								var row = document.createElement('div');
+								row.className = 'card-slide-title-row';
+								title.parentNode.insertBefore(row, title);
+								row.appendChild(title);
+								row.appendChild(dots);
+							} else content.appendChild(dots);
 						} else {
 							box.appendChild(dots);
 						}
