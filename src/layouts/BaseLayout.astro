@@ -159,6 +159,22 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				background: #d0d0d0;
 			}
 			.card-slide-dots span.active { background: #fe5900; }
+			/* On slide-show cards: no dark tint, Details button small in the top-right corner so the locker stays visible */
+			.card-slide-box.card-slide-box .shop-product-overlay,
+			.card-slide-box.card-slide-box .home-shop-product-overlay {
+				background: transparent;
+				align-items: flex-start;
+				justify-content: flex-end;
+				padding: 10px;
+				pointer-events: none;
+			}
+			.card-slide-box.card-slide-box .shop-see-details-btn-overlay,
+			.card-slide-box.card-slide-box .home-shop-details-btn-overlay {
+				pointer-events: auto;
+				padding: 6px 14px;
+				font-size: 11px;
+				transform: none;
+			}
 		</style>
 	</head>
 	<body class={headerBlack ? 'header-black' : ''}>
