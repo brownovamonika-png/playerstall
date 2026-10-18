@@ -160,6 +160,11 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				background: #d0d0d0;
 			}
 			.card-slide-dots span.active { background: #fe5900; }
+			.card-slide-dots.card-slide-dots--below {
+				position: static;
+				justify-content: flex-start;
+				margin-top: 6px;
+			}
 			/* On slide-show cards: no dark tint, Details button small in the top-right corner so the locker stays visible */
 			.card-slide-box.card-slide-box .shop-product-overlay,
 			.card-slide-box.card-slide-box .home-shop-product-overlay {
@@ -468,7 +473,16 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 							b.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); show(i + a[2]); });
 							box.appendChild(b);
 						});
-						box.appendChild(dots);
+						// Accessories: dots go under the name, not over the small photo
+						var accCard = box.closest('[data-acc-image]');
+						var content = accCard && accCard.querySelector('.shop-product-content');
+						if (content) {
+							dots.classList.add('card-slide-dots--below');
+							var title = content.querySelector('.shop-product-title');
+							if (title) title.insertAdjacentElement('afterend', dots); else content.appendChild(dots);
+						} else {
+							box.appendChild(dots);
+						}
 						photos.slice(1).forEach(function (src) { var p = new Image(); p.src = src; });
 					});
 				}
