@@ -34,10 +34,11 @@ export interface ShopAccessoryModalItem {
 export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 	{
 		accImage: '/images/premium/front-panel-metal-vented.jpg',
-		accImage2: '/images/premium/front-panel-3-slot-vented.jpg',
+		accImage2: '/images/premium/front-panel-3-slot-vented-black.jpg',
+		accImage3: '/images/premium/front-panel-3-slot-vented.jpg',
 		accTitle: 'Vented Front Panels',
 		accPrice: '3-slot vented: + $40.00 / Metal vented: + $60.00',
-		accDesc: 'Vented bench front for Premium lockers (Model S, L, X and Z): a 3-slot vented front, or a black metal vented front. Venting keeps gear dry and reduces odor.',
+		accDesc: 'Vented bench front for Premium lockers (Model S, L, X and Z): a black metal vented front, or a 3-slot vented front (black or wood). Venting keeps gear dry and reduces odor.',
 		image: '/images/premium/front-panel-metal-vented.jpg',
 		alt: 'Black metal vented front panel on a walnut locker',
 		title: 'Vented Front Panels',
