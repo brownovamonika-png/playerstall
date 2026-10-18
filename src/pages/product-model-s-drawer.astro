@@ -31,6 +31,7 @@ const modelBSpecs = [
 ];
 const lockerSchemaEntry = getLockerCatalogBySlugPath('/product-model-s-drawer');
 if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model S with Drawer');
+import WidthPhotos from '../components/WidthPhotos.astro';
 ---
 
 <BaseLayout
@@ -269,6 +270,7 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model 
 		</div>
 	</section>
 	<AccessoryModal />
+	<WidthPhotos />
 </BaseLayout>
 
 <style is:global>

@@ -25,6 +25,7 @@ const stadiumSpecs = [
 ];
 const lockerSchemaEntry = getLockerCatalogBySlugPath('/product-stadium-locker');
 if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Stadium Locker');
+import WidthPhotos from '../components/WidthPhotos.astro';
 ---
 
 <BaseLayout
@@ -230,6 +231,7 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Stadiu
 		</div>
 	</section>
 	<AccessoryModal />
+	<WidthPhotos />
 </BaseLayout>
 
 <style is:global>

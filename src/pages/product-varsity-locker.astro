@@ -25,6 +25,7 @@ const varsitySpecs = [
 ];
 const lockerSchemaEntry = getLockerCatalogBySlugPath('/product-varsity-locker');
 if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Varsity Locker');
+import WidthPhotos from '../components/WidthPhotos.astro';
 ---
 
 <BaseLayout
@@ -216,6 +217,7 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Varsit
 		</div>
 	</section>
 	<AccessoryModal />
+	<WidthPhotos />
 </BaseLayout>
 
 <style is:global>

@@ -34,6 +34,7 @@ const modelBSpecs = [
 ];
 const lockerSchemaEntry = getLockerCatalogBySlugPath('/product-model-s-open-cubby');
 if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model S Open Cubby');
+import WidthPhotos from '../components/WidthPhotos.astro';
 ---
 
 <BaseLayout
@@ -285,6 +286,7 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model 
 		</div>
 	</section>
 	<AccessoryModal />
+	<WidthPhotos />
 </BaseLayout>
 
 <style is:global>

@@ -34,6 +34,7 @@ const modelBSpecs = [
 ];
 const lockerSchemaEntry = getLockerCatalogBySlugPath('/product-model-s-two-upper-cubbies');
 if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model S Two Upper Cubbies');
+import WidthPhotos from '../components/WidthPhotos.astro';
 ---
 
 <BaseLayout
@@ -285,6 +286,7 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model 
 		</div>
 	</section>
 	<AccessoryModal />
+	<WidthPhotos />
 </BaseLayout>
 
 <style is:global>
@@ -1179,23 +1181,3 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model 
 	}
 </script>
 
-<!-- WIDTH PHOTO PREVIEW (local branch width-photo-preview, 18 Oct 2026 — not live):
-     clicking a width swaps the front / right-side / left-side gallery photos to that width.
-     Photos: public/images/premium/widths/, made by Workspace/PlayerStall/Locker-Width-Preview/build_site_widths.py -->
-<script is:inline>
-(() => {
-	const RE = /(model-s-two-upper-cubbies-light-grey-0[123]-(?:front|right-side|left-side))(?:-\d{2}in)?\.jpg/;
-	const swap = (img, w) => {
-		const m = (img.getAttribute('src') || '').match(RE);
-		if (m) img.setAttribute('src', '/images/premium/widths/' + m[1] + '-' + w + 'in.jpg');
-	};
-	const apply = () => {
-		const active = document.querySelector('.width-swatch.active');
-		const w = active ? parseInt(active.textContent, 10) : NaN;
-		if (!w) return;
-		document.querySelectorAll('.product-gallery-thumbs img, .product-main-image').forEach((img) => swap(img, w));
-	};
-	document.querySelectorAll('.width-swatch').forEach((b) => b.addEventListener('click', () => setTimeout(apply, 0)));
-	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply); else apply();
-})();
-</script>

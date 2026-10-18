@@ -1,0 +1,36 @@
+---
+/**
+ * Width photos: when a width swatch (.width-swatch) is clicked, every gallery photo that has
+ * width versions switches to the photo of that width, so customers can picture the real width.
+ * Photo list: src/data/width-photos.json. Photos: public/images/widths/ (made from the 24" photos;
+ * side panels, lock box and edges stay real size, only the open spans are stretched).
+ * Also re-applies when a colour change or thumbnail click swaps a photo.
+ */
+import photos from '../data/width-photos.json';
+---
+<script is:inline define:vars={{ photos }}>
+(() => {
+	const NAME = /\/([^\/?#]+?)(?:-\d{2}in)?\.(?:png|jpe?g|webp)(?:[?#].*)?$/i;
+	const width = () => {
+		const a = document.querySelector('.width-swatch.active');
+		return a ? parseInt(a.textContent, 10) : NaN;
+	};
+	const fix = (img) => {
+		const src = img.getAttribute('src') || '';
+		const m = src.match(NAME);
+		if (!m) return;
+		const p = photos[m[1]];
+		const w = width();
+		if (!p || !w || !p.widths.includes(w)) return;
+		const want = (p.dir || '/images/widths/') + m[1] + '-' + w + 'in.' + p.ext;
+		if (!src.endsWith(want)) img.setAttribute('src', want);
+	};
+	const all = () => document.querySelectorAll('.product-gallery img, .product-main-image').forEach(fix);
+	document.addEventListener('click', (e) => {
+		if (e.target instanceof Element && e.target.closest('.width-swatch')) setTimeout(all, 0);
+	});
+	new MutationObserver((list) => list.forEach((m) => { if (m.target.tagName === 'IMG') fix(m.target); }))
+		.observe(document.documentElement, { subtree: true, attributes: true, attributeFilter: ['src'] });
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', all); else all();
+})();
+</script>

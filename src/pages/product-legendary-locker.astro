@@ -35,6 +35,7 @@ const legendarySpecs = [
 ];
 const lockerSchemaEntry = getLockerCatalogBySlugPath('/product-legendary-locker');
 if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model X');
+import WidthPhotos from '../components/WidthPhotos.astro';
 ---
 
 <BaseLayout
@@ -310,6 +311,7 @@ if (!lockerSchemaEntry) throw new Error('Missing locker catalog entry for Model 
 		</div>
 	</section>
 	<AccessoryModal />
+	<WidthPhotos />
 </BaseLayout>
 
 <style is:global>

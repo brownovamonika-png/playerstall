@@ -1,0 +1,578 @@
+{
+ "model-z-blue-front-base": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-z-blue-left-side": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-z-blue-right-side": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-z-dark-grey-front-base": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-z-dark-grey-front-cushion": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-z-dark-grey-front-open-seat": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-z-dark-grey-left-side": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-z-dark-grey-right-side": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-x-dark-grey-front-base": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-x-dark-grey-right-side": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-x-dark-grey-left-side": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-x-light-grey-front-base": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-x-light-grey-front-cushion": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-x-light-grey-front-open-seat": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-x-light-grey-left-side": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-b-light-grey-01-front": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-b-light-grey-02-right-side": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-b-light-grey-03-left-side": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-l-dark-oak-front-base": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-l-dark-oak-front-cushion": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-l-dark-oak-right-side": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-l-dark-oak-top-bottom-open": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-l-oak-left-side-alt": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-l-oak-left-side": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-s-drawer-black-01-front": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-s-drawer-black-02-right-side": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-s-drawer-black-03-left-side": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-s-open-cubby-birch-01-front": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-s-open-cubby-birch-02-right-side": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-s-open-cubby-birch-03-left-side": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-s-black-front-base": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-s-black-right-side": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-s-black-left-side": {
+  "ext": "webp",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "semi-pro-birch-01": {
+  "ext": "jpg",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "semi-pro-birch-02": {
+  "ext": "jpg",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "semi-pro-birch-03": {
+  "ext": "jpg",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "varsity-birch-01": {
+  "ext": "jpg",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "varsity-birch-02": {
+  "ext": "jpg",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "varsity-birch-03": {
+  "ext": "jpg",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "stadium-birch-01": {
+  "ext": "jpg",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "stadium-birch-02": {
+  "ext": "jpg",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "stadium-birch-03": {
+  "ext": "jpg",
+  "widths": [
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ]
+ },
+ "model-s-two-upper-cubbies-light-grey-01-front": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ],
+  "dir": "/images/premium/widths/"
+ },
+ "model-s-two-upper-cubbies-light-grey-02-right-side": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ],
+  "dir": "/images/premium/widths/"
+ },
+ "model-s-two-upper-cubbies-light-grey-03-left-side": {
+  "ext": "jpg",
+  "widths": [
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32
+  ],
+  "dir": "/images/premium/widths/"
+ }
+}
