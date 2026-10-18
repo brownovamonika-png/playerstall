@@ -16,11 +16,10 @@
       32
     ],
     "depthOptionsIn": [
-      19,
-      24
+      23
     ],
     "defaultWidthIn": 24,
-    "defaultDepthIn": 19
+    "defaultDepthIn": 23
   },
   "pricing": {
     "currency": "USD",
@@ -35,8 +34,7 @@
       "32": 649
     },
     "depthSurcharge": {
-      "19": 0,
-      "24": 0
+      "23": 0
     }
   },
   "colors": [
