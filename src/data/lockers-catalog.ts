@@ -50,7 +50,7 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		schemaName: 'Model S Wood Locker',
 		slugPath: '/product-model-s',
 		description:
-			'Model S wood locker: premium melamine, 76" H x 19" or 24" D, widths 18"–32". Custom-built in 8–12 weeks. 5 year warranty.',
+			'Model S wood locker: premium melamine, 76" H x 23" D, widths 18"–32". Custom-built in 8–12 weeks. 5 year warranty.',
 		priceSort: 649,
 		listPriceUsd: 649,
 		aggregateLowUsd: 649,
@@ -142,13 +142,13 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		schemaName: 'Model L Wood Locker',
 		slugPath: '/product-model-l',
 		description:
-			'Model L wood locker: premium melamine, 76" H x 19" or 24" D, widths 18"–32". Custom-built in 8–12 weeks. 5 year warranty.',
+			'Model L wood locker: premium melamine, 76" H x 23" D, widths 18"–32". Custom-built in 8–12 weeks. 5 year warranty.',
 		priceSort: 649,
 		listPriceUsd: 649,
 		aggregateLowUsd: 599,
 		aggregateHighUsd: 649,
 		uiInfo:
-			'Premium melamine, 19" or 24" depth. Reliable workhorse for team locker rooms. Custom-built to your specifications.',
+			'Premium melamine, 23" depth. Reliable workhorse for team locker rooms. Custom-built to your specifications.',
 		dimensions: '24" W × 76" H × 19" D',
 		dimensionsNote: 'Widths 18"–32"; optional 4" base',
 		listingImage: '/images/model-l-dark-oak-front-base.png',
@@ -165,7 +165,7 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		schemaName: 'Model Z Wood Locker',
 		slugPath: '/product-elite-locker',
 		description:
-			'Model Z wood locker: curved design, 76" H x 19" or 24" D, widths 18"–32". Custom-built in three months. 5 year warranty. MPW-6C plywood core with premium melamine surface.',
+			'Model Z wood locker: curved design, 76" H x 23" D, widths 18"–32". Custom-built in three months. 5 year warranty. MPW-6C plywood core with premium melamine surface.',
 		priceSort: 649,
 		listPriceUsd: 649,
 		aggregateLowUsd: 649,
@@ -188,7 +188,7 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		schemaName: 'Model X Wood Locker',
 		slugPath: '/product-legendary-locker',
 		description:
-			'Model X wood locker: premium tier, curved design, maximum customization. 76" H x 19" or 24" D, widths 18"–32". Custom-built in three months. 5 year warranty.',
+			'Model X wood locker: premium tier, curved design, maximum customization. 76" H x 23" D, widths 18"–32". Custom-built in three months. 5 year warranty.',
 		priceSort: 649,
 		listPriceUsd: 649,
 		aggregateLowUsd: 649,

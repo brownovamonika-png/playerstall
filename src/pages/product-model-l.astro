@@ -1,5 +1,5 @@
 ---
-// PREMIUM — Model L only. 19" or 24" depth, melamine. Spec PDF: /pdf/model-l-locker-spec/ (do not use pro-locker-spec).
+// PREMIUM — Model L only. 23" depth, melamine. Spec PDF: /pdf/model-l-locker-spec/ (do not use pro-locker-spec).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LockerAccessories from '../components/LockerAccessories.astro';
 import AccessoryModal from '../components/AccessoryModal.astro';
@@ -19,7 +19,7 @@ const modelLDimensions24Src = 'https://playerstall.b-cdn.net/images/Model%20L%20
 import lockBoxSpecSheet from '../assets/lock-box-spec-sheet.png';
 
 const modelLSpecs = [
-	{ label: 'Standard dimensions', value: '24" W × 76" H × 19" D' },
+	{ label: 'Standard dimensions', value: '24" W × 76" H × 23" D' },
 	{ label: 'Base', value: 'Optional 4" high base' },
 	{ label: 'Frame', value: '3/4"' },
 	{ label: 'Backing', value: '3/4"' },
@@ -27,7 +27,7 @@ const modelLSpecs = [
 	{ label: 'Construction', value: 'MPW-6C plywood core, premium melamine surface' },
 	{ label: 'Edgebanding', value: 'PVC edgebanding' },
 	{ label: 'Width range', value: '18" – 32"' },
-	{ label: 'Depth options', value: '19" or 24"' },
+	{ label: 'Depth', value: '23"' },
 	{ label: 'Custom build', value: '8–12 weeks — any size, wood, or materials' },
 	{ label: 'Warranty', value: '5 year warranty' },
 ];
@@ -38,7 +38,7 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 
 <BaseLayout
 	title="Model L Wood Locker | PlayerStall"
-	description="Model L wood locker: premium melamine, 76&quot; H x 19&quot; or 24&quot; D, widths 18&quot;–32&quot;. From $599. Full color options. Custom-built in 8–12 weeks. 5 year warranty."
+	description="Model L wood locker: premium melamine, 76&quot; H x 23&quot; D, widths 18&quot;–32&quot;. From $599. Full color options. Custom-built in 8–12 weeks. 5 year warranty."
 >
 	<Fragment slot="head">
 		<script type="application/ld+json" set:html={JSON.stringify({
@@ -132,10 +132,9 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 					<div class="product-options">
 						<div class="product-option">
 							<label class="option-label">Deep:</label>
-							<span class="option-value">19&quot; (standard)</span>
+							<span class="option-value">23&quot; (standard)</span>
 							<div class="option-swatches">
-								<button type="button" class="swatch deep-swatch active" title="19 inch deep" aria-pressed="true">19&quot;</button>
-								<button type="button" class="swatch deep-swatch" title="24 inch deep">24&quot;</button>
+								<button type="button" class="swatch deep-swatch active" title="23 inch deep" aria-pressed="true">23&quot;</button>
 							</div>
 						</div>
 						<div class="product-option">
@@ -278,7 +277,7 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 							<li>High scratch resistance and impact durability; moisture-resistant, dimensionally stable</li>
 							<li>Engineered for high-traffic athletic locker rooms</li>
 							<li>14&quot; high foot locker provides comfortable seating and secure equipment storage</li>
-							<li>Available in 18&quot; to 32&quot; widths; standard configuration 24&quot; W x 76&quot; H x 19&quot; D with optional 4&quot; base</li>
+							<li>Available in 18&quot; to 32&quot; widths; standard configuration 24&quot; W x 76&quot; H x 23&quot; D with optional 4&quot; base</li>
 							<li>5 year warranty</li>
 						</ul>
 
@@ -1117,7 +1116,7 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 				btn.setAttribute('aria-pressed', 'true');
 				if (deepValueEl) {
 					const label = (btn.textContent || '').trim();
-					deepValueEl.textContent = label === '19"' ? '19" (standard)' : label;
+					deepValueEl.textContent = label === '23"' ? '23" (standard)' : label;
 				}
 			});
 		});
@@ -1173,7 +1172,7 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 			const widthSwatch = document.querySelector('.width-swatch.active');
 			const width = (widthSwatch?.getAttribute('title') ?? '24"').replace(/\s*inch width/, '').trim();
 			const deepSwatch = document.querySelector('.deep-swatch.active');
-			const deep = (deepSwatch?.getAttribute('title') ?? '19 inch deep').replace(/\s*inch deep/, '').trim();
+			const deep = (deepSwatch?.getAttribute('title') ?? '23 inch deep').replace(/\s*inch deep/, '').trim();
 			const colorCode = document.getElementById('color-select')?.value ?? 'AD-HRW';
 			const id = 'model-l-locker-' + width + '-' + deep + '-' + colorCode;
 			const modelEl = document.querySelector('.product-model[data-model-letter]');
