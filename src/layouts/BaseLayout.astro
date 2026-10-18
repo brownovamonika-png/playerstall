@@ -36,6 +36,7 @@ const CARD_PHOTOS: Record<string, string[]> = Object.fromEntries(
 	}),
 );
 CARD_PHOTOS['/product-corner-locker'] = ['/images/premium/corner-locker-walnut-01.jpg', '/images/premium/corner-locker-cushion-01.jpg'];
+CARD_PHOTOS['/product-wood-locker-bench'] = ['https://playerstall.b-cdn.net/images/bench%20top%20above.png', 'https://playerstall.b-cdn.net/images/bench%20side.png', 'https://playerstall.b-cdn.net/images/bench%20top.png'];
 CARD_PHOTOS['/product-stick-rack'] = ['/images/essential/stick-rack-walnut-01.jpg', '/images/essential/stick-rack-walnut-02.jpg', '/images/essential/stick-rack-walnut-03.jpg'];
 
 // Ensure canonical URL doesn't have trailing slash (except for homepage)
@@ -426,13 +427,25 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		<script is:inline define:vars={{ CARD_PHOTOS }}>
 			// Shop + home cards: click the arrows to see every photo of that locker without opening its page.
 			(function () {
+				function photosFor(box, img) {
+					// Accessories: every photo the accessory pop-up shows (spec sheets left out)
+					var acc = box.closest('[data-acc-image]');
+					if (acc) {
+						var list = [img.getAttribute('src')];
+						['data-acc-image', 'data-acc-image-2', 'data-acc-image-3', 'data-acc-image-4'].forEach(function (k) {
+							var v = acc.getAttribute(k);
+							if (v && list.indexOf(v) === -1 && !/spec-sheet/.test(v)) list.push(v);
+						});
+						return list;
+					}
+					var link = box.querySelector('a[href]');
+					return link ? CARD_PHOTOS[link.getAttribute('href').replace(/\/$/, '')] : null;
+				}
 				function setup() {
 					document.querySelectorAll('.shop-product-image, .home-shop-product-image').forEach(function (box) {
-						var link = box.querySelector('a[href]');
 						var img = box.querySelector('img');
-						if (!link || !img) return;
-						var href = link.getAttribute('href').replace(/\/$/, '');
-						var photos = CARD_PHOTOS[href];
+						if (!img || box.classList.contains('card-slide-box')) return;
+						var photos = photosFor(box, img);
 						if (!photos || photos.length < 2) return;
 						var i = 0;
 						box.classList.add('card-slide-box');
