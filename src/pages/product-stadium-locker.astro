@@ -1008,7 +1008,7 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 			priceEl.textContent = formatPrice(basePrice + extras);
 		};
 
-		const widthOption = document.querySelector('.product-option');
+		const widthOption = document.querySelector('.width-swatch')?.closest('.product-option');
 		const widthValueEl = widthOption ? widthOption.querySelector('.option-value') : null;
 		const modelEl = document.querySelector('.product-model[data-model-prefix]');
 		const modelPrefix = 'ST-PF';
@@ -1037,7 +1037,7 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 		});
 
 		// Deep option handling
-		const deepOption = document.querySelectorAll('.product-option')[0];
+		const deepOption = document.querySelector('.deep-swatch')?.closest('.product-option');
 		const deepValueEl = deepOption ? deepOption.querySelector('.option-value') : null;
 
 		document.querySelectorAll('.deep-swatch').forEach((btn) => {

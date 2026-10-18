@@ -124,6 +124,13 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 
 					<div class="product-options">
 						<div class="product-option">
+							<label class="option-label">Deep:</label>
+							<span class="option-value">23&quot; (standard)</span>
+							<div class="option-swatches">
+								<button type="button" class="swatch deep-swatch active" title="23 inch deep" aria-pressed="true">23&quot;</button>
+							</div>
+						</div>
+						<div class="product-option">
 							<label class="option-label">Width:</label>
 							<span class="option-value">24&quot; (standard)</span>
 							<div class="option-swatches">
@@ -1034,7 +1041,7 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 			priceEl.textContent = formatPrice(basePrice + extras);
 		};
 
-		const widthOption = document.querySelector('.product-option');
+		const widthOption = document.querySelector('.width-swatch')?.closest('.product-option');
 		const widthValueEl = widthOption ? widthOption.querySelector('.option-value') : null;
 		const modelEl = document.querySelector('.product-model[data-model-letter]');
 		const colorSelect = document.getElementById('color-select');
@@ -1090,7 +1097,7 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 		});
 
 		// Deep option handling
-		const deepOption = document.querySelectorAll('.product-option')[0];
+		const deepOption = document.querySelector('.deep-swatch')?.closest('.product-option');
 		const deepValueEl = deepOption ? deepOption.querySelector('.option-value') : null;
 
 		document.querySelectorAll('.deep-swatch').forEach((btn) => {
@@ -1103,7 +1110,7 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 				btn.setAttribute('aria-pressed', 'true');
 				if (deepValueEl) {
 					const label = (btn.textContent || '').trim();
-					deepValueEl.textContent = label === '19"' ? '19" (standard)' : label;
+					deepValueEl.textContent = label === '23"' ? '23" (standard)' : label;
 				}
 			});
 		});
