@@ -33,15 +33,16 @@ export interface ShopAccessoryModalItem {
 
 export const SHOP_ACCESSORIES_MODAL: ShopAccessoryModalItem[] = [
 	{
-		accImage: '/images/elite-locker-vent-panel.png',
-		accImage2: '/images/stadium-locker-vent-panel.png',
-		accImage3: '/images/model-x-website-images/model-x-locker-vent-panel.png',
-		accTitle: 'Vented Panel',
-		accPrice: '+ $40.00',
-		accDesc: 'Vented front panel for increased airflow – keeps gear dry and reduces odor. Available on Elite, Stadium, and Model X lockers.',
-		image: '/images/elite-locker-vent-panel.png',
-		alt: 'Vented front panel for sports lockers',
-		title: 'Vented Panel',
+		accImage: '/images/premium/front-panel-metal-vented.jpg',
+		accImage2: '/images/premium/front-panel-3-slot-vented.jpg',
+		accImage3: '/images/premium/front-panel-pull-out-drawer.jpg',
+		accImage4: '/images/premium/front-panel-solid.jpg',
+		accTitle: 'Front Panels',
+		accPrice: 'Solid front: included / 3-slot vented: + $40.00 / Metal vented: + $60.00 / Pull-out drawer: + $50.00',
+		accDesc: 'Choose the bench front for your Premium lockers (Model S, L, X and Z): solid front (standard), 3-slot vented front, black metal vented front, or a pull-out drawer with a metal mesh front. Venting keeps gear dry and reduces odor.',
+		image: '/images/premium/front-panel-metal-vented.jpg',
+		alt: 'Black metal vented front panel on a walnut locker bench',
+		title: 'Front Panels',
 	},
 	{
 		accImage: CUSHION_FRONT,
