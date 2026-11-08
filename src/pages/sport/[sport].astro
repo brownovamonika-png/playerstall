@@ -531,7 +531,7 @@ const sportLockersItemList = buildLockersItemList(
 	)}
 
 	<!-- Taste the Victory Banner -->
-	<section class="topscorer-banner" style={`background-image: url('https://playerstall.b-cdn.net/images/${sport === 'football' ? 'h1-img-3.jpg' : sport === 'hockey' ? 'hockey-arena-wide.png' : sport === 'basketball' ? 'basketball-court-arena.png' : sport === 'soccer' ? 'soccer-field-stadium.png' : sport === 'lacrosse' ? 'lacrosse-field-game.png' : 'lacrosse-field-hero.jpg'}');`}>
+	<section class="topscorer-banner" style={`background-image: url('${sport === 'wrestling' ? '/images/blog-2026/wrestling-banner-bg.jpg' : 'https://playerstall.b-cdn.net/images/'}${sport === 'football' ? 'h1-img-3.jpg' : sport === 'hockey' ? 'hockey-arena-wide.png' : sport === 'basketball' ? 'basketball-court-arena.png' : sport === 'soccer' ? 'soccer-field-stadium.png' : sport === 'lacrosse' ? 'lacrosse-field-game.png' : sport === 'wrestling' ? '' : 'lacrosse-field-hero.jpg'}');`}>
 		<div class="topscorer-banner-overlay"></div>
 		<div class="topscorer-banner-bg-text" aria-hidden="true">
 			<span class="topscorer-banner-bg-line">{sport.toUpperCase()}</span>
@@ -561,6 +561,8 @@ const sportLockersItemList = buildLockersItemList(
 				<div class="topscorer-banner-player-slide" data-initial-slide="true"><img data-src="https://playerstall.b-cdn.net/images/soccer-player.png" alt="" width="480" height="640" /></div>
 		) : sport === 'lacrosse' ? (
 			<div class="topscorer-banner-player-slide" data-initial-slide="true"><img data-src="https://playerstall.b-cdn.net/images/lacrosse-player-nobg.png" alt="" width="480" height="640" /></div>
+		) : sport === 'wrestling' ? (
+			<div class="topscorer-banner-player-slide" data-initial-slide="true"><img data-src="/images/blog-2026/wrestling-player-nobg.png" alt="" width="480" height="640" /></div>
 		) : (
 				<>
 					<div class="topscorer-banner-player-slide active"><img src="https://playerstall.b-cdn.net/images/player-img-10.jpg" alt="" width="480" height="640" loading="eager" /></div>
