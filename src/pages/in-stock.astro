@@ -887,17 +887,17 @@ const feed = import.meta.env.PUBLIC_HQ_STOCK_FEED ?? '';
   .ps-note { background:#fff8e6; border:1px solid #f0dca8; padding:18px 22px; margin:24px auto; max-width:1260px; font-size:14px; }
   .ps-note h4 { font-family:'Oswald'; text-transform:uppercase; margin:0 0 8px; font-size:14px; letter-spacing:.06em; }
   .ps-note ul { margin:8px 0 0; padding-left:20px; } .ps-note li { margin-bottom:5px; }
-  .ps-head { padding:56px 0 10px; }
+  .ps-head { padding:32px 0 6px; }
   .ps-crumb { font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
   .ps-crumb a { color:var(--muted); text-decoration:none; }
   h1 { font-family:'Oswald'; font-weight:600; font-size:48px; text-transform:uppercase; margin:0 0 10px; }
-  .ps-lede { font-size:18px; max-width:720px; color:#444; margin:0 0 6px; }
+  .ps-lede { font-size:18px; max-width:720px; color:#444; margin:0 0 4px; }
   .ps-sub { font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; }
   h2 { font-family:'Oswald'; font-weight:600; font-size:30px; text-transform:uppercase; margin:48px 0 4px; }
   .ps-h2note { color:var(--muted); font-size:14px; margin:0 0 20px; }
 
   /* Filter bar */
-  .ps-filters { border-top:2px solid var(--ink); border-bottom:1px solid var(--line); padding:18px 0 14px; margin-top:34px;
+  .ps-filters { border-top:2px solid var(--ink); border-bottom:1px solid var(--line); padding:14px 0 12px; margin-top:18px;
                 position:sticky; top:0; background:#fff; z-index:20; display:flex; flex-wrap:wrap; gap:26px; align-items:flex-start; }
   .ps-fgroup { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .ps-flabel { font-family:'Oswald'; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
@@ -906,7 +906,7 @@ const feed = import.meta.env.PUBLIC_HQ_STOCK_FEED ?? '';
              background:#fff; color:var(--ink); border:1px solid var(--line); padding:7px 13px; cursor:pointer; transition:all .15s; }
   .ps-fbtn:hover { border-color:var(--ink); }
   .ps-fbtn.is-on { background:var(--ink); color:#fff; border-color:var(--ink); }
-  .ps-count { font-size:14px; color:#555; margin:18px 0 26px; }
+  .ps-count { font-size:14px; color:#555; margin:12px 0 14px; }
   /* One section only, so its heading would just repeat the page title. Kept in
      the markup for screen readers and the filter script. */
   .ps-hidden-head { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
@@ -977,8 +977,10 @@ const feed = import.meta.env.PUBLIC_HQ_STOCK_FEED ?? '';
   .ps-empty { color:var(--muted); font-style:italic; padding:20px 0 40px; }
   footer { border-top:1px solid var(--line); margin-top:60px; padding:26px 0 60px; font-size:12px; color:var(--muted); }
 
-  /* Nothing may push the page sideways on a phone. */
-  .ps-wrap, .ps-row, .ps-row-opts, .ps-optgroup { min-width:0; max-width:100%; }
+  /* Nothing may push the page sideways on a phone. Note: .ps-wrap is left out
+     on purpose — a blanket max-width:100% here would override its 1300px
+     centring and throw the content against the edges of a wide screen. */
+  .ps-row, .ps-row-opts, .ps-optgroup { min-width:0; max-width:100%; }
   img { max-width:100%; }
 
   /* Tablet: the option groups stop being three fixed columns. */
@@ -995,7 +997,7 @@ const feed = import.meta.env.PUBLIC_HQ_STOCK_FEED ?? '';
      own strip instead of forcing the page wide. */
   @media (max-width:720px) {
     .ps-wrap { padding:0 16px; }
-    .ps-head { padding:34px 0 6px; }
+    .ps-head { padding:22px 0 4px; }
     h1 { font-size:30px; line-height:1.1; }
     .ps-lede { font-size:16px; }
     .ps-sub { font-size:11px; letter-spacing:.06em; }
