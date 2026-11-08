@@ -1615,17 +1615,27 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 </style>
 
 <script>
-	// Handle header scroll behavior (homepage hero-slider, blog post-hero, or room planner hero)
+	// The menu is white so it can sit over a dark hero image, and turns dark
+	// once you scroll past it. Only three hero classes were listed here, so on
+	// every other page the switch never fired and the menu stayed white on a
+	// white page - invisible. Now: any hero section counts, and a page with no
+	// hero at all gets the dark menu straight away.
 	function initHeaderScroll() {
 		const header = document.querySelector('header');
+		if (!header) return;
+		const headerEl = header;
+
 		const heroSlider = document.querySelector('.hero-slider') as HTMLElement | null;
 		const postHero = document.querySelector('.post-hero') as HTMLElement | null;
 		const plannerHero = document.querySelector('.planner-hero') as HTMLElement | null;
-		const heroEl = heroSlider ?? postHero ?? plannerHero;
+		const heroEl = (heroSlider ?? postHero ?? plannerHero
+			?? document.querySelector('[class*="hero-section"], [class*="hero-slider"], .programmatic-hero')) as HTMLElement | null;
 
-		if (!header || !heroEl) return;
-
-		const headerEl = header;
+		// No hero behind the menu: keep it dark and readable from the start.
+		if (!heroEl) {
+			headerEl.classList.add('scrolled');
+			return;
+		}
 
 		/* Locker room planner: keep solid header always (readable menu; matches post-scroll site chrome). */
 		if (plannerHero && !heroSlider && !postHero) {
