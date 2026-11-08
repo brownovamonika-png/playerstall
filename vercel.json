@@ -138,8 +138,18 @@
       "permanent": true
     },
     {
+      "source": "/blog/whats-inside-a-football-locker-7-essentials-every-player-needs-2",
+      "destination": "https://www.playerstall.com/blog/whats-inside-a-football-locker-7-essentials-every-player-needs",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "playerstall.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "playerstall.com"
+        }
+      ],
       "destination": "https://www.playerstall.com/:path*",
       "permanent": true
     }
