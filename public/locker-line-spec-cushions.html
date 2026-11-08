@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Cushion spec — Jason / Vu</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Yantramanav:wght@400;500&display=swap" rel="stylesheet" />
+	<style>
+		:root {
+			--orange: #fe5900;
+			--ink: #0d0d0d;
+			--muted: #6b7280;
+			--line: #e5e7eb;
+			--panel: #fafafa;
+		}
+		* { box-sizing: border-box; }
+		body {
+			margin: 0;
+			font-family: 'Yantramanav', 'Roboto', system-ui, sans-serif;
+			color: var(--ink);
+			background: #fff;
+			line-height: 1.45;
+			font-size: 15px;
+		}
+		.wrap {
+			max-width: 1280px;
+			margin: 0 auto;
+			padding: 20px 20px 48px;
+		}
+		h1 {
+			font-family: 'Oswald', sans-serif;
+			font-weight: 700;
+			font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+			letter-spacing: 0.02em;
+			margin: 0 0 8px;
+			text-transform: uppercase;
+		}
+		.sub {
+			color: var(--muted);
+			margin: 0 0 24px;
+			max-width: 720px;
+		}
+		.spec-nav {
+			margin: 0 0 16px;
+			font-size: 14px;
+		}
+		.spec-nav a {
+			color: #111;
+			font-weight: 600;
+			text-decoration: underline;
+			text-underline-offset: 3px;
+		}
+		.spec-nav a:hover { color: var(--orange); }
+		.toolbar {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-bottom: 20px;
+		}
+		.toolbar button {
+			font-family: 'Oswald', sans-serif;
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+			font-size: 13px;
+			padding: 10px 16px;
+			border: none;
+			cursor: pointer;
+			border-radius: 2px;
+		}
+		.btn-primary { background: var(--orange); color: #fff; }
+		.btn-secondary { background: #111; color: #fff; }
+		.meta-row {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+			gap: 12px;
+			margin-bottom: 16px;
+		}
+		label span {
+			display: block;
+			font-size: 12px;
+			font-weight: 500;
+			color: var(--muted);
+			margin-bottom: 4px;
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+		}
+		label .field-example {
+			display: block;
+			font-size: 11px;
+			font-weight: 400;
+			font-style: normal;
+			color: #8c8c8c;
+			text-transform: none;
+			letter-spacing: 0.02em;
+			margin-top: 3px;
+			line-height: 1.35;
+		}
+		input[type="text"],
+		input[type="date"],
+		textarea {
+			width: 100%;
+			padding: 8px 10px;
+			border: 1px solid #ccc;
+			border-radius: 2px;
+			font: inherit;
+		}
+		textarea { min-height: 64px; resize: vertical; }
+
+		.preview {
+			flex: 1;
+			min-height: 72px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #eee;
+			border-radius: 2px;
+			overflow: hidden;
+		}
+		.preview img {
+			max-width: 100%;
+			max-height: 100px;
+			object-fit: contain;
+		}
+		.preview.empty { color: #9ca3af; font-size: 11px; text-align: center; padding: 8px; }
+
+		.vented-mini {
+			flex: 0 0 112px;
+			min-height: 0;
+			padding: 6px 8px;
+			border: 1px dashed #bbb;
+			border-radius: 4px;
+			background: #fcfcfc;
+		}
+		.vented-mini small {
+			display: block;
+			font-size: 10px;
+			color: var(--muted);
+			text-transform: uppercase;
+			letter-spacing: 0.03em;
+			margin-bottom: 4px;
+		}
+		.vented-mini .preview.empty {
+			min-height: 44px;
+			max-height: 52px;
+			margin-bottom: 4px;
+		}
+		.vented-mini .preview:not(.empty) {
+			display: block;
+			width: fit-content;
+			max-width: 100%;
+			min-height: 0;
+			max-height: none;
+			margin: 0 auto 4px;
+			background: transparent;
+		}
+		.vented-mini .preview:not(.empty) img {
+			display: block;
+			width: auto;
+			height: auto;
+			max-width: 100%;
+			max-height: min(120px, 28vw);
+			object-fit: contain;
+		}
+		.vented-mini input[type="file"] {
+			font-size: 10px;
+			max-width: 100%;
+		}
+
+		.cushion-block {
+			border: 1px solid var(--line);
+			border-radius: 4px;
+			margin-bottom: 24px;
+		}
+		.cushion-head {
+			font-family: 'Oswald', sans-serif;
+			font-weight: 600;
+			text-transform: uppercase;
+			padding: 14px 18px;
+			background: #1a1a1a;
+			color: #fff;
+			font-size: 0.95rem;
+		}
+		.cushion-body { padding: 16px; }
+		.dim-units-note {
+			margin: 0 0 14px;
+			font-size: 13px;
+			font-weight: 600;
+			color: var(--ink);
+			letter-spacing: 0.02em;
+		}
+		.cushion-dim-units { margin: 0 0 12px; }
+		.cushion-grid { display: grid; gap: 12px; }
+		.cushion-row {
+			display: grid;
+			grid-template-columns: 140px repeat(7, minmax(0, 1fr)) minmax(112px, 220px);
+			gap: 10px;
+			align-items: end;
+			background: #fff;
+			border: 1px solid var(--line);
+			padding: 12px;
+			border-radius: 4px;
+		}
+		.cushion-row .cushion-img-wrap {
+			min-width: 0;
+			align-self: stretch;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+		}
+		.cushion-row .cushion-img-wrap .vented-mini {
+			max-width: 100%;
+			justify-self: stretch;
+		}
+		.cushion-row--black-first .cushion-row-corner-units {
+			grid-column: 1 / -1;
+			grid-row: 1;
+			align-self: start;
+			justify-self: start;
+			margin: 0 0 8px;
+			padding: 0;
+			font-size: 15px;
+			font-weight: 700;
+			color: #0d0d0d;
+			line-height: 1.3;
+			letter-spacing: 0.02em;
+			text-align: left;
+		}
+		@media (max-width: 768px) {
+			.cushion-row { grid-template-columns: 1fr; }
+		}
+		.cushion-label {
+			font-family: 'Oswald', sans-serif;
+			font-size: 1.12rem;
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+			padding-bottom: 6px;
+		}
+		.cushion-label.black { color: #111; }
+		.cushion-label.blue { color: #1d4ed8; }
+		.cushion-sample-note {
+			margin: 0 0 14px;
+			padding: 10px 12px;
+			background: #f3f4f6;
+			border-left: 3px solid var(--orange);
+			border-radius: 2px;
+			font-size: 14px;
+			line-height: 1.45;
+			color: var(--ink);
+		}
+		.production-notice {
+			border-left: 4px solid var(--orange);
+			background: #fff5f0;
+			padding: 14px 18px;
+			margin: 0 0 20px;
+			max-width: 900px;
+			font-size: 15px;
+			line-height: 1.55;
+			color: var(--ink);
+		}
+		.production-notice strong {
+			font-family: 'Oswald', sans-serif;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+			display: block;
+			margin-bottom: 8px;
+			color: #111;
+		}
+		.foot {
+			font-size: 12px;
+			color: var(--muted);
+			margin-top: 20px;
+		}
+		@media print {
+			.toolbar, .spec-nav { display: none !important; }
+			body { background: #fff; }
+			.cushion-body { background: #fff; }
+			.cushion-row { break-inside: avoid; }
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<p class="spec-nav"><a href="/locker-line-spec-jason-vu-cushions.html">← Locker model spec (Jason / Vu)</a></p>
+		<form id="cushion-form" autocomplete="off">
+			<h1>Cushion specification</h1>
+			<div class="production-notice" role="note">
+				<strong>Match Jason’s current production</strong>
+				Everything on this form must align with Jason’s current production standards. Do not introduce improvements or alternate builds—customers must not receive two different variations of the same product, which would be confusing and inconsistent with what they were sold. That includes <strong>screws</strong>, <strong>hardware</strong>, and <strong>any other detail</strong> that would differ from what he has already done (same parts, same methods—nothing substituted or “upgraded” unless Jason’s spec explicitly calls for it).
+			</div>
+			<p class="sub">
+				Cushion lines for the same Jason / Vu jobs as the <a href="/locker-line-spec-jason-vu-cushions.html">locker model spec</a>. All cushion dimensions are <strong>in cm, not inches</strong>. Use <strong>Print</strong> to save a PDF. Photos stay in your browser until you print; nothing is uploaded.
+			</p>
+
+			<div class="toolbar">
+				<button type="button" class="btn-primary" onclick="window.print()">Print / Save PDF</button>
+				<button type="button" class="btn-secondary" title="Clears cushion photo uploads only. Typed text is left as-is." onclick="clearCushionImagesKeepText();">Clear images</button>
+			</div>
+
+			<div class="meta-row">
+				<label><span>Job / order name</span><input type="text" name="job_name" /></label>
+				<label><span>Date</span><input type="date" name="job_date" /></label>
+				<label><span>Prepared by</span><input type="text" name="prepared_by" /></label>
+			</div>
+			<label><span>Notes <small class="field-example">Optional shop notes…</small></span><textarea name="job_notes"></textarea></label>
+
+			<section class="cushion-block" aria-labelledby="cushion-heading">
+				<div class="cushion-head" id="cushion-heading">Cushions</div>
+				<div class="cushion-body">
+					<p class="dim-units-note cushion-dim-units">Cushions: All dimensions are in CM, not inches.</p>
+					<p style="margin:0 0 14px;color:var(--muted);font-size:14px;">
+						Four lines: two for black cushions, two for blue. For each line enter color code, then HS Code, then quantity, then width, depth, height, and thickness <strong style="color:var(--ink);">in cm (not inches)</strong>. Optional photo per line if you have one on hand.
+					</p>
+					<p class="cushion-sample-note" role="note">
+						<strong>Sample</strong> — physical cushion / fabric sample will be picked up from Jason.
+					</p>
+					<div class="cushion-grid">
+						<div class="cushion-row cushion-row--black-first">
+							<p class="cushion-row-corner-units">In cm — not inches</p>
+							<div class="cushion-label black">Black — line 1</div>
+							<label><span>Color code <small class="field-example">e.g. BLK-001</small></span><input type="text" name="cushion_black1_code" /></label>
+							<label><span>HS Code <small class="field-example">e.g. 9404.90</small></span><input type="text" name="cushion_black1_hs_code" /></label>
+							<label><span>Quantity <small class="field-example">e.g. 4</small></span><input type="text" name="cushion_black1_qty" /></label>
+							<label><span>Width <small class="field-example">e.g. 48 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_black1_w" inputmode="decimal" /></label>
+							<label><span>Depth <small class="field-example">e.g. 32 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_black1_d" inputmode="decimal" /></label>
+							<label><span>Height <small class="field-example">e.g. 8 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_black1_h" inputmode="decimal" /></label>
+							<label><span>Thickness <small class="field-example">e.g. 5 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_black1_th" inputmode="decimal" /></label>
+							<div class="cushion-img-wrap">
+								<div class="vented-mini" data-default-preview="/images/cushion-black-sample-reference.png" data-default-preview-alt="Black cushion reference, Black line 1">
+									<small>Image</small>
+									<div class="preview"><img src="/images/cushion-black-sample-reference.png" alt="Black cushion reference, Black line 1" /></div>
+									<input type="file" name="cushion_black1_img" accept="image/*" />
+								</div>
+							</div>
+						</div>
+						<div class="cushion-row">
+							<div class="cushion-label black">Black — line 2</div>
+							<label><span>Color code</span><input type="text" name="cushion_black2_code" /></label>
+							<label><span>HS Code</span><input type="text" name="cushion_black2_hs_code" /></label>
+							<label><span>Quantity <small class="field-example">e.g. 4</small></span><input type="text" name="cushion_black2_qty" /></label>
+							<label><span>Width <small class="field-example">e.g. 48 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_black2_w" inputmode="decimal" /></label>
+							<label><span>Depth <small class="field-example">e.g. 32 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_black2_d" inputmode="decimal" /></label>
+							<label><span>Height <small class="field-example">e.g. 8 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_black2_h" inputmode="decimal" /></label>
+							<label><span>Thickness <small class="field-example">e.g. 5 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_black2_th" inputmode="decimal" /></label>
+							<div class="cushion-img-wrap">
+								<div class="vented-mini" data-default-preview="/images/cushion-black-sample-reference.png" data-default-preview-alt="Black cushion reference, Black line 2">
+									<small>Image</small>
+									<div class="preview"><img src="/images/cushion-black-sample-reference.png" alt="Black cushion reference, Black line 2" /></div>
+									<input type="file" name="cushion_black2_img" accept="image/*" />
+								</div>
+							</div>
+						</div>
+						<div class="cushion-row">
+							<div class="cushion-label blue">Blue — line 1</div>
+							<label><span>Color code <small class="field-example">e.g. BLU-204</small></span><input type="text" name="cushion_blue1_code" /></label>
+							<label><span>HS Code</span><input type="text" name="cushion_blue1_hs_code" /></label>
+							<label><span>Quantity <small class="field-example">e.g. 4</small></span><input type="text" name="cushion_blue1_qty" /></label>
+							<label><span>Width <small class="field-example">e.g. 48 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_blue1_w" inputmode="decimal" /></label>
+							<label><span>Depth <small class="field-example">e.g. 32 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_blue1_d" inputmode="decimal" /></label>
+							<label><span>Height <small class="field-example">e.g. 8 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_blue1_h" inputmode="decimal" /></label>
+							<label><span>Thickness <small class="field-example">e.g. 5 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_blue1_th" inputmode="decimal" /></label>
+							<div class="cushion-img-wrap">
+								<div class="vented-mini">
+									<small>Image</small>
+									<div class="preview empty">No image</div>
+									<input type="file" name="cushion_blue1_img" accept="image/*" />
+								</div>
+							</div>
+						</div>
+						<div class="cushion-row">
+							<div class="cushion-label blue">Blue — line 2</div>
+							<label><span>Color code</span><input type="text" name="cushion_blue2_code" /></label>
+							<label><span>HS Code</span><input type="text" name="cushion_blue2_hs_code" /></label>
+							<label><span>Quantity <small class="field-example">e.g. 4</small></span><input type="text" name="cushion_blue2_qty" /></label>
+							<label><span>Width <small class="field-example">e.g. 48 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_blue2_w" inputmode="decimal" /></label>
+							<label><span>Depth <small class="field-example">e.g. 32 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_blue2_d" inputmode="decimal" /></label>
+							<label><span>Height <small class="field-example">e.g. 8 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_blue2_h" inputmode="decimal" /></label>
+							<label><span>Thickness <small class="field-example">e.g. 5 cm</small></span><input class="cushion-dim-input" type="text" name="cushion_blue2_th" inputmode="decimal" /></label>
+							<div class="cushion-img-wrap">
+								<div class="vented-mini">
+									<small>Image</small>
+									<div class="preview empty">No image</div>
+									<input type="file" name="cushion_blue2_img" accept="image/*" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<p class="foot">
+				File: <code>public/locker-line-spec-cushions.html</code> — web: <code>/locker-line-spec-cushions.html</code> · Lockers: <code>/locker-line-spec-jason-vu-cushions.html</code>
+			</p>
+		</form>
+	</div>
+
+	<script>
+		(function () {
+			function wirePreview(container) {
+				container.querySelectorAll('input[type="file"]').forEach(function (input) {
+					input.addEventListener('change', function () {
+						var wrap = input.closest('.img-slot') || input.closest('.vented-mini');
+						var pv = wrap && wrap.querySelector('.preview');
+						if (!pv) return;
+						pv.innerHTML = '';
+						pv.classList.remove('empty');
+						var f = input.files && input.files[0];
+						if (!f || !f.type.startsWith('image/')) {
+							pv.classList.add('empty');
+							pv.textContent = 'No image';
+							return;
+						}
+						var url = URL.createObjectURL(f);
+						var img = document.createElement('img');
+						img.src = url;
+						img.alt = 'Preview';
+						img.onload = function () { URL.revokeObjectURL(url); };
+						pv.appendChild(img);
+					});
+				});
+			}
+
+			function clearCushionPreviews() {
+				document.querySelectorAll('#cushion-form .preview').forEach(function (pv) {
+					var slot = pv.closest('.img-slot') || pv.closest('.vented-mini');
+					var def = slot && slot.getAttribute('data-default-preview');
+					if (def) {
+						pv.innerHTML = '';
+						pv.classList.remove('empty');
+						var img = document.createElement('img');
+						img.src = def;
+						img.alt = slot.getAttribute('data-default-preview-alt') || 'Reference image';
+						pv.appendChild(img);
+						return;
+					}
+					pv.innerHTML = '';
+					pv.classList.add('empty');
+					pv.textContent = 'No image';
+				});
+			}
+
+			function clearCushionImagesKeepText() {
+				var form = document.getElementById('cushion-form');
+				if (form) {
+					form.querySelectorAll('input[type="file"]').forEach(function (inp) {
+						inp.value = '';
+					});
+				}
+				clearCushionPreviews();
+			}
+
+			window.clearCushionImagesKeepText = clearCushionImagesKeepText;
+
+			var cushionBody = document.querySelector('.cushion-body');
+			if (cushionBody) wirePreview(cushionBody);
+		})();
+	</script>
+</body>
+</html>

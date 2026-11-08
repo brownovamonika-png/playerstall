@@ -1,0 +1,14 @@
+---
+description: Jason/Vu locker line spec HTML — canonical form values live in the file
+globs: public/locker-line-spec-jason-vu-cushions.html
+alwaysApply: false
+---
+
+# Locker line spec form (Jason / Vu)
+
+When editing or discussing **`public/locker-line-spec-jason-vu-cushions.html`**, treat the committed form as authoritative:
+
+- **`PREFILL_FIELD_VALUES`** — default quantities, widths, vented/non-vented, lock boxes, colors, etc.
+- **`SHARED_ORDER_NOTES`** and **`ROW_NOTES_LINE`** — program copy prepended to row notes.
+
+Do **not** recreate numbers from past chat turns. If the business changes, update these objects in the HTML and keep the three blocks consistent with each other. After edits, the inline script should still parse (e.g. `new Function` on the main `<script>` block).

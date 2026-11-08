@@ -1,0 +1,1692 @@
+---
+/**
+ * Internal visual brand board — live specimens of current PlayerStall styles.
+ * Open at /brand-board (not linked in main nav).
+ * Specs drawn from PLAYERSTALL-BRAND.md / BaseLayout + key pages.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const specimens = [
+	{
+		id: '01',
+		title: 'Header logo wordmark',
+		where: 'Site-wide header',
+		source: 'src/layouts/BaseLayout.astro → .logo h1',
+		specs: [
+			['Treatment', 'Text wordmark (not an image)'],
+			['Text', 'PLAYERSTALL'],
+			['Font', "Oswald, sans-serif"],
+			['Weight', '600'],
+			['Size', '43px desktop / 24px mobile'],
+			['Transform', 'uppercase'],
+			['Letter-spacing', '0.05em'],
+			['Color', 'White over hero · #0d0d0d when scrolled / headerBlack'],
+		],
+		visual: 'logo-dark',
+	},
+	{
+		id: '02',
+		title: 'Logo on dark (hero state)',
+		where: 'Transparent header over hero',
+		source: 'src/layouts/BaseLayout.astro → .logo h1',
+		specs: [
+			['Font', 'Oswald 600'],
+			['Size', '43px'],
+			['Letter-spacing', '0.05em'],
+			['Color', '#ffffff'],
+			['Background', 'Transparent over photo / black'],
+		],
+		visual: 'logo-light',
+	},
+	{
+		id: '03',
+		title: 'OG / schema logo image',
+		where: 'Social shares, schema, author fallback',
+		source: 'CDN logoblack2.png via BaseLayout ogImage + schema.ts',
+		specs: [
+			['File', 'logoblack2.png'],
+			['URL', 'https://playerstall.b-cdn.net/images/logoblack2.png'],
+			['Use', 'Open Graph, Twitter, LocalBusiness logo'],
+			['Note', 'Not used as the live header mark'],
+		],
+		visual: 'og-logo',
+	},
+	{
+		id: '04',
+		title: 'Main navigation links',
+		where: 'Desktop header nav',
+		source: 'BaseLayout.astro → .nav-links a',
+		specs: [
+			['Font', 'Yantramanav'],
+			['Weight', '500'],
+			['Size', '13px'],
+			['Transform', 'uppercase'],
+			['Letter-spacing', '0.3em ← widest chrome tracking'],
+			['Hover', '#fe5900'],
+			['Gap between links', '40px'],
+		],
+		visual: 'nav-links',
+	},
+	{
+		id: '05',
+		title: 'Nav dropdown items',
+		where: 'Header dropdown menus',
+		source: 'BaseLayout.astro → .nav-dropdown-menu a',
+		specs: [
+			['Font', 'Yantramanav (inherits)'],
+			['Size', '12px'],
+			['Letter-spacing', '0.15em'],
+			['Padding', '10px 20px'],
+			['Hover fill', 'rgba(254, 89, 0, 0.08)'],
+			['Hover text', '#fe5900'],
+		],
+		visual: 'nav-dropdown',
+	},
+	{
+		id: '06',
+		title: 'Top bar “FOLLOW US”',
+		where: 'Sticky black top bar',
+		source: 'BaseLayout.astro → .top-bar-right span',
+		specs: [
+			['Font', 'Yantramanav'],
+			['Weight', '500'],
+			['Size', '12px'],
+			['Transform', 'uppercase'],
+			['Letter-spacing', '0.1em'],
+			['Color', '#ffffff'],
+			['Bar background', '#000000'],
+		],
+		visual: 'follow-us',
+	},
+	{
+		id: '07',
+		title: 'Accent orange',
+		where: 'CTAs, hovers, cart badge, accents',
+		source: 'BaseLayout + site-wide (#fe5900)',
+		specs: [
+			['Primary accent', '#fe5900'],
+			['Common hover', '#e04d00'],
+			['Blog hover', '#d94e00 (blog.css)'],
+			['Role', 'Only strong chromatic accent'],
+		],
+		visual: 'swatch-accent',
+	},
+	{
+		id: '08',
+		title: 'Core color palette',
+		where: 'Global chrome + content',
+		source: 'BaseLayout.astro + blog.css',
+		specs: [
+			['Layout', 'Each swatch shows hex code next to it'],
+			['Text', '#0d0d0d'],
+			['Black / white', '#000000 · #ffffff'],
+			['Footer', '#1a1a1a'],
+			['Muted', '#8c8c8c · #cccccc · #b6b6b6'],
+			['Borders', '#e8e8e8'],
+		],
+		visual: 'palette',
+	},
+	{
+		id: '08b',
+		title: 'Full color chart — every hex labeled',
+		where: 'All brand colors used on the site',
+		source: 'PLAYERSTALL-BRAND.md §4 + live CSS',
+		specs: [
+			['Format', 'Swatch + hex code + name'],
+			['Accent', '#fe5900 · #e04d00 · #d94e00'],
+			['Neutrals', '#0d0d0d · #000 · #1a1a1a · #8c8c8c…'],
+			['Warm blog', '#e3dfd7 · #f9f7f2'],
+			['Print tip', 'Use PDF color chart for a full two-column list'],
+		],
+		visual: 'color-chart',
+	},
+	{
+		id: '09',
+		title: 'Display font — Oswald',
+		where: 'Headings, logo, section titles',
+		source: 'Google Fonts via BaseLayout (600, 700)',
+		specs: [
+			['Family', 'Oswald'],
+			['Loaded weights', '600, 700'],
+			['Typical use', 'Uppercase display'],
+			['Fallback', 'sans-serif'],
+		],
+		visual: 'font-oswald',
+	},
+	{
+		id: '10',
+		title: 'Body / UI font — Yantramanav',
+		where: 'Nav, body, buttons, footer',
+		source: 'Google Fonts via BaseLayout (400, 500)',
+		specs: [
+			['Family', 'Yantramanav'],
+			['Loaded weights', '400, 500'],
+			['Stack', "Yantramanav, Roboto, Arial, sans-serif"],
+			['Body line-height', '1.6'],
+		],
+		visual: 'font-yantra',
+	},
+	{
+		id: '11',
+		title: 'Homepage hero title',
+		where: 'index.astro hero slider',
+		source: 'src/pages/index.astro → .hero-slide-title',
+		specs: [
+			['Font', 'Oswald'],
+			['Weight', '600'],
+			['Size', '52px (42px / 32px responsive)'],
+			['Transform', 'uppercase'],
+			['Letter-spacing', '2px'],
+			['Color', '#ffffff'],
+		],
+		visual: 'hero-title',
+	},
+	{
+		id: '12',
+		title: 'Section eyebrow label',
+		where: 'Homepage section headers',
+		source: 'index.astro → .ts-section-label',
+		specs: [
+			['Font', 'Yantramanav'],
+			['Size', '15px'],
+			['Transform', 'uppercase'],
+			['Letter-spacing', '6px ← very open'],
+			['Color', '#8c8c8c'],
+		],
+		visual: 'section-label',
+	},
+	{
+		id: '13',
+		title: 'Vertical side label',
+		where: 'Homepage decorative vertical type',
+		source: 'index.astro → .ts-vertical-text',
+		specs: [
+			['Text', 'SHIPPING (spaced letters)'],
+			['Font', 'Oswald'],
+			['Size', '14px'],
+			['Transform', 'uppercase'],
+			['Letter-spacing', '8px ← most open px tracking'],
+			['Color', '#cccccc'],
+		],
+		visual: 'vertical-label',
+	},
+	{
+		id: '13b',
+		title: 'Vertical side label (PlayerStall)',
+		where: 'Same vertical treatment, brand wordmark sample',
+		source: 'Same CSS as .ts-vertical-text (Oswald / 14px / 8px)',
+		specs: [
+			['Text', 'PlayerStall'],
+			['Font', 'Oswald'],
+			['Size', '14px'],
+			['Transform', 'uppercase'],
+			['Letter-spacing', '8px ← most open px tracking'],
+			['Color', '#cccccc'],
+		],
+		visual: 'vertical-label-playerstall',
+	},
+	{
+		id: '14',
+		title: 'Solid orange primary button',
+		where: 'Product pages, how-it-works, admin',
+		source: 'e.g. product-varsity-locker / AdminLayout .btn-primary',
+		specs: [
+			['Background', '#fe5900'],
+			['Text', '#ffffff'],
+			['Border', '2px solid #fe5900'],
+			['Hover', '#e04d00'],
+			['Font', 'Yantramanav 500 (often)'],
+			['Letter-spacing', '0.1em – 0.15em'],
+			['Transform', 'uppercase'],
+			['Radius', '0 (site-wide)'],
+		],
+		visual: 'btn-primary',
+	},
+	{
+		id: '15',
+		title: 'Hero slide primary button',
+		where: 'Homepage hero CTAs',
+		source: 'index.astro → .btn-slide-primary',
+		specs: [
+			['Background', '#000000'],
+			['Text', '#ffffff'],
+			['Border', '2px solid #000000'],
+			['Hover', '#fe5900 fill + border'],
+			['Font', 'Yantramanav 500'],
+			['Size', '12px'],
+			['Letter-spacing', '0.15em'],
+			['Padding', '10px 25px'],
+		],
+		visual: 'btn-slide-primary',
+	},
+	{
+		id: '16',
+		title: 'Hero slide secondary button',
+		where: 'Homepage hero CTAs',
+		source: 'index.astro → .btn-slide-secondary',
+		specs: [
+			['Background', '#ffffff'],
+			['Text', '#000000'],
+			['Border', '2px solid #ffffff'],
+			['Hover', '#fe5900 fill, white text'],
+			['Font', 'Yantramanav 500'],
+			['Letter-spacing', '0.15em'],
+		],
+		visual: 'btn-slide-secondary',
+	},
+	{
+		id: '17',
+		title: 'Blog outline button',
+		where: 'Blog listing / post UI',
+		source: 'src/styles/blog.css → .blog-page .btn',
+		specs: [
+			['Font', 'Oswald 600'],
+			['Size', '12px'],
+			['Letter-spacing', '1.5px'],
+			['Padding', '9px 26px'],
+			['Default', 'Transparent · 2px #fe5900 · orange text'],
+			['Hover', 'Orange fill · white text'],
+		],
+		visual: 'btn-blog',
+	},
+	{
+		id: '18',
+		title: 'Blog post title (tight tracking)',
+		where: 'Single blog posts',
+		source: 'BlogPostLayout.astro → .blog-post-title',
+		specs: [
+			['Font', 'Oswald 700'],
+			['Size', 'clamp(28px, 5vw, 48px)'],
+			['Transform', 'uppercase'],
+			['Letter-spacing', '-0.5px ← tightened'],
+			['Color', '#0d0d0d'],
+		],
+		visual: 'blog-title',
+	},
+	{
+		id: '19',
+		title: 'Product giant background word',
+		where: 'Product detail pages',
+		source: 'product-varsity-locker.astro → .product-background-text',
+		specs: [
+			['Letter-spacing', '-2px ← tightest on site'],
+			['Role', 'Decorative oversized product name'],
+			['Note', 'Different from logo / nav tracking on purpose'],
+		],
+		visual: 'product-bg-word',
+	},
+	{
+		id: '20',
+		title: 'Cart count badge',
+		where: 'Header cart link',
+		source: 'BaseLayout.astro → .cart-count',
+		specs: [
+			['Background', '#fe5900'],
+			['Text', '#ffffff'],
+			['Size', '10px / weight 600'],
+			['Padding', '2px 6px'],
+			['Border-radius', '0 (square)'],
+		],
+		visual: 'cart-badge',
+	},
+	{
+		id: '21',
+		title: 'Footer column heading',
+		where: 'Site footer',
+		source: 'BaseLayout.astro → .footer-section h4',
+		specs: [
+			['Font', 'Oswald 600'],
+			['Size', '18px'],
+			['Transform', 'lowercase (main columns)'],
+			['Letter-spacing', '0.05em'],
+			['Color', '#ffffff'],
+			['Footer bg', '#1a1a1a'],
+			['Links', '#cccccc → hover #fe5900'],
+		],
+		visual: 'footer-heading',
+	},
+	{
+		id: '22',
+		title: 'Square corners (global rule)',
+		where: 'Entire site via BaseLayout',
+		source: 'BaseLayout.astro → * { border-radius: 0 !important }',
+		specs: [
+			['Rule', 'border-radius: 0 !important on *'],
+			['Intent', 'Hard athletic / industrial edges'],
+			['Applies to', 'Buttons, inputs, badges, images frames'],
+		],
+		visual: 'square-corners',
+	},
+	{
+		id: '23',
+		title: 'Room-plan Order Summary (PDF page 2)',
+		where: 'Estimate PDF page 2 + confirmation email panels',
+		source: 'pdfEstimate.ts · pdfBranding.ts · pdfFonts.ts · roomPlanEmailTemplates.ts',
+		specs: [
+			['Page header', 'PLAYERSTALL Oswald 700 · letter-spacing 0.08em · #0d0d0d'],
+			['Page label', '“Order summary · page 2” · Yantramanav · #8c8c8c'],
+			['Section titles', 'YOUR SELECTIONS / ORDER SUMMARY · Oswald 700 · uppercase · letter-spacing ~2px'],
+			['Field labels', 'PREFERRED DELIVERY TIMING · Yantramanav/Oswald · 9–11px · #8c8c8c · letter-spacing ~1.2px'],
+			['Table headers', 'Product / Qty / Subtotal · muted caps · #8c8c8c'],
+			['Body values', 'Yantramanav 11–14px · #0d0d0d'],
+			['Estimated Total', 'Oswald/Yantramanav 700 · ~20px · #0d0d0d'],
+			['Your email', 'Label #8c8c8c · value in white box · border #e0e0e0 · 14px #0d0d0d'],
+			['Panel fill', '#f7f7f7 · borders #e0e0e0 · strong rule #cccccc'],
+			['Corners', 'Square (no radius)'],
+		],
+		visual: 'room-plan-summary',
+	},
+	{
+		id: '24',
+		title: 'Dual logo — PLAYER + script stall',
+		where: 'Merch lockup; tagline on invoices & homepage',
+		source: 'Merch photo · Adobe Fonts / MyFonts · index.astro tagline',
+		specs: [
+			['PLAYER', 'Oswald 700 · uppercase · tight tracking · #0d0d0d'],
+			['stall (script)', 'Best match: Turbinado (Aerotype) dry-brush · Regular/Dry · #4a4a4a'],
+			['Not Great Vibes', 'Smooth copperplate ≠ merch dry-brush + long t-bar'],
+			['Tagline', 'Oswald 400 · letter-spacing 0.28em–0.42em · #666'],
+			['Tagline text', 'EVERY GAME BEGINS HERE'],
+			['License', 'Adobe Fonts / MyFonts — Turbinado family'],
+		],
+		visual: 'dual-script-logo',
+	},
+	{
+		id: '25',
+		title: 'Social media icons',
+		where: 'Top bar + footer',
+		source: 'BaseLayout.astro → .social-icon / .footer-social-link',
+		specs: [
+			['Networks', 'Instagram · LinkedIn · X'],
+			['Format', 'Inline SVG · fill currentColor'],
+			['Top bar size', '14×14px'],
+			['Top bar color', '#b6b6b6 → hover #fe5900'],
+			['Top bar gap', '18px'],
+			['Footer size', '18×18px'],
+			['Footer color', '#cccccc → hover #fe5900'],
+			['Footer gap', '1rem'],
+			['Handles', '@playerstalllockers · /company/playerstall · @playerstallsl'],
+		],
+		visual: 'social-icons',
+	},
+	{
+		id: '26',
+		title: 'Materials section stack',
+		where: 'Homepage “Materials We Use” centered container',
+		source: 'index.astro → .home-shop-section + .ts-spotlight-inner-centered',
+		specs: [
+			['Container', 'Outer 1300px · content stack max-width 900px · centered'],
+			['Background', '#ffffff'],
+			['1 · Eyebrow', 'Yantramanav · 13px · ls 6px · #8c8c8c · THE LOCKER ROOM'],
+			['2 · Title', 'Oswald 700 · clamp(32px,4vw,52px) · #0d0d0d · MATERIALS WE USE'],
+			['3 · Position', 'Yantramanav · 13px · ls 4px · #8c8c8c · PREMIUM MATERIALS COLLECTION'],
+			['4 · Meta row', 'Yantramanav · 14px · #8c8c8c · pipes · links #fe5900'],
+			['5 · Body', 'Yantramanav · 15px · line-height 1.8 · #666666'],
+			['6 · CTA', 'Oswald 600 · 14px · ls 3px · #fff on #000 · 16px 40px · hover #fe5900'],
+		],
+		visual: 'materials-stack',
+	},
+] as const;
+
+const iconIg = `<path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.054 1.97.24 2.43.403a4.088 4.088 0 011.47.957c.453.453.768.898.957 1.47.163.46.349 1.26.403 2.43.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.054 1.17-.24 1.97-.403 2.43a4.088 4.088 0 01-.957 1.47 4.088 4.088 0 01-1.47.957c-.46.163-1.26.349-2.43.403-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.054-1.97-.24-2.43-.403a4.088 4.088 0 01-1.47-.957 4.088 4.088 0 01-.957-1.47c-.163-.46-.349-1.26-.403-2.43C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.054-1.17.24-1.97.403-2.43a4.088 4.088 0 01.957-1.47A4.088 4.088 0 015.063 2.293c.46-.163 1.26-.349 2.43-.403C8.759 1.832 9.139 1.82 12 1.82h.343M12 0C8.741 0 8.333.014 7.053.072 5.775.13 4.903.333 4.14.63a5.876 5.876 0 00-2.126 1.384A5.876 5.876 0 00.63 4.14C.333 4.903.13 5.775.072 7.053.014 8.333 0 8.741 0 12s.014 3.668.072 4.948c.058 1.277.261 2.149.558 2.912a5.876 5.876 0 001.384 2.126 5.876 5.876 0 002.126 1.384c.763.297 1.635.5 2.913.558C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c1.277-.058 2.149-.261 2.912-.558a5.876 5.876 0 002.126-1.384 5.876 5.876 0 001.384-2.126c.297-.763.5-1.635.558-2.913C23.986 15.668 24 15.259 24 12s-.014-3.668-.072-4.948c-.058-1.277-.261-2.149-.558-2.912a5.876 5.876 0 00-1.384-2.126A5.876 5.876 0 0019.86.63C19.097.333 18.225.13 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>`;
+const iconLi = `<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>`;
+const iconX = `<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>`;
+---
+
+<BaseLayout
+	title="Brand Board | PlayerStall Visual Specimens"
+	description="Internal visual board of PlayerStall logo, fonts, letter-spacing, colors, and button styles — live CSS specimens from the current site."
+	headerBlack={true}
+>
+	<Fragment slot="head">
+		<meta name="robots" content="noindex, nofollow" />
+		<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Yantramanav:wght@400;500;700&display=swap" rel="stylesheet" />
+	</Fragment>
+	<main class="bb">
+		<header class="bb-hero">
+			<div class="bb-hero-inner">
+				<p class="bb-kicker">Internal reference · not in main nav</p>
+				<h1 class="bb-page-title">PlayerStall brand board</h1>
+				<p class="bb-lede">
+					Live specimens from the current website. Visual on the left, exact specs on the right.
+					Open this page at <code>/brand-board</code>. Full written audit: <code>PLAYERSTALL-BRAND.md</code>.
+				</p>
+				<p class="bb-count">{specimens.length} examples</p>
+			</div>
+		</header>
+
+		<div class="bb-list">
+			{specimens.map((s) => (
+				<article class="bb-row" id={`specimen-${s.id}`}>
+					<div class="bb-visual" data-visual={s.visual} aria-hidden="true">
+						{s.visual === 'logo-dark' && (
+							<div class="bb-panel bb-panel--light">
+								<span class="bb-logo bb-logo--dark">PLAYERSTALL</span>
+							</div>
+						)}
+						{s.visual === 'logo-light' && (
+							<div class="bb-panel bb-panel--dark">
+								<span class="bb-logo bb-logo--light">PLAYERSTALL</span>
+							</div>
+						)}
+						{s.visual === 'og-logo' && (
+							<div class="bb-panel bb-panel--light bb-panel--center">
+								<img
+									src="https://playerstall.b-cdn.net/images/logoblack2.png"
+									alt="PlayerStall logoblack2.png"
+									class="bb-og-img"
+									width="220"
+									height="220"
+									loading="lazy"
+								/>
+							</div>
+						)}
+						{s.visual === 'nav-links' && (
+							<div class="bb-panel bb-panel--dark bb-panel--center">
+								<nav class="bb-nav-sample" aria-label="Sample nav">
+									<span>HOME</span>
+									<span>SHOP</span>
+									<span>GALLERY</span>
+									<span>BLOG</span>
+								</nav>
+							</div>
+						)}
+						{s.visual === 'nav-dropdown' && (
+							<div class="bb-panel bb-panel--light bb-panel--center">
+								<div class="bb-dropdown-sample">
+									<span>Football</span>
+									<span class="is-hover">Hockey</span>
+									<span>Basketball</span>
+								</div>
+							</div>
+						)}
+						{s.visual === 'follow-us' && (
+							<div class="bb-panel bb-panel--black bb-panel--center">
+								<span class="bb-follow">FOLLOW US:</span>
+							</div>
+						)}
+						{s.visual === 'social-icons' && (
+							<div class="bb-social-demo">
+								<div class="bb-social-row bb-social-row--top">
+									<span class="bb-social-label">Top bar</span>
+									<span class="bb-follow">FOLLOW US:</span>
+									<div class="bb-social-links bb-social-links--top">
+										<span class="bb-social-icon" aria-label="Instagram" title="Instagram">
+											<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" set:html={iconIg} />
+										</span>
+										<span class="bb-social-icon" aria-label="LinkedIn" title="LinkedIn">
+											<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" set:html={iconLi} />
+										</span>
+										<span class="bb-social-icon is-hover" aria-label="X" title="X (hover)">
+											<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" set:html={iconX} />
+										</span>
+									</div>
+								</div>
+								<div class="bb-social-row bb-social-row--footer">
+									<span class="bb-social-label">Footer</span>
+									<div class="bb-social-links bb-social-links--footer">
+										<span class="bb-social-icon" aria-label="Instagram" title="Instagram">
+											<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" set:html={iconIg} />
+										</span>
+										<span class="bb-social-icon is-hover" aria-label="LinkedIn" title="LinkedIn (hover)">
+											<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" set:html={iconLi} />
+										</span>
+										<span class="bb-social-icon" aria-label="X" title="X">
+											<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" set:html={iconX} />
+										</span>
+									</div>
+								</div>
+							</div>
+						)}
+						{s.visual === 'materials-stack' && (
+							<div class="bb-panel bb-panel--light bb-mat-panel">
+								<img
+									src="/images/brand-board/materials-we-use-section-reference.png"
+									alt="Materials We Use section reference from homepage"
+									class="bb-mat-ref"
+									loading="lazy"
+								/>
+							</div>
+						)}
+						{s.visual === 'swatch-accent' && (
+							<div class="bb-panel bb-panel--light" style="align-items: stretch; justify-content: center;">
+								<div class="bb-color-list">
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#fe5900"></span><span class="bb-color-code">#fe5900</span><span class="bb-color-name">Primary accent</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#e04d00"></span><span class="bb-color-code">#e04d00</span><span class="bb-color-name">Hover (site)</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#d94e00"></span><span class="bb-color-code">#d94e00</span><span class="bb-color-name">Hover (blog)</span></div>
+								</div>
+							</div>
+						)}
+						{s.visual === 'palette' && (
+							<div class="bb-panel bb-panel--light" style="align-items: stretch; justify-content: center;">
+								<div class="bb-color-list">
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#fe5900"></span><span class="bb-color-code">#fe5900</span><span class="bb-color-name">Accent orange</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#e04d00"></span><span class="bb-color-code">#e04d00</span><span class="bb-color-name">Accent hover</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#0d0d0d"></span><span class="bb-color-code">#0d0d0d</span><span class="bb-color-name">Text / primary</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#000000"></span><span class="bb-color-code">#000000</span><span class="bb-color-name">Pure black</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#1a1a1a"></span><span class="bb-color-code">#1a1a1a</span><span class="bb-color-name">Footer dark</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#8c8c8c"></span><span class="bb-color-code">#8c8c8c</span><span class="bb-color-name">Muted</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#cccccc"></span><span class="bb-color-code">#cccccc</span><span class="bb-color-name">Footer links</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#b6b6b6"></span><span class="bb-color-code">#b6b6b6</span><span class="bb-color-name">Top-bar muted</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#e8e8e8"></span><span class="bb-color-code">#e8e8e8</span><span class="bb-color-name">Borders</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#ffffff"></span><span class="bb-color-code">#ffffff</span><span class="bb-color-name">White</span></div>
+								</div>
+							</div>
+						)}
+						{s.visual === 'color-chart' && (
+							<div class="bb-panel bb-panel--light" style="align-items: stretch; justify-content: flex-start; padding: 24px 28px;">
+								<div class="bb-color-chart">
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#fe5900"></span><span class="bb-color-code">#fe5900</span><span class="bb-color-name">Primary accent / CTAs</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#e04d00"></span><span class="bb-color-code">#e04d00</span><span class="bb-color-name">Button hover (most pages)</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#d94e00"></span><span class="bb-color-code">#d94e00</span><span class="bb-color-name">Blog button hover</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#0d0d0d"></span><span class="bb-color-code">#0d0d0d</span><span class="bb-color-name">Body text / primary</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#000000"></span><span class="bb-color-code">#000000</span><span class="bb-color-name">Top bar / pure black</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#1a1a1a"></span><span class="bb-color-code">#1a1a1a</span><span class="bb-color-name">Footer background</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#8c8c8c"></span><span class="bb-color-code">#8c8c8c</span><span class="bb-color-name">Muted labels</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#cccccc"></span><span class="bb-color-code">#cccccc</span><span class="bb-color-name">Footer links</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#b6b6b6"></span><span class="bb-color-code">#b6b6b6</span><span class="bb-color-name">Top-bar muted</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#e8e8e8"></span><span class="bb-color-code">#e8e8e8</span><span class="bb-color-name">Borders</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#e3dfd7"></span><span class="bb-color-code">#e3dfd7</span><span class="bb-color-name">Blog warm border</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#f9f7f2"></span><span class="bb-color-code">#f9f7f2</span><span class="bb-color-name">Blog alt background</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#f7f7f7"></span><span class="bb-color-code">#f7f7f7</span><span class="bb-color-name">Admin / form ground</span></div>
+									<div class="bb-color-row"><span class="bb-color-chip" style="background:#ffffff"></span><span class="bb-color-code">#ffffff</span><span class="bb-color-name">Page white</span></div>
+								</div>
+							</div>
+						)}
+						{s.visual === 'font-oswald' && (
+							<div class="bb-panel bb-panel--light">
+								<p class="bb-oswald-sample">PREMIUM WOOD LOCKERS</p>
+								<p class="bb-oswald-meta">Oswald · 600 / 700</p>
+							</div>
+						)}
+						{s.visual === 'font-yantra' && (
+							<div class="bb-panel bb-panel--light">
+								<p class="bb-yantra-sample">
+									Custom wood sports lockers for collegiate and professional teams. Built to last.
+								</p>
+								<p class="bb-yantra-meta">Yantramanav · 400 / 500</p>
+							</div>
+						)}
+						{s.visual === 'hero-title' && (
+							<div class="bb-panel bb-panel--hero">
+								<p class="bb-hero-title">Premium Wood Lockers. Priced Right.</p>
+							</div>
+						)}
+						{s.visual === 'section-label' && (
+							<div class="bb-panel bb-panel--light bb-panel--center">
+								<span class="bb-section-label">How we work with you</span>
+							</div>
+						)}
+						{s.visual === 'vertical-label' && (
+							<div class="bb-panel bb-panel--light bb-panel--center bb-panel--tall">
+								<span class="bb-vertical">S&nbsp;&nbsp;h&nbsp;&nbsp;i&nbsp;&nbsp;p&nbsp;&nbsp;p&nbsp;&nbsp;i&nbsp;&nbsp;n&nbsp;&nbsp;g</span>
+							</div>
+						)}
+						{s.visual === 'vertical-label-playerstall' && (
+							<div class="bb-panel bb-panel--light bb-panel--center bb-panel--tall">
+								<span class="bb-vertical">PlayerStall</span>
+							</div>
+						)}
+						{s.visual === 'btn-primary' && (
+							<div class="bb-panel bb-panel--light bb-panel--center">
+								<span class="bb-btn bb-btn--primary">Add to Cart</span>
+							</div>
+						)}
+						{s.visual === 'btn-slide-primary' && (
+							<div class="bb-panel bb-panel--hero bb-panel--center">
+								<span class="bb-btn bb-btn--slide-primary">Shop Lockers</span>
+							</div>
+						)}
+						{s.visual === 'btn-slide-secondary' && (
+							<div class="bb-panel bb-panel--hero bb-panel--center">
+								<span class="bb-btn bb-btn--slide-secondary">Request a Quote</span>
+							</div>
+						)}
+						{s.visual === 'btn-blog' && (
+							<div class="bb-panel bb-panel--light bb-panel--center">
+								<span class="bb-btn bb-btn--blog">Read More</span>
+							</div>
+						)}
+						{s.visual === 'blog-title' && (
+							<div class="bb-panel bb-panel--light">
+								<p class="bb-blog-title">College Athletic Locker Guide</p>
+							</div>
+						)}
+						{s.visual === 'product-bg-word' && (
+							<div class="bb-panel bb-panel--light bb-panel--center">
+								<span class="bb-product-word">VARSITY</span>
+							</div>
+						)}
+						{s.visual === 'cart-badge' && (
+							<div class="bb-panel bb-panel--dark bb-panel--center">
+								<span class="bb-cart-row">
+									<span class="bb-cart-text">CART</span>
+									<span class="bb-cart-count">3</span>
+								</span>
+							</div>
+						)}
+						{s.visual === 'footer-heading' && (
+							<div class="bb-panel bb-panel--footer">
+								<h4 class="bb-footer-h">contact</h4>
+								<p class="bb-footer-p">team@playerstall.com</p>
+							</div>
+						)}
+						{s.visual === 'square-corners' && (
+							<div class="bb-panel bb-panel--light bb-panel--center">
+								<div class="bb-square-demo">
+									<span class="bb-btn bb-btn--primary">Square</span>
+									<span class="bb-cart-count">0</span>
+									<span class="bb-square-box" />
+								</div>
+							</div>
+						)}
+						{s.visual === 'room-plan-summary' && (
+							<div class="bb-panel bb-panel--light" style="align-items:center; justify-content:center; background:#ffffff; padding:20px 16px;">
+								<img
+									src="/images/brand-board/room-plan-order-summary-page2-reference.png"
+									alt="Room-plan Order Summary PDF page 2 reference"
+									class="bb-rp-ref"
+									loading="lazy"
+								/>
+								<div class="bb-rp-wrap">
+									<div class="bb-rp-wordmark">PLAYERSTALL</div>
+									<p class="bb-rp-page-label">Order summary · page 2</p>
+									<div class="bb-rp-panel">
+										<h4>Your Selections</h4>
+										<p class="bb-rp-field-label">Preferred delivery timing</p>
+										<p>Melissa testing: 3–6 months</p>
+									</div>
+									<div class="bb-rp-mini">
+										<div class="bb-rp-head">Order Summary</div>
+										<div class="bb-rp-cols">
+											<span>Product</span><span>Qty</span><span>Subtotal</span>
+										</div>
+										<div class="bb-rp-row">
+											<div>
+												<div class="bb-rp-name">Model S Locker</div>
+												<div class="bb-rp-spec">24"W × 19"D · High Reflective White</div>
+											</div>
+											<div class="bb-rp-qty">10</div>
+											<div class="bb-rp-price">$6,490.00</div>
+										</div>
+										<div class="bb-rp-total">
+											<span>Estimated Total</span>
+											<span>$6,490.00</span>
+										</div>
+										<p class="bb-rp-ship">Shipping isn’t included in this estimate.</p>
+										<p class="bb-rp-email-label">Your email</p>
+										<div class="bb-rp-email">testing@melissawiringi.com</div>
+									</div>
+								</div>
+							</div>
+						)}
+						{s.visual === 'dual-script-logo' && (
+							<div class="bb-panel bb-panel--light bb-panel--center">
+								<img
+									src="/images/brand-board/playerstall-dual-script-logo-reference.png"
+									alt="PLAYERstall dual logo reference"
+									class="bb-dual-ref"
+									loading="lazy"
+								/>
+								<p class="bb-dual-note">Photo is the authoritative “stall” specimen (Turbinado dry-brush — not Great Vibes).</p>
+								<div class="bb-dual-logo">
+									<span class="bb-dual-player">PLAYER</span>
+									<span class="bb-dual-tag">Every Game Begins Here</span>
+								</div>
+							</div>
+						)}
+					</div>
+
+					<div class="bb-spec">
+						<p class="bb-id">Example {s.id}</p>
+						<h2 class="bb-spec-title">{s.title}</h2>
+						<p class="bb-where"><span>Where</span> {s.where}</p>
+						<p class="bb-source"><span>Source</span> {s.source}</p>
+						<dl class="bb-dl">
+							{s.specs.map(([k, v]) => (
+								<>
+									<dt>{k}</dt>
+									<dd>{v}</dd>
+								</>
+							))}
+						</dl>
+					</div>
+				</article>
+			))}
+		</div>
+
+		<footer class="bb-end">
+			<p>
+				This board mirrors current live CSS. Specs are documented in detail in
+				<code>PLAYERSTALL-BRAND.md</code>.
+			</p>
+		</footer>
+	</main>
+</BaseLayout>
+
+<style>
+	.bb {
+		background: #f7f7f7;
+		padding-bottom: 80px;
+	}
+
+	.bb-hero {
+		background: #0d0d0d;
+		color: #fff;
+		padding: 72px 20px 56px;
+	}
+
+	.bb-hero-inner {
+		max-width: 1300px;
+		margin: 0 auto;
+	}
+
+	.bb-kicker {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		font-weight: 500;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		margin: 0 0 16px;
+	}
+
+	.bb-page-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(36px, 5vw, 56px);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		margin: 0 0 16px;
+		line-height: 1.1;
+		color: #fff;
+	}
+
+	.bb-lede {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 17px;
+		line-height: 1.6;
+		color: #cccccc;
+		max-width: 52em;
+		margin: 0 0 20px;
+	}
+
+	.bb-lede code,
+	.bb-end code {
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+		font-size: 0.9em;
+		color: #fe5900;
+	}
+
+	.bb-count {
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		color: #fe5900;
+		margin: 0;
+	}
+
+	.bb-list {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.bb-row {
+		display: grid;
+		grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+		gap: 0;
+		margin-top: 28px;
+		background: #fff;
+		border: 1px solid #e8e8e8;
+		min-height: 280px;
+	}
+
+	.bb-visual {
+		min-height: 280px;
+		border-right: 1px solid #e8e8e8;
+	}
+
+	.bb-panel {
+		height: 100%;
+		min-height: 280px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 36px 40px;
+		box-sizing: border-box;
+	}
+
+	.bb-panel--center {
+		align-items: center;
+		text-align: center;
+	}
+
+	.bb-panel--tall {
+		min-height: 320px;
+	}
+
+	.bb-panel--light {
+		background: #ffffff;
+	}
+
+	.bb-panel--dark {
+		background: #f0f0f0; /* print-friendly; live panels are #1a1a1a */
+	}
+
+	.bb-panel--black {
+		background: #f0f0f0; /* print-friendly; live is #000 */
+	}
+
+	.bb-panel--hero {
+		/* print-friendly: no photo backdrop */
+		background: #f0f0f0;
+		color: #0d0d0d;
+	}
+
+	.bb-panel--footer {
+		background: #f0f0f0; /* print-friendly; live is #1a1a1a */
+		justify-content: flex-start;
+		padding-top: 48px;
+	}
+
+	/* Specimens */
+	.bb-logo {
+		font-family: 'Oswald', sans-serif;
+		font-size: 43px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		line-height: 1;
+		margin: 0;
+	}
+
+	.bb-logo--dark {
+		color: #0d0d0d;
+	}
+
+	.bb-logo--light {
+		color: #0d0d0d; /* print-friendly; live is #fff on dark */
+	}
+
+	.bb-og-img {
+		width: min(220px, 70%);
+		height: auto;
+		display: block;
+		object-fit: contain;
+	}
+
+	.bb-nav-sample {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 40px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		font-weight: 500;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		color: #0d0d0d; /* print-friendly; live is #fff on dark */
+	}
+
+	.bb-dropdown-sample {
+		min-width: 200px;
+		border: 1px solid #e8e8e8;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+		background: #fff;
+		text-align: left;
+	}
+
+	.bb-dropdown-sample span {
+		display: block;
+		padding: 10px 20px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		color: #0d0d0d;
+	}
+
+	.bb-dropdown-sample span.is-hover {
+		background: rgba(254, 89, 0, 0.08);
+		color: #fe5900;
+	}
+
+	.bb-follow {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: #0d0d0d; /* print-friendly; live is #fff on black */
+	}
+
+	.bb-swatch {
+		width: 120px;
+		height: 120px;
+		background: #fe5900;
+		margin-bottom: 16px;
+	}
+
+	.bb-swatch-hex {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		color: #0d0d0d;
+	}
+
+	.bb-color-list,
+	.bb-color-chart {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		width: 100%;
+	}
+
+	.bb-color-chart {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 10px 20px;
+	}
+
+	.bb-color-row {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.bb-color-chip {
+		width: 36px;
+		height: 36px;
+		flex-shrink: 0;
+		border: 1px solid #e8e8e8;
+	}
+
+	.bb-color-code {
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		color: #0d0d0d;
+		min-width: 5.5em;
+	}
+
+	.bb-color-name {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+	}
+
+	.bb-palette {
+		display: grid;
+		grid-template-columns: repeat(5, 44px);
+		gap: 10px;
+		justify-content: center;
+	}
+
+	.bb-palette span {
+		width: 44px;
+		height: 44px;
+		display: block;
+	}
+
+	.bb-oswald-sample {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(28px, 4vw, 42px);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		color: #0d0d0d;
+		margin: 0 0 12px;
+		line-height: 1.15;
+	}
+
+	.bb-oswald-meta,
+	.bb-yantra-meta {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		color: #8c8c8c;
+		letter-spacing: 0.05em;
+		margin: 0;
+	}
+
+	.bb-yantra-sample {
+		font-family: 'Yantramanav', 'Roboto', Arial, sans-serif;
+		font-size: 18px;
+		font-weight: 400;
+		line-height: 1.6;
+		color: #0d0d0d;
+		margin: 0 0 12px;
+		max-width: 28em;
+	}
+
+	.bb-hero-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(28px, 4vw, 44px);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		color: #0d0d0d; /* print-friendly; live is #fff over photo */
+		margin: 0;
+		line-height: 1.15;
+		text-align: left;
+	}
+
+	.bb-section-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		letter-spacing: 6px;
+		text-transform: uppercase;
+		color: #8c8c8c;
+	}
+
+	.bb-vertical {
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		letter-spacing: 8px;
+		text-transform: uppercase;
+		color: #cccccc;
+		writing-mode: vertical-lr;
+		transform: rotate(180deg);
+	}
+
+	.bb-btn {
+		display: inline-block;
+		text-transform: uppercase;
+		border: 2px solid transparent;
+		cursor: default;
+		line-height: 1.4;
+		text-align: center;
+	}
+
+	.bb-btn--primary {
+		background: #fe5900;
+		color: #fff;
+		border-color: #fe5900;
+		font-family: 'Yantramanav', sans-serif;
+		font-weight: 500;
+		font-size: 16px;
+		letter-spacing: 0.1em;
+		padding: 15px 40px;
+	}
+
+	.bb-btn--slide-primary {
+		background: #000000;
+		color: #fff;
+		border-color: #000000;
+		font-family: 'Yantramanav', sans-serif;
+		font-weight: 500;
+		font-size: 12px;
+		letter-spacing: 0.15em;
+		padding: 10px 25px;
+		min-width: 136px;
+	}
+
+	.bb-btn--slide-secondary {
+		background: #ffffff;
+		color: #000000;
+		border-color: #000000; /* print-friendly; live is white border over photo */
+		font-family: 'Yantramanav', sans-serif;
+		font-weight: 500;
+		font-size: 12px;
+		letter-spacing: 0.15em;
+		padding: 10px 25px;
+		min-width: 136px;
+	}
+
+	.bb-btn--blog {
+		background: transparent;
+		color: #fe5900;
+		border-color: #fe5900;
+		font-family: 'Oswald', sans-serif;
+		font-weight: 600;
+		font-size: 12px;
+		letter-spacing: 1.5px;
+		padding: 9px 26px;
+	}
+
+	.bb-blog-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(28px, 4vw, 42px);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: -0.5px;
+		color: #0d0d0d;
+		margin: 0;
+		line-height: 1.1;
+	}
+
+	.bb-product-word {
+		font-family: 'Oswald', sans-serif;
+		font-size: clamp(56px, 10vw, 96px);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: -2px;
+		color: rgba(13, 13, 13, 0.08);
+		line-height: 1;
+	}
+
+	.bb-cart-row {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 13px;
+		font-weight: 500;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		color: #0d0d0d; /* print-friendly; live is #fff on dark */
+	}
+
+	.bb-cart-count {
+		background: #fe5900;
+		color: #fff;
+		font-size: 10px;
+		font-weight: 600;
+		padding: 2px 6px;
+		letter-spacing: 0;
+		min-width: 18px;
+		text-align: center;
+		line-height: 1.4;
+	}
+
+	.bb-footer-h {
+		font-family: 'Oswald', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		color: #0d0d0d; /* print-friendly; live is #fff on #1a1a1a */
+		text-transform: lowercase;
+		letter-spacing: 0.05em;
+		margin: 0 0 1.5rem;
+	}
+
+	.bb-footer-p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #4a4a4a; /* print-friendly; live is #cccccc on dark */
+		margin: 0;
+		line-height: 1.8;
+	}
+
+	.bb-square-demo {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 20px;
+		flex-wrap: wrap;
+	}
+
+	.bb-square-box {
+		width: 56px;
+		height: 56px;
+		background: #0d0d0d;
+	}
+
+	.bb-rp-wrap {
+		width: 100%;
+		max-width: 360px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.bb-rp-ref {
+		width: 100%;
+		max-width: 320px;
+		height: auto;
+		display: block;
+		margin: 0 auto 14px;
+		border: 1px solid #e0e0e0;
+	}
+
+	.bb-rp-wordmark {
+		font-family: 'Oswald', sans-serif;
+		font-weight: 700;
+		font-size: 28px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #0d0d0d;
+		text-align: center;
+		line-height: 1;
+	}
+
+	.bb-rp-page-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		text-align: center;
+		margin: -4px 0 4px;
+	}
+
+	.bb-rp-panel {
+		background: #f7f7f7;
+		border: 1px solid #e0e0e0;
+		padding: 14px 16px;
+		text-align: left;
+	}
+
+	.bb-rp-panel h4 {
+		font-family: 'Oswald', sans-serif;
+		font-size: 14px;
+		font-weight: 700;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		margin: 0 0 10px;
+		padding-bottom: 8px;
+		border-bottom: 1px solid #e0e0e0;
+		color: #0d0d0d;
+	}
+
+	.bb-rp-field-label {
+		font-family: 'Oswald', sans-serif !important;
+		font-size: 10px !important;
+		font-weight: 700 !important;
+		letter-spacing: 1.2px;
+		text-transform: uppercase;
+		color: #8c8c8c !important;
+		margin: 0 0 6px !important;
+	}
+
+	.bb-rp-panel p {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		margin: 0;
+		color: #0d0d0d;
+	}
+
+	.bb-rp-mini {
+		border: 1px solid #e0e0e0;
+		background: #fff;
+		text-align: left;
+	}
+
+	.bb-rp-head {
+		padding: 14px 16px 10px;
+		font-family: 'Oswald', sans-serif;
+		font-size: 16px;
+		font-weight: 700;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		border-bottom: 1px solid #e0e0e0;
+		color: #0d0d0d;
+	}
+
+	.bb-rp-cols {
+		display: grid;
+		grid-template-columns: 1fr 40px 72px;
+		gap: 8px;
+		padding: 10px 16px;
+		border-bottom: 1px solid #e0e0e0;
+		font-family: 'Oswald', sans-serif;
+		font-size: 10px;
+		font-weight: 600;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		color: #8c8c8c;
+	}
+
+	.bb-rp-cols span:nth-child(2) { text-align: center; }
+	.bb-rp-cols span:nth-child(3) { text-align: right; }
+
+	.bb-rp-row {
+		display: grid;
+		grid-template-columns: 1fr 40px 72px;
+		gap: 8px;
+		padding: 12px 16px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	.bb-rp-name {
+		font-family: 'Oswald', sans-serif;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		color: #0d0d0d;
+	}
+
+	.bb-rp-spec {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 11px;
+		color: #8c8c8c;
+		margin-top: 3px;
+	}
+
+	.bb-rp-qty,
+	.bb-rp-price {
+		font-family: 'Oswald', sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		color: #0d0d0d;
+		text-align: right;
+	}
+
+	.bb-rp-qty { text-align: center; }
+
+	.bb-rp-total {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		padding: 14px 16px;
+		border-top: 1px solid #cccccc;
+		font-family: 'Oswald', sans-serif;
+	}
+
+	.bb-rp-total span:first-child {
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		color: #8c8c8c;
+	}
+
+	.bb-rp-total span:last-child {
+		font-size: 20px;
+		font-weight: 700;
+		color: #0d0d0d;
+	}
+
+	.bb-rp-ship {
+		margin: 0 16px 4px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+	}
+
+	.bb-rp-email-label {
+		margin: 12px 16px 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+	}
+
+	.bb-rp-email {
+		margin: 6px 16px 16px;
+		padding: 10px 12px;
+		border: 1px solid #e0e0e0;
+		background: #ffffff;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #0d0d0d;
+	}
+
+	.bb-dual-ref {
+		max-width: 100%;
+		max-height: 180px;
+		object-fit: contain;
+		margin-bottom: 16px;
+	}
+
+	.bb-dual-logo {
+		line-height: 1;
+	}
+
+	.bb-dual-player {
+		font-family: 'Oswald', sans-serif;
+		font-weight: 700;
+		font-size: 48px;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+		color: #0d0d0d;
+	}
+
+	.bb-dual-stall {
+		/* Intentionally unused — merch “stall” is Turbinado dry-brush; do not fake with Google scripts */
+		display: none;
+	}
+
+	.bb-dual-note {
+		margin: 10px 0 0;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		color: #8c8c8c;
+		max-width: 360px;
+		line-height: 1.35;
+	}
+
+	.bb-social-demo {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.bb-social-row {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		padding: 28px 32px;
+		flex-wrap: wrap;
+	}
+
+	.bb-social-row--top {
+		background: #f0f0f0; /* print-friendly; live is #000 */
+	}
+
+	.bb-social-row--footer {
+		background: #f0f0f0; /* print-friendly; live is #1a1a1a */
+	}
+
+	.bb-social-label {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		min-width: 56px;
+	}
+
+	.bb-social-links {
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.bb-social-links--top {
+		gap: 18px;
+	}
+
+	.bb-social-links--footer {
+		gap: 1rem;
+	}
+
+	.bb-social-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 1;
+	}
+
+	.bb-social-links--top .bb-social-icon,
+	.bb-social-links--footer .bb-social-icon {
+		color: #4a4a4a; /* print-friendly; live #b6b6b6 / #cccccc on dark */
+	}
+
+	.bb-social-icon.is-hover {
+		color: #fe5900;
+	}
+
+	.bb-social-icon svg {
+		display: block;
+	}
+
+	.bb-dual-tag {
+		display: block;
+		margin-top: 14px;
+		font-family: 'Oswald', sans-serif;
+		font-weight: 400;
+		font-size: 12px;
+		letter-spacing: 0.42em;
+		text-transform: uppercase;
+		color: #666666;
+		padding-left: 0.42em;
+	}
+
+	/* Spec column */
+	.bb-spec {
+		padding: 32px 36px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.bb-id {
+		font-family: 'Oswald', sans-serif;
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		color: #fe5900;
+		margin: 0 0 8px;
+	}
+
+	.bb-spec-title {
+		font-family: 'Oswald', sans-serif;
+		font-size: 24px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		color: #0d0d0d;
+		margin: 0 0 14px;
+		line-height: 1.2;
+	}
+
+	.bb-where,
+	.bb-source {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		line-height: 1.5;
+		color: #0d0d0d;
+		margin: 0 0 8px;
+	}
+
+	.bb-where span,
+	.bb-source span {
+		display: inline-block;
+		min-width: 4.2em;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		margin-right: 8px;
+	}
+
+	.bb-source {
+		margin-bottom: 20px;
+		color: #4a4a4a;
+		word-break: break-word;
+	}
+
+	.bb-dl {
+		display: grid;
+		grid-template-columns: minmax(110px, 32%) 1fr;
+		gap: 8px 16px;
+		margin: 0;
+		padding-top: 16px;
+		border-top: 1px solid #e8e8e8;
+	}
+
+	.bb-dl dt {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 12px;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #8c8c8c;
+		margin: 0;
+	}
+
+	.bb-dl dd {
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		color: #0d0d0d;
+		margin: 0;
+		line-height: 1.4;
+	}
+
+	.bb-end {
+		max-width: 1300px;
+		margin: 40px auto 0;
+		padding: 0 20px;
+		font-family: 'Yantramanav', sans-serif;
+		font-size: 14px;
+		color: #8c8c8c;
+	}
+
+	/* Materials We Use — image left, specs right (compact) */
+	.bb-mat-panel {
+		align-items: center;
+		justify-content: center;
+		padding: 20px 16px;
+		background: #ffffff;
+		min-height: 200px;
+	}
+
+	.bb-mat-ref {
+		width: 100%;
+		max-width: 280px;
+		height: auto;
+		display: block;
+		border: 1px solid #e8e8e8;
+	}
+
+	#specimen-26 .bb-spec {
+		padding: 16px 18px;
+	}
+
+	#specimen-26 .bb-spec-title {
+		font-size: 15px;
+	}
+
+	#specimen-26 .bb-where,
+	#specimen-26 .bb-source {
+		font-size: 12px;
+	}
+
+	#specimen-26 .bb-dl {
+		gap: 5px 12px;
+		padding-top: 10px;
+	}
+
+	#specimen-26 .bb-dl dt {
+		font-size: 10px;
+	}
+
+	#specimen-26 .bb-dl dd {
+		font-size: 12px;
+		line-height: 1.3;
+	}
+
+	@media (max-width: 900px) {
+		.bb-row {
+			grid-template-columns: 1fr;
+		}
+
+		.bb-visual {
+			border-right: none;
+			border-bottom: 1px solid #e8e8e8;
+		}
+
+		.bb-panel {
+			min-height: 220px;
+			padding: 28px 24px;
+		}
+
+		.bb-spec {
+			padding: 28px 24px;
+		}
+
+		.bb-logo {
+			font-size: 32px;
+		}
+
+		.bb-nav-sample {
+			gap: 20px;
+			letter-spacing: 0.2em;
+		}
+	}
+</style>

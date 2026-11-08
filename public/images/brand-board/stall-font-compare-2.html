@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>stall font — long t-bar focus</title>
+<link href="https://fonts.googleapis.com/css2?family=Birthstone&family=Grand+Hotel&family=Inspiration&family=Norican&family=Oswald:wght@700&family=Rouge+Script&family=Send+Flowers&family=Style+Script&family=Whisper&family=Yellowtail&family=Grechen+Fuemen&family=Luxurious+Script&family=Ms+Madi&family=Oooh+Baby&family=Meow+Script&display=swap" rel="stylesheet" />
+<style>
+  body { margin:0; padding:24px; background:#ddd; font-family:system-ui; }
+  h1 { font-size:16px; margin:0 0 16px; }
+  .row { display:grid; grid-template-columns: 280px 1fr; gap:16px; margin-bottom:16px; align-items:center; background:#f3f3f3; border:1px solid #bbb; padding:16px; }
+  .row img { width:100%; height:auto; }
+  .label { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#666; margin-bottom:8px; }
+  .stall { font-size:92px; line-height:1; color:#4a4a4a; }
+  .combo { font-size:56px; line-height:1; }
+  .combo .p { font-family:Oswald,sans-serif; font-weight:700; color:#0d0d0d; }
+  .combo .s { color:#4a4a4a; margin-left:-4px; }
+</style>
+</head>
+<body>
+<h1>Focus: long t-crossbar over “a” + dry brush slant (vs your crop)</h1>
+
+<div class="row">
+  <div>
+    <div class="label">Your stall crop</div>
+    <img src="stall-crop.png" alt="crop" />
+  </div>
+  <div>
+    <div class="label">Your full wordmark crop</div>
+    <img src="playerstall-wordmark-crop.png" alt="wm" />
+  </div>
+</div>
+
+<script>
+const fonts = [
+  { name: 'Yellowtail (Google)', css: "'Yellowtail', cursive" },
+  { name: 'Brush Script MT (system)', css: "'Brush Script MT', 'Brush Script', cursive" },
+  { name: 'Freestyle Script (system)', css: "'Freestyle Script', cursive" },
+  { name: 'Segoe Script (system)', css: "'Segoe Script', cursive" },
+  { name: 'Lucida Handwriting (system)', css: "'Lucida Handwriting', cursive" },
+  { name: 'Apple Chancery (system)', css: "'Apple Chancery', cursive" },
+  { name: 'Snell Roundhand (Mac)', css: "'Snell Roundhand', cursive" },
+  { name: 'Noteworthy (Mac)', css: "Noteworthy, cursive" },
+  { name: 'Grand Hotel', css: "'Grand Hotel', cursive" },
+  { name: 'Norican', css: "Norican, cursive" },
+  { name: 'Style Script', css: "'Style Script', cursive" },
+  { name: 'Rouge Script', css: "'Rouge Script', cursive" },
+  { name: 'Whisper', css: "Whisper, cursive" },
+  { name: 'Inspiration', css: "Inspiration, cursive" },
+  { name: 'Send Flowers', css: "'Send Flowers', cursive" },
+  { name: 'Birthstone', css: "Birthstone, cursive" },
+  { name: 'Ms Madi', css: "'Ms Madi', cursive" },
+  { name: 'Oooh Baby', css: "'Oooh Baby', cursive" },
+  { name: 'Meow Script', css: "'Meow Script', cursive" },
+  { name: 'Grechen Fuemen', css: "'Grechen Fuemen', cursive" },
+  { name: 'Luxurious Script', css: "'Luxurious Script', cursive" },
+];
+for (const f of fonts) {
+  const row = document.createElement('div');
+  row.className = 'row';
+  row.innerHTML = `
+    <div>
+      <div class="label">${f.name}</div>
+      <div class="stall" style="font-family:${f.css}">stall</div>
+    </div>
+    <div>
+      <div class="label">with PLAYER</div>
+      <div class="combo"><span class="p">PLAYER</span><span class="s" style="font-family:${f.css}">stall</span></div>
+    </div>`;
+  document.body.appendChild(row);
+}
+</script>
+</body>
+</html>

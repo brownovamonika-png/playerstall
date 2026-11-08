@@ -18,10 +18,10 @@ interface Props {
 
 const { 
 	title, 
-	description = "Custom wood sports lockers for collegiate and professional teams. Priced right. Custom-built in 8 to 12 weeks. 30+ years of craftsmanship.", 
+	description = "Custom wood sports lockers for collegiate and professional teams. Priced right. Custom-built in 8 to 12 weeks. over 35 years of craftsmanship.", 
 	headerBlack = false,
 	ogImage = "https://playerstall.b-cdn.net/images/logos/logo-playerstall-oswald-black.png",
-	ogImageAlt = "PlayerStall. Custom wood sports lockers for college and pro teams. 30+ years, 5 year warranty.",
+	ogImageAlt = "PlayerStall. Custom wood sports lockers for college and pro teams. over 35 years, 5 year warranty.",
 	canonical = Astro.url.pathname === "/" ? "https://playerstall.com" : `https://playerstall.com${Astro.url.pathname}`,
 	isArticle = false,
 	articlePublishedTime,
@@ -254,6 +254,8 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 								<li role="none"><a href="/sport/baseball" role="menuitem">Baseball</a></li>
 								<li role="none"><a href="/sport/soccer" role="menuitem">Soccer</a></li>
 								<li role="none"><a href="/sport/lacrosse" role="menuitem">Lacrosse</a></li>
+								<li role="none"><a href="/sport/wrestling" role="menuitem">Wrestling</a></li>
+								<li role="none"><a href="/sport/volleyball" role="menuitem">Volleyball</a></li>
 							</ul>
 						</li>
 						<li><a href="/gallery">GALLERY</a></li>
@@ -293,6 +295,8 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 									<li><a href="/sport/baseball">Baseball</a></li>
 									<li><a href="/sport/soccer">Soccer</a></li>
 									<li><a href="/sport/lacrosse">Lacrosse</a></li>
+									<li><a href="/sport/wrestling">Wrestling</a></li>
+									<li><a href="/sport/volleyball">Volleyball</a></li>
 								</ul>
 							</li>
 						<li><a href="/gallery">GALLERY</a></li>
@@ -323,7 +327,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 				<div class="footer-content">
 					<div class="footer-section">
 						<h4>PlayerStall</h4>
-						<p>Custom wood locker rooms for collegiate and professional programs. Priced right. Built to last. 30+ years of craftsmanship.</p>
+						<p>Custom wood locker rooms for collegiate and professional programs. Priced right. Built to last. over 35 years of craftsmanship.</p>
 						<p class="footer-address">2934 200 Street, Langley, BC V2Z 2C1 Canada</p>
 						<p class="footer-email"><a href="mailto:team@playerstall.com">team@playerstall.com</a></p>
 						<p class="footer-phone">1 888 584 1444</p>
