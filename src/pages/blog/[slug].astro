@@ -424,9 +424,9 @@ const heroAlt = post.heroImageAlt ?? post.title;
     align-items: center;
     gap: 14px;
     font-family: 'Yantramanav', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 3.3px;
   }
 
   .qodef-info-top {
@@ -450,12 +450,13 @@ const heroAlt = post.heroImageAlt ?? post.title;
 
   .qodef-e-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 36px;
+    font-size: clamp(28px, 3.4vw, 44px);
     font-weight: 600;
-    line-height: 1.25;
+    line-height: 1.12;
     margin: 0 0 28px;
     color: #0d0d0d;
-  }
+    letter-spacing: -0.005em;
+   }
 
   /* ── Article body ── */
   .qodef-e-text {
@@ -466,9 +467,10 @@ const heroAlt = post.heroImageAlt ?? post.title;
     font-family: 'Oswald', sans-serif;
     margin-top: 2.25rem;
     margin-bottom: 1rem;
-    font-size: 1.75rem;
+    font-size: 28px;
     color: #0d0d0d;
-  }
+    font-weight: 600;
+   }
 
   .qodef-e-text :global(h2:first-of-type) {
     margin-top: 0;
@@ -478,17 +480,19 @@ const heroAlt = post.heroImageAlt ?? post.title;
   .qodef-e-text :global(h4) {
     margin-top: 1.75rem;
     margin-bottom: 0.6rem;
-    font-size: 1.25rem;
+    font-size: 22px;
     color: #0d0d0d;
-  }
+    font-weight: 600;
+   }
 
   .qodef-e-text :global(p),
   .qodef-e-text :global(ul) {
-    color: #4a4a4a;
-    font-size: 1.05rem;
-    line-height: 1.8;
+    color: #5F5F5F;
+    font-size: 18px;
+    line-height: 1.7;
     margin-bottom: 1rem;
-  }
+    max-width: 68ch;
+   }
 
   .qodef-e-text :global(ul) {
     padding-left: 1.5rem;
@@ -559,8 +563,8 @@ const heroAlt = post.heroImageAlt ?? post.title;
 
   .qodef-e-text :global(figcaption) {
     margin-top: 0.5rem;
-    font-size: 0.9rem;
-    color: #4a4a4a;
+    font-size: 14px;
+    color: #8C8C8C;
     text-align: center;
   }
 
@@ -664,21 +668,21 @@ const heroAlt = post.heroImageAlt ?? post.title;
     font-size: 11px;
     font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 3.3px;
     color: #8c8c8c;
   }
 
   .qodef-author-name {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     color: #0d0d0d;
   }
 
   .qodef-author-desc {
     font-family: 'Yantramanav', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     color: #5F5F5F;
-    line-height: 1.75;
+    line-height: 1.7;
     margin: 0;
   }
 
@@ -713,10 +717,10 @@ const heroAlt = post.heroImageAlt ?? post.title;
 
   .qodef-nav-label {
     font-family: 'Yantramanav', sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     color: #0d0d0d;
     transition: color 0.3s;
   }
@@ -737,7 +741,7 @@ const heroAlt = post.heroImageAlt ?? post.title;
 
   .qodef-related-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 24px;
+    font-size: clamp(26px, 2.6vw, 36px);
     font-weight: 600;
     color: #0d0d0d;
     margin: 0 0 24px;
@@ -788,11 +792,11 @@ const heroAlt = post.heroImageAlt ?? post.title;
 
   .qodef-related-card-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 600;
     color: #0d0d0d;
     margin: 0;
-    line-height: 1.35;
+    line-height: 1.3;
     transition: color 0.3s;
   }
 
@@ -815,19 +819,19 @@ const heroAlt = post.heroImageAlt ?? post.title;
 
   .qodef-widget-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 600;
-    text-transform: lowercase;
-    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
     color: #0d0d0d;
     margin: 0 0 20px;
   }
 
   .qodef-widget-about p {
     font-family: 'Yantramanav', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     color: #5F5F5F;
-    line-height: 1.75;
+    line-height: 1.7;
     margin: 0;
   }
 
@@ -841,7 +845,7 @@ const heroAlt = post.heroImageAlt ?? post.title;
     border: none;
     padding: 10px 14px;
     font-family: 'Yantramanav', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     color: #0d0d0d;
     outline: none;
     background: transparent;
@@ -888,7 +892,7 @@ const heroAlt = post.heroImageAlt ?? post.title;
 
   .qodef-widget-categories a {
     font-family: 'Yantramanav', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     color: #0d0d0d;
     text-decoration: none;
     transition: color 0.2s;
@@ -947,10 +951,10 @@ const heroAlt = post.heroImageAlt ?? post.title;
 
   .qodef-latest-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     color: #0d0d0d;
-    line-height: 1.3;
+    line-height: 1.35;
     text-transform: uppercase;
     letter-spacing: 0.02em;
     transition: color 0.2s;
@@ -1000,32 +1004,34 @@ const heroAlt = post.heroImageAlt ?? post.title;
 
   .cta-content h2 {
     font-family: 'Oswald', sans-serif;
-    font-size: 48px;
+    font-size: clamp(32px, 3.8vw, 54px);
     font-weight: 600;
     color: #fff;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
-  }
+    line-height: 1.08;
+    letter-spacing: normal;
+   }
 
   .cta-content p {
     font-family: 'Yantramanav', sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     color: #D4D4D4;
     margin-bottom: 2rem;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.8;
+    line-height: 1.7;
   }
 
   .cta-btn {
     display: inline-block;
     padding: 18px 50px;
     font-family: 'Oswald', sans-serif;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     text-decoration: none;
     background: #fe5900;
     color: #ffffff;
@@ -1083,8 +1089,8 @@ const heroAlt = post.heroImageAlt ?? post.title;
 
   .qodef-e-text :global(tbody td) {
     padding: 13px 18px;
-    color: #4a4a4a;
-    font-size: 1rem;
+    color: #5F5F5F;
+    font-size: 16px;
     line-height: 1.6;
     vertical-align: top;
   }

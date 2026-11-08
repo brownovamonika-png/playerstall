@@ -350,11 +350,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.ig-hero-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 52px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0; line-height: 1.1;
+		line-height: 1.08;
+		letter-spacing: normal;
 	}
 
 	/* Common */
@@ -370,12 +372,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.ig-heading {
 		font-family: 'Oswald', sans-serif;
-		font-size: 48px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #0D0D0D;
 		text-transform: uppercase;
 		margin: 15px 0;
-		letter-spacing: 1px;
+		letter-spacing: normal;
+		line-height: 1.08;
 	}
 
 	.ig-section-header {
@@ -516,7 +519,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		justify-content: center;
 		font-family: 'Oswald', sans-serif;
 		font-size: 24px;
-		font-weight: 700;
+		font-weight: 600;
 		flex-shrink: 0;
 	}
 
@@ -646,10 +649,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.ig-cta-content h2 {
 		font-family: 'Oswald', sans-serif;
-		font-size: 42px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #ffffff;
 		margin: 0 0 16px;
+		line-height: 1.08;
+		letter-spacing: normal;
 	}
 
 	.ig-cta-content > p {

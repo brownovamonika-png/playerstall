@@ -317,14 +317,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.process-hero-page-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 52px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0;
-		line-height: 1.1;
+		line-height: 1.08;
 		position: relative;
 		z-index: 10;
+		letter-spacing: normal;
 	}
 
 	.process-hero-background-text {
@@ -341,24 +342,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.section-subtitle {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
+		font-size: 11px;
 		color: #8c8c8c;
-		letter-spacing: 0.3em;
+		letter-spacing: 3.3px;
 		text-transform: uppercase;
 		margin-bottom: -3px;
 		display: block;
+		font-weight: 500;
 	}
 
 	.section-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 48px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #0D0D0D;
 		text-transform: uppercase;
 		margin: 15px 0;
-		letter-spacing: 1px;
+		letter-spacing: normal;
 		position: relative;
 		display: inline-block;
+		line-height: 1.08;
 	}
 
 	/* Equipment Section (Our Process) */
@@ -421,7 +424,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		justify-content: center;
 		font-family: 'Oswald', sans-serif;
 		font-size: 36px;
-		font-weight: 700;
+		font-weight: 600;
 		margin: 0 auto 1.5rem;
 	}
 
@@ -509,10 +512,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		color: #fff;
 		padding: 12px 28px;
 		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
+		font-size: 11px;
 		font-weight: 600;
 		text-transform: uppercase;
-		letter-spacing: 0.2em;
+		letter-spacing: 3.3px;
 	}
 
 	.match-container {
@@ -530,21 +533,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.match-subtitle {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		letter-spacing: 0.25em;
+		font-size: 11px;
+		letter-spacing: 3.3px;
 		text-transform: uppercase;
 		color: #fe5900;
 		margin: 0 0 12px;
+		font-weight: 500;
 	}
 
 	.match-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 42px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: none;
-		letter-spacing: 0.02em;
-		line-height: 1.2;
+		letter-spacing: normal;
+		line-height: 1.08;
 		margin: 0 0 24px;
 	}
 

@@ -197,15 +197,16 @@ const description = `Browse all blog posts in the ${displayName} category. Sport
 
   .blog-page-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 72px;
+    font-size: clamp(32px, 3.8vw, 54px);
     font-weight: 600;
     color: #ffffff;
     text-transform: uppercase;
     margin: 0;
-    line-height: 1.1;
+    line-height: 1.08;
     position: relative;
     z-index: 10;
-  }
+    letter-spacing: normal;
+   }
 
   .blog-content-section {
     background: #ffffff;
@@ -383,12 +384,14 @@ const description = `Browse all blog posts in the ${displayName} category. Sport
 
   .cta-content h2 {
     font-family: 'Oswald', sans-serif;
-    font-size: 48px;
+    font-size: clamp(32px, 3.8vw, 54px);
     font-weight: 600;
     color: #fff;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
-  }
+    line-height: 1.08;
+    letter-spacing: normal;
+   }
 
   .cta-content p {
     font-family: 'Yantramanav', sans-serif;

@@ -133,9 +133,9 @@ const { recentPosts = defaultRecentPosts } = Astro.props;
 .widget-title {
   font-family: var(--font-heading);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.15em;
   color: var(--color-primary);
   padding-bottom: 12px;
   border-bottom: 3px solid var(--color-accent);
@@ -154,7 +154,7 @@ const { recentPosts = defaultRecentPosts } = Astro.props;
   border: none;
   outline: none;
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 15px;
   color: var(--color-text);
   background: var(--color-bg);
   min-width: 0;
@@ -208,9 +208,9 @@ const { recentPosts = defaultRecentPosts } = Astro.props;
 .recent-post-info { flex: 1; min-width: 0; }
 .recent-post-title {
   font-family: var(--font-heading);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.4;
   color: var(--color-primary);
   display: block;
   margin-bottom: 6px;
@@ -221,11 +221,12 @@ const { recentPosts = defaultRecentPosts } = Astro.props;
 .recent-post-date {
   font-size: 11px;
   color: var(--color-muted);
-  letter-spacing: 0.5px;
+  letter-spacing: 3.3px;
   display: flex;
   align-items: center;
   gap: 5px;
-}
+  font-weight: 500;
+ }
 
 /* Categories */
 .categories-list {
@@ -242,9 +243,9 @@ const { recentPosts = defaultRecentPosts } = Astro.props;
 .category-item:last-child { border-bottom: none; }
 .category-item a {
   font-family: var(--font-heading);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text);
   transition: color 0.2s;
@@ -276,15 +277,16 @@ const { recentPosts = defaultRecentPosts } = Astro.props;
   display: block;
   font-family: var(--font-heading);
   font-size: 11px;
-  letter-spacing: 3px;
+  letter-spacing: 3.3px;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 12px;
-}
+  font-weight: 500;
+ }
 .promo-title {
   font-family: var(--font-heading);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-white);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -292,9 +294,9 @@ const { recentPosts = defaultRecentPosts } = Astro.props;
   margin: 0 0 12px;
 }
 .promo-text {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--color-muted);
   margin: 0 0 20px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 </style>

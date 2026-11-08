@@ -61,10 +61,10 @@
 }
 .blog-page .page-banner h1 {
   font-family: var(--font-heading);
-  font-size: clamp(24px, 4vw, 36px);
-  font-weight: 700;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 0.05em;
   color: var(--color-white);
   margin: 0;
 }
@@ -189,8 +189,8 @@
 .blog-page .filter-label {
   font-family: var(--font-heading);
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-weight: 600;
+  letter-spacing: 3.3px;
   text-transform: uppercase;
   color: var(--color-muted);
 }
@@ -274,7 +274,7 @@
   gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 14px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--color-muted);
   letter-spacing: 0.3px;
 }
@@ -288,9 +288,9 @@
 .blog-page .post-title {
   font-family: var(--font-heading);
   font-size: clamp(24px, 4vw, 34px);
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: normal;
   line-height: 1.15;
   color: var(--color-primary);
   margin: 0;
@@ -298,9 +298,9 @@
 
 /* Post body prose */
 .blog-page .post-body {
-  font-size: 15px;
-  line-height: 1.85;
-  color: #4a4a4a;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #5F5F5F;
   border-top: 1px solid var(--color-border);
   padding-top: 28px;
   margin-bottom: 32px;
@@ -348,8 +348,8 @@
 .blog-page .tags-label {
   font-family: var(--font-heading);
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+  font-weight: 600;
+  letter-spacing: 3.3px;
   text-transform: uppercase;
   color: var(--color-muted);
   display: flex;
@@ -364,8 +364,8 @@
 .blog-page .share-label {
   font-family: var(--font-heading);
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-weight: 600;
+  letter-spacing: 3.3px;
   text-transform: uppercase;
   color: var(--color-muted);
 }
@@ -377,7 +377,7 @@
   padding: 6px 13px;
   font-family: var(--font-heading);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.5px;
   color: var(--color-white);
   transition: opacity 0.2s, transform 0.15s;
@@ -421,15 +421,15 @@
 .blog-page .nav-info--right      { align-items: flex-end; }
 .blog-page .nav-label {
   font-family: var(--font-heading);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3.3px;
   text-transform: uppercase;
   color: var(--color-accent);
 }
 .blog-page .nav-title {
   font-family: var(--font-heading);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.3px;

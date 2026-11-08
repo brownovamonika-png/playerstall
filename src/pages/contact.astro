@@ -205,14 +205,15 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 
 	.contact-hero-page-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 52px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0;
-		line-height: 1.1;
+		line-height: 1.08;
 		position: relative;
 		z-index: 10;
+		letter-spacing: normal;
 	}
 
 	.contact-hero-background-text {
@@ -264,12 +265,12 @@ const thankYouUrl = `${Astro.url.origin}/thank-you`;
 	/* Section title – GET IN TOUCH WITH US (above the two columns) */
 	.contact-section-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 54px;
+		font-size: clamp(26px, 2.6vw, 36px);
 		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
 		letter-spacing: -0.01em;
-		line-height: 1.2em;
+		line-height: 1.15;
 		margin: 0 0 32px;
 		text-align: center;
 	}

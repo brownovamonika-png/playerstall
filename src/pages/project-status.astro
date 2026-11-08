@@ -214,11 +214,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.ps-hero-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 52px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0; line-height: 1.1;
+		line-height: 1.08;
+		letter-spacing: normal;
 	}
 
 	/* Common */
@@ -234,12 +236,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.ps-heading {
 		font-family: 'Oswald', sans-serif;
-		font-size: 48px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #0D0D0D;
 		text-transform: uppercase;
 		margin: 15px 0;
-		letter-spacing: 1px;
+		letter-spacing: normal;
+		line-height: 1.08;
 	}
 
 	/* Lookup Section */
@@ -355,12 +358,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.ps-journey-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 28px;
+		font-size: clamp(26px, 2.6vw, 36px);
 		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
 		text-align: center;
 		margin: 0 0 8px;
+		line-height: 1.15;
 	}
 
 	.ps-journey-text {
@@ -401,6 +405,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		font-family: 'Oswald', sans-serif;
 		font-size: 18px; font-weight: 700;
 		margin: 0 auto 12px;
+		font-weight: 600;
 	}
 
 	.ps-stage h4 {
@@ -434,11 +439,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.ps-contact-content h3 {
 		font-family: 'Oswald', sans-serif;
-		font-size: 28px;
+		font-size: clamp(26px, 2.6vw, 36px);
 		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
 		margin: 0 0 12px;
+		line-height: 1.15;
 	}
 
 	.ps-contact-content > p {

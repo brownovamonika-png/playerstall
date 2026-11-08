@@ -334,11 +334,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.wr-hero-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 52px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0; line-height: 1.1;
+		line-height: 1.08;
+		letter-spacing: normal;
 	}
 
 	/* Common */
@@ -354,12 +356,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.wr-heading {
 		font-family: 'Oswald', sans-serif;
-		font-size: 48px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #0D0D0D;
 		text-transform: uppercase;
 		margin: 15px 0;
-		letter-spacing: 1px;
+		letter-spacing: normal;
+		line-height: 1.08;
 	}
 
 	.wr-section-header {
@@ -475,19 +478,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.wr-modular-text h3 {
 		font-family: 'Oswald', sans-serif;
-		font-size: 36px;
+		font-size: clamp(26px, 2.6vw, 36px);
 		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
 		margin: 15px 0 16px;
+		line-height: 1.15;
 	}
 
 	.wr-modular-text > p {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 16px;
+		font-size: 17px;
 		color: #5F5F5F;
-		line-height: 1.8;
+		line-height: 1.7;
 		margin: 0 0 32px;
+		max-width: 62ch;
 	}
 
 	.wr-modular-features {
@@ -540,6 +545,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		font-family: 'Oswald', sans-serif;
 		font-size: 20px; font-weight: 700;
 		margin: 0 auto 16px;
+		font-weight: 600;
 	}
 
 	.wr-claim-step h4 {
@@ -631,12 +637,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.wr-cleaning-content h3 {
 		font-family: 'Oswald', sans-serif;
-		font-size: 28px;
+		font-size: clamp(26px, 2.6vw, 36px);
 		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
 		text-align: center;
 		margin: 0 0 32px;
+		line-height: 1.15;
 	}
 
 	.wr-cleaning-grid {
@@ -721,10 +728,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.wr-cta-content h2 {
 		font-family: 'Oswald', sans-serif;
-		font-size: 42px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #ffffff;
 		margin: 0 0 16px;
+		line-height: 1.08;
+		letter-spacing: normal;
 	}
 
 	.wr-cta-content > p {

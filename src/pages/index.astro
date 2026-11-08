@@ -683,30 +683,31 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	display: block;
 	color: #ffffff;
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 14px;
-	letter-spacing: 8px;
+	font-size: 11px;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	margin-bottom: 20px;
 	opacity: 0.8;
+	font-weight: 500;
 }
 .ts-slide-title {
 	color: #ffffff;
 	font-family: 'Oswald', sans-serif;
-	font-size: 42px;
-	font-weight: 700;
+	font-size: clamp(40px, 5.6vw, 80px);
+	font-weight: 600;
 	line-height: 1;
 	text-transform: uppercase;
 	margin: 0 0 14px 0;
 	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-	letter-spacing: 2px;
+	letter-spacing: -0.01em;
 }
 .ts-slide-text {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 16px;
+	font-size: 18px;
 	color: #ffffff;
-	line-height: 1.3;
+	line-height: 1.6;
 	margin: 0 auto 34px auto;
-	font-weight: 300;
+	font-weight: 400;
 	text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 	letter-spacing: 0.3px;
 }
@@ -947,14 +948,14 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 
 .hero-slide-title {
 	font-family: 'Oswald', sans-serif;
-	font-size: 52px;
+	font-size: clamp(40px, 5.6vw, 80px);
 	font-weight: 600;
 	color: #ffffff;
 	text-transform: uppercase;
-	line-height: 1.1;
+	line-height: 1;
 	margin: 0 0 16px 0;
 	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-	letter-spacing: 2px;
+	letter-spacing: -0.01em;
 }
 
 .hero-slide:not(.active) .hero-slide-title {
@@ -972,11 +973,11 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	font-family: 'Yantramanav', sans-serif;
 	font-size: 18px;
 	color: #ffffff;
-	line-height: 1.3;
+	line-height: 1.6;
 	margin: 0 0 39px 0;
-	font-weight: 300;
+	font-weight: 400;
 	text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-	letter-spacing: 0.3px;
+	letter-spacing: normal;
 }
 
 .hero-slide:not(.active) .hero-slide-text {
@@ -1050,11 +1051,11 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	padding: 10px 25px;
 	text-decoration: none;
 	text-transform: uppercase;
-	font-weight: 500;
+	font-weight: 600;
 	letter-spacing: 0.15em;
-	font-size: 12px;
+	font-size: 15px;
 	transition: all 0.3s ease;
-	font-family: 'Yantramanav', sans-serif;
+	font-family: 'Oswald', sans-serif;
 	display: inline-block;
 	line-height: 1.4;
 	min-width: 136px;
@@ -1078,11 +1079,11 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	padding: 10px 25px;
 	text-decoration: none;
 	text-transform: uppercase;
-	font-weight: 500;
+	font-weight: 600;
 	letter-spacing: 0.15em;
-	font-size: 12px;
+	font-size: 15px;
 	transition: all 0.3s ease;
-	font-family: 'Yantramanav', sans-serif;
+	font-family: 'Oswald', sans-serif;
 	display: inline-block;
 	line-height: 1.4;
 	min-width: 136px;
@@ -1135,7 +1136,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 
 @media (max-width: 768px) {
 	.hero-slide-title {
-		font-size: 42px;
+		font-size: 44px;
 	}
 	.hero-slide-buttons .btn-slide-primary,
 	.hero-slide-buttons .btn-slide-secondary {
@@ -1150,7 +1151,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 
 @media (max-width: 640px) {
 	.hero-slide-title {
-		font-size: 32px;
+		font-size: 34px;
 	}
 }
 
@@ -1222,20 +1223,22 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 .ts-section-label {
 	display: block;
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 15px;
-	letter-spacing: 6px;
+	font-size: 11px;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	color: #8c8c8c;
 	margin-bottom: 10px;
+	font-weight: 500;
 }
 .ts-section-title {
 	font-family: 'Oswald', sans-serif;
-	font-size: clamp(36px, 4vw, 56px);
-	font-weight: 700;
+	font-size: clamp(32px, 3.8vw, 54px);
+	font-weight: 600;
 	text-transform: uppercase;
 	color: #0d0d0d;
-	line-height: 1.1;
+	line-height: 1.08;
 	margin: 0;
+	letter-spacing: normal;
 }
 
 /* ===========================================
@@ -1328,7 +1331,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	padding: 5px 14px;
 	font-family: 'Oswald', sans-serif;
 	font-size: 14px;
-	font-weight: 700;
+	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.15em;
 	margin-bottom: 35px;
@@ -1344,19 +1347,19 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .ts-shipping-title {
 	font-family: 'Oswald', sans-serif;
-	font-size: 32px;
-	font-weight: 700;
+	font-size: clamp(26px, 2.6vw, 36px);
+	font-weight: 600;
 	text-transform: uppercase;
 	color: #0D0D0D;
 	margin-bottom: 20px;
 	margin: 0 0 10px 0;
-	line-height: 1.2;
+	line-height: 1.15;
 	text-align: center;
 }
 .ts-shipping-description {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 16px;
-	line-height: 1.8;
+	font-size: 18px;
+	line-height: 1.7;
 	color: #5F5F5F;
 	margin-bottom: 25px;
 	text-align: center;
@@ -1373,9 +1376,9 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .ts-shipping-features li {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 15px;
-	line-height: 1.8;
-	color: #333;
+	font-size: 17px;
+	line-height: 1.7;
+	color: #5F5F5F;
 	padding: 10px 0;
 	border-bottom: 1px solid #f0f0f0;
 	position: relative;
@@ -1460,20 +1463,20 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	text-transform: none;
 	color: #0d0d0d;
 	margin: 0 0 8px;
-	line-height: 1.25;
-	letter-spacing: 0.02em;
+	line-height: 1.3;
+	letter-spacing: normal;
 }
 .ship-copy-item-meta {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 13px;
+	font-size: 14px;
 	color: #8c8c8c;
 	margin: 0 0 12px;
 	line-height: 1.4;
 }
 .ship-copy-item-desc {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 15px;
-	line-height: 1.75;
+	font-size: 17px;
+	line-height: 1.7;
 	color: #5F5F5F;
 	margin: 0 0 16px;
 }
@@ -1518,27 +1521,28 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 .ts-vs {
 	font-family: 'Oswald', sans-serif;
 	font-size: 24px;
-	font-weight: 700;
+	font-weight: 600;
 	text-transform: uppercase;
 }
 .ts-match-info {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 13px;
-	letter-spacing: 4px;
+	font-size: 11px;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	color: #8c8c8c;
 	margin: 10px 0 5px;
+	font-weight: 500;
 }
 .ts-venue {
 	font-family: 'Oswald', sans-serif;
 	font-size: 24px;
-	font-weight: 700;
+	font-weight: 600;
 	margin: 0 0 15px;
 }
 .ts-score-timer {
 	font-family: 'Oswald', sans-serif;
 	font-size: 24px;
-	font-weight: 700;
+	font-weight: 600;
 	margin-bottom: 25px;
 }
 .ts-score-buttons {
@@ -1560,7 +1564,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
    =========================================== */
 .ts-countdown-section {
 	position: relative;
-	padding: 90px 20px;
+	padding: 120px 20px;
 	text-align: center;
 	min-height: 500px;
 	display: flex;
@@ -1624,7 +1628,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 .ts-fact-number {
 	font-family: 'Oswald', sans-serif;
 	font-size: 56px;
-	font-weight: 700;
+	font-weight: 600;
 	color: #fe5900;
 	line-height: 1;
 }
@@ -1642,18 +1646,19 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	display: block;
 	font-family: 'Oswald', sans-serif;
 	font-size: clamp(60px, 10vw, 120px);
-	font-weight: 700;
+	font-weight: 600;
 	color: #ffffff;
 	line-height: 1;
 }
 .ts-timer-label {
 	display: block;
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 13px;
-	letter-spacing: 6px;
+	font-size: 11px;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	color: rgba(255,255,255,0.6);
 	margin-top: 5px;
+	font-weight: 500;
 }
 .ts-match-cta {
 	display: inline-block;
@@ -1661,9 +1666,9 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	color: #ffffff;
 	border: 2px solid #fe5900;
 	padding: 0.79rem 1.92rem;
-	font-family: 'Yantramanav', sans-serif;
-	font-size: 0.78rem;
-	font-weight: 500;
+	font-family: 'Oswald', sans-serif;
+	font-size: 15px;
+	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.15em;
 	text-decoration: none;
@@ -1680,7 +1685,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
    SPOTLIGHT / PLAYER SECTION
    =========================================== */
 .ts-spotlight-section {
-	padding: 100px 60px;
+	padding: 120px 60px;
 	background: #ffffff;
 }
 .ts-spotlight-inner {
@@ -1703,21 +1708,23 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .ts-spotlight-position {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 13px;
-	letter-spacing: 4px;
+	font-size: 11px;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	color: #8c8c8c;
 	text-decoration: none;
+	font-weight: 500;
 }
 .ts-spotlight-position:hover {
 	color: #fe5900;
 }
 .ts-spotlight-name {
 	font-family: 'Oswald', sans-serif;
-	font-size: 42px;
-	font-weight: 700;
+	font-size: clamp(26px, 2.6vw, 36px);
+	font-weight: 600;
 	color: #0d0d0d;
 	margin: 10px 0 15px;
+	line-height: 1.15;
 }
 .ts-spotlight-meta {
 	font-family: 'Yantramanav', sans-serif;
@@ -1734,15 +1741,15 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .ts-spotlight-bio-title {
 	font-family: 'Oswald', sans-serif;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 600;
 	text-transform: uppercase;
 	margin-bottom: 10px;
 }
 .ts-spotlight-bio {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 15px;
-	line-height: 1.8;
+	font-size: 18px;
+	line-height: 1.7;
 	color: #5F5F5F;
 	margin-bottom: 30px;
 }
@@ -1780,17 +1787,19 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .ts-blog-card-category {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 12px;
-	letter-spacing: 3px;
+	font-size: 11px;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	color: #fe5900;
 	text-decoration: none;
+	font-weight: 500;
 }
 .ts-blog-card-content h4 {
 	font-family: 'Oswald', sans-serif;
 	font-size: 22px;
 	font-weight: 600;
 	margin: 8px 0 12px;
+	line-height: 1.3;
 }
 .ts-blog-card-content h4 a {
 	color: #0d0d0d;
@@ -1802,21 +1811,22 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .ts-blog-card-content p {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 1.7;
-	color: #8c8c8c;
+	color: #5F5F5F;
 	margin-bottom: 15px;
 }
 .ts-read-more {
 	font-family: 'Oswald', sans-serif;
-	font-size: 13px;
-	letter-spacing: 2px;
+	font-size: 14px;
+	letter-spacing: 0.15em;
 	text-transform: uppercase;
 	color: #0d0d0d;
 	text-decoration: none;
 	border-bottom: 2px solid #0d0d0d;
 	padding-bottom: 2px;
 	transition: color 0.3s, border-color 0.3s;
+	font-weight: 600;
 }
 .ts-read-more:hover {
 	color: #fe5900;
@@ -1828,18 +1838,19 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
    =========================================== */
 .ts-store-section {
 	position: relative;
-	padding: 100px 60px;
+	padding: 120px 60px;
 	background: #ffffff;
 	overflow: hidden;
 }
 .ts-store-label {
 	text-align: center;
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 13px;
-	letter-spacing: 6px;
+	font-size: 11px;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	color: #D4D4D4;
 	margin-bottom: 10px;
+	font-weight: 500;
 }
 .ts-store-carousel-wrapper {
 	position: relative;
@@ -1900,13 +1911,14 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	background: #0D0D0D;
 	color: #ffffff;
 	font-family: 'Oswald', sans-serif;
-	font-size: 13px;
-	letter-spacing: 2px;
+	font-size: 15px;
+	letter-spacing: 0.15em;
 	text-transform: uppercase;
 	text-align: center;
 	text-decoration: none;
 	transform: translateY(100%);
 	transition: transform 0.3s ease, background 0.3s ease;
+	font-weight: 600;
 }
 .ts-store-item:hover .ts-add-to-cart {
 	transform: translateY(0);
@@ -1920,14 +1932,15 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .ts-store-item-brand {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 12px;
-	letter-spacing: 2px;
+	font-size: 11px;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	color: #B5B5B5;
+	font-weight: 500;
 }
 .ts-store-item-info h5 {
 	font-family: 'Oswald', sans-serif;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 600;
 	margin: 5px 0;
 }
@@ -2009,23 +2022,24 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	position: relative;
 	z-index: 2;
 	max-width: 800px;
-	padding: 80px 20px;
+	padding: 120px 20px;
 }
 .ts-features-label {
 	display: block;
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 13px;
-	letter-spacing: 6px;
+	font-size: 11px;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	color: rgba(255,255,255,0.6);
 	margin-bottom: 20px;
+	font-weight: 500;
 }
 .ts-features-title {
 	font-family: 'Oswald', sans-serif;
-	font-size: clamp(36px, 5vw, 60px);
-	font-weight: 700;
+	font-size: clamp(32px, 3.8vw, 54px);
+	font-weight: 600;
 	color: #ffffff;
-	line-height: 1.15;
+	line-height: 1.08;
 	margin: 0 0 30px;
 	text-transform: uppercase;
 }
@@ -2245,7 +2259,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 .home-quote-strip-quote-mark {
 	font-family: 'Oswald', sans-serif;
 	font-size: clamp(100px, 13vw, 200px);
-	font-weight: 700;
+	font-weight: 600;
 	line-height: 0.75;
 	color: #0d0d0d;
 	flex-shrink: 0;
@@ -2261,9 +2275,9 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 .home-quote-strip-quote-line {
 	font-family: 'Oswald', sans-serif;
 	font-size: clamp(30px, 3.8vw, 46px);
-	font-weight: 700;
+	font-weight: 600;
 	text-transform: uppercase;
-	letter-spacing: 0.02em;
+	letter-spacing: normal;
 	color: #0d0d0d;
 	line-height: 1.2;
 	margin: 0 0 28px;
@@ -2290,7 +2304,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 .home-quote-strip-name {
 	font-family: 'Oswald', sans-serif;
 	font-size: 20px;
-	font-weight: 700;
+	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
 	color: #0d0d0d;
@@ -2347,7 +2361,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
    RANKING SECTION
    =========================================== */
 .ts-ranking-section {
-	padding: 100px 60px;
+	padding: 120px 60px;
 	background: #ffffff;
 }
 .ts-ranking-inner {
@@ -2357,9 +2371,9 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .ts-ranking-text {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 16px;
-	line-height: 1.8;
-	color: #8c8c8c;
+	font-size: 18px;
+	line-height: 1.7;
+	color: #5F5F5F;
 	margin-top: 30px;
 }
 
@@ -2401,17 +2415,19 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .ts-news-category {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 12px;
-	letter-spacing: 3px;
+	font-size: 11px;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	color: #fe5900;
 	text-decoration: none;
+	font-weight: 500;
 }
 .ts-news-row-content h4 {
 	font-family: 'Oswald', sans-serif;
-	font-size: 20px;
+	font-size: 22px;
 	font-weight: 600;
 	margin: 8px 0 12px;
+	line-height: 1.3;
 }
 .ts-news-row-content h4 a {
 	color: #ffffff;
@@ -2433,7 +2449,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
    SERVICES / TABS SECTION
    =========================================== */
 .ts-services-section {
-	padding: 100px 60px;
+	padding: 120px 60px;
 	background: #ffffff;
 }
 .ts-services-inner {
@@ -2452,7 +2468,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .ts-tab-title {
 	font-family: 'Oswald', sans-serif;
-	font-size: 20px;
+	font-size: 22px;
 	font-weight: 600;
 	padding: 25px 0;
 	margin: 0;
@@ -2488,9 +2504,9 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .ts-tab-content p {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 15px;
-	line-height: 1.8;
-	color: #8c8c8c;
+	font-size: 17px;
+	line-height: 1.7;
+	color: #5F5F5F;
 	margin: 0;
 }
 
@@ -2530,7 +2546,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
    =========================================== */
 .trending-stats-section {
 	background: #f7f7f7;
-	padding: 100px 0;
+	padding: 120px 0;
 }
 .trending-stats-container {
 	max-width: 1300px;
@@ -2543,19 +2559,21 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .trending-stats-subtitle {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 13px;
-	color: #B5B5B5;
-	letter-spacing: 0.3em;
+	font-size: 11px;
+	color: #8c8c8c;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	margin-bottom: 10px;
+	font-weight: 500;
 }
 .trending-stats-title {
 	font-family: 'Oswald', sans-serif;
-	font-size: 48px;
-	font-weight: 700;
+	font-size: clamp(32px, 3.8vw, 54px);
+	font-weight: 600;
 	color: #0D0D0D;
 	text-transform: uppercase;
 	margin: 0;
+	line-height: 1.08;
 }
 .trending-stats-grid {
 	display: grid;
@@ -2604,7 +2622,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 .trending-stat-number {
 	font-family: 'Oswald', sans-serif;
 	font-size: 40px;
-	font-weight: 700;
+	font-weight: 600;
 	color: #0D0D0D;
 	line-height: 1;
 }
@@ -2630,9 +2648,9 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 }
 .trending-stat-text {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 14px;
-	color: #8c8c8c;
-	line-height: 1.6;
+	font-size: 16px;
+	color: #5F5F5F;
+	line-height: 1.7;
 	margin: 0;
 }
 
@@ -2805,7 +2823,7 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
    ============================================ */
 .home-shop-section {
 	position: relative;
-	padding: 100px 0;
+	padding: 120px 0;
 	background: #ffffff;
 	overflow: hidden;
 }
@@ -2830,21 +2848,23 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 .home-shop-section-subtitle {
 	display: block;
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 13px;
-	letter-spacing: 6px;
+	font-size: 11px;
+	letter-spacing: 3.3px;
 	text-transform: uppercase;
 	color: #8c8c8c;
 	margin-bottom: 10px;
+	font-weight: 500;
 }
 
 .home-shop-section-title {
 	font-family: 'Oswald', sans-serif;
-	font-size: clamp(32px, 4vw, 52px);
-	font-weight: 700;
+	font-size: clamp(32px, 3.8vw, 54px);
+	font-weight: 600;
 	text-transform: uppercase;
 	color: #0d0d0d;
-	line-height: 1.1;
+	line-height: 1.08;
 	margin: 0;
+	letter-spacing: normal;
 }
 
 .home-shop-main {
@@ -2912,12 +2932,13 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	margin-top: 24px;
 	margin-bottom: 0;
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 14px;
+	font-size: 15px;
 }
 .home-shop-essential-pdf a,
 .home-shop-pdf-link a {
-	color: #fe5900;
-	text-decoration: none;
+	color: #0d0d0d;
+	text-decoration: underline;
+	text-underline-offset: 4px;
 }
 .home-shop-essential-pdf a:hover,
 .home-shop-pdf-link a:hover {
@@ -2998,11 +3019,12 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 	color: #ffffff;
 	text-decoration: none;
 	font-family: 'Oswald', sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	text-transform: uppercase;
-	letter-spacing: 0.1em;
+	letter-spacing: 0.15em;
 	transition: background 0.3s;
 	display: inline-block;
+	font-weight: 600;
 }
 
 .home-shop-details-btn-overlay:hover {
@@ -3035,16 +3057,17 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 
 .home-shop-product-categories {
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 12px;
+	font-size: 11px;
 	color: #8c8c8c;
 	text-transform: uppercase;
-	letter-spacing: 0.1em;
+	letter-spacing: 3.3px;
 	margin-bottom: 10px;
+	font-weight: 500;
 }
 
 .home-shop-product-title {
 	font-family: 'Oswald', sans-serif;
-	font-size: 20px;
+	font-size: 22px;
 	font-weight: 600;
 	color: #0d0d0d;
 	text-transform: uppercase;
@@ -3135,6 +3158,28 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 		max-width: 320px;
 	}
 }
+
+/* Same space between every section — 64px on a phone (brand book rule 11). */
+@media (max-width: 768px) {
+	.ts-scores-section,
+	.ts-countdown-section,
+	.ts-spotlight-section,
+	.ts-store-section,
+	.ts-ranking-section,
+	.ts-services-section,
+	.trending-stats-section,
+	.home-shop-section,
+	.ts-features-content {
+		padding-top: 64px;
+		padding-bottom: 64px;
+	}
+	/* Stacked hero buttons sat 40px apart — tighten to one calm block. */
+	.hero-slide-buttons,
+	.ts-slide-buttons { gap: 16px; }
+	.home-shop-section-header { margin-bottom: 40px; }
+	.home-shop-section-header-spaced { margin-top: 64px; }
+}
+
 </style>
 
 <!-- ============================================

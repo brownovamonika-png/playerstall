@@ -102,7 +102,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 			/* Essential photo-shoot images have a white backdrop; blend into gray tiles */
 			img[src*="/images/essential/"], img[src*="/images/premium/"] { mix-blend-mode: multiply; }
 			/* Model S variant names (Two Upper Cubbies, Open Cubby, with Drawer): 3/8 size, on their own line under "Model S" */
-			.name-variant { font-size: 0.375em; display: block; margin-top: 2px; }
+			.name-variant { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; color: #8C8C8C; display: block; margin-top: 4px; }
 			/* "Cushion sold separately" label on locker photos that show a cushion (added by the script at the end of <body>) */
 			.cushion-note {
 				position: absolute;
@@ -189,9 +189,9 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 			.card-slide-box.card-slide-box .shop-see-details-btn-overlay,
 			.card-slide-box.card-slide-box .home-shop-details-btn-overlay {
 				pointer-events: auto;
-				padding: 4px 10px;
-				font-size: 9px;
-				letter-spacing: 0.08em;
+				padding: 5px 11px;
+				font-size: 11px;
+				letter-spacing: 0.1em;
 				min-width: 0;
 				transform: none;
 			}
@@ -525,9 +525,65 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		margin: 0;
 		padding: 0;
 		color: #0d0d0d;
-		line-height: 1.6;
+		line-height: 1.7;
 		/* Sporty custom cursor: cartoon orange football 48×30, transparent bg, hotspot at center */
 		cursor: url('/cursor-football.png?v=6') 24 15, auto;
+	}
+
+	/* ----------------------------------------------------------------
+	   Brand type layer — PlayerStall Brand Book §02 Type / §14 Rules.
+	   Page styles still win where they set a value on purpose; this only
+	   fills in what no page sets, so every page gets the same defaults.
+	   Scale: hero 80 · title 54 · feature 36 · card 22 · button/nav 15 ·
+	   label 11 · body 18.  Titles are uppercase 600, never 700.
+	   ---------------------------------------------------------------- */
+	:global(:root) {
+		--ps-font-display: 'Oswald', sans-serif;
+		--ps-font-body: 'Yantramanav', Arial, sans-serif;
+
+		--ps-hero: clamp(40px, 5.6vw, 80px);
+		--ps-title: clamp(32px, 3.8vw, 54px);
+		--ps-feature: clamp(26px, 2.6vw, 36px);
+		--ps-card: 22px;
+		--ps-button: 15px;
+		--ps-label: 11px;
+		--ps-body: 18px;
+
+		--ps-ink: #0D0D0D;
+		--ps-steel: #5F5F5F;
+		--ps-mute: #8C8C8C;
+		--ps-soft: #B5B5B5;
+		--ps-pale: #D4D4D4;
+		--ps-ghost: #F1F1F1;
+
+		--ps-section-gap: 120px;
+	}
+
+	/* Headings: one display weight (600, never 700 — rule 02), tight leading,
+	   and no orphan word on the last line. A page that sets its own weight wins. */
+	:global(h1), :global(h2) {
+		font-weight: 600;
+		line-height: 1.08;
+		text-wrap: balance;
+	}
+	:global(h3), :global(h4), :global(h5) {
+		font-weight: 600;
+		line-height: 1.25;
+		text-wrap: balance;
+	}
+	/* Big type is tight (rule 03) — only where a page hasn't tracked it itself. */
+	:global(h1) {
+		letter-spacing: -0.01em;
+	}
+	/* Paragraphs: bigger than the browser default, no single short last line.
+	   Any page that sets its own size still wins. */
+	:global(p) {
+		font-size: 17px;
+		text-wrap: pretty;
+	}
+
+	@media (max-width: 768px) {
+		:global(:root) { --ps-section-gap: 64px; }
 	}
 
 	/* Global link styles – brand colors instead of browser default blue */
@@ -759,7 +815,9 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	}
 
 	.navbar {
-		padding: 20px 0;
+		/* 20px at the sides too — `.navbar` overrides the `nav` rule below,
+		   which is why the links used to touch the window edge. */
+		padding: 20px;
 	}
 
 	nav {
@@ -821,10 +879,10 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		color: #ffffff;
 		text-decoration: none;
 		text-transform: uppercase;
-		font-size: 13px;
-		font-weight: 500;
-		letter-spacing: 0.3em;
-		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		letter-spacing: 0.15em;
+		font-family: 'Oswald', sans-serif;
 		transition: color 0.3s;
 	}
 
@@ -844,10 +902,10 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	.nav-dropdown-trigger {
 		color: #ffffff;
 		text-transform: uppercase;
-		font-size: 13px;
-		font-weight: 500;
-		letter-spacing: 0.3em;
-		font-family: 'Yantramanav', sans-serif;
+		font-size: 15px;
+		font-weight: 600;
+		letter-spacing: 0.15em;
+		font-family: 'Oswald', sans-serif;
 		cursor: pointer;
 		transition: color 0.3s;
 		user-select: none;
@@ -887,8 +945,10 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		display: block;
 		padding: 10px 20px;
 		color: #0d0d0d;
-		letter-spacing: 0.15em;
-		font-size: 12px;
+		letter-spacing: 0.1em;
+		font-size: 14px;
+		font-family: 'Oswald', sans-serif;
+		font-weight: 600;
 	}
 
 	header.scrolled .nav-dropdown-menu a {
@@ -908,7 +968,10 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	}
 
 	.cart-text {
-		font-size: 13px;
+		font-size: 15px;
+		font-family: 'Oswald', sans-serif;
+		font-weight: 600;
+		letter-spacing: 0.15em;
 	}
 
 	.cart-count {
@@ -1006,21 +1069,22 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 
 	.footer-section h4 {
 		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
+		font-size: 15px;
 		font-weight: 600;
 		color: #ffffff;
-		text-transform: lowercase;
+		text-transform: uppercase;
 		margin-top: 0;
 		margin-bottom: 1.5rem;
-		letter-spacing: 0.05em;
+		letter-spacing: 0.15em;
 	}
 
 	.footer-section p {
 		margin: 0.5rem 0;
 		color: #D4D4D4;
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		line-height: 1.8;
+		font-size: 15px;
+		line-height: 1.7;
+		max-width: 56ch;
 	}
 
 	.footer-section a {
@@ -1054,8 +1118,8 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	.footer-section ul li a {
 		color: #D4D4D4;
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		line-height: 1.6;
+		font-size: 15px;
+		line-height: 1.7;
 	}
 
 	.footer-blog-list li {
@@ -1108,21 +1172,21 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 
 	.footer-quick-contact h4 {
 		font-family: 'Oswald', sans-serif;
-		font-size: 18px;
+		font-size: 15px;
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: uppercase;
 		margin-bottom: 1rem;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.15em;
 	}
 
 	.footer-quick-contact > p {
 		color: #D4D4D4;
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		line-height: 1.8;
+		font-size: 15px;
+		line-height: 1.7;
 		margin-bottom: 2rem;
-		max-width: 800px;
+		max-width: 56ch;
 	}
 
 	.footer-contact-details {
@@ -1137,8 +1201,8 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		gap: 1rem;
 		color: #D4D4D4;
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 14px;
-		line-height: 1.8;
+		font-size: 15px;
+		line-height: 1.7;
 		margin: 0;
 	}
 
@@ -1178,6 +1242,36 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 
 		.top-bar-container {
 			justify-content: center;
+		}
+	}
+
+	/* Laptop widths: step the nav down so nothing touches the logo
+	   (brand book Example 6 — "give the logo room"). */
+	@media (max-width: 1200px) and (min-width: 769px) {
+		.nav-links {
+			gap: 22px;
+		}
+		.nav-links a,
+		.nav-dropdown-trigger {
+			font-size: 14px;
+			letter-spacing: 0.1em;
+		}
+		.logo img {
+			width: 210px;
+		}
+	}
+
+	@media (max-width: 920px) and (min-width: 769px) {
+		.nav-links {
+			gap: 14px;
+		}
+		.nav-links a,
+		.nav-dropdown-trigger {
+			font-size: 13px;
+			letter-spacing: 0.05em;
+		}
+		.logo img {
+			width: 170px;
 		}
 	}
 
@@ -1284,10 +1378,10 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 			color: #0d0d0d;
 			text-decoration: none;
 			text-transform: uppercase;
-			font-size: 13px;
-			font-weight: 500;
-			letter-spacing: 0.3em;
-			font-family: 'Yantramanav', sans-serif;
+			font-size: 16px;
+			font-weight: 600;
+			letter-spacing: 0.15em;
+			font-family: 'Oswald', sans-serif;
 			transition: color 0.3s;
 			width: 100%;
 			text-align: left;
@@ -1318,8 +1412,10 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 
 		.nav-menu-dropdown-list a {
 			padding: 10px 0;
-			font-size: 12px;
-			letter-spacing: 0.15em;
+			font-size: 14px;
+			letter-spacing: 0.1em;
+			font-family: 'Oswald', sans-serif;
+			font-weight: 600;
 		}
 
 		.cta-button {

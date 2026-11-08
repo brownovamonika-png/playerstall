@@ -181,7 +181,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		position: absolute;
 		font-family: 'Oswald', sans-serif;
 		font-size: 280px;
-		font-weight: 700;
+		font-weight: 600;
 		color: rgba(13, 13, 13, 0.03);
 		text-transform: uppercase;
 		letter-spacing: -3px;
@@ -200,21 +200,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.hero-subtitle {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
+		font-size: 11px;
 		color: #8c8c8c;
-		letter-spacing: 0.3em;
+		letter-spacing: 3.3px;
 		text-transform: uppercase;
 		margin-bottom: 20px;
+		font-weight: 500;
 	}
 
 	.hero-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 62px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
-		line-height: 1.05;
+		line-height: 1.08;
 		margin-bottom: 30px;
+		letter-spacing: normal;
 	}
 
 	.hero-text {
@@ -284,21 +286,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.section-subtitle {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
+		font-size: 11px;
 		color: #8c8c8c;
-		letter-spacing: 0.3em;
+		letter-spacing: 3.3px;
 		text-transform: uppercase;
 		margin-bottom: 16px;
+		font-weight: 500;
 	}
 
 	.section-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 44px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #0d0d0d;
 		text-transform: uppercase;
-		line-height: 1.1;
+		line-height: 1.08;
 		margin-bottom: 30px;
+		letter-spacing: normal;
 	}
 
 	.facility-grid {
@@ -352,7 +356,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.stat-number {
 		font-family: 'Oswald', sans-serif;
 		font-size: 48px;
-		font-weight: 700;
+		font-weight: 600;
 		color: #fe5900;
 		line-height: 1;
 	}
@@ -431,10 +435,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.map-cta h2 {
 		font-family: 'Oswald', sans-serif;
-		font-size: 40px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		text-transform: uppercase;
 		margin-bottom: 16px;
+		line-height: 1.08;
+		letter-spacing: normal;
 	}
 
 	.map-cta p {

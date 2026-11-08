@@ -407,12 +407,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.hiw-hero-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 52px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #ffffff;
 		text-transform: uppercase;
 		margin: 0;
-		line-height: 1.1;
+		line-height: 1.08;
+		letter-spacing: normal;
 	}
 
 	/* Sections (matching homepage materials style) */
@@ -439,21 +440,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.hiw-subtitle {
 		display: block;
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 13px;
-		letter-spacing: 6px;
+		font-size: 11px;
+		letter-spacing: 3.3px;
 		text-transform: uppercase;
 		color: #8c8c8c;
 		margin-bottom: 10px;
+		font-weight: 500;
 	}
 
 	.hiw-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: clamp(32px, 4vw, 52px);
-		font-weight: 700;
+		font-size: clamp(32px, 3.8vw, 54px);
+		font-weight: 600;
 		text-transform: uppercase;
 		color: #0d0d0d;
-		line-height: 1.1;
+		line-height: 1.08;
 		margin: 0;
+		letter-spacing: normal;
 	}
 
 	.hiw-centered {
@@ -471,10 +474,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.hiw-bio {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 15px;
-		line-height: 1.8;
+		font-size: 18px;
+		line-height: 1.7;
 		color: #5F5F5F;
 		margin-bottom: 30px;
+		max-width: 62ch;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	.hiw-step-image {
@@ -627,6 +633,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		max-height: 0;
 		overflow: hidden;
 		transition: max-height 0.3s ease;
+		font-size: 17px;
+		line-height: 1.7;
+		max-width: 68ch;
 	}
 
 	.hiw-faq-item.active .hiw-faq-answer {
@@ -668,10 +677,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		color: #fff;
 		padding: 12px 28px;
 		font-family: 'Oswald', sans-serif;
-		font-size: 13px;
+		font-size: 11px;
 		font-weight: 600;
 		text-transform: uppercase;
-		letter-spacing: 0.2em;
+		letter-spacing: 3.3px;
 	}
 
 	.hiw-cta-content {
@@ -681,20 +690,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.hiw-cta-subtitle {
 		font-family: 'Yantramanav', sans-serif;
-		font-size: 12px;
-		letter-spacing: 0.25em;
+		font-size: 11px;
+		letter-spacing: 3.3px;
 		text-transform: uppercase;
 		color: #fe5900;
 		margin: 0 0 12px;
+		font-weight: 500;
 	}
 
 	.hiw-cta-title {
 		font-family: 'Oswald', sans-serif;
-		font-size: 42px;
+		font-size: clamp(32px, 3.8vw, 54px);
 		font-weight: 600;
 		color: #ffffff;
-		letter-spacing: 0.02em;
-		line-height: 1.2;
+		letter-spacing: normal;
+		line-height: 1.08;
 		margin: 0 0 24px;
 	}
 
