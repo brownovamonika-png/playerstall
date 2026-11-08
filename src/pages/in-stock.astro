@@ -977,13 +977,49 @@ const feed = import.meta.env.PUBLIC_HQ_STOCK_FEED ?? '';
   .ps-empty { color:var(--muted); font-style:italic; padding:20px 0 40px; }
   footer { border-top:1px solid var(--line); margin-top:60px; padding:26px 0 60px; font-size:12px; color:var(--muted); }
 
+  /* Nothing may push the page sideways on a phone. */
+  .ps-wrap, .ps-row, .ps-row-opts, .ps-optgroup { min-width:0; max-width:100%; }
+  img { max-width:100%; }
+
+  /* Tablet: the option groups stop being three fixed columns. */
   @media (max-width:1100px) {
-    .ps-row { grid-template-columns:100px 1fr; gap:18px; }
-    .ps-row-opts { grid-column:1 / -1; } .ps-row-price { grid-column:1 / -1; text-align:left; }
+    .ps-row { grid-template-columns:104px 1fr; gap:16px; }
+    .ps-row-opts { grid-column:1 / -1; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:16px; }
+    .ps-row-price { grid-column:1 / -1; text-align:left; border-top:1px solid var(--line); padding-top:14px; }
     .ps-rlinks { justify-content:flex-start; }
-    .ps-filters { position:static; }
+    .ps-filters { position:static; gap:16px; }
+    .ps-opt, .ps-optgroup--small .ps-opt { width:100%; max-width:none; }
   }
-  @media (max-width:640px) { h1 { font-size:34px; } .ps-row { grid-template-columns:1fr; } }
+
+  /* Phone: one column throughout, and the filters scroll sideways in their
+     own strip instead of forcing the page wide. */
+  @media (max-width:720px) {
+    .ps-wrap { padding:0 16px; }
+    .ps-head { padding:34px 0 6px; }
+    h1 { font-size:30px; line-height:1.1; }
+    .ps-lede { font-size:16px; }
+    .ps-sub { font-size:11px; letter-spacing:.06em; }
+    .ps-filters { display:block; border-top-width:1px; padding:14px 0 10px; }
+    .ps-fgroup { display:block; margin-bottom:10px; }
+    .ps-flabel { display:block; margin-bottom:6px; }
+    .ps-fbtns { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch;
+                scrollbar-width:none; padding-bottom:2px; }
+    .ps-fbtns::-webkit-scrollbar { display:none; }
+    .ps-fbtn { flex:0 0 auto; }
+
+    .ps-row { grid-template-columns:92px 1fr; gap:14px; padding:16px 14px; }
+    .ps-row-pic { height:120px; }
+    .ps-row-pic img { height:120px; }
+    .ps-rtitle { font-size:17px; }
+    .ps-row-opts { grid-template-columns:1fr; gap:14px; }
+    .ps-opt-in { padding:9px 11px 9px 9px; }   /* a bigger tap target */
+    .ps-opt-name { font-size:13.5px; }
+    .ps-price { font-size:24px; }
+    .ps-row-price { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 10px; }
+    .ps-build, .ps-sum { width:100%; margin-top:2px; }
+    .ps-rlinks { width:100%; margin-top:10px; }
+    .ps-rlinks a.ps-btn { padding:11px 20px; }
+  }
 
 </style>
 </BaseLayout>
