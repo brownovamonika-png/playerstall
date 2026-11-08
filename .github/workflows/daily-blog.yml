@@ -1,40 +1,90 @@
-name: Daily blog rebuild
+name: Publish scheduled blog posts
 
-# Posts are written and committed ahead of time with future dates. The site is
-# static, so it only changes when something rebuilds it — this does that once a
-# day, bringing each scheduled post live on its own date.
+# Posts are written and committed ahead of time with future dates. They stay
+# invisible until their day (see src/lib/published.js), and the site is static,
+# so something has to rebuild it for a scheduled post to appear.
 #
-# One-time setup (Monika):
-#   1. Vercel -> playerstall project -> Settings -> Git -> Deploy Hooks
-#      Create a hook named "daily-blog" on branch main, copy the URL.
-#   2. GitHub -> brownovamonika-png/playerstall -> Settings -> Secrets and
-#      variables -> Actions -> New repository secret
-#      Name: VERCEL_DEPLOY_HOOK      Value: the URL from step 1
+# This runs every morning, checks whether any post is dated today, and if so
+# pushes an empty commit. Vercel is connected to this repo and redeploys on any
+# push to main, so the post goes live. No deploy hook, no tokens, no secrets.
 #
-# Until that secret exists this workflow runs and reports that it is not
-# configured, rather than failing noisily every morning.
+# On days with nothing scheduled it does nothing at all, so git history only
+# gets a commit when a post actually publishes — roughly twice a week.
+#
+# Can also be run by hand: Actions tab -> this workflow -> Run workflow.
 
 on:
   schedule:
     - cron: '15 13 * * *'   # 13:15 UTC = 05:15 Pacific, daily
-  workflow_dispatch:         # also runnable by hand from the Actions tab
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Check this date instead of today (YYYY-MM-DD). Leave blank for today.'
+        required: false
+
+permissions:
+  contents: write
 
 jobs:
-  rebuild:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Vercel deploy
-        env:
-          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+      - uses: actions/checkout@v4
+
+      - name: Find posts dated today
+        id: due
         run: |
-          if [ -z "$HOOK" ]; then
-            echo "VERCEL_DEPLOY_HOOK is not set — see the setup notes at the top of this file."
-            echo "Skipping; no deploy triggered."
-            exit 0
+          TODAY="${{ github.event.inputs.date }}"
+          [ -z "$TODAY" ] && TODAY=$(date -u +%F)
+          echo "Checking for posts dated $TODAY"
+
+          titles=""
+          count=0
+          for f in src/content/blog/*.mdx; do
+            [ -e "$f" ] || continue
+            fm=$(awk 'NR==1&&/^---$/{inf=1;next} inf&&/^---$/{exit} inf{print}' "$f")
+            draft=$(printf '%s\n' "$fm" | sed -n 's/^draft: *\(.*\)/\1/p' | head -1)
+            [ "$draft" = "true" ] && continue
+            date=$(printf '%s\n' "$fm" | sed -n 's/^datePublished: *"\{0,1\}\([0-9-]*\)"\{0,1\}.*/\1/p' | head -1)
+            if [ "$date" = "$TODAY" ]; then
+              title=$(printf '%s\n' "$fm" | sed -n 's/^title: *"\(.*\)"/\1/p' | head -1)
+              echo "  due: $title"
+              titles="${titles}${titles:+, }${title}"
+              count=$((count+1))
+            fi
+          done
+
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "titles=$titles" >> "$GITHUB_OUTPUT"
+          echo "date=$TODAY" >> "$GITHUB_OUTPUT"
+          [ "$count" = "0" ] && echo "Nothing scheduled for $TODAY — no deploy needed."
+
+      # Titles are passed through the environment, never interpolated into the
+      # shell, so a post title can contain any characters safely.
+      - name: Trigger deploy
+        if: steps.due.outputs.count != '0'
+        env:
+          DUE_DATE: ${{ steps.due.outputs.date }}
+          DUE_TITLES: ${{ steps.due.outputs.titles }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty \
+            -m "Publish $DUE_DATE: $DUE_TITLES" \
+            -m "Scheduled post going live. Empty commit to trigger the Vercel rebuild that makes it visible - see .github/workflows/daily-blog.yml"
+          git push
+          echo "Pushed. Vercel will redeploy and the post goes live."
+
+      - name: Summary
+        env:
+          DUE_DATE: ${{ steps.due.outputs.date }}
+          DUE_TITLES: ${{ steps.due.outputs.titles }}
+          DUE_COUNT: ${{ steps.due.outputs.count }}
+        run: |
+          if [ "$DUE_COUNT" = "0" ]; then
+            echo "### Nothing scheduled for $DUE_DATE" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "### Published $DUE_COUNT post(s) for $DUE_DATE" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "$DUE_TITLES" >> "$GITHUB_STEP_SUMMARY"
           fi
-          code=$(curl -sS -X POST -o /dev/null -w '%{http_code}' "$HOOK")
-          echo "Vercel deploy hook responded: $code"
-          case "$code" in
-            2*) echo "Rebuild triggered." ;;
-            *)  echo "Unexpected response from the deploy hook."; exit 1 ;;
-          esac
