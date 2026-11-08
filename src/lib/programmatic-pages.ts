@@ -61,6 +61,27 @@ export const programmaticSports: ProgrammaticSport[] = [
     gearFocus: 'sticks, pads, helmets, footwear, and shared team gear',
     blogUrl: '/blog/sport-specific-locker-design',
   },
+  {
+    slug: 'wrestling',
+    name: 'Wrestling',
+    primaryNeed: 'maximum ventilation and wipe-clean surfaces for infection control',
+    gearFocus: 'singlets, headgear, knee pads, and shoes that must dry between sessions',
+    blogUrl: '/blog/wrestling-locker-room-design',
+  },
+  {
+    slug: 'soccer',
+    name: 'Soccer',
+    primaryNeed: 'weather-resilient storage built for outdoor training and match rotation',
+    gearFocus: 'boots, shin guards, training kit, and wet-weather layers',
+    blogUrl: '/blog/soccer-wood-lockers-complete-guide',
+  },
+  {
+    slug: 'volleyball',
+    name: 'Volleyball',
+    primaryNeed: 'clean presentation with separate storage for knee pads and court shoes',
+    gearFocus: 'jerseys, knee pads, court shoes, ankle braces, and warm-up layers',
+    blogUrl: '/blog/volleyball-locker-room-lockers-womens-programs',
+  },
 ];
 
 /** Sports used for Wood vs Metal comparison pages (includes Soccer). */
@@ -71,6 +92,8 @@ export const woodVsMetalSports: { slug: string; name: string }[] = [
   { slug: 'baseball', name: 'Baseball' },
   { slug: 'soccer', name: 'Soccer' },
   { slug: 'lacrosse', name: 'Lacrosse' },
+  { slug: 'wrestling', name: 'Wrestling' },
+  { slug: 'volleyball', name: 'Volleyball' },
 ];
 
 export interface ProgrammaticProvince {
@@ -112,4 +135,9 @@ export const levelMarketPages: { levelSlug: string; levelName: string; sportSlug
   { levelSlug: 'high-school', levelName: 'High School', sportSlug: 'football', sportName: 'Football' },
   { levelSlug: 'professional', levelName: 'Professional', sportSlug: 'hockey', sportName: 'Hockey' },
   { levelSlug: 'college', levelName: 'College', sportSlug: 'basketball', sportName: 'Basketball' },
+  { levelSlug: 'high-school', levelName: 'High School', sportSlug: 'wrestling', sportName: 'Wrestling' },
+  { levelSlug: 'collegiate', levelName: 'Collegiate', sportSlug: 'wrestling', sportName: 'Wrestling' },
+  { levelSlug: 'high-school', levelName: 'High School', sportSlug: 'volleyball', sportName: 'Volleyball' },
+  { levelSlug: 'high-school', levelName: 'High School', sportSlug: 'soccer', sportName: 'Soccer' },
+  { levelSlug: 'club', levelName: 'Club', sportSlug: 'soccer', sportName: 'Soccer' },
 ];
