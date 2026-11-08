@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { isPublished } from '../../lib/published';
 import { getBlogHeroUrl } from '../../lib/blog-hero';
 import { slugify } from '../../lib/slug';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('blog');
+  const entries = await getCollection('blog', isPublished);
   const categorySlugs = new Set<string>();
   for (const entry of entries) {
     const cat = entry.data.category?.trim();
@@ -17,7 +18,7 @@ export async function getStaticPaths() {
 const { category: categorySlug } = Astro.params;
 if (!categorySlug) return Astro.redirect('/blog');
 
-const entries = await getCollection('blog');
+const entries = await getCollection('blog', isPublished);
 const matching = entries.filter((entry) => slugify(entry.data.category ?? '') === categorySlug);
 
 const displayName =

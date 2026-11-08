@@ -1,11 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
+import { isPublished } from '../../../lib/published';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getBlogHeroUrl } from '../../../lib/blog-hero';
 import { slugify } from '../../../lib/slug';
 
 export async function getStaticPaths() {
-  const allEntries = await getCollection('blog');
+  const allEntries = await getCollection('blog', isPublished);
   const periodSet = new Set<string>();
   for (const entry of allEntries) {
     const d = new Date(entry.data.datePublished + 'T12:00:00');
@@ -27,7 +28,7 @@ const [yearStr, monthStr] = period.split('-');
 const year = parseInt(yearStr!, 10);
 const month = parseInt(monthStr!, 10);
 
-const allEntries = await getCollection('blog');
+const allEntries = await getCollection('blog', isPublished);
 const posts = allEntries
   .filter((entry) => {
     const d = new Date(entry.data.datePublished + 'T12:00:00');

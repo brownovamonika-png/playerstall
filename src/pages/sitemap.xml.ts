@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import { isPublished } from '../lib/published';
 import { programmaticStates, programmaticSports, woodVsMetalSports, levelMarketPages } from '../lib/programmatic-pages';
 
 // Static pages with priorities
@@ -43,7 +44,7 @@ export const GET: APIRoute = async ({ site }) => {
 	const baseUrl = site?.toString() || 'https://playerstall.com';
 	
 	// Get all blog posts from content collection
-	const blogPosts = await getCollection('blog');
+	const blogPosts = await getCollection('blog', isPublished);
 	
 	// Get comprehensive Astro blog posts from pages/blog
 	const comprehensiveBlogPosts = [

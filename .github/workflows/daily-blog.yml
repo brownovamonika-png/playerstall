@@ -1,0 +1,40 @@
+name: Daily blog rebuild
+
+# Posts are written and committed ahead of time with future dates. The site is
+# static, so it only changes when something rebuilds it — this does that once a
+# day, bringing each scheduled post live on its own date.
+#
+# One-time setup (Monika):
+#   1. Vercel -> playerstall project -> Settings -> Git -> Deploy Hooks
+#      Create a hook named "daily-blog" on branch main, copy the URL.
+#   2. GitHub -> brownovamonika-png/playerstall -> Settings -> Secrets and
+#      variables -> Actions -> New repository secret
+#      Name: VERCEL_DEPLOY_HOOK      Value: the URL from step 1
+#
+# Until that secret exists this workflow runs and reports that it is not
+# configured, rather than failing noisily every morning.
+
+on:
+  schedule:
+    - cron: '15 13 * * *'   # 13:15 UTC = 05:15 Pacific, daily
+  workflow_dispatch:         # also runnable by hand from the Actions tab
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "VERCEL_DEPLOY_HOOK is not set — see the setup notes at the top of this file."
+            echo "Skipping; no deploy triggered."
+            exit 0
+          fi
+          code=$(curl -sS -X POST -o /dev/null -w '%{http_code}' "$HOOK")
+          echo "Vercel deploy hook responded: $code"
+          case "$code" in
+            2*) echo "Rebuild triggered." ;;
+            *)  echo "Unexpected response from the deploy hook."; exit 1 ;;
+          esac

@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { isPublished } from '../../lib/published';
 import { getBlogHeroUrl } from '../../lib/blog-hero';
 import { slugify } from '../../lib/slug';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('blog');
+  const entries = await getCollection('blog', isPublished);
   const tagSlugs = new Set<string>();
   for (const entry of entries) {
     const tags = entry.data.tags ?? [];
@@ -20,7 +21,7 @@ export async function getStaticPaths() {
 const { tag: tagSlug } = Astro.params;
 if (!tagSlug) return Astro.redirect('/blog');
 
-const entries = await getCollection('blog');
+const entries = await getCollection('blog', isPublished);
 const matching = entries.filter((entry) =>
   (entry.data.tags ?? []).some((t) => slugify(t) === tagSlug)
 );

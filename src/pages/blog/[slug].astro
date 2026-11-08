@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { isPublished } from '../../lib/published';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogImage from '../../components/BlogImage.astro';
 import { getBlogHeroUrl } from '../../lib/blog-hero';
@@ -11,7 +12,7 @@ export async function getStaticPaths() {
       .map((path) => path.replace(/^\.\/(.*)\.astro$/, '$1'))
       .filter((s) => s !== '[slug]')
   );
-  const allEntries = await getCollection('blog', ({ data }) => !data.draft);
+  const allEntries = await getCollection('blog', isPublished);
   const blogEntries = allEntries.filter((e) => !staticBlogSlugs.has(e.slug));
   const sorted = [...blogEntries].sort((a, b) =>
     new Date(b.data.datePublished).getTime() - new Date(a.data.datePublished).getTime()
