@@ -638,7 +638,7 @@ const qtyDisplay =
 						})}
 					</div>
 				) : (
-					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No activity yet</p>
+					<p style="color: #8C8C8C; font-size: 14px; padding: 12px 0">No activity yet</p>
 				)}
 			</div>
 
@@ -682,13 +682,13 @@ const qtyDisplay =
 							<div class="file-item">
 								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
 								<a href={file.file_url} target="_blank" rel="noopener noreferrer">{file.filename}</a>
-								<span class="badge" style="background: #f3f4f6; color: #6b7280; font-size: 10px">{file.file_type}</span>
+								<span class="badge" style="background: #f3f4f6; color: #5F5F5F; font-size: 10px">{file.file_type}</span>
 								{file.client_visible && <span class="badge" style="background: #dbeafe; color: #2563eb; font-size: 10px">Client visible</span>}
 							</div>
 						))}
 					</div>
 				) : (
-					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No files attached yet</p>
+					<p style="color: #8C8C8C; font-size: 14px; padding: 12px 0">No files attached yet</p>
 				)}
 			</div>
 
@@ -736,7 +736,7 @@ const qtyDisplay =
 									<div class="doc-info">
 										<a href={fileUrl} target="_blank" rel="noopener noreferrer" class="doc-name">{doc.file_name}</a>
 										<span class="doc-meta">
-											<span class="badge" style="background: #f3f4f6; color: #6b7280; font-size: 10px">{DOC_TYPE_LABELS[doc.doc_type] || doc.doc_type}</span>
+											<span class="badge" style="background: #f3f4f6; color: #5F5F5F; font-size: 10px">{DOC_TYPE_LABELS[doc.doc_type] || doc.doc_type}</span>
 											{sizeKB && <span>{sizeKB}</span>}
 											<span>{new Date(doc.created_at).toLocaleDateString()}</span>
 											{doc.uploaded_by && <span>by {doc.uploaded_by}</span>}
@@ -754,7 +754,7 @@ const qtyDisplay =
 						})}
 					</div>
 				) : (
-					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No files yet — add layouts, spec sheets, quotes, or invoices.</p>
+					<p style="color: #8C8C8C; font-size: 14px; padding: 12px 0">No files yet — add layouts, spec sheets, quotes, or invoices.</p>
 				)}
 			</div>
 
@@ -772,7 +772,7 @@ const qtyDisplay =
 						))}
 					</div>
 				) : (
-					<p style="color: #9ca3af; font-size: 14px; padding: 12px 0">No emails sent yet</p>
+					<p style="color: #8C8C8C; font-size: 14px; padding: 12px 0">No emails sent yet</p>
 				)}
 			</div>
 		</div>
@@ -979,7 +979,7 @@ const qtyDisplay =
 
 	.stage-name {
 		font-size: 10px;
-		color: #9ca3af;
+		color: #8C8C8C;
 		text-align: center;
 		white-space: nowrap;
 	}
@@ -1083,7 +1083,7 @@ const qtyDisplay =
 	}
 
 	.info-label {
-		color: #6b7280;
+		color: #5F5F5F;
 		font-size: 13px;
 	}
 
@@ -1131,26 +1131,26 @@ const qtyDisplay =
 
 	.timeline-header {
 		font-size: 14px;
-		color: #374151;
+		color: #5F5F5F;
 	}
 
 	.timeline-notes {
 		font-size: 13px;
-		color: #6b7280;
+		color: #5F5F5F;
 		margin-top: 2px;
 		font-style: italic;
 	}
 
 	.timeline-meta {
 		font-size: 12px;
-		color: #9ca3af;
+		color: #8C8C8C;
 	}
 
 	.timeline-intro,
 	.docs-intro,
 	.layout-highlight-hint {
 		font-size: 13px;
-		color: #6b7280;
+		color: #5F5F5F;
 		margin: 0 0 12px 0;
 		line-height: 1.5;
 	}
@@ -1189,7 +1189,7 @@ const qtyDisplay =
 
 	.layout-highlight-meta {
 		font-size: 12px;
-		color: #9ca3af;
+		color: #8C8C8C;
 		margin-left: auto;
 	}
 
@@ -1204,19 +1204,19 @@ const qtyDisplay =
 		font-size: 10px;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
-		color: #9ca3af;
+		color: #8C8C8C;
 		font-weight: 600;
 	}
 
 	.file-by {
-		color: #9ca3af;
+		color: #8C8C8C;
 		font-size: 13px;
 	}
 
 	.field-hint {
 		display: block;
 		font-size: 12px;
-		color: #9ca3af;
+		color: #8C8C8C;
 		margin-top: 4px;
 		line-height: 1.4;
 	}
@@ -1238,7 +1238,7 @@ const qtyDisplay =
 	.order-spec-panel .order-spec-section-label {
 		margin-top: 0;
 		margin-bottom: 12px;
-		color: #6b7280;
+		color: #5F5F5F;
 	}
 
 	.locker-type-tabs-wrap {
@@ -1266,7 +1266,7 @@ const qtyDisplay =
 		letter-spacing: 0.06em;
 		border: none;
 		background: #f3f4f6;
-		color: #6b7280;
+		color: #5F5F5F;
 		cursor: pointer;
 		transition:
 			background 0.15s ease,
@@ -1275,7 +1275,7 @@ const qtyDisplay =
 
 	.locker-type-tab:hover {
 		background: #e5e7eb;
-		color: #374151;
+		color: #5F5F5F;
 	}
 
 	.locker-type-tab--active {
@@ -1302,7 +1302,7 @@ const qtyDisplay =
 		margin: 0;
 		flex: 1;
 		min-width: 180px;
-		color: #4b5563;
+		color: #5F5F5F;
 		font-size: 12px;
 		line-height: 1.45;
 	}
@@ -1340,7 +1340,7 @@ const qtyDisplay =
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.09em;
-		color: #6b7280;
+		color: #5F5F5F;
 		padding: 12px 16px;
 		background: #f3f4f6;
 		border-bottom: 1px solid #e5e7eb;
@@ -1522,7 +1522,7 @@ const qtyDisplay =
 		align-items: center;
 		gap: 6px;
 		font-size: 13px;
-		color: #6b7280;
+		color: #5F5F5F;
 		cursor: pointer;
 	}
 
@@ -1545,18 +1545,18 @@ const qtyDisplay =
 	.note-author {
 		font-size: 13px;
 		font-weight: 600;
-		color: #374151;
+		color: #5F5F5F;
 	}
 
 	.note-time {
 		font-size: 12px;
-		color: #9ca3af;
+		color: #8C8C8C;
 		margin-left: auto;
 	}
 
 	.note-content {
 		font-size: 14px;
-		color: #4b5563;
+		color: #5F5F5F;
 	}
 
 	.files-list {
@@ -1607,7 +1607,7 @@ const qtyDisplay =
 
 	.email-meta {
 		font-size: 12px;
-		color: #9ca3af;
+		color: #8C8C8C;
 	}
 
 	.alert {
@@ -1717,7 +1717,7 @@ const qtyDisplay =
 		align-items: center;
 		gap: 8px;
 		font-size: 11px;
-		color: #9ca3af;
+		color: #8C8C8C;
 		margin-top: 2px;
 	}
 
