@@ -1091,6 +1091,22 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 
 		const updatePrice = () => {
 			computeBaseFromWidth();
+			// Cushions cost $10 more over 24" and another $10 over 30"
+			// (Monika, 2026-11-08). Bottom cushion $75 / $85 / $95; the
+			// top & bottom pair stays twice the bottom cushion.
+			const cushionW = parseInt((document.querySelector('.width-swatch.active')?.textContent || '24').replace(/[^0-9]/g, ''), 10) || 24;
+			const bottomCushion = 75 + (cushionW > 24 ? 10 : 0) + (cushionW > 30 ? 10 : 0);
+			document.querySelectorAll('.accessory-box[title="Bottom cushion"]').forEach((box) => {
+				box.setAttribute('data-price', String(bottomCushion));
+				const lbl = box.querySelector('.accessory-label');
+				if (lbl) lbl.textContent = 'Bottom cushion (+$' + bottomCushion + ')';
+			});
+			document.querySelectorAll('.accessory-box[title="Top & bottom cushions"]').forEach((box) => {
+				const pair = bottomCushion * 2;
+				box.setAttribute('data-price', String(pair));
+				const lbl = box.querySelector('.accessory-label');
+				if (lbl) lbl.textContent = 'Top & bottom cushions (+$' + pair + ')';
+			});
 			let extras = 0;
 			document.querySelectorAll('.accessory-box.selected').forEach((box) => {
 				const extra = parseFloat(box.getAttribute('data-price') || '0') || 0;
