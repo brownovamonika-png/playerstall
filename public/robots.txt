@@ -10,19 +10,12 @@ Disallow: /checkout
 Disallow: /admin/
 Disallow: /api/
 
-# Internal working pages — spec sheets, price sheets, colour charts, supplier
-# documents and one-off customer quotes. These sit in public/ so they are
-# reachable by URL, but they are not marketing pages and must not be indexed.
-# Each also carries a noindex meta tag. Added 8 Nov 2026.
+# Internal working pages — spec sheets, colour charts and preview templates.
+# These sit in public/ so they are reachable by URL, but they are not marketing
+# pages and must not be indexed. Each also carries a noindex meta tag.
+# Filenames are deliberately NOT listed here: robots.txt is publicly readable,
+# so naming a file advertises it. The pattern below covers them all.
 Disallow: /*.html$
-Disallow: /Vietnam-export-tax-guide-for-supplier.html
-Disallow: /locker-line-spec-jason-vu-cushions.html
-Disallow: /locker-line-spec-cushions.html
-Disallow: /price-sheet-cad.html
-Disallow: /quote-mt-mercy.html
-Disallow: /stadium-locker-quote.html
-Disallow: /pdf-preview-demo.html
-Disallow: /playerstall-brand-board.html
 
 # Disallow search and filter parameters
 Disallow: /*?*utm_*
