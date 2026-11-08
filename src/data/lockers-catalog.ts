@@ -50,7 +50,7 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		schemaName: 'Model S Wood Locker',
 		slugPath: '/product-model-s',
 		description:
-			'Model S wood locker: premium melamine, 76" H x 23" D, widths 18"–32". Custom-built in 8–12 weeks. 5 year warranty.',
+			'Model S wood locker: premium melamine, 76" H x 23" D, widths 18"–32". Custom-built in 10–12 weeks. 5 year warranty.',
 		priceSort: 649,
 		listPriceUsd: 649,
 		aggregateLowUsd: 649,
@@ -142,7 +142,7 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		schemaName: 'Model L Wood Locker',
 		slugPath: '/product-model-l',
 		description:
-			'Model L wood locker: premium melamine, 76" H x 23" D, widths 18"–32". Custom-built in 8–12 weeks. 5 year warranty.',
+			'Model L wood locker: premium melamine, 76" H x 23" D, widths 18"–32". Custom-built in 10–12 weeks. 5 year warranty.',
 		priceSort: 649,
 		listPriceUsd: 649,
 		aggregateLowUsd: 599,
@@ -234,7 +234,7 @@ const ENTRIES_RAW: LockerCatalogEntry[] = [
 		schemaName: 'Stadium Locker',
 		slugPath: '/product-stadium-locker',
 		description:
-			'Stadium Locker wood locker: 19" D, UV Grade A Birch Plywood, 76" H, widths 18"–32". Essential line. Custom-built in 8–12 weeks. 5 year warranty.',
+			'Stadium Locker wood locker: 19" D, UV Grade A Birch Plywood, 76" H, widths 18"–32". Essential line. Custom-built in 10–12 weeks. 5 year warranty.',
 		priceSort: 599,
 		listPriceUsd: 599,
 		aggregateLowUsd: 599,

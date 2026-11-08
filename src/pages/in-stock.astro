@@ -9,15 +9,19 @@ const feed = import.meta.env.PUBLIC_HQ_STOCK_FEED ?? '';
 ---
 <BaseLayout
   title="In Stock & Ready to Ship | PlayerStall"
-  description="Wood sports lockers built, on the floor and ready to ship. No 8-12 week build. Minimum order 8 lockers."
+  description="Wood sports lockers on our warehouse floor now. Minimum order 8 lockers. Custom orders 10-12 weeks."
 >
+<section class="ps-hero-section">
+  <div class="ps-hero-bg"><img src="https://playerstall.b-cdn.net/images/h1-img-8.jpg" alt="" class="ps-hero-img"></div>
+  <div class="ps-hero-overlay"></div>
+  <div class="ps-hero-inner">
+    <div class="ps-hero-crumb"><a href="/">Home</a><span>In Stock</span></div>
+    <h1 class="ps-hero-title">In Stock &amp; Ready to Ship</h1>
+  </div>
+</section>
+
 <div class="ps-wrap">
-  <header class="ps-head">
-    <div class="ps-crumb"><a href="/">Home</a> &nbsp;/&nbsp; In stock</div>
-    <h1>In Stock &amp; Ready to Ship</h1>
-    <p class="ps-lede">These lockers are built and on our warehouse floor. No 8&ndash;12 week build, no waiting. Order today and they ship.</p>
-    <p class="ps-sub">Minimum order 8 lockers · Updated live from our warehouse</p>
-  </header>
+  <p class="ps-sub">Minimum order 8 lockers · Custom orders 10&ndash;12 weeks</p>
 
   <div class="ps-filters">
     
@@ -844,7 +848,7 @@ const feed = import.meta.env.PUBLIC_HQ_STOCK_FEED ?? '';
     const bits = [picked.style, picked.color, picked.width ? picked.width + '″' : ''].filter(Boolean)
     document.getElementById('ps-count').textContent = bits.length
       ? shown + ' of ' + rows.length + ' showing: ' + bits.join(', ')
-      : TOTAL + ' lockers on the floor right now, built and ready to go out'
+      : ''
   }
   document.querySelectorAll('.ps-fbtn').forEach((b) => b.addEventListener('click', () => {
     const k = b.dataset.filter
@@ -887,26 +891,45 @@ const feed = import.meta.env.PUBLIC_HQ_STOCK_FEED ?? '';
   .ps-note { background:#fff8e6; border:1px solid #f0dca8; padding:18px 22px; margin:24px auto; max-width:1260px; font-size:14px; }
   .ps-note h4 { font-family:'Oswald'; text-transform:uppercase; margin:0 0 8px; font-size:14px; letter-spacing:.06em; }
   .ps-note ul { margin:8px 0 0; padding-left:20px; } .ps-note li { margin-bottom:5px; }
+  /* Hero, matching /gallery: grayscale photo, dark wash, breadcrumb and title
+     over it. The class name must contain "hero-section" — BaseLayout's script
+     looks for that to keep the menu white here and flip it dark on scroll. */
+  .ps-hero-section { position:relative; display:flex; flex-direction:column; justify-content:flex-end;
+                     min-height:400px; padding:0 0 80px; overflow:hidden; }
+  .ps-hero-bg { position:absolute; inset:0; z-index:0; overflow:hidden; }
+  .ps-hero-img { width:100%; height:100%; object-fit:cover; object-position:center; filter:grayscale(100%); }
+  .ps-hero-overlay { position:absolute; inset:0; background:rgba(0,0,0,.2); z-index:1; }
+  .ps-hero-inner { position:relative; z-index:10; max-width:1300px; margin:0 auto; padding:0 20px; width:100%; }
+  .ps-hero-crumb { font-size:12px; color:rgba(255,255,255,.85); text-transform:uppercase;
+                   letter-spacing:.1em; margin-bottom:30px; }
+  .ps-hero-crumb a { color:rgba(255,255,255,.85); text-decoration:none; }
+  .ps-hero-crumb a:hover { color:#fe5900; }
+  .ps-hero-crumb span { margin-left:10px; color:#fff; }
+  .ps-hero-title { font-family:'Oswald',sans-serif; font-size:clamp(32px,3.8vw,54px); font-weight:600;
+                   color:#fff; text-transform:uppercase; margin:0; line-height:1.08; }
   .ps-head { padding:32px 0 6px; }
   .ps-crumb { font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
   .ps-crumb a { color:var(--muted); text-decoration:none; }
   h1 { font-family:'Oswald'; font-weight:600; font-size:48px; text-transform:uppercase; margin:0 0 10px; }
-  .ps-lede { font-size:18px; max-width:720px; color:#444; margin:0 0 4px; }
-  .ps-sub { font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; }
+  .ps-lede { font-size:18px; line-height:1.55; max-width:660px; color:#444; margin:48px 0 10px; }
+  .ps-sub { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.12em; margin:46px 0 0; }
   h2 { font-family:'Oswald'; font-weight:600; font-size:30px; text-transform:uppercase; margin:48px 0 4px; }
   .ps-h2note { color:var(--muted); font-size:14px; margin:0 0 20px; }
 
   /* Filter bar */
-  .ps-filters { border-top:2px solid var(--ink); border-bottom:1px solid var(--line); padding:14px 0 12px; margin-top:18px;
-                position:sticky; top:0; background:#fff; z-index:20; display:flex; flex-wrap:wrap; gap:26px; align-items:flex-start; }
-  .ps-fgroup { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-  .ps-flabel { font-family:'Oswald'; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
-  .ps-fbtns { display:flex; gap:6px; flex-wrap:wrap; }
+  .ps-filters { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0 20px; margin-top:38px;
+                position:sticky; top:0; background:#fff; z-index:20; display:flex; flex-wrap:wrap; gap:14px 48px; align-items:center; }
+  .ps-fgroup { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .ps-flabel { font-family:'Yantramanav',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase;
+                letter-spacing:.14em; color:#9a9a9a; }
+  .ps-fbtns { display:flex; gap:7px; flex-wrap:wrap; }
   .ps-fbtn { font-family:'Oswald'; font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
-             background:#fff; color:var(--ink); border:1px solid var(--line); padding:7px 13px; cursor:pointer; transition:all .15s; }
-  .ps-fbtn:hover { border-color:var(--ink); }
+             background:#fff; color:#555; border:1px solid #e9e9e9; border-radius:2px; padding:8px 15px;
+             cursor:pointer; transition:all .15s; }
+  .ps-fbtn:hover { border-color:#b9b9b9; color:var(--ink); }
   .ps-fbtn.is-on { background:var(--ink); color:#fff; border-color:var(--ink); }
-  .ps-count { font-size:14px; color:#555; margin:12px 0 14px; }
+  .ps-count { font-size:13px; color:var(--muted); margin:22px 0 20px; }
+  .ps-count:empty { margin:0; }
   /* One section only, so its heading would just repeat the page title. Kept in
      the markup for screen readers and the filter script. */
   .ps-hidden-head { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
@@ -998,6 +1021,11 @@ const feed = import.meta.env.PUBLIC_HQ_STOCK_FEED ?? '';
   @media (max-width:720px) {
     .ps-wrap { padding:0 16px; }
     .ps-head { padding:22px 0 4px; }
+    .ps-hero-section { min-height:230px; padding:0 0 34px; }
+    .ps-hero-inner { padding:0 16px; }
+    .ps-hero-crumb { margin-bottom:14px; }
+    .ps-hero-title { font-size:28px; }
+    .ps-sub { margin-top:26px; }
     h1 { font-size:30px; line-height:1.1; }
     .ps-lede { font-size:16px; }
     .ps-sub { font-size:11px; letter-spacing:.06em; }

@@ -237,6 +237,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 						<img src="https://playerstall.b-cdn.net/images/logos/logo-playerstall-oswald-black.png" alt="PlayerStall" width="420" height="72" />
 					</a>
 					<ul class="nav-links nav-links-left">
+						<li><a href="/">HOME</a></li>
 						<li><a href="/shop">SHOP</a></li>
 						<li><a href="/in-stock">IN STOCK</a></li>
 						<li class="nav-dropdown">
@@ -278,6 +279,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 					</ul>
 					<div id="nav-menu" class="nav-menu-panel" aria-hidden="true">
 						<ul class="nav-menu-list">
+							<li><a href="/">HOME</a></li>
 							<li><a href="/shop">SHOP</a></li>
 						<li><a href="/in-stock">IN STOCK</a></li>
 							<li class="nav-menu-dropdown">
@@ -1629,7 +1631,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		const postHero = document.querySelector('.post-hero') as HTMLElement | null;
 		const plannerHero = document.querySelector('.planner-hero') as HTMLElement | null;
 		const heroEl = (heroSlider ?? postHero ?? plannerHero
-			?? document.querySelector('[class*="hero-section"], [class*="hero-slider"], .programmatic-hero')) as HTMLElement | null;
+			?? document.querySelector('[class*="hero-section"], [class*="-hero"], [class*="hero-slider"], .programmatic-hero')) as HTMLElement | null;
 
 		// No hero behind the menu: keep it dark and readable from the start.
 		if (!heroEl) {
