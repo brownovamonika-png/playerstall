@@ -271,7 +271,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 								<li role="none"><a href="/room-planner" role="menuitem">Locker Room Planner</a></li>
 							</ul>
 						</li>
-						<li><a href="/cart" class="cart-link">
+						<li class="cart-nav-item"><a href="/cart" class="cart-link">
 							<span class="cart-text">CART</span>
 							<span class="cart-count">0</span>
 						</a></li>
@@ -310,7 +310,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 									<li><a href="/room-planner">Locker Room Planner</a></li>
 								</ul>
 							</li>
-							<li><a href="/cart" class="cart-link">
+							<li class="cart-nav-item"><a href="/cart" class="cart-link">
 								<span class="cart-text">CART</span>
 								<span class="cart-count">0</span>
 							</a></li>
@@ -958,6 +958,13 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	.nav-dropdown-menu a:hover {
 		background: rgba(254, 89, 0, 0.08);
 		color: #fe5900;
+	}
+
+	/* CART is hidden in the header (Monika, 8 Nov 2026 — "remove the cart for
+	   now"). The cart itself still works: Add to Cart, /cart and /checkout are
+	   untouched. To put it back, delete this one rule. */
+	.cart-nav-item {
+		display: none;
 	}
 
 	.cart-link {
