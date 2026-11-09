@@ -15,12 +15,12 @@ const { province, sport } = Astro.props;
 const pagePath = `/${province.slug}-${sport.slug}-wood-lockers`;
 const pageUrl = `https://playerstall.com${pagePath}`;
 const title = `${province.name} ${sport.name} Wood Lockers | Custom Athletic Storage | PlayerStall`;
-const description = `Custom ${sport.name.toLowerCase()} wood lockers in ${province.name}. Canadian-owned and manufactured since 1989 — built for collegiate and professional programs with a lifetime craftsmanship standard and free design consultation.`;
+const description = `Custom ${sport.name.toLowerCase()} wood lockers in ${province.name}. Canadian-owned and manufactured since 1989, built for collegiate and professional programs with a lifetime craftsmanship standard and free design consultation.`;
 
 const faqs = [
   {
     question: `Do you ship custom wood lockers to ${province.name}?`,
-    answer: `Yes. We ship across Canada, including ${province.name}, directly from our facility in Langley, British Columbia. No cross-border complications, duties, or delays — just Canadian manufacturing delivered to your program.`,
+ answer: `Yes. We ship across Canada, including ${province.name}, directly from our facility in Langley, British Columbia. No cross-border complications, duties, or delays, just Canadian manufacturing delivered to your program.`,
   },
   {
     question: `How are ${province.name} ${sport.name.toLowerCase()} locker projects scoped?`,
@@ -109,7 +109,7 @@ const faqSchema = {
         <span>{province.name} {sport.name} Wood Lockers</span>
       </div>
       <h1>{province.name} {sport.name} Wood Lockers</h1>
-      <p>Canadian-owned and built since 1989 — premium wood locker systems for serious programs across {province.name}.</p>
+ <p>Canadian-owned and built since 1989, premium wood locker systems for serious programs across {province.name}.</p>
     </div>
   </section>
 
@@ -120,7 +120,7 @@ const faqSchema = {
         <p>
           PlayerStall designs and manufactures custom wood lockers for {sport.name.toLowerCase()} programs across {province.name}.
           As a Canadian-owned company operating since 1989 from our facility in Langley, British Columbia, we serve programs
-          throughout {province.region} — with no cross-border delays, no import duties, and no third-party distributors
+ throughout {province.region}, with no cross-border delays, no import duties, and no third-party distributors
           between your program and the people who build your lockers.
         </p>
         <p>
@@ -219,7 +219,7 @@ const faqSchema = {
         </div>
         <div class="sidebar-card">
           <h3>Canadian-owned since 1989</h3>
-          <p>We manufacture in Langley, BC and ship across Canada — quoted in Canadian dollars with no cross-border complications.</p>
+ <p>We manufacture in Langley, BC and ship across Canada, quoted in Canadian dollars with no cross-border complications.</p>
         </div>
         <div class="sidebar-card">
           <h3>Useful links</h3>

@@ -162,7 +162,7 @@ const envServiceSet = Boolean(String(import.meta.env.SUPABASE_SERVICE_ROLE_KEY |
 	<p class="page-intro">
 		Paste the body of an estimate request from your old Custom Sport Lockers site (the part with <strong>Name</strong>, <strong>Shipping Address</strong>,
 		<strong>Product</strong>, etc.). We fill in the fields for you. <strong>No database?</strong> After you click <strong>Parse &amp; review</strong>, use
-		<strong>Copy for Google Sheets</strong> and paste into a spreadsheet row — that is enough for many workflows. Saving inside the CRM needs Supabase later (optional).
+ <strong>Copy for Google Sheets</strong> and paste into a spreadsheet row, that is enough for many workflows. Saving inside the CRM needs Supabase later (optional).
 	</p>
 
 	{demoMode && (
@@ -250,7 +250,7 @@ const envServiceSet = Boolean(String(import.meta.env.SUPABASE_SERVICE_ROLE_KEY |
 					<div class="form-group">
 						<label for="sport">Sport</label>
 						<select id="sport" name="sport">
-							<option value="" selected={!f?.sport}>—</option>
+ <option value="" selected={!f?.sport}>, </option>
 							<option value="Football" selected={f?.sport === 'Football'}>Football</option>
 							<option value="Hockey" selected={f?.sport === 'Hockey'}>Hockey</option>
 							<option value="Basketball" selected={f?.sport === 'Basketball'}>Basketball</option>
@@ -269,7 +269,7 @@ const envServiceSet = Boolean(String(import.meta.env.SUPABASE_SERVICE_ROLE_KEY |
 					<div class="form-group">
 						<label for="country">Country</label>
 						<select id="country" name="country">
-							<option value="" selected={!f?.country}>—</option>
+ <option value="" selected={!f?.country}>, </option>
 							<option value="USA" selected={f?.country === 'USA'}>USA</option>
 							<option value="Canada" selected={f?.country === 'Canada'}>Canada</option>
 						</select>
@@ -293,7 +293,7 @@ const envServiceSet = Boolean(String(import.meta.env.SUPABASE_SERVICE_ROLE_KEY |
 					<div class="form-group">
 						<label for="locker_type">Locker type</label>
 						<select id="locker_type" name="locker_type">
-							<option value="" selected={!f?.locker_type}>—</option>
+ <option value="" selected={!f?.locker_type}>, </option>
 							<option value="Stadium" selected={f?.locker_type === 'Stadium'}>Stadium</option>
 							<option value="Varsity" selected={f?.locker_type === 'Varsity'}>Varsity</option>
 							<option value="Semi Pro" selected={f?.locker_type === 'Semi Pro'}>Semi Pro</option>
@@ -425,10 +425,10 @@ const envServiceSet = Boolean(String(import.meta.env.SUPABASE_SERVICE_ROLE_KEY |
 				document.getElementById('copy-sheets-btn')?.addEventListener('click', function () {
 					navigator.clipboard.writeText(rowTsv()).then(
 						function () {
-							toast('Copied — paste into row 1 in Sheets, then row 2');
+ toast('Copied, paste into row 1 in Sheets, then row 2');
 						},
 						function () {
-							toast('Copy failed — try plain text button');
+ toast('Copy failed, try plain text button');
 						},
 					);
 				});

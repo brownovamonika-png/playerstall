@@ -606,7 +606,7 @@ const plannerTemplates = getAllTemplates();
 </BaseLayout>
 
 <style>
-	/* Hero + steps — match step-by-step /new-room-planner */
+	/* Hero + steps, match step-by-step /new-room-planner */
 	.planner-hero {
 		background: #ffffff;
 		color: #0d0d0d;
@@ -689,7 +689,7 @@ const plannerTemplates = getAllTemplates();
 		.hero-step-arrow { transform: rotate(90deg); }
 	}
 
-	/* Room tabs — match step-by-step planner */
+	/* Room tabs, match step-by-step planner */
 	:global(.room-tabs-row) {
 		display: flex;
 		align-items: center;
@@ -802,7 +802,7 @@ const plannerTemplates = getAllTemplates();
 	}
 	:global(.room-save-check.show) { opacity: 1; }
 
-	/* Room setup form — matches homepage materials section */
+	/* Room setup form, matches homepage materials section */
 	.room-setup {
 		background: #ffffff;
 		color: #0d0d0d;
@@ -1753,7 +1753,7 @@ const plannerTemplates = getAllTemplates();
 		padding-right: 48px;
 		padding-left: 12px;
 	}
-	/* Injected #order-items-body rows have no Astro scope — anchor under .order-panel */
+	/* Injected #order-items-body rows have no Astro scope, anchor under .order-panel */
 	.order-panel :global(.order-table tbody tr:not(.ot-room-header) td) {
 		padding: 12px 24px;
 		border-bottom: 1px solid #e0e0e0;
@@ -3344,7 +3344,7 @@ const plannerTemplates = getAllTemplates();
 		selectAll3D = false; btnSelectAll.classList.remove('active');
 		overlay3d.style.display = 'flex';
 		swatchRow.style.display = 'flex';
-		roomNameLabel3d.textContent = '— ' + ((state.roomName || '').trim() || 'Unnamed room');
+ roomNameLabel3d.textContent = ', ' + ((state.roomName || '').trim() || 'Unnamed room');
 		populateFloorWallSwatches();
 		syncBaseToggle();
 		syncEdgebandToggle();
@@ -3378,8 +3378,8 @@ const plannerTemplates = getAllTemplates();
 		btn3dPrev.style.display = total > 1 ? '' : 'none';
 		btn3dNext.style.display = total > 1 ? '' : 'none';
 		roomIndicator3d.style.display = total > 1 ? '' : 'none';
-		roomIndicator3d.textContent = `ROOM ${idx + 1} OF ${total} — ${displayName}`;
-		roomNameLabel3d.textContent = '— ' + displayName;
+ roomIndicator3d.textContent = `ROOM ${idx + 1} OF ${total}, ${displayName}`;
+ roomNameLabel3d.textContent = ', ' + displayName;
 	}
 
 	function switch3DRoom(newIndex: number) {
@@ -3828,7 +3828,7 @@ const plannerTemplates = getAllTemplates();
 		} else {
 			const toast = document.getElementById('placement-toast');
 			if (toast) {
-				toast.textContent = 'Not enough space — try removing lockers or enlarging the room.';
+ toast.textContent = 'Not enough space, try removing lockers or enlarging the room.';
 				toast.style.display = 'block';
 				setTimeout(() => { toast.style.display = 'none'; }, 3000);
 			}
@@ -4032,7 +4032,7 @@ const plannerTemplates = getAllTemplates();
 				const grid = document.createElement('div');
 				grid.className = 'op-fields';
 
-				// Position — ft + in with clear label
+ // Position, ft + in with clear label
 				const posGroup = document.createElement('div');
 				posGroup.className = 'op-field';
 				const posLabel = document.createElement('label');
@@ -4881,7 +4881,7 @@ const plannerTemplates = getAllTemplates();
 			const thumb = await captureFirstRoom3DEmailPreviewDataUrl(savedRooms, state.displayUnit);
 			if (thumb) layoutPreviewDataUrl = thumb;
 		} catch {
-			/* optional 3D hero image — estimate + email still generate without it */
+ /* optional 3D hero image, estimate + email still generate without it */
 		}
 		const estimateBlob = await generateEstimatePdfBlob(
 			estimateLines,
@@ -4924,7 +4924,7 @@ const plannerTemplates = getAllTemplates();
 				statusMsg.textContent =
 					'Thank you! Your estimate PDF has been saved to your device, and we sent a summary to ' +
 					customerEmail +
-					'. Our team received a copy too — we\'ll be in touch!';
+ '. Our team received a copy too, we\'ll be in touch!';
 				statusMsg.style.color = '#0d0d0d';
 				btn.textContent = 'Sent!';
 				if (estimateBlob) downloadBlob(estimateBlob, 'PlayerStall-Room-Estimate.pdf');

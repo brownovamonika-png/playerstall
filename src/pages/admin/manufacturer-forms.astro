@@ -17,7 +17,7 @@ const allGallery = [...MANUFACTURER_FORM_GALLERY_24, ...MANUFACTURER_FORM_GALLER
 <AdminLayout title="Manufacturer forms (24″ width & 19″ depth CAD)" activeNav="manufacturer-forms">
 	<div class="mfg-page-card card">
 		<p class="mfg-page-lead">
-			<strong>Manufacturer CAD</strong> — two rows: <strong>24″ wide</strong> and <strong>19″ deep</strong> (side elevation). Click a model to load its drawing (nothing shows until you click). Files:
+ <strong>Manufacturer CAD</strong>, two rows: <strong>24″ wide</strong> and <strong>19″ deep</strong> (side elevation). Click a model to load its drawing (nothing shows until you click). Files:
 			<code>model-l-type-1-19-inch.png</code> through <code>model-z-type-4-19-inch.png</code> in <code>public/images/crm-manufacturer-forms/</code>.
 		</p>
 
@@ -77,7 +77,7 @@ const allGallery = [...MANUFACTURER_FORM_GALLERY_24, ...MANUFACTURER_FORM_GALLER
 						<a href={opt.imageSrc} target="_blank" rel="noopener noreferrer" class="mfg-page-img-link">
 							<img
 								src={opt.imageSrc}
-								alt={`${opt.label} — ${opt.subtitle} CAD`}
+ alt={`${opt.label}, ${opt.subtitle} CAD`}
 								width="640"
 								height="420"
 								loading="lazy"

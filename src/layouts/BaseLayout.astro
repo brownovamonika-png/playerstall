@@ -533,7 +533,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	}
 
 	/* ----------------------------------------------------------------
-	   Brand type layer — PlayerStall Brand Book §02 Type / §14 Rules.
+ Brand type layer, PlayerStall Brand Book §02 Type / §14 Rules.
 	   Page styles still win where they set a value on purpose; this only
 	   fills in what no page sets, so every page gets the same defaults.
 	   Scale: hero 80 · title 54 · feature 36 · card 22 · button/nav 15 ·
@@ -561,7 +561,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		--ps-section-gap: 120px;
 	}
 
-	/* Headings: one display weight (600, never 700 — rule 02), tight leading,
+	/* Headings: one display weight (600, never 700, rule 02), tight leading,
 	   and no orphan word on the last line. A page that sets its own weight wins. */
 	:global(h1), :global(h2) {
 		font-weight: 600;
@@ -573,7 +573,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		line-height: 1.25;
 		text-wrap: balance;
 	}
-	/* Big type is tight (rule 03) — only where a page hasn't tracked it itself. */
+	/* Big type is tight (rule 03), only where a page hasn't tracked it itself. */
 	:global(h1) {
 		letter-spacing: -0.01em;
 	}
@@ -819,7 +819,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	}
 
 	.navbar {
-		/* 20px at the sides too — `.navbar` overrides the `nav` rule below,
+ /* 20px at the sides too, `.navbar` overrides the `nav` rule below,
 		   which is why the links used to touch the window edge. */
 		padding: 20px;
 	}
@@ -964,7 +964,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		color: #fe5900;
 	}
 
-	/* CART is hidden in the header (Monika, 8 Nov 2026 — "remove the cart for
+	/* CART is hidden in the header (Monika, 8 Nov 2026, "remove the cart for
 	   now"). The cart itself still works: Add to Cart, /cart and /checkout are
 	   untouched. To put it back, delete this one rule. */
 	.cart-nav-item {
@@ -1257,7 +1257,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	}
 
 	/* Laptop widths: step the nav down so nothing touches the logo
-	   (brand book Example 6 — "give the logo room"). */
+ (brand book Example 6, "give the logo room"). */
 	@media (max-width: 1200px) and (min-width: 769px) {
 		.nav-links {
 			gap: 22px;
@@ -1488,7 +1488,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 	}
 
 	/*
-	 * Room planners: same minimal bar as mobile — black top strip hidden, PLAYERSTALL left,
+ * Room planners: same minimal bar as mobile, black top strip hidden, PLAYERSTALL left,
 	 * hamburger right, full nav only inside the panel (all breakpoints).
 	 */
 	:global(body:has(.planner-hero)) .top-bar {
@@ -1691,7 +1691,7 @@ const canonicalUrl = canonical.endsWith('/') && canonical !== "https://playersta
 		}
 	});
 
-	// Top bar rotating messages — motivational quotes for sport players (inspired by Peter Crone)
+	// Top bar rotating messages, motivational quotes for sport players (inspired by Peter Crone)
 	const quotes = [
 		"Your past doesn't define your next play.",
 		"The only moment you can perform is now.",

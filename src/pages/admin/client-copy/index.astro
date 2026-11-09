@@ -15,7 +15,7 @@ if (!demoMode) {
 	if (!session) return Astro.redirect('/admin/login');
 }
 
-/** Your Google Sheet — CSV export (works when the sheet is shared: “Anyone with the link” can view, or published). */
+/** Your Google Sheet, CSV export (works when the sheet is shared: “Anyone with the link” can view, or published). */
 const GOOGLE_SHEET_CSV =
 	'https://docs.google.com/spreadsheets/d/1JfSrwC3UPs4rPfxKkd4kTlavKyiY7wfValE2y3gcNyU/export?format=csv&gid=0';
 
@@ -124,7 +124,7 @@ const filteredRows = searchLower
 					<thead>
 						<tr>
 							{headers.map((h) => (
-								<th>{h || '—'}</th>
+ <th>{h || ', '}</th>
 							))}
 						</tr>
 					</thead>
@@ -132,7 +132,7 @@ const filteredRows = searchLower
 						{filteredRows.map((row, ri) => (
 							<tr>
 								{padRow(row).map((cell, ci) => (
-									<td class:list={[{ 'num-cell': ci === 0 }]}>{cell || '—'}</td>
+ <td class:list={[{ 'num-cell': ci === 0 }]}>{cell || ', '}</td>
 								))}
 							</tr>
 						))}

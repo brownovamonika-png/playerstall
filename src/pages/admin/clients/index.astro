@@ -161,7 +161,7 @@ const processedRows = allRows.map((row, idx) => {
 	const stageColor = row.order ? (STAGE_COLORS[row.order.stage as OrderStage] || '#999') : '';
 	const stageLabel = row.order ? (STAGE_LABELS[row.order.stage as OrderStage] || row.order.stage) : '';
 	const badgeStyle = row.order ? 'background:' + stageColor + '20; color:' + stageColor : '';
-	const amountStr = row.order?.quoted_amount ? '$' + Number(row.order.quoted_amount).toLocaleString() : '—';
+	const amountStr = row.order?.quoted_amount ? '$' + Number(row.order.quoted_amount).toLocaleString() : ', ';
 	const sourceStr = row.client.source ? row.client.source.replace('_', ' ') : '';
 	const dateStr = new Date(row.client.created_at).toLocaleDateString();
 	const fundingStr = displayFundraisingStatus(row.client.fundraising_status);
@@ -230,20 +230,20 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 							<td class="name-cell">
 								<a href={'/admin/clients/' + r.client.id}>{r.client.contact_name}</a>
 							</td>
-							<td>{r.client.email || '—'}</td>
-							<td>{r.client.phone || '—'}</td>
-							<td>{r.client.company_name || r.client.team_name || '—'}</td>
-							<td>{r.client.sport || '—'}</td>
-							<td>{r.client.country || '—'}</td>
-							<td class="address-cell">{r.client.shipping_address || '—'}</td>
-							<td class="est-cell">{r.order?.estimate_number || '—'}</td>
-							<td>{r.order?.locker_type || '—'}</td>
-							<td>{r.order?.locker_size || '—'}</td>
-							<td>{r.order?.locker_color || '—'}</td>
-							<td>{r.order?.quantity || '—'}</td>
-							<td><span class="accessories-cell">{r.order?.accessories || '—'}</span></td>
+ <td>{r.client.email || ', '}</td>
+ <td>{r.client.phone || ', '}</td>
+ <td>{r.client.company_name || r.client.team_name || ', '}</td>
+ <td>{r.client.sport || ', '}</td>
+ <td>{r.client.country || ', '}</td>
+ <td class="address-cell">{r.client.shipping_address || ', '}</td>
+ <td class="est-cell">{r.order?.estimate_number || ', '}</td>
+ <td>{r.order?.locker_type || ', '}</td>
+ <td>{r.order?.locker_size || ', '}</td>
+ <td>{r.order?.locker_color || ', '}</td>
+ <td>{r.order?.quantity || ', '}</td>
+ <td><span class="accessories-cell">{r.order?.accessories || ', '}</span></td>
 							<td class="amount-cell">{r.amountStr}</td>
-							<td>{r.order?.invoice_number || '—'}</td>
+ <td>{r.order?.invoice_number || ', '}</td>
 							<td>
 								{r.order ? (
 									<span class="badge" style={r.badgeStyle}>{r.stageLabel}</span>

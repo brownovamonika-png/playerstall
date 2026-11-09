@@ -39,16 +39,16 @@ for (const stage of STAGE_ORDER) {
 
 if (demoMode) {
 	const demoOrders = [
-		{ id: 'd1', title: 'Football Lockers — 60 units', stage: 'new_lead', clients: { contact_name: 'Mike Johnson', sport: 'Football' }, quoted_amount: 35000, assigned_to: null, updated_at: new Date().toISOString() },
-		{ id: 'd2', title: 'Basketball Lockers — 20 units', stage: 'new_lead', clients: { contact_name: 'David Chen', sport: 'Basketball' }, quoted_amount: null, assigned_to: null, updated_at: new Date(Date.now() - 86400000).toISOString() },
-		{ id: 'd3', title: 'Lacrosse Lockers — 25 units', stage: 'new_lead', clients: { contact_name: 'James Brown', sport: 'Lacrosse' }, quoted_amount: null, assigned_to: null, updated_at: new Date(Date.now() - 172800000).toISOString() },
-		{ id: 'd4', title: 'Custom Lockers — Conference Room', stage: 'consultation', clients: { contact_name: 'Lisa Park', sport: 'Other' }, quoted_amount: null, assigned_to: 'Sales', updated_at: new Date(Date.now() - 259200000).toISOString() },
-		{ id: 'd5', title: 'Hockey Lockers — 30 units', stage: 'quote_sent', clients: { contact_name: 'Sarah Williams', sport: 'Hockey' }, quoted_amount: 22500, assigned_to: null, updated_at: new Date(Date.now() - 345600000).toISOString() },
-		{ id: 'd6', title: 'Baseball Lockers — 35 units', stage: 'quote_sent', clients: { contact_name: 'Tom Rivera', sport: 'Baseball' }, quoted_amount: 28000, assigned_to: null, updated_at: new Date(Date.now() - 432000000).toISOString() },
-		{ id: 'd7', title: 'Stadium Lockers — 80 units', stage: 'quote_approved', clients: { contact_name: 'Andrea Smith', sport: 'Football' }, quoted_amount: 65000, assigned_to: 'Production', updated_at: new Date(Date.now() - 518400000).toISOString() },
-		{ id: 'd8', title: 'Soccer Lockers — 40 units', stage: 'design_phase', clients: { contact_name: 'Emily Torres', sport: 'Soccer' }, quoted_amount: 31000, assigned_to: 'Design', updated_at: new Date(Date.now() - 604800000).toISOString() },
-		{ id: 'd9', title: 'Pro Lockers — 50 units', stage: 'in_production', clients: { contact_name: 'Robert Kim', sport: 'Hockey' }, quoted_amount: 42000, assigned_to: 'Production', updated_at: new Date(Date.now() - 864000000).toISOString() },
-		{ id: 'd10', title: 'Varsity Lockers — 45 units', stage: 'complete', clients: { contact_name: 'Nancy White', sport: 'Basketball' }, quoted_amount: 27500, assigned_to: null, updated_at: new Date(Date.now() - 1728000000).toISOString() },
+ { id: 'd1', title: 'Football Lockers, 60 units', stage: 'new_lead', clients: { contact_name: 'Mike Johnson', sport: 'Football' }, quoted_amount: 35000, assigned_to: null, updated_at: new Date().toISOString() },
+ { id: 'd2', title: 'Basketball Lockers, 20 units', stage: 'new_lead', clients: { contact_name: 'David Chen', sport: 'Basketball' }, quoted_amount: null, assigned_to: null, updated_at: new Date(Date.now() - 86400000).toISOString() },
+ { id: 'd3', title: 'Lacrosse Lockers, 25 units', stage: 'new_lead', clients: { contact_name: 'James Brown', sport: 'Lacrosse' }, quoted_amount: null, assigned_to: null, updated_at: new Date(Date.now() - 172800000).toISOString() },
+ { id: 'd4', title: 'Custom Lockers, Conference Room', stage: 'consultation', clients: { contact_name: 'Lisa Park', sport: 'Other' }, quoted_amount: null, assigned_to: 'Sales', updated_at: new Date(Date.now() - 259200000).toISOString() },
+ { id: 'd5', title: 'Hockey Lockers, 30 units', stage: 'quote_sent', clients: { contact_name: 'Sarah Williams', sport: 'Hockey' }, quoted_amount: 22500, assigned_to: null, updated_at: new Date(Date.now() - 345600000).toISOString() },
+ { id: 'd6', title: 'Baseball Lockers, 35 units', stage: 'quote_sent', clients: { contact_name: 'Tom Rivera', sport: 'Baseball' }, quoted_amount: 28000, assigned_to: null, updated_at: new Date(Date.now() - 432000000).toISOString() },
+ { id: 'd7', title: 'Stadium Lockers, 80 units', stage: 'quote_approved', clients: { contact_name: 'Andrea Smith', sport: 'Football' }, quoted_amount: 65000, assigned_to: 'Production', updated_at: new Date(Date.now() - 518400000).toISOString() },
+ { id: 'd8', title: 'Soccer Lockers, 40 units', stage: 'design_phase', clients: { contact_name: 'Emily Torres', sport: 'Soccer' }, quoted_amount: 31000, assigned_to: 'Design', updated_at: new Date(Date.now() - 604800000).toISOString() },
+ { id: 'd9', title: 'Pro Lockers, 50 units', stage: 'in_production', clients: { contact_name: 'Robert Kim', sport: 'Hockey' }, quoted_amount: 42000, assigned_to: 'Production', updated_at: new Date(Date.now() - 864000000).toISOString() },
+ { id: 'd10', title: 'Varsity Lockers, 45 units', stage: 'complete', clients: { contact_name: 'Nancy White', sport: 'Basketball' }, quoted_amount: 27500, assigned_to: null, updated_at: new Date(Date.now() - 1728000000).toISOString() },
 	];
 	for (const order of demoOrders) {
 		ordersByStage[order.stage as OrderStage].push(order);

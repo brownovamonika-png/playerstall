@@ -3,8 +3,8 @@
  * Brand-font smoke test for the jsPDF attachments.
  *
  * Generates a sample PDF (two pages) using the real generateEstimatePdfBlob
- * pipeline — same code path the room planner uses when sending the
- * estimate attachment — so we can eyeball Oswald + Yantramanav rendering
+ * pipeline, same code path the room planner uses when sending the
+ * estimate attachment, so we can eyeball Oswald + Yantramanav rendering
  * without running through the full room planner → send-room-plan flow.
  *
  * Run: npm run dev → http://localhost:4321/dev/pdf-font-test.
@@ -35,13 +35,13 @@ if (import.meta.env.PROD) {
 		</style>
 	</head>
 	<body>
-		<h1>PDF font test — Oswald + Yantramanav</h1>
+ <h1>PDF font test, Oswald + Yantramanav</h1>
 		<p>
 			Click the button to generate a sample estimate PDF using the real <code>generateEstimatePdfBlob</code> pipeline.
 			If the headline and body text render in condensed Oswald / Yantramanav (matching <a href="/dev/email-preview-room-plan-customer" target="_blank">the email preview</a>), the font registration works. If it falls back to Helvetica, the console will show <code>Oswald: MISSING</code> or similar.
 		</p>
 		<button id="run">Generate test PDF</button>
-		<pre id="status">idle — click the button</pre>
+ <pre id="status">idle, click the button</pre>
 		<iframe id="out" title="Generated PDF"></iframe>
 
 		<script type="module">
@@ -67,7 +67,7 @@ if (import.meta.env.PROD) {
 					out.src = url;
 					/*
 					 * Scan the raw PDF bytes for font-name strings. jsPDF embeds every
-					 * font we call setFont() with — so if Oswald + Yantramanav show up
+ * font we call setFont() with, so if Oswald + Yantramanav show up
 					 * here we know the attachment is actually using brand fonts rather
 					 * than falling back silently to Helvetica.
 					 */
@@ -76,7 +76,7 @@ if (import.meta.env.PROD) {
 					/*
 					 * jsPDF's default font catalog always includes the 14 standard
 					 * PostScript fonts (Helvetica, Times, Courier, …) whether they're
-					 * used on the page or not — so a naive string-contains check for
+ * used on the page or not, so a naive string-contains check for
 					 * "Helvetica" would always come back true. Count /BaseFont entries
 					 * to see which fonts are actually referenced by font objects in
 					 * the PDF.
@@ -87,7 +87,7 @@ if (import.meta.env.PROD) {
 						Yantramanav: ascii.includes('Yantramanav'),
 						baseFonts: baseFontMatches,
 					};
-					status.textContent = 'ok — size: ' + blob.size + ' bytes\nembedded fonts detected: ' + JSON.stringify(found, null, 2);
+ status.textContent = 'ok, size: ' + blob.size + ' bytes\nembedded fonts detected: ' + JSON.stringify(found, null, 2);
 					/*
 					 * Objects render as "[object Object]" when piped through console →
 					 * browser-use, so stringify everything we actually want to inspect.

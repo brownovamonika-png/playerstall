@@ -5,7 +5,7 @@ import '../styles/locker-budget-planner.css';
 
 <BaseLayout
 	title="Locker Room Budget Planner | Free Cost Estimate | PlayerStall"
-	description="Free locker room budget planner. Get an instant cost estimate for your facility. over 35 years experience, five year guarantee. Request a formal quote—no obligation."
+	description="Free locker room budget planner. Get an instant cost estimate for your facility. over 35 years experience, five year guarantee. Request a formal quote, no obligation."
 >
 
 <section class="planner-page">
@@ -13,7 +13,7 @@ import '../styles/locker-budget-planner.css';
     <div class="hero">
       <div class="hero-eyebrow">North American Institutional Markets</div>
       <h1>Locker Room<br /><em>Budget Planner</em></h1>
-      <p>Get an instant cost estimate tailored to your facility — ready to take to your board or budget committee. Built for coaches, athletic directors, and facilities managers.</p>
+ <p>Get an instant cost estimate tailored to your facility, ready to take to your board or budget committee. Built for coaches, athletic directors, and facilities managers.</p>
     </div>
 
     <div class="planner">
@@ -121,9 +121,9 @@ import '../styles/locker-budget-planner.css';
             <div class="field-group">
               <div class="field-label">Finish Level</div>
               <div class="chip-group chip-group-col">
-                <div class="chip"><input type="radio" name="finish" id="fEssential" value="essential" /><label for="fEssential">Essential — Durable powder coat</label></div>
-                <div class="chip"><input type="radio" name="finish" id="fPremium" value="premium" checked /><label for="fPremium">Premium — Solid wood accents</label></div>
-                <div class="chip"><input type="radio" name="finish" id="fElite" value="elite" /><label for="fElite">Elite — Custom color + branding</label></div>
+ <div class="chip"><input type="radio" name="finish" id="fEssential" value="essential" /><label for="fEssential">Essential, Durable powder coat</label></div>
+ <div class="chip"><input type="radio" name="finish" id="fPremium" value="premium" checked /><label for="fPremium">Premium, Solid wood accents</label></div>
+ <div class="chip"><input type="radio" name="finish" id="fElite" value="elite" /><label for="fElite">Elite, Custom color + branding</label></div>
               </div>
             </div>
             <div class="field-group">
@@ -179,7 +179,7 @@ import '../styles/locker-budget-planner.css';
             <div class="section-title">Budget Estimate</div>
             <div class="results-header-content">
               <p class="results-sent" id="results-sent" style="display: none;">We've saved your request. Download your quote below or we'll follow up with a formal proposal.</p>
-              <div class="results-eyebrow">Your Budget Estimate — <span id="res-date"></span></div>
+ <div class="results-eyebrow">Your Budget Estimate, <span id="res-date"></span></div>
               <div class="results-title" id="res-title">Locker Room Budget Summary</div>
             </div>
           </div>
@@ -205,17 +205,17 @@ import '../styles/locker-budget-planner.css';
           <div class="utilization-row">
             <div class="stat-box">
               <div class="stat-label">Lockers Required</div>
-              <div class="stat-value" id="res-lockers">—</div>
+ <div class="stat-value" id="res-lockers">, </div>
               <div class="stat-sub" id="res-locker-sub">based on squad size</div>
             </div>
             <div class="stat-box">
               <div class="stat-label">Space Utilization</div>
-              <div class="stat-value" id="res-util">—</div>
+ <div class="stat-value" id="res-util">, </div>
               <div class="stat-sub" id="res-util-sub">of available floor area</div>
             </div>
             <div class="stat-box">
               <div class="stat-label">Per-Athlete Cost</div>
-              <div class="stat-value" id="res-per">—</div>
+ <div class="stat-value" id="res-per">, </div>
               <div class="stat-sub">recommended tier</div>
             </div>
           </div>
@@ -320,29 +320,29 @@ import '../styles/locker-budget-planner.css';
 
   const MODELS = {
     football:  [
-      { tag: 'TOP PICK — FOOTBALL', model: 'ProShield™ XL', desc: 'Wide-body steel with full-length ventilation & equipment hooks. NCAA standard.', price: '$640–$960' },
+ { tag: 'TOP PICK, FOOTBALL', model: 'ProShield™ XL', desc: 'Wide-body steel with full-length ventilation & equipment hooks. NCAA standard.', price: '$640–$960' },
       { tag: 'TEAM FAVE', model: 'GameDay™ 18', desc: 'Heavy-duty 18" with integrated bench base. Handles full pads with ease.', price: '$520–$790' },
       { tag: 'ELITE OPTION', model: 'Varsity Elite™', desc: 'Custom team colors, engraved nameplates, USB charging. Recruit-room ready.', price: '$960–$1,560' }
     ],
     hockey: [
-      { tag: 'TOP PICK — HOCKEY', model: 'IcePro™ XL', desc: 'Extra-deep ventilation for skates & pads. Moisture-resistant lining.', price: '$790–$1,180' },
+ { tag: 'TOP PICK, HOCKEY', model: 'IcePro™ XL', desc: 'Extra-deep ventilation for skates & pads. Moisture-resistant lining.', price: '$790–$1,180' },
       { tag: 'DURABLE', model: 'RinkSide™ 24', desc: '24" extra-wide with stick rack and helmet shelf. Purpose-built for ice sports.', price: '$680–$1,040' },
       { tag: 'VALUE', model: 'BladeReady™', desc: 'Steel construction, perforated doors, integrated boot dryer port.', price: '$520–$780' }
     ],
     basketball: [
-      { tag: 'TOP PICK — BASKETBALL', model: 'CourtPro™ 15', desc: 'Clean, pro-style aesthetic with full-length mirror option. Standard 15" width.', price: '$640–$960' },
+ { tag: 'TOP PICK, BASKETBALL', model: 'CourtPro™ 15', desc: 'Clean, pro-style aesthetic with full-length mirror option. Standard 15" width.', price: '$640–$960' },
       { tag: 'VERSATILE', model: 'AllCourt™', desc: 'Adaptable shelf configuration, ideal for dual sport programs.', price: '$520–$780' },
       { tag: 'ELITE', model: 'Arena Elite™', desc: 'Backlit nameplate, custom team graphics, USB & wireless charging.', price: '$960–$1,400' }
     ],
     first_responder: [
-      { tag: 'TOP PICK — TACTICAL', model: 'Response™ XL', desc: 'Full-length weapon lockbox integration, SCBA bottle rack, turnout gear drying.', price: '$790–$1,180' },
+ { tag: 'TOP PICK, TACTICAL', model: 'Response™ XL', desc: 'Full-length weapon lockbox integration, SCBA bottle rack, turnout gear drying.', price: '$790–$1,180' },
       { tag: 'STANDARD ISSUE', model: 'Duty™ Series', desc: 'Double-tier option for larger departments. PIN or key-lock standard.', price: '$420–$640' },
       { tag: 'PREMIUM', model: 'Command™ Elite', desc: 'Electronic lock, charging, full turnout storage. For modern facility upgrades.', price: '$1,040–$1,560' }
     ],
     default: [
-      { tag: 'BEST VALUE', model: 'Institutional™ 15', desc: 'Our most popular model — reliable, clean, and built for decades of daily use.', price: '$420–$640' },
+ { tag: 'BEST VALUE', model: 'Institutional™ 15', desc: 'Our most popular model, reliable, clean, and built for decades of daily use.', price: '$420–$640' },
       { tag: 'PREMIUM', model: 'Signature™ Series', desc: 'Solid wood accents, premium handle, fully configurable interior.', price: '$640–$960' },
-      { tag: 'ELITE', model: 'Custom™ Pro', desc: 'Full custom program — colors, graphics, digital integration.', price: '$960–$1,560' }
+ { tag: 'ELITE', model: 'Custom™ Pro', desc: 'Full custom program, colors, graphics, digital integration.', price: '$960–$1,560' }
     ]
   };
 
@@ -433,7 +433,7 @@ import '../styles/locker-budget-planner.css';
     form.append('email', email);
     form.append('name', name || '(not provided)');
     form.append('message', body);
-    form.append('_subject', 'Budget Planner Quote — ' + (name || email));
+ form.append('_subject', 'Budget Planner Quote, ' + (name || email));
     fetch('https://formspree.io/f/xqedgojb', {
       method: 'POST',
       body: form
@@ -448,7 +448,7 @@ import '../styles/locker-budget-planner.css';
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Locker Room Budget Quote — PlayerStall</title>
+ <title>Locker Room Budget Quote, PlayerStall</title>
   <style>
     * { box-sizing: border-box; }
     body { font-family: 'Georgia', serif; max-width: 700px; margin: 40px auto; padding: 24px; color: #0D0D0D; font-size: 14px; line-height: 1.5; }
@@ -470,8 +470,8 @@ import '../styles/locker-budget-planner.css';
 </head>
 <body>
   <h1>Locker Room Budget Quote</h1>
-  <p class="meta">${d.dateStr} · PlayerStall — Budget Planner Estimate</p>
-  <p><strong>${d.instLabel}</strong> — ${d.sportLabel}</p>
+ <p class="meta">${d.dateStr} · PlayerStall, Budget Planner Estimate</p>
+ <p><strong>${d.instLabel}</strong>, ${d.sportLabel}</p>
   <table>
     <tr><th>Summary</th><th>Value</th></tr>
     <tr><td>Lockers (est.)</td><td>${d.lockerCount}</td></tr>
@@ -548,7 +548,7 @@ import '../styles/locker-budget-planner.css';
     document.getElementById('res-date').textContent = new Date().toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
     const instLabels = { high_school:'High School', college:'College/University', pro_club:'Pro/Semi-Pro Club', rec_center:'Recreation Center', police:'Police Dept.', fire:'Fire Dept.', military:'Military', corporate:'Corporate Facility' };
     const sportLabels = { football:'Football', basketball:'Basketball', hockey:'Hockey', baseball:'Baseball/Softball', soccer:'Soccer/Lacrosse', multi_sport:'Multi-Sport', aquatics:'Aquatics', first_responder:'First Responder', general:'General Athletics' };
-    document.getElementById('res-title').textContent = `${(instLabels[inst]||'Institutional')} Locker Room — ${(sportLabels[sport]||'Athletics')}`;
+ document.getElementById('res-title').textContent = `${(instLabels[inst]||'Institutional')} Locker Room, ${(sportLabels[sport]||'Athletics')}`;
 
     document.getElementById('res-low').textContent = fmt(low);
     document.getElementById('res-mid').textContent = fmt(mid);
@@ -556,7 +556,7 @@ import '../styles/locker-budget-planner.css';
     document.getElementById('res-lockers').textContent = lockerCount;
     document.getElementById('res-locker-sub').textContent = `+10% bench reserve for ${users} users`;
     document.getElementById('res-util').textContent = utilPct + '%';
-    document.getElementById('res-util-sub').textContent = fitsOk ? `of ${roomW}×${roomL} ft space — good fit` : `⚠ May be tight — consider compact or additional space`;
+ document.getElementById('res-util-sub').textContent = fitsOk ? `of ${roomW}×${roomL} ft space, good fit` : `⚠ May be tight, consider compact or additional space`;
     document.getElementById('res-per').textContent = fmt(perAthlete);
 
     const sportKey = ['football','hockey','basketball','first_responder'].includes(sport) ? sport : 'default';
@@ -572,7 +572,7 @@ import '../styles/locker-budget-planner.css';
     document.getElementById('rec-cards').innerHTML = cardHtml;
 
     const dateStr = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    const recsHtml = models.map(m => `<div class="rec"><span class="rec-model">${m.model}</span> — ${m.desc}<br><span class="rec-price">${m.price} / unit</span></div>`).join('');
+ const recsHtml = models.map(m => `<div class="rec"><span class="rec-model">${m.model}</span>, ${m.desc}<br><span class="rec-price">${m.price} / unit</span></div>`).join('');
     lastQuoteData = {
       instLabel: instLabels[inst] || 'Institutional',
       sportLabel: sportLabels[sport] || 'Athletics',

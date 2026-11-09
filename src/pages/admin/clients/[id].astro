@@ -192,7 +192,7 @@ if (Astro.request.method === 'POST') {
 				const { error } = await supabaseAdmin.from('orders').update(updates).eq('id', orderId);
 				formMessage = error
 					? `Error: ${error.message}`
-					: `Site catalog applied — ${qty} locker${qty === 1 ? '' : 's'} × $${computed.perLocker.toFixed(2)} = $${computed.total.toFixed(2)} USD. Estimate/invoice totals updated; add numbers below if needed.`;
+ : `Site catalog applied, ${qty} locker${qty === 1 ? '' : 's'} × $${computed.perLocker.toFixed(2)} = $${computed.total.toFixed(2)} USD. Estimate/invoice totals updated; add numbers below if needed.`;
 			}
 		}
 	}
@@ -332,7 +332,7 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 					<button class="btn btn-primary btn-sm" onclick="document.getElementById('newOrderModal').showModal()">New Order</button>
 				</div>
 				<p class="orders-lead">
-					Use <strong>Site price list</strong> to pull the same models, widths, depths, and accessory prices as playerstall.com / your CAD sheet — totals are computed on the server. Then set estimate and invoice numbers and use <strong>Open estimate</strong> or <strong>Open invoice</strong> (Print → Save as PDF).
+ Use <strong>Site price list</strong> to pull the same models, widths, depths, and accessory prices as playerstall.com / your CAD sheet, totals are computed on the server. Then set estimate and invoice numbers and use <strong>Open estimate</strong> or <strong>Open invoice</strong> (Print → Save as PDF).
 				</p>
 				{orders && orders.length > 0 ? (
 					<div class="order-cards">
@@ -352,31 +352,31 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 								<div class="order-card-grid">
 									<div class="order-field">
 										<span class="order-field-label">Locker Type</span>
-										<span class="order-field-value">{order.locker_type || '—'}</span>
+ <span class="order-field-value">{order.locker_type || ', '}</span>
 									</div>
 									<div class="order-field">
 										<span class="order-field-label">Manufacturer's form</span>
-										<span class="order-field-value">{order.manufacturers_form || '—'}</span>
+ <span class="order-field-value">{order.manufacturers_form || ', '}</span>
 									</div>
 									<div class="order-field">
 										<span class="order-field-label">Width</span>
-										<span class="order-field-value">{order.locker_size || '—'}</span>
+ <span class="order-field-value">{order.locker_size || ', '}</span>
 									</div>
 									<div class="order-field">
 										<span class="order-field-label">Depth</span>
-										<span class="order-field-value">{order.locker_width || '—'}</span>
+ <span class="order-field-value">{order.locker_width || ', '}</span>
 									</div>
 									<div class="order-field">
 										<span class="order-field-label">Quantity</span>
-										<span class="order-field-value">{order.quantity || '—'}</span>
+ <span class="order-field-value">{order.quantity || ', '}</span>
 									</div>
 									<div class="order-field">
 										<span class="order-field-label">Color</span>
-										<span class="order-field-value">{order.locker_color || '—'}</span>
+ <span class="order-field-value">{order.locker_color || ', '}</span>
 									</div>
 									<div class="order-field full-width">
 										<span class="order-field-label">Accessories</span>
-										<span class="order-field-value">{order.accessories || '—'}</span>
+ <span class="order-field-value">{order.accessories || ', '}</span>
 									</div>
 									{order.description && (
 										<div class="order-field full-width">
@@ -386,16 +386,16 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 									)}
 									<div class="order-field">
 										<span class="order-field-label">Assigned To</span>
-										<span class="order-field-value">{order.assigned_to || '—'}</span>
+ <span class="order-field-value">{order.assigned_to || ', '}</span>
 									</div>
 									<div class="order-field">
 										<span class="order-field-label">Est. Completion</span>
-										<span class="order-field-value">{order.estimated_completion ? new Date(order.estimated_completion).toLocaleDateString() : '—'}</span>
+ <span class="order-field-value">{order.estimated_completion ? new Date(order.estimated_completion).toLocaleDateString() : ', '}</span>
 									</div>
 									<div class="order-field">
 										<span class="order-field-label">Completed Date</span>
 										<span class="order-field-value" style={order.completed_date ? 'color: #16a34a; font-weight: 600' : ''}>
-											{order.completed_date ? new Date(order.completed_date).toLocaleDateString() : '—'}
+ {order.completed_date ? new Date(order.completed_date).toLocaleDateString() : ', '}
 										</span>
 									</div>
 									<div class="order-field">
@@ -416,7 +416,7 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 									const defQty = order.quantity != null && order.quantity > 0 ? order.quantity : 1;
 									return (
 										<details class="site-catalog-panel">
-											<summary class="site-catalog-summary">Site price list — fill order from shop pricing (USD)</summary>
+ <summary class="site-catalog-summary">Site price list, fill order from shop pricing (USD)</summary>
 											<form method="POST" class="site-catalog-form" data-site-catalog-form data-acc-prefix={coPrefix} data-order-id={order.id}>
 												<input type="hidden" name="action" value="apply_site_catalog_to_order" />
 												<input type="hidden" name="order_id" value={order.id} />
@@ -478,7 +478,7 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 														<textarea id={`cdesc-${order.id}`} name="catalog_description" rows="2" placeholder="Optional scope notes">{order.description || ''}</textarea>
 													</div>
 												</div>
-												<p class="site-catalog-acc-label">Accessories (qty per locker — same options as spec sheets)</p>
+ <p class="site-catalog-acc-label">Accessories (qty per locker, same options as spec sheets)</p>
 												<div class="site-catalog-acc-table-wrap">
 													<table class="site-catalog-acc-table">
 														<thead>
@@ -493,7 +493,7 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 																	<td>{row.label}</td>
 																	<td>
 																		<label class="visually-hidden" for={`${coPrefix}acc-${row.id}`}>
-																			Quantity — {row.label}
+ Quantity, {row.label}
 																		</label>
 																		<input
 																			type="number"
@@ -518,7 +518,7 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 												<div class="site-catalog-footer">
 													<p class="site-catalog-live-total-wrap">
 														<span class="site-catalog-live-label">Live total (USD):</span>{' '}
-														<strong class="site-catalog-live-total">—</strong>
+ <strong class="site-catalog-live-total">, </strong>
 														<span class="site-catalog-live-sub" />
 													</p>
 													<button type="submit" class="btn btn-primary btn-sm">
@@ -531,7 +531,7 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 								})()}
 
 								<details class="site-catalog-panel mfg-form-order-details">
-									<summary class="site-catalog-summary">Manufacturer's form — 24″ CAD (click model)</summary>
+ <summary class="site-catalog-summary">Manufacturer's form, 24″ CAD (click model)</summary>
 									<CrmManufacturerFormPicker orderId={order.id} selected={order.manufacturers_form} />
 								</details>
 
@@ -750,7 +750,7 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 					</div>
 				</div>
 				<p class="order-spec-section-label">Accessories</p>
-				<span class="field-hint order-accessories-hint">Spec sheet add-ons — quantity each (0 or empty = none).</span>
+ <span class="field-hint order-accessories-hint">Spec sheet add-ons, quantity each (0 or empty = none).</span>
 				<div class="order-accessories-table-wrap">
 					<table class="order-accessories-table">
 						<thead>
@@ -764,7 +764,7 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 								<tr>
 									<td class="order-accessories-td-name">{row.label}</td>
 									<td class="order-accessories-td-qty">
-										<label class="visually-hidden" for={`new-acc-qty-${row.id}`}>Quantity — {row.label}</label>
+ <label class="visually-hidden" for={`new-acc-qty-${row.id}`}>Quantity, {row.label}</label>
 										<input
 											type="number"
 											id={`new-acc-qty-${row.id}`}
@@ -861,7 +861,7 @@ const fundraisingSelectOptions = fundraisingStatusOptionsForSelect();
 				var sub = form.querySelector('.site-catalog-live-sub');
 				if (!strong) return;
 				if (!out) {
-					strong.textContent = '—';
+ strong.textContent = ', ';
 					if (sub) sub.textContent = '';
 					return;
 				}

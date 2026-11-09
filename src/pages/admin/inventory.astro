@@ -220,17 +220,17 @@ const filteredInstructionPdfHref =
 
 <AdminLayout title="Inventory" activeNav="inventory">
 	<p class="inv-lead">
-		<strong>Canada &amp; Mexico:</strong> Essential lockers, UV prefinished wood — every <strong>part × width</strong> line is listed (run migration <code>006_seed_ca_mx_part_grid.sql</code> to create rows at qty 0). Filter by model below.
+ <strong>Canada &amp; Mexico:</strong> Essential lockers, UV prefinished wood, every <strong>part × width</strong> line is listed (run migration <code>006_seed_ca_mx_part_grid.sql</code> to create rows at qty 0). Filter by model below.
 		<strong>Vietnam:</strong> melamine <strong>whole locker</strong> SKUs (19″ deep, 24–30″ wide, vented front, with/without lock box). Stadium rows can be seeded by migration; add more models here when needed.
 	</p>
 	<p class="inv-lead inv-muted">
-		<a href="/admin/shipping">Shipping &amp; C &amp; D Logistics memos</a> — pallet sizes (Essential vs Premium) and downloadable shipment text for the carrier.
+ <a href="/admin/shipping">Shipping &amp; C &amp; D Logistics memos</a>, pallet sizes (Essential vs Premium) and downloadable shipment text for the carrier.
 	</p>
 
 	<div class="card inv-pdf-ref">
 		<h2 class="inv-card-title">Spec sheets &amp; assembly (reference)</h2>
 		<p class="inv-muted inv-pdf-lead">
-			<strong>Spec pages</strong> (below): open in the browser, then <strong>Print</strong> → <strong>Save as PDF</strong> if you need a file — same URLs as the public site.
+ <strong>Spec pages</strong> (below): open in the browser, then <strong>Print</strong> → <strong>Save as PDF</strong> if you need a file, same URLs as the public site.
 		</p>
 		<p class="inv-muted inv-pdf-lead">
 			<strong>Instruction PDFs</strong> (per model): place files in <code>public/locker-instruction-manuals/</code> using the slug names in{' '}
@@ -246,7 +246,7 @@ const filteredInstructionPdfHref =
 			>
 				Shipping &amp; assembly overview
 			</a>
-			<span class="inv-pdf-hint"> — flat-pack, typical box sizes, assembly time</span>
+ <span class="inv-pdf-hint">, flat-pack, typical box sizes, assembly time</span>
 		</p>
 		<p class="inv-bom-sub inv-pdf-subtitle">Locker spec sheets (dimensions, construction)</p>
 		<ul class="inv-pdf-model-list">
@@ -255,7 +255,7 @@ const filteredInstructionPdfHref =
 					<a class="inv-pdf-link" href={row.href} target="_blank" rel="noopener noreferrer">
 						{row.label}
 					</a>
-					<span class="inv-pdf-sep"> — </span>
+ <span class="inv-pdf-sep">, </span>
 					{row.instructionPdfHref ? (
 						<a
 							class="inv-pdf-link inv-pdf-instruction"
@@ -276,7 +276,7 @@ const filteredInstructionPdfHref =
 	<details class="inv-bom-details card">
 		<summary class="inv-bom-summary">Parts per locker (from instruction PDFs)</summary>
 		<p class="inv-muted inv-bom-lead">
-			Counts below are pieces per <strong>one</strong> finished locker; stock lines are still by model + part + width. Upload instruction PDFs to <code>{LOCKER_MANUAL_PDF_DIR}</code> (see slug filenames above) — originals for BOM extraction were named like <code>SEMI-PRO LOCKER INSTRUCTION MANUAL (1).pdf</code>.
+ Counts below are pieces per <strong>one</strong> finished locker; stock lines are still by model + part + width. Upload instruction PDFs to <code>{LOCKER_MANUAL_PDF_DIR}</code> (see slug filenames above), originals for BOM extraction were named like <code>SEMI-PRO LOCKER INSTRUCTION MANUAL (1).pdf</code>.
 			{TYPICAL_HARDWARE_NOTE}
 		</p>
 		<div class="inv-bom-grid">
@@ -290,7 +290,7 @@ const filteredInstructionPdfHref =
 								<a href={specHref} target="_blank" rel="noopener noreferrer">
 									Open spec sheet (site)
 								</a>
-								<span class="inv-pdf-hint"> — dimensions / construction</span>
+ <span class="inv-pdf-hint">, dimensions / construction</span>
 							</p>
 						)}
 						<p class="inv-bom-spec-link">
@@ -301,7 +301,7 @@ const filteredInstructionPdfHref =
 							>
 								Open instruction PDF (parts)
 							</a>
-							<span class="inv-pdf-hint"> — {ASSEMBLY_INSTRUCTION_PDF_PUBLIC_HREFS[model]}</span>
+ <span class="inv-pdf-hint">, {ASSEMBLY_INSTRUCTION_PDF_PUBLIC_HREFS[model]}</span>
 						</p>
 						<p class="inv-muted inv-bom-file">
 							Original filename (rename to slug above): <code>{ASSEMBLY_MANUAL_FILES[model]}</code>
@@ -393,7 +393,7 @@ const filteredInstructionPdfHref =
 	)}
 
 	<div class="card">
-		<h2 class="inv-card-title">Stock lines — {REGION_LABELS[currentRegion]}</h2>
+ <h2 class="inv-card-title">Stock lines, {REGION_LABELS[currentRegion]}</h2>
 		{demoMode && (
 			<p class="inv-demo">
 				Preview: Canada/Mexico show the full part grid (288 lines per country). Vietnam shows sample locker boxes. Connect Supabase; run <code>005_inventory_stock_lines.sql</code> then <code>006_seed_ca_mx_part_grid.sql</code>.

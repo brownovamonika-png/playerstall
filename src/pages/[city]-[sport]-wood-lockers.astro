@@ -15,12 +15,12 @@ const { city, sport } = Astro.props;
 const pagePath = `/${city.slug}-${sport.slug}-wood-lockers`;
 const pageUrl = `https://playerstall.com${pagePath}`;
 const title = `${city.name} ${sport.name} Wood Lockers | Custom Athletic Storage | PlayerStall`;
-const description = `Custom ${sport.name.toLowerCase()} wood lockers in ${city.name}, ${city.province}. Canadian-owned and manufactured since 1989 — built for collegiate and professional programs with a lifetime craftsmanship standard and free design consultation.`;
+const description = `Custom ${sport.name.toLowerCase()} wood lockers in ${city.name}, ${city.province}. Canadian-owned and manufactured since 1989, built for collegiate and professional programs with a lifetime craftsmanship standard and free design consultation.`;
 
 const faqs = [
   {
     question: `Do you ship custom wood lockers to ${city.name}?`,
-    answer: `Yes. We ship to ${city.name} and throughout ${city.province} directly from our facility in Langley, British Columbia. As a Canadian company, there are no cross-border fees, import duties, or extended wait times — just direct Canadian delivery to your facility.`,
+ answer: `Yes. We ship to ${city.name} and throughout ${city.province} directly from our facility in Langley, British Columbia. As a Canadian company, there are no cross-border fees, import duties, or extended wait times, just direct Canadian delivery to your facility.`,
   },
   {
     question: `How are ${city.name} ${sport.name.toLowerCase()} locker projects scoped?`,
@@ -117,7 +117,7 @@ const faqSchema = {
         <span>{city.name} {sport.name} Wood Lockers</span>
       </div>
       <h1>{city.name} {sport.name} Wood Lockers</h1>
-      <p>Canadian-owned and built since 1989 — premium wood locker systems for serious {sport.name.toLowerCase()} programs in {city.name}, {city.province}.</p>
+ <p>Canadian-owned and built since 1989, premium wood locker systems for serious {sport.name.toLowerCase()} programs in {city.name}, {city.province}.</p>
     </div>
   </section>
 
@@ -128,7 +128,7 @@ const faqSchema = {
         <p>
           PlayerStall designs and manufactures custom wood lockers for {sport.name.toLowerCase()} programs in {city.name} and
           across {city.province}. As a Canadian-owned company operating since 1989 from our facility in Langley, British Columbia,
-          we deliver to {city.name} without cross-border complications — quoted in Canadian dollars, shipped direct, with no
+ we deliver to {city.name} without cross-border complications, quoted in Canadian dollars, shipped direct, with no
           third-party distributors between your program and the people who build your lockers.
         </p>
         <p>
@@ -229,7 +229,7 @@ const faqSchema = {
         </div>
         <div class="sidebar-card">
           <h3>Canadian-owned since 1989</h3>
-          <p>We manufacture in Langley, BC and ship across Canada — quoted in Canadian dollars with no cross-border complications.</p>
+ <p>We manufacture in Langley, BC and ship across Canada, quoted in Canadian dollars with no cross-border complications.</p>
         </div>
         <div class="sidebar-card">
           <h3>Useful links</h3>

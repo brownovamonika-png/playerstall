@@ -55,10 +55,10 @@ const SPORT_DATA: Record<string, SportInfo> = {
 		],
 		heroImage: '/images/blog-2026/iowa-western-hero.jpg',
 		gallery: [
-			'/images/blog-2026/iowa-western-g1.jpg',   // action — left
+ '/images/blog-2026/iowa-western-g1.jpg', // action, left
 			'/images/blog-2026/iowa-western-g3.jpg',   // WRESTLING wall
 			'/images/blog-2026/iowa-western-g4.jpg',   // locker room aisle
-			'/images/blog-2026/iowa-western-g2.jpg',   // action — right
+ '/images/blog-2026/iowa-western-g2.jpg', // action, right
 		],
 		cta: 'Get Wrestling Locker Quote',
 		bannerTitle: 'Earned, Never Given',
@@ -301,7 +301,7 @@ const LOCKERS = lockersForSportUi();
 /* ───── Route ───── */
 // NOTE: Astro hoists getStaticPaths into its own module scope, so it cannot
 // read SPORT_DATA above. This list must be kept in step with SPORT_DATA by
-// hand — add a sport in both places or it silently gets no page.
+// hand, add a sport in both places or it silently gets no page.
 export function getStaticPaths() {
 	return [
 		{ params: { sport: 'football' } },
@@ -543,7 +543,7 @@ const sportLockersItemList = buildLockersItemList(
 				{data.bannerQuotes.map((quoteItem, index) => (
 					<blockquote class={`topscorer-banner-quote ${index === 0 ? 'active' : ''}`}>
 						<p class="topscorer-banner-quote-text">"{quoteItem.quote}"</p>
-						<cite class="topscorer-banner-quote-author">— {quoteItem.author}</cite>
+ <cite class="topscorer-banner-quote-author">, {quoteItem.author}</cite>
 					</blockquote>
 				))}
 			</div>
@@ -823,7 +823,7 @@ const sportLockersItemList = buildLockersItemList(
 		line-height: 1.08;
 	}
 
-	/* Featured locker (Semi Pro) — horizontal one-line layout */
+	/* Featured locker (Semi Pro), horizontal one-line layout */
 	.sp-locker-featured {
 		display: grid;
 		grid-template-columns: auto 1fr auto;
@@ -903,7 +903,7 @@ const sportLockersItemList = buildLockersItemList(
 		opacity: 0.85;
 	}
 
-	/* Desktop: name column a fixed width and the four photos always on one line — they shrink a little instead of wrapping */
+	/* Desktop: name column a fixed width and the four photos always on one line, they shrink a little instead of wrapping */
 	@media (min-width: 1025px) {
 		.sp-locker-featured {
 			grid-template-columns: 220px 1fr auto;

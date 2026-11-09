@@ -255,7 +255,7 @@ const orderHeaderTitle = orderPageDisplayTitle(order.title);
 const qtyDisplay =
 	order.quantity != null && !Number.isNaN(Number(order.quantity))
 		? Number(order.quantity).toLocaleString()
-		: '—';
+ : ', ';
 ---
 
 <AdminLayout title={orderHeaderTitle} activeNav="pipeline">
@@ -263,11 +263,11 @@ const qtyDisplay =
 		<div class="order-header-metrics">
 			<div class="order-header-metric">
 				<span class="order-header-metric-label">Locker type</span>
-				<span class="order-header-metric-value">{order.locker_type?.trim() || '—'}</span>
+ <span class="order-header-metric-value">{order.locker_type?.trim() || ', '}</span>
 			</div>
 			<div class="order-header-metric">
 				<span class="order-header-metric-label">Manufacturer's form</span>
-				<span class="order-header-metric-value">{order.manufacturers_form?.trim() || '—'}</span>
+ <span class="order-header-metric-value">{order.manufacturers_form?.trim() || ', '}</span>
 			</div>
 			<div class="order-header-metric">
 				<span class="order-header-metric-label">Quantity</span>
@@ -275,15 +275,15 @@ const qtyDisplay =
 			</div>
 			<div class="order-header-metric">
 				<span class="order-header-metric-label">Width</span>
-				<span class="order-header-metric-value">{order.locker_size?.trim() || '—'}</span>
+ <span class="order-header-metric-value">{order.locker_size?.trim() || ', '}</span>
 			</div>
 			<div class="order-header-metric">
 				<span class="order-header-metric-label">Depth</span>
-				<span class="order-header-metric-value">{order.locker_width?.trim() || '—'}</span>
+ <span class="order-header-metric-value">{order.locker_width?.trim() || ', '}</span>
 			</div>
 			<div class="order-header-metric">
 				<span class="order-header-metric-label">Color</span>
-				<span class="order-header-metric-value">{order.locker_color?.trim() || '—'}</span>
+ <span class="order-header-metric-value">{order.locker_color?.trim() || ', '}</span>
 			</div>
 		</div>
 	</Fragment>
@@ -408,7 +408,7 @@ const qtyDisplay =
 								<strong>{Math.max(1, Math.floor(Number(order.quantity) || 1))}</strong> ={' '}
 								<strong>${siteListLine.total.toFixed(2)}</strong> USD project total. The shop price (e.g. $599 for Pro
 								24″) is <em>one locker</em>; multiply by quantity for the full order. You can still edit quoted
-								amount — use <strong>Use site list price</strong> under Locker specifications after changing specs.
+ amount, use <strong>Use site list price</strong> under Locker specifications after changing specs.
 							</span>
 						)}
 						{!siteListLine && (
@@ -499,7 +499,7 @@ const qtyDisplay =
 									<tr>
 										<td class="order-accessories-td-name">{row.label}</td>
 										<td class="order-accessories-td-qty">
-											<label class="visually-hidden" for={`acc_qty_${row.id}`}>Quantity — {row.label}</label>
+ <label class="visually-hidden" for={`acc_qty_${row.id}`}>Quantity, {row.label}</label>
 											<input
 												type="number"
 												id={`acc_qty_${row.id}`}
@@ -692,7 +692,7 @@ const qtyDisplay =
 				)}
 			</div>
 
-			<!-- Documents: layouts, specs, quotes, invoices (stored on order — follows project) -->
+ <!-- Documents: layouts, specs, quotes, invoices (stored on order, follows project) -->
 			<div class="card">
 				<h3>Project files</h3>
 				<p class="docs-intro">Upload locker layouts, room plans, spec sheets, quotes, and invoices. They stay on this order and appear in the timeline above.</p>
@@ -754,7 +754,7 @@ const qtyDisplay =
 						})}
 					</div>
 				) : (
-					<p style="color: #8C8C8C; font-size: 14px; padding: 12px 0">No files yet — add layouts, spec sheets, quotes, or invoices.</p>
+ <p style="color: #8C8C8C; font-size: 14px; padding: 12px 0">No files yet, add layouts, spec sheets, quotes, or invoices.</p>
 				)}
 			</div>
 

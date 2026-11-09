@@ -111,13 +111,13 @@ const customerNoteTrimmed = String(
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="robots" content="noindex, nofollow" />
-		<title>{titleLabel} {docNumber || '—'} | {brandName}</title>
+ <title>{titleLabel} {docNumber || ', '} | {brandName}</title>
 		<link href="https://fonts.googleapis.com/css?family=Yantramanav:400,500|Oswald:600,700&display=swap" rel="stylesheet" />
 		<style>
 			* {
 				box-sizing: border-box;
 			}
-			/* Page shell — mirrors homepage .home-shop-section + .home-shop-container (Materials we use) */
+ /* Page shell, mirrors homepage .home-shop-section + .home-shop-container (Materials we use) */
 			body.est-body {
 				font-family: 'Yantramanav', Arial, sans-serif;
 				color: #0d0d0d;
@@ -809,7 +809,7 @@ const customerNoteTrimmed = String(
 								<dl class="est-doc-dl">
 									<div class="est-doc-dl-row">
 										<dt>{docType === 'invoice' ? 'Invoice #' : 'Estimate #'}</dt>
-										<dd>{docNumber || '—'}</dd>
+ <dd>{docNumber || ', '}</dd>
 									</div>
 									<div class="est-doc-dl-row">
 										<dt>Date</dt>
@@ -824,7 +824,7 @@ const customerNoteTrimmed = String(
 						<div class="est-columns">
 							<div>
 								<div class="col-label">Bill to</div>
-								<div class="party">{String(client?.contact_name || '—')}</div>
+ <div class="party">{String(client?.contact_name || ', ')}</div>
 								{client?.company_name && <div class="party-detail">{String(client.company_name)}</div>}
 								{client?.email && <div class="party-detail">{String(client.email)}</div>}
 								{client?.phone && <div class="party-detail">{String(client.phone)}</div>}
@@ -962,13 +962,13 @@ const customerNoteTrimmed = String(
 										)}
 									</div>
 								</td>
-								<td class="num">{qty != null ? qty : '—'}</td>
+ <td class="num">{qty != null ? qty : ', '}</td>
 								<td class="num">
 									{unitPrice != null
 										? fmtUsd(unitPrice)
 										: amt != null
-											? '—'
-											: '—'}
+ ? ', '
+ : ', '}
 								</td>
 								<td class="num">{amt != null ? fmtUsd(amt) : 'TBD'}</td>
 							</tr>

@@ -65,10 +65,10 @@ function accessoryTileCaption(rowId: string): string {
 
 <details class="lsr-wrap card" open data-lsr-panel={idPrefix}>
 	<summary class="lsr-summary">
-		Spec sheet reference — <strong>{line === 'premium' ? 'Premium' : 'Essential'}</strong> line (accessories)
+ Spec sheet reference, <strong>{line === 'premium' ? 'Premium' : 'Essential'}</strong> line (accessories)
 	</summary>
 	<p class="lsr-lead">
-		Choose side elevation, top, bottom, depth, width, then accessories. Reference only — not saved to the database.
+ Choose side elevation, top, bottom, depth, width, then accessories. Reference only, not saved to the database.
 	</p>
 
 	<div class="lsr-picks" aria-label="Sides, top, bottom, dimensions, and accessories (not saved)">
@@ -128,7 +128,7 @@ function accessoryTileCaption(rowId: string): string {
 		<div class="lsr-pick-block">
 			<h3 class="lsr-pick-heading">Top</h3>
 			<p class="lsr-pick-hint">
-				Pick 1 of 4 (locker top). Thumbnails match the {line === 'premium' ? 'premium' : 'locker build'} form — same size as Sides.
+ Pick 1 of 4 (locker top). Thumbnails match the {line === 'premium' ? 'premium' : 'locker build'} form, same size as Sides.
 			</p>
 			<div class="lsr-tiles lsr-tiles--thumb-grid" role="radiogroup" aria-label="Locker top option">
 				{topOptions.map((opt, i) => {
@@ -234,7 +234,7 @@ function accessoryTileCaption(rowId: string): string {
 								max={9999}
 								step={1}
 								value={w === 24 ? 1 : 0}
-								aria-label={`Quantity — ${w} inch width`}
+ aria-label={`Quantity, ${w} inch width`}
 							/>
 						</div>
 					))}
@@ -245,7 +245,7 @@ function accessoryTileCaption(rowId: string): string {
 
 	<div class="lsr-acc">
 		<h3 class="lsr-pick-heading">Accessories</h3>
-		<p class="lsr-pick-hint">Select add-ons to match the site catalog / CRM (reference — not saved yet)</p>
+ <p class="lsr-pick-hint">Select add-ons to match the site catalog / CRM (reference, not saved yet)</p>
 
 		<div class="lsr-pick-block lsr-pick-block--cushions">
 			<h4 class="lsr-pick-heading">Cushions</h4>
@@ -294,7 +294,7 @@ function accessoryTileCaption(rowId: string): string {
 						class="lsr-cushion-other-input"
 						placeholder="Type color (e.g. navy, sand, Pantone)…"
 						autocomplete="off"
-						aria-label="Other cushion color — describe"
+ aria-label="Other cushion color, describe"
 						disabled
 					/>
 				</div>

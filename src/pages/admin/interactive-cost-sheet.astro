@@ -16,8 +16,8 @@ if (!demoMode) {
 <AdminLayout title="Interactive cost sheet" activeNav="interactive-cost-sheet">
 	<div class="calc-intro card">
 		<p class="calc-intro-text">
-			<strong>Internal calculator</strong> — model your <strong>supplier cost</strong> (all-in or by components), add <strong>your container</strong> freight / packing / extras split across lockers, and compare to <strong>list revenue (CAD)</strong> from the same rules as
-			<code>price-sheet-cad.html</code> (Premium Models X/Z/S/L and Essential Semi Pro, Varsity, Pro Locker, Stadium Locker — same width USD tiers as the shop product pages). Use <strong>All-in per locker</strong> when the factory quotes one price per locker; use <strong>Build from components</strong> when they quote plywood, build, packing, etc. separately.
+ <strong>Internal calculator</strong>, model your <strong>supplier cost</strong> (all-in or by components), add <strong>your container</strong> freight / packing / extras split across lockers, and compare to <strong>list revenue (CAD)</strong> from the same rules as
+ <code>price-sheet-cad.html</code> (Premium Models X/Z/S/L and Essential Semi Pro, Varsity, Pro Locker, Stadium Locker, same width USD tiers as the shop product pages). Use <strong>All-in per locker</strong> when the factory quotes one price per locker; use <strong>Build from components</strong> when they quote plywood, build, packing, etc. separately.
 		</p>
 		<p class="calc-intro-actions">
 			<a class="btn btn-secondary" href="/price-sheet-cad.html" target="_blank" rel="noopener noreferrer">Open reference CAD sheet</a>
@@ -139,7 +139,7 @@ if (!demoMode) {
 
 		<div class="card calc-card">
 			<h3 class="calc-card-title">Your container</h3>
-			<p class="calc-micro-hint">Your ocean freight, crating/packing, and misc — split across all lockers in the container.</p>
+ <p class="calc-micro-hint">Your ocean freight, crating/packing, and misc, split across all lockers in the container.</p>
 			<div class="form-group">
 				<label for="calc-lockers-container">Lockers per container</label>
 				<input type="number" id="calc-lockers-container" step="1" min="1" value="250" />
@@ -163,35 +163,35 @@ if (!demoMode) {
 			<div class="calc-results-grid">
 				<div class="calc-result-block">
 					<span class="calc-result-label">Plywood per locker</span>
-					<span class="calc-result-value" id="res-plywood-pl">—</span>
+ <span class="calc-result-value" id="res-plywood-pl">, </span>
 				</div>
 				<div class="calc-result-block">
 					<span class="calc-result-label">Supplier subtotal / locker</span>
-					<span class="calc-result-value" id="res-supplier-sub">—</span>
+ <span class="calc-result-value" id="res-supplier-sub">, </span>
 				</div>
 				<div class="calc-result-block">
 					<span class="calc-result-label">Container share / locker</span>
-					<span class="calc-result-value" id="res-container-share">—</span>
+ <span class="calc-result-value" id="res-container-share">, </span>
 				</div>
 				<div class="calc-result-block calc-result-block--emph">
 					<span class="calc-result-label">Total cost / locker</span>
-					<span class="calc-result-value" id="res-cost-locker">—</span>
+ <span class="calc-result-value" id="res-cost-locker">, </span>
 				</div>
 				<div class="calc-result-block">
 					<span class="calc-result-label">List revenue (CAD) / locker</span>
-					<span class="calc-result-value" id="res-revenue">—</span>
+ <span class="calc-result-value" id="res-revenue">, </span>
 				</div>
 				<div class="calc-result-block calc-result-block--profit">
 					<span class="calc-result-label">Profit / locker</span>
-					<span class="calc-result-value" id="res-profit-locker">—</span>
+ <span class="calc-result-value" id="res-profit-locker">, </span>
 				</div>
 				<div class="calc-result-block">
 					<span class="calc-result-label">Margin on revenue</span>
-					<span class="calc-result-value" id="res-margin">—</span>
+ <span class="calc-result-value" id="res-margin">, </span>
 				</div>
 				<div class="calc-result-block calc-result-block--emph">
 					<span class="calc-result-label">Total cost (full container)</span>
-					<span class="calc-result-value" id="res-total-container">—</span>
+ <span class="calc-result-value" id="res-total-container">, </span>
 				</div>
 			</div>
 			<p class="calc-footnote">
@@ -435,7 +435,7 @@ if (!demoMode) {
 			if (essential) depthSel.value = '19';
 			note.textContent = essential
 				? 'Essential models: 19″ depth on the price sheet; 24″ is not offered for this line in the calculator.'
-				: 'Premium: 19″ or 24″ — same USD list price (matches price-sheet-cad.html).';
+ : 'Premium: 19″ or 24″, same USD list price (matches price-sheet-cad.html).';
 		}
 
 		function revenueCad(width) {
@@ -544,13 +544,13 @@ if (!demoMode) {
 				if (el) el.textContent = text;
 			};
 
-			set('res-plywood-pl', mode === 'components' ? fmtD(pl) : '—');
+ set('res-plywood-pl', mode === 'components' ? fmtD(pl) : ', ');
 			set('res-supplier-sub', fmtD(supplierSub));
 			set('res-container-share', fmtD(cShare));
 			set('res-cost-locker', fmtD(costLocker));
 			set('res-revenue', fmtD(rev));
 			set('res-profit-locker', fmtD(profit));
-			set('res-margin', rev > 0 ? marginPct.toFixed(1) + '%' : '—');
+ set('res-margin', rev > 0 ? marginPct.toFixed(1) + '%' : ', ');
 			set('res-total-container', fmtD(totalContainer));
 		}
 

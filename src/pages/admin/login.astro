@@ -42,7 +42,7 @@ if (Astro.request.method === 'POST') {
 	}
 
 	if (error) {
-		// gate failed — do not continue
+ // gate failed, do not continue
 	} else if (demoMode) {
 		if (previewBlocked) {
 			error = 'Set CRM_SHARED_PASSWORD in your environment to sign in.';
@@ -102,11 +102,11 @@ if (Astro.request.method === 'POST') {
 				<div class="demo-banner">
 					{previewBlocked ? (
 						<>
-							<strong>Configuration needed</strong> — Supabase is not connected. Add <code>CRM_SHARED_PASSWORD</code> to your environment, then sign in with that password to open the CRM (sample data).
+ <strong>Configuration needed</strong>, Supabase is not connected. Add <code>CRM_SHARED_PASSWORD</code> to your environment, then sign in with that password to open the CRM (sample data).
 						</>
 					) : (
 						<>
-							<strong>Preview</strong> — Supabase is not connected; you are using sample data. Sign in with your CRM password to continue.
+ <strong>Preview</strong>, Supabase is not connected; you are using sample data. Sign in with your CRM password to continue.
 						</>
 					)}
 				</div>

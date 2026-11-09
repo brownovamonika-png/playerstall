@@ -11,8 +11,8 @@ if (import.meta.env.PROD) {
 /*
  * Point iframes at the standalone preview routes instead of stuffing the
  * entire HTML into a `data:text/html,…` URL. Data URLs have an opaque origin,
- * making Google Fonts / clamp() rendering unreliable and — at these payload
- * sizes — some browsers (Chrome in particular) silently show a blank frame
+ * making Google Fonts / clamp() rendering unreliable and, at these payload
+ * sizes, some browsers (Chrome in particular) silently show a blank frame
  * because the encoded URL exceeds the data: length budget, which is exactly
  * the "static / empty iframe" bug we hit after wiring Oswald + Yantramanav
  * into the email HTML. `src=/dev/…` always works, keeps DevTools inspectable,
@@ -69,7 +69,7 @@ const teamSrc = '/dev/email-preview-room-plan-team';
 		<p class="hint">
 			Customer and team emails both use the same compact HTML pattern (<code>buildCustomerHTML</code> /
 			<code>buildSalesHTML</code>): totals + pointer to PDFs; team adds a Customer mailto row on the card. The estimate
-			PDF has the full table + your selections — see <code>src/room-planner/pdfEstimate.ts</code>. Edit copy in
+ PDF has the full table + your selections, see <code>src/room-planner/pdfEstimate.ts</code>. Edit copy in
 			<code>src/lib/roomPlanCustomerCopy.ts</code> and layout in <code>src/lib/roomPlanEmailTemplates.ts</code>. Subjects
 			are in <code>src/pages/api/send-room-plan.ts</code>. Run <code>npm run email:export-preview</code> to write HTML +
 			sample PDF to <code>email-export/</code>.
@@ -77,13 +77,13 @@ const teamSrc = '/dev/email-preview-room-plan-team';
 
 		<section>
 			<h1>Customer email (inbox of the address they typed in the planner)</h1>
-			<p class="hint">Subject: <strong>Review your layout — PlayerStall</strong></p>
+ <p class="hint">Subject: <strong>Review your layout, PlayerStall</strong></p>
 			<iframe title="Customer email preview" src={customerSrc}></iframe>
 		</section>
 
 		<section>
 			<h1>Team email (team@)</h1>
-			<p class="hint">Subject: <strong>New layout submission — …</strong></p>
+ <p class="hint">Subject: <strong>New layout submission, …</strong></p>
 			<iframe title="Team email preview" src={teamSrc}></iframe>
 		</section>
 	</body>

@@ -147,7 +147,7 @@ const TIER_MODEL_BLURB: Record<ShippingProductTier, string> = {
 
 <AdminLayout title="Shipping" activeNav="shipping">
 	<p class="ship-lead">
-		Choose which locker line you are shipping below. Only that line’s <strong>pallet reference</strong> and <strong>shipment memo</strong> show — dimensions and weight should match your warehouse / C &amp; D setup.
+ Choose which locker line you are shipping below. Only that line’s <strong>pallet reference</strong> and <strong>shipment memo</strong> show, dimensions and weight should match your warehouse / C &amp; D setup.
 	</p>
 	<p class="ship-lead ship-muted">
 		<a href="/admin/inventory">← Back to Inventory</a>
@@ -164,7 +164,7 @@ const TIER_MODEL_BLURB: Record<ShippingProductTier, string> = {
 		))}
 	</nav>
 	<p class="ship-active-hint" role="status">
-		<strong>Showing:</strong> {SHIPPING_TIER_LABELS[activeTier]} — <span class="ship-muted">{TIER_MODEL_BLURB[activeTier]}</span>
+ <strong>Showing:</strong> {SHIPPING_TIER_LABELS[activeTier]}, <span class="ship-muted">{TIER_MODEL_BLURB[activeTier]}</span>
 	</p>
 
 	{formError && <div class="ship-alert ship-alert-error" role="alert">{formError}</div>}
@@ -189,7 +189,7 @@ const TIER_MODEL_BLURB: Record<ShippingProductTier, string> = {
 	)}
 
 	<div class="card ship-card ship-panel-active">
-		<h2 class="ship-card-title">Pallet reference — {SHIPPING_TIER_LABELS[activeTier]}</h2>
+ <h2 class="ship-card-title">Pallet reference, {SHIPPING_TIER_LABELS[activeTier]}</h2>
 		<p class="ship-muted">{activeProfile.label}</p>
 		{demoMode ? (
 			<p class="ship-muted">Saving disabled without Supabase.</p>
@@ -288,7 +288,7 @@ const TIER_MODEL_BLURB: Record<ShippingProductTier, string> = {
 	</div>
 
 	<details class="card ship-card ship-template-details">
-		<summary class="ship-template-summary">C &amp; D Logistics — email &amp; attachment template (both lines)</summary>
+ <summary class="ship-template-summary">C &amp; D Logistics, email &amp; attachment template (both lines)</summary>
 		<p class="ship-muted ship-template-intro">
 			Shared template for every shipment. Merge fields pull from the pallet profile for whichever line you had selected when you generated the memo.
 		</p>
@@ -300,7 +300,7 @@ const TIER_MODEL_BLURB: Record<ShippingProductTier, string> = {
 			<ul class="ship-merge-list">
 				{CD_LOGISTICS_MERGE_FIELD_HELP.map((row) => (
 					<li>
-						<code>{'{{' + row.key + '}}'}</code> — {row.description}
+ <code>{'{{' + row.key + '}}'}</code>, {row.description}
 					</li>
 				))}
 			</ul>
