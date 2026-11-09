@@ -163,23 +163,9 @@ export function generateLocalBusinessSchema() {
 		},
 		"geo": {
 			"@type": "GeoCoordinates",
-			"latitude": "40.6184",
-			"longitude": "-74.0302"
+			"latitude": "49.0554",
+			"longitude": "-122.6692"
 		},
-		"openingHoursSpecification": [
-			{
-				"@type": "OpeningHoursSpecification",
-				"dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-				"opens": "09:00",
-				"closes": "17:00"
-			},
-			{
-				"@type": "OpeningHoursSpecification",
-				"dayOfWeek": "Saturday",
-				"opens": "10:00",
-				"closes": "14:00"
-			}
-		],
 		"serviceArea": {
 			"@type": "Country",
 			"name": "United States"
