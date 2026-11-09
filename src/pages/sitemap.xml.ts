@@ -38,10 +38,29 @@ const staticPages = [
 	{ url: '/sport/baseball', priority: '0.7', changefreq: 'monthly' },
 	{ url: '/sport/soccer', priority: '0.7', changefreq: 'monthly' },
 	{ url: '/sport/lacrosse', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/room-planner', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/spec-sheets', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/how-it-works', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/warranty', priority: '0.6', changefreq: 'yearly' },
+	{ url: '/installation-guide', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/sports', priority: '0.7', changefreq: 'monthly' },
+	// Product pages that were missing
+	{ url: '/product-model-x', priority: '0.8', changefreq: 'monthly' },
+	{ url: '/product-model-b', priority: '0.8', changefreq: 'monthly' },
+	{ url: '/product-corner-locker', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/product-stick-rack', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/product-model-s-drawer', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/product-model-s-open-cubby', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/product-model-s-two-upper-cubbies', priority: '0.7', changefreq: 'monthly' },
+	// Sport pages added Nov 2026
+	{ url: '/sport/wrestling', priority: '0.7', changefreq: 'monthly' },
+	{ url: '/sport/volleyball', priority: '0.7', changefreq: 'monthly' },
 ];
 
 export const GET: APIRoute = async ({ site }) => {
-	const baseUrl = site?.toString() || 'https://playerstall.com';
+	// site.toString() comes back with a trailing slash, and every url below starts
+	// with one, which produced https://playerstall.com//products for every entry.
+	const baseUrl = (site?.toString() || 'https://playerstall.com').replace(/\/+$/, '');
 	
 	// Get all blog posts from content collection
 	const blogPosts = await getCollection('blog', isPublished);
