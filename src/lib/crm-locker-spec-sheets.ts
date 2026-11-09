@@ -49,7 +49,7 @@ const PREMIUM_MELAMINE_SPECS: readonly LockerSpecSheetRow[] = [
 	{ label: 'Edgebanding', value: 'PVC edgebanding' },
 	{ label: 'Width range', value: '18" – 32"' },
 	{ label: 'Depth options', value: '19" or 24"' },
-	{ label: 'Custom build', value: '8–12 weeks — any size, wood, or materials' },
+	{ label: 'Custom build', value: '10–12 weeks, any size, wood, or materials' },
 	{ label: 'Warranty', value: '5 year warranty' },
 ];
 
@@ -82,7 +82,7 @@ const ESSENTIAL_SPECS: readonly LockerSpecSheetRow[] = [
 	{ label: 'Width range', value: '18" – 32"' },
 	{ label: 'Depth options', value: '19" (standard)' },
 	{ label: 'Material', value: 'Birch plywood only — no other wood types' },
-	{ label: 'Custom build', value: '8–12 weeks — any size, color, options' },
+	{ label: 'Custom build', value: '10–12 weeks, any size, color, options' },
 	{ label: 'Warranty', value: '5 year warranty' },
 ];
 
@@ -115,7 +115,7 @@ const PRO_SPECS: readonly LockerSpecSheetRow[] = [
 	{ label: 'Width range', value: '18" – 32"' },
 	{ label: 'Depth', value: '19"' },
 	{ label: 'Finish', value: 'Cabinet-Grade Pre-Finished Birch Plywood for Wood Lockers' },
-	{ label: 'Custom build', value: '8–12 weeks — any size, options' },
+	{ label: 'Custom build', value: '10–12 weeks, any size, options' },
 	{ label: 'Warranty', value: '5 year warranty' },
 ];
 
@@ -149,7 +149,7 @@ const STADIUM_SPECS: readonly LockerSpecSheetRow[] = [
 	{ label: 'Width range', value: '18" – 32"' },
 	{ label: 'Depth', value: '19"' },
 	{ label: 'Finish', value: 'Cabinet-Grade Pre-Finished Birch Plywood for Wood Lockers' },
-	{ label: 'Custom build', value: '8–12 weeks — any size, options' },
+	{ label: 'Custom build', value: '10–12 weeks, any size, options' },
 	{ label: 'Warranty', value: '5 year warranty' },
 ];
 
