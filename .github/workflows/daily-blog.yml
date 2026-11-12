@@ -57,7 +57,12 @@ jobs:
           echo "count=$count" >> "$GITHUB_OUTPUT"
           echo "titles=$titles" >> "$GITHUB_OUTPUT"
           echo "date=$TODAY" >> "$GITHUB_OUTPUT"
-          [ "$count" = "0" ] && echo "Nothing scheduled for $TODAY — no deploy needed."
+          # Must be an if, not a `[ ... ] && echo`. The step runs under `bash -e`, so on
+          # a day a post IS due the test returns 1, that becomes the script's exit
+          # status, and the whole job fails before it can deploy.
+          if [ "$count" = "0" ]; then
+            echo "Nothing scheduled for $TODAY, no deploy needed."
+          fi
 
       # Titles are passed through the environment, never interpolated into the
       # shell, so a post title can contain any characters safely.
