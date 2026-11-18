@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Locker Color Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Yantramanav:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#0d0d0d; --muted:#8c8c8c; --line:#e4e4e4; --orange:#fe5900; --bg:#ffffff; --panel:#f8f8f8; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Yantramanav',sans-serif; }
+  header { padding:24px 16px 8px; max-width:1180px; margin:0 auto; }
+  h1 { font-family:'Oswald',sans-serif; font-weight:500; letter-spacing:.02em; margin:0 0 6px; font-size:28px; }
+  header p { margin:0; color:#555; font-size:15px; }
+  .wrap { max-width:1180px; margin:0 auto; padding:16px; display:grid; grid-template-columns:1fr 1.4fr; gap:24px; }
+  @media (max-width:860px){ .wrap { grid-template-columns:1fr; } }
+  .card { border:1px solid var(--line); padding:20px; background:#fff; }
+  .tag { display:inline-block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; padding:4px 8px; margin-bottom:12px; }
+  .tag.before { background:#eee; color:#555; }
+  .tag.after { background:var(--orange); color:#fff; }
+  .card h2 { font-family:'Oswald',sans-serif; font-weight:500; font-size:20px; margin:0 0 4px; }
+  .model { color:var(--muted); font-size:13px; margin:0 0 16px; }
+  .option-label { font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); display:block; margin-bottom:8px; }
+  .color-select-wrapper { display:flex; gap:10px; align-items:center; }
+  .color-preview { width:34px; height:34px; border:1px solid #ccc; flex:none; }
+  select { flex:1; min-width:0; padding:9px; font-family:inherit; font-size:14px; border:1px solid #ccc; background:#fff; }
+  .count { font-size:13px; color:#b33; margin-top:10px; }
+  .swatches { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  @media (max-width:480px){ .swatches { grid-template-columns:repeat(2,1fr); } }
+  .sw { border:1px solid var(--line); background:#fff; cursor:pointer; padding:8px; text-align:left; font-family:inherit; transition:border-color .15s, box-shadow .15s; }
+  .sw:hover { border-color:#bbb; }
+  .sw[aria-pressed="true"] { border-color:var(--orange); box-shadow:0 0 0 1px var(--orange); }
+  .sw img { width:100%; height:110px; object-fit:contain; display:block; background:#fff; }
+  .sw .row { display:flex; align-items:center; gap:8px; margin-top:6px; }
+  .sw .dot { width:16px; height:16px; border:1px solid rgba(0,0,0,.15); flex:none; }
+  .sw .name { font-size:14px; font-weight:500; }
+  .sw.custom { display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; min-height:150px; background:var(--panel); border-style:dashed; }
+  .sw.custom .big { font-size:28px; line-height:1; color:var(--orange); }
+  .sw.custom .name { margin-top:6px; }
+  .sw.custom small { color:#666; font-size:12px; margin-top:2px; }
+  .selected { margin-top:14px; font-size:14px; }
+  .selected b { font-weight:700; }
+  .match { margin-top:16px; background:var(--panel); border-left:3px solid var(--orange); padding:12px 14px; font-size:14px; line-height:1.5; }
+  .match strong { display:block; font-size:12px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; }
+  .uv { display:none; margin-top:10px; border:1px solid var(--line); padding:12px 14px; font-size:14px; line-height:1.5; }
+  .uv.show { display:block; }
+  .uv strong { display:block; font-size:12px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; color:#8a5a2c; }
+  .custom-form { display:none; margin-top:12px; }
+  .custom-form.show { display:block; }
+  .custom-form input { width:100%; padding:9px; border:1px solid #ccc; font-family:inherit; font-size:14px; }
+  .custom-form p { font-size:12px; color:#666; margin:6px 0 0; }
+  .notes { max-width:1180px; margin:0 auto; padding:0 16px 40px; font-size:14px; color:#444; line-height:1.6; }
+  .notes h3 { font-family:'Oswald',sans-serif; font-weight:500; font-size:16px; margin:8px 0 4px; color:var(--ink); }
+  .notes ul { margin:0; padding-left:18px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Locker color options: preview</h1>
+  <p>Mock-up only. Nothing on the live website has changed. Left is today's Model S color picker; right is the proposed version using the 2026 Locker Collection look book colors.</p>
+</header>
+
+<div class="wrap">
+  <section class="card">
+    <span class="tag before">Now on the site</span>
+    <h2>Model S</h2>
+    <p class="model">Color picker today</p>
+    <label class="option-label" for="old-select">Color:</label>
+    <div class="color-select-wrapper">
+      <span class="color-preview" id="old-preview" style="background:#f4f4f0"></span>
+      <select id="old-select"></select>
+    </div>
+    <p class="count">35 colors: 20 Sherwin-Williams solids + 15 textured woodgrains</p>
+  </section>
+
+  <section class="card">
+    <span class="tag after">Proposed</span>
+    <h2>Model S</h2>
+    <p class="model">Colors from the 2026 look book</p>
+    <span class="option-label">Color:</span>
+    <div class="swatches" id="swatches"></div>
+    <div class="custom-form" id="custom-form">
+      <label class="option-label" for="custom-color" style="margin-top:4px">Color you'd like matched</label>
+      <input id="custom-color" placeholder="e.g. school red, Pantone 186 C, or Sherwin-Williams SW 7069">
+      <p>Send a paint code, Pantone number, or photo with your quote request. We'll source the closest match and confirm it before production.</p>
+    </div>
+    <p class="selected">Selected: <b id="sel-name">Walnut</b></p>
+    <div class="uv" id="uv-note">
+      <strong>Birch: UV Grade A</strong>
+      2-ply UV coating: two layers of UV coating sealed onto the birch face, on both sides of the panel. Made from our 3/4" (19 mm) cabinet-grade birch plywood, the same plywood used on every PlayerStall locker.
+    </div>
+    <div class="match">
+      <strong>Need a different color?</strong>
+      Our standard colors are shown above. We can also try to match a color you'd like, such as your team or school colors, and source it for your order. Pick "Custom color match" and tell us the color.
+    </div>
+  </section>
+</div>
+
+<div class="notes">
+  <h3>Where the 6 colors come from</h3>
+  <ul>
+    <li><b>Walnut, Black, Birch</b>: Model S, Model B and Model L pages of the look book</li>
+    <li><b>Light Grey</b>: Model S, Model B and Model X</li>
+    <li><b>Dark Grey</b>: Model X and Model Z</li>
+    <li><b>Blue</b>: Model Z</li>
+  </ul>
+  <h3>Still to decide before going live</h3>
+  <ul>
+    <li>Should the Essential line (Stadium, Varsity, Semi Pro) show Birch only, since the look book lists it as UV-coated birch?</li>
+    <li>Should every Premium model offer all 6 colors, or only the ones shown for that model in the look book?</li>
+    <li>Birch note: confirm "2-ply UV coating" means two layers of UV coat. I couldn't find a layer count from the supplier in your notes, so it uses your wording.</li>
+    <li>The same list also feeds the room planner and the color PDF links. Those would be updated to match.</li>
+  </ul>
+</div>
+
+<script>
+  const OLD = {"solid": [["Accessible Beige", "#d4c5a9"], ["Alabaster", "#ede9de"], ["Antique White", "#ede3d5"], ["Bracing Blue", "#4b697c"], ["Cyberspace", "#2a2c2e"], ["Gale Force", "#2f3e4c"], ["High Reflective White", "#f4f4f0"], ["Iron Ore", "#4a4b4d"], ["Light French Gray", "#c5c0b8"], ["Mindful Gray", "#68696b"], ["Naval", "#2e3a5a"], ["Perfect Greige", "#b6a99a"], ["Pure White", "#edece6"], ["Quietude", "#b7c3c4"], ["Repose Gray", "#ccc8c0"], ["Roycroft Green", "#6b734f"], ["Sea Salt", "#d4dcd5"], ["Tricorn Black", "#2d2d2d"], ["Urban Bronze", "#5c5048"], ["Web Gray", "#777b80"]], "wood": [["Bruno", "#8d6f52"], ["Canella", "#9a7a58"], ["Fad", "#7a5c40"], ["Flaxen", "#c4a574"], ["Ice", "#b8a892"], ["Impulse", "#6b5344"], ["Java", "#4a3528"], ["Lofty", "#a89880"], ["Marigold", "#b89a5e"], ["Noir", "#3d2e26"], ["Pebble", "#8a8078"], ["Realm", "#6e5644"], ["Rift", "#5c4a3a"], ["Sunset", "#8b5c3c"], ["Walnut", "#4a3520"]]};
+  const sel = document.getElementById('old-select');
+  for (const [label, key] of [["Solid colors (Sherwin-Williams)", "solid"], ["Textured woodgrain", "wood"]]) {
+    const g = document.createElement('optgroup'); g.label = label;
+    OLD[key].forEach(([n, h]) => { const o = new Option(n, h); if (n === 'High Reflective White') o.selected = true; g.append(o); });
+    sel.append(g);
+  }
+  sel.onchange = () => document.getElementById('old-preview').style.background = sel.value;
+
+  const NEW = [
+    ["Walnut", "#8a5a3c", "walnut"],
+    ["Black", "#2a2a2a", "black"],
+    ["Birch", "#ca9f71", "birch"],
+    ["Light Grey", "#c4c2be", "light-grey"],
+    ["Dark Grey", "#4b4c4c", "dark-grey"],
+    ["Blue", "#6d767e", "blue"],
+  ];
+  const wrap = document.getElementById('swatches');
+  const nameEl = document.getElementById('sel-name');
+  const form = document.getElementById('custom-form');
+  function pick(btn, name) {
+    wrap.querySelectorAll('.sw').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    btn.setAttribute('aria-pressed', 'true');
+    nameEl.textContent = name;
+    form.classList.toggle('show', name === 'Custom color match');
+    document.getElementById('uv-note').classList.toggle('show', name === 'Birch');
+  }
+  NEW.forEach(([n, h, img], i) => {
+    const b = document.createElement('button');
+    b.className = 'sw'; b.type = 'button'; b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+    b.innerHTML = `<img src="img/${img}.png" alt="${n} locker"><span class="row"><span class="dot" style="background:${h}"></span><span class="name">${n}</span></span>`;
+    b.onclick = () => pick(b, n);
+    wrap.append(b);
+  });
+  const c = document.createElement('button');
+  c.className = 'sw custom'; c.type = 'button'; c.setAttribute('aria-pressed', 'false');
+  c.innerHTML = `<span class="big">+</span><span class="name">Custom color match</span><small>We'll try to match and source it</small>`;
+  c.onclick = () => pick(c, 'Custom color match');
+  wrap.append(c);
+</script>
+</body>
+</html>
