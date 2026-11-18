@@ -1,5 +1,5 @@
 /**
- * Premium melamine solid colors — names align with popular Sherwin-Williams paint colors.
+ * Locker melamine solid colors (2026 look book + Red, White, Cream).
  * Used for PDP dropdowns, laminate PDFs, and spec copy.
  * Approximate hex values for UI preview; confirm selections with physical samples.
  */
@@ -12,26 +12,13 @@ export type AdornusDesignerPaintFinish = {
 };
 
 const RAW: readonly AdornusDesignerPaintFinish[] = [
-	{ code: 'AD-ABE', label: 'Accessible Beige', approxHex: '#d4c5a9' },
-	{ code: 'AD-ALB', label: 'Alabaster', approxHex: '#ede9de' },
-	{ code: 'AD-ANW', label: 'Antique White', approxHex: '#ede3d5' },
-	{ code: 'AD-BRB', label: 'Bracing Blue', approxHex: '#4b697c' },
-	{ code: 'AD-CYS', label: 'Cyberspace', approxHex: '#2a2c2e' },
-	{ code: 'AD-GF', label: 'Gale Force', approxHex: '#2f3e4c' },
-	{ code: 'AD-HRW', label: 'High Reflective White', approxHex: '#f4f4f0' },
-	{ code: 'AD-IO', label: 'Iron Ore', approxHex: '#4a4b4d' },
-	{ code: 'AD-LFG', label: 'Light French Gray', approxHex: '#c5c0b8' },
-	{ code: 'AD-MG', label: 'Mindful Gray', approxHex: '#68696b' },
-	{ code: 'AD-NAV', label: 'Naval', approxHex: '#2e3a5a' },
-	{ code: 'AD-PG', label: 'Perfect Greige', approxHex: '#b6a99a' },
-	{ code: 'AD-PW', label: 'Pure White', approxHex: '#edece6' },
-	{ code: 'AD-QUI', label: 'Quietude', approxHex: '#b7c3c4' },
-	{ code: 'AD-RPG', label: 'Repose Gray', approxHex: '#ccc8c0' },
-	{ code: 'AD-RGN', label: 'Roycroft Green', approxHex: '#6b734f' },
-	{ code: 'AD-SEA', label: 'Sea Salt', approxHex: '#d4dcd5' },
-	{ code: 'AD-TRB', label: 'Tricorn Black', approxHex: '#2d2d2d' },
-	{ code: 'AD-URB', label: 'Urban Bronze', approxHex: '#5c5048' },
-	{ code: 'AD-WG', label: 'Web Gray', approxHex: '#777b80' },
+	{ code: 'AD-HRW', label: 'White', approxHex: '#f5f5f2' },
+	{ code: 'AD-CRM', label: 'Cream', approxHex: '#ede4d3' },
+	{ code: 'AD-LFG', label: 'Light Grey', approxHex: '#c4c2be' },
+	{ code: 'AD-BLU', label: 'Blue', approxHex: '#6d767e' },
+	{ code: 'AD-RED', label: 'Red', approxHex: '#983327' },
+	{ code: 'AD-IO', label: 'Dark Grey', approxHex: '#4b4c4c' },
+	{ code: 'AD-TRB', label: 'Black', approxHex: '#2a2a2a' },
 ] as const;
 
 function srgbChannelToLinear(c255: number): number {
@@ -55,7 +42,7 @@ export const ADORNUS_DESIGNER_PAINT_FINISHES: readonly AdornusDesignerPaintFinis
 export const DEFAULT_ADORNUS_PAINT_CODE = 'AD-HRW';
 
 export const DEFAULT_ADORNUS_PAINT_LABEL =
-	ADORNUS_DESIGNER_PAINT_FINISHES.find((o) => o.code === DEFAULT_ADORNUS_PAINT_CODE)?.label ?? 'High Reflective White';
+	ADORNUS_DESIGNER_PAINT_FINISHES.find((o) => o.code === DEFAULT_ADORNUS_PAINT_CODE)?.label ?? 'White';
 
 /** Comma-separated labels for spec sheets and static HTML */
 export const ADORNUS_DESIGNER_PAINT_LABELS_CSV = ADORNUS_DESIGNER_PAINT_FINISHES.map((o) => o.label).join(', ');

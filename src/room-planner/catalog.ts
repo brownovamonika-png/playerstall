@@ -9,7 +9,6 @@ import semiPro from '../data/locker-templates/semi-pro.json';
 import stadium from '../data/locker-templates/stadium.json';
 
 import {
-	buildEssentialLinePlannerPalette,
 	buildPremiumMelaminePlannerPalette,
 } from './planner-locker-colors';
 
@@ -29,7 +28,7 @@ const templates: LockerTemplate[] = rawTemplates.map((t) => ({
 	...t,
 	colors: PREMIUM_TEMPLATE_IDS.has(t.templateId)
 		? buildPremiumMelaminePlannerPalette()
-		: buildEssentialLinePlannerPalette(),
+		: buildPremiumMelaminePlannerPalette(),
 }));
 
 const byId = new Map<string, LockerTemplate>(templates.map((t) => [t.templateId, t]));
@@ -40,13 +39,22 @@ const byId = new Map<string, LockerTemplate>(templates.map((t) => [t.templateId,
  */
 const LEGACY_LOCKER_COLOR_CODE: Record<string, string> = {
 	DW: 'AD-HRW',
-	WS: 'AD-PG',
-	FG: 'AD-WG',
-	NS: 'AD-BRB',
+	WS: 'AD-CRM',
+	FG: 'AD-LFG',
+	NS: 'AD-BLU',
 	GR: 'AD-IO',
 	BL: 'AD-TRB',
-	HB: 'AD-URB',
-	LB: 'AD-NAV',
+	HB: 'TW-WALNUT',
+	LB: 'AD-BLU',
+	// Retired 2026 palette codes → nearest current color
+	'AD-ABE': 'AD-CRM', 'AD-ALB': 'AD-CRM', 'AD-ANW': 'AD-CRM', 'AD-PW': 'AD-HRW', 'AD-SEA': 'AD-HRW',
+	'AD-RPG': 'AD-LFG', 'AD-PG': 'AD-LFG', 'AD-QUI': 'AD-LFG', 'AD-WG': 'AD-LFG',
+	'AD-MG': 'AD-IO', 'AD-BRB': 'AD-BLU', 'AD-GF': 'AD-BLU', 'AD-NAV': 'AD-BLU',
+	'AD-CYS': 'AD-TRB', 'AD-RGN': 'AD-IO', 'AD-URB': 'TW-WALNUT',
+	'TW-BRUNO': 'TW-MAPLE', 'TW-CANELLA': 'TW-MAPLE', 'TW-FAD': 'TW-WALNUT', 'TW-FLAXEN': 'UV-BIRCH',
+	'TW-ICE': 'UV-BIRCH', 'TW-IMPULSE': 'TW-WALNUT', 'TW-JAVA': 'TW-WALNUT', 'TW-LOFTY': 'UV-BIRCH',
+	'TW-MARIGOLD': 'TW-MAPLE', 'TW-NOIR': 'TW-WALNUT', 'TW-PEBBLE': 'AD-LFG', 'TW-REALM': 'TW-WALNUT',
+	'TW-RIFT': 'TW-WALNUT', 'TW-SUNSET': 'TW-MAPLE',
 };
 
 export function getAllTemplates(): LockerTemplate[] {

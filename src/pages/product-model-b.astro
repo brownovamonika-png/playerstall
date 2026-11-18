@@ -148,14 +148,14 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 							<div class="color-select-wrapper">
 								<span class="color-preview" id="color-preview" style="background-color: #f4f4f0;"></span>
 								<select id="color-select" class="color-dropdown">
-									<optgroup label="Solid colors (Sherwin-Williams)">
+									<optgroup label="Solid colors">
 										{ADORNUS_DESIGNER_PAINT_FINISHES.map((o) => (
 											<option value={o.code} data-color={o.approxHex} selected={o.code === DEFAULT_ADORNUS_PAINT_CODE}>
 												{o.label}
 											</option>
 										))}
 									</optgroup>
-									<optgroup label="Textured woodgrain">
+									<optgroup label="Wood tones">
 										{TEXTURED_WOODGRAIN_OPTIONS.map((o) => (
 											<option
 												value={o.code}
@@ -239,9 +239,6 @@ import WidthPhotos from '../components/WidthPhotos.astro';
 						<ul class="product-downloads-list">
 							<li><a href="/pdf/installation-instructions/" target="_blank" rel="noopener noreferrer">Shipping and Assembly Instruction PDF</a></li>
 							<li><a href="/colors/all-color-options-pdf.html" target="_blank" rel="noopener noreferrer">Color Option PDF</a></li>
-							<li><a href="/colors/laminate-colors-pdf.html" target="_blank" rel="noopener noreferrer">Laminate Colors PDF</a></li>
-							<li><a href="/colors/woodgrain-colors-pdf.html" target="_blank" rel="noopener noreferrer">Woodgrain Colors PDF</a></li>
-							<li><a href="/colors/phenolic-colors-pdf.html" target="_blank" rel="noopener noreferrer">Phenolic Colors PDF</a></li>
 							<li><a href="/colors/cushion-colors-pdf.html" target="_blank" rel="noopener noreferrer">Cushion Colors PDF</a></li>
 						</ul>
 					</div>

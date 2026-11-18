@@ -34,14 +34,14 @@ const benchSpecs = [
 	{ label: 'Weight', value: 'Approx. 40 lbs (72" length); varies by size' },
 	{ label: 'Construction', value: 'Solid butcher block wood, 1¼" thick seating' },
 	{ label: 'Base', value: 'Black powder-coated pedestals' },
-	{ label: 'Finish', value: 'Any locker color, full Sherwin-Williams paint palette or textured woodgrain' },
+	{ label: 'Finish', value: 'Any locker color: Walnut, Maple, UV Coated Birch or solid colors' },
 	{ label: 'Assembly', value: 'Delivered unassembled, minor assembly required' },
 ];
 ---
 
 <BaseLayout
 	title='Bench - Free Standing 72" to 96" Long | PlayerStall'
-	description='Custom wood locker bench, free standing. 18" H × 18" D, 72" to 96" long depending on number of users. Available in any locker color – Sherwin-Williams paint palette or textured woodgrain. Solid wood, black pedestals. Request a quote.'
+	description='Custom wood locker bench, free standing. 18" H × 18" D, 72" to 96" long depending on number of users. Available in any locker color: Walnut, Maple, UV Coated Birch or solid colors. Solid wood, black pedestals. Request a quote.'
 >
 	<Fragment slot="head">
 		<script type="application/ld+json" set:html={JSON.stringify({
@@ -155,14 +155,14 @@ const benchSpecs = [
 							<div class="color-select-wrapper">
 								<span class="color-preview" id="bench-color-preview" style="background-color: #f4f4f0;"></span>
 								<select id="bench-color-select" class="color-dropdown">
-									<optgroup label="Solid colors (Sherwin-Williams)">
+									<optgroup label="Solid colors">
 										{ADORNUS_DESIGNER_PAINT_FINISHES.map((o) => (
 											<option value={o.code} data-color={o.approxHex} selected={o.code === DEFAULT_ADORNUS_PAINT_CODE}>
 												{o.label}
 											</option>
 										))}
 									</optgroup>
-									<optgroup label="Textured woodgrain">
+									<optgroup label="Wood tones">
 										{TEXTURED_WOODGRAIN_OPTIONS.map((o) => (
 											<option
 												value={o.code}
@@ -203,9 +203,6 @@ const benchSpecs = [
 						<ul class="product-downloads-list">
 							<li><a href="/pdf/installation-instructions/" target="_blank" rel="noopener noreferrer">Shipping and Assembly Instruction PDF</a></li>
 							<li><a href="/colors/all-color-options-pdf.html" target="_blank">Color Option PDF</a></li>
-							<li><a href="/colors/laminate-colors-pdf.html" target="_blank">Laminate Colors PDF</a></li>
-							<li><a href="/colors/woodgrain-colors-pdf.html" target="_blank">Woodgrain Colors PDF</a></li>
-							<li><a href="/colors/phenolic-colors-pdf.html" target="_blank">Phenolic Colors PDF</a></li>
 							<li><a href="/colors/cushion-colors-pdf.html" target="_blank">Cushion Colors PDF</a></li>
 							<li><a href="#specs">View spec sheet</a></li>
 						</ul>
@@ -216,7 +213,7 @@ const benchSpecs = [
 							<li>Constructed of solid butcher block wood</li>
 							<li>Ideal for industrial, office, or recreational locker room facilities</li>
 							<li>Classic look with strength and durability</li>
- <li>Available in any locker color, full Sherwin-Williams paint palette or textured woodgrain finish to match your lockers</li>
+ <li>Available in any locker color, Walnut, Maple, UV Coated Birch or solid colors to match your lockers</li>
 							<li>Lengths from 72&quot; to 96&quot;, chosen based on the number of users</li>
 							<li>18&quot; high × 18&quot; deep</li>
 							<li>Wood seating area 1¼&quot; thick</li>
@@ -228,7 +225,7 @@ const benchSpecs = [
 							<li>Length: 72&quot;, 84&quot;, or 96&quot; (depending on number of users)</li>
 							<li>Depth: 18&quot;</li>
 							<li>Height: 18&quot;</li>
- <li>Color: any locker color, Sherwin-Williams paint palette or textured woodgrain</li>
+ <li>Color: any locker color: Walnut, Maple, UV Coated Birch or solid colors</li>
 							<li>Pair with our wood lockers for a complete locker room</li>
 						</ul>
 					</div>

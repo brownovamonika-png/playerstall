@@ -157,14 +157,14 @@ const cornerSpecs = [
 							<div class="color-select-wrapper">
 								<span class="color-preview" id="bench-color-preview" style="background-color: #f4f4f0;"></span>
 								<select id="bench-color-select" class="color-dropdown">
-									<optgroup label="Solid colors (Sherwin-Williams)">
+									<optgroup label="Solid colors">
 										{ADORNUS_DESIGNER_PAINT_FINISHES.map((o) => (
 											<option value={o.code} data-color={o.approxHex} selected={o.code === DEFAULT_ADORNUS_PAINT_CODE}>
 												{o.label}
 											</option>
 										))}
 									</optgroup>
-									<optgroup label="Textured woodgrain">
+									<optgroup label="Wood tones">
 										{TEXTURED_WOODGRAIN_OPTIONS.map((o) => (
 											<option
 												value={o.code}
@@ -201,8 +201,6 @@ const cornerSpecs = [
 						<ul class="product-downloads-list">
 							<li><a href="/pdf/installation-instructions/" target="_blank" rel="noopener noreferrer">Shipping and Assembly Instruction PDF</a></li>
 							<li><a href="/colors/all-color-options-pdf.html" target="_blank">Color Option PDF</a></li>
-							<li><a href="/colors/laminate-colors-pdf.html" target="_blank">Laminate Colors PDF</a></li>
-							<li><a href="/colors/woodgrain-colors-pdf.html" target="_blank">Woodgrain Colors PDF</a></li>
 							<li><a href="#specs">View spec sheet</a></li>
 						</ul>
 					</div>
@@ -219,7 +217,7 @@ const cornerSpecs = [
 						<h3 class="product-info-subheading">Options</h3>
 						<ul class="product-options-list">
 							<li>Cushion: firm foam, five-sided, sized to the bench (+$125)</li>
- <li>Color: any locker color, Sherwin-Williams paint palette or textured woodgrain</li>
+ <li>Color: any locker color: Walnut, Maple, UV Coated Birch or solid colors</li>
  <li>Raised base: optional 4" base built from 2×4s, lifts the locker off the floor and adds 4" to the height</li>
 							<li>Drawer: standard regular drawer under the fixed seat, with an upright black handle</li>
 						</ul>

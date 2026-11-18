@@ -152,6 +152,51 @@
       ],
       "destination": "https://www.playerstall.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/laminate-colors-pdf.html",
+      "destination": "/colors/all-color-options-pdf.html",
+      "permanent": true
+    },
+    {
+      "source": "/colors/laminate-colors-pdf.html",
+      "destination": "/colors/all-color-options-pdf.html",
+      "permanent": true
+    },
+    {
+      "source": "/woodgrain-colors-pdf.html",
+      "destination": "/colors/all-color-options-pdf.html",
+      "permanent": true
+    },
+    {
+      "source": "/colors/woodgrain-colors-pdf.html",
+      "destination": "/colors/all-color-options-pdf.html",
+      "permanent": true
+    },
+    {
+      "source": "/custom-locker-finishes-sheet.html",
+      "destination": "/colors/all-color-options-pdf.html",
+      "permanent": true
+    },
+    {
+      "source": "/locker-color-options.html",
+      "destination": "/colors/all-color-options-pdf.html",
+      "permanent": true
+    },
+    {
+      "source": "/colors/phenolic-colors-pdf.html",
+      "destination": "/colors/all-color-options-pdf.html",
+      "permanent": true
+    },
+    {
+      "source": "/phenolic-colors-pdf.html",
+      "destination": "/colors/all-color-options-pdf.html",
+      "permanent": true
+    },
+    {
+      "source": "/phenolic-color-chart.html",
+      "destination": "/colors/all-color-options-pdf.html",
+      "permanent": true
     }
   ],
   "headers": [
