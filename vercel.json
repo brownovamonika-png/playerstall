@@ -197,6 +197,11 @@
       "source": "/phenolic-color-chart.html",
       "destination": "/colors/all-color-options-pdf.html",
       "permanent": true
+    },
+    {
+      "source": "/phenolic-lockers-catalog.html",
+      "destination": "/colors/all-color-options-pdf.html",
+      "permanent": true
     }
   ],
   "headers": [

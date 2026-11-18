@@ -439,9 +439,9 @@ import { MODEL_S_HERO_IMAGE } from '../data/model-s-assets';
 			<div class="ts-spotlight-content">
 				<a href="/products" class="ts-spotlight-position">Premium Materials Collection</a>
 				<div class="ts-spotlight-meta">
-					<span>6-Layer Plywood</span> | <a href="javascript:void(0);" id="melamineLinkBtn" class="material-link">Locker Colors</a> | <a href="/colors/essential-wood-pdf.html" target="_blank" rel="noopener noreferrer" class="material-link">Essential Wood PDF</a> | <span>ENF Certified</span> | <span>Fully Customizable</span>
+					<span>3/4" (19 mm) Plywood</span> | <a href="javascript:void(0);" id="melamineLinkBtn" class="material-link">Locker Colors</a> | <a href="/colors/essential-wood-pdf.html" target="_blank" rel="noopener noreferrer" class="material-link">Essential Wood PDF</a> | <span>CARB Phase 2 Certified</span> | <span>Fully Customizable</span>
 				</div>
- <p class="ts-spotlight-bio">Built with premium 6-layer melamine-faced plywood featuring superior moisture resistance, termite protection, and fire-rated construction. Our proprietary layering process creates a core that's 40% stronger than standard plywood while meeting or exceeding all safety codes. Choose from Walnut, Maple and UV Coated Birch wood tones, or Black, Light Grey, Dark Grey, Blue, Red, White and Cream. All locker colors cost the same, and each finish delivers exceptional durability and easy maintenance. All materials are ENF certified (zero harmful chemicals), water-resistant, and anti-fungal. Available in any dimension with your choice of finish, color, and hardware. Need a different color? We can try to match it and source it for your order.</p>
+ <p class="ts-spotlight-bio">Every PlayerStall locker is built from 3/4" (19 mm) cabinet-grade plywood, certified to CARB Phase 2 and TSCA Title VI. Choose a wood tone (Walnut, Maple or UV Coated Birch) or a solid color (Black, Light Grey, Dark Grey, Blue, Red, White or Cream). Every color costs the same. Need a different color? We can try to match it and source it for your order.</p>
 				<div class="materials-buttons-container">
 					<button id="viewAllColorsBtn" class="ts-btn ts-btn-filled">View All Colors</button>
 				</div>
@@ -3564,7 +3564,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const viewAllColorsBtn = document.getElementById('viewAllColorsBtn');
 	const melamineLinkBtn = document.getElementById('melamineLinkBtn');
 	const woodGrainLinkBtn = document.getElementById('woodGrainLinkBtn');
-	const phenolicLinkBtn = document.getElementById('phenolicLinkBtn');
 	const closeModalBtn = document.querySelector('.color-modal-close');
 	const modalOverlay = document.querySelector('.color-modal-overlay');
 
@@ -3594,14 +3593,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	phenolicLinkBtn?.addEventListener('click', (e) => {
-		e.preventDefault();
-		if (colorModal && colorIframe) {
-			colorIframe.src = '/colors/all-color-options-pdf.html';
-			colorModal.classList.add('active');
-			document.body.style.overflow = 'hidden';
-		}
-	});
 
 	closeModalBtn?.addEventListener('click', () => {
 		if (colorModal) {
