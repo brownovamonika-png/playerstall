@@ -16,6 +16,7 @@ name: Publish scheduled blog posts
 on:
   schedule:
     - cron: '15 13 * * *'   # 13:15 UTC = 05:15 Pacific, daily
+    - cron: '15 19 * * *'   # second try: GitHub sometimes runs schedules many hours late or skips them
   workflow_dispatch:
     inputs:
       date:
@@ -30,13 +31,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history, to see which posts already have a "Publish" commit
 
       - name: Find posts dated today
         id: due
         run: |
           TODAY="${{ github.event.inputs.date }}"
           [ -z "$TODAY" ] && TODAY=$(date -u +%F)
-          echo "Checking for posts dated $TODAY"
+          # Also yesterday: on 23 Nov 2026 GitHub ran this job 11 hours late (after midnight UTC),
+          # so the NJCAA post dated the 23rd never went live. A post already published (it has a
+          # "Publish ...: <title>" commit) is skipped, so nothing deploys twice.
+          YESTERDAY=$(date -u -d "$TODAY -1 day" +%F)
+          echo "Checking for posts dated $YESTERDAY or $TODAY"
 
           titles=""
           count=0
@@ -46,8 +53,12 @@ jobs:
             draft=$(printf '%s\n' "$fm" | sed -n 's/^draft: *\(.*\)/\1/p' | head -1)
             [ "$draft" = "true" ] && continue
             date=$(printf '%s\n' "$fm" | sed -n 's/^datePublished: *"\{0,1\}\([0-9-]*\)"\{0,1\}.*/\1/p' | head -1)
-            if [ "$date" = "$TODAY" ]; then
+            if [ "$date" = "$TODAY" ] || [ "$date" = "$YESTERDAY" ]; then
               title=$(printf '%s\n' "$fm" | sed -n 's/^title: *"\(.*\)"/\1/p' | head -1)
+              if git log --format=%s | grep -F -q -- "$title"; then
+                echo "  already published: $title"
+                continue
+              fi
               echo "  due: $title"
               titles="${titles}${titles:+, }${title}"
               count=$((count+1))
